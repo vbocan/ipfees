@@ -70,9 +70,11 @@ CASE EntityType IS MicroEntity YIELD 140
 END
 
 COMPUTE FEE ExaminationFee
-CASE SituationType IS PreparedIPEA AND EntityType IS NormalEntity YIELD 0
-CASE SituationType IS PreparedIPEA AND EntityType IS SmallEntity YIELD 0
-CASE SituationType IS PreparedIPEA AND EntityType IS MicroEntity YIELD 0
+CASE SituationType IS PreparedIPEA AS
+	CASE EntityType IS NormalEntity YIELD 0
+	CASE EntityType IS SmallEntity YIELD 0
+	CASE EntityType IS MicroEntity YIELD 0
+ENDCASE
 CASE EntityType IS NormalEntity YIELD 800
 CASE EntityType IS SmallEntity YIELD 320
 CASE EntityType IS MicroEntity YIELD 160
@@ -80,8 +82,14 @@ END
 
 COMPUTE FEE SheetFee
 CASE SheetCount OVER 100 AND EntityType IS NormalEntity YIELD 420 * SheetCount / 50
-CASE SheetCount OVER 100 AND EntityType IS SmallEntity YIELD 168
-CASE SheetCount OVER 100 AND EntityType IS MicroEntity YIELD 84
+CASE SheetCount OVER 100 AND EntityType IS SmallEntity YIELD 168 * SheetCount / 50
+CASE SheetCount OVER 100 AND EntityType IS MicroEntity YIELD 84 * SheetCount / 50
+END
+
+COMPUTE FEE SheetFeeAlternate
+CASE SheetCount OVER 100 AND EntityType IS NormalEntity YIELD 420 * SheetCount / 50
+CASE SheetCount OVER 100 AND EntityType IS SmallEntity YIELD 168 * SheetCount / 50
+CASE SheetCount OVER 100 AND EntityType IS MicroEntity YIELD 84 * SheetCount / 50
 END
 
 COMPUTE FEE ClaimFee
