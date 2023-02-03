@@ -1,0 +1,22 @@
+id: AGENT1
+name: Acme Agent 007
+jurisdiction: US
+right: PAT
+service: FIL
+service_fee_rules: >
+    DEFINE FEE BasicNationalFee DEPEND ON EntityType AS
+    DEPENDENCY EntityType
+    CONDITION Normal YIELD 320
+    CONDITION Small YIELD 160
+    CONDITION Micro YIELD 80
+    ENDDEPENDENCY
+    ENDDEFINE
+
+
+    DEFINE FEE SearchFee DEPEND ON EntityType AS
+    DEPENDENCY EntityType
+    CONDITION Normal YIELD 320
+    CONDITION Small YIELD 160
+    CONDITION Micro YIELD 80
+    ENDDEPENDENCY
+    ENDDEFINE
