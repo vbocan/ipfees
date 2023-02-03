@@ -48,6 +48,27 @@ CASE EntityType IS SmallEntity YIELD 280
 CASE EntityType IS MicroEntity YIELD 140
 END
 
+COMPUTE FEE SearchFeeAlternate
+CASE SituationType IS PreparedIPEA AS
+	CASE EntityType IS NormalEntity YIELD 0
+	CASE EntityType IS SmallEntity YIELD 0
+	CASE EntityType IS MicroEntity YIELD 0
+ENDCASE
+CASE SituationType IS PaidAsISA AS
+	CASE EntityType IS NormalEntity YIELD 140
+	CASE EntityType IS SmallEntity YIELD 56
+	CASE EntityType IS MicroEntity YIELD 28
+ENDCASE
+CASE SituationType IS PreparedISA AS
+	CASE EntityType IS NormalEntity YIELD 540
+	CASE EntityType IS SmallEntity YIELD 216
+	CASE EntityType IS MicroEntity YIELD 108
+ENDCASE
+CASE EntityType IS NormalEntity YIELD 700
+CASE EntityType IS SmallEntity YIELD 280
+CASE EntityType IS MicroEntity YIELD 140
+END
+
 COMPUTE FEE ExaminationFee
 CASE SituationType IS PreparedIPEA AND EntityType IS NormalEntity YIELD 0
 CASE SituationType IS PreparedIPEA AND EntityType IS SmallEntity YIELD 0
