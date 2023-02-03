@@ -1,0 +1,5 @@
+﻿# Define a number variable
+DEFINE NUMBER ClaimCount AS 'Number of claims'
+BETWEEN 0 AND 1000
+DEFAULT 0
+END
