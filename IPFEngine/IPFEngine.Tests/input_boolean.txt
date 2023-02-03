@@ -1,0 +1,4 @@
+﻿# Define a boolean variable
+DEFINE BOOLEAN ContainsDependentClaims AS 'Contains dependent claims'
+DEFAULT TRUE
+END
