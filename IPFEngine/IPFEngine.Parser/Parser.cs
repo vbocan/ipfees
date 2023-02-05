@@ -16,7 +16,10 @@ namespace IPFEngine.Parser
         private IPFVariableBoolean CurrentBoolean { get; set; } = new IPFVariableBoolean(string.Empty, string.Empty, false);
         private IList<IPFVariable> Variables { get; set; } = new List<IPFVariable>();
 
-        public IPFParser(string[] source) => IPFData = source;
+        public IPFParser(string source)
+        {
+            IPFData = source.Split(new string[] { Environment.NewLine }, StringSplitOptions.None);
+        }
 
         public IEnumerable<IPFVariable> Parse()
         {
@@ -193,18 +196,15 @@ namespace IPFEngine.Parser
             switch (CurrentlyParsing)
             {
                 case Parsing.None: return false;
-                case Parsing.List:
-                    Console.WriteLine("Adding list: {0}", CurrentList);
+                case Parsing.List:                    
                     Variables.Add(CurrentList);
                     CurrentlyParsing = Parsing.None;
                     return true;
-                case Parsing.Boolean:
-                    Console.WriteLine("Adding boolean: {0}", CurrentBoolean);
+                case Parsing.Boolean:                    
                     Variables.Add(CurrentBoolean);
                     CurrentlyParsing = Parsing.None;
                     return true;
-                case Parsing.Number:
-                    Console.WriteLine("Adding number: {0}", CurrentNumber);
+                case Parsing.Number:                    
                     Variables.Add(CurrentNumber);
                     CurrentlyParsing = Parsing.None;
                     return true;
