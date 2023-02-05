@@ -107,9 +107,11 @@ namespace IPFEngine.Parser
                 yield return token;
             }
         }
+
         #region List Parsing
         bool ParseList(string[] tokens)
         {
+            if (CurrentlyParsing != Parsing.None) return false;
             if (tokens.Length != 5) return false;
             if (tokens[0] != "DEFINE") return false;
             if (tokens[1] != "LIST") return false;
@@ -143,6 +145,7 @@ namespace IPFEngine.Parser
         #region Number Parsing
         bool ParseNumber(string[] tokens)
         {
+            if (CurrentlyParsing != Parsing.None) return false;
             if (tokens.Length != 5) return false;
             if (tokens[0] != "DEFINE") return false;
             if (tokens[1] != "NUMBER") return false;
@@ -178,6 +181,7 @@ namespace IPFEngine.Parser
         #region Boolean Parsing
         bool ParseBoolean(string[] tokens)
         {
+            if (CurrentlyParsing != Parsing.None) return false;
             if (tokens.Length != 5) return false;
             if (tokens[0] != "DEFINE") return false;
             if (tokens[1] != "BOOLEAN") return false;
@@ -204,7 +208,7 @@ namespace IPFEngine.Parser
             if (tokens.Length != 1) return false;
             if (tokens[0] != "ENDDEFINE") return false;
             switch (CurrentlyParsing)
-            {                
+            {
                 case Parsing.List:
                     Variables.Add(CurrentList);
                     CurrentlyParsing = Parsing.None;
@@ -234,6 +238,7 @@ namespace IPFEngine.Parser
         #region Fee Parsing
         bool ParseFee(string[] tokens)
         {
+            if (CurrentlyParsing != Parsing.None) return false;
             if (tokens.Length != 3) return false;
             if (tokens[0] != "COMPUTE") return false;
             if (tokens[1] != "FEE") return false;
@@ -268,24 +273,22 @@ namespace IPFEngine.Parser
 
         bool ParseFeeEndCase(string[] tokens)
         {
+            if (CurrentlyParsing != Parsing.FeeCase) return false;
             if (tokens.Length != 1) return false;
             if (tokens[0] != "ENDCASE") return false;
             CurrentlyParsing = Parsing.Fee;
             return true;
         }
-        
+
         bool ParseEndCompute(string[] tokens)
         {
+            if (CurrentlyParsing != Parsing.Fee) return false;
             if (tokens.Length != 1) return false;
             if (tokens[0] != "ENDCOMPUTE") return false;
-            switch (CurrentlyParsing)
-            {                
-                case Parsing.Fee:
-                    Fees.Add(CurrentFee);
-                    CurrentlyParsing = Parsing.None;
-                    return true;
-            }
-            return false;
+            CurrentFee.Cases.Add(CurrentFeeCase);
+            Fees.Add(CurrentFee);
+            CurrentlyParsing = Parsing.None;
+            return true;
         }
         #endregion
     }
