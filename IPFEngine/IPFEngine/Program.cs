@@ -1,6 +1,6 @@
 ﻿using IPFEngine.Parser;
 
-string text = File.ReadAllText(@"..\..\..\us_fees.ipf");
+string text = File.ReadAllText(@"..\..\..\us_fees_light.ipf");
 var p = new IPFParser(text);
 var (Variables, Fees) = p.Parse();
 
