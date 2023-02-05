@@ -14,14 +14,19 @@ namespace IPFEngine.Parser
         private IPFVariableList CurrentList { get; set; } = new IPFVariableList(string.Empty, string.Empty, new List<IPFListItem>(), string.Empty);
         private IPFVariableNumber CurrentNumber { get; set; } = new IPFVariableNumber(string.Empty, string.Empty, int.MinValue, int.MaxValue, 0);
         private IPFVariableBoolean CurrentBoolean { get; set; } = new IPFVariableBoolean(string.Empty, string.Empty, false);
+        private IPFFee CurrentFee { get; set; } = new IPFFee(string.Empty, new List<IPFItem>());
+        private IPFFeeCase CurrentFeeCase { get; set; } = new IPFFeeCase(Enumerable.Empty<string>(), new List<IPFFeeYield>());
+
         private IList<IPFVariable> Variables { get; set; } = new List<IPFVariable>();
+        private IList<IPFFee> Fees { get; set; } = new List<IPFFee>();
+
 
         public IPFParser(string source)
         {
             IPFData = source.Split(new string[] { Environment.NewLine }, StringSplitOptions.None);
         }
 
-        public IEnumerable<IPFVariable> Parse()
+        public (IEnumerable<IPFVariable>, IEnumerable<IPFFee>) Parse()
         {
             Func<string[], bool>[] IPFParsers = new Func<string[], bool>[]
             {
@@ -33,8 +38,13 @@ namespace IPFEngine.Parser
                 ParseNumberDefault,
                 ParseBoolean,
                 ParseBooleanDefault,
-                ParseEnd,
-                ParseComment
+                ParseEndDefine,
+                ParseComment,
+                ParseFee,
+                ParseFeeCase,
+                ParseFeeYield,
+                ParseFeeEndCase,
+                ParseEndCompute
             };
 
             for (int i = 0; i < IPFData.Length; i++)
@@ -59,7 +69,7 @@ namespace IPFEngine.Parser
                     break;
                 }
             }
-            return Variables;
+            return (Variables, Fees);
         }
 
         IEnumerable<string> Tokenize(string input)
@@ -188,23 +198,22 @@ namespace IPFEngine.Parser
         }
         #endregion
 
-        #region Parse End
-        bool ParseEnd(string[] tokens)
+        #region Parse EndDefine
+        bool ParseEndDefine(string[] tokens)
         {
             if (tokens.Length != 1) return false;
-            if (tokens[0] != "END") return false;
+            if (tokens[0] != "ENDDEFINE") return false;
             switch (CurrentlyParsing)
-            {
-                case Parsing.None: return false;
-                case Parsing.List:                    
+            {                
+                case Parsing.List:
                     Variables.Add(CurrentList);
                     CurrentlyParsing = Parsing.None;
                     return true;
-                case Parsing.Boolean:                    
+                case Parsing.Boolean:
                     Variables.Add(CurrentBoolean);
                     CurrentlyParsing = Parsing.None;
                     return true;
-                case Parsing.Number:                    
+                case Parsing.Number:
                     Variables.Add(CurrentNumber);
                     CurrentlyParsing = Parsing.None;
                     return true;
@@ -221,11 +230,69 @@ namespace IPFEngine.Parser
             return true;
         }
         #endregion
+
+        #region Fee Parsing
+        bool ParseFee(string[] tokens)
+        {
+            if (tokens.Length != 3) return false;
+            if (tokens[0] != "COMPUTE") return false;
+            if (tokens[1] != "FEE") return false;
+            CurrentlyParsing = Parsing.Fee;
+            CurrentFee = new IPFFee(tokens[2], new List<IPFItem>());
+            return true;
+        }
+
+        bool ParseFeeCase(string[] tokens)
+        {
+            if (CurrentlyParsing != Parsing.Fee) return false;
+            if (tokens[0] != "CASE") return false;
+            if (tokens[tokens.Length - 1] != "AS") return false;
+            CurrentlyParsing = Parsing.FeeCase;
+            var ConditionTokens = tokens.Skip(1).Take(tokens.Length - 1);
+            CurrentFeeCase = new IPFFeeCase(ConditionTokens, new List<IPFFeeYield>());
+            return true;
+        }
+
+        bool ParseFeeYield(string[] tokens)
+        {
+            if (CurrentlyParsing != Parsing.FeeCase && CurrentlyParsing != Parsing.Fee) return false;
+            if (tokens[0] != "YIELD") return false;
+            // The yield value is comprised of all tokens until "IF" (will be evaluated)
+            var ValueTokens = tokens.AsEnumerable().Skip(1).TakeWhile(w => !w.Equals("IF"));
+            // The condition is comprised of all tokens until "IF"
+            var ConditionTokens = tokens.AsEnumerable().Reverse().TakeWhile(w => !w.Equals("IF"));
+            var Yield = new IPFFeeYield(ConditionTokens, ValueTokens);
+            CurrentFeeCase.Yields.Add(Yield);
+            return true;
+        }
+
+        bool ParseFeeEndCase(string[] tokens)
+        {
+            if (tokens.Length != 1) return false;
+            if (tokens[0] != "ENDCASE") return false;
+            CurrentlyParsing = Parsing.Fee;
+            return true;
+        }
+        
+        bool ParseEndCompute(string[] tokens)
+        {
+            if (tokens.Length != 1) return false;
+            if (tokens[0] != "ENDCOMPUTE") return false;
+            switch (CurrentlyParsing)
+            {                
+                case Parsing.Fee:
+                    Fees.Add(CurrentFee);
+                    CurrentlyParsing = Parsing.None;
+                    return true;
+            }
+            return false;
+        }
+        #endregion
     }
 
     internal enum Parsing
     {
-        None, List, Number, Boolean
+        None, List, Number, Boolean, Fee, FeeCase
     }
 
     public abstract record IPFVariable(string Name, string Text);
@@ -233,4 +300,9 @@ namespace IPFEngine.Parser
     public record IPFVariableList(string Name, string Text, IList<IPFListItem> Values, string DefaultValue) : IPFVariable(Name, Text);
     public record IPFListItem(string Symbol, string Value);
     public record IPFVariableNumber(string Name, string Text, int MinValue, int MaxValue, int DefaultValue) : IPFVariable(Name, Text);
+
+    public abstract record IPFItem(IEnumerable<string> Condition);
+    public record IPFFee(string Name, IList<IPFItem> Cases);
+    public record IPFFeeCase(IEnumerable<string> Condition, IList<IPFFeeYield> Yields) : IPFItem(Condition);
+    public record IPFFeeYield(IEnumerable<string> Condition, IEnumerable<string> Values) : IPFItem(Condition);
 }

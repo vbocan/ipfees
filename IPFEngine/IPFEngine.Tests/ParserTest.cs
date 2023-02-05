@@ -19,7 +19,8 @@ namespace IPFEngine.Tests
             END
             """;
             var p = new IPFParser(text);
-            var result = (IPFVariableList?)p.Parse().SingleOrDefault();
+            var (vars, _) = p.Parse();
+            var result = (IPFVariableList?)vars.SingleOrDefault();
             Assert.NotNull(result);
             Assert.Equal("EntityType", result.Name);
             Assert.Equal("Entity type", result.Text);
@@ -42,7 +43,8 @@ namespace IPFEngine.Tests
             END
             """;
             var p = new IPFParser(text);
-            var result = (IPFVariableNumber?)p.Parse().SingleOrDefault();
+            var (vars, _) = p.Parse();
+            var result = (IPFVariableNumber?)vars.SingleOrDefault();
             Assert.NotNull(result);
             Assert.Equal("ClaimCount", result.Name);
             Assert.Equal("Number of claims", result.Text);
@@ -62,7 +64,8 @@ namespace IPFEngine.Tests
             END
             """;
             var p = new IPFParser(text);
-            var result = (IPFVariableBoolean?)p.Parse().SingleOrDefault();
+            var (vars, _) = p.Parse();
+            var result = (IPFVariableBoolean?)vars.SingleOrDefault();
             Assert.NotNull(result);
             Assert.Equal("ContainsDependentClaims", result.Name);
             Assert.Equal("Contains dependent claims", result.Text);
