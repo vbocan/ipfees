@@ -1,7 +1,0 @@
-﻿# Define a list variable
-DEFINE LIST EntityType AS 'Entity type'
-VALUE 'Normal' AS NormalEntity
-VALUE 'Small' AS SmallEntity
-VALUE 'Micro' AS MicroEntity
-DEFAULT NormalEntity
-END
