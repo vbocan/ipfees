@@ -49,9 +49,9 @@ namespace IPFEngine.Parser
 
             for (int i = 0; i < IPFData.Length; i++)
             {
-                string line = IPFData[i];
-                if (line == string.Empty) { continue; }
-                var tokens = Tokenize(line).ToArray();
+                string line = IPFData[i].Trim();
+                if (string.IsNullOrEmpty(line)) { continue; }
+                var tokens = Tokenize(line).Select(s => s.Trim()).ToArray();
 
                 bool LineParsed = false;
                 foreach (var p in IPFParsers)
@@ -72,6 +72,7 @@ namespace IPFEngine.Parser
             return (Variables, Fees);
         }
 
+        #region Tokenization
         IEnumerable<string> Tokenize(string input)
         {
             string token = string.Empty;
@@ -107,6 +108,7 @@ namespace IPFEngine.Parser
                 yield return token;
             }
         }
+        #endregion
 
         #region List Parsing
         bool ParseList(string[] tokens)
@@ -253,7 +255,7 @@ namespace IPFEngine.Parser
             if (tokens[0] != "CASE") return false;
             if (tokens[tokens.Length - 1] != "AS") return false;
             CurrentlyParsing = Parsing.FeeCase;
-            var ConditionTokens = tokens.Skip(1).Take(tokens.Length - 1);
+            var ConditionTokens = tokens.Skip(1).Take(tokens.Length - 2);
             CurrentFeeCase = new IPFFeeCase(ConditionTokens, new List<IPFFeeYield>());
             return true;
         }
@@ -265,7 +267,7 @@ namespace IPFEngine.Parser
             // The yield value is comprised of all tokens until "IF" (will be evaluated)
             var ValueTokens = tokens.AsEnumerable().Skip(1).TakeWhile(w => !w.Equals("IF"));
             // The condition is comprised of all tokens until "IF"
-            var ConditionTokens = tokens.AsEnumerable().Reverse().TakeWhile(w => !w.Equals("IF"));
+            var ConditionTokens = tokens.AsEnumerable().Reverse().TakeWhile(w => !w.Equals("IF")).Reverse();
             var Yield = new IPFFeeYield(ConditionTokens, ValueTokens);
             CurrentFeeCase.Yields.Add(Yield);
             return true;
@@ -277,6 +279,8 @@ namespace IPFEngine.Parser
             if (tokens.Length != 1) return false;
             if (tokens[0] != "ENDCASE") return false;
             CurrentlyParsing = Parsing.Fee;
+            CurrentFee.Cases.Add(CurrentFeeCase);
+            CurrentFeeCase = new IPFFeeCase(Enumerable.Empty<string>(), new List<IPFFeeYield>());
             return true;
         }
 
@@ -285,8 +289,13 @@ namespace IPFEngine.Parser
             if (CurrentlyParsing != Parsing.Fee) return false;
             if (tokens.Length != 1) return false;
             if (tokens[0] != "ENDCOMPUTE") return false;
-            CurrentFee.Cases.Add(CurrentFeeCase);
+            // Dump remaining yields (if any)
+            if (CurrentFeeCase.Yields.Count > 0)
+            {
+                CurrentFee.Cases.Add(CurrentFeeCase);
+            }
             Fees.Add(CurrentFee);
+            CurrentFeeCase = new IPFFeeCase(Enumerable.Empty<string>(), new List<IPFFeeYield>());
             CurrentlyParsing = Parsing.None;
             return true;
         }
@@ -305,7 +314,25 @@ namespace IPFEngine.Parser
     public record IPFVariableNumber(string Name, string Text, int MinValue, int MaxValue, int DefaultValue) : IPFVariable(Name, Text);
 
     public abstract record IPFItem(IEnumerable<string> Condition);
-    public record IPFFee(string Name, IList<IPFItem> Cases);
-    public record IPFFeeCase(IEnumerable<string> Condition, IList<IPFFeeYield> Yields) : IPFItem(Condition);
-    public record IPFFeeYield(IEnumerable<string> Condition, IEnumerable<string> Values) : IPFItem(Condition);
+    public record IPFFee(string Name, IList<IPFItem> Cases)
+    {
+        public override string ToString()
+        {
+            return string.Format("\n\rFEE: {0}\n\r{1}", Name, string.Join(Environment.NewLine, Cases));
+        }
+    }
+    public record IPFFeeCase(IEnumerable<string> Condition, IList<IPFFeeYield> Yields) : IPFItem(Condition)
+    {       
+        public override string ToString()
+        {
+            return string.Format("CASE: {0}\n\r{1}", string.Join(" ", Condition), string.Join(Environment.NewLine, Yields));
+        }
+    }
+    public record IPFFeeYield(IEnumerable<string> Condition, IEnumerable<string> Values) : IPFItem(Condition)
+    {
+        public override string ToString()
+        {
+            return string.Format("YIELD: {0} CONDITION: {1}", string.Join(" ", Values), string.Join(" ", Condition));
+        }
+    }
 }

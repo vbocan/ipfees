@@ -3,7 +3,7 @@ using Newtonsoft.Json.Linq;
 
 namespace IPFEngine.Tests
 {
-    public class ParserTest
+    public class VariableTests
     {
         [Fact]
         public void TestVariableList()
@@ -16,7 +16,7 @@ namespace IPFEngine.Tests
             VALUE 'Small' AS SmallEntity
             VALUE 'Micro' AS MicroEntity
             DEFAULT NormalEntity
-            END
+            ENDDEFINE
             """;
             var p = new IPFParser(text);
             var (vars, _) = p.Parse();
@@ -40,7 +40,7 @@ namespace IPFEngine.Tests
             DEFINE NUMBER ClaimCount AS 'Number of claims'
             BETWEEN 0 AND 1000
             DEFAULT 0
-            END
+            ENDDEFINE
             """;
             var p = new IPFParser(text);
             var (vars, _) = p.Parse();
@@ -61,7 +61,7 @@ namespace IPFEngine.Tests
             # Define a boolean variable
             DEFINE BOOLEAN ContainsDependentClaims AS 'Contains dependent claims'
             DEFAULT TRUE
-            END
+            ENDDEFINE
             """;
             var p = new IPFParser(text);
             var (vars, _) = p.Parse();
