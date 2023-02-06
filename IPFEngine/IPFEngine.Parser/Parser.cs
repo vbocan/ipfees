@@ -130,7 +130,7 @@ namespace IPFEngine.Parser
             if (tokens[0] != "VALUE") return false;
             if (tokens[2] != "AS") return false;
             var item = new IPFListItem(tokens[3], tokens[1]);
-            CurrentList.Values.Add(item);
+            CurrentList.Items.Add(item);
             return true;
         }
 
@@ -139,7 +139,7 @@ namespace IPFEngine.Parser
             if (CurrentlyParsing != Parsing.List) return false;
             if (tokens.Length != 2) return false;
             if (tokens[0] != "DEFAULT") return false;
-            CurrentList = CurrentList with { DefaultValue = tokens[1] };
+            CurrentList = CurrentList with { DefaultSymbol = tokens[1] };
             return true;
         }
         #endregion
@@ -309,7 +309,7 @@ namespace IPFEngine.Parser
 
     public abstract record IPFVariable(string Name, string Text);
     public record IPFVariableBoolean(string Name, string Text, bool DefaultValue) : IPFVariable(Name, Text);
-    public record IPFVariableList(string Name, string Text, IList<IPFListItem> Values, string DefaultValue) : IPFVariable(Name, Text);
+    public record IPFVariableList(string Name, string Text, IList<IPFListItem> Items, string DefaultSymbol) : IPFVariable(Name, Text);
     public record IPFListItem(string Symbol, string Value);
     public record IPFVariableNumber(string Name, string Text, int MinValue, int MaxValue, int DefaultValue) : IPFVariable(Name, Text);
 
