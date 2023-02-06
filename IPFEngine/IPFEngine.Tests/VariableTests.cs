@@ -24,11 +24,11 @@ namespace IPFEngine.Tests
             Assert.NotNull(result);
             Assert.Equal("EntityType", result.Name);
             Assert.Equal("Entity type", result.Text);
-            Assert.Equal("NormalEntity", result.DefaultValue);
-            Assert.Equal(3, result.Values.Count);
-            Assert.Equal(new IPFListItem("NormalEntity", "Normal"), result.Values[0]);
-            Assert.Equal(new IPFListItem("SmallEntity", "Small"), result.Values[1]);
-            Assert.Equal(new IPFListItem("MicroEntity", "Micro"), result.Values[2]);
+            Assert.Equal("NormalEntity", result.DefaultSymbol);
+            Assert.Equal(3, result.Items.Count);
+            Assert.Equal(new IPFListItem("NormalEntity", "Normal"), result.Items[0]);
+            Assert.Equal(new IPFListItem("SmallEntity", "Small"), result.Items[1]);
+            Assert.Equal(new IPFListItem("MicroEntity", "Micro"), result.Items[2]);
         }
 
         [Fact]
