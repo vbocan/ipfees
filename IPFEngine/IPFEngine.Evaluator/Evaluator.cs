@@ -6,95 +6,49 @@ namespace IPFEngine.Evaluator
     {
         public IPFEvaluator()
         {
-            Console.WriteLine(evaluate("10 + 2 * 6"));
-            Console.WriteLine(evaluate("100 * 2 + 12"));
-            Console.WriteLine(evaluate("100 * ( 2 + 12 )"));
-            Console.WriteLine(evaluate("100 * ( 2 + 12 ) / 14"));
+            var tokens = "10 + 2 * 6".Split(new char[] {' '}, StringSplitOptions.None);
+            Console.WriteLine(EvaluateTokens(tokens));            
         }
 
-        public static int evaluate(string expression)
+        public static int EvaluateTokens(string[] tokens)
         {
-            char[] tokens = expression.ToCharArray();
-
             // Stack for numbers: 'values'
             Stack<int> values = new Stack<int>();
-
             // Stack for Operators: 'ops'
-            Stack<char> ops = new Stack<char>();
+            Stack<string> ops = new Stack<string>();
 
             for (int i = 0; i < tokens.Length; i++)
             {
-                // Current token is a whitespace, skip it
-                if (tokens[i] == ' ')
+                // Current token is a number, push it to stack for numbers
+                int Number = int.MinValue;
+                var IsNumber = int.TryParse(tokens[i], out Number);
+                if (IsNumber)
                 {
-                    continue;
+                    values.Push(Number);
                 }
-
-                // Current token is a number,
-                // push it to stack for numbers
-                if (tokens[i] >= '0' && tokens[i] <= '9')
-                {
-                    StringBuilder sbuf = new StringBuilder();
-
-                    // There may be more than
-                    // one digits in number
-                    while (i < tokens.Length &&
-                            tokens[i] >= '0' &&
-                                tokens[i] <= '9')
-                    {
-                        sbuf.Append(tokens[i++]);
-                    }
-                    values.Push(int.Parse(sbuf.ToString()));
-
-                    // Right now the i points to
-                    // the character next to the digit,
-                    // since the for loop also increases
-                    // the i, we would skip one
-                    // token position; we need to
-                    // decrease the value of i by 1 to
-                    // correct the offset.
-                    i--;
-                }
-
-                // Current token is an opening
-                // brace, push it to 'ops'
-                else if (tokens[i] == '(')
+                // Current token is an opening brace, push it to 'ops'
+                else if (tokens[i].Equals("("))
                 {
                     ops.Push(tokens[i]);
                 }
-
-                // Closing brace encountered,
-                // solve entire brace
-                else if (tokens[i] == ')')
+                // Closing brace encountered, solve entire brace
+                else if (tokens[i].Equals(")"))
                 {
-                    while (ops.Peek() != '(')
+                    while (ops.Peek() != "(")
                     {
-                        values.Push(applyOp(ops.Pop(),
-                                        values.Pop(),
-                                        values.Pop()));
+                        values.Push(applyOp(ops.Pop(), values.Pop(), values.Pop()));
                     }
                     ops.Pop();
                 }
 
                 // Current token is an operator.
-                else if (tokens[i] == '+' ||
-                        tokens[i] == '-' ||
-                        tokens[i] == '*' ||
-                        tokens[i] == '/')
+                else if ((new string[] { "+", "-", "*", "/" }).Contains(tokens[i]))
                 {
-
-                    // While top of 'ops' has same
-                    // or greater precedence to current
-                    // token, which is an operator.
-                    // Apply operator on top of 'ops'
-                    // to top two elements in values stack
-                    while (ops.Count > 0 &&
-                            hasPrecedence(tokens[i],
-                                        ops.Peek()))
+                    // While top of 'ops' has same or greater precedence to current token, which is an operator.
+                    // Apply operator on top of 'ops' to top two elements in values stack
+                    while (ops.Count > 0 && hasPrecedence(tokens[i], ops.Peek()))
                     {
-                        values.Push(applyOp(ops.Pop(),
-                                        values.Pop(),
-                                        values.Pop()));
+                        values.Push(applyOp(ops.Pop(), values.Pop(), values.Pop()));
                     }
 
                     // Push current token to 'ops'.
@@ -102,33 +56,24 @@ namespace IPFEngine.Evaluator
                 }
             }
 
-            // Entire expression has been
-            // parsed at this point, apply remaining
-            // ops to remaining values
+            // Entire expression has been parsed at this point, apply remaining ops to remaining values
             while (ops.Count > 0)
             {
-                values.Push(applyOp(ops.Pop(),
-                                values.Pop(),
-                                values.Pop()));
+                values.Push(applyOp(ops.Pop(), values.Pop(), values.Pop()));
             }
 
-            // Top of 'values' contains
-            // result, return it
+            // Top of 'values' contains result, return it
             return values.Pop();
         }
 
-        // Returns true if 'op2' has
-        // higher or same precedence as 'op1',
-        // otherwise returns false.
-        public static bool hasPrecedence(char op1,
-                                        char op2)
+        // Returns true if 'op2' has higher or same precedence as 'op1', otherwise returns false.
+        public static bool hasPrecedence(string op1, string op2)
         {
-            if (op2 == '(' || op2 == ')')
+            if (op2 == "(" || op2 == ")")
             {
                 return false;
             }
-            if ((op1 == '*' || op1 == '/') &&
-                (op2 == '+' || op2 == '-'))
+            if ((op1 == "*" || op1 == "/") && (op2 == "+" || op2 == "-"))
             {
                 return false;
             }
@@ -138,26 +83,21 @@ namespace IPFEngine.Evaluator
             }
         }
 
-        // A utility method to apply an
-        // operator 'op' on operands 'a'
-        // and 'b'. Return the result.
-        public static int applyOp(char op,
-                                int b, int a)
+        // A utility method to apply an operator 'op' on operands 'a' and 'b'. Return the result.
+        public static int applyOp(string op, int b, int a)
         {
             switch (op)
             {
-                case '+':
+                case "+":
                     return a + b;
-                case '-':
+                case "-":
                     return a - b;
-                case '*':
+                case "*":
                     return a * b;
-                case '/':
+                case "/":
                     if (b == 0)
                     {
-                        throw new
-                        System.NotSupportedException(
-                            "Cannot divide by zero");
+                        throw new System.NotSupportedException("Cannot divide by zero");
                     }
                     return a / b;
             }
