@@ -49,10 +49,13 @@ namespace IPFEngine.Parser
 
             for (int i = 0; i < IPFData.Length; i++)
             {
+                // Get rid of the white spaces
                 string line = IPFData[i].Trim();
+                // Do not process an empty line
                 if (string.IsNullOrEmpty(line)) { continue; }
+                // Generate tokens
                 var tokens = Tokenize(line).Select(s => s.Trim()).ToArray();
-
+                // Using the chain of command design pattern, try to decode the tokens from the line
                 bool LineParsed = false;
                 foreach (var p in IPFParsers)
                 {
@@ -62,7 +65,7 @@ namespace IPFEngine.Parser
                         break;
                     }
                 }
-
+                // If the line hasn't been parsed until now, it's something wrong with it
                 if (!LineParsed)
                 {
                     Console.WriteLine("Error: Line {0} is invalid", i + 1);
@@ -73,9 +76,15 @@ namespace IPFEngine.Parser
         }
 
         #region Tokenization
+        /// <summary>
+        /// Tokenize input string, taking care of the single quote strings
+        /// </summary>
+        /// <param name="input">Input string</param>
+        /// <returns>Tokens resulting from the input string</returns>
         IEnumerable<string> Tokenize(string input)
         {
             string token = string.Empty;
+            var SingleCharTokens = new List<char> { '(', ')', '+', '-', '*', '/' };
             bool inQuote = false;
 
             for (int i = 0; i < input.Length; i++)
@@ -89,6 +98,15 @@ namespace IPFEngine.Parser
                         yield return token;
                         token = string.Empty;
                     }
+                }
+                else if (SingleCharTokens.Contains(c) && !inQuote)
+                {
+                    if (token != string.Empty)
+                    {
+                        yield return token;
+                        token = string.Empty;
+                    }
+                    yield return c.ToString();                    
                 }
                 else if (c == ' ' && !inQuote)
                 {
