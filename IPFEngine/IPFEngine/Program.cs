@@ -1,4 +1,6 @@
-﻿using IPFEngine.Parser;
+﻿using IPFEngine.Evaluator;
+using IPFEngine.Parser;
+
 
 string text = File.ReadAllText(@"..\..\..\us_fees.ipf");
 var p = new IPFParser(text);
@@ -29,3 +31,6 @@ if(ck.Count() == 0)
         Console.WriteLine(e);
     }
 }
+
+
+var ev = new IPFEvaluator();
