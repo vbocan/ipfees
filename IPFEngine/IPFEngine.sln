@@ -12,8 +12,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IPFEngine.Parser", "IPFEngi
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IPFEngine.Tests", "IPFEngine.Tests\IPFEngine.Tests.csproj", "{8D533AC5-F577-46D7-B547-3180CD6FD5AA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IPFEngine.SemanticCheck", "IPFEngine.SemanticCheck\IPFEngine.SemanticCheck.csproj", "{2E061D68-10F0-451F-BA0D-E034A9D0714E}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -32,10 +30,6 @@ Global
 		{8D533AC5-F577-46D7-B547-3180CD6FD5AA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8D533AC5-F577-46D7-B547-3180CD6FD5AA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8D533AC5-F577-46D7-B547-3180CD6FD5AA}.Release|Any CPU.Build.0 = Release|Any CPU
-		{2E061D68-10F0-451F-BA0D-E034A9D0714E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{2E061D68-10F0-451F-BA0D-E034A9D0714E}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{2E061D68-10F0-451F-BA0D-E034A9D0714E}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{2E061D68-10F0-451F-BA0D-E034A9D0714E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

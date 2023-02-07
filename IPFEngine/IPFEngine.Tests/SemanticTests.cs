@@ -1,5 +1,4 @@
 using IPFEngine.Parser;
-using IPFEngine.SemanticCheck;
 
 namespace IPFEngine.Tests
 {
@@ -19,7 +18,7 @@ namespace IPFEngine.Tests
             """;
             var p = new IPFParser(text);
             var (vars, fees) = p.Parse();
-            var ck = IPFSemanticCheck.Check(vars, fees);                       
+            var ck = IPFSemanticChecker.Check(vars, fees);                       
             Assert.Empty(ck);
         }
 
@@ -36,7 +35,7 @@ namespace IPFEngine.Tests
             """;
             var p = new IPFParser(text);
             var (vars, fees) = p.Parse();
-            var ck = IPFSemanticCheck.Check(vars, fees);
+            var ck = IPFSemanticChecker.Check(vars, fees);
             Assert.Single(ck);
         }
 
@@ -53,7 +52,7 @@ namespace IPFEngine.Tests
             """;
             var p = new IPFParser(text);
             var (vars, fees) = p.Parse();
-            var ck = IPFSemanticCheck.Check(vars, fees);
+            var ck = IPFSemanticChecker.Check(vars, fees);
             Assert.Single(ck);
         }
 
@@ -70,7 +69,7 @@ namespace IPFEngine.Tests
             """;
             var p = new IPFParser(text);
             var (vars, fees) = p.Parse();
-            var ck = IPFSemanticCheck.Check(vars, fees);
+            var ck = IPFSemanticChecker.Check(vars, fees);
             Assert.Equal(2, ck.Count());
         }
 
@@ -91,7 +90,7 @@ namespace IPFEngine.Tests
             """;
             var p = new IPFParser(text);
             var (vars, fees) = p.Parse();
-            var ck = IPFSemanticCheck.Check(vars, fees);
+            var ck = IPFSemanticChecker.Check(vars, fees);
             Assert.Single(ck);
         }
 
@@ -107,7 +106,7 @@ namespace IPFEngine.Tests
             """;
             var p = new IPFParser(text);
             var (vars, fees) = p.Parse();
-            var ck = IPFSemanticCheck.Check(vars, fees);            
+            var ck = IPFSemanticChecker.Check(vars, fees);            
             Assert.Empty(ck);
         }
 
@@ -123,7 +122,7 @@ namespace IPFEngine.Tests
             """;
             var p = new IPFParser(text);
             var (vars, fees) = p.Parse();
-            var ck = IPFSemanticCheck.Check(vars, fees);
+            var ck = IPFSemanticChecker.Check(vars, fees);
             Assert.Single(ck);            
         }
 
@@ -139,7 +138,7 @@ namespace IPFEngine.Tests
             """;
             var p = new IPFParser(text);
             var (vars, fees) = p.Parse();
-            var ck = IPFSemanticCheck.Check(vars, fees);
+            var ck = IPFSemanticChecker.Check(vars, fees);
             Assert.Single(ck);
         }
     }

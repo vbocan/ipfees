@@ -1,5 +1,4 @@
 ﻿using IPFEngine.Parser;
-using IPFEngine.SemanticCheck;
 
 string text = File.ReadAllText(@"..\..\..\us_fees.ipf");
 var p = new IPFParser(text);
@@ -18,7 +17,7 @@ foreach (var f in Fees)
 }
 
 Console.WriteLine("SEMANTIC CHECK: =========================================");
-var ck = IPFSemanticCheck.Check(Variables, Fees);
+var ck = IPFSemanticChecker.Check(Variables, Fees);
 if(ck.Count() == 0)
 {
     Console.WriteLine("No errors detected.");
