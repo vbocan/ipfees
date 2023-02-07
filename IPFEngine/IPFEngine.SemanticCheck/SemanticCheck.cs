@@ -27,8 +27,8 @@ namespace IPFEngine.SemanticCheck
             foreach (var er in VarList.Where(w => !w.Items.Select(s => s.Symbol).Contains(w.DefaultSymbol)).Select(s => s.Name))
             {
                 yield return string.Format("Default value should be one of the symbols at variable [{0}].", er);
-            }
-            foreach (var er in VarList.SelectMany(s => s.Items).Select(a => a.Symbol).GroupBy(x => x).Where(g => g.Count() > 1).Select(y => y.Key))
+            }            
+            foreach (var er in VarList.SelectMany(s => s.Items.DistinctBy(e => e.Symbol)).Select(a => a.Symbol).GroupBy(x => x).Where(g => g.Count() > 1).Select(y => y.Key))
             {
                 yield return string.Format("Symbol [{0}] is defined in multiple variables.", er);
             }

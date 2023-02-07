@@ -23,6 +23,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\IPFEngine.Parser\IPFEngine.Parser.csproj" />
+    <ProjectReference Include="..\IPFEngine.SemanticCheck\IPFEngine.SemanticCheck.csproj" />
   </ItemGroup>
 
 </Project>
