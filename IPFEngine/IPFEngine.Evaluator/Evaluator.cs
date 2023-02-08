@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using IPFEngine.Parser;
+using System.Text;
 
 namespace IPFEngine.Evaluator
 {
@@ -6,11 +7,11 @@ namespace IPFEngine.Evaluator
     {
         public IPFEvaluator()
         {
-            var tokens = "10 + 2 * 6".Split(new char[] {' '}, StringSplitOptions.None);
+            var tokens = "( 10 + 2 ) * 6".Split(new char[] {' '}, StringSplitOptions.None);
             Console.WriteLine(EvaluateTokens(tokens));            
         }
 
-        public static int EvaluateTokens(string[] tokens)
+        public static int EvaluateTokens(string[] tokens, IEnumerable<IPFVariable> Vars)
         {
             // Stack for numbers: 'values'
             Stack<int> values = new Stack<int>();
@@ -36,19 +37,18 @@ namespace IPFEngine.Evaluator
                 {
                     while (ops.Peek() != "(")
                     {
-                        values.Push(applyOp(ops.Pop(), values.Pop(), values.Pop()));
+                        values.Push(ApplyOperation(ops.Pop(), values.Pop(), values.Pop()));
                     }
                     ops.Pop();
                 }
-
                 // Current token is an operator.
                 else if ((new string[] { "+", "-", "*", "/" }).Contains(tokens[i]))
                 {
                     // While top of 'ops' has same or greater precedence to current token, which is an operator.
                     // Apply operator on top of 'ops' to top two elements in values stack
-                    while (ops.Count > 0 && hasPrecedence(tokens[i], ops.Peek()))
+                    while (ops.Count > 0 && HasPrecedence(tokens[i], ops.Peek()))
                     {
-                        values.Push(applyOp(ops.Pop(), values.Pop(), values.Pop()));
+                        values.Push(ApplyOperation(ops.Pop(), values.Pop(), values.Pop()));
                     }
 
                     // Push current token to 'ops'.
@@ -59,7 +59,7 @@ namespace IPFEngine.Evaluator
             // Entire expression has been parsed at this point, apply remaining ops to remaining values
             while (ops.Count > 0)
             {
-                values.Push(applyOp(ops.Pop(), values.Pop(), values.Pop()));
+                values.Push(ApplyOperation(ops.Pop(), values.Pop(), values.Pop()));
             }
 
             // Top of 'values' contains result, return it
@@ -67,7 +67,7 @@ namespace IPFEngine.Evaluator
         }
 
         // Returns true if 'op2' has higher or same precedence as 'op1', otherwise returns false.
-        public static bool hasPrecedence(string op1, string op2)
+        public static bool HasPrecedence(string op1, string op2)
         {
             if (op2 == "(" || op2 == ")")
             {
@@ -84,7 +84,7 @@ namespace IPFEngine.Evaluator
         }
 
         // A utility method to apply an operator 'op' on operands 'a' and 'b'. Return the result.
-        public static int applyOp(string op, int b, int a)
+        public static int ApplyOperation(string op, int b, int a)
         {
             switch (op)
             {

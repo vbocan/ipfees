@@ -6,4 +6,8 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\IPFEngine.Parser\IPFEngine.Parser.csproj" />
+  </ItemGroup>
+
 </Project>
