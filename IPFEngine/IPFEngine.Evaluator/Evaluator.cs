@@ -59,7 +59,7 @@ namespace IPFEngine.Evaluator
                 }
                 // Finally, it must be an integer
                 else
-                {                    
+                {
                     if (int.TryParse(Tokens[i], out int Number))
                     {
                         values.Push(Number);
@@ -117,6 +117,23 @@ namespace IPFEngine.Evaluator
                     return a / b;
             }
             return 0;
+        }
+
+        public static bool EvaluateInequality(string[] Tokens, IDictionary<string, string> Vars)
+        {
+            // Count the number of OVER tokens
+            var OverCount = Tokens.Where(w => w.Equals("OVER")).Count();
+            if (OverCount > 1) throw new NotSupportedException("Only one OVER operand is allowed in expression.");
+            // Count the number of BELOW tokens
+            var BelowCount = Tokens.Where(w => w.Equals("BELOW")).Count();
+            if (BelowCount > 1) throw new NotSupportedException("Only one BELOW operand is allowed in expression.");
+            // Both OVER and BELOW cannot appear in the same expression
+            if (OverCount + BelowCount > 1) throw new NotSupportedException("Either OVER or BELOW (not both) can appear in expression.");
+            var NewTokens = Tokens.Select(s => s.Replace("OVER", "-").Replace("BELOW", "-")).ToArray();
+
+            var result = IPFEvaluator.EvaluateExpression(NewTokens, Vars);
+            bool ov = OverCount == 1;
+            return ov ? result >= 0 : result <= 0;
         }
     }
 }

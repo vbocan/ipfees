@@ -41,3 +41,7 @@ Console.WriteLine("EVALUATION: =============================================");
 var tokens = "( B + 2 ) * C - 11 * ( B + 2 * A )".Split(new char[] { ' ' }, StringSplitOptions.None);
 var ev = IPFEvaluator.EvaluateExpression(tokens, vars);
 Console.WriteLine(ev);
+
+var tokens2 = "10 BELOW 12".Split(new char[] { ' ' }, StringSplitOptions.None);
+var ev2 = IPFEvaluator.EvaluateInequality(tokens2, vars);
+Console.WriteLine(ev2);
