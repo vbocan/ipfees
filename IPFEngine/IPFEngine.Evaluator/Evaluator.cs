@@ -1,39 +1,34 @@
-﻿using IPFEngine.Parser;
-using System.Text;
+﻿using System.Collections;
 
 namespace IPFEngine.Evaluator
 {
     public class IPFEvaluator
     {
-        public IPFEvaluator()
-        {
-            var tokens = "( 10 + 2 ) * 6".Split(new char[] {' '}, StringSplitOptions.None);
-            Console.WriteLine(EvaluateTokens(tokens));            
-        }
+        public IPFEvaluator() { }
 
-        public static int EvaluateTokens(string[] tokens, IEnumerable<IPFVariable> Vars)
+        public static int EvaluateTokens(string[] Tokens, Hashtable Vars)
         {
             // Stack for numbers: 'values'
             Stack<int> values = new Stack<int>();
             // Stack for Operators: 'ops'
             Stack<string> ops = new Stack<string>();
 
-            for (int i = 0; i < tokens.Length; i++)
+            for (int i = 0; i < Tokens.Length; i++)
             {
                 // Current token is a number, push it to stack for numbers
                 int Number = int.MinValue;
-                var IsNumber = int.TryParse(tokens[i], out Number);
+                var IsNumber = int.TryParse(Tokens[i], out Number);
                 if (IsNumber)
                 {
                     values.Push(Number);
                 }
                 // Current token is an opening brace, push it to 'ops'
-                else if (tokens[i].Equals("("))
+                else if (Tokens[i].Equals("("))
                 {
-                    ops.Push(tokens[i]);
+                    ops.Push(Tokens[i]);
                 }
                 // Closing brace encountered, solve entire brace
-                else if (tokens[i].Equals(")"))
+                else if (Tokens[i].Equals(")"))
                 {
                     while (ops.Peek() != "(")
                     {
@@ -42,17 +37,17 @@ namespace IPFEngine.Evaluator
                     ops.Pop();
                 }
                 // Current token is an operator.
-                else if ((new string[] { "+", "-", "*", "/" }).Contains(tokens[i]))
+                else if ((new string[] { "+", "-", "*", "/" }).Contains(Tokens[i]))
                 {
                     // While top of 'ops' has same or greater precedence to current token, which is an operator.
                     // Apply operator on top of 'ops' to top two elements in values stack
-                    while (ops.Count > 0 && HasPrecedence(tokens[i], ops.Peek()))
+                    while (ops.Count > 0 && HasPrecedence(Tokens[i], ops.Peek()))
                     {
                         values.Push(ApplyOperation(ops.Pop(), values.Pop(), values.Pop()));
                     }
 
                     // Push current token to 'ops'.
-                    ops.Push(tokens[i]);
+                    ops.Push(Tokens[i]);
                 }
             }
 

@@ -1,6 +1,6 @@
 ﻿using IPFEngine.Evaluator;
 using IPFEngine.Parser;
-
+using System.Collections;
 
 string text = File.ReadAllText(@"..\..\..\us_fees.ipf");
 var p = new IPFParser(text);
@@ -32,5 +32,6 @@ if(ck.Count() == 0)
     }
 }
 
-
-var ev = new IPFEvaluator();
+var tokens = "( 10 + 2 ) * 6".Split(new char[] { ' ' }, StringSplitOptions.None);
+var ev = IPFEvaluator.EvaluateTokens(tokens, new Hashtable());
+Console.WriteLine(ev);
