@@ -82,7 +82,7 @@ namespace IPFEngine.Evaluator
         }
 
         // Returns true if 'op2' has higher or same precedence as 'op1', otherwise returns false.
-        public static bool HasPrecedence(string op1, string op2)
+        private static bool HasPrecedence(string op1, string op2)
         {
             if (op2 == "(" || op2 == ")")
             {
@@ -99,7 +99,7 @@ namespace IPFEngine.Evaluator
         }
 
         // A utility method to apply an operator 'op' on operands 'a' and 'b'. Return the result.
-        public static int ApplyOperation(string op, int b, int a)
+        private static int ApplyOperation(string op, int b, int a)
         {
             switch (op)
             {
