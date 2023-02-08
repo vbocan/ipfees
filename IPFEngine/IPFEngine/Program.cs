@@ -32,6 +32,11 @@ if(ck.Count() == 0)
     }
 }
 
-var tokens = "( 10 + 2 ) * 6".Split(new char[] { ' ' }, StringSplitOptions.None);
-var ev = IPFEvaluator.EvaluateTokens(tokens, new Hashtable());
+var vars = new Dictionary<string, string>();
+vars["A"] = "10";
+vars["B"] = "5";
+vars["C"] = "45";
+Console.WriteLine("EVALUATION: =============================================");
+var tokens = "( B + 2 ) * C - 11 * ( B + 2 * A )".Split(new char[] { ' ' }, StringSplitOptions.None);
+var ev = IPFEvaluator.EvaluateTokens(tokens, vars);
 Console.WriteLine(ev);
