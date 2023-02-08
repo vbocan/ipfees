@@ -32,6 +32,13 @@ namespace IPFEngine.Parser
             {
                 yield return string.Format("Symbol [{0}] is defined in multiple variables.", er);
             }
+
+            // Variables should not:
+            // - have duplicate names
+            foreach (var er in IPFVars.Where(vl => vl.Name.Length != vl.Name.Distinct().Count()).Select(s => s.Name).Distinct())
+            {
+                yield return string.Format("Variable [{0}] is defined in multiple places.", er);
+            }
         }
     }
 }
