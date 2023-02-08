@@ -141,5 +141,25 @@ namespace IPFEngine.Tests
             var ck = IPFSemanticChecker.Check(vars, fees);
             Assert.Single(ck);
         }
+
+        [Fact]
+        public void TestVariableDefinedMultipleTimes()
+        {
+            string text =
+            """
+            DEFINE NUMBER SheetCount AS 'Enter the number of sheets'
+            BETWEEN 10 AND 20
+            DEFAULT 11
+            ENDDEFINE
+            DEFINE NUMBER SheetCount AS 'Enter the number of sheets'
+            BETWEEN 10 AND 20
+            DEFAULT 11
+            ENDDEFINE
+            """;
+            var p = new IPFParser(text);
+            var (vars, fees) = p.Parse();
+            var ck = IPFSemanticChecker.Check(vars, fees);
+            Assert.Single(ck);
+        }
     }
 }
