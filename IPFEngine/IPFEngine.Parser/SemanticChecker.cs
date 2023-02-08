@@ -6,6 +6,20 @@ namespace IPFEngine.Parser
     {
         static public IEnumerable<string> Check(IEnumerable<IPFVariable> IPFVars, IEnumerable<IPFFee> IPFFees)
         {
+            // Variables should not:
+            // - have duplicate names
+            foreach (var er in IPFVars.Select(s => s.Name).GroupBy(x => x).Where(g => g.Count() > 1).Select(y => y.Key))
+            {
+                yield return string.Format("Variable [{0}] has multiple definitions.", er);
+            }
+
+            // Fees should not:
+            // - have duplicate names
+            foreach (var er in IPFFees.Select(s => s.Name).GroupBy(x => x).Where(g => g.Count() > 1).Select(y => y.Key))
+            {
+                yield return string.Format("Fee [{0}] has multiple definitions.", er);
+            }
+
             // Number variables should not:
             // - have a MinValue greater than MaxValue
             // - have a DefaultValue less than MinValue or greater than MaxValue            
@@ -31,21 +45,7 @@ namespace IPFEngine.Parser
             foreach (var er in VarList.SelectMany(s => s.Items.DistinctBy(e => e.Symbol)).Select(a => a.Symbol).GroupBy(x => x).Where(g => g.Count() > 1).Select(y => y.Key))
             {
                 yield return string.Format("Symbol [{0}] is defined in multiple variables.", er);
-            }
-
-            // Variables should not:
-            // - have duplicate names
-            foreach (var er in IPFVars.Where(vl => vl.Name.Length != vl.Name.Distinct().Count()).Select(s => s.Name).Distinct())
-            {
-                yield return string.Format("Variable [{0}] is defined in multiple places.", er);
-            }
-
-            // Fees should not:
-            // - have duplicate names
-            foreach (var er in IPFFees.Where(vl => vl.Name.Length != vl.Name.Distinct().Count()).Select(s => s.Name).Distinct())
-            {
-                yield return string.Format("Fee [{0}] is defined in multiple places.", er);
-            }
+            }            
         }
     }
 }
