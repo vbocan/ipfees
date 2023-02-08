@@ -1,6 +1,5 @@
 ﻿using IPFEngine.Evaluator;
 using IPFEngine.Parser;
-using System.Collections;
 
 string text = File.ReadAllText(@"..\..\..\us_fees.ipf");
 var p = new IPFParser(text);
@@ -20,7 +19,7 @@ foreach (var f in Fees)
 
 Console.WriteLine("SEMANTIC CHECK: =========================================");
 var ck = IPFSemanticChecker.Check(Variables, Fees);
-if(ck.Count() == 0)
+if(!ck.Any())
 {
     Console.WriteLine("No errors detected.");
 }else
@@ -32,11 +31,13 @@ if(ck.Count() == 0)
     }
 }
 
-var vars = new Dictionary<string, string>();
-vars["A"] = "10";
-vars["B"] = "5";
-vars["C"] = "45";
+var vars = new Dictionary<string, string>
+{
+    ["A"] = "10",
+    ["B"] = "15",
+    ["C"] = "45"
+};
 Console.WriteLine("EVALUATION: =============================================");
 var tokens = "( B + 2 ) * C - 11 * ( B + 2 * A )".Split(new char[] { ' ' }, StringSplitOptions.None);
-var ev = IPFEvaluator.EvaluateTokens(tokens, vars);
+var ev = IPFEvaluator.EvaluateExpression(tokens, vars);
 Console.WriteLine(ev);
