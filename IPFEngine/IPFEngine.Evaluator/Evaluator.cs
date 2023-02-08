@@ -6,7 +6,7 @@ namespace IPFEngine.Evaluator
     {
         public IPFEvaluator() { }
 
-        public static int EvaluateTokens(string[] Tokens, Hashtable Vars)
+        public static int EvaluateTokens(string[] Tokens, IDictionary<string, string> Vars)
         {
             // Stack for numbers: 'values'
             Stack<int> values = new Stack<int>();
@@ -15,12 +15,22 @@ namespace IPFEngine.Evaluator
 
             for (int i = 0; i < Tokens.Length; i++)
             {
-                // Current token is a number, push it to stack for numbers
-                int Number = int.MinValue;
-                var IsNumber = int.TryParse(Tokens[i], out Number);
-                if (IsNumber)
+                var IsVariable = Vars.ContainsKey(Tokens[i]);
+
+                // Current token is a variable
+                if (IsVariable)
                 {
-                    values.Push(Number);
+                    // Try to convert the variable value to an integer
+                    int VariableValue = int.MinValue;
+                    var ok = int.TryParse(Vars[Tokens[i]], out VariableValue);
+                    if (ok)
+                    {
+                        values.Push(VariableValue);
+                    }
+                    else
+                    {
+                        throw new NotSupportedException(string.Format("Variable {0} has an invalid value.", Tokens[i]));
+                    }
                 }
                 // Current token is an opening brace, push it to 'ops'
                 else if (Tokens[i].Equals("("))
@@ -48,6 +58,20 @@ namespace IPFEngine.Evaluator
 
                     // Push current token to 'ops'.
                     ops.Push(Tokens[i]);
+                }
+                // Finally, it must be an integer
+                else
+                {
+                    int Number = int.MinValue;
+                    var IsNumber = int.TryParse(Tokens[i], out Number);
+                    if (IsNumber)
+                    {
+                        values.Push(Number);
+                    }
+                    else
+                    {
+                        throw new NotSupportedException(string.Format("Invalid token: {0}", Tokens[i]));
+                    }
                 }
             }
 
@@ -92,7 +116,7 @@ namespace IPFEngine.Evaluator
                 case "/":
                     if (b == 0)
                     {
-                        throw new System.NotSupportedException("Cannot divide by zero");
+                        throw new NotSupportedException("Cannot divide by zero");
                     }
                     return a / b;
             }
