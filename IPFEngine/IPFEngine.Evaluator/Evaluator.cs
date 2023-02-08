@@ -6,12 +6,12 @@ namespace IPFEngine.Evaluator
     {
         public IPFEvaluator() { }
 
-        public static int EvaluateTokens(string[] Tokens, IDictionary<string, string> Vars)
+        public static int EvaluateExpression(string[] Tokens, IDictionary<string, string> Vars)
         {
             // Stack for numbers: 'values'
-            Stack<int> values = new Stack<int>();
+            var values = new Stack<int>();
             // Stack for Operators: 'ops'
-            Stack<string> ops = new Stack<string>();
+            var ops = new Stack<string>();
 
             for (int i = 0; i < Tokens.Length; i++)
             {
@@ -20,10 +20,8 @@ namespace IPFEngine.Evaluator
                 // Current token is a variable
                 if (IsVariable)
                 {
-                    // Try to convert the variable value to an integer
-                    int VariableValue = int.MinValue;
-                    var ok = int.TryParse(Vars[Tokens[i]], out VariableValue);
-                    if (ok)
+                    // Try to convert the variable value to an integer                    
+                    if (int.TryParse(Vars[Tokens[i]], out int VariableValue))
                     {
                         values.Push(VariableValue);
                     }
@@ -61,10 +59,8 @@ namespace IPFEngine.Evaluator
                 }
                 // Finally, it must be an integer
                 else
-                {
-                    int Number = int.MinValue;
-                    var IsNumber = int.TryParse(Tokens[i], out Number);
-                    if (IsNumber)
+                {                    
+                    if (int.TryParse(Tokens[i], out int Number))
                     {
                         values.Push(Number);
                     }
