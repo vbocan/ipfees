@@ -39,6 +39,13 @@ namespace IPFEngine.Parser
             {
                 yield return string.Format("Variable [{0}] is defined in multiple places.", er);
             }
+
+            // Fees should not:
+            // - have duplicate names
+            foreach (var er in IPFFees.Where(vl => vl.Name.Length != vl.Name.Distinct().Count()).Select(s => s.Name).Distinct())
+            {
+                yield return string.Format("Fee [{0}] is defined in multiple places.", er);
+            }
         }
     }
 }
