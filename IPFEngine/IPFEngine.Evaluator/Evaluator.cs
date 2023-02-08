@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using Microsoft.VisualBasic;
+using System.Collections;
 
 namespace IPFEngine.Evaluator
 {
@@ -121,19 +122,49 @@ namespace IPFEngine.Evaluator
 
         public static bool EvaluateInequality(string[] Tokens, IDictionary<string, string> Vars)
         {
-            // Count the number of OVER tokens
-            var OverCount = Tokens.Where(w => w.Equals("OVER")).Count();
-            if (OverCount > 1) throw new NotSupportedException("Only one OVER operand is allowed in expression.");
+            // Count the number of ABOVE tokens
+            var AboveCount = Tokens.Where(w => w.Equals("ABOVE")).Count();
+            if (AboveCount > 1) throw new NotSupportedException("Only one ABOVE operand is allowed in expression.");
             // Count the number of BELOW tokens
             var BelowCount = Tokens.Where(w => w.Equals("BELOW")).Count();
             if (BelowCount > 1) throw new NotSupportedException("Only one BELOW operand is allowed in expression.");
-            // Both OVER and BELOW cannot appear in the same expression
-            if (OverCount + BelowCount > 1) throw new NotSupportedException("Either OVER or BELOW (not both) can appear in expression.");
-            var NewTokens = Tokens.Select(s => s.Replace("OVER", "-").Replace("BELOW", "-")).ToArray();
+            // Both ABOVE and BELOW cannot appear in the same expression
+            if (AboveCount + BelowCount > 1) throw new NotSupportedException("Either ABOVE or BELOW (not both) can appear in expression.");
+            var NewTokens = Tokens.Select(s => s.Replace("ABOVE", "-").Replace("BELOW", "-")).ToArray();
 
-            var result = IPFEvaluator.EvaluateExpression(NewTokens, Vars);
-            bool ov = OverCount == 1;
-            return ov ? result >= 0 : result <= 0;
+            var result = EvaluateExpression(NewTokens, Vars);            
+            return (AboveCount == 1) ? result >= 0 : result <= 0;
+        }
+
+        //public static bool EvaluateLogic(string[] Tokens, IDictionary<string, string> Vars)
+        //{
+        //    // Split token list at OR boundaries
+        //    var OrExpressions = Tokens.Split("OR");
+
+        //    foreach (var splitString in splitStrings)
+        //    {
+        //        Console.WriteLine("-->");
+        //        Console.WriteLine(string.Join(",", splitString));
+        //    }
+
+        //}
+    }
+
+    public static class StringExtensions
+    {
+        public static IEnumerable<IEnumerable<string>> Split(this string[] strings, string delimiter)
+        {
+            var start = 0;
+            for (int i = 0; i < strings.Length; i++)
+            {
+                if (strings[i] == delimiter)
+                {
+                    yield return strings.Skip(start).Take(i - start);
+                    start = i + 1;
+                }
+            }
+
+            yield return strings.Skip(start);
         }
     }
 }

@@ -42,6 +42,19 @@ var tokens = "( B + 2 ) * C - 11 * ( B + 2 * A )".Split(new char[] { ' ' }, Stri
 var ev = IPFEvaluator.EvaluateExpression(tokens, vars);
 Console.WriteLine(ev);
 
-var tokens2 = "10 BELOW 12".Split(new char[] { ' ' }, StringSplitOptions.None);
+var tokens2 = "10 OVER 12".Split(new char[] { ' ' }, StringSplitOptions.None);
 var ev2 = IPFEvaluator.EvaluateInequality(tokens2, vars);
 Console.WriteLine(ev2);
+
+Console.WriteLine("ENUMERATION SPLIT: ======================================");
+//string[] strings = { "A", "B", "delimiter", "C", "D", "delimiter", "E", "F" };
+string[] strings = { "A", "B" };
+string delimiter = "delimiter";
+
+var splitStrings = strings.Split(delimiter).ToList();
+
+foreach (var splitString in splitStrings)
+{
+    Console.WriteLine("-->");
+    Console.WriteLine(string.Join(",", splitString));
+}
