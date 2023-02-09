@@ -132,8 +132,19 @@ namespace IPFEngine.Evaluator
             if (AboveCount + BelowCount > 1) throw new NotSupportedException("Either ABOVE or BELOW (not both) can appear in expression.");
             var NewTokens = Tokens.Select(s => s.Replace("ABOVE", "-").Replace("BELOW", "-")).ToArray();
 
-            var result = EvaluateExpression(NewTokens, Vars);            
+            var result = EvaluateExpression(NewTokens, Vars);
             return (AboveCount == 1) ? result >= 0 : result <= 0;
+        }
+
+        public static bool EvaluateLogicItem(string[] Tokens, IDictionary<string, string> Vars)
+        {
+            if(Tokens.Length <= 2) throw new NotSupportedException("Invalid logic.");
+            // The first token decides how we evaluate the item.
+            // If the first token is a numeric variable, the available inequality operators are ABOVE, UNDER, IS
+
+            // If the first token is a string variable, there is only one operator available: IS
+
+            // If the first token is a boolean variable, there is only one operator available: IS
         }
 
         //public static bool EvaluateLogic(string[] Tokens, IDictionary<string, string> Vars)
