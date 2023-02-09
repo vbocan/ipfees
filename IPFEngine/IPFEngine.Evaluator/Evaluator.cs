@@ -113,7 +113,7 @@ namespace IPFEngine.Evaluator
             return 0;
         }
 
-        public static bool EvaluateLogicItem(string[] Tokens, IEnumerable<IPFValue> Vars)
+        private static bool EvaluateLogicItem(string[] Tokens, IEnumerable<IPFValue> Vars)
         {
             if (Tokens.Length <= 2) throw new NotSupportedException("Invalid logic.");
 
@@ -121,8 +121,7 @@ namespace IPFEngine.Evaluator
             if (CurrentVariable == null) throw new NotSupportedException(string.Format("Variable [{0}] was not found.", Tokens[0]));
 
             // The first token decides how we evaluate the item.
-            // If the first token is a numeric variable, the available inequality operators are ABOVE, UNDER, EQUALS
-            //var IsNumeric = int.TryParse(Tokens[0], out int Number);
+            // If the first token is a numeric variable, the available inequality operators are ABOVE, UNDER, EQUALS            
             if (CurrentVariable is IPFValueNumber number)
             {
                 int LeftValue = number.Value;
@@ -132,34 +131,36 @@ namespace IPFEngine.Evaluator
                     case "ABOVE": return LeftValue > RightValue;
                     case "BELOW": return LeftValue < RightValue;
                     case "EQUALS": return LeftValue == RightValue;
-                    default: throw new NotSupportedException("Expected ABOVE, UNDER, EQUALS");
+                    default: throw new NotSupportedException("Expected ABOVE, UNDER, EQUALS.");
                 }
             }
             // If the first token is a string variable, there is only one operator available: EQUALS
-            if (CurrentVariable is IPFValueList str)
+            if (CurrentVariable is IPFValueString str)
             {
-                throw new NotSupportedException("List variable computation is not implemented");
-            }
-            // If the first token is a boolean variable, there is only one operator available: EQUALS
-            if (CurrentVariable is IPFValueBoolean boolean)
-            {
-                throw new NotSupportedException("Bool variable computation is not implemented");
-            }
+                string LeftValue = str.Value;
+                string RightValue = Tokens[2];
+                switch (Tokens[1])
+                {
+                    case "EQUALS": return LeftValue.Equals(RightValue);
+                    default: throw new NotSupportedException("Expected EQUALS.");
+                }
+            }            
             return true;
         }
 
-        //public static bool EvaluateLogic(string[] Tokens, IDictionary<string, string> Vars)
-        //{
-        //    // Split token list at OR boundaries
-        //    var OrExpressions = Tokens.Split("OR");
+        public static bool EvaluateLogic(string[] Tokens, IEnumerable<IPFValue> Vars)
+        {
+            // Split token list at AND boundaries
+            var AndItems = Tokens.Split("AND");
 
-        //    foreach (var splitString in splitStrings)
-        //    {
-        //        Console.WriteLine("-->");
-        //        Console.WriteLine(string.Join(",", splitString));
-        //    }
+            bool result = true;
+            foreach (var item in AndItems)
+            {
+                result = result && EvaluateLogicItem(item.ToArray(), Vars);
+            }
 
-        //}
+            return result;
+        }
     }
 
     public static class StringExtensions
