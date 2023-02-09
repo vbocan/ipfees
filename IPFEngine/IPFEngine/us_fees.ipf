@@ -28,51 +28,51 @@ DEFAULT TRUE
 ENDDEFINE
 
 COMPUTE FEE BasicNationalFee
-YIELD 320 IF EntityType IS NormalEntity
-YIELD 128 IF EntityType IS SmallEntity 
-YIELD 64 IF EntityType IS MicroEntity
+YIELD 320 IF EntityType EQUALS NormalEntity
+YIELD 128 IF EntityType EQUALS SmallEntity 
+YIELD 64 IF EntityType EQUALS MicroEntity
 ENDCOMPUTE
 
 COMPUTE FEE SearchFee
-CASE SituationType IS PreparedIPEA AS
-	YIELD 0 IF EntityType IS NormalEntity
-	YIELD 0 IF EntityType IS SmallEntity
-	YIELD 0 IF EntityType IS MicroEntity
+CASE SituationType EQUALS PreparedIPEA AS
+	YIELD 0 IF EntityType EQUALS NormalEntity
+	YIELD 0 IF EntityType EQUALS SmallEntity
+	YIELD 0 IF EntityType EQUALS MicroEntity
 ENDCASE
-CASE SituationType IS PaidAsISA AS
-	YIELD 140 IF EntityType IS NormalEntity
-	YIELD 56 IF EntityType IS SmallEntity
-	YIELD 28 IF EntityType IS MicroEntity
+CASE SituationType EQUALS PaidAsISA AS
+	YIELD 140 IF EntityType EQUALS NormalEntity
+	YIELD 56 IF EntityType EQUALS SmallEntity
+	YIELD 28 IF EntityType EQUALS MicroEntity
 ENDCASE
-CASE SituationType IS PreparedISA AS
-	YIELD 540 IF EntityType IS NormalEntity
-	YIELD 216 IF EntityType IS SmallEntity
-	YIELD 108 IF EntityType IS MicroEntity
+CASE SituationType EQUALS PreparedISA AS
+	YIELD 540 IF EntityType EQUALS NormalEntity
+	YIELD 216 IF EntityType EQUALS SmallEntity
+	YIELD 108 IF EntityType EQUALS MicroEntity
 ENDCASE
-YIELD 700 IF EntityType IS NormalEntity
-YIELD 280 IF EntityType IS SmallEntity
-YIELD 140 IF EntityType IS MicroEntity
+YIELD 700 IF EntityType EQUALS NormalEntity
+YIELD 280 IF EntityType EQUALS SmallEntity
+YIELD 140 IF EntityType EQUALS MicroEntity
 ENDCOMPUTE
 
 COMPUTE FEE ExaminationFee
-CASE SituationType IS PreparedIPEA AS
-	YIELD 0 IF EntityType IS NormalEntity
-	YIELD 0 IF EntityType IS SmallEntity
-	YIELD 0 IF EntityType IS MicroEntity
+CASE SituationType EQUALS PreparedIPEA AS
+	YIELD 0 IF EntityType EQUALS NormalEntity
+	YIELD 0 IF EntityType EQUALS SmallEntity
+	YIELD 0 IF EntityType EQUALS MicroEntity
 ENDCASE
-YIELD 800 IF EntityType IS NormalEntity
-YIELD 360 IF EntityType IS SmallEntity
-YIELD 160 IF EntityType IS MicroEntity
+YIELD 800 IF EntityType EQUALS NormalEntity
+YIELD 360 IF EntityType EQUALS SmallEntity
+YIELD 160 IF EntityType EQUALS MicroEntity
 ENDCOMPUTE
 
 COMPUTE FEE SheetFee
-YIELD 420 * SheetCount / 50 IF SheetCount ABOVE 100 AND EntityType IS NormalEntity
-YIELD 168 * SheetCount / 50 IF SheetCount ABOVE 100 AND EntityType IS SmallEntity
-YIELD 84 * SheetCount / 50 IF SheetCount ABOVE 100 AND EntityType IS MicroEntity
+YIELD 420 * SheetCount / 50 IF SheetCount ABOVE 100 AND EntityType EQUALS NormalEntity
+YIELD 168 * SheetCount / 50 IF SheetCount ABOVE 100 AND EntityType EQUALS SmallEntity
+YIELD 84 * SheetCount / 50 IF SheetCount ABOVE 100 AND EntityType EQUALS MicroEntity
 ENDCOMPUTE
 
 COMPUTE FEE ClaimFee
-YIELD 480 * ClaimCount IF ClaimCount ABOVE 3 AND EntityType IS NormalEntity
-YIELD 192 IF ClaimCount ABOVE 3 AND EntityType IS SmallEntity
-YIELD 96 IF ClaimCount ABOVE 3 AND EntityType IS MicroEntity
+YIELD 480 * ClaimCount IF ClaimCount ABOVE 3 AND EntityType EQUALS NormalEntity
+YIELD 192 IF ClaimCount ABOVE 3 AND EntityType EQUALS SmallEntity
+YIELD 96 IF ClaimCount ABOVE 3 AND EntityType EQUALS MicroEntity
 ENDCOMPUTE
