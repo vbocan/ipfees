@@ -8,7 +8,7 @@ namespace IPFEngine.Evaluator
     {
         public IPFEvaluator() { }
 
-        public static int EvaluateExpression(string[] Tokens, IDictionary<string, string> Vars)
+        public static int EvaluateExpression(string[] Tokens, IEnumerable<IPFValue> Vars)
         {
             // Stack for numbers: 'values'
             var values = new Stack<int>();
@@ -17,20 +17,12 @@ namespace IPFEngine.Evaluator
 
             for (int i = 0; i < Tokens.Length; i++)
             {
-                var IsVariable = Vars.ContainsKey(Tokens[i]);
+                var Variable = Vars.SingleOrDefault(s => s.Name.Equals(Tokens[i]));
 
-                // Current token is a variable
-                if (IsVariable)
+                // Current token is a number variable
+                if (Variable is IPFValueNumber)
                 {
-                    // Try to convert the variable value to an integer                    
-                    if (int.TryParse(Vars[Tokens[i]], out int VariableValue))
-                    {
-                        values.Push(VariableValue);
-                    }
-                    else
-                    {
-                        throw new NotSupportedException(string.Format("Variable {0} has an invalid value.", Tokens[i]));
-                    }
+                    values.Push(((IPFValueNumber)Variable).Value);
                 }
                 // Current token is an opening brace, push it to 'ops'
                 else if (Tokens[i].Equals("("))
@@ -121,46 +113,39 @@ namespace IPFEngine.Evaluator
             return 0;
         }
 
-        public static bool EvaluateInequality(string[] Tokens, IDictionary<string, string> Vars)
+        public static bool EvaluateLogicItem(string[] Tokens, IEnumerable<IPFValue> Vars)
         {
-            // Count the number of ABOVE tokens
-            var AboveCount = Tokens.Where(w => w.Equals("ABOVE")).Count();
-            if (AboveCount > 1) throw new NotSupportedException("Only one ABOVE operand is allowed in expression.");
-            // Count the number of BELOW tokens
-            var BelowCount = Tokens.Where(w => w.Equals("BELOW")).Count();
-            if (BelowCount > 1) throw new NotSupportedException("Only one BELOW operand is allowed in expression.");
-            // Both ABOVE and BELOW cannot appear in the same expression
-            if (AboveCount + BelowCount > 1) throw new NotSupportedException("Either ABOVE or BELOW (not both) can appear in expression.");
-            var NewTokens = Tokens.Select(s => s.Replace("ABOVE", "-").Replace("BELOW", "-")).ToArray();
+            if (Tokens.Length <= 2) throw new NotSupportedException("Invalid logic.");
 
-            var result = EvaluateExpression(NewTokens, Vars);
-            return (AboveCount == 1) ? result >= 0 : result <= 0;
-        }
-
-        public static bool EvaluateLogicItem(string[] Tokens, IDictionary<string, IPFVariable> Vars)
-        {
-            if(Tokens.Length <= 2) throw new NotSupportedException("Invalid logic.");
-            if (!Vars.ContainsKey(Tokens[0])) throw new NotSupportedException(string.Format("Variable [{0}] was not found."));
-            var Variable = Vars[Tokens[0]];
+            var CurrentVariable = Vars.SingleOrDefault(w => w.Name.Equals(Tokens[0]));
+            if (CurrentVariable == null) throw new NotSupportedException(string.Format("Variable [{0}] was not found.", Tokens[0]));
 
             // The first token decides how we evaluate the item.
-            // If the first token is a numeric variable, the available inequality operators are ABOVE, UNDER, IS
+            // If the first token is a numeric variable, the available inequality operators are ABOVE, UNDER, EQUALS
             //var IsNumeric = int.TryParse(Tokens[0], out int Number);
-            if (Variable is IPFVariableNumber)
+            if (CurrentVariable is IPFValueNumber number)
             {
-                var x = (IPFVariableNumber)Variable;
-                x.
+                int LeftValue = number.Value;
+                int RightValue = EvaluateExpression(Tokens.Skip(2).ToArray(), Vars);
+                switch (Tokens[1])
+                {
+                    case "ABOVE": return LeftValue > RightValue;
+                    case "BELOW": return LeftValue < RightValue;
+                    case "EQUALS": return LeftValue == RightValue;
+                    default: throw new NotSupportedException("Expected ABOVE, UNDER, EQUALS");
+                }
             }
-            // If the first token is a string variable, there is only one operator available: IS
-            if (Variable is IPFVariableList)
+            // If the first token is a string variable, there is only one operator available: EQUALS
+            if (CurrentVariable is IPFValueList str)
             {
-
+                throw new NotSupportedException("List variable computation is not implemented");
             }
-            // If the first token is a boolean variable, there is only one operator available: IS
-            if (Variable is IPFVariableBoolean)
+            // If the first token is a boolean variable, there is only one operator available: EQUALS
+            if (CurrentVariable is IPFValueBoolean boolean)
             {
-
+                throw new NotSupportedException("Bool variable computation is not implemented");
             }
+            return true;
         }
 
         //public static bool EvaluateLogic(string[] Tokens, IDictionary<string, string> Vars)
