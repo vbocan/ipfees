@@ -31,24 +31,18 @@ if(!ck.Any())
     }
 }
 
-var vars = new Dictionary<string, string>
-{
-    ["A"] = "10",
-    ["B"] = "15",
-    ["C"] = "45"
+var vars = new IPFValue[] {
+    new IPFValueNumber("A", 10),
+    new IPFValueNumber("B", 80),
+    new IPFValueNumber("C", 30),
 };
 Console.WriteLine("EVALUATION: =============================================");
 var tokens = "( B + 2 ) * C - 11 * ( B + 2 * A )".Split(new char[] { ' ' }, StringSplitOptions.None);
 var ev = IPFEvaluator.EvaluateExpression(tokens, vars);
 Console.WriteLine(ev);
 
-var tokens2 = "10 OVER 12".Split(new char[] { ' ' }, StringSplitOptions.None);
-var ev2 = IPFEvaluator.EvaluateInequality(tokens2, vars);
-Console.WriteLine(ev2);
-
 Console.WriteLine("ENUMERATION SPLIT: ======================================");
-//string[] strings = { "A", "B", "delimiter", "C", "D", "delimiter", "E", "F" };
-string[] strings = { "A", "B" };
+string[] strings = { "A", "B", "delimiter", "C", "D", "delimiter", "E", "F" };
 string delimiter = "delimiter";
 
 var splitStrings = strings.Split(delimiter).ToList();
