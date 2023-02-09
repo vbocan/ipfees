@@ -1,4 +1,5 @@
-﻿using Microsoft.VisualBasic;
+﻿using IPFEngine.Parser;
+using Microsoft.VisualBasic;
 using System.Collections;
 
 namespace IPFEngine.Evaluator
@@ -136,15 +137,30 @@ namespace IPFEngine.Evaluator
             return (AboveCount == 1) ? result >= 0 : result <= 0;
         }
 
-        public static bool EvaluateLogicItem(string[] Tokens, IDictionary<string, string> Vars)
+        public static bool EvaluateLogicItem(string[] Tokens, IDictionary<string, IPFVariable> Vars)
         {
             if(Tokens.Length <= 2) throw new NotSupportedException("Invalid logic.");
+            if (!Vars.ContainsKey(Tokens[0])) throw new NotSupportedException(string.Format("Variable [{0}] was not found."));
+            var Variable = Vars[Tokens[0]];
+
             // The first token decides how we evaluate the item.
             // If the first token is a numeric variable, the available inequality operators are ABOVE, UNDER, IS
-
+            //var IsNumeric = int.TryParse(Tokens[0], out int Number);
+            if (Variable is IPFVariableNumber)
+            {
+                var x = (IPFVariableNumber)Variable;
+                x.
+            }
             // If the first token is a string variable, there is only one operator available: IS
+            if (Variable is IPFVariableList)
+            {
 
+            }
             // If the first token is a boolean variable, there is only one operator available: IS
+            if (Variable is IPFVariableBoolean)
+            {
+
+            }
         }
 
         //public static bool EvaluateLogic(string[] Tokens, IDictionary<string, string> Vars)
