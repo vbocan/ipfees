@@ -54,7 +54,7 @@ var tokens3 = "EntityType EQUALS NormalEntity".Split(new char[] { ' ' }, StringS
 var ev3 = IPFEvaluator.EvaluateLogic(tokens3, vars);
 Console.WriteLine(ev3);
 
-Console.WriteLine("BOOLEAN EVALUATION: =================================================");
+Console.WriteLine("LOGIC EVALUATION: =================================================");
 var tokens4 = "SheetCount ABOVE 100 AND EntityType EQUALS NormalEntity".Split(new char[] { ' ' }, StringSplitOptions.None);
 var ev4 = IPFEvaluator.EvaluateLogic(tokens4, vars);
 Console.WriteLine(ev4);
