@@ -1,7 +1,8 @@
 ﻿using IPFEngine.Evaluator;
 using IPFEngine.Parser;
+using System.Linq;
 
-string text = File.ReadAllText(@"..\..\..\us_fees.ipf");
+string text = File.ReadAllText(@"..\..\..\us_fees_light.ipf");
 var p = new IPFParser(text);
 var (Variables, Fees) = p.Parse();
 
@@ -21,7 +22,7 @@ Console.WriteLine("SEMANTIC CHECK: =========================================");
 var ck = IPFSemanticChecker.Check(Variables, Fees);
 if (!ck.Any())
 {
-    Console.WriteLine("No errors detected.");
+    Console.WriteLine("No errors detected");
 }
 else
 {
@@ -32,29 +33,43 @@ else
     }
 }
 
+Console.WriteLine("FEE COMPUTATION: ========================================");
 var vars = new IPFValue[] {
-    new IPFValueNumber("A", 6),
-    new IPFValueNumber("B", 80),
-    new IPFValueNumber("C", 30),
-    new IPFValueString("EntityType", "NormalEntity1"),
-    new IPFValueNumber("SheetCount", 101),
+    new IPFValueString("EntityType", "NormalEntity"),
+    new IPFValueString("SituationType", "PreparedISA"),
+    new IPFValueNumber("SheetCount", 120)
 };
-Console.WriteLine("ARITHMETIC EVALUATION: =============================================");
-var tokens = "( B + 2 ) * C - 11 * ( B + 2 * A )".Split(new char[] { ' ' }, StringSplitOptions.None);
-var ev = IPFEvaluator.EvaluateExpression(tokens, vars);
-Console.WriteLine(ev);
 
-Console.WriteLine("INEQUALITY EVALUATION ==============================================");
-var tokens2 = "A EQUALS 60 / 10".Split(new char[] { ' ' }, StringSplitOptions.None);
-var ev2 = IPFEvaluator.EvaluateLogic(tokens2, vars);
-Console.WriteLine(ev2);
+int TotalAmount = 0;
+foreach (var fee in Fees)
+{
+    Console.WriteLine("COMPUTING FEE [{0}]", fee.Name);
+    int Amount = 0;
+    Console.WriteLine("Amount is initially {0}", Amount);
+    foreach (IPFFeeCase fc in fee.Cases)
+    {
+        var case_cond = (fc.Condition.Count() == 0) ? true : IPFEvaluator.EvaluateLogic(fc.Condition.ToArray(), vars);
+        if (!case_cond)
+        {
+            Console.WriteLine("Condition [{0}] is FALSE, skipping", string.Join(" ", fc.Condition));
+            continue;
+        }
+        Console.WriteLine("Condition [{0}] is TRUE, proceeding with evaluating individual expressions", string.Join(" ", fc.Condition));
+        foreach (var b in fc.Yields)
+        {
+            var cond_b = IPFEvaluator.EvaluateLogic(b.Condition.ToArray(), vars);
+            var val_b = IPFEvaluator.EvaluateExpression(b.Values.ToArray(), vars);
+            Console.WriteLine("Condition: [{0}] is [{1}]", string.Join(" ", b.Condition), cond_b);
+            if (cond_b)
+            {
+                Amount += val_b;
+                Console.WriteLine("After evaluating expression [{0}], the amount is {1}", string.Join(" ", b.Values), Amount);
+            }
+        }
+    }
+    Console.WriteLine("Finally, the amount for fee {0} is {1}", fee.Name, Amount);
+    Console.WriteLine();
+    TotalAmount += Amount;
+}
 
-Console.WriteLine("STRING EVALUATION: =================================================");
-var tokens3 = "EntityType EQUALS NormalEntity".Split(new char[] { ' ' }, StringSplitOptions.None);
-var ev3 = IPFEvaluator.EvaluateLogic(tokens3, vars);
-Console.WriteLine(ev3);
-
-Console.WriteLine("LOGIC EVALUATION: =================================================");
-var tokens4 = "SheetCount ABOVE 100 AND EntityType EQUALS NormalEntity".Split(new char[] { ' ' }, StringSplitOptions.None);
-var ev4 = IPFEvaluator.EvaluateLogic(tokens4, vars);
-Console.WriteLine(ev4);
+Console.WriteLine("Total amount (for all fees): {0}", TotalAmount);
