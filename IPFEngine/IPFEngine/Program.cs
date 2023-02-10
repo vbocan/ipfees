@@ -65,7 +65,7 @@ foreach (var fee in Fees)
             Console.WriteLine("Condition [{0}] is FALSE, skipping", string.Join(" ", fc.Condition));
             continue;
         }
-        Console.WriteLine("Condition [{0}] is TRUE, proceeding with evaluating individual expressions", string.Join(" ", fc.Condition));
+        if(fc.Condition.Count() >0) Console.WriteLine("Condition [{0}] is TRUE, proceeding with evaluating individual expressions", string.Join(" ", fc.Condition));
         foreach (var b in fc.Yields)
         {
             var cond_b = IPFEvaluator.EvaluateLogic(b.Condition.ToArray(), vars);
