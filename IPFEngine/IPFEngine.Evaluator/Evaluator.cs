@@ -115,7 +115,7 @@ namespace IPFEngine.Evaluator
 
         private static bool EvaluateLogicItem(string[] Tokens, IEnumerable<IPFValue> Vars)
         {
-            if (Tokens.Length <= 2) throw new NotSupportedException("Invalid logic.");
+            if (Tokens.Length <= 2) throw new NotSupportedException("Invalid logic");
 
             var CurrentVariable = Vars.SingleOrDefault(w => w.Name.Equals(Tokens[0]));
             if (CurrentVariable == null) throw new NotSupportedException(string.Format("Variable [{0}] was not found.", Tokens[0]));
@@ -131,7 +131,7 @@ namespace IPFEngine.Evaluator
                     case "ABOVE": return LeftValue > RightValue;
                     case "BELOW": return LeftValue < RightValue;
                     case "EQUALS": return LeftValue == RightValue;
-                    default: throw new NotSupportedException("Expected ABOVE, UNDER, EQUALS.");
+                    default: throw new NotSupportedException("Expected ABOVE, UNDER, EQUALS");
                 }
             }
             // If the first token is a string variable, there is only one operator available: EQUALS
@@ -142,9 +142,21 @@ namespace IPFEngine.Evaluator
                 switch (Tokens[1])
                 {
                     case "EQUALS": return LeftValue.Equals(RightValue);
-                    default: throw new NotSupportedException("Expected EQUALS.");
+                    default: throw new NotSupportedException("Expected EQUALS");
                 }
-            }            
+            }
+            // If the first token is a boolean variable, there is only one operator available: EQUALS
+            if (CurrentVariable is IPFValueBoolean boo)
+            {
+                bool LeftValue = boo.Value;
+                var res = bool.TryParse(Tokens[2], out bool RightValue);
+                if(!res) throw new NotSupportedException("Expected TRUE or FALSE");
+                switch (Tokens[1])
+                {
+                    case "EQUALS": return LeftValue == RightValue;
+                    default: throw new NotSupportedException("Expected EQUALS");
+                }
+            }
             return true;
         }
 
