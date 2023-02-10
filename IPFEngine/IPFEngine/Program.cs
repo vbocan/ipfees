@@ -2,7 +2,7 @@
 using IPFEngine.Parser;
 using System.Linq;
 
-string text = File.ReadAllText(@"..\..\..\us_fees_light.ipf");
+string text = File.ReadAllText(@"..\..\..\us_fees.ipf");
 var p = new IPFParser(text);
 var (Variables, Fees) = p.Parse();
 
@@ -37,7 +37,8 @@ Console.WriteLine("FEE COMPUTATION: ========================================");
 var vars = new IPFValue[] {
     new IPFValueString("EntityType", "NormalEntity"),
     new IPFValueString("SituationType", "PreparedISA"),
-    new IPFValueNumber("SheetCount", 120)
+    new IPFValueNumber("SheetCount", 120),
+    new IPFValueNumber("ClaimCount", 7)
 };
 
 int TotalAmount = 0;
