@@ -66,13 +66,13 @@ YIELD 160 IF EntityType EQUALS MicroEntity
 ENDCOMPUTE
 
 COMPUTE FEE SheetFee
-YIELD 420 * SheetCount / 50 IF SheetCount ABOVE 100 AND EntityType EQUALS NormalEntity
-YIELD 168 * SheetCount / 50 IF SheetCount ABOVE 100 AND EntityType EQUALS SmallEntity
-YIELD 84 * SheetCount / 50 IF SheetCount ABOVE 100 AND EntityType EQUALS MicroEntity
+YIELD 420*(SheetCount/50) IF SheetCount ABOVE 100 AND EntityType EQUALS NormalEntity
+YIELD 168*(SheetCount/50) IF SheetCount ABOVE 100 AND EntityType EQUALS SmallEntity
+YIELD 84*(SheetCount/50) IF SheetCount ABOVE 100 AND EntityType EQUALS MicroEntity
 ENDCOMPUTE
 
 COMPUTE FEE ClaimFee
-YIELD 480 * ClaimCount IF ClaimCount ABOVE 3 AND EntityType EQUALS NormalEntity
-YIELD 192 IF ClaimCount ABOVE 3 AND EntityType EQUALS SmallEntity
-YIELD 96 IF ClaimCount ABOVE 3 AND EntityType EQUALS MicroEntity
+YIELD (480*ClaimCount) IF ClaimCount ABOVE 3 AND EntityType EQUALS NormalEntity
+YIELD (192*ClaimCount) IF ClaimCount ABOVE 3 AND EntityType EQUALS SmallEntity
+YIELD (96*ClaimCount) IF ClaimCount ABOVE 3 AND EntityType EQUALS MicroEntity
 ENDCOMPUTE
