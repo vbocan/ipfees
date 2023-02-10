@@ -20,9 +20,9 @@ namespace IPFEngine.Evaluator
                 var Variable = Vars.SingleOrDefault(s => s.Name.Equals(Tokens[i]));
 
                 // Current token is a number variable
-                if (Variable is IPFValueNumber)
+                if (Variable is IPFValueNumber number)
                 {
-                    values.Push(((IPFValueNumber)Variable).Value);
+                    values.Push(number.Value);
                 }
                 // Current token is an opening brace, push it to 'ops'
                 else if (Tokens[i].Equals("("))
@@ -108,7 +108,7 @@ namespace IPFEngine.Evaluator
                     {
                         throw new NotSupportedException("Cannot divide by zero");
                     }
-                    return a / b;
+                    return (int)Math.Ceiling((double)a / b);
             }
             return 0;
         }
@@ -162,6 +162,8 @@ namespace IPFEngine.Evaluator
 
         public static bool EvaluateLogic(string[] Tokens, IEnumerable<IPFValue> Vars)
         {
+            // If there are no tokens, logic is false
+            if (Tokens.Length == 0) return false;
             // Split token list at AND boundaries
             var AndItems = Tokens.Split("AND");
 
