@@ -6,35 +6,33 @@ using System.Linq;
 
 string text = File.ReadAllText(@"..\..\..\us_fees.ipf");
 var p = new IPFParser(text);
-var (Variables, Fees) = p.Parse();
+bool IsSuccessul = p.Parse();
 
-Console.WriteLine("PARSED VARIABLES ===============================================".Pastel(ConsoleColor.Yellow));
-foreach (var v in Variables)
+if (IsSuccessul)
 {
-    Console.WriteLine(v);
-}
+    Console.WriteLine("PARSED VARIABLES ===============================================".Pastel(ConsoleColor.Yellow));
+    foreach (var v in p.GetVariables())
+    {
+        Console.WriteLine(v);
+    }
 
-Console.WriteLine();
-Console.WriteLine("PARSED FEES: ===================================================".Pastel(ConsoleColor.Yellow));
-foreach (var f in Fees)
-{
-    Console.WriteLine(f);
-}
-Console.WriteLine();
-Console.WriteLine("SEMANTIC CHECK: =========================================".Pastel(ConsoleColor.Yellow));
-var ck = IPFSemanticChecker.Check(Variables, Fees);
-if (!ck.Any())
-{
-    Console.WriteLine("No errors detected");
+    Console.WriteLine();
+    Console.WriteLine("PARSED FEES: ===================================================".Pastel(ConsoleColor.Yellow));
+    foreach (var f in p.GetFees())
+    {
+        Console.WriteLine(f);
+    }
 }
 else
 {
     Console.WriteLine("Errors detected:");
-    foreach (var e in ck)
+    foreach (var e in p.GetErrors())
     {
         Console.WriteLine(e);
     }
+    return;
 }
+
 Console.WriteLine();
 Console.WriteLine("FEE COMPUTATION: ========================================".Pastel(ConsoleColor.Yellow));
 var vars = new IPFValue[] {
@@ -52,7 +50,7 @@ foreach(var v in vars)
 Console.WriteLine();
 
 int TotalAmount = 0;
-foreach (var fee in Fees)
+foreach (var fee in p.GetFees())
 {
     Console.WriteLine("COMPUTING FEE [{0}]".Pastel(ConsoleColor.White), fee.Name);
     int Amount = 0;
