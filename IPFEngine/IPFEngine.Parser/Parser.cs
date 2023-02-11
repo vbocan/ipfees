@@ -230,8 +230,6 @@ namespace IPFEngine.Parser
             switch (CurrentlyParsing)
             {
                 case Parsing.List:
-                    if (CurrentList.Items.Count == 0) throw new NotSupportedException(string.Format("Variable [{0}] must have at least one value item.", CurrentList.Name));
-                    if (!CurrentList.Items.Any(a=>a.Symbol == CurrentList.DefaultSymbol)) throw new NotSupportedException(string.Format("Default value for variable [{0}] is [{1}] but it is not defined as one of the value items.", CurrentList.Name, CurrentList.DefaultSymbol));
                     Variables.Add(CurrentList);
                     CurrentlyParsing = Parsing.None;
                     return true;
