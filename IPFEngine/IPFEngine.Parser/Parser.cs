@@ -17,8 +17,9 @@ namespace IPFEngine.Parser
         private IPFFee CurrentFee { get; set; } = new IPFFee(string.Empty, new List<IPFItem>());
         private IPFFeeCase CurrentFeeCase { get; set; } = new IPFFeeCase(Enumerable.Empty<string>(), new List<IPFFeeYield>());
 
-        private IList<IPFVariable> Variables { get; set; } = new List<IPFVariable>();
-        private IList<IPFFee> Fees { get; set; } = new List<IPFFee>();
+        private IList<IPFVariable> IPFVariables = new List<IPFVariable>();
+        private IList<IPFFee> IPFFees = new List<IPFFee>();
+        private IList<string> IPFErrors = new List<string>();
 
 
         public IPFParser(string source)
@@ -26,7 +27,7 @@ namespace IPFEngine.Parser
             IPFData = source.Split(new string[] { Environment.NewLine }, StringSplitOptions.None);
         }
 
-        public (IEnumerable<IPFVariable>, IEnumerable<IPFFee>) Parse()
+        public bool Parse()
         {
             Func<string[], bool>[] IPFParsers = new Func<string[], bool>[]
             {
@@ -68,11 +69,38 @@ namespace IPFEngine.Parser
                 // If the line hasn't been parsed until now, it's something wrong with it
                 if (!LineParsed)
                 {
-                    Console.WriteLine("Error: Line {0} is invalid", i + 1);
+                    IPFErrors.Add(string.Format("Syntax Error: Line {0} is invalid", i + 1));
                     break;
                 }
             }
-            return (Variables, Fees);
+
+            if (IPFErrors.Count > 0) return false;
+
+            // Perform semantic checking
+            var errs = IPFSemanticChecker.Check(IPFVariables, IPFFees);
+            if (errs.Any())
+            {
+                foreach (var e in errs) IPFErrors.Add(e);
+                return false;
+            }
+
+            return true;
+        }
+
+        public IEnumerable<IPFVariable> GetVariables()
+        {
+            if (IPFErrors.Count > 0) throw new NotSupportedException("Unable to access variables. Check the error list.");
+            return IPFVariables;
+        }
+
+        public IEnumerable<IPFFee> GetFees()
+        {
+            if (IPFErrors.Count > 0) throw new NotSupportedException("Unable to access fees. Check the error list.");
+            return IPFFees;
+        }
+        public IEnumerable<string> GetErrors()
+        {            
+            return IPFErrors;
         }
 
         #region Tokenization
@@ -106,7 +134,7 @@ namespace IPFEngine.Parser
                         yield return token;
                         token = string.Empty;
                     }
-                    yield return c.ToString();                    
+                    yield return c.ToString();
                 }
                 else if (c == ' ' && !inQuote)
                 {
@@ -230,15 +258,15 @@ namespace IPFEngine.Parser
             switch (CurrentlyParsing)
             {
                 case Parsing.List:
-                    Variables.Add(CurrentList);
+                    IPFVariables.Add(CurrentList);
                     CurrentlyParsing = Parsing.None;
                     return true;
                 case Parsing.Boolean:
-                    Variables.Add(CurrentBoolean);
+                    IPFVariables.Add(CurrentBoolean);
                     CurrentlyParsing = Parsing.None;
                     return true;
                 case Parsing.Number:
-                    Variables.Add(CurrentNumber);
+                    IPFVariables.Add(CurrentNumber);
                     CurrentlyParsing = Parsing.None;
                     return true;
             }
@@ -290,8 +318,9 @@ namespace IPFEngine.Parser
                 var ConditionTokens = tokens.AsEnumerable().Reverse().TakeWhile(w => !w.Equals("IF")).Reverse();
                 var Yield = new IPFFeeYield(ConditionTokens, ValueTokens);
                 CurrentFeeCase.Yields.Add(Yield);
-            } else
-            {                
+            }
+            else
+            {
                 var Yield = new IPFFeeYield(Enumerable.Empty<string>(), ValueTokens);
                 CurrentFeeCase.Yields.Add(Yield);
             }
@@ -319,7 +348,7 @@ namespace IPFEngine.Parser
             {
                 CurrentFee.Cases.Add(CurrentFeeCase);
             }
-            Fees.Add(CurrentFee);
+            IPFFees.Add(CurrentFee);
             CurrentFeeCase = new IPFFeeCase(Enumerable.Empty<string>(), new List<IPFFeeYield>());
             CurrentlyParsing = Parsing.None;
             return true;
