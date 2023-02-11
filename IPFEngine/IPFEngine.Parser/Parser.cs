@@ -230,6 +230,8 @@ namespace IPFEngine.Parser
             switch (CurrentlyParsing)
             {
                 case Parsing.List:
+                    if (CurrentList.Items.Count == 0) throw new NotSupportedException(string.Format("Variable [{0}] must have at least one value item.", CurrentList.Name));
+                    if (!CurrentList.Items.Any(a=>a.Symbol == CurrentList.DefaultSymbol)) throw new NotSupportedException(string.Format("Default value for variable [{0}] is [{1}] but it is not defined as one of the value items.", CurrentList.Name, CurrentList.DefaultSymbol));
                     Variables.Add(CurrentList);
                     CurrentlyParsing = Parsing.None;
                     return true;
@@ -284,10 +286,17 @@ namespace IPFEngine.Parser
             if (tokens[0] != "YIELD") return false;
             // The yield value is comprised of all tokens until "IF" (will be evaluated)
             var ValueTokens = tokens.AsEnumerable().Skip(1).TakeWhile(w => !w.Equals("IF"));
-            // The condition is comprised of all tokens until "IF"
-            var ConditionTokens = tokens.AsEnumerable().Reverse().TakeWhile(w => !w.Equals("IF")).Reverse();
-            var Yield = new IPFFeeYield(ConditionTokens, ValueTokens);
-            CurrentFeeCase.Yields.Add(Yield);
+            // The condition is comprised of all tokens until "IF" or is TRUE if no IF token is found
+            if (tokens.Any(a => a.Equals("IF")))
+            {
+                var ConditionTokens = tokens.AsEnumerable().Reverse().TakeWhile(w => !w.Equals("IF")).Reverse();
+                var Yield = new IPFFeeYield(ConditionTokens, ValueTokens);
+                CurrentFeeCase.Yields.Add(Yield);
+            } else
+            {                
+                var Yield = new IPFFeeYield(Enumerable.Empty<string>(), ValueTokens);
+                CurrentFeeCase.Yields.Add(Yield);
+            }
             return true;
         }
 
