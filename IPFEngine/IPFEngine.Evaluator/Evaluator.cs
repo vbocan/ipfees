@@ -115,8 +115,13 @@ namespace IPFEngine.Evaluator
 
         private static bool EvaluateLogicItem(string[] Tokens, IEnumerable<IPFValue> Vars)
         {
-            if (Tokens.Length <= 2) throw new NotSupportedException("Invalid logic");
+            if (Tokens.Length < 1) throw new NotSupportedException("Invalid logic");
 
+            // Case 1: We have a <boolean value> in the form of TRUE or FALSE
+            var IsPlainBoolean = bool.TryParse(Tokens[0], out bool PlainBooleanValue);
+            if (IsPlainBoolean) return PlainBooleanValue;
+
+            // Case 2: We have a <variable> followed by one of the operators (ABOVE, BELOW, EQUALS)
             var CurrentVariable = Vars.SingleOrDefault(w => w.Name.Equals(Tokens[0]));
             if (CurrentVariable == null) throw new NotSupportedException(string.Format("Variable [{0}] was not found.", Tokens[0]));
 
@@ -162,8 +167,8 @@ namespace IPFEngine.Evaluator
 
         public static bool EvaluateLogic(string[] Tokens, IEnumerable<IPFValue> Vars)
         {
-            // If there are no tokens, logic is false
-            if (Tokens.Length == 0) return false;
+            // If there are no tokens, logic is true
+            if (Tokens.Length == 0) return true;
             // Split token list at AND boundaries
             var AndItems = Tokens.Split("AND");
 
