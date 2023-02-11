@@ -70,7 +70,7 @@ foreach (var fee in Fees)
         {
             var cond_b = IPFEvaluator.EvaluateLogic(b.Condition.ToArray(), vars);
             var val_b = IPFEvaluator.EvaluateExpression(b.Values.ToArray(), vars);
-            Console.WriteLine("Condition: [{0}] is [{1}]", string.Join(" ", b.Condition), cond_b);
+            if (b.Condition.Count() > 0) Console.WriteLine("Condition: [{0}] is [{1}]", string.Join(" ", b.Condition), cond_b);
             if (cond_b)
             {
                 Amount += val_b;
