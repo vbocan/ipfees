@@ -30,10 +30,20 @@ namespace IPFEngine.Parser
             }
 
             // List variables should not:
+            // - have zero symbols
+            // - have no default symbol
             // - have duplicate symbols
             // - have the default value other than the defined symbols
             // - have the same symbol defined in multiple variables 
             var VarList = IPFVars.OfType<IPFVariableList>();
+            foreach (var er in VarList.Where(vl => vl.Items.Count == 0).Select(s => s.Name))
+            {
+                yield return string.Format("Variable [{0}] has no associated symbols.", er);
+            }
+            foreach (var er in VarList.Where(vl => string.IsNullOrEmpty(vl.DefaultSymbol)).Select(s => s.Name))
+            {
+                yield return string.Format("Variable [{0}] has no default symbol.", er);
+            }
             foreach (var er in VarList.Where(vl => vl.Items.Count != vl.Items.Select(s => s.Symbol).Distinct().Count()).Select(s => s.Name))
             {
                 yield return string.Format("Duplicate symbols at variable [{0}].", er);

@@ -18,7 +18,7 @@ namespace IPFEngine.Tests
             """;
             var p = new IPFParser(text);
             var (vars, fees) = p.Parse();
-            var ck = IPFSemanticChecker.Check(vars, fees);                       
+            var ck = IPFSemanticChecker.Check(vars, fees);
             Assert.Empty(ck);
         }
 
@@ -74,6 +74,20 @@ namespace IPFEngine.Tests
         }
 
         [Fact]
+        public void TestListNoValues()
+        {
+            string text =
+            """
+            DEFINE LIST EntityType AS 'Select the desired entity type'
+            ENDDEFINE
+            """;
+            var p = new IPFParser(text);
+            var (vars, fees) = p.Parse();
+            var ck = IPFSemanticChecker.Check(vars, fees);
+            Assert.Equal(3, ck.Count());
+        }
+
+        [Fact]
         public void TestListDuplicateSymbolInMultipleVariables()
         {
             string text =
@@ -106,7 +120,7 @@ namespace IPFEngine.Tests
             """;
             var p = new IPFParser(text);
             var (vars, fees) = p.Parse();
-            var ck = IPFSemanticChecker.Check(vars, fees);            
+            var ck = IPFSemanticChecker.Check(vars, fees);
             Assert.Empty(ck);
         }
 
@@ -123,7 +137,7 @@ namespace IPFEngine.Tests
             var p = new IPFParser(text);
             var (vars, fees) = p.Parse();
             var ck = IPFSemanticChecker.Check(vars, fees);
-            Assert.Single(ck);            
+            Assert.Single(ck);
         }
 
         [Fact]
