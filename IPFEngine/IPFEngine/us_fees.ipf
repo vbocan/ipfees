@@ -1,15 +1,15 @@
 ﻿DEFINE LIST EntityType AS 'Select the desired entity type'
-VALUE 'Normal' AS NormalEntity
-VALUE 'Small' AS SmallEntity
-VALUE 'Micro' AS MicroEntity
+CHOICE 'Normal' AS NormalEntity
+CHOICE 'Small' AS SmallEntity
+CHOICE 'Micro' AS MicroEntity
 DEFAULT NormalEntity
 ENDDEFINE
 
 DEFINE LIST SituationType AS 'Situation type'
-VALUE 'IRRP (Chapter II) prepared by the IPEA/US' AS PreparedIPEA
-VALUE 'International search fee paid as ISA' AS PaidAsISA
-VALUE 'Search report prepared by an ISA other than the US' AS PreparedISA
-VALUE 'All other situations' AS AllOtherSituations
+CHOICE 'IRRP (Chapter II) prepared by the IPEA/US' AS PreparedIPEA
+CHOICE 'International search fee paid as ISA' AS PaidAsISA
+CHOICE 'Search report prepared by an ISA other than the US' AS PreparedISA
+CHOICE 'All other situations' AS AllOtherSituations
 DEFAULT PreparedIPEA
 ENDDEFINE
 
