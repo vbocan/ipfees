@@ -5,6 +5,9 @@ namespace IPFees.Web.Pages
 {
     public class IndexModel : PageModel
     {
+        [BindProperty]
+        public string Code { get; set; }
+
         private readonly ILogger<IndexModel> _logger;
 
         public IndexModel(ILogger<IndexModel> logger)
@@ -15,6 +18,14 @@ namespace IPFees.Web.Pages
         public void OnGet()
         {
 
+        }
+
+        public void OnPost()
+        {
+            if (!string.IsNullOrEmpty(Code))
+            {
+                // Process the code here
+            }
         }
     }
 }
