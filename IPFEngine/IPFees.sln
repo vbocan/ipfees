@@ -5,9 +5,11 @@ VisualStudioVersion = 17.4.33213.308
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IPFees", "IPFEngine\IPFees.csproj", "{1CE98023-7B16-4C35-8923-3EFC853CABF1}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IPFEngine.Tests", "IPFEngine.Tests\IPFEngine.Tests.csproj", "{8D533AC5-F577-46D7-B547-3180CD6FD5AA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IPFFees.Tests", "IPFEngine.Tests\IPFFees.Tests.csproj", "{8D533AC5-F577-46D7-B547-3180CD6FD5AA}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IPFees.Core", "IPFEngine.Calculator\IPFees.Core.csproj", "{E1F74788-B3B7-459C-9094-F93682FBB379}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IPFees.Web", "IPFees.Web\IPFees.Web.csproj", "{6306E034-C104-41D3-8219-9DB9E337AF92}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,6 +29,10 @@ Global
 		{E1F74788-B3B7-459C-9094-F93682FBB379}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E1F74788-B3B7-459C-9094-F93682FBB379}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E1F74788-B3B7-459C-9094-F93682FBB379}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6306E034-C104-41D3-8219-9DB9E337AF92}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6306E034-C104-41D3-8219-9DB9E337AF92}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6306E034-C104-41D3-8219-9DB9E337AF92}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6306E034-C104-41D3-8219-9DB9E337AF92}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
