@@ -1,18 +1,14 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <OutputType>Exe</OutputType>
     <TargetFramework>net7.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Pastel" Version="4.1.0" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\IPFEngine.Calculator\IPFEngine.Calculator.csproj" />
+    <ProjectReference Include="..\IPFEngine.Evaluator\IPFEngine.Evaluator.csproj" />
+    <ProjectReference Include="..\IPFEngine.Parser\IPFEngine.Parser.csproj" />
   </ItemGroup>
 
 </Project>
