@@ -1,5 +1,5 @@
-﻿using IPFEngine.Calculator;
-using IPFEngine.Evaluator;
+﻿using IPFees.Calculator;
+using IPFees.Evaluator;
 using Pastel;
 using System.Drawing;
 using System.Linq;

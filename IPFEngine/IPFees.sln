@@ -3,18 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.4.33213.308
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IPFEngine", "IPFEngine\IPFEngine.csproj", "{1CE98023-7B16-4C35-8923-3EFC853CABF1}"
-	ProjectSection(ProjectDependencies) = postProject
-		{2A15BE8A-6585-459F-BD54-9E20A8F7A8E0} = {2A15BE8A-6585-459F-BD54-9E20A8F7A8E0}
-	EndProjectSection
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IPFEngine.Parser", "IPFEngine.Parser\IPFEngine.Parser.csproj", "{2A15BE8A-6585-459F-BD54-9E20A8F7A8E0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IPFees", "IPFEngine\IPFees.csproj", "{1CE98023-7B16-4C35-8923-3EFC853CABF1}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IPFEngine.Tests", "IPFEngine.Tests\IPFEngine.Tests.csproj", "{8D533AC5-F577-46D7-B547-3180CD6FD5AA}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IPFEngine.Evaluator", "IPFEngine.Evaluator\IPFEngine.Evaluator.csproj", "{42816B1D-A05D-4682-A6F5-D6A9C5CC7622}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IPFEngine.Calculator", "IPFEngine.Calculator\IPFEngine.Calculator.csproj", "{E1F74788-B3B7-459C-9094-F93682FBB379}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IPFees.Core", "IPFEngine.Calculator\IPFees.Core.csproj", "{E1F74788-B3B7-459C-9094-F93682FBB379}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -26,18 +19,10 @@ Global
 		{1CE98023-7B16-4C35-8923-3EFC853CABF1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1CE98023-7B16-4C35-8923-3EFC853CABF1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1CE98023-7B16-4C35-8923-3EFC853CABF1}.Release|Any CPU.Build.0 = Release|Any CPU
-		{2A15BE8A-6585-459F-BD54-9E20A8F7A8E0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{2A15BE8A-6585-459F-BD54-9E20A8F7A8E0}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{2A15BE8A-6585-459F-BD54-9E20A8F7A8E0}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{2A15BE8A-6585-459F-BD54-9E20A8F7A8E0}.Release|Any CPU.Build.0 = Release|Any CPU
 		{8D533AC5-F577-46D7-B547-3180CD6FD5AA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{8D533AC5-F577-46D7-B547-3180CD6FD5AA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8D533AC5-F577-46D7-B547-3180CD6FD5AA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8D533AC5-F577-46D7-B547-3180CD6FD5AA}.Release|Any CPU.Build.0 = Release|Any CPU
-		{42816B1D-A05D-4682-A6F5-D6A9C5CC7622}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{42816B1D-A05D-4682-A6F5-D6A9C5CC7622}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{42816B1D-A05D-4682-A6F5-D6A9C5CC7622}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{42816B1D-A05D-4682-A6F5-D6A9C5CC7622}.Release|Any CPU.Build.0 = Release|Any CPU
 		{E1F74788-B3B7-459C-9094-F93682FBB379}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{E1F74788-B3B7-459C-9094-F93682FBB379}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E1F74788-B3B7-459C-9094-F93682FBB379}.Release|Any CPU.ActiveCfg = Release|Any CPU
