@@ -12,9 +12,9 @@ namespace IPFEngine.Tests
             string text =
             """
             COMPUTE FEE BasicNationalFee
-            YIELD 320 IF EntityType IS NormalEntity
-            YIELD 128 IF EntityType IS SmallEntity 
-            YIELD 64 IF EntityType IS MicroEntity
+            YIELD 320 IF EntityType EQUALS NormalEntity
+            YIELD 128 IF EntityType EQUALS SmallEntity 
+            YIELD 64 IF EntityType EQUALS MicroEntity
             ENDCOMPUTE
             """;
             var p = new IPFParser(text);
@@ -36,17 +36,17 @@ namespace IPFEngine.Tests
             string text =
             """
             COMPUTE FEE SearchFee
-            CASE SituationType IS PreparedIPEA AS
-            	YIELD 0 IF EntityType IS NormalEntity
-            	YIELD 0 IF EntityType IS SmallEntity
-            	YIELD 0 IF EntityType IS MicroEntity
+            CASE SituationType EQUALS PreparedIPEA AS
+            	YIELD 0 IF EntityType EQUALS NormalEntity
+            	YIELD 0 IF EntityType EQUALS SmallEntity
+            	YIELD 0 IF EntityType EQUALS MicroEntity
             ENDCASE
-            CASE SituationType IS PaidAsISA OR SituationType IS DeliveredAsISA AS
-            	YIELD 140 IF EntityType IS NormalEntity
-            	YIELD 56 IF EntityType IS SmallEntity            	
+            CASE SituationType EQUALS PaidAsISA OR SituationType EQUALS DeliveredAsISA AS
+            	YIELD 140 IF EntityType EQUALS NormalEntity
+            	YIELD 56 IF EntityType EQUALS SmallEntity            	
             ENDCASE
-            CASE SituationType IS PreparedISA AS
-            	YIELD 540 IF EntityType IS NormalEntity            	            	
+            CASE SituationType EQUALS PreparedISA AS
+            	YIELD 540 IF EntityType EQUALS NormalEntity            	            	
             ENDCASE            
             ENDCOMPUTE
             """;
@@ -75,14 +75,14 @@ namespace IPFEngine.Tests
             string text =
             """
             COMPUTE FEE ExaminationFee
-            CASE SituationType IS PreparedIPEA AS
-            	YIELD 0 IF EntityType IS NormalEntity
-            	YIELD 0 IF EntityType IS SmallEntity
-            	YIELD 0 IF EntityType IS MicroEntity
+            CASE SituationType EQUALS PreparedIPEA AS
+            	YIELD 0 IF EntityType EQUALS NormalEntity
+            	YIELD 0 IF EntityType EQUALS SmallEntity
+            	YIELD 0 IF EntityType EQUALS MicroEntity
             ENDCASE
-            YIELD 800 IF EntityType IS NormalEntity
-            YIELD 360 IF EntityType IS SmallEntity
-            YIELD 160 IF EntityType IS MicroEntity
+            YIELD 800 IF EntityType EQUALS NormalEntity
+            YIELD 360 IF EntityType EQUALS SmallEntity
+            YIELD 160 IF EntityType EQUALS MicroEntity
             ENDCOMPUTE
             """;
             var p = new IPFParser(text);
