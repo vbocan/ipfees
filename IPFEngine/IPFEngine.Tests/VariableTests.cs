@@ -12,15 +12,15 @@ namespace IPFEngine.Tests
             """
             # Define a list variable
             DEFINE LIST EntityType AS 'Entity type'
-            VALUE 'Normal' AS NormalEntity
-            VALUE 'Small' AS SmallEntity
-            VALUE 'Micro' AS MicroEntity
+            CHOICE 'Normal' AS NormalEntity
+            CHOICE 'Small' AS SmallEntity
+            CHOICE 'Micro' AS MicroEntity
             DEFAULT NormalEntity
             ENDDEFINE
             """;
             var p = new IPFParser(text);
-            var (vars, _) = p.Parse();
-            var result = (IPFVariableList?)vars.SingleOrDefault();
+            var _ = p.Parse();
+            var result = (IPFVariableList?)p.GetVariables().SingleOrDefault();
             Assert.NotNull(result);
             Assert.Equal("EntityType", result.Name);
             Assert.Equal("Entity type", result.Text);
@@ -43,8 +43,8 @@ namespace IPFEngine.Tests
             ENDDEFINE
             """;
             var p = new IPFParser(text);
-            var (vars, _) = p.Parse();
-            var result = (IPFVariableNumber?)vars.SingleOrDefault();
+            var _ = p.Parse();
+            var result = (IPFVariableNumber?)p.GetVariables().SingleOrDefault();
             Assert.NotNull(result);
             Assert.Equal("ClaimCount", result.Name);
             Assert.Equal("Number of claims", result.Text);
@@ -64,8 +64,8 @@ namespace IPFEngine.Tests
             ENDDEFINE
             """;
             var p = new IPFParser(text);
-            var (vars, _) = p.Parse();
-            var result = (IPFVariableBoolean?)vars.SingleOrDefault();
+            var _ = p.Parse();
+            var result = (IPFVariableBoolean?)p.GetVariables().SingleOrDefault();
             Assert.NotNull(result);
             Assert.Equal("ContainsDependentClaims", result.Name);
             Assert.Equal("Contains dependent claims", result.Text);

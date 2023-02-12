@@ -19,7 +19,7 @@ namespace IPFEngine.Parser
 
         private IList<IPFVariable> IPFVariables = new List<IPFVariable>();
         private IList<IPFFee> IPFFees = new List<IPFFee>();
-        private IList<string> IPFErrors = new List<string>();
+        private IList<(IPFError, string)> IPFErrors = new List<(IPFError, string)>();
 
 
         public IPFParser(string source)
@@ -32,7 +32,7 @@ namespace IPFEngine.Parser
             Func<string[], bool>[] IPFParsers = new Func<string[], bool>[]
             {
                 ParseList,
-                ParseListValue,
+                ParseListChoice,
                 ParseListDefaultValue,
                 ParseNumber,
                 ParseNumberBetween,
@@ -69,7 +69,7 @@ namespace IPFEngine.Parser
                 // If the line hasn't been parsed until now, it's something wrong with it
                 if (!LineParsed)
                 {
-                    IPFErrors.Add(string.Format("Syntax Error: Line {0} is invalid", i + 1));
+                    IPFErrors.Add((IPFError.SyntaxError, string.Format("Line {0} is invalid", i + 1)));
                     break;
                 }
             }
@@ -98,7 +98,7 @@ namespace IPFEngine.Parser
             if (IPFErrors.Count > 0) throw new NotSupportedException("Unable to access fees. Check the error list.");
             return IPFFees;
         }
-        public IEnumerable<string> GetErrors()
+        public IEnumerable<(IPFError, string)> GetErrors()
         {            
             return IPFErrors;
         }
@@ -169,11 +169,11 @@ namespace IPFEngine.Parser
             return true;
         }
 
-        bool ParseListValue(string[] tokens)
+        bool ParseListChoice(string[] tokens)
         {
             if (CurrentlyParsing != Parsing.List) return false;
             if (tokens.Length != 4) return false;
-            if (tokens[0] != "VALUE") return false;
+            if (tokens[0] != "CHOICE") return false;
             if (tokens[2] != "AS") return false;
             var item = new IPFListItem(tokens[3], tokens[1]);
             CurrentList.Items.Add(item);

@@ -1,5 +1,6 @@
 using IPFEngine.Parser;
 using Newtonsoft.Json.Linq;
+using System.Linq;
 
 namespace IPFEngine.Tests
 {
@@ -17,8 +18,8 @@ namespace IPFEngine.Tests
             ENDCOMPUTE
             """;
             var p = new IPFParser(text);
-            var (_, fees) = p.Parse();
-            var result = (IPFFee?)fees.SingleOrDefault();
+            var _ = p.Parse();
+            var result = p.GetFees().SingleOrDefault();
             Assert.NotNull(result);
             Assert.Equal("BasicNationalFee", result.Name);                        
             Assert.Equal(1, result.Cases.Count);
@@ -50,8 +51,8 @@ namespace IPFEngine.Tests
             ENDCOMPUTE
             """;
             var p = new IPFParser(text);
-            var (_, fees) = p.Parse();
-            var result = (IPFFee?)fees.SingleOrDefault();
+            var _ = p.Parse();
+            var result = p.GetFees().SingleOrDefault();
             Assert.NotNull(result);
             Assert.Equal("SearchFee", result.Name);
             Assert.Equal(3, result.Cases.Count);
@@ -85,8 +86,8 @@ namespace IPFEngine.Tests
             ENDCOMPUTE
             """;
             var p = new IPFParser(text);
-            var (_, fees) = p.Parse();
-            var result = (IPFFee?)fees.SingleOrDefault();
+            var _ = p.Parse();
+            var result = p.GetFees().SingleOrDefault();
             Assert.NotNull(result);
             Assert.Equal("ExaminationFee", result.Name);
             Assert.Equal(2, result.Cases.Count);
