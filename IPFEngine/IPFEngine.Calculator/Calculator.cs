@@ -40,7 +40,7 @@ namespace IPFEngine.Calculator
                     {
                         var cond_b = IPFEvaluator.EvaluateLogic(b.Condition.ToArray(), vars);
                         var val_b = IPFEvaluator.EvaluateExpression(b.Values.ToArray(), vars);
-                        if (b.Condition.Count() > 0) ComputeSteps.Add(string.Format("Condition: [{0}] is [{1}]", string.Join(" ", b.Condition), cond_b));
+                        if (b.Condition.Any()) ComputeSteps.Add(string.Format("Condition: [{0}] is [{1}]", string.Join(" ", b.Condition), cond_b));
                         if (cond_b)
                         {
                             CurrentAmount += val_b;
