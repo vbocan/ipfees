@@ -1,8 +1,8 @@
-using IPFEngine.Evaluator;
-using IPFEngine.Parser;
+using IPFees.Evaluator;
+using IPFees.Parser;
 using Newtonsoft.Json.Linq;
 
-namespace IPFEngine.Tests
+namespace IPFees.Tests
 {
     public class EvaluatorTests
     {

@@ -22,9 +22,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\IPFEngine.Calculator\IPFEngine.Calculator.csproj" />
-    <ProjectReference Include="..\IPFEngine.Evaluator\IPFEngine.Evaluator.csproj" />
-    <ProjectReference Include="..\IPFEngine.Parser\IPFEngine.Parser.csproj" />
+    <ProjectReference Include="..\IPFEngine.Calculator\IPFees.Core.csproj" />
   </ItemGroup>
 
 </Project>

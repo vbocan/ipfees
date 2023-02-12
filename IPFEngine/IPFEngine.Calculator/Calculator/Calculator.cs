@@ -1,7 +1,7 @@
-﻿using IPFEngine.Evaluator;
-using IPFEngine.Parser;
+﻿using IPFees.Evaluator;
+using IPFees.Parser;
 
-namespace IPFEngine.Calculator
+namespace IPFees.Calculator
 {
     public class IPFCalculator
     {

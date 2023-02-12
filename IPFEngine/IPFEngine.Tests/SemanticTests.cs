@@ -1,6 +1,6 @@
-using IPFEngine.Parser;
+using IPFees.Parser;
 
-namespace IPFEngine.Tests
+namespace IPFees.Tests
 {
     public class SemanticTests
     {

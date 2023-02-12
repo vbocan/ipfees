@@ -1,8 +1,8 @@
-using IPFEngine.Parser;
+using IPFees.Parser;
 using Newtonsoft.Json.Linq;
 using System.Linq;
 
-namespace IPFEngine.Tests
+namespace IPFees.Tests
 {
     public class FeeTests
     {
