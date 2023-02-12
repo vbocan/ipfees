@@ -1,24 +1,25 @@
-﻿using IPFEngine.Evaluator;
-using IPFEngine.Parser;
+﻿using IPFEngine.Calculator;
+using IPFEngine.Evaluator;
 using Pastel;
 using System.Drawing;
 using System.Linq;
 
 string text = File.ReadAllText(@"..\..\..\us_fees.ipf");
-var p = new IPFParser(text);
-bool IsSuccessul = p.Parse();
 
-if (IsSuccessul)
+var calc = new IPFCalculator(text);
+var CalcErrors = calc.GetErrors();
+
+if (CalcErrors.Count() == 0)
 {
     Console.WriteLine("PARSED VARIABLES ===============================================".Pastel(ConsoleColor.Yellow));
-    foreach (var v in p.GetVariables())
+    foreach (var v in calc.GetVariables())
     {
         Console.WriteLine(v);
     }
 
     Console.WriteLine();
     Console.WriteLine("PARSED FEES: ===================================================".Pastel(ConsoleColor.Yellow));
-    foreach (var f in p.GetFees())
+    foreach (var f in calc.GetFees())
     {
         Console.WriteLine(f);
     }
@@ -26,7 +27,7 @@ if (IsSuccessul)
 else
 {
     Console.WriteLine("Errors detected:");
-    foreach (var e in p.GetErrors())
+    foreach (var e in calc.GetErrors())
     {
         Console.WriteLine(e);
     }
@@ -43,42 +44,18 @@ var vars = new IPFValue[] {
 };
 
 Console.WriteLine("Input variables:".Pastel(ConsoleColor.White));
-foreach(var v in vars)
+foreach (var v in vars)
 {
     Console.WriteLine(v.ToString().Pastel(ConsoleColor.Cyan));
 }
 Console.WriteLine();
 
-int TotalAmount = 0;
-foreach (var fee in p.GetFees())
-{
-    Console.WriteLine("COMPUTING FEE [{0}]".Pastel(ConsoleColor.White), fee.Name);
-    int Amount = 0;
-    Console.WriteLine("Amount is initially {0}", Amount);
-    foreach (IPFFeeCase fc in fee.Cases)
-    {
-        var case_cond = (fc.Condition.Count() == 0) ? true : IPFEvaluator.EvaluateLogic(fc.Condition.ToArray(), vars);
-        if (!case_cond)
-        {
-            Console.WriteLine("Condition [{0}] is FALSE, skipping", string.Join(" ", fc.Condition));
-            continue;
-        }
-        if(fc.Condition.Count() >0) Console.WriteLine("Condition [{0}] is TRUE, proceeding with evaluating individual expressions", string.Join(" ", fc.Condition));
-        foreach (var b in fc.Yields)
-        {
-            var cond_b = IPFEvaluator.EvaluateLogic(b.Condition.ToArray(), vars);
-            var val_b = IPFEvaluator.EvaluateExpression(b.Values.ToArray(), vars);
-            if (b.Condition.Count() > 0) Console.WriteLine("Condition: [{0}] is [{1}]", string.Join(" ", b.Condition), cond_b);
-            if (cond_b)
-            {
-                Amount += val_b;
-                Console.WriteLine("After evaluating expression [{0}], the amount is {1}", string.Join(" ", b.Values), Amount);
-            }
-        }
-    }
-    Console.WriteLine("Finally, the amount for fee {0} is {1}".Pastel(ConsoleColor.White), fee.Name, Amount);
-    Console.WriteLine();
-    TotalAmount += Amount;
-}
+var (TotalAmount, CalculationSteps) = calc.Compute(vars);
 
 Console.WriteLine("Total amount (for all fees): {0}".Pastel(Color.White).PastelBg(Color.Red), TotalAmount);
+
+Console.WriteLine("CALCULATION STEPS: ======================================".Pastel(ConsoleColor.Yellow));
+foreach (var s in CalculationSteps)
+{
+    Console.WriteLine(s);
+}
