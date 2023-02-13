@@ -3,17 +3,19 @@ using IPFees.Parser;
 
 namespace IPFees.Calculator
 {
-    public class IPFCalculator
+    public class IPFCalculator : IIPFCalculator
     {
-        private readonly IPFParser parser;        
+        private IPFParser parser;
+        
+        public IPFCalculator() { }
 
-        public IPFCalculator(string text)
+        public bool Parse(string text)
         {
             parser = new IPFParser(text);
-            parser.Parse();
+            return parser.Parse();
         }
-        
-        public IEnumerable<(IPFError, string)> GetErrors() => parser.GetErrors();
+
+        public IEnumerable<string> GetErrors() => parser.GetErrors().Select(s => s.Item2);
         public IEnumerable<IPFVariable> GetVariables() => parser.GetVariables();
         public IEnumerable<IPFFee> GetFees() => parser.GetFees();
 
@@ -48,7 +50,7 @@ namespace IPFees.Calculator
                         }
                     }
                 }
-                ComputeSteps.Add(string.Format("The final amount for fee {0} is {1}", fee.Name, CurrentAmount));                
+                ComputeSteps.Add(string.Format("The final amount for fee {0} is {1}", fee.Name, CurrentAmount));
                 TotalAmount += CurrentAmount;
             }
             ComputeSteps.Add(string.Format("After summing all fees, the total amount is [{0}]", TotalAmount));

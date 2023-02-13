@@ -6,7 +6,8 @@ using System.Drawing;
 
 string text = File.ReadAllText(@"..\..\..\us_fees.ipf");
 
-var calc = new IPFCalculator(text);
+var calc = new IPFCalculator();
+calc.Parse(text);
 var CalcErrors = calc.GetErrors();
 
 if (CalcErrors.Count() == 0)

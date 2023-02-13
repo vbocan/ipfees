@@ -11,8 +11,27 @@
 
 <form method="post">
     <div class="form-group">
-        <label for="exampleFormControlTextarea1">Example textarea</label>
-        <textarea class="form-control" id="exampleFormControlTextarea1" rows="10"></textarea>
+        <label asp-for="Code">Example textarea</label>
+        <textarea asp-for="Code" class="form-control" rows="10"></textarea>
     </div>
     <button type="submit" class="btn btn-primary">Execute</button>
 </form>
+
+@if (Model.ParseErrors != null)
+{
+    <table class="table">
+        <thead>
+            <tr>                
+                <th scope="col">Errors</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var e in Model.ParseErrors)
+            {
+                <tr>                    
+                    <td>@e</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
