@@ -1,8 +1,5 @@
 using IPFees.Calculator;
 using IPFees.Evaluator;
-using IPFees.Parser;
-using Newtonsoft.Json.Linq;
-using System.Linq;
 
 namespace IPFees.Tests
 {

@@ -1,6 +1,4 @@
 using IPFees.Parser;
-using Newtonsoft.Json.Linq;
-using System.Linq;
 
 namespace IPFees.Tests
 {
