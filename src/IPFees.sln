@@ -9,7 +9,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IPFFees.Tests", "IPFees.Tes
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IPFees.Core", "IPFees.Core\IPFees.Core.csproj", "{E1F74788-B3B7-459C-9094-F93682FBB379}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IPFees.Web", "IPFees.Web\IPFees.Web.csproj", "{6306E034-C104-41D3-8219-9DB9E337AF92}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IPFees.Web", "IPFees.Web\IPFees.Web.csproj", "{6306E034-C104-41D3-8219-9DB9E337AF92}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

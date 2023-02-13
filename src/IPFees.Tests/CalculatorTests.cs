@@ -15,7 +15,8 @@ namespace IPFees.Tests
             """;
             var vars = Array.Empty<IPFValue>();
 
-            var calc = new IPFCalculator(text);
+            var calc = new IPFCalculator();
+            calc.Parse(text);
             var (TotalAmount, _) = calc.Compute(vars);
 
             Assert.Equal(0, TotalAmount);
@@ -33,7 +34,8 @@ namespace IPFees.Tests
             """;
             var vars = Array.Empty<IPFValue>();
 
-            var calc = new IPFCalculator(text);
+            var calc = new IPFCalculator();
+            calc.Parse(text);
             var (TotalAmount, _) = calc.Compute(vars);
 
             Assert.Equal(400, TotalAmount);
@@ -51,7 +53,8 @@ namespace IPFees.Tests
             """;
             var vars = Array.Empty<IPFValue>();
 
-            var calc = new IPFCalculator(text);
+            var calc = new IPFCalculator();
+            calc.Parse(text);
             var (TotalAmount, _) = calc.Compute(vars);
 
             Assert.Equal(400, TotalAmount);
@@ -72,7 +75,8 @@ namespace IPFees.Tests
                 new IPFValueString("EntityType", "NormalEntity"),
             };
 
-            var calc = new IPFCalculator(text);
+            var calc = new IPFCalculator();
+            calc.Parse(text);
             var (TotalAmount, _) = calc.Compute(vars);
 
             Assert.Equal(320, TotalAmount);
@@ -93,7 +97,8 @@ namespace IPFees.Tests
                 new IPFValueString("EntityType", "NormalEntity"),
             };
 
-            var calc = new IPFCalculator(text);
+            var calc = new IPFCalculator();
+            calc.Parse(text);
             var (TotalAmount, _) = calc.Compute(vars);
 
             Assert.Equal(4, TotalAmount);
@@ -115,7 +120,8 @@ namespace IPFees.Tests
                 new IPFValueNumber("A", 350),
             };
 
-            var calc = new IPFCalculator(text);
+            var calc = new IPFCalculator();
+            calc.Parse(text);
             var (TotalAmount, _) = calc.Compute(vars);
 
             Assert.Equal(10, TotalAmount);

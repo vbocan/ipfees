@@ -1,7 +1,10 @@
+using IPFees.Calculator;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorPages();
+builder.Services.AddTransient<IIPFCalculator, IPFCalculator>();
 
 var app = builder.Build();
 
