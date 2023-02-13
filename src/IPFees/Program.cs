@@ -2,7 +2,7 @@
 using IPFees.Evaluator;
 using Pastel;
 using System.Drawing;
-using System.Linq;
+
 
 string text = File.ReadAllText(@"..\..\..\us_fees.ipf");
 
