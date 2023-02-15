@@ -1,0 +1,32 @@
+﻿@page
+@model IPFees.Web.Pages.DataCollectModel
+@{
+}
+
+@*<h1>Dynamic Form</h1>
+
+<form asp-page="Result" asp-page-handler="Display" method="post">
+    @foreach (var field in Model.Fields)
+    {
+        <div class="form-group">
+            <label for="@field.Name">@field.Name</label>
+            <input type="@field.Type" class="form-control" id="@field.Name" name="@field.Name">
+        </div>
+    }
+    <button type="submit" class="btn btn-primary">Compute result</button>
+</form>*@
+
+<h1>Sample Form</h1>
+<form>
+    <div class="form-group">
+        <label>Browsers</label>
+        <select class="form-select form-select-lg mb-3" name="cars" id="cars">
+            <option selected value="volvo">Volvo</option>
+            <option value="saab">Saab</option>
+            <option value="mercedes">Mercedes</option>
+            <option value="audi">Audi</option>
+        </select>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Compute result</button>
+</form>
