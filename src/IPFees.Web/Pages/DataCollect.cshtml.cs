@@ -22,16 +22,9 @@ namespace IPFees.Web.Pages
 
         public void OnGet()
         {
-            var Code = (string)TempData["code"];
+            var Code = (string)TempData.Peek("code");
             _calc.Parse(Code);
-            Vars = _calc.GetVariables();
-            //var fees = _calc.GetFees();
-            //var vars = new IPFValue[] {
-            //    new IPFValueString("EntityType", "NormalEntity"),
-            //    new IPFValueString("SituationType", "PreparedISA"),
-            //    new IPFValueNumber("SheetCount", 120),
-            //    new IPFValueNumber("ClaimCount", 7),
-            //};            
+            Vars = _calc.GetVariables();            
         }
     }
 }
