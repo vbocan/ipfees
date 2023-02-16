@@ -1,43 +1,56 @@
 ﻿@page
-@model IPFees.Web.Pages.DataCollectModel
+@model DataCollectModel
 @{
 }
 
-@*<h1>Dynamic Form</h1>
-
+<h1>Form</h1>
 <form asp-page="Result" asp-page-handler="Display" method="post">
-    @foreach (var field in Model.Fields)
-    {
-        <div class="form-group">
-            <label for="@field.Name">@field.Name</label>
-            <input type="@field.Type" class="form-control" id="@field.Name" name="@field.Name">
-        </div>
-    }
-    <button type="submit" class="btn btn-primary">Compute result</button>
-</form>*@
-
-<h1>Sample Form</h1>
-<form>
     <div class="col-md-6">
-        <div class="mb-3">
-            <label class="form-label" for="cars">Browsers</label>
-            <select class="form-select form-select-lg mb-3" name="cars" id="cars" aria-describedby="browserHelp">
-                <option selected value="volvo">Volvo</option>
-                <option value="saab">Saab</option>
-                <option value="mercedes">Mercedes</option>
-                <option value="audi">Audi</option>
-            </select>
-            <div id="browserHelp" class="form-text">We'll never share your email with anyone else.</div>
-        </div>
-        <div class="mb-3 col-md-6">
-            <label class="form-label" for="quantity">Quantity (between 1 and 5):</label>
-            <input class="form-control" type="number" id="quantity" name="quantity" value="2" min="1" max="5">
-        </div>
-        <div class="mb-3 col-md-6 form-check">
-            <label class="form-check-label" for="vechicle3">I have a boat!</label>
-            <input class="form-check-input" type="checkbox" id="vehicle3" name="vehicle3" value="Boat" checked>
-        </div>
-
+        @foreach (var v in Model.Vars)
+        {
+            switch (v)
+            {
+                case IPFVariableList:
+                    var v1 = (IPFVariableList)v;
+                    <label class="form-label" for="@v1.Name">@v1.Text</label>
+                    <select class="form-select form-select-lg mb-3" name="@v1.Name" id="@v1.Name" aria-describedby="@v1.Name + " Help">
+                        @foreach (var item in v1.Items)
+                        {
+                            if (v1.DefaultSymbol.Equals(item.Symbol))
+                            {
+                                <option selected value="@item.Symbol">@item.Value</option>
+                            }
+                            else
+                            {
+                                <option value="@item.Symbol">@item.Value</option>
+                            }
+                        }
+                    </select>
+                    <div id="@v1.Name + " Help" class="form-text">We'll never share your email with anyone else.</div>
+                    break;
+                case IPFVariableNumber:
+                    var v2 = (IPFVariableNumber)v;
+                    <div class="mb-3 col-md-6">
+                        <label class="form-label" for="@v2.Name">@v2.Text</label>
+                        <input class="form-control" type="number" id="@v2.Name" name="@v2.Name" value="@v2.DefaultValue" min="@v2.MinValue" max="@v2.MaxValue">
+                    </div>
+                    break;
+                case IPFVariableBoolean:
+                    var v3 = (IPFVariableBoolean)v;
+                    <div class="mb-3 form-check">
+                        <label class="form-check-label" for="@v3.Name">@v3.Text</label>
+                        @if (v3.DefaultValue)
+                        {
+                            <input class="form-check-input" type="checkbox" id="@v3.Name" name="@v3.Name" checked>
+                        }
+                        else
+                        {
+                            <input class="form-check-input" type="checkbox" id="@v3.Name" name="@v3.Name">
+                        }
+                    </div>
+                    break;
+            }
+        }
         <button type="submit" class="btn btn-primary">Compute result</button>
     </div>
 </form>
