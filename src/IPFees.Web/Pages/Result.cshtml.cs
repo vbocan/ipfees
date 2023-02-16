@@ -10,9 +10,9 @@ namespace IPFees.Web.Pages
     {
         [BindProperty]
         public IEnumerable<IPFVariable> Vars { get; set; }
-        [TempData]
+        [BindProperty]
         public int TotalAmount { get; set; }
-        [TempData]
+        [BindProperty]
         public IEnumerable<string> ComputationSteps { get; set; }
 
         private readonly IIPFCalculator _calc;
@@ -61,7 +61,7 @@ namespace IPFees.Web.Pages
                 }
             }
 
-            var (TotalAmount, ComputationSteps) = _calc.Compute(vars.ToArray());
+            (TotalAmount, ComputationSteps) = _calc.Compute(vars.ToArray());
 
             return Page();
         }

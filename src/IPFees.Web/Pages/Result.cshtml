@@ -7,9 +7,11 @@
 
 @if (Model.ComputationSteps != null)
 {
-    <table class="table">
+    var i = 1;
+    <table class="table table-sm">
         <thead>
             <tr>
+                <th scope="col">#</th>
                 <th scope="col">Computation Steps</th>
             </tr>
         </thead>
@@ -17,8 +19,10 @@
             @foreach (var e in Model.ComputationSteps)
             {
                 <tr>
+                    <td>@i</td>
                     <td>@e</td>
                 </tr>
+                i++;
             }
         </tbody>
     </table>
