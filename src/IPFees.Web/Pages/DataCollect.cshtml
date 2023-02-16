@@ -18,15 +18,26 @@
 
 <h1>Sample Form</h1>
 <form>
-    <div class="form-group">
-        <label>Browsers</label>
-        <select class="form-select form-select-lg mb-3" name="cars" id="cars">
-            <option selected value="volvo">Volvo</option>
-            <option value="saab">Saab</option>
-            <option value="mercedes">Mercedes</option>
-            <option value="audi">Audi</option>
-        </select>
-    </div>
+    <div class="col-md-6">
+        <div class="mb-3">
+            <label class="form-label" for="cars">Browsers</label>
+            <select class="form-select form-select-lg mb-3" name="cars" id="cars" aria-describedby="browserHelp">
+                <option selected value="volvo">Volvo</option>
+                <option value="saab">Saab</option>
+                <option value="mercedes">Mercedes</option>
+                <option value="audi">Audi</option>
+            </select>
+            <div id="browserHelp" class="form-text">We'll never share your email with anyone else.</div>
+        </div>
+        <div class="mb-3 col-md-6">
+            <label class="form-label" for="quantity">Quantity (between 1 and 5):</label>
+            <input class="form-control" type="number" id="quantity" name="quantity" value="2" min="1" max="5">
+        </div>
+        <div class="mb-3 col-md-6 form-check">
+            <label class="form-check-label" for="vechicle3">I have a boat!</label>
+            <input class="form-check-input" type="checkbox" id="vehicle3" name="vehicle3" value="Boat" checked>
+        </div>
 
-    <button type="submit" class="btn btn-primary">Compute result</button>
+        <button type="submit" class="btn btn-primary">Compute result</button>
+    </div>
 </form>
