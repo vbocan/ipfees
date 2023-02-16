@@ -3,4 +3,23 @@
 @{
 }
 
-<h1>Show result!</h1>
+<h1>Result: @Model.TotalAmount</h1>
+
+@if (Model.ComputationSteps != null)
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">Computation Steps</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var e in Model.ComputationSteps)
+            {
+                <tr>
+                    <td>@e</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
