@@ -37,7 +37,7 @@ namespace IPFees.Web.Pages
                 return Page();
             }
             TempData["code"] = Code;
-            return RedirectToPage("Index1");
+            return RedirectToPage("DataCollect");
         }
     }
 }
