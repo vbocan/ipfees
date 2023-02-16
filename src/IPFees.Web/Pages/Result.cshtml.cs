@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace IPFees.Web.Pages
 {
-    public class ShowResultModel : PageModel
+    public class ResultModel : PageModel
     {
         public void OnGet()
         {
