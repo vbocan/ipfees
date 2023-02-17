@@ -1,0 +1,180 @@
+﻿@page
+@model ExamplesModel
+@{
+    ViewData["Title"] = "Examples";
+}
+<h1>Examples</h1>
+
+<div class="card mb-3" style="width: 48rem;">
+    <div class="card-body">
+        <h5 class="card-title">Multiple-choice variable</h5>
+        <h6 class="card-subtitle mb-2 text-muted">Multiple-choice variables display a combo-box at runtime, allowing the user to select one of the choices.</h6>
+        <p class="card-text">
+            DEFINE LIST EntityType AS 'Select the desired entity type'<br />
+            CHOICE 'Normal' AS NormalEntity<br />
+            CHOICE 'Small' AS SmallEntity<br />
+            CHOICE 'Micro' AS MicroEntity<br />
+            DEFAULT NormalEntity<br />
+            ENDDEFINE
+        </p>
+    </div>
+</div>
+
+<div class="card mb-3" style="width: 48rem;">
+    <div class="card-body">
+        <h5 class="card-title">Number variable</h5>
+        <h6 class="card-subtitle mb-2 text-muted">Number variables allow the user to enter a numeric value, bounded by lower and upper limits.</h6>
+        <p class="card-text">
+            DEFINE NUMBER SheetCount AS 'Enter the number of sheets'<br />
+            BETWEEN 10 AND 1000<br />
+            DEFAULT 15<br />
+            ENDDEFINE
+        </p>
+    </div>
+</div>
+
+<div class="card mb-3" style="width: 48rem;">
+    <div class="card-body">
+        <h5 class="card-title">Boolean variable</h5>
+        <h6 class="card-subtitle mb-2 text-muted">Boolean variables allow the user to select a condition.</h6>
+        <p class="card-text">
+            DEFINE BOOLEAN ContainsDependentClaims AS 'Does this contain  dependent claims?'<br />
+            DEFAULT TRUE<br />
+            ENDDEFINE
+        </p>
+    </div>
+</div>
+
+<div class="card mb-3" style="width: 48rem;">
+    <div class="card-body">
+        <h5 class="card-title">Fee computation</h5>
+        <h6 class="card-subtitle mb-2 text-muted">Any number of fees can be created in a file and conditions can be added to each YIELD branch.</h6>
+        <p class="card-text">
+            COMPUTE FEE BasicNationalFee<br />
+            YIELD 320 IF EntityType EQUALS NormalEntity<br />
+            YIELD 128 IF EntityType EQUALS SmallEntity<br />
+            YIELD 64 IF EntityType EQUALS MicroEntity<br />
+            ENDCOMPUTE
+        </p>
+    </div>
+</div>
+
+<div class="card mb-3" style="width: 48rem;">
+    <div class="card-body">
+        <h5 class="card-title">Fee computation (slighly more complex)</h5>
+        <h6 class="card-subtitle mb-2 text-muted">Any number of fees can be created in a file and conditions can be added to each YIELD branch.</h6>
+        <p class="card-text">
+            COMPUTE FEE ExaminationFee<br />
+            CASE SituationType EQUALS PreparedIPEA AS<br />
+            YIELD 0 IF EntityType EQUALS NormalEntity<br />
+            YIELD 0 IF EntityType EQUALS SmallEntity<br />
+            YIELD 0 IF EntityType EQUALS MicroEntity<br />
+            ENDCASE<br />
+            YIELD 800 IF EntityType EQUALS NormalEntity<br />
+            YIELD 360 IF EntityType EQUALS SmallEntity<br />
+            YIELD 160 IF EntityType EQUALS MicroEntity<br />
+            ENDCOMPUTE
+        </p>
+    </div>
+</div>
+
+<div class="card mb-3" style="width: 48rem;">
+    <div class="card-body">
+        <h5 class="card-title">Fee computation (complex)</h5>
+        <h6 class="card-subtitle mb-2 text-muted">Any number of fees can be created in a file and conditions can be added to each YIELD branch.</h6>
+        <p class="card-text">
+            COMPUTE FEE SheetFee<br />
+            YIELD 4 20*((SheetCount-100)/50) IF SheetCount ABOVE 100 AND EntityType EQUALS NormalEntity<br />
+            YIELD 168*((SheetCount-100)/50) IF SheetCount ABOVE 100 AND EntityType EQUALS SmallEntity<br />
+            YIELD 84*((SheetCount-100)/50) IF SheetCount ABOVE 100 AND EntityType EQUALS MicroEntity<br />
+            ENDCOMPUTE
+        </p>
+    </div>
+</div>
+
+<div class="card mb-3" style="width: 48rem;">
+    <div class="card-body">
+        <h5 class="card-title">Full example (almost the entire USPTO fee structure)</h5>
+        <h6 class="card-subtitle mb-2 text-muted">Use this as a starting poit to your own fee computation</h6>
+        <p class="card-text">
+            DEFINE LIST EntityType AS 'Select the desired entity type'<br />
+            CHOICE 'Normal' AS NormalEntity<br />
+            CHOICE 'Small' AS SmallEntity<br />
+            CHOICE 'Micro' AS MicroEntity<br />
+            DEFAULT NormalEntity<br />
+            ENDDEFINE<br />
+            <br />
+            DEFINE LIST SituationType AS 'Situation type'<br />
+            CHOICE 'IRRP (Chapter II) prepared by the IPEA/US' AS PreparedIPEA<br />
+            CHOICE 'International search fee paid as ISA' AS PaidAsISA<br />
+            CHOICE 'Search report prepared by an ISA other than the US' AS PreparedISA<br />
+            CHOICE 'All other situations' AS AllOtherSituations<br />
+            DEFAULT PreparedIPEA<br />
+            ENDDEFINE<br />
+            <br />
+            DEFINE NUMBER SheetCount AS 'Enter the number of sheets'<br />
+            BETWEEN 10 AND 1000<br />
+            DEFAULT 15<br />
+            ENDDEFINE<br />
+            <br />
+            DEFINE NUMBER ClaimCount AS 'Number of claims'<br />
+            BETWEEN 0 AND 1000<br />
+            DEFAULT 0<br />
+            ENDDEFINE<br />
+            <br />
+            DEFINE BOOLEAN ContainsDependentClaims AS 'Does this contain dependent claims?'<br />
+            DEFAULT TRUE<br />
+            ENDDEFINE<br />
+            <br />
+            COMPUTE FEE BasicNationalFee<br />
+            YIELD 320 IF EntityType EQUALS NormalEntity<br />
+            YIELD 128 IF EntityType EQUALS SmallEntity<br />
+            YIELD 64 IF EntityType EQUALS MicroEntity<br />
+            ENDCOMPUTE<br />
+            <br />
+            COMPUTE FEE SearchFee<br />
+            CASE SituationType EQUALS PreparedIPEA AS<br />
+            YIELD 0 IF EntityType EQUALS NormalEntity<br />
+            YIELD 0 IF EntityType EQUALS SmallEntity<br />
+            YIELD 0 IF EntityType EQUALS MicroEntity<br />
+            ENDCASE<br />
+            CASE SituationType EQUALS PaidAsISA AS<br />
+            YIELD 140 IF EntityType EQUALS NormalEntity<br />
+            YIELD 56 IF EntityType EQUALS SmallEntity<br />
+            YIELD 28 IF EntityType EQUALS MicroEntity<br />
+            ENDCASE<br />
+            CASE SituationType EQUALS PreparedISA AS<br />
+            YIELD 540 IF EntityType EQUALS NormalEntity<br />
+            YIELD 216 IF EntityType EQUALS SmallEntity<br />
+            YIELD 108 IF EntityType EQUALS MicroEntity<br />
+            ENDCASE<br />
+            YIELD 700 IF EntityType EQUALS NormalEntity<br />
+            YIELD 280 IF EntityType EQUALS SmallEntity<br />
+            YIELD 140 IF EntityType EQUALS MicroEntity<br />
+            ENDCOMPUTE<br />
+            <br />
+            COMPUTE FEE ExaminationFee<br />
+            CASE SituationType EQUALS PreparedIPEA AS<br />
+            YIELD 0 IF EntityType EQUALS NormalEntity<br />
+            YIELD 0 IF EntityType EQUALS SmallEntity<br />
+            YIELD 0 IF EntityType EQUALS MicroEntity<br />
+            ENDCASE<br />
+            YIELD 800 IF EntityType EQUALS NormalEntity<br />
+            YIELD 360 IF EntityType EQUALS SmallEntity<br />
+            YIELD 160 IF EntityType EQUALS MicroEntity<br />
+            ENDCOMPUTE<br />
+            <br />
+            COMPUTE FEE SheetFee<br />
+            YIELD 420*((SheetCount-100)/50) IF SheetCount ABOVE 100 AND EntityType EQUALS NormalEntity<br />
+            YIELD 168*((SheetCount-100)/50) IF SheetCount ABOVE 100 AND EntityType EQUALS SmallEntity<br />
+            YIELD 84*((SheetCount-100)/50) IF SheetCount ABOVE 100 AND EntityType EQUALS MicroEntity<br />
+            ENDCOMPUTE<br />
+            <br />
+            COMPUTE FEE ClaimFee<br />
+            YIELD (480*ClaimCount) IF ClaimCount ABOVE 3 AND EntityType EQUALS NormalEntity<br />
+            YIELD (192*ClaimCount) IF ClaimCount ABOVE 3 AND EntityType EQUALS SmallEntity<br />
+            YIELD (96*ClaimCount) IF ClaimCount ABOVE 3 AND EntityType EQUALS MicroEntity<br />
+            ENDCOMPUTE
+        </p>
+    </div>
+</div>
