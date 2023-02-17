@@ -1,9 +1,10 @@
 ﻿@page
 @model DataCollectModel
 @{
+    ViewData["Title"] = "Data Collection Form";
 }
 
-<h1>Form</h1>
+<h1>Data Collection Form</h1>
 <form asp-page="Result" asp-page-handler="Display" method="post">
     <div class="col-md-6">
         @foreach (var v in Model.Vars)
@@ -13,7 +14,7 @@
                 case IPFVariableList:
                     var v1 = (IPFVariableList)v;
                     <label class="form-label" for="@v1.Name">@v1.Text</label>
-                    <select class="form-select form-select-lg mb-3" name="@v1.Name" id="@v1.Name" aria-describedby="@v1.Name + " Help">
+                    <select class="form-select form-select-lg mb-3" name="@v1.Name" id="@v1.Name">
                         @foreach (var item in v1.Items)
                         {
                             if (v1.DefaultSymbol.Equals(item.Symbol))
@@ -25,8 +26,7 @@
                                 <option value="@item.Symbol">@item.Value</option>
                             }
                         }
-                    </select>
-                    <div id="@v1.Name + " Help" class="form-text">We'll never share your email with anyone else.</div>
+                    </select>                    
                     break;
                 case IPFVariableNumber:
                     var v2 = (IPFVariableNumber)v;

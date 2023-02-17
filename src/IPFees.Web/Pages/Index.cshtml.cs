@@ -23,20 +23,23 @@ namespace IPFees.Web.Pages
 
         public void OnGet()
         {
-
+            if (Request.Cookies["IPFCode"] != null)
+            {
+                Code = @Request.Cookies["IPFCode"];
+            }
         }
 
         public IActionResult OnPost()
         {
             if (string.IsNullOrEmpty(Code)) return Page();
-
+            Response.Cookies.Append("IPFCode", Code);
             // Parse code
             if (!_calc.Parse(Code))
             {
                 ParseErrors = _calc.GetErrors();
                 return Page();
             }
-            TempData["code"] = Code;
+            TempData["code"] = Code;            
             return RedirectToPage("DataCollect");
         }
     }

@@ -3,11 +3,11 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace IPFees.Web.Pages
 {
-    public class PrivacyModel : PageModel
+    public class ExamplesModel : PageModel
     {
-        private readonly ILogger<PrivacyModel> _logger;
+        private readonly ILogger<ExamplesModel> _logger;
 
-        public PrivacyModel(ILogger<PrivacyModel> logger)
+        public ExamplesModel(ILogger<ExamplesModel> logger)
         {
             _logger = logger;
         }
