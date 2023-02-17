@@ -31,7 +31,7 @@ namespace IPFees.Web.Pages
 
         public IActionResult OnPostDisplay(IFormCollection form)
         {
-            var Code = (string)TempData["code"];
+            string Code = (string)TempData.Peek("code");
             _calc.Parse(Code);
             Vars = _calc.GetVariables();
 
