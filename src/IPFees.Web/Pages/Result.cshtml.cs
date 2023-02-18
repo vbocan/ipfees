@@ -47,17 +47,14 @@ namespace IPFees.Web.Pages
                 switch (CalcVar)
                 {
                     case IPFVariableList:
-                        var cv1 = (IPFVariableList)CalcVar;
                         CollectedVars.Add(new IPFValueString(CalcVar.Name, field.Value));
                         break;
                     case IPFVariableNumber:
-                        var cv2 = (IPFVariableNumber)CalcVar;
-                        var res2 = int.TryParse(field.Value, out var val2);
+                        int.TryParse(field.Value, out var val2);
                         CollectedVars.Add(new IPFValueNumber(CalcVar.Name, val2));
                         break;
                     case IPFVariableBoolean:
-                        var cv3 = (IPFVariableBoolean)CalcVar;
-                        var res3 = bool.TryParse(field.Value, out var val3);
+                        bool.TryParse(field.Value[0], out var val3);
                         CollectedVars.Add(new IPFValueBoolean(CalcVar.Name, val3));
                         break;
                 }
