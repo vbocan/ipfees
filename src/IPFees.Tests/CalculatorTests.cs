@@ -61,6 +61,28 @@ namespace IPFees.Tests
         }
 
         [Fact]
+        public void TestYieldWithVariableCondition()
+        {
+            string text =
+            """
+            COMPUTE FEE BasicNationalFee
+            YIELD 320 IF C
+            ENDCOMPUTE
+            """;
+
+            var vars = new IPFValue[] {
+                new IPFValueBoolean("C", true),
+            };
+
+
+            var calc = new IPFCalculator();
+            calc.Parse(text);
+            var (TotalAmount, _) = calc.Compute(vars);
+
+            Assert.Equal(320, TotalAmount);
+        }
+
+        [Fact]
         public void TestYieldWithComplexCondition()
         {
             string text =
