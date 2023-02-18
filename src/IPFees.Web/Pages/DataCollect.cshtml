@@ -1,10 +1,10 @@
 ﻿@page
 @model DataCollectModel
 @{
-    ViewData["Title"] = "Data Collection Form";
+    ViewData["Title"] = "Data Collection";
 }
 
-<h1>Data Collection Form</h1>
+<h1>Data Collection</h1>
 <form asp-page="Result" asp-page-handler="Display" method="post">
     <div class="col-md-6">
         @foreach (var v in Model.Vars)
@@ -53,6 +53,6 @@
                     break;
             }
         }
-        <button type="submit" class="btn btn-primary">Compute result</button>
+        <button type="submit" class="btn btn-primary">Compute Result</button>
     </div>
 </form>
