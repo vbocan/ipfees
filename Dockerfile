@@ -7,10 +7,10 @@ EXPOSE 443
 
 FROM mcr.microsoft.com/dotnet/sdk:7.0 AS build
 WORKDIR /src
-COPY ["IPFees.Web/IPFees.Web.csproj", "IPFees.Web/"]
-COPY ["IPFees.Core/IPFees.Core.csproj", "IPFees.Core/"]
+COPY ["src/IPFees.Web/IPFees.Web.csproj", "IPFees.Web/"]
+COPY ["src/IPFees.Core/IPFees.Core.csproj", "IPFees.Core/"]
 RUN dotnet restore "IPFees.Web/IPFees.Web.csproj"
-COPY . .
+COPY ./src .
 WORKDIR "/src/IPFees.Web"
 RUN dotnet build "IPFees.Web.csproj" -c Release -o /app/build
 
