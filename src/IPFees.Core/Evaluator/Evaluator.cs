@@ -121,11 +121,34 @@ namespace IPFees.Evaluator
             var IsPlainBoolean = bool.TryParse(Tokens[0], out bool PlainBooleanValue);
             if (IsPlainBoolean) return PlainBooleanValue;
 
-            // Case 2: We have a <variable> followed by one of the operators (ABOVE, BELOW, EQUALS)
+            
             var CurrentVariable = Vars.SingleOrDefault(w => w.Name.Equals(Tokens[0]));
             if (CurrentVariable == null) throw new NotSupportedException(string.Format("Variable [{0}] was not found.", Tokens[0]));
 
+            // Case 2: We have a <variable> followed by one of the operators (ABOVE, BELOW, EQUALS)
             // The first token decides how we evaluate the item.
+
+            // If the first token is a boolean variable, there is only one operator available: EQUALS
+            if (CurrentVariable is IPFValueBoolean boo)
+            {
+                if (Tokens.Length > 1)
+                {
+                    // Expression is in the form <variable> EQUALS TRUE|FALSE
+                    bool LeftValue = boo.Value;
+                    var res = bool.TryParse(Tokens[2], out bool RightValue);
+                    if (!res) throw new NotSupportedException("Expected TRUE or FALSE");
+                    switch (Tokens[1])
+                    {
+                        case "EQUALS": return LeftValue == RightValue;
+                        default: throw new NotSupportedException("Expected EQUALS");
+                    }
+                }else
+                {
+                    // Expression contains only the <variable> name
+                    return boo.Value;
+                }
+            }
+
             // If the first token is a numeric variable, the available inequality operators are ABOVE, UNDER, EQUALS            
             if (CurrentVariable is IPFValueNumber number)
             {
@@ -150,18 +173,7 @@ namespace IPFees.Evaluator
                     default: throw new NotSupportedException("Expected EQUALS");
                 }
             }
-            // If the first token is a boolean variable, there is only one operator available: EQUALS
-            if (CurrentVariable is IPFValueBoolean boo)
-            {
-                bool LeftValue = boo.Value;
-                var res = bool.TryParse(Tokens[2], out bool RightValue);
-                if (!res) throw new NotSupportedException("Expected TRUE or FALSE");
-                switch (Tokens[1])
-                {
-                    case "EQUALS": return LeftValue == RightValue;
-                    default: throw new NotSupportedException("Expected EQUALS");
-                }
-            }
+            
             return true;
         }
 
