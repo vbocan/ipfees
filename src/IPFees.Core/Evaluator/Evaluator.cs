@@ -60,7 +60,7 @@ namespace IPFees.Evaluator
                     }
                     else
                     {
-                        throw new NotSupportedException(string.Format("Invalid token: {0}", Tokens[i]));
+                        throw new NotSupportedException(string.Format("Invalid token encountered [{0}] while evaluating expression [{1}]", Tokens[i], string.Join(' ', Tokens)));
                     }
                 }
             }
@@ -115,7 +115,7 @@ namespace IPFees.Evaluator
 
         private static bool EvaluateLogicItem(string[] Tokens, IEnumerable<IPFValue> Vars)
         {
-            if (Tokens.Length < 1) throw new NotSupportedException("Invalid logic");
+            if (Tokens.Length < 1) throw new NotSupportedException(string.Format("[{0}] is not valid logic", string.Join(' ', Tokens)));
 
             // Case 1: We have a <boolean value> in the form of TRUE or FALSE
             var IsPlainBoolean = bool.TryParse(Tokens[0], out bool PlainBooleanValue);
@@ -155,7 +155,7 @@ namespace IPFees.Evaluator
             {
                 bool LeftValue = boo.Value;
                 var res = bool.TryParse(Tokens[2], out bool RightValue);
-                if(!res) throw new NotSupportedException("Expected TRUE or FALSE");
+                if (!res) throw new NotSupportedException("Expected TRUE or FALSE");
                 switch (Tokens[1])
                 {
                     case "EQUALS": return LeftValue == RightValue;
