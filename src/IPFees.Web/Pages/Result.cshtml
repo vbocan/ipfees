@@ -13,14 +13,45 @@
     </div>
 }
 
-@if (Model.ComputationSteps != null)
+@if (Model.CollectedVars != null)
 {
+    <div class="alert alert-secondary" role="alert">
+        Collected Variables
+    </div>
     var i = 1;
     <table class="table table-sm">
         <thead>
             <tr>
                 <th scope="col">#</th>
-                <th scope="col">Computation Steps</th>
+                <th scope="col">Name</th>
+                <th scope="col">Value</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var cv in Model.CollectedVars)
+            {
+                <tr>
+                    <td>@i</td>
+                    <td>@cv.Name</td>
+                    <td>@cv.ToString()</td>
+                </tr>
+                i++;
+            }
+        </tbody>
+    </table>
+}
+
+@if (Model.ComputationSteps != null)
+{
+    <div class="alert alert-secondary" role="alert">
+        Computation Steps
+    </div>
+    var i = 1;
+    <table class="table table-sm">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Description</th>
             </tr>
         </thead>
         <tbody>
