@@ -17,5 +17,5 @@ jobs:
           username: storyaro
           password: ${{ secrets.GITHUB_TOKEN }}
           registry: docker.pkg.github.com
-          repository: storyaro/publish-packages/game
+          repository: storyaro/publish-packages/ipfees
           tag_with_sha: true
