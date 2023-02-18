@@ -31,7 +31,7 @@ namespace IPFees.Web.Pages
 
         }
 
-        public IActionResult OnPostDisplay(IFormCollection form)
+        public IActionResult OnPost(IFormCollection form)
         {
             string Code = (string)TempData.Peek("code");
             _calc.Parse(Code);
