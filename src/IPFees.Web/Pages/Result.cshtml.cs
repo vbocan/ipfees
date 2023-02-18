@@ -14,6 +14,8 @@ namespace IPFees.Web.Pages
         public int TotalAmount { get; set; }
         [BindProperty]
         public IEnumerable<string> ComputationSteps { get; set; }
+        [BindProperty]
+        public string ComputationError { get; set; }
 
         private readonly IIPFCalculator _calc;
         private readonly ILogger<IndexModel> _logger;
@@ -61,7 +63,13 @@ namespace IPFees.Web.Pages
                 }
             }
 
-            (TotalAmount, ComputationSteps) = _calc.Compute(vars.ToArray());
+            try
+            {
+                (TotalAmount, ComputationSteps) = _calc.Compute(vars.ToArray());
+            }catch(Exception ex)
+            {
+                ComputationError = ex.Message;
+            }
 
             return Page();
         }
