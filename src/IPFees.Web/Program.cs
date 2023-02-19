@@ -1,10 +1,20 @@
 using IPFees.Calculator;
+using Serilog;
+
+// Set Serilog settings
+var logger = new LoggerConfiguration()
+    .MinimumLevel.Debug()
+    .CreateLogger();
+
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorPages();
 builder.Services.AddTransient<IIPFCalculator, IPFCalculator>();
+// Add logger
+builder.Logging.AddSerilog(logger);
+builder.Host.UseSerilog((ctx, lc) => lc.ReadFrom.Configuration(ctx.Configuration));
 
 var app = builder.Build();
 
@@ -18,6 +28,7 @@ if (!app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
+app.UseSerilogRequestLogging();
 
 app.UseRouting();
 

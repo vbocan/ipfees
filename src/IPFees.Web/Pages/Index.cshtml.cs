@@ -33,13 +33,19 @@ namespace IPFees.Web.Pages
         {
             if (string.IsNullOrEmpty(Code)) return Page();
             Response.Cookies.Append("IPFCode", Code);
+            // Log code execution
+            _logger.LogInformation("Executing code:");
+            foreach (var cl in Code.Split(Environment.NewLine))
+            {
+                _logger.LogInformation("> {0}", cl);
+            }
             // Parse code
             if (!_calc.Parse(Code))
             {
                 ParseErrors = _calc.GetErrors();
                 return Page();
             }
-            TempData["code"] = Code;            
+            TempData["code"] = Code;
             return RedirectToPage("DataCollect");
         }
     }
