@@ -35,7 +35,7 @@ namespace IPFees.Web.Pages
             Response.Cookies.Append("IPFCode", Code);
             // Log code execution
             _logger.LogInformation("Executing code:");
-            foreach (var cl in Code.Split(Environment.NewLine))
+            foreach (var cl in Code.Split(Environment.NewLine, StringSplitOptions.RemoveEmptyEntries))
             {
                 _logger.LogInformation("> {0}", cl);
             }
