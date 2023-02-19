@@ -11,21 +11,21 @@ namespace IPFees.Evaluator
     {
         public override string ToString()
         {
-            return string.Format("String: [{0}]", Value);
+            return string.Format("[{0}] = String: [{1}]", Name, Value);
         }
     }
     public record IPFValueNumber(string Name, int Value) : IPFValue(Name)
     {
         public override string ToString()
         {
-            return string.Format("Number: [{0}]", Value);
+            return string.Format("[{0}] = Number: [{1}]", Name, Value);
         }
     };
     public record IPFValueBoolean(string Name, bool Value) : IPFValue(Name)
     {
         public override string ToString()
         {
-            return string.Format("Boolean: [{0}]", Value);
+            return string.Format("[{0}] = Boolean: [{1}]", Name, Value);
         }
     };
 }

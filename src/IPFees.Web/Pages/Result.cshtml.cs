@@ -50,23 +50,37 @@ namespace IPFees.Web.Pages
                         CollectedVars.Add(new IPFValueString(CalcVar.Name, field.Value));
                         break;
                     case IPFVariableNumber:
-                        int.TryParse(field.Value, out var val2);
+                        _ = int.TryParse(field.Value, out var val2);
                         CollectedVars.Add(new IPFValueNumber(CalcVar.Name, val2));
                         break;
                     case IPFVariableBoolean:
-                        bool.TryParse(field.Value[0], out var val3);
+                        _ = bool.TryParse(field.Value[0], out var val3);
                         CollectedVars.Add(new IPFValueBoolean(CalcVar.Name, val3));
                         break;
                 }
+            }
+            // Log variable collection
+            _logger.LogInformation("COMPUTATION:");
+            foreach (var cv in CollectedVars)
+            {
+                _logger.LogInformation("> {0}", cv);
             }
 
             try
             {
                 (TotalAmount, ComputationSteps) = _calc.Compute(CollectedVars.ToArray());
+                // Log computation success
+                _logger.LogInformation("Success! Total Amount is [{0}].", TotalAmount);
+                foreach (var cs in ComputationSteps)
+                {
+                    _logger.LogInformation("> {0}", cs);
+                }
             }
             catch (Exception ex)
             {
                 ComputationError = ex.Message;
+                // Log computation error
+                _logger.LogInformation("Failed! Error is {0}.", ex.Message);
             }
 
             return Page();

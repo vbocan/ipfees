@@ -24,7 +24,7 @@ namespace IPFees.Web.Pages
         {
             var Code = (string)TempData.Peek("code");
             _calc.Parse(Code);
-            Vars = _calc.GetVariables();            
+            Vars = _calc.GetVariables();
         }
     }
 }
