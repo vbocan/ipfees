@@ -59,6 +59,7 @@ namespace IPFees.Calculator
                     }
                 }
                 ComputeSteps.Add(string.Format("The final amount for fee {0} is {1}", fee.Name, CurrentAmount));
+                ComputeSteps.Add(string.Empty);
                 if (fee.Optional)
                 {
                     TotalOptionalAmount += CurrentAmount;
@@ -68,8 +69,7 @@ namespace IPFees.Calculator
                     TotalMandatoryAmount += CurrentAmount;
                 }
 
-            }
-            ComputeSteps.Add(string.Empty);
+            }            
             ComputeSteps.Add(string.Format("Total amount for mandatory fees: [{0}]", TotalMandatoryAmount));
             ComputeSteps.Add(string.Format("Total amount for optional fees: [{0}]", TotalOptionalAmount));
             ComputeSteps.Add(string.Format("Grand total: [{0}]", TotalMandatoryAmount + TotalOptionalAmount));
