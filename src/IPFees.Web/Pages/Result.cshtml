@@ -4,7 +4,9 @@
     ViewData["Title"] = "Calculation Result";
 }
 
-<h1>Result: @Model.TotalAmount</h1>
+<h1>Grand Total: @(Model.TotalManadatoryAmount + Model.TotalOptionalAmount)</h1>
+<h2>Total Mandatory Fees: @Model.TotalManadatoryAmount</h2>
+<h2>Total Optional Fees: @Model.TotalOptionalAmount</h2>
 
 @if (!string.IsNullOrEmpty(Model.ComputationError))
 {

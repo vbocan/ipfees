@@ -6,7 +6,7 @@ namespace IPFees.Calculator
     public class IPFCalculator : IIPFCalculator
     {
         private IPFParser parser;
-        
+
         public IPFCalculator() { }
 
         public bool Parse(string text)
@@ -19,9 +19,10 @@ namespace IPFees.Calculator
         public IEnumerable<IPFVariable> GetVariables() => parser.GetVariables();
         public IEnumerable<IPFFee> GetFees() => parser.GetFees();
 
-        public (int, IEnumerable<string>) Compute(IPFValue[] vars)
+        public (int, int, IEnumerable<string>) Compute(IPFValue[] vars)
         {
-            int TotalAmount = 0;
+            int TotalMandatoryAmount = 0;
+            int TotalOptionalAmount = 0;
             var ComputeSteps = new List<string>();
 
             foreach (var fee in parser.GetFees())
@@ -51,10 +52,21 @@ namespace IPFees.Calculator
                     }
                 }
                 ComputeSteps.Add(string.Format("The final amount for fee {0} is {1}", fee.Name, CurrentAmount));
-                TotalAmount += CurrentAmount;
+                if (fee.Optional)
+                {
+                    TotalOptionalAmount += CurrentAmount;
+                }
+                else
+                {
+                    TotalMandatoryAmount += CurrentAmount;
+                }
+
             }
-            ComputeSteps.Add(string.Format("After summing all fees, the total amount is [{0}]", TotalAmount));
-            return (TotalAmount, ComputeSteps);
+            ComputeSteps.Add(string.Empty);
+            ComputeSteps.Add(string.Format("Total amount for mandatory fees: [{0}]", TotalMandatoryAmount));
+            ComputeSteps.Add(string.Format("Total amount for optional fees: [{0}]", TotalOptionalAmount));
+            ComputeSteps.Add(string.Format("Grand total: [{0}]", TotalMandatoryAmount + TotalOptionalAmount));
+            return (TotalMandatoryAmount, TotalOptionalAmount, ComputeSteps);
         }
     }
 }

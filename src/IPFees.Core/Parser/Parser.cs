@@ -8,7 +8,7 @@
         private IPFVariableList CurrentList { get; set; } = new IPFVariableList(string.Empty, string.Empty, new List<IPFListItem>(), string.Empty);
         private IPFVariableNumber CurrentNumber { get; set; } = new IPFVariableNumber(string.Empty, string.Empty, int.MinValue, int.MaxValue, 0);
         private IPFVariableBoolean CurrentBoolean { get; set; } = new IPFVariableBoolean(string.Empty, string.Empty, false);
-        private IPFFee CurrentFee { get; set; } = new IPFFee(string.Empty, new List<IPFItem>());
+        private IPFFee CurrentFee { get; set; } = new IPFFee(string.Empty, false, new List<IPFItem>());
         private IPFFeeCase CurrentFeeCase { get; set; } = new IPFFeeCase(Enumerable.Empty<string>(), new List<IPFFeeYield>());
 
         private IList<IPFVariable> IPFVariables = new List<IPFVariable>();
@@ -93,7 +93,7 @@
             return IPFFees;
         }
         public IEnumerable<(IPFError, string)> GetErrors()
-        {            
+        {
             return IPFErrors;
         }
 
@@ -281,11 +281,12 @@
         bool ParseFee(string[] tokens)
         {
             if (CurrentlyParsing != Parsing.None) return false;
-            if (tokens.Length != 3) return false;
+            if (tokens.Length != 3 && tokens.Length != 4) return false;
             if (tokens[0] != "COMPUTE") return false;
             if (tokens[1] != "FEE") return false;
             CurrentlyParsing = Parsing.Fee;
-            CurrentFee = new IPFFee(tokens[2], new List<IPFItem>());
+            var IsFeeOptional = (tokens.Length == 4 && tokens[3] == "OPTIONAL");
+            CurrentFee = new IPFFee(tokens[2], IsFeeOptional, new List<IPFItem>());
             return true;
         }
 
