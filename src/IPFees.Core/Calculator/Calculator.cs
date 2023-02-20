@@ -27,7 +27,14 @@ namespace IPFees.Calculator
 
             foreach (var fee in parser.GetFees())
             {
-                ComputeSteps.Add(string.Format("COMPUTING FEE [{0}]", fee.Name));
+                if (fee.Optional)
+                {
+                    ComputeSteps.Add(string.Format("COMPUTING OPTIONAL FEE [{0}]", fee.Name));
+                }
+                else
+                {
+                    ComputeSteps.Add(string.Format("COMPUTING FEE [{0}]", fee.Name));
+                }
                 int CurrentAmount = 0;
                 ComputeSteps.Add(string.Format("Amount is initially {0}", CurrentAmount));
                 foreach (IPFFeeCase fc in fee.Cases.Cast<IPFFeeCase>())
