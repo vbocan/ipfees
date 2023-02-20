@@ -9,9 +9,9 @@ namespace IPFees.Web.Pages
     public class ResultModel : PageModel
     {
         [BindProperty]
-        public int TotalManadatoryAmount { get; set; }
+        public double TotalManadatoryAmount { get; set; }
         [BindProperty]
-        public int TotalOptionalAmount { get; set; }
+        public double TotalOptionalAmount { get; set; }
         [BindProperty]
         public IEnumerable<string> ComputationSteps { get; set; }
         [BindProperty]
