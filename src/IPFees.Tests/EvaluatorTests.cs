@@ -20,12 +20,23 @@ namespace IPFees.Tests
         }
 
         [Fact]
-        public void TestInequalityEvaluation()
+        public void TestEqualsEvaluation()
         {
             var vars = new IPFValue[] {
                 new IPFValueNumber("A", 6),                
             };
             var tokens = "A EQUALS 60 / 10".Split(new char[] { ' ' }, StringSplitOptions.None);
+            var ev = IPFEvaluator.EvaluateLogic(tokens, vars);
+            Assert.True(ev);
+        }
+
+        [Fact]
+        public void TestNotEqualsEvaluation()
+        {
+            var vars = new IPFValue[] {
+                new IPFValueNumber("A", 7),
+            };
+            var tokens = "A NOTEQUALS 60 / 10".Split(new char[] { ' ' }, StringSplitOptions.None);
             var ev = IPFEvaluator.EvaluateLogic(tokens, vars);
             Assert.True(ev);
         }

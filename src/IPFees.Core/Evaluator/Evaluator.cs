@@ -122,7 +122,7 @@ namespace IPFees.Evaluator
             var IsPlainBoolean = bool.TryParse(Tokens[0], out bool PlainBooleanValue);
             if (IsPlainBoolean) return PlainBooleanValue;
 
-            
+
             var CurrentVariable = Vars.SingleOrDefault(w => w.Name.Equals(Tokens[0]));
             if (CurrentVariable == null) throw new NotSupportedException(string.Format("Variable [{0}] was not found.", Tokens[0]));
 
@@ -141,9 +141,11 @@ namespace IPFees.Evaluator
                     switch (Tokens[1])
                     {
                         case "EQUALS": return LeftValue == RightValue;
-                        default: throw new NotSupportedException("Expected EQUALS");
+                        case "NOTEQUALS": return LeftValue != RightValue;
+                        default: throw new NotSupportedException("Expected EQUALS or NOTEQUALS");
                     }
-                }else
+                }
+                else
                 {
                     // Expression contains only the <variable> name
                     return boo.Value;
@@ -160,7 +162,8 @@ namespace IPFees.Evaluator
                     case "ABOVE": return LeftValue > RightValue;
                     case "BELOW": return LeftValue < RightValue;
                     case "EQUALS": return LeftValue == RightValue;
-                    default: throw new NotSupportedException("Expected ABOVE, UNDER, EQUALS");
+                    case "NOTEQUALS": return LeftValue != RightValue;
+                    default: throw new NotSupportedException("Expected ABOVE, UNDER, EQUALS, NOTEQUALS");
                 }
             }
             // If the first token is a string variable, there is only one operator available: EQUALS
@@ -171,10 +174,11 @@ namespace IPFees.Evaluator
                 switch (Tokens[1])
                 {
                     case "EQUALS": return LeftValue.Equals(RightValue);
-                    default: throw new NotSupportedException("Expected EQUALS");
+                    case "NOTEQUALS": return !LeftValue.Equals(RightValue);
+                    default: throw new NotSupportedException("Expected EQUALS or NOTEQUALS");
                 }
             }
-            
+
             return true;
         }
 
