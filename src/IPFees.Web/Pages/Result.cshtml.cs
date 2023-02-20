@@ -9,7 +9,9 @@ namespace IPFees.Web.Pages
     public class ResultModel : PageModel
     {
         [BindProperty]
-        public int TotalAmount { get; set; }
+        public int TotalManadatoryAmount { get; set; }
+        [BindProperty]
+        public int TotalOptionalAmount { get; set; }
         [BindProperty]
         public IEnumerable<string> ComputationSteps { get; set; }
         [BindProperty]
@@ -68,9 +70,9 @@ namespace IPFees.Web.Pages
 
             try
             {
-                (TotalAmount, ComputationSteps) = _calc.Compute(CollectedVars.ToArray());
+                (TotalManadatoryAmount, TotalOptionalAmount, ComputationSteps) = _calc.Compute(CollectedVars.ToArray());
                 // Log computation success
-                _logger.LogInformation("Success! Total Amount is [{0}].", TotalAmount);
+                _logger.LogInformation("Success! Total mandatory amount is [{0}] and the total optional amount is [{1}]", TotalManadatoryAmount, TotalOptionalAmount);
                 foreach (var cs in ComputationSteps)
                 {
                     _logger.LogInformation("> {0}", cs);

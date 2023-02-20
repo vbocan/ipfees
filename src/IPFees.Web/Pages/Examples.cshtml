@@ -61,6 +61,20 @@
 
 <div class="card mb-3" style="width: 48rem;">
     <div class="card-body">
+        <h5 class="card-title">Fee computation (optional)</h5>
+        <h6 class="card-subtitle mb-2 text-muted">A fee can be declared as OPTIONAL. The amount accrued by optional fees is displayed separately from the mandatory ones.</h6>
+        <p class="card-text">
+            COMPUTE FEE BasicNationalFee OPTIONAL<br />
+            YIELD 320 IF EntityType EQUALS NormalEntity<br />
+            YIELD 128 IF EntityType EQUALS SmallEntity<br />
+            YIELD 64 IF EntityType EQUALS MicroEntity<br />
+            ENDCOMPUTE
+        </p>
+    </div>
+</div>
+
+<div class="card mb-3" style="width: 48rem;">
+    <div class="card-body">
         <h5 class="card-title">Fee computation (slighly more complex)</h5>
         <h6 class="card-subtitle mb-2 text-muted">Any number of fees can be created in a file and conditions can be added to each YIELD branch.</h6>
         <p class="card-text">

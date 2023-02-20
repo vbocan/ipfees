@@ -17,7 +17,7 @@ namespace IPFees.Tests
 
             var calc = new IPFCalculator();
             calc.Parse(text);
-            var (TotalAmount, _) = calc.Compute(vars);
+            var (TotalAmount, _, _) = calc.Compute(vars);
 
             Assert.Equal(0, TotalAmount);
         }
@@ -36,7 +36,7 @@ namespace IPFees.Tests
 
             var calc = new IPFCalculator();
             calc.Parse(text);
-            var (TotalAmount, _) = calc.Compute(vars);
+            var (TotalAmount, _, _) = calc.Compute(vars);
 
             Assert.Equal(400, TotalAmount);
         }
@@ -55,7 +55,7 @@ namespace IPFees.Tests
 
             var calc = new IPFCalculator();
             calc.Parse(text);
-            var (TotalAmount, _) = calc.Compute(vars);
+            var (TotalAmount, _, _) = calc.Compute(vars);
 
             Assert.Equal(400, TotalAmount);
         }
@@ -77,7 +77,7 @@ namespace IPFees.Tests
 
             var calc = new IPFCalculator();
             calc.Parse(text);
-            var (TotalAmount, _) = calc.Compute(vars);
+            var (TotalAmount, _, _) = calc.Compute(vars);
 
             Assert.Equal(320, TotalAmount);
         }
@@ -99,7 +99,7 @@ namespace IPFees.Tests
 
             var calc = new IPFCalculator();
             calc.Parse(text);
-            var (TotalAmount, _) = calc.Compute(vars);
+            var (TotalAmount, _, _) = calc.Compute(vars);
 
             Assert.Equal(320, TotalAmount);
         }
@@ -121,7 +121,7 @@ namespace IPFees.Tests
 
             var calc = new IPFCalculator();
             calc.Parse(text);
-            var (TotalAmount, _) = calc.Compute(vars);
+            var (TotalAmount, _, _) = calc.Compute(vars);
 
             Assert.Equal(4, TotalAmount);
         }
@@ -144,9 +144,32 @@ namespace IPFees.Tests
 
             var calc = new IPFCalculator();
             calc.Parse(text);
-            var (TotalAmount, _) = calc.Compute(vars);
+            var (TotalAmount, _, _) = calc.Compute(vars);
 
             Assert.Equal(10, TotalAmount);
+        }
+
+        [Fact]
+        public void TestOptionalFee()
+        {
+            string text =
+            """
+            COMPUTE FEE BasicNationalFee
+            YIELD 10
+            ENDCOMPUTE
+
+            COMPUTE FEE BasicOptionalFee OPTIONAL
+            YIELD 20
+            ENDCOMPUTE
+            """;
+            var vars = new IPFValue[] { };
+
+            var calc = new IPFCalculator();
+            calc.Parse(text);
+            var (TotalMandatoryAmount, TotalOptionalAmount, _) = calc.Compute(vars);
+
+            Assert.Equal(10, TotalMandatoryAmount);
+            Assert.Equal(20, TotalOptionalAmount);
         }
     }
 }
