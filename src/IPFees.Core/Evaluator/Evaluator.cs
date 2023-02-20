@@ -1,6 +1,7 @@
 ﻿using IPFees.Parser;
 using Microsoft.VisualBasic;
 using System.Collections;
+using System.Globalization;
 
 namespace IPFees.Evaluator
 {
@@ -8,10 +9,10 @@ namespace IPFees.Evaluator
     {
         public IPFEvaluator() { }
 
-        public static int EvaluateExpression(string[] Tokens, IEnumerable<IPFValue> Vars)
+        public static double EvaluateExpression(string[] Tokens, IEnumerable<IPFValue> Vars)
         {
             // Stack for numbers: 'values'
-            var values = new Stack<int>();
+            var values = new Stack<double>();
             // Stack for Operators: 'ops'
             var ops = new Stack<string>();
 
@@ -51,10 +52,10 @@ namespace IPFees.Evaluator
                     // Push current token to 'ops'.
                     ops.Push(Tokens[i]);
                 }
-                // Finally, it must be an integer
+                // Finally, it must be a number
                 else
                 {
-                    if (int.TryParse(Tokens[i], out int Number))
+                    if (double.TryParse(Tokens[i], NumberStyles.AllowDecimalPoint, CultureInfo.InvariantCulture, out double Number))
                     {
                         values.Push(Number);
                     }
@@ -93,7 +94,7 @@ namespace IPFees.Evaluator
         }
 
         // A utility method to apply an operator 'op' on operands 'a' and 'b'. Return the result.
-        private static int ApplyOperation(string op, int b, int a)
+        private static double ApplyOperation(string op, double b, double a)
         {
             switch (op)
             {
@@ -108,7 +109,7 @@ namespace IPFees.Evaluator
                     {
                         throw new NotSupportedException("Cannot divide by zero");
                     }
-                    return (int)Math.Ceiling((double)a / b);
+                    return Math.Ceiling(a / b);
             }
             return 0;
         }
@@ -152,8 +153,8 @@ namespace IPFees.Evaluator
             // If the first token is a numeric variable, the available inequality operators are ABOVE, UNDER, EQUALS            
             if (CurrentVariable is IPFValueNumber number)
             {
-                int LeftValue = number.Value;
-                int RightValue = EvaluateExpression(Tokens.Skip(2).ToArray(), Vars);
+                double LeftValue = number.Value;
+                double RightValue = EvaluateExpression(Tokens.Skip(2).ToArray(), Vars);
                 switch (Tokens[1])
                 {
                     case "ABOVE": return LeftValue > RightValue;

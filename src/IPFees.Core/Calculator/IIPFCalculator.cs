@@ -6,7 +6,7 @@ namespace IPFees.Calculator
     public interface IIPFCalculator
     {
         bool Parse(string text);
-        (int, int, IEnumerable<string>) Compute(IPFValue[] vars);
+        (double, double, IEnumerable<string>) Compute(IPFValue[] vars);
         IEnumerable<string> GetErrors();
         IEnumerable<IPFFee> GetFees();
         IEnumerable<IPFVariable> GetVariables();
