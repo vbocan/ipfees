@@ -109,7 +109,7 @@ namespace IPFees.Evaluator
                     {
                         throw new NotSupportedException("Cannot divide by zero");
                     }
-                    return Math.Ceiling(a / b);
+                    return a / b;
             }
             return 0;
         }
