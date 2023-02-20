@@ -33,8 +33,7 @@
                 ParseNumberDefault,
                 ParseBoolean,
                 ParseBooleanDefault,
-                ParseEndDefine,
-                ParseComment,
+                ParseEndDefine,                
                 ParseFee,
                 ParseFeeCase,
                 ParseFeeYield,
@@ -44,8 +43,9 @@
 
             for (int i = 0; i < IPFData.Length; i++)
             {
-                // Get rid of the white spaces
-                string line = IPFData[i].Trim();
+                // Ignore comments (after the # sign)
+                int CommentIndex = IPFData[i].IndexOf('#');
+                string line = (CommentIndex == -1 ? IPFData[i] : IPFData[i].Substring(0, CommentIndex)).Trim();
                 // Do not process an empty line
                 if (string.IsNullOrEmpty(line)) { continue; }
                 // Generate tokens
@@ -265,15 +265,6 @@
                     return true;
             }
             return false;
-        }
-        #endregion
-
-        #region Parse Comment
-        bool ParseComment(string[] tokens)
-        {
-            if (tokens.Length == 0) return false;
-            if (!tokens[0].StartsWith("#")) return false;
-            return true;
         }
         #endregion
 
