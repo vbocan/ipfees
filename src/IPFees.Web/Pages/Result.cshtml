@@ -5,11 +5,9 @@
 }
 
 <div class="col-md-6">
-    <h2>
-        @string.Format("Grand Total: {0:.##}", Model.TotalManadatoryAmount + Model.TotalOptionalAmount)
-    </h2>
-    <p>@string.Format("Total Mandatory Fees: {0:.##}", Model.TotalManadatoryAmount)</p>
-    <p>@string.Format("Total Optional Fees: {0:.##}", @Model.TotalOptionalAmount)</p>
+    <h2>Grand Total: @((Model.TotalManadatoryAmount + Model.TotalOptionalAmount).ToString("0.00"))</h2>
+    <p>Total Mandatory Fees: @Model.TotalManadatoryAmount.ToString("0.00")</p>
+    <p>Total Optional Fees: @Model.TotalOptionalAmount.ToString("0.00")</p>
 </div>
 
 @if (!string.IsNullOrEmpty(Model.ComputationError))
