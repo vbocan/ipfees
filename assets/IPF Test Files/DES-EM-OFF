@@ -1,0 +1,26 @@
+# File name: DES-EM-OFF
+# File content: Official fees for design application: EU
+# Valid until n/a
+
+DEFINE NUMBER DesignCount AS 'Number of designs?'
+BETWEEN 1 AND 100
+DEFAULT 1
+ENDDEFINE
+
+COMPUTE FEE OFF_FilingFee
+YIELD 230
+YIELD (115 * (DesignCount - 1)) IF DesignCount ABOVE 1 AND DesignCount BELOW 11
+YIELD (115 * 9) + (50 * (DesignCount - 10)) IF DesignCount ABOVE 10
+ENDCOMPUTE
+
+COMPUTE FEE OFF_PublicationFee
+YIELD 120
+YIELD (60 * (DesignCount - 1)) IF DesignCount ABOVE 1 AND DesignCount BELOW 11
+YIELD (60 * 9) + (30 * (DesignCount - 10)) IF DesignCount ABOVE 10
+ENDCOMPUTE
+
+COMPUTE FEE OFF_DefermentFee OPTIONAL
+YIELD 40
+YIELD (20 * (DesignCount - 1)) IF DesignCount ABOVE 1 AND DesignCount BELOW 11
+YIELD (20 * 9) + (10 * (DesignCount - 10)) IF DesignCount ABOVE 10
+ENDCOMPUTE

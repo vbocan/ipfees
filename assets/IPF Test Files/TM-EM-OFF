@@ -1,0 +1,14 @@
+# File name: TM-EM-OFF
+# File content: Official fees for trademark application: EU
+# Valid until n/a
+
+DEFINE NUMBER ClassCount AS 'Number of classes?'
+BETWEEN 1 AND 100
+DEFAULT 1
+ENDDEFINE
+
+COMPUTE FEE OFF_FilingFee
+YIELD 850
+YIELD 50 IF ClassCount ABOVE 1
+YIELD (150 * (ClassCount-2)) IF ClassCount ABOVE 2
+ENDCOMPUTE

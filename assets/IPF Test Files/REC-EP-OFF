@@ -1,0 +1,18 @@
+# File name: REC-EP-OFF
+# File content: Official fees for requesting a recordal of change: EPO
+# Valid until: n/a
+
+DEFINE LIST REC_TYPE AS 'Chose recordal type?'
+CHOICE 'Transfer/Assignment' AS REC_TRANSFER
+CHOICE 'Merger' AS REC_MERGER
+CHOICE 'License' AS REC_LICENSE
+CHOICE 'Change of Address' AS REC_ADR
+CHOICE 'Change of Name' AS REC_NAME
+DEFAULT REC_TRANSFER
+ENDDEFINE
+
+COMPUTE FEE OFF_REC
+YIELD 110 IF REC_TYPE EQUALS REC_TRANSFER
+YIELD 110 IF REC_TYPE EQUALS REC_LICENSE
+YIELD 0
+ENDCOMPUTE

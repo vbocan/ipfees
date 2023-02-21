@@ -1,0 +1,30 @@
+# File name: PAT-DE-OFF
+# File content: Official fees for patent application: DE
+# Valid until n/a
+
+DEFINE NUMBER ClaimCount AS 'Number of claims?'
+BETWEEN 1 AND 1000
+DEFAULT 10
+ENDDEFINE
+
+DEFINE LIST Requests AS 'Request Search or Examination?'
+CHOICE 'Search' AS Requests_Search
+CHOICE 'Examination' AS Requests_Exam
+DEFAULT Requests_Search
+ENDDEFINE
+
+COMPUTE FEE OFF_FilingFee
+YIELD 40
+ENDCOMPUTE
+
+COMPUTE FEE OFF_SearchFee
+YIELD 300 IF Requests EQUALS Requests_Search
+ENDCOMPUTE
+
+COMPUTE FEE OFF_ExaminationFee
+YIELD 350 IF Requests EQUALS Requests_Exam
+ENDCOMPUTE
+
+COMPUTE FEE OFF_ClaimFee
+YIELD 20*(ClaimCount-10) IF ClaimCount ABOVE 10
+ENDCOMPUTE

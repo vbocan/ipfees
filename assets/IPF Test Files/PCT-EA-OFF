@@ -1,0 +1,41 @@
+# File name: PCT-EA-OFF
+# File content: Official fees for PCT regional phase: EAPO
+# Valid until n/a
+
+# all calculations for non EAPO residents. These would be entitled to certain fee reductions.
+
+DEFINE NUMBER ClaimCount AS 'Number of claims?'
+BETWEEN 1 AND 1000
+DEFAULT 5
+ENDDEFINE
+
+DEFINE NUMBER IndependentClaimCount AS 'Number of independent claims?'
+BETWEEN 1 AND 100
+DEFAULT 1
+ENDDEFINE
+
+DEFINE BOOLEAN ISR_AVAILABLE AS 'Is ISR available?'
+DEFAULT TRUE
+ENDDEFINE
+
+COMPUTE FEE OFF_BasicNationalFee
+YIELD 36000*0.75 IF ISR_AVAILABLE EQUALS TRUE
+YIELD 36000 IF ISR_AVAILABLE EQUALS FALSE
+ENDCOMPUTE
+
+COMPUTE FEE OFF_ExaminationFee
+YIELD 40000
+YIELD 25000 IF IndependentClaimCount EQUALS 2
+YIELD 25000  + 13000*(IndependentClaimCount-2) IF IndependentClaimCount ABOVE 2
+ENDCOMPUTE
+
+COMPUTE FEE OFF_ClaimFee
+# 1-5 = none; 6-20(=15): 4800; 21-50 (=30): 5200; >50: 6500
+YIELD 6500*(ClaimCount-50)+5200*30+4800*15 IF ClaimCount ABOVE 50
+YIELD 5200*(ClaimCount-20)+4800*15 IF ClaimCount ABOVE 20 AND ClaimCount BELOW 51
+YIELD 4800*(ClaimCount-5) IF ClaimCount ABOVE 5 AND ClaimCount BELOW 21
+ENDCOMPUTE
+
+COMPUTE FEE OFF_GrantFee OPTIONAL
+YIELD 25000
+ENDCOMPUTE
