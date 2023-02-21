@@ -1,0 +1,59 @@
+# File name: PCT-AP-OFF
+# File content: Official fees for PCT regional phase: ARIPO
+# Valid until n/a
+
+# Examination request: 3 years as of international filing date
+
+DEFINE NUMBER CountryCount AS 'Number of designations?'
+BETWEEN 1 AND 100
+DEFAULT 22  # number of ARIPO member states
+# Botswana, Eswatini, Gambia, Ghana, Kenya, Lesotho, Liberia, Malawi, Mozambique, Namibia, Rwanda, Sao Tome and Principe, Sierra Leone, Somalia (not member of the Harare Protocol), the Sudan, the United Republic of Tanzania, Uganda, Zambia and Zimbabwe
+ENDDEFINE
+
+DEFINE NUMBER SheetCount AS 'Number of sheets?'
+BETWEEN 1 AND 10000
+DEFAULT 30
+ENDDEFINE
+
+DEFINE NUMBER ClaimCount AS 'Number of claims?'
+BETWEEN 1 AND 1000
+DEFAULT 10
+ENDDEFINE
+
+DEFINE BOOLEAN ISR_AVAILABLE AS 'Is ISR available?'
+DEFAULT TRUE
+ENDDEFINE
+
+COMPUTE FEE OFF_BasicNationalFee
+YIELD 232
+ENDCOMPUTE
+
+COMPUTE FEE OFF_DesignationFee
+YIELD 85*CountryCount
+ENDCOMPUTE
+
+COMPUTE FEE OFF_PublicationFee
+YIELD 350
+YIELD 20*(SheetCount-30) IF SheetCount ABOVE 30
+YIELD 50*(ClaimCount-10) IF ClaimCount ABOVE 10
+ENDCOMPUTE
+
+COMPUTE FEE OFF_SearchFee
+YIELD 0 IF ISR_AVAILABLE EQUALS TRUE
+YIELD 300 IF ISR_AVAILABLE EQUALS FALSE
+ENDCOMPUTE
+
+COMPUTE FEE OFF_ExaminationFee
+YIELD 300 # 3 years as of international filing date
+ENDCOMPUTE
+
+COMPUTE FEE OFF_GrantFee OPTIONAL
+YIELD 350
+ENDCOMPUTE
+
+# need to check if due (1-3 years after filing date)
+COMPUTE FEE OFF_Renewal
+YIELD 50 # year 1
+YIELD 70 # year 2
+YIELD 90 # year 3
+ENDCOMPUTE

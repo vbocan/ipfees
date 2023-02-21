@@ -1,0 +1,20 @@
+# File name: DES-DE-OFF
+# File content: Official fees for design application: DE
+# Valid until n/a
+
+DEFINE NUMBER DesignCount AS 'Number of designs?'
+BETWEEN 1 AND 100
+DEFAULT 1
+ENDDEFINE
+
+DEFINE BOOLEAN DeferredPub AS 'Deferred publication?'
+DEFAULT FALSE
+ENDDEFINE
+
+COMPUTE FEE OFF_FilingFee
+YIELD 60 IF DeferredPub EQUALS FALSE
+YIELD (6 * (DesignCount - 10)) IF DesignCount ABOVE 10 IF DeferredPub EQUALS FALSE
+
+YIELD 30 IF DeferredPub EQUALS TRUE
+YIELD (3 * (DesignCount - 10)) IF DesignCount ABOVE 10 IF DeferredPub EQUALS TRUE
+ENDCOMPUTE
