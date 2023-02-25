@@ -8,7 +8,7 @@
         private IPFVariableList CurrentList { get; set; } = new IPFVariableList(string.Empty, string.Empty, new List<IPFListItem>(), string.Empty);
         private IPFVariableNumber CurrentNumber { get; set; } = new IPFVariableNumber(string.Empty, string.Empty, int.MinValue, int.MaxValue, 0);
         private IPFVariableBoolean CurrentBoolean { get; set; } = new IPFVariableBoolean(string.Empty, string.Empty, false);
-        private IPFFee CurrentFee { get; set; } = new IPFFee(string.Empty, false, new List<IPFItem>());
+        private IPFFee CurrentFee { get; set; } = new IPFFee(string.Empty, false, new List<IPFItem>(), new List<IPFFeeVar>());
         private IPFFeeCase CurrentFeeCase { get; set; } = new IPFFeeCase(Enumerable.Empty<string>(), new List<IPFFeeYield>());
 
         private IList<IPFVariable> IPFVariables = new List<IPFVariable>();
@@ -37,6 +37,7 @@
                 ParseFee,
                 ParseFeeCase,
                 ParseFeeYield,
+                ParseFeeLet,
                 ParseFeeEndCase,
                 ParseEndCompute
             };
@@ -277,7 +278,7 @@
             if (tokens[1] != "FEE") return false;
             CurrentlyParsing = Parsing.Fee;
             var IsFeeOptional = (tokens.Length == 4 && tokens[3] == "OPTIONAL");
-            CurrentFee = new IPFFee(tokens[2], IsFeeOptional, new List<IPFItem>());
+            CurrentFee = new IPFFee(tokens[2], IsFeeOptional, new List<IPFItem>(), new List<IPFFeeVar>());
             return true;
         }
 
@@ -310,6 +311,18 @@
                 var Yield = new IPFFeeYield(Enumerable.Empty<string>(), ValueTokens);
                 CurrentFeeCase.Yields.Add(Yield);
             }
+            return true;
+        }
+
+        // LET A AS 20 * 10
+        bool ParseFeeLet(string[] tokens)
+        {
+            if (CurrentlyParsing != Parsing.Fee) return false;
+            if (tokens[0] != "LET") return false;
+            if (tokens[2] != "AS") return false;
+            var VarName = tokens[1];
+            var ValueTokens = tokens.AsEnumerable().Skip(3);
+            CurrentFee.Vars.Add(new IPFFeeVar(VarName, ValueTokens));
             return true;
         }
 

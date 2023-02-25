@@ -70,7 +70,7 @@ namespace IPFees.Web.Pages
 
             try
             {
-                (TotalManadatoryAmount, TotalOptionalAmount, ComputationSteps) = _calc.Compute(CollectedVars.ToArray());
+                (TotalManadatoryAmount, TotalOptionalAmount, ComputationSteps) = _calc.Compute(CollectedVars);
                 // Log computation success
                 _logger.LogInformation("Success! Total mandatory amount is [{0}] and the total optional amount is [{1}]", TotalManadatoryAmount, TotalOptionalAmount);
                 foreach (var cs in ComputationSteps)

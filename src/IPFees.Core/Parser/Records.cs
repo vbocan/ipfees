@@ -7,7 +7,7 @@
     public record IPFVariableNumber(string Name, string Text, int MinValue, int MaxValue, int DefaultValue) : IPFVariable(Name, Text);
 
     public abstract record IPFItem(IEnumerable<string> Condition);
-    public record IPFFee(string Name, bool Optional, IList<IPFItem> Cases)
+    public record IPFFee(string Name, bool Optional, IList<IPFItem> Cases, IList<IPFFeeVar> Vars)
     {
         public override string ToString()
         {
@@ -33,6 +33,13 @@
         public override string ToString()
         {
             return string.Format("YIELD: {0} CONDITION: {1}", string.Join(" ", Values), string.Join(" ", Condition));
+        }
+    }
+    public record IPFFeeVar(string Name, IEnumerable<string> ValueTokens)
+    {
+        public override string ToString()
+        {
+            return string.Format("VAR: {0}\n\r{1}", Name, string.Join(Environment.NewLine, ValueTokens));
         }
     }
 }
