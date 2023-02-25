@@ -128,6 +128,8 @@
                     start = i + 1;
                 }
             }
+
+            yield return strings.Skip(start);
         }
     }
 }
