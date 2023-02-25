@@ -1,5 +1,10 @@
 ﻿namespace IPFees.Evaluator
 {
+
+    /// <summary>
+    /// Influenced by: https://github.com/toptensoftware/SimpleExpressionEngine
+    /// https://medium.com/@toptensoftware/writing-a-simple-math-expression-engine-in-c-d414de18d4ce
+    /// </summary>
     public class IPFEvaluator
     {
         public IPFEvaluator() { }
