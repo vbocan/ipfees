@@ -116,7 +116,17 @@
 
         public double CallFunction(string name, double[] arguments)
         {
-            throw new NotImplementedException();
+            switch (name)
+            {
+                case "ROUND":
+                    return Math.Round(arguments[0]);
+                case "FLOOR":
+                    return Math.Floor(arguments[0]);
+                case "CEIL":
+                    return Math.Ceiling(arguments[0]);
+            }
+
+            throw new InvalidDataException($"Unknown function: '{name}'");
         }
     }
 
