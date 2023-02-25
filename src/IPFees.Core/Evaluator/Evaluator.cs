@@ -1,9 +1,4 @@
-﻿using IPFees.Parser;
-using Microsoft.VisualBasic;
-using System.Collections;
-using System.Globalization;
-
-namespace IPFees.Evaluator
+﻿namespace IPFees.Evaluator
 {
     public class IPFEvaluator
     {
@@ -11,107 +6,7 @@ namespace IPFees.Evaluator
 
         public static double EvaluateExpression(string[] Tokens, IEnumerable<IPFValue> Vars)
         {
-            // Stack for numbers: 'values'
-            var values = new Stack<double>();
-            // Stack for Operators: 'ops'
-            var ops = new Stack<string>();
-
-            for (int i = 0; i < Tokens.Length; i++)
-            {
-                var Variable = Vars.SingleOrDefault(s => s.Name.Equals(Tokens[i]));
-
-                // Current token is a number variable
-                if (Variable is IPFValueNumber number)
-                {
-                    values.Push(number.Value);
-                }
-                // Current token is an opening brace, push it to 'ops'
-                else if (Tokens[i].Equals("("))
-                {
-                    ops.Push(Tokens[i]);
-                }
-                // Closing brace encountered, solve entire brace
-                else if (Tokens[i].Equals(")"))
-                {
-                    while (ops.Peek() != "(")
-                    {
-                        values.Push(ApplyOperation(ops.Pop(), values.Pop(), values.Pop()));
-                    }
-                    ops.Pop();
-                }
-                // Current token is an operator.
-                else if ((new string[] { "+", "-", "*", "/" }).Contains(Tokens[i]))
-                {
-                    // While top of 'ops' has same or greater precedence to current token, which is an operator.
-                    // Apply operator on top of 'ops' to top two elements in values stack
-                    while (ops.Count > 0 && HasPrecedence(Tokens[i], ops.Peek()))
-                    {
-                        values.Push(ApplyOperation(ops.Pop(), values.Pop(), values.Pop()));
-                    }
-
-                    // Push current token to 'ops'.
-                    ops.Push(Tokens[i]);
-                }
-                // Finally, it must be a number
-                else
-                {
-                    if (double.TryParse(Tokens[i], NumberStyles.AllowDecimalPoint, CultureInfo.InvariantCulture, out double Number))
-                    {
-                        values.Push(Number);
-                    }
-                    else
-                    {
-                        throw new NotSupportedException(string.Format("Invalid token encountered [{0}] while evaluating expression [{1}]", Tokens[i], string.Join(' ', Tokens)));
-                    }
-                }
-            }
-
-            // Entire expression has been parsed at this point, apply remaining ops to remaining values
-            while (ops.Count > 0)
-            {
-                values.Push(ApplyOperation(ops.Pop(), values.Pop(), values.Pop()));
-            }
-
-            // Top of 'values' contains result, return it
-            return values.Pop();
-        }
-
-        // Returns true if 'op2' has higher or same precedence as 'op1', otherwise returns false.
-        private static bool HasPrecedence(string op1, string op2)
-        {
-            if (op2 == "(" || op2 == ")")
-            {
-                return false;
-            }
-            if ((op1 == "*" || op1 == "/") && (op2 == "+" || op2 == "-"))
-            {
-                return false;
-            }
-            else
-            {
-                return true;
-            }
-        }
-
-        // A utility method to apply an operator 'op' on operands 'a' and 'b'. Return the result.
-        private static double ApplyOperation(string op, double b, double a)
-        {
-            switch (op)
-            {
-                case "+":
-                    return a + b;
-                case "-":
-                    return a - b;
-                case "*":
-                    return a * b;
-                case "/":
-                    if (b == 0)
-                    {
-                        throw new NotSupportedException("Cannot divide by zero");
-                    }
-                    return a / b;
-            }
-            return 0;
+            return Parser.Parse(string.Join(" ", Tokens)).Eval(new MyContext(Vars));
         }
 
         private static bool EvaluateLogicItem(string[] Tokens, IEnumerable<IPFValue> Vars)
@@ -197,6 +92,27 @@ namespace IPFees.Evaluator
 
             return result;
         }
+
+    }
+
+    class MyContext : IContext
+    {
+        private readonly IEnumerable<IPFValue> Vars;
+        public MyContext(IEnumerable<IPFValue> Vars)
+        {
+            this.Vars = Vars;
+        }
+
+        public double ResolveVariable(string name)
+        {
+            var v = Vars.OfType<IPFValueNumber>().Where(w => w.Name.Equals(name)).SingleOrDefault();
+            return v != null ? v.Value : throw new InvalidDataException($"Unknown variable: '{name}'");
+        }
+
+        public double CallFunction(string name, double[] arguments)
+        {
+            throw new NotImplementedException();
+        }
     }
 
     public static class StringExtensions
@@ -212,8 +128,6 @@ namespace IPFees.Evaluator
                     start = i + 1;
                 }
             }
-
-            yield return strings.Skip(start);
         }
     }
 }
