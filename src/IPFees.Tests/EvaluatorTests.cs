@@ -20,6 +20,17 @@ namespace IPFees.Tests
         }
 
         [Fact]
+        public void TestArithmeticEvaluationWithNegativeNumber()
+        {
+            var vars = new IPFValue[] {
+                new IPFValueNumber("A", 10),
+            };
+            var tokens = "A * -1".Split(new char[] { ' ' }, StringSplitOptions.None);
+            var ev = IPFEvaluator.EvaluateExpression(tokens, vars);
+            Assert.Equal(-10, ev);
+        }
+
+        [Fact]
         public void TestEqualsEvaluation()
         {
             var vars = new IPFValue[] {
