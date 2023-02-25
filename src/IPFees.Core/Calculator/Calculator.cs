@@ -19,7 +19,7 @@ namespace IPFees.Calculator
         public IEnumerable<IPFVariable> GetVariables() => parser.GetVariables();
         public IEnumerable<IPFFee> GetFees() => parser.GetFees();
 
-        public (double, double, IEnumerable<string>) Compute(IPFValue[] vars)
+        public (double, double, IEnumerable<string>) Compute(IList<IPFValue> vars)
         {
             double TotalMandatoryAmount = 0;
             double TotalOptionalAmount = 0;
@@ -35,6 +35,13 @@ namespace IPFees.Calculator
                 {
                     ComputeSteps.Add(string.Format("COMPUTING FEE [{0}]", fee.Name));
                 }
+                // Evaluate each fee variables
+                foreach(var fv in fee.Vars)
+                {
+                    var fv_val = IPFEvaluator.EvaluateExpression(fv.ValueTokens.ToArray(), vars);
+                    vars.Add(new IPFValueNumber(fv.Name, fv_val));
+                }
+                // Proceed with computation
                 double CurrentAmount = 0;
                 ComputeSteps.Add(string.Format("Amount is initially {0}", CurrentAmount));
                 foreach (IPFFeeCase fc in fee.Cases.Cast<IPFFeeCase>())

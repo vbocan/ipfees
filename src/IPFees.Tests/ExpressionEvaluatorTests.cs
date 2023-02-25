@@ -9,7 +9,7 @@ namespace IPFees.Tests
         [Fact]
         public void TestArithmeticEvaluation()
         {
-            var vars = new IPFValue[] {
+            List<IPFValue> vars = new() {
                 new IPFValueNumber("A", 6),
                 new IPFValueNumber("B", 80),
                 new IPFValueNumber("C", 30),
@@ -22,7 +22,7 @@ namespace IPFees.Tests
         [Fact]
         public void TestArithmeticEvaluationWithNegativeNumber()
         {
-            var vars = new IPFValue[] {
+            List<IPFValue> vars = new() {
                 new IPFValueNumber("A", 10),
             };
             var tokens = "A * -1".Split(new char[] { ' ' }, StringSplitOptions.None);
@@ -33,7 +33,7 @@ namespace IPFees.Tests
         [Fact]
         public void TestFunctionFloor()
         {
-            var vars = new IPFValue[] {
+            List<IPFValue> vars = new() {
                 new IPFValueNumber("A", 40.7),
             };
             var tokens = "FLOOR ( A )".Split(new char[] { ' ' }, StringSplitOptions.None);
@@ -44,7 +44,7 @@ namespace IPFees.Tests
         [Fact]
         public void TestFunctionRound()
         {
-            var vars = new IPFValue[] {
+            List<IPFValue> vars = new() {
                 new IPFValueNumber("A", 40.3),
                 new IPFValueNumber("B", 40.7),
             };
@@ -60,7 +60,7 @@ namespace IPFees.Tests
         [Fact]
         public void TestFunctionCeil()
         {
-            var vars = new IPFValue[] {
+            List<IPFValue> vars = new() {
                 new IPFValueNumber("A", 40.3),
             };
             var tokens = "CEIL ( A )".Split(new char[] { ' ' }, StringSplitOptions.None);

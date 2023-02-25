@@ -1,5 +1,6 @@
 using IPFees.Calculator;
 using IPFees.Evaluator;
+using IPFees.Parser;
 
 namespace IPFees.Tests
 {
@@ -13,7 +14,7 @@ namespace IPFees.Tests
             COMPUTE FEE BasicNationalFee
             ENDCOMPUTE
             """;
-            var vars = Array.Empty<IPFValue>();
+            List<IPFValue> vars = new() { };
 
             var calc = new IPFCalculator();
             calc.Parse(text);
@@ -32,7 +33,7 @@ namespace IPFees.Tests
             YIELD 80
             ENDCOMPUTE
             """;
-            var vars = Array.Empty<IPFValue>();
+            List<IPFValue> vars = new() { };
 
             var calc = new IPFCalculator();
             calc.Parse(text);
@@ -51,7 +52,7 @@ namespace IPFees.Tests
             YIELD 80
             ENDCOMPUTE
             """;
-            var vars = Array.Empty<IPFValue>();
+            List<IPFValue> vars = new() { };
 
             var calc = new IPFCalculator();
             calc.Parse(text);
@@ -70,7 +71,7 @@ namespace IPFees.Tests
             ENDCOMPUTE
             """;
 
-            var vars = new IPFValue[] {
+            List<IPFValue> vars = new() {
                 new IPFValueBoolean("C", true),
             };
 
@@ -93,7 +94,7 @@ namespace IPFees.Tests
             YIELD 64 IF EntityType EQUALS MicroEntity
             ENDCOMPUTE
             """;
-            var vars = new IPFValue[] {
+            List<IPFValue> vars = new() {
                 new IPFValueString("EntityType", "NormalEntity"),
             };
 
@@ -115,7 +116,7 @@ namespace IPFees.Tests
             YIELD (64/8)+2 IF EntityType EQUALS MicroEntity
             ENDCOMPUTE
             """;
-            var vars = new IPFValue[] {
+            List<IPFValue> vars = new() {
                 new IPFValueString("EntityType", "NormalEntity"),
             };
 
@@ -138,7 +139,7 @@ namespace IPFees.Tests
             YIELD (A/10-30)*2
             ENDCOMPUTE
             """;
-            var vars = new IPFValue[] {
+            List<IPFValue> vars = new() {
                 new IPFValueNumber("A", 350),
             };
 
@@ -162,7 +163,7 @@ namespace IPFees.Tests
             YIELD 20
             ENDCOMPUTE
             """;
-            var vars = new IPFValue[] { };
+            List<IPFValue> vars = new() { };
 
             var calc = new IPFCalculator();
             calc.Parse(text);
@@ -170,6 +171,57 @@ namespace IPFees.Tests
 
             Assert.Equal(10, TotalMandatoryAmount);
             Assert.Equal(20, TotalOptionalAmount);
+        }
+
+        [Fact]
+        public void TestFeeWithVariables1()
+        {
+            string text =
+            """
+            COMPUTE FEE BasicNationalFee
+            LET A AS 20 * 10
+            LET B AS 30 * 11
+            YIELD 320 + A IF EntityType EQUALS NormalEntity
+            YIELD 128 + A IF EntityType EQUALS SmallEntity 
+            YIELD 64 + B IF EntityType EQUALS MicroEntity
+            ENDCOMPUTE
+            """;
+            List<IPFValue> vars = new() {
+                new IPFValueString("EntityType", "NormalEntity"),
+            };
+
+            var calc = new IPFCalculator();
+            calc.Parse(text);
+            var (TotalMandatoryAmount, TotalOptionalAmount, _) = calc.Compute(vars);
+
+            Assert.Equal(520, TotalMandatoryAmount);
+            Assert.Equal(0, TotalOptionalAmount);
+        }
+
+        [Fact]
+        public void TestFeeWithVariables2()
+        {
+            string text =
+            """
+            COMPUTE FEE BasicNationalFee
+            LET A AS C * 10
+            LET B AS C * 11
+            YIELD 320 + A IF EntityType EQUALS NormalEntity
+            YIELD 128 + A IF EntityType EQUALS SmallEntity 
+            YIELD 64 + B IF EntityType EQUALS MicroEntity
+            ENDCOMPUTE
+            """;
+            List<IPFValue> vars = new() {
+                new IPFValueString("EntityType", "SmallEntity"),
+                new IPFValueNumber("C", 2)
+            };
+
+            var calc = new IPFCalculator();
+            calc.Parse(text);
+            var (TotalMandatoryAmount, TotalOptionalAmount, _) = calc.Compute(vars);
+
+            Assert.Equal(148, TotalMandatoryAmount);
+            Assert.Equal(0, TotalOptionalAmount);
         }
     }
 }
