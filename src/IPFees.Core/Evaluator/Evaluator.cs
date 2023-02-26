@@ -1,4 +1,6 @@
-﻿namespace IPFees.Evaluator
+﻿using System.Globalization;
+
+namespace IPFees.Evaluator
 {
 
     /// <summary>
@@ -14,88 +16,111 @@
             return Parser.Parse(string.Join(" ", Tokens)).Eval(new MyContext(Vars));
         }
 
-        private static bool EvaluateLogicItem(string[] Tokens, IEnumerable<IPFValue> Vars)
-        {
-            if (Tokens.Length < 1) throw new NotSupportedException(string.Format("[{0}] is not valid logic", string.Join(' ', Tokens)));
-
-            // Case 1: We have a <boolean value> in the form of TRUE or FALSE
-            var IsPlainBoolean = bool.TryParse(Tokens[0], out bool PlainBooleanValue);
-            if (IsPlainBoolean) return PlainBooleanValue;
-
-
-            var CurrentVariable = Vars.SingleOrDefault(w => w.Name.Equals(Tokens[0]));
-            if (CurrentVariable == null) throw new NotSupportedException(string.Format("Variable [{0}] was not found.", Tokens[0]));
-
-            // Case 2: We have a <variable> followed by one of the operators (ABOVE, BELOW, EQUALS)
-            // The first token decides how we evaluate the item.
-
-            // If the first token is a boolean variable, there is only one operator available: EQUALS
-            if (CurrentVariable is IPFValueBoolean boo)
-            {
-                if (Tokens.Length > 1)
-                {
-                    // Expression is in the form <variable> EQUALS TRUE|FALSE
-                    bool LeftValue = boo.Value;
-                    var res = bool.TryParse(Tokens[2], out bool RightValue);
-                    if (!res) throw new NotSupportedException("Expected TRUE or FALSE");
-                    switch (Tokens[1])
-                    {
-                        case "EQUALS": return LeftValue == RightValue;
-                        case "NOTEQUALS": return LeftValue != RightValue;
-                        default: throw new NotSupportedException("Expected EQUALS or NOTEQUALS");
-                    }
-                }
-                else
-                {
-                    // Expression contains only the <variable> name
-                    return boo.Value;
-                }
-            }
-
-            // If the first token is a numeric variable, the available inequality operators are ABOVE, UNDER, EQUALS            
-            if (CurrentVariable is IPFValueNumber number)
-            {
-                double LeftValue = number.Value;
-                double RightValue = EvaluateExpression(Tokens.Skip(2).ToArray(), Vars);
-                switch (Tokens[1])
-                {
-                    case "ABOVE": return LeftValue > RightValue;
-                    case "BELOW": return LeftValue < RightValue;
-                    case "EQUALS": return LeftValue == RightValue;
-                    case "NOTEQUALS": return LeftValue != RightValue;
-                    default: throw new NotSupportedException("Expected ABOVE, UNDER, EQUALS, NOTEQUALS");
-                }
-            }
-            // If the first token is a string variable, there is only one operator available: EQUALS
-            if (CurrentVariable is IPFValueString str)
-            {
-                string LeftValue = str.Value;
-                string RightValue = Tokens[2];
-                switch (Tokens[1])
-                {
-                    case "EQUALS": return LeftValue.Equals(RightValue);
-                    case "NOTEQUALS": return !LeftValue.Equals(RightValue);
-                    default: throw new NotSupportedException("Expected EQUALS or NOTEQUALS");
-                }
-            }
-
-            return true;
-        }
-
+        // Example: ClaimCount ABOVE 3 AND EntityType EQUALS NormalEntity
         public static bool EvaluateLogic(string[] Tokens, IEnumerable<IPFValue> Vars)
         {
-            // If there are no tokens, logic is true
-            if (Tokens.Length == 0) return true;
-            // Split token list at AND boundaries
-            var AndItems = Tokens.Split("AND");
+            // Stack for values
+            var values = new Stack<IPFValue>();
+            // Stack for operators
+            var ops = new Stack<string>();
 
-            bool result = true;
-            foreach (var item in AndItems)
+            for (int i = 0; i < Tokens.Length; i++)
             {
-                result = result && EvaluateLogicItem(item.ToArray(), Vars);
+                // Search for a variable named the same as the current token
+                var Variable = Vars.SingleOrDefault(s => s.Name.Equals(Tokens[i]));
+
+                if (Variable is not null)
+                {
+                    values.Push(Variable);
+                }
+
+                // Current token is an opening brace, push it to 'ops'
+                else if (Tokens[i].Equals("("))
+                {
+                    ops.Push(Tokens[i]);
+                }
+                // Closing brace encountered, solve entire brace
+                else if (Tokens[i].Equals(")"))
+                {
+                    while (ops.Peek() != "(")
+                    {
+                        values.Push(ApplyOperation(ops.Pop(), values.Pop(), values.Pop()));
+                    }
+                    ops.Pop();
+                }
+                // Current token is an operator.
+                else if ((new string[] { "AND", "OR", "EQ", "NEQ", "LT", "LTE", "GT", "GTE" }).Contains(Tokens[i]))
+                {
+                    // While top of 'ops' has same or greater precedence to current token, which is an operator.
+                    // Apply operator on top of 'ops' to top two elements in values stack
+                    while (ops.Count > 0 && HasPrecedence(Tokens[i], ops.Peek()))
+                    {
+                        values.Push(ApplyOperation(ops.Pop(), values.Pop(), values.Pop()));
+                    }
+
+                    // Push current token to 'ops'.
+                    ops.Push(Tokens[i]);
+                }
+                // Current token is a number
+                else if (double.TryParse(Tokens[i], NumberStyles.AllowDecimalPoint, CultureInfo.InvariantCulture, out double Number))
+                {
+                    values.Push(new IPFValueNumber(string.Empty, Number));
+                }
+                // Current token is a boolean (TRUE or FALSE)
+                else if (bool.TryParse(Tokens[i], out bool Boolean))
+                {
+                    values.Push(new IPFValueBoolean(string.Empty, Boolean));
+                }
+                // Current token is not recognized
+                else throw new NotSupportedException(string.Format("Invalid token encountered [{0}] while evaluating expression [{1}]", Tokens[i], string.Join(' ', Tokens)));
             }
 
-            return result;
+            // Entire expression has been parsed at this point, apply remaining ops to remaining values
+            while (ops.Count > 0)
+            {
+                values.Push(ApplyOperation(ops.Pop(), values.Pop(), values.Pop()));
+            }
+
+            // Top of 'values' contains result, return it
+            return values.Pop();
+        }
+
+        // Returns true if 'op2' has higher or same precedence as 'op1', otherwise returns false.
+        private static bool HasPrecedence(string op1, string op2)
+        {
+            if (op2 == "(" || op2 == ")")
+            {
+                return false;
+            }
+            if ((op1 == "*" || op1 == "/") && (op2 == "+" || op2 == "-"))
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+        }
+
+        // A utility method to apply an operator 'op' on operands 'a' and 'b'. Return the result.
+        private static double ApplyOperation(string op, double b, double a)
+        {
+            switch (op)
+            {
+                case "+":
+                    return a + b;
+                case "-":
+                    return a - b;
+                case "*":
+                    return a * b;
+                case "/":
+                    if (b == 0)
+                    {
+                        throw new NotSupportedException("Cannot divide by zero");
+                    }
+                    return a / b;
+            }
+            return 0;
         }
 
     }
@@ -116,35 +141,13 @@
 
         public double CallFunction(string name, double[] arguments)
         {
-            switch (name)
+            return name switch
             {
-                case "ROUND":
-                    return Math.Round(arguments[0]);
-                case "FLOOR":
-                    return Math.Floor(arguments[0]);
-                case "CEIL":
-                    return Math.Ceiling(arguments[0]);
-            }
-
-            throw new InvalidDataException($"Unknown function: '{name}'");
-        }
-    }
-
-    public static class StringExtensions
-    {
-        public static IEnumerable<IEnumerable<string>> Split(this string[] strings, string delimiter)
-        {
-            var start = 0;
-            for (int i = 0; i < strings.Length; i++)
-            {
-                if (strings[i] == delimiter)
-                {
-                    yield return strings.Skip(start).Take(i - start);
-                    start = i + 1;
-                }
-            }
-
-            yield return strings.Skip(start);
+                "ROUND" => Math.Round(arguments[0]),
+                "FLOOR" => Math.Floor(arguments[0]),
+                "CEIL" => Math.Ceiling(arguments[0]),
+                _ => throw new InvalidDataException($"Unknown function: '{name}'"),
+            };
         }
     }
 }
