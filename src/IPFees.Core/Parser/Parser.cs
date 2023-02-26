@@ -1,4 +1,7 @@
-﻿namespace IPFees.Parser
+﻿using System.Text;
+using System.Xml.Linq;
+
+namespace IPFees.Parser
 {
     public class IPFParser
     {
@@ -320,7 +323,7 @@
             if (CurrentlyParsing != Parsing.Fee) return false;
             if (tokens[0] != "LET") return false;
             if (tokens[2] != "AS") return false;
-            var VarName = tokens[1];
+            var VarName = new StringBuilder().AppendFormat($"{tokens[1]}.{CurrentFee.Name}").ToString();
             var ValueTokens = tokens.AsEnumerable().Skip(3);
             CurrentFee.Vars.Add(new IPFFeeVar(VarName, ValueTokens));
             return true;

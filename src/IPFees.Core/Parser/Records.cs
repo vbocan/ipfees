@@ -13,11 +13,11 @@
         {
             if (Optional)
             {
-                return string.Format("\n\rOPTIONAL FEE: {0}\n\r{1}", Name, string.Join(Environment.NewLine, Cases));
+                return string.Format("\n\rOPTIONAL FEE: {0}\n\r{2}\n\r{1}\n\r", Name, string.Join(Environment.NewLine, Cases), string.Join(Environment.NewLine, Vars));
             }
             else
             {
-                return string.Format("\n\rFEE: {0}\n\r{1}", Name, string.Join(Environment.NewLine, Cases));
+                return string.Format("\n\rFEE: {0}\n\r{2}\n\r{1}\n\r", Name, string.Join(Environment.NewLine, Cases), string.Join(Environment.NewLine, Vars));
             }
         }
     }
@@ -32,14 +32,14 @@
     {
         public override string ToString()
         {
-            return string.Format("YIELD: {0} CONDITION: {1}", string.Join(" ", Values), string.Join(" ", Condition));
+            return string.Format("YIELD: {0} CONDITION: [{1}]", string.Join(" ", Values), string.Join(" ", Condition));
         }
     }
     public record IPFFeeVar(string Name, IEnumerable<string> ValueTokens)
     {
         public override string ToString()
         {
-            return string.Format("VAR: {0}\n\r{1}", Name, string.Join(Environment.NewLine, ValueTokens));
+            return string.Format("VAR: {0} AS [{1}]", Name, string.Join(Environment.NewLine, ValueTokens));
         }
     }
 }

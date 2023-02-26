@@ -35,10 +35,10 @@ namespace IPFees.Calculator
                 {
                     ComputeSteps.Add(string.Format("COMPUTING FEE [{0}]", fee.Name));
                 }
-                // Evaluate each fee variables
+                // Evaluate fee variables
                 foreach(var fv in fee.Vars)
                 {
-                    var fv_val = IPFEvaluator.EvaluateExpression(fv.ValueTokens.ToArray(), vars);
+                    var fv_val = IPFEvaluator.EvaluateExpression(fv.ValueTokens.ToArray(), vars, fee.Name);
                     vars.Add(new IPFValueNumber(fv.Name, fv_val));
                 }
                 // Proceed with computation
@@ -46,7 +46,7 @@ namespace IPFees.Calculator
                 ComputeSteps.Add(string.Format("Amount is initially {0}", CurrentAmount));
                 foreach (IPFFeeCase fc in fee.Cases.Cast<IPFFeeCase>())
                 {
-                    var case_cond = (!fc.Condition.Any()) || IPFEvaluator.EvaluateLogic(fc.Condition.ToArray(), vars);
+                    var case_cond = (!fc.Condition.Any()) || IPFEvaluator.EvaluateLogic(fc.Condition.ToArray(), vars, fee.Name);
                     if (!case_cond)
                     {
                         ComputeSteps.Add(string.Format("Condition [{0}] is FALSE, skipping", string.Join(" ", fc.Condition)));
@@ -55,8 +55,8 @@ namespace IPFees.Calculator
                     if (fc.Condition.Any()) ComputeSteps.Add(string.Format("Condition [{0}] is TRUE, proceeding with evaluating individual expressions", string.Join(" ", fc.Condition)));
                     foreach (var b in fc.Yields)
                     {
-                        var cond_b = IPFEvaluator.EvaluateLogic(b.Condition.ToArray(), vars);
-                        var val_b = IPFEvaluator.EvaluateExpression(b.Values.ToArray(), vars);
+                        var cond_b = IPFEvaluator.EvaluateLogic(b.Condition.ToArray(), vars, fee.Name);
+                        var val_b = IPFEvaluator.EvaluateExpression(b.Values.ToArray(), vars, fee.Name);
                         if (b.Condition.Any()) ComputeSteps.Add(string.Format("Condition: [{0}] is [{1}]", string.Join(" ", b.Condition), cond_b));
                         if (cond_b)
                         {
