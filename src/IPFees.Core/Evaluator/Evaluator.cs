@@ -1,4 +1,7 @@
-﻿namespace IPFees.Evaluator
+﻿using System.Collections.Generic;
+using System.Text;
+
+namespace IPFees.Evaluator
 {
 
     /// <summary>
@@ -9,12 +12,10 @@
     {
         public IPFEvaluator() { }
 
-        public static double EvaluateExpression(string[] Tokens, IEnumerable<IPFValue> Vars)
-        {
-            return Parser.Parse(string.Join(" ", Tokens)).Eval(new MyContext(Vars));
-        }
+        public static double EvaluateExpression(string[] Tokens, IEnumerable<IPFValue> Vars, string FeeName) => Parser.Parse(string.Join(" ", Tokens)).Eval(new MyContext(Vars, FeeName));
+        public static double EvaluateExpression(string[] Tokens, IEnumerable<IPFValue> Vars) => EvaluateExpression(Tokens, Vars, string.Empty);
 
-        private static bool EvaluateLogicItem(string[] Tokens, IEnumerable<IPFValue> Vars)
+        private static bool EvaluateLogicItem(string[] Tokens, IEnumerable<IPFValue> Vars, string FeeName)
         {
             if (Tokens.Length < 1) throw new NotSupportedException(string.Format("[{0}] is not valid logic", string.Join(' ', Tokens)));
 
@@ -56,7 +57,7 @@
             if (CurrentVariable is IPFValueNumber number)
             {
                 double LeftValue = number.Value;
-                double RightValue = EvaluateExpression(Tokens.Skip(2).ToArray(), Vars);
+                double RightValue = EvaluateExpression(Tokens.Skip(2).ToArray(), Vars, FeeName);
                 switch (Tokens[1])
                 {
                     case "ABOVE": return LeftValue > RightValue;
@@ -82,7 +83,8 @@
             return true;
         }
 
-        public static bool EvaluateLogic(string[] Tokens, IEnumerable<IPFValue> Vars)
+        public static bool EvaluateLogic(string[] Tokens, IEnumerable<IPFValue> Vars) => EvaluateLogic(Tokens, Vars, string.Empty);
+        public static bool EvaluateLogic(string[] Tokens, IEnumerable<IPFValue> Vars, string FeeName)
         {
             // If there are no tokens, logic is true
             if (Tokens.Length == 0) return true;
@@ -92,7 +94,7 @@
             bool result = true;
             foreach (var item in AndItems)
             {
-                result = result && EvaluateLogicItem(item.ToArray(), Vars);
+                result = result && EvaluateLogicItem(item.ToArray(), Vars, FeeName);
             }
 
             return result;
@@ -103,15 +105,25 @@
     class MyContext : IContext
     {
         private readonly IEnumerable<IPFValue> Vars;
-        public MyContext(IEnumerable<IPFValue> Vars)
+        private readonly string FeeName;
+        public MyContext(IEnumerable<IPFValue> Vars, string FeeName)
         {
             this.Vars = Vars;
+            this.FeeName = FeeName;
         }
 
         public double ResolveVariable(string name)
         {
-            var v = Vars.OfType<IPFValueNumber>().Where(w => w.Name.Equals(name)).SingleOrDefault();
-            return v != null ? v.Value : throw new InvalidDataException($"Unknown variable: '{name}'");
+            // Variable is global
+            var v1 = Vars.OfType<IPFValueNumber>().Where(w => w.Name.Equals(name)).SingleOrDefault();
+            if (v1 != null)
+            {
+                return v1.Value;
+            }
+            // Variable is local to the current fee
+            var VarName = new StringBuilder().AppendFormat($"{name}.{FeeName}").ToString();
+            var v2 = Vars.OfType<IPFValueNumber>().Where(w => w.Name.Equals(VarName)).SingleOrDefault();
+            return v2 != null ? v2.Value : throw new InvalidDataException($"No variable [{name}] in fee [{FeeName}]'");
         }
 
         public double CallFunction(string name, double[] arguments)
