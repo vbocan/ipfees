@@ -96,6 +96,7 @@
     <div class="card-body">
         <h5 class="card-title">Conditional Fees</h5>
         <h6 class="card-subtitle mb-2 text-muted">Conditions can be added to each YIELD branch. In this case, BasicNationalFee gets calculated according to the user selection in the EntityType input.</h6>
+        <p>The following operators are currently supported: EQUALS, NOTEQUALS, ABOVE, UNDER, AND. Note: Soon the list of operators will change, with enhanced support for parentheses.</p>
         <p class="card-text">
             COMPUTE FEE BasicNationalFee<br />
             YIELD 320 IF EntityType EQUALS NormalEntity<br />
