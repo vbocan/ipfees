@@ -1,10 +1,10 @@
 ﻿@page
-@model ExamplesModel
+@model ReferenceModel
 @{
     ViewData["Title"] = "IPFLange Reference";
 }
 <h1>IPFLang - A Domain-Specific Language for Modern IP Fees Calculation</h1>
-<h2>Short Manual</h2>
+<h2>Reference</h2>
 
 <div class="card mb-3" style="width: 48rem;">
     <div class="card-body">
@@ -95,7 +95,7 @@
 <div class="card mb-3" style="width: 48rem;">
     <div class="card-body">
         <h5 class="card-title">Conditional Fees</h5>
-        <h6 class="card-subtitle mb-2 text-muted"><!-- TODO!!!! --> Any number of fees can be created and conditions can be added to each YIELD branch.</h6>
+        <h6 class="card-subtitle mb-2 text-muted">Conditions can be added to each YIELD branch. In this case, BasicNationalFee gets calculated according to the user selection in the EntityType input.</h6>
         <p class="card-text">
             COMPUTE FEE BasicNationalFee<br />
             YIELD 320 IF EntityType EQUALS NormalEntity<br />
@@ -108,28 +108,14 @@
 
 <div class="card mb-3" style="width: 48rem;">
     <div class="card-body">
-        <h5 class="card-title">Fee computation (optional)</h5>
-        <h6 class="card-subtitle mb-2 text-muted">A fee can be declared as OPTIONAL. The amount accrued by optional fees is displayed separately from the mandatory ones.</h6>
-        <p class="card-text">
-            COMPUTE FEE BasicNationalFee OPTIONAL<br />
-            YIELD 320 IF EntityType EQUALS NormalEntity<br />
-            YIELD 128 IF EntityType EQUALS SmallEntity<br />
-            YIELD 64 IF EntityType EQUALS MicroEntity<br />
-            ENDCOMPUTE
-        </p>
-    </div>
-</div>
-
-<div class="card mb-3" style="width: 48rem;">
-    <div class="card-body">
-        <h5 class="card-title">Fee computation (slighly more complex)</h5>
-        <h6 class="card-subtitle mb-2 text-muted">Any number of fees can be created in a file and conditions can be added to each YIELD branch.</h6>
+        <h5 class="card-title">Conditional Fees (More Complex)</h5>
+        <h6 class="card-subtitle mb-2 text-muted">For more complex scenarios, the CASE clause can be used. In this particular care, certain amounts are added function of the SituationType input. YIELD statements outside the CASE are evaluated normally.</h6>
         <p class="card-text">
             COMPUTE FEE ExaminationFee<br />
             CASE SituationType EQUALS PreparedIPEA AS<br />
-            YIELD 0 IF EntityType EQUALS NormalEntity<br />
-            YIELD 0 IF EntityType EQUALS SmallEntity<br />
-            YIELD 0 IF EntityType EQUALS MicroEntity<br />
+            YIELD 20 IF EntityType EQUALS NormalEntity<br />
+            YIELD 40 IF EntityType EQUALS SmallEntity<br />
+            YIELD 60 IF EntityType EQUALS MicroEntity<br />
             ENDCASE<br />
             YIELD 800 IF EntityType EQUALS NormalEntity<br />
             YIELD 360 IF EntityType EQUALS SmallEntity<br />
@@ -141,11 +127,11 @@
 
 <div class="card mb-3" style="width: 48rem;">
     <div class="card-body">
-        <h5 class="card-title">Fee computation (complex)</h5>
-        <h6 class="card-subtitle mb-2 text-muted">Any number of fees can be created in a file and conditions can be added to each YIELD branch.</h6>
+        <h5 class="card-title">Complex Amounts</h5>
+        <h6 class="card-subtitle mb-2 text-muted">The YIELDed amount can be computed using a complex formula. If rounding is needed, one of the usual rounding functions can be used (see below).</h6>
         <p class="card-text">
             COMPUTE FEE SheetFee<br />
-            YIELD 4 20*((SheetCount-100)/50) IF SheetCount ABOVE 100 AND EntityType EQUALS NormalEntity<br />
+            YIELD 420*((SheetCount-100)/50) IF SheetCount ABOVE 100 AND EntityType EQUALS NormalEntity<br />
             YIELD 168*((SheetCount-100)/50) IF SheetCount ABOVE 100 AND EntityType EQUALS SmallEntity<br />
             YIELD 84*((SheetCount-100)/50) IF SheetCount ABOVE 100 AND EntityType EQUALS MicroEntity<br />
             ENDCOMPUTE
@@ -155,8 +141,41 @@
 
 <div class="card mb-3" style="width: 48rem;">
     <div class="card-body">
-        <h5 class="card-title">Full example (almost the entire USPTO fee structure)</h5>
-        <h6 class="card-subtitle mb-2 text-muted">Use this as a starting poit to your own fee computation</h6>
+        <h5 class="card-title">Number Rounding Functions</h5>
+        <h6 class="card-subtitle mb-2 text-muted">Rounding is accomplished using FLOOR, ROUND, CEIL functions.</h6>
+        <p class="card-text">
+            <ul>
+                <li>FLOOR - strips off the decimal part, e.g. 4.7 -> 4</li>
+                <li>ROUND - rounds to the nearest integer, e.g. 4.7 -> 5 and 4.3 -> 4</li>
+                <li>CEIL - rounds to the largest integer, e.g. 4.3 -> 5</li>
+            </ul>
+            COMPUTE FEE SheetFee<br />
+            YIELD ROUND(420*((SheetCount-100)/50)) IF SheetCount ABOVE 100 AND EntityType EQUALS NormalEntity<br />
+            YIELD FLOOR(168*((SheetCount-100)/50)) IF SheetCount ABOVE 100 AND EntityType EQUALS SmallEntity<br />
+            YIELD CEIL(84*((SheetCount-100)/50)) IF SheetCount ABOVE 100 AND EntityType EQUALS MicroEntity<br />
+            ENDCOMPUTE
+        </p>
+    </div>
+</div>
+
+<div class="card mb-3" style="width: 48rem;">
+    <div class="card-body">
+        <h5 class="card-title">Fee Local Variables</h5>
+        <h6 class="card-subtitle mb-2 text-muted">Local variables can be defined inside the scope of a fee. This is to enhance readability and simplify fee computation.</h6>
+        <p class="card-text">
+            COMPUTE FEE SheetFee<br />
+            LET A AS 20<br/>
+            LET B AS 40<br/>
+            YIELD A*200+B<br />
+            ENDCOMPUTE
+        </p>
+    </div>
+</div>
+
+<div class="card mb-3" style="width: 48rem;">
+    <div class="card-body">
+        <h5 class="card-title">Full Example</h5>
+        <h6 class="card-subtitle mb-2 text-muted">Use this as a starting point to your own fee computation.</h6>
         <p class="card-text">
             DEFINE LIST EntityType AS 'Select the desired entity type'<br />
             CHOICE 'Normal' AS NormalEntity<br />
@@ -226,9 +245,12 @@
             ENDCOMPUTE<br />
             <br />
             COMPUTE FEE SheetFee<br />
-            YIELD 420*((SheetCount-100)/50) IF SheetCount ABOVE 100 AND EntityType EQUALS NormalEntity<br />
-            YIELD 168*((SheetCount-100)/50) IF SheetCount ABOVE 100 AND EntityType EQUALS SmallEntity<br />
-            YIELD 84*((SheetCount-100)/50) IF SheetCount ABOVE 100 AND EntityType EQUALS MicroEntity<br />
+            LET A AS 420<br/>
+            LET B AS 420<br />
+            LET C AS 420<br />
+            YIELD ROUND(A*((SheetCount-100)/50)) IF SheetCount ABOVE 100 AND EntityType EQUALS NormalEntity<br />
+            YIELD ROUND(B*((SheetCount-100)/50)) IF SheetCount ABOVE 100 AND EntityType EQUALS SmallEntity<br />
+            YIELD ROUND(C*((SheetCount-100)/50)) IF SheetCount ABOVE 100 AND EntityType EQUALS MicroEntity<br />
             ENDCOMPUTE<br />
             <br />
             COMPUTE FEE ClaimFee<br />

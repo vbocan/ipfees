@@ -3,11 +3,11 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace IPFees.Web.Pages
 {
-    public class ExamplesModel : PageModel
+    public class ReferenceModel : PageModel
     {
-        private readonly ILogger<ExamplesModel> _logger;
+        private readonly ILogger<ReferenceModel> _logger;
 
-        public ExamplesModel(ILogger<ExamplesModel> logger)
+        public ReferenceModel(ILogger<ReferenceModel> logger)
         {
             _logger = logger;
         }
