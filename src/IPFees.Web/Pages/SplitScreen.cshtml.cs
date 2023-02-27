@@ -63,7 +63,7 @@ namespace IPFees.Web.Pages
                 return Page();
             }
             TempData["code"] = Code;
-
+            // Store parsed variables
             Vars = _calc.GetVariables();
 
             return Page();
@@ -71,16 +71,16 @@ namespace IPFees.Web.Pages
 
         public IActionResult OnPostResult(IFormCollection form)
         {
-            string Code = (string)TempData.Peek("code");
+            Code = (string)TempData.Peek("code");
             _calc.Parse(Code);
-            var ParsedVars = _calc.GetVariables();
+            Vars = _calc.GetVariables();
 
             CollectedVars = new List<IPFValue>();
 
             // Cycle through all form fields
             foreach (var field in form)
             {
-                var CalcVar = ParsedVars.SingleOrDefault(s => s.Name.Equals(field.Key));
+                var CalcVar = Vars.SingleOrDefault(s => s.Name.Equals(field.Key));
                 if (CalcVar == null) continue;
                 switch (CalcVar)
                 {
