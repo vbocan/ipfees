@@ -1,14 +1,37 @@
 ﻿@page
 @model ExamplesModel
 @{
-    ViewData["Title"] = "Examples";
+    ViewData["Title"] = "IPFLange Reference";
 }
-<h1>Examples</h1>
+<h1>IPFLang - A Domain-Specific Language for Modern IP Fees Calculation</h1>
+<h2>Short Manual</h2>
 
 <div class="card mb-3" style="width: 48rem;">
     <div class="card-body">
-        <h5 class="card-title">Multiple-choice variable</h5>
-        <h6 class="card-subtitle mb-2 text-muted">Multiple-choice variables display a combo-box at runtime, allowing the user to select one of the choices.</h6>
+        <h5 class="card-title">Overview</h5>
+        <h6 class="card-subtitle mb-2 text-muted">
+            Inputs and Fees
+        </h6>
+        <p class="card-text">
+            The process of describing IP fees in IPFLang consists of determining what the inputs are and how the fee is composed off small amounts that accrue based on rules.<br/>
+            There are three types of inputs available:
+        </p>
+        <ul>
+            <li>String list with individual choices</li>
+            <li>Number (floating point), with lower and upper bounds as well as a default value</li>
+            <li>Boolean (for yes/no types of responses)</li>
+        </ul>
+        <p>
+            Inputs are presented as HTML controls that the user fill in and upon form submission, the values are used to compute the fee. The system displays the full list of steps taken to reach the result, to aid debugging.
+        </p>
+    </div>
+</div>
+
+
+<div class="card mb-3" style="width: 48rem;">
+    <div class="card-body">
+        <h5 class="card-title">Multiple-Choice Input</h5>
+        <h6 class="card-subtitle mb-2 text-muted">Multiple-choice input displays a list of string choices and allows the user to select one of those. A default choice can be specified.</h6>
         <p class="card-text">
             DEFINE LIST EntityType AS 'Select the desired entity type'<br />
             CHOICE 'Normal' AS NormalEntity<br />
@@ -22,8 +45,8 @@
 
 <div class="card mb-3" style="width: 48rem;">
     <div class="card-body">
-        <h5 class="card-title">Number variable</h5>
-        <h6 class="card-subtitle mb-2 text-muted">Number variables allow the user to enter a numeric value, bounded by lower and upper limits.</h6>
+        <h5 class="card-title">Number Input</h5>
+        <h6 class="card-subtitle mb-2 text-muted">Number inputs allow entering a numeric value (floating point), bounded by lower and upper limits. A default value can be specified.</h6>
         <p class="card-text">
             DEFINE NUMBER SheetCount AS 'Enter the number of sheets'<br />
             BETWEEN 10 AND 1000<br />
@@ -35,8 +58,8 @@
 
 <div class="card mb-3" style="width: 48rem;">
     <div class="card-body">
-        <h5 class="card-title">Boolean variable</h5>
-        <h6 class="card-subtitle mb-2 text-muted">Boolean variables allow the user to select a condition.</h6>
+        <h5 class="card-title">Boolean Input</h5>
+        <h6 class="card-subtitle mb-2 text-muted">Boolean inputs allow selecting a condition. The default selection can be specified.</h6>
         <p class="card-text">
             DEFINE BOOLEAN ContainsDependentClaims AS 'Does this contain  dependent claims?'<br />
             DEFAULT TRUE<br />
@@ -47,8 +70,32 @@
 
 <div class="card mb-3" style="width: 48rem;">
     <div class="card-body">
-        <h5 class="card-title">Fee computation</h5>
-        <h6 class="card-subtitle mb-2 text-muted">Any number of fees can be created in a file and conditions can be added to each YIELD branch.</h6>
+        <h5 class="card-title">Fee Definition</h5>
+        <h6 class="card-subtitle mb-2 text-muted">Any number of fees can be created and they all account towards the grand total. In it's simplest form, a fee yields a singe value with no condition.</h6>
+        <p class="card-text">
+            COMPUTE FEE SimplestFee<br />
+            YIELD 150<br/>
+            ENDCOMPUTE
+        </p>
+    </div>
+</div>
+
+<div class="card mb-3" style="width: 48rem;">
+    <div class="card-body">
+        <h5 class="card-title">Optional Fees</h5>
+        <h6 class="card-subtitle mb-2 text-muted">Fees can be declared as optional. Option fees still account towards the grand total, but they are marked as such in the final result.</h6>
+        <p class="card-text">
+            COMPUTE FEE SimplestOptionalFee OPTIONAL<br />
+            YIELD 150<br/>
+            ENDCOMPUTE
+        </p>
+    </div>
+</div>
+
+<div class="card mb-3" style="width: 48rem;">
+    <div class="card-body">
+        <h5 class="card-title">Conditional Fees</h5>
+        <h6 class="card-subtitle mb-2 text-muted"><!-- TODO!!!! --> Any number of fees can be created and conditions can be added to each YIELD branch.</h6>
         <p class="card-text">
             COMPUTE FEE BasicNationalFee<br />
             YIELD 320 IF EntityType EQUALS NormalEntity<br />
