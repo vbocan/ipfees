@@ -46,7 +46,7 @@ namespace IPFees.Calculator
                 ComputeSteps.Add(string.Format("Amount is initially {0}", CurrentAmount));
                 foreach (IPFFeeCase fc in fee.Cases.Cast<IPFFeeCase>())
                 {
-                    var case_cond = (!fc.Condition.Any()) || IPFEvaluator.EvaluateLogic(fc.Condition.ToArray(), vars, fee.Name);
+                    var case_cond = IPFEvaluator.EvaluateLogic(fc.Condition.ToArray(), vars);
                     if (!case_cond)
                     {
                         ComputeSteps.Add(string.Format("Condition [{0}] is FALSE, skipping", string.Join(" ", fc.Condition)));
