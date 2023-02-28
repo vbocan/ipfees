@@ -12,9 +12,9 @@ namespace IPFees.Tests
             """
             # Define a list variable
             DEFINE LIST EntityType AS 'Entity type'
-            CHOICE 'Normal' AS NormalEntity
-            CHOICE 'Small' AS SmallEntity
-            CHOICE 'Micro' AS MicroEntity
+            CHOICE NormalEntity AS 'Normal'
+            CHOICE SmallEntity AS 'Small'
+            CHOICE MicroEntity AS 'Micro'
             DEFAULT NormalEntity
             ENDDEFINE
             """;

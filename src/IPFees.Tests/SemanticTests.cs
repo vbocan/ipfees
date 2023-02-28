@@ -10,9 +10,9 @@ namespace IPFees.Tests
             string text =
             """
             DEFINE LIST EntityType AS 'Select the desired entity type'
-            CHOICE 'Normal' AS NormalEntity
-            CHOICE 'Small' AS SmallEntity
-            CHOICE 'Micro' AS MicroEntity
+            CHOICE NormalEntity AS 'Normal'
+            CHOICE SmallEntity AS 'Small'
+            CHOICE MicroEntity AS 'Micro'
             DEFAULT NormalEntity
             ENDDEFINE
             """;
@@ -29,8 +29,8 @@ namespace IPFees.Tests
             string text =
             """
             DEFINE LIST EntityType AS 'Select the desired entity type'
-            CHOICE 'Normal' AS NormalEntity
-            CHOICE 'Small' AS NormalEntity            
+            CHOICE NormalEntity AS 'Normal'
+            CHOICE NormalEntity AS 'Small'
             DEFAULT NormalEntity
             ENDDEFINE
             """;

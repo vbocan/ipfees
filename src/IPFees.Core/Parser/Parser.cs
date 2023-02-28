@@ -173,7 +173,7 @@ namespace IPFees.Parser
             if (tokens.Length != 4) return false;
             if (tokens[0] != "CHOICE") return false;
             if (tokens[2] != "AS") return false;
-            var item = new IPFListItem(tokens[3], tokens[1]);
+            var item = new IPFListItem(tokens[1], tokens[3]);
             CurrentList.Items.Add(item);
             return true;
         }
