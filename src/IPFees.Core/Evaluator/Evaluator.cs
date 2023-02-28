@@ -13,16 +13,18 @@ namespace IPFees.Evaluator
     {
         public IPFEvaluator() { }
 
-        private static readonly (string, int)[] Operators = new (string, int)[] { ("LT", 1), ("LTE", 1), ("GT", 1), ("GTE", 1), ("EQ", 2), ("NEQ", 2), ("AND", 3), ("OR", 4) };
+        private static readonly Dictionary<string, int> Operators = new() { { "LT", 4 }, { "LTE", 4 }, { "GT", 4 }, { "GTE", 4 }, { "EQ", 3 }, { "NEQ", 3 }, { "AND", 2 }, { "OR", 1 } };
 
         public static double EvaluateExpression(string[] Tokens, IEnumerable<IPFValue> Vars)
         {
             return Parser.Parse(string.Join(" ", Tokens)).Eval(new MyContext(Vars));
         }
 
-        // Example: ClaimCount ABOVE 3 AND EntityType EQUALS NormalEntity
         public static bool EvaluateLogic(string[] Tokens, IEnumerable<IPFValue> Vars)
         {
+            // If no tokens are provided, the logic is implicitly true
+            if (Tokens.Length == 0) return true;
+
             // Stack for values
             var values = new Stack<IPFValue>();
             // Stack for operators
@@ -53,7 +55,7 @@ namespace IPFees.Evaluator
                     ops.Pop();
                 }
                 // Current token is an operator.
-                else if (Operators.Select(s => s.Item1).Contains(Tokens[i]))
+                else if (Operators.ContainsKey(Tokens[i]))
                 {
                     // While top of 'ops' has same or greater precedence to current token, which is an operator.
                     // Apply operator on top of 'ops' to top two elements in values stack
@@ -75,8 +77,11 @@ namespace IPFees.Evaluator
                 {
                     values.Push(new IPFValueBoolean(string.Empty, Boolean));
                 }
-                // Current token is not recognized
-                else throw new NotSupportedException(string.Format("Invalid token encountered [{0}] while evaluating expression [{1}]", Tokens[i], string.Join(' ', Tokens)));
+                // Current token is a string
+                else
+                {
+                    values.Push(new IPFValueString(string.Empty, Tokens[i]));
+                }
             }
 
             // Entire expression has been parsed at this point, apply remaining ops to remaining values
@@ -86,42 +91,70 @@ namespace IPFees.Evaluator
             }
 
             // Top of 'values' contains result, return it
-            return values.Pop();
+            var result = values.Pop();
+            if (result is not IPFValueBoolean) throw new NotSupportedException(string.Format("Invalid logic expression: [{0}]", string.Join(' ', Tokens)));
+            return (result as IPFValueBoolean).Value;
         }
 
         // Returns true if 'op2' has higher or same precedence as 'op1', otherwise returns false.
         private static bool HasPrecedence(string op1, string op2)
         {
-            var PrecOp1 = Operators.Where(w => w.Item1 == op1).Select(s => s.Item2).DefaultIfEmpty(int.MinValue).SingleOrDefault();
-            var PrecOp2 = Operators.Where(w => w.Item1 == op2).Select(s => s.Item2).DefaultIfEmpty(int.MinValue).SingleOrDefault();
-            if (PrecOp1 == int.MinValue) throw new InvalidDataException($"Unknown function: '{op1}'");
-            if (PrecOp2 == int.MinValue) throw new InvalidDataException($"Unknown function: '{op2}'");
-            return PrecOp2 > PrecOp1;
+            if (op2 == "(" || op2 == ")")
+            {
+                return false;
+            }
+            if (!Operators.ContainsKey(op1)) throw new InvalidDataException($"Unknown operator: '{op1}'");
+            if (!Operators.ContainsKey(op2)) throw new InvalidDataException($"Unknown operator: '{op2}'");
+            return Operators[op2] > Operators[op1];
         }
 
         // A utility method to apply an operator 'op' on operands 'a' and 'b'. Return the result.
-        private static bool ApplyOperation(string op, IPFValue b, IPFValue a)
+        private static IPFValueBoolean ApplyOperation(string op, IPFValue b, IPFValue a)
         {
             switch (op)
             {
                 case "AND":
-                    return a + b;
-                case "OR":
-                    return a - b;
+                    return new IPFValueBoolean(string.Empty, (a as IPFValueBoolean).Value && (b as IPFValueBoolean).Value);
+
+                case "OR": return new IPFValueBoolean(string.Empty, (a as IPFValueBoolean).Value || (b as IPFValueBoolean).Value);
                 case "LT":
-                    return a * b;
+                    return new IPFValueBoolean(string.Empty, (a as IPFValueNumber).Value < (b as IPFValueNumber).Value);
                 case "LTE":
-                    return a * b;
+                    return new IPFValueBoolean(string.Empty, (a as IPFValueNumber).Value <= (b as IPFValueNumber).Value);
                 case "GT":
-                    return a * b;
+                    return new IPFValueBoolean(string.Empty, (a as IPFValueNumber).Value > (b as IPFValueNumber).Value);
                 case "GTE":
-                    return a * b;
+                    return new IPFValueBoolean(string.Empty, (a as IPFValueNumber).Value >= (b as IPFValueNumber).Value);
                 case "EQ":
-                    return a * b;
+                    if (b is IPFValueNumber && a is IPFValueNumber)
+                    {
+                        return new IPFValueBoolean(string.Empty, (a as IPFValueNumber).Value == (b as IPFValueNumber).Value);
+                    }
+                    else if (b is IPFValueString && a is IPFValueString)
+                    {
+                        return new IPFValueBoolean(string.Empty, (a as IPFValueString).Value == (b as IPFValueString).Value);
+                    }
+                    else if (b is IPFValueBoolean && a is IPFValueBoolean)
+                    {
+                        return new IPFValueBoolean(string.Empty, (a as IPFValueBoolean).Value == (b as IPFValueBoolean).Value);
+                    }
+                    else throw new NotSupportedException($"[{a}] and [{b}] must have the same type (string, boolean, numeric)");
                 case "NEQ":
-                    return a * b;
-            }
-            return 0;
+                    if (b is IPFValueNumber && a is IPFValueNumber)
+                    {
+                        return new IPFValueBoolean(string.Empty, (a as IPFValueNumber).Value != (b as IPFValueNumber).Value);
+                    }
+                    else if (b is IPFValueString && a is IPFValueString)
+                    {
+                        return new IPFValueBoolean(string.Empty, (a as IPFValueString).Value != (b as IPFValueString).Value);
+                    }
+                    else if (b is IPFValueBoolean && a is IPFValueBoolean)
+                    {
+                        return new IPFValueBoolean(string.Empty, (a as IPFValueBoolean).Value != (b as IPFValueBoolean).Value);
+                    }
+                    else throw new NotSupportedException($"[{a}] and [{b}] must have the same type (string, boolean, numeric)");
+                default: throw new InvalidDataException($"Unknown operator: '{op}'");
+            };
         }
 
     }
