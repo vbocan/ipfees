@@ -1,4 +1,6 @@
 ﻿using System.Globalization;
+using System.Numerics;
+using System.Xml.Linq;
 
 namespace IPFees.Evaluator
 {
@@ -10,6 +12,8 @@ namespace IPFees.Evaluator
     public class IPFEvaluator
     {
         public IPFEvaluator() { }
+
+        private static readonly (string, int)[] Operators = new (string, int)[] { ("LT", 1), ("LTE", 1), ("GT", 1), ("GTE", 1), ("EQ", 2), ("NEQ", 2), ("AND", 3), ("OR", 4) };
 
         public static double EvaluateExpression(string[] Tokens, IEnumerable<IPFValue> Vars)
         {
@@ -49,7 +53,7 @@ namespace IPFees.Evaluator
                     ops.Pop();
                 }
                 // Current token is an operator.
-                else if ((new string[] { "AND", "OR", "EQ", "NEQ", "LT", "LTE", "GT", "GTE" }).Contains(Tokens[i]))
+                else if (Operators.Select(s => s.Item1).Contains(Tokens[i]))
                 {
                     // While top of 'ops' has same or greater precedence to current token, which is an operator.
                     // Apply operator on top of 'ops' to top two elements in values stack
@@ -88,37 +92,34 @@ namespace IPFees.Evaluator
         // Returns true if 'op2' has higher or same precedence as 'op1', otherwise returns false.
         private static bool HasPrecedence(string op1, string op2)
         {
-            if (op2 == "(" || op2 == ")")
-            {
-                return false;
-            }
-            if ((op1 == "*" || op1 == "/") && (op2 == "+" || op2 == "-"))
-            {
-                return false;
-            }
-            else
-            {
-                return true;
-            }
+            var PrecOp1 = Operators.Where(w => w.Item1 == op1).Select(s => s.Item2).DefaultIfEmpty(int.MinValue).SingleOrDefault();
+            var PrecOp2 = Operators.Where(w => w.Item1 == op2).Select(s => s.Item2).DefaultIfEmpty(int.MinValue).SingleOrDefault();
+            if (PrecOp1 == int.MinValue) throw new InvalidDataException($"Unknown function: '{op1}'");
+            if (PrecOp2 == int.MinValue) throw new InvalidDataException($"Unknown function: '{op2}'");
+            return PrecOp2 > PrecOp1;
         }
 
         // A utility method to apply an operator 'op' on operands 'a' and 'b'. Return the result.
-        private static double ApplyOperation(string op, double b, double a)
+        private static bool ApplyOperation(string op, IPFValue b, IPFValue a)
         {
             switch (op)
             {
-                case "+":
+                case "AND":
                     return a + b;
-                case "-":
+                case "OR":
                     return a - b;
-                case "*":
+                case "LT":
                     return a * b;
-                case "/":
-                    if (b == 0)
-                    {
-                        throw new NotSupportedException("Cannot divide by zero");
-                    }
-                    return a / b;
+                case "LTE":
+                    return a * b;
+                case "GT":
+                    return a * b;
+                case "GTE":
+                    return a * b;
+                case "EQ":
+                    return a * b;
+                case "NEQ":
+                    return a * b;
             }
             return 0;
         }
