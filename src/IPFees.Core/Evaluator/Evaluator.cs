@@ -111,50 +111,52 @@ namespace IPFees.Evaluator
         // A utility method to apply an operator 'op' on operands 'a' and 'b'. Return the result.
         private static IPFValueBoolean ApplyOperation(string op, IPFValue b, IPFValue a)
         {
-            switch (op)
+            // Both values are booleans
+            if (a is IPFValueBoolean && b is IPFValueBoolean)
             {
-                case "AND":
-                    return new IPFValueBoolean(string.Empty, (a as IPFValueBoolean).Value && (b as IPFValueBoolean).Value);
-
-                case "OR": return new IPFValueBoolean(string.Empty, (a as IPFValueBoolean).Value || (b as IPFValueBoolean).Value);
-                case "LT":
-                    return new IPFValueBoolean(string.Empty, (a as IPFValueNumber).Value < (b as IPFValueNumber).Value);
-                case "LTE":
-                    return new IPFValueBoolean(string.Empty, (a as IPFValueNumber).Value <= (b as IPFValueNumber).Value);
-                case "GT":
-                    return new IPFValueBoolean(string.Empty, (a as IPFValueNumber).Value > (b as IPFValueNumber).Value);
-                case "GTE":
-                    return new IPFValueBoolean(string.Empty, (a as IPFValueNumber).Value >= (b as IPFValueNumber).Value);
-                case "EQ":
-                    if (b is IPFValueNumber && a is IPFValueNumber)
-                    {
-                        return new IPFValueBoolean(string.Empty, (a as IPFValueNumber).Value == (b as IPFValueNumber).Value);
-                    }
-                    else if (b is IPFValueString && a is IPFValueString)
-                    {
-                        return new IPFValueBoolean(string.Empty, (a as IPFValueString).Value == (b as IPFValueString).Value);
-                    }
-                    else if (b is IPFValueBoolean && a is IPFValueBoolean)
-                    {
-                        return new IPFValueBoolean(string.Empty, (a as IPFValueBoolean).Value == (b as IPFValueBoolean).Value);
-                    }
-                    else throw new NotSupportedException($"[{a}] and [{b}] must have the same type (string, boolean, numeric)");
-                case "NEQ":
-                    if (b is IPFValueNumber && a is IPFValueNumber)
-                    {
-                        return new IPFValueBoolean(string.Empty, (a as IPFValueNumber).Value != (b as IPFValueNumber).Value);
-                    }
-                    else if (b is IPFValueString && a is IPFValueString)
-                    {
-                        return new IPFValueBoolean(string.Empty, (a as IPFValueString).Value != (b as IPFValueString).Value);
-                    }
-                    else if (b is IPFValueBoolean && a is IPFValueBoolean)
-                    {
-                        return new IPFValueBoolean(string.Empty, (a as IPFValueBoolean).Value != (b as IPFValueBoolean).Value);
-                    }
-                    else throw new NotSupportedException($"[{a}] and [{b}] must have the same type (string, boolean, numeric)");
-                default: throw new InvalidDataException($"Unknown operator: '{op}'");
-            };
+                var av = (a as IPFValueBoolean).Value;
+                var bv = (b as IPFValueBoolean).Value;
+                return op switch
+                {
+                    "AND" => new IPFValueBoolean(string.Empty, av && bv),
+                    "OR" => new IPFValueBoolean(string.Empty, av || bv),
+                    "EQ" => new IPFValueBoolean(string.Empty, av == bv),
+                    "NEQ" => new IPFValueBoolean(string.Empty, av != bv),
+                    "LT" or "LTE" or "GT" or "GTE" => throw new NotSupportedException($"Operator [{op}] cannot compare boolean values"),
+                    _ => throw new InvalidDataException($"Unknown operator: '{op}'"),
+                };
+            }
+            // Both values are string
+            else if (a is IPFValueString && b is IPFValueString)
+            {
+                var av = (a as IPFValueString).Value;
+                var bv = (b as IPFValueString).Value;
+                return op switch
+                {
+                    "EQ" => new IPFValueBoolean(string.Empty, av == bv),
+                    "NEQ" => new IPFValueBoolean(string.Empty, av != bv),
+                    "AND" or "OR" or "LT" or "LTE" or "GT" or "GTE" => throw new NotSupportedException($"Operator [{op}] cannot compare string values"),
+                    _ => throw new InvalidDataException($"Unknown operator: '{op}'"),
+                };
+            }
+            // Both values are numeric
+            else if (a is IPFValueNumber && b is IPFValueNumber)
+            {
+                var av = (a as IPFValueNumber).Value;
+                var bv = (b as IPFValueNumber).Value;
+                return op switch
+                {
+                    "EQ" => new IPFValueBoolean(string.Empty, av == bv),
+                    "NEQ" => new IPFValueBoolean(string.Empty, av != bv),
+                    "LT" => new IPFValueBoolean(string.Empty, av < bv),
+                    "LTE" => new IPFValueBoolean(string.Empty, av <= bv),
+                    "GT" => new IPFValueBoolean(string.Empty, av > bv),
+                    "GTE" => new IPFValueBoolean(string.Empty, av >= bv),
+                    "AND" or "OR" => throw new NotSupportedException($"Operator [{op}] cannot compare numeric values"),
+                    _ => throw new InvalidDataException($"Unknown operator: '{op}'"),
+                };
+            }
+            else throw new NotSupportedException($"Type mismatch for [{a}] and [{b}], both should be either string, boolean or numeric)");
         }
 
     }
