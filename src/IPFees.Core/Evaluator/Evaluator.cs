@@ -191,7 +191,7 @@ namespace IPFees.Evaluator
                 return v1.Value;
             }
             // Variable is local to the current fee
-            var VarName = new StringBuilder().AppendFormat($"{name}.{FeeName}").ToString();
+            var VarName = new StringBuilder().AppendFormat($"{FeeName}.{name}").ToString();
             var v2 = Vars.OfType<IPFValueNumber>().Where(w => w.Name.Equals(VarName)).SingleOrDefault();
             return v2 != null ? v2.Value : throw new InvalidDataException($"No variable [{name}] in fee [{FeeName}]'");
         }

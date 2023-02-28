@@ -317,13 +317,12 @@ namespace IPFees.Parser
             return true;
         }
 
-        // LET A AS 20 * 10
         bool ParseFeeLet(string[] tokens)
         {
             if (CurrentlyParsing != Parsing.Fee) return false;
             if (tokens[0] != "LET") return false;
             if (tokens[2] != "AS") return false;
-            var VarName = new StringBuilder().AppendFormat($"{tokens[1]}.{CurrentFee.Name}").ToString();
+            var VarName = new StringBuilder().AppendFormat($"{CurrentFee.Name}.{tokens[1]}").ToString();
             var ValueTokens = tokens.AsEnumerable().Skip(3);
             CurrentFee.Vars.Add(new IPFFeeVar(VarName, ValueTokens));
             return true;
