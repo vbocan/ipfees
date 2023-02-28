@@ -223,5 +223,21 @@ namespace IPFees.Tests
             Assert.Equal(148, TotalMandatoryAmount);
             Assert.Equal(0, TotalOptionalAmount);
         }
+
+        [Fact]
+        public void TestFeeWithUnknownVariables()
+        {
+            string text =
+            """
+            COMPUTE FEE SheetFee
+            YIELD 10 IF SheetCount GT 100
+            ENDCOMPUTE
+            """;
+            List<IPFValue> vars = new() { };
+
+            var calc = new IPFCalculator();
+            calc.Parse(text);
+            Assert.Throws<NotSupportedException>(()=> calc.Compute(vars));
+        }
     }
 }
