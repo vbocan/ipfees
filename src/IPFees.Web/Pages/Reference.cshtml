@@ -34,9 +34,9 @@
         <h6 class="card-subtitle mb-2 text-muted">Multiple-choice input displays a list of string choices and allows the user to select one of those. A default choice can be specified.</h6>
         <p class="card-text">
             DEFINE LIST EntityType AS 'Select the desired entity type'<br />
-            CHOICE 'Normal' AS NormalEntity<br />
-            CHOICE 'Small' AS SmallEntity<br />
-            CHOICE 'Micro' AS MicroEntity<br />
+            CHOICE NormalEntity AS 'Normal'<br />
+            CHOICE SmallEntity AS 'Small'<br />
+            CHOICE MicroEntity AS 'Micro'<br />
             DEFAULT NormalEntity<br />
             ENDDEFINE
         </p>
