@@ -149,5 +149,36 @@ namespace IPFees.Tests
             var ev = IPFEvaluator.EvaluateLogic(tokens, vars);
             Assert.True(ev);
         }
+
+        [Fact]
+        public void TestStringInvalidComparison()
+        {
+            var vars = new IPFValue[] {
+                new IPFValueString("A", "Alibaba"),
+                new IPFValueString("B", "Alibaba"),
+            };
+            var tokens = "A AND B".Split(new char[] { ' ' }, StringSplitOptions.None);
+            Assert.Throws<NotSupportedException>(() => IPFEvaluator.EvaluateLogic(tokens, vars));
+        }
+
+        [Fact]
+        public void TestBooleanInvalidComparison()
+        {
+            var vars = new IPFValue[] {
+                new IPFValueBoolean("A", true),                
+            };
+            var tokens = "A GT TRUE".Split(new char[] { ' ' }, StringSplitOptions.None);
+            Assert.Throws<NotSupportedException>(() => IPFEvaluator.EvaluateLogic(tokens, vars));
+        }
+
+        [Fact]
+        public void TestNumberInvalidComparison()
+        {
+            var vars = new IPFValue[] {
+                new IPFValueNumber("A", 10),
+            };
+            var tokens = "A AND 11".Split(new char[] { ' ' }, StringSplitOptions.None);
+            Assert.Throws<NotSupportedException>(() => IPFEvaluator.EvaluateLogic(tokens, vars));
+        }
     }
 }
