@@ -40,7 +40,6 @@ namespace IPFees.Calculator
                 {
                     var fv_val = IPFEvaluator.EvaluateExpression(fv.ValueTokens.ToArray(), vars, fee.Name);
                     var fee_val = new IPFValueNumber(fv.Name, fv_val);
-                    ComputeSteps.Add(string.Format("VAR: {0}", fee_val));
                     vars.Add(fee_val);
                 }
                 // Proceed with computation
