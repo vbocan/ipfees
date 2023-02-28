@@ -10,7 +10,7 @@ var calc = new IPFCalculator();
 calc.Parse(text);
 var CalcErrors = calc.GetErrors();
 
-if (CalcErrors.Count() == 0)
+if (!CalcErrors.Any())
 {
     Console.WriteLine("PARSED VARIABLES ===============================================".Pastel(ConsoleColor.Yellow));
     foreach (var v in calc.GetVariables())
@@ -37,7 +37,7 @@ else
 
 Console.WriteLine();
 Console.WriteLine("FEE COMPUTATION: ========================================".Pastel(ConsoleColor.Yellow));
-var vars = new IPFValue[] {
+List<IPFValue> vars = new() {
     new IPFValueString("EntityType", "NormalEntity"),
     new IPFValueString("SituationType", "PreparedISA"),
     new IPFValueNumber("SheetCount", 120),
