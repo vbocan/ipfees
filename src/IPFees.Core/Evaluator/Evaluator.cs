@@ -1,5 +1,7 @@
-﻿using System.Globalization;
+﻿using IPFees.Parser;
+using System.Globalization;
 using System.Numerics;
+using System.Text;
 using System.Xml.Linq;
 
 namespace IPFees.Evaluator
@@ -15,12 +17,14 @@ namespace IPFees.Evaluator
 
         private static readonly Dictionary<string, int> Operators = new() { { "LT", 4 }, { "LTE", 4 }, { "GT", 4 }, { "GTE", 4 }, { "EQ", 3 }, { "NEQ", 3 }, { "AND", 2 }, { "OR", 1 } };
 
-        public static double EvaluateExpression(string[] Tokens, IEnumerable<IPFValue> Vars)
+        public static double EvaluateExpression(string[] Tokens, IEnumerable<IPFValue> Vars) => EvaluateExpression(Tokens, Vars, string.Empty);
+        public static double EvaluateExpression(string[] Tokens, IEnumerable<IPFValue> Vars, string FeeName)
         {
-            return Parser.Parse(string.Join(" ", Tokens)).Eval(new MyContext(Vars));
+            return Parser.Parse(string.Join(" ", Tokens)).Eval(new MyContext(Vars, FeeName));
         }
 
-        public static bool EvaluateLogic(string[] Tokens, IEnumerable<IPFValue> Vars)
+        public static bool EvaluateLogic(string[] Tokens, IEnumerable<IPFValue> Vars) => EvaluateLogic(Tokens, Vars, string.Empty);
+        public static bool EvaluateLogic(string[] Tokens, IEnumerable<IPFValue> Vars, string FeeName)
         {
             // If no tokens are provided, the logic is implicitly true
             if (Tokens.Length == 0) return true;
@@ -31,17 +35,24 @@ namespace IPFees.Evaluator
             var ops = new Stack<string>();
 
             for (int i = 0; i < Tokens.Length; i++)
-            {
-                // Search for a variable named the same as the current token
+            {                
+                // Current token is a global variable                
                 var Variable = Vars.SingleOrDefault(s => s.Name.Equals(Tokens[i]));
-
                 if (Variable is not null)
                 {
                     values.Push(Variable);
+                    continue;
                 }
-
+                // Current token in a fee local variable
+                var VarName = new StringBuilder().AppendFormat($"{Tokens[i]}.{FeeName}").ToString();
+                var Variable2 = Vars.SingleOrDefault(s => s.Name.Equals(VarName));
+                if (Variable2 is not null)
+                {
+                    values.Push(Variable2);
+                    continue;
+                }
                 // Current token is an opening brace, push it to 'ops'
-                else if (Tokens[i].Equals("("))
+                if (Tokens[i].Equals("("))
                 {
                     ops.Push(Tokens[i]);
                 }
@@ -94,7 +105,7 @@ namespace IPFees.Evaluator
             var result = values.Pop();
             if (result is not IPFValueBoolean) throw new NotSupportedException(string.Format("Invalid logic expression: [{0}]", string.Join(' ', Tokens)));
             return (result as IPFValueBoolean).Value;
-        }
+        }        
 
         // Returns true if 'op2' has higher or same precedence as 'op1', otherwise returns false.
         private static bool HasPrecedence(string op1, string op2)
