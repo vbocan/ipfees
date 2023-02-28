@@ -89,9 +89,9 @@ namespace IPFees.Tests
             string text =
             """
             COMPUTE FEE BasicNationalFee
-            YIELD 320 IF EntityType EQUALS NormalEntity
-            YIELD 128 IF EntityType EQUALS SmallEntity 
-            YIELD 64 IF EntityType EQUALS MicroEntity
+            YIELD 320 IF EntityType EQ NormalEntity
+            YIELD 128 IF EntityType EQ SmallEntity 
+            YIELD 64 IF EntityType EQ MicroEntity
             ENDCOMPUTE
             """;
             List<IPFValue> vars = new() {
@@ -111,9 +111,9 @@ namespace IPFees.Tests
             string text =
             """
             COMPUTE FEE BasicNationalFee
-            YIELD (320/10-30)*2 IF EntityType EQUALS NormalEntity
-            YIELD (128/5) IF EntityType EQUALS SmallEntity 
-            YIELD (64/8)+2 IF EntityType EQUALS MicroEntity
+            YIELD (320/10-30)*2 IF EntityType EQ NormalEntity
+            YIELD (128/5) IF EntityType EQ SmallEntity 
+            YIELD (64/8)+2 IF EntityType EQ MicroEntity
             ENDCOMPUTE
             """;
             List<IPFValue> vars = new() {
@@ -181,9 +181,9 @@ namespace IPFees.Tests
             COMPUTE FEE BasicNationalFee
             LET A AS 20 * 10
             LET B AS 30 * 11
-            YIELD 320 + A IF EntityType EQUALS NormalEntity
-            YIELD 128 + A IF EntityType EQUALS SmallEntity 
-            YIELD 64 + B IF EntityType EQUALS MicroEntity
+            YIELD 320 + A IF EntityType EQ NormalEntity
+            YIELD 128 + A IF EntityType EQ SmallEntity 
+            YIELD 64 + B IF EntityType EQ MicroEntity
             ENDCOMPUTE
             """;
             List<IPFValue> vars = new() {
@@ -206,9 +206,9 @@ namespace IPFees.Tests
             COMPUTE FEE BasicNationalFee
             LET A AS C * 10
             LET B AS C * 11
-            YIELD 320 + A IF EntityType EQUALS NormalEntity
-            YIELD 128 + A IF EntityType EQUALS SmallEntity 
-            YIELD 64 + B IF EntityType EQUALS MicroEntity
+            YIELD 320 + A IF EntityType EQ NormalEntity
+            YIELD 128 + A IF EntityType EQ SmallEntity 
+            YIELD 64 + B IF EntityType EQ MicroEntity
             ENDCOMPUTE
             """;
             List<IPFValue> vars = new() {
