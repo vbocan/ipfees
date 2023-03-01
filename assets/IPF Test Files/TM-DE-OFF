@@ -1,6 +1,7 @@
 # File name: TM-DE-OFF
 # File content: Official fees for trademark application: Germany
 # Valid until n/a
+# Currency: EUR
 
 DEFINE NUMBER ClassCount AS 'Number of classes?'
 BETWEEN 1 AND 100
@@ -8,6 +9,7 @@ DEFAULT 3
 ENDDEFINE
 
 COMPUTE FEE OFF_FilingFee
-YIELD 290 + ((ClassCount-3)*100) IF ClassCount ABOVE 3
-YIELD 290 IF ClassCount BELOW 4
+LET Fee AS 290
+YIELD Fee + ((ClassCount-3)*100) IF ClassCount GT 3
+YIELD Fee IF ClassCount LT 4
 ENDCOMPUTE

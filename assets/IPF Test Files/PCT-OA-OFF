@@ -1,0 +1,52 @@
+# File name: PCT-OA-OFF
+# File content: Official fees for PCT regional phase: OAPI
+# Valid until n/a
+# Currency: CFA (XAF)
+
+DEFINE NUMBER SheetCount AS 'Number of sheets?'
+BETWEEN 1 AND 10000
+DEFAULT 30
+ENDDEFINE
+
+DEFINE NUMBER ClaimCount AS 'Number of claims?'
+BETWEEN 1 AND 1000
+DEFAULT 10
+ENDDEFINE
+
+DEFINE NUMBER PriorityCount AS 'Number of priorities?'
+BETWEEN 1 AND 999
+DEFAULT 1
+ENDDEFINE
+
+COMPUTE FEE OFF_BasicNationalFee
+YIELD 225000
+ENDCOMPUTE
+
+COMPUTE FEE OFF_PublicationFee
+YIELD 365000
+ENDCOMPUTE
+
+COMPUTE FEE OFF_PriorityFee
+YIELD 63000 * PriorityCount
+ENDCOMPUTE
+
+COMPUTE FEE OFF_ClaimFee
+YIELD 45000 * (ClaimCount-10) IF ClaimCount GT 10
+ENDCOMPUTE
+
+COMPUTE FEE Off_AcceptanceFee  # 0 for 1-10 sheets
+LET SF1 AS 120000
+LET SF2 AS 300000
+LET SF3 AS 600000
+LET SF4 AS 80000
+
+YIELD SF1*10 + SF2*10 + SF3*10 + SF4*((SheetCount-40)/10) IF SheetCount GT 40            # each additional set of 10 sheets > 40
+YIELD SF1*10 + SF2*10 + SF3*(SheetCount-30) IF SheetCount GT 30 AND SheetCount LT 41  # 31-40 sheets 
+YIELD SF1*10 + SF2*(SheetCount-20) IF SheetCount GT 20 AND SheetCount LT 31           # 21-30 sheets
+YIELD SF1*(SheetCount-10) IF SheetCount GT 10 AND SheetCount LT 21                    # 11-20 sheets
+ENDCOMPUTE
+
+# need to check if payable (one maintenace fee covering years 2-5)
+COMPUTE FEE OFF_Renewal
+YIELD 220000
+ENDCOMPUTE
