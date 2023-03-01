@@ -1,11 +1,12 @@
 # File name: PCT-AP-OFF
 # File content: Official fees for PCT regional phase: ARIPO
 # Valid until n/a
+# Currency: USD
 
 # Examination request: 3 years as of international filing date
 
 DEFINE NUMBER CountryCount AS 'Number of designations?'
-BETWEEN 1 AND 100
+BETWEEN 1 AND 22
 DEFAULT 22  # number of ARIPO member states
 # Botswana, Eswatini, Gambia, Ghana, Kenya, Lesotho, Liberia, Malawi, Mozambique, Namibia, Rwanda, Sao Tome and Principe, Sierra Leone, Somalia (not member of the Harare Protocol), the Sudan, the United Republic of Tanzania, Uganda, Zambia and Zimbabwe
 ENDDEFINE
@@ -34,13 +35,13 @@ ENDCOMPUTE
 
 COMPUTE FEE OFF_PublicationFee
 YIELD 350
-YIELD 20*(SheetCount-30) IF SheetCount ABOVE 30
-YIELD 50*(ClaimCount-10) IF ClaimCount ABOVE 10
+YIELD 20*(SheetCount-30) IF SheetCount GT 30
+YIELD 50*(ClaimCount-10) IF ClaimCount GT 10
 ENDCOMPUTE
 
 COMPUTE FEE OFF_SearchFee
-YIELD 0 IF ISR_AVAILABLE EQUALS TRUE
-YIELD 300 IF ISR_AVAILABLE EQUALS FALSE
+YIELD 0 IF ISR_AVAILABLE EQ TRUE
+YIELD 300 IF ISR_AVAILABLE EQ FALSE
 ENDCOMPUTE
 
 COMPUTE FEE OFF_ExaminationFee

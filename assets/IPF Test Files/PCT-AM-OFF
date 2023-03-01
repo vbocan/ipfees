@@ -1,0 +1,70 @@
+# File name: PCT-AM-OFF
+# File content: Official fees for PCT regional phase: Armenia
+# Valid until n/a
+# Currency: AMD
+
+DEFINE LIST Entity_Type AS 'Entity type?'
+#75% reduction for physical persons; 50% for 25-100 employees
+CHOICE EntityType_Person AS 'Physical person or less than 25 employees' 
+CHOICE EntityType_Small AS 'Entity with 25 to 100 employees'
+CHOICE  EntityType_Default AS 'all other cases'
+DEFAULT EntityType_Default
+ENDDEFINE
+
+DEFINE NUMBER ClaimCount AS 'Number of claims?'
+BETWEEN 1 AND 1000
+DEFAULT 5
+ENDDEFINE
+
+DEFINE NUMBER SheetCount AS 'Number of sheets?'
+BETWEEN 1 AND 10000
+DEFAULT 10
+ENDDEFINE
+
+DEFINE NUMBER PriorityCount AS 'Number of priorities?'
+BETWEEN 1 AND 999
+DEFAULT 1
+ENDDEFINE
+
+COMPUTE FEE OFF_BasicNationalFee
+LET Fee AS 20000
+YIELD Fee
+YIELD -Fee*0.75 IF Entity_Type EQ EntityType_Person
+YIELD -Fee*0.5 IF Entity_Type EQ EntityType_Small
+ENDCOMPUTE
+
+COMPUTE FEE OFF_ClaimFee
+LET Fee AS 5000
+CASE ClaimCount GT 5 AS
+YIELD Fee*(ClaimCount-5)
+YIELD -Fee*(ClaimCount-5)*0.75 IF Entity_Type EQ EntityType_Person
+YIELD -Fee*(ClaimCount-5)*0.5 IF Entity_Type EQ EntityType_Small
+ENDCASE
+ENDCOMPUTE
+
+COMPUTE FEE OFF_PriorityFee
+LET Fee AS 10000
+YIELD Fee*PriorityCount
+YIELD -Fee*PriorityCount*0.75 IF Entity_Type EQ EntityType_Person
+YIELD -Fee*PriorityCount*0.5 IF Entity_Type EQ EntityType_Small
+ENDCOMPUTE
+
+COMPUTE FEE OFF_GrantFee OPTIONAL
+LET Fee AS 15000
+YIELD Fee
+YIELD -Fee*0.75 IF Entity_Type EQ EntityType_Person
+YIELD -Fee*0.5 IF Entity_Type EQ EntityType_Small
+ENDCOMPUTE
+
+COMPUTE FEE OFF_PublicationFee OPTIONAL
+#per sheet >25
+LET Fee AS 2500
+YIELD Fee*(SheetCount-25) IF SheetCount GT 25
+YIELD -Fee*(SheetCount-25)*0.75 IF Entity_Type EQ EntityType_Person AND SheetCount GT 25
+YIELD -Fee*(SheetCount-25)*0.5 IF Entity_Type EQ EntityType_Small AND SheetCount GT 25
+ENDCOMPUTE
+
+# no annuities before grant
+COMPUTE FEE OFF_Renewal
+YIELD 0
+ENDCOMPUTE

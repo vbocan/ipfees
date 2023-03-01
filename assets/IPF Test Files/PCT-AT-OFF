@@ -1,0 +1,34 @@
+# File name: PCT-AT-OFF
+# File content: Official fees for PCT regional phase: Austria
+# Valid until n/a
+# Currency: EUR
+
+DEFINE NUMBER ClaimCount AS 'Number of claims?'
+BETWEEN 1 AND 1000
+DEFAULT 10
+ENDDEFINE
+
+DEFINE NUMBER SheetCount AS 'Number of sheets?' #used only for optional publication fee
+BETWEEN 1 AND 10000
+DEFAULT 15
+ENDDEFINE
+
+COMPUTE FEE OFF_BasicNationalFee
+YIELD 52 #entry fee
+YIELD 50 #document fee
+ENDCOMPUTE
+
+COMPUTE FEE OFF_SearchExaminationFee
+YIELD 292
+YIELD 104*CEIL((ClaimCount-10)/10) IF ClaimCount GT 10
+ENDCOMPUTE
+
+COMPUTE FEE OFF_PublicationFee OPTIONAL
+YIELD 208
+YIELD 135*CEIL((SheetCount-15)/15) IF SheetCount GT 15
+ENDCOMPUTE
+
+# Annuities payable only after grant
+COMPUTE FEE OFF_Renewal
+YIELD 0
+ENDCOMPUTE

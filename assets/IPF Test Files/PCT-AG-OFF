@@ -1,0 +1,36 @@
+# File name: PCT-AG-OFF
+# File content: Official fees for PCT regional phase: Antigua & Barbuda
+# Valid until n/a
+# Currency: XCD
+
+DEFINE BOOLEAN Entity_Size AS 'Is applicant a natural person?'
+DEFAULT FALSE
+ENDDEFINE
+
+DEFINE NUMBER ClaimCount AS 'Number of claims?'
+BETWEEN 1 AND 1000
+DEFAULT 10
+ENDDEFINE
+
+COMPUTE FEE OFF_BasicNationalFee
+YIELD 800
+ENDCOMPUTE
+
+COMPUTE FEE OFF_ClaimFee
+YIELD 10*(ClaimCount-20) IF ClaimCount GT 20
+ENDCOMPUTE
+
+COMPUTE FEE OFF_PublicationFee
+YIELD 75
+ENDCOMPUTE
+
+COMPUTE FEE OFF_GrantFee OPTIONAL
+YIELD 1000+50 #Fee for grant + Fee for publication of grant of patent
+ENDCOMPUTE
+
+# need to check if due
+COMPUTE FEE OFF_Renewal
+#YIELD 200 # year 2
+#YIELD 300 # year 3
+#YIELD 400 # year 4
+ENDCOMPUTE

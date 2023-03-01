@@ -1,6 +1,7 @@
 # File name: REC-DE-OFF
 # File content: Official fees for requesting a recordal of change: Germany
 # Valid until: n/a
+# Currency: EUR
 
 DEFINE LIST REC_TYPE AS 'Chose recordal type?'
 CHOICE 'Transfer/Assignment' AS REC_TRANSFER
