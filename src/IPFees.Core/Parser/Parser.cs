@@ -36,7 +36,7 @@ namespace IPFees.Parser
                 ParseNumberDefault,
                 ParseBoolean,
                 ParseBooleanDefault,
-                ParseEndDefine,                
+                ParseEndDefine,
                 ParseFee,
                 ParseFeeCase,
                 ParseFeeYield,
@@ -58,17 +58,23 @@ namespace IPFees.Parser
                 bool LineParsed = false;
                 foreach (var p in IPFParsers)
                 {
-                    if (p(tokens))
+                    try
                     {
-                        LineParsed = true;
-                        break;
+                        if (p(tokens))
+                        {
+                            LineParsed = true;
+                            break;
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        IPFErrors.Add((IPFError.SyntaxError, $"[Line {i + 1}] Error: {ex.Message}"));                        
                     }
                 }
                 // If the line hasn't been parsed until now, it's something wrong with it
                 if (!LineParsed)
                 {
-                    IPFErrors.Add((IPFError.SyntaxError, string.Format("Line {0} is invalid", i + 1)));
-                    break;
+                    IPFErrors.Add((IPFError.SyntaxError, $"[Line {i + 1}] Error: Invalid syntax"));                    
                 }
             }
 
@@ -323,7 +329,7 @@ namespace IPFees.Parser
             if (tokens[0] != "LET") return false;
             if (tokens[2] != "AS") return false;
             var VarName = new StringBuilder().AppendFormat($"{CurrentFee.Name}.{tokens[1]}").ToString();
-            var ValueTokens = tokens.AsEnumerable().Skip(3);
+            var ValueTokens = tokens.AsEnumerable().Skip(3);            
             CurrentFee.Vars.Add(new IPFFeeVar(VarName, ValueTokens));
             return true;
         }

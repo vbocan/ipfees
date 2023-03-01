@@ -10,7 +10,7 @@ namespace IPFees.Tests
         public void TestNumericEqual()
         {
             var vars = new IPFValue[] {
-                new IPFValueNumber("A", 6),                
+                new IPFValueNumber("A", 6),
             };
             var tokens = "A EQ 6".Split(new char[] { ' ' }, StringSplitOptions.None);
             var ev = IPFEvaluator.EvaluateLogic(tokens, vars);
@@ -51,6 +51,18 @@ namespace IPFees.Tests
         }
 
         [Fact]
+        public void TestBooleanComplexExpression()
+        {
+            var vars = new IPFValue[] {
+                new IPFValueBoolean("Right_PAT", true),
+                new IPFValueString("REC_TYPE", "REC_ADR"),
+            };
+            var tokens = "Right_PAT EQ TRUE AND ( REC_TYPE EQ REC_ADR OR REC_TYPE EQ REC_NAME )".Split(new char[] { ' ' }, StringSplitOptions.None);
+            var ev = IPFEvaluator.EvaluateLogic(tokens, vars);
+            Assert.True(ev);
+        }
+
+        [Fact]
         public void TestStringEqual()
         {
             var vars = new IPFValue[] {
@@ -71,7 +83,7 @@ namespace IPFees.Tests
             var ev = IPFEvaluator.EvaluateLogic(tokens, vars);
             Assert.True(ev);
         }
-        
+
         [Fact]
         public void TestNumbersAnd()
         {
@@ -90,7 +102,7 @@ namespace IPFees.Tests
         {
             var vars = new IPFValue[] {
                 new IPFValueBoolean("A", true),
-                new IPFValueBoolean("B", false),                
+                new IPFValueBoolean("B", false),
             };
             var tokens = "( A OR B )".Split(new char[] { ' ' }, StringSplitOptions.None);
             var ev = IPFEvaluator.EvaluateLogic(tokens, vars);
@@ -115,7 +127,7 @@ namespace IPFees.Tests
         {
             var vars = new IPFValue[] {
                 new IPFValueNumber("A", 100),
-                new IPFValueNumber("B", 200),                
+                new IPFValueNumber("B", 200),
             };
             var tokens = "A GT 1000 OR 50 LT B".Split(new char[] { ' ' }, StringSplitOptions.None);
             var ev = IPFEvaluator.EvaluateLogic(tokens, vars);
@@ -165,7 +177,7 @@ namespace IPFees.Tests
         public void TestBooleanInvalidComparison()
         {
             var vars = new IPFValue[] {
-                new IPFValueBoolean("A", true),                
+                new IPFValueBoolean("A", true),
             };
             var tokens = "A GT TRUE".Split(new char[] { ' ' }, StringSplitOptions.None);
             Assert.Throws<NotSupportedException>(() => IPFEvaluator.EvaluateLogic(tokens, vars));

@@ -6,6 +6,7 @@
         SyntaxError,
         VariableDefinedMultipleTimes,
         FeeDefinedMultipleTimes,
+        FeeVariableDefinedMultipleTimes,
         InvalidMinMaxDefault,
         VariableNoChoice,
         VariableNoDefaultChoice,

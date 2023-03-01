@@ -13,9 +13,17 @@
 
             // Fees should not:
             // - have duplicate names
+            // - have duplicate variables
             foreach (var er in IPFFees.Select(s => s.Name).GroupBy(x => x).Where(g => g.Count() > 1).Select(y => y.Key))
             {
                 yield return (IPFError.FeeDefinedMultipleTimes, string.Format("Fee [{0}] has multiple definitions.", er));
+            }
+            foreach (var er in IPFFees)
+            {
+                foreach (var dup in er.Vars.Select(s => s.Name).GroupBy(x => x).Where(g => g.Count() > 1).Select(y => y.Key).Distinct())
+                {
+                    yield return (IPFError.FeeVariableDefinedMultipleTimes, string.Format("Variable [{0}] has multiple definitions.", dup));
+                }
             }
 
             // Number variables should not:
