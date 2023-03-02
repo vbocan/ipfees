@@ -179,17 +179,17 @@
         <h6 class="card-subtitle mb-2 text-muted">Use this as a starting point to your own fee computation.</h6>
         <p class="card-text">
             DEFINE LIST EntityType AS 'Select the desired entity type'<br />
-            CHOICE 'Normal' AS NormalEntity<br />
-            CHOICE 'Small' AS SmallEntity<br />
-            CHOICE 'Micro' AS MicroEntity<br />
+            CHOICE NormalEntity AS 'Normal'<br />
+            CHOICE SmallEntity AS 'Small'<br />
+            CHOICE MicroEntity AS 'Micro'<br />
             DEFAULT NormalEntity<br />
             ENDDEFINE<br />
             <br />
             DEFINE LIST SituationType AS 'Situation type'<br />
-            CHOICE 'IRRP (Chapter II) prepared by the IPEA/US' AS PreparedIPEA<br />
-            CHOICE 'International search fee paid as ISA' AS PaidAsISA<br />
-            CHOICE 'Search report prepared by an ISA other than the US' AS PreparedISA<br />
-            CHOICE 'All other situations' AS AllOtherSituations<br />
+            CHOICE PreparedIPEA AS 'IRRP (Chapter II) prepared by the IPEA/US'<br />
+            CHOICE PaidAsISA AS 'International search fee paid as ISA'<br />
+            CHOICE PreparedISA AS 'Search report prepared by an ISA other than the US'<br />
+            CHOICE AllOtherSituations AS 'All other situations'<br />
             DEFAULT PreparedIPEA<br />
             ENDDEFINE<br />
             <br />
