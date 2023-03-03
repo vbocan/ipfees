@@ -1,8 +1,12 @@
 using IPFees.Calculator;
 using Serilog;
+using Serilog.Formatting.Compact;
 
 // Set Serilog settings
 var logger = new LoggerConfiguration()
+    .Enrich.FromLogContext()
+    .WriteTo.Console(new RenderedCompactJsonFormatter())
+    .WriteTo.Debug(outputTemplate: DateTime.Now.ToString())
     .MinimumLevel.Debug()
     .CreateLogger();
 
