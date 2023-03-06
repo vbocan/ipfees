@@ -2,7 +2,7 @@ using IPFees.Calculator;
 using IPFees.Evaluator;
 using IPFees.Parser;
 
-namespace IPFees.Tests
+namespace IPFees.Calculator.Tests
 {
     public class CalculatorTests
     {
