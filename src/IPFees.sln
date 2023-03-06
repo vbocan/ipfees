@@ -5,13 +5,15 @@ VisualStudioVersion = 17.4.33213.308
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IPFees.CommandLine", "IPFees.CommandLine\IPFees.CommandLine.csproj", "{1CE98023-7B16-4C35-8923-3EFC853CABF1}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IPFFees.Calculator.Tests", "IPFees.Calculator.Tests\IPFFees.Calculator.Tests.csproj", "{8D533AC5-F577-46D7-B547-3180CD6FD5AA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IPFees.Calculator.Tests", "IPFees.Calculator.Tests\IPFees.Calculator.Tests.csproj", "{8D533AC5-F577-46D7-B547-3180CD6FD5AA}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IPFees.Calculator", "IPFees.Calculator\IPFees.Calculator.csproj", "{E1F74788-B3B7-459C-9094-F93682FBB379}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IPFees.Web", "IPFees.Web\IPFees.Web.csproj", "{6306E034-C104-41D3-8219-9DB9E337AF92}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IPFFees.Core", "IPFFees.Core\IPFFees.Core.csproj", "{257216D1-C5A9-46F1-92F4-82179B67A932}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IPFees.Core", "IPFees.Core\IPFees.Core.csproj", "{257216D1-C5A9-46F1-92F4-82179B67A932}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IPFees.Core.Tests", "IPFees.Core.Tests\IPFees.Core.Tests.csproj", "{89163285-1936-4769-83E0-BF414E776BDA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +41,10 @@ Global
 		{257216D1-C5A9-46F1-92F4-82179B67A932}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{257216D1-C5A9-46F1-92F4-82179B67A932}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{257216D1-C5A9-46F1-92F4-82179B67A932}.Release|Any CPU.Build.0 = Release|Any CPU
+		{89163285-1936-4769-83E0-BF414E776BDA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{89163285-1936-4769-83E0-BF414E776BDA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{89163285-1936-4769-83E0-BF414E776BDA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{89163285-1936-4769-83E0-BF414E776BDA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
