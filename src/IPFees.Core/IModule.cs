@@ -4,8 +4,9 @@ namespace IPFFees.Core
 {
     public interface IModule
     {
-        Task<DbResult> AddAsync(string name, string description, string code);
-        Task<DbResult> RemoveAsync(string name);
+        Task<DbResult> AddModuleAsync(string name, string description, string code);
+        Task<DbResult> EditModuleAsync(string name, string description, string code);
+        Task<DbResult> RemoveModuleAsync(string name);
         IEnumerable<ModuleInfo> GetModules();
     }
 }
