@@ -1,6 +1,6 @@
 using IPFees.Parser;
 
-namespace IPFees.Tests
+namespace IPFFees.Calculator.Tests
 {
     public class SemanticTests
     {
@@ -36,9 +36,9 @@ namespace IPFees.Tests
             """;
             var p = new IPFParser(text);
             var result = p.Parse();
-            Assert.False (result);
+            Assert.False(result);
             var errors = p.GetErrors();
-            Assert.Contains(errors, a =>a.Item1 == IPFError.VariableDuplicateChoices);
+            Assert.Contains(errors, a => a.Item1 == IPFError.VariableDuplicateChoices);
         }
 
         [Fact]
@@ -126,7 +126,7 @@ namespace IPFees.Tests
             """;
             var p = new IPFParser(text);
             var result = p.Parse();
-            Assert.True(result);            
+            Assert.True(result);
         }
 
         [Fact]

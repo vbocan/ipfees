@@ -2,7 +2,7 @@ using IPFees.Evaluator;
 using IPFees.Parser;
 using Newtonsoft.Json.Linq;
 
-namespace IPFees.Tests
+namespace IPFFees.Calculator.Tests
 {
     public class LogicEvaluatorTests
     {

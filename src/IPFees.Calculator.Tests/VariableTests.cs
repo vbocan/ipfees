@@ -1,7 +1,7 @@
 using IPFees.Parser;
 using Newtonsoft.Json.Linq;
 
-namespace IPFees.Tests
+namespace IPFees.Calculator.Tests
 {
     public class VariableTests
     {
