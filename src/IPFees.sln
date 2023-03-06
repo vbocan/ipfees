@@ -11,7 +11,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IPFees.Calculator", "IPFees
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IPFees.Web", "IPFees.Web\IPFees.Web.csproj", "{6306E034-C104-41D3-8219-9DB9E337AF92}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IPFFees.FileManager", "IPFFees.FileManager\IPFFees.FileManager.csproj", "{257216D1-C5A9-46F1-92F4-82179B67A932}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IPFFees.Core", "IPFFees.Core\IPFFees.Core.csproj", "{257216D1-C5A9-46F1-92F4-82179B67A932}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
