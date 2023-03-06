@@ -5,7 +5,7 @@ VisualStudioVersion = 17.4.33213.308
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IPFees.CommandLine", "IPFees.CommandLine\IPFees.CommandLine.csproj", "{1CE98023-7B16-4C35-8923-3EFC853CABF1}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IPFFees.Tests", "IPFees.Tests\IPFFees.Tests.csproj", "{8D533AC5-F577-46D7-B547-3180CD6FD5AA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IPFFees.Calculator.Tests", "IPFees.Calculator.Tests\IPFFees.Calculator.Tests.csproj", "{8D533AC5-F577-46D7-B547-3180CD6FD5AA}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IPFees.Calculator", "IPFees.Calculator\IPFees.Calculator.csproj", "{E1F74788-B3B7-459C-9094-F93682FBB379}"
 EndProject
