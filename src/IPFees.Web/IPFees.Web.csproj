@@ -16,7 +16,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\IPFees.Core\IPFees.Core.csproj" />
+    <ProjectReference Include="..\IPFees.Calculator\IPFees.Calculator.csproj" />
   </ItemGroup>
 
 </Project>
