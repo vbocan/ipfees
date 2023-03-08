@@ -76,7 +76,7 @@ namespace IPFees.Core.Tests
             var res2 = await mod.SetReferencedModules("Jurisdiction-Set-RefMods", new string[] { "Mod1", "Mod2" });
             Assert.True(res2.Success);
             var mi = mod.GetJurisdictionByName("Jurisdiction-Set-RefMods");
-            Assert.Equal(2, mi.ReferencedModules.Count());
+            Assert.Equal(2, mi.ReferencedModules.Length);
         }
     }
 }
