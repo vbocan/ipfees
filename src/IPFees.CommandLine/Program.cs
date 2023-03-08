@@ -1,12 +1,14 @@
 ﻿using IPFees.Calculator;
 using IPFees.Evaluator;
+using IPFees.Parser;
 using Pastel;
 using System.Drawing;
 
 
 string text = File.ReadAllText(@"..\..\..\us_fees.ipf");
 
-var calc = new IPFCalculator();
+var parser = new IPFParser();
+var calc = new IPFCalculator(parser);
 calc.Parse(text);
 var CalcErrors = calc.GetErrors();
 

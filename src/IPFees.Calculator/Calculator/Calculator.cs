@@ -5,19 +5,21 @@ namespace IPFees.Calculator
 {
     public class IPFCalculator : IIPFCalculator
     {
-        private IPFParser parser;
+        private IIPFParser Parser { get; set; }
 
-        public IPFCalculator() { }
+        public IPFCalculator(IIPFParser parser)
+        {
+            this.Parser = parser;
+        }
 
         public bool Parse(string text)
         {
-            parser = new IPFParser(text);
-            return parser.Parse();
+            return Parser.Parse(text);
         }
 
-        public IEnumerable<string> GetErrors() => parser.GetErrors().Select(s => s.Item2);
-        public IEnumerable<IPFVariable> GetVariables() => parser.GetVariables();
-        public IEnumerable<IPFFee> GetFees() => parser.GetFees();
+        public IEnumerable<string> GetErrors() => Parser.GetErrors().Select(s => s.Item2);
+        public IEnumerable<IPFVariable> GetVariables() => Parser.GetVariables();
+        public IEnumerable<IPFFee> GetFees() => Parser.GetFees();
 
         public (double, double, IEnumerable<string>) Compute(IList<IPFValue> vars)
         {
@@ -25,7 +27,7 @@ namespace IPFees.Calculator
             double TotalOptionalAmount = 0;
             var ComputeSteps = new List<string>();
 
-            foreach (var fee in parser.GetFees())
+            foreach (var fee in Parser.GetFees())
             {
                 if (fee.Optional)
                 {
@@ -36,7 +38,7 @@ namespace IPFees.Calculator
                     ComputeSteps.Add(string.Format("COMPUTING FEE [{0}]", fee.Name));
                 }
                 // Evaluate fee variables
-                foreach(var fv in fee.Vars)
+                foreach (var fv in fee.Vars)
                 {
                     var fv_val = IPFEvaluator.EvaluateExpression(fv.ValueTokens.ToArray(), vars, fee.Name);
                     var fee_val = new IPFValueNumber(fv.Name, fv_val);
@@ -77,7 +79,7 @@ namespace IPFees.Calculator
                     TotalMandatoryAmount += CurrentAmount;
                 }
 
-            }            
+            }
             ComputeSteps.Add(string.Format("Total amount for mandatory fees: [{0}]", TotalMandatoryAmount.ToString("0.00")));
             ComputeSteps.Add(string.Format("Total amount for optional fees: [{0}]", TotalOptionalAmount.ToString("0.00")));
             ComputeSteps.Add(string.Format("Grand total: [{0}]", (TotalMandatoryAmount + TotalOptionalAmount).ToString("0.00")));

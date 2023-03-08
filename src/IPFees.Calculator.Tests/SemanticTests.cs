@@ -16,8 +16,8 @@ namespace IPFFees.Calculator.Tests
             DEFAULT NormalEntity
             ENDDEFINE
             """;
-            var p = new IPFParser(text);
-            var result = p.Parse();
+            var p = new IPFParser();
+            var result = p.Parse(text);
             Assert.True(result);
             var errors = p.GetErrors();
             Assert.Empty(errors);
@@ -34,8 +34,8 @@ namespace IPFFees.Calculator.Tests
             DEFAULT NormalEntity
             ENDDEFINE
             """;
-            var p = new IPFParser(text);
-            var result = p.Parse();
+            var p = new IPFParser();
+            var result = p.Parse(text);
             Assert.False(result);
             var errors = p.GetErrors();
             Assert.Contains(errors, a => a.Item1 == IPFError.VariableDuplicateChoices);
@@ -52,8 +52,8 @@ namespace IPFFees.Calculator.Tests
             DEFAULT TinyEntity
             ENDDEFINE
             """;
-            var p = new IPFParser(text);
-            var result = p.Parse();
+            var p = new IPFParser();
+            var result = p.Parse(text);
             Assert.False(result);
             var errors = p.GetErrors();
             Assert.Contains(errors, a => a.Item1 == IPFError.VariableInvalidDefaultChoice);
@@ -70,8 +70,8 @@ namespace IPFFees.Calculator.Tests
             DEFAULT TinyEntity
             ENDDEFINE
             """;
-            var p = new IPFParser(text);
-            var result = p.Parse();
+            var p = new IPFParser();
+            var result = p.Parse(text);
             Assert.False(result);
             var errors = p.GetErrors();
             Assert.Contains(errors, a => a.Item1 is IPFError.VariableDuplicateChoices or IPFError.VariableInvalidDefaultChoice);
@@ -85,8 +85,8 @@ namespace IPFFees.Calculator.Tests
             DEFINE LIST EntityType AS 'Select the desired entity type'
             ENDDEFINE
             """;
-            var p = new IPFParser(text);
-            var result = p.Parse();
+            var p = new IPFParser();
+            var result = p.Parse(text);
             Assert.False(result);
             var errors = p.GetErrors();
             Assert.Contains(errors, a => a.Item1 == IPFError.VariableNoChoice);
@@ -107,8 +107,8 @@ namespace IPFFees.Calculator.Tests
             DEFAULT NormalEntity
             ENDDEFINE
             """;
-            var p = new IPFParser(text);
-            var result = p.Parse();
+            var p = new IPFParser();
+            var result = p.Parse(text);
             Assert.False(result);
             var errors = p.GetErrors();
             Assert.Contains(errors, a => a.Item1 == IPFError.ChoiceDefinedInMultipleVariables);
@@ -124,8 +124,8 @@ namespace IPFFees.Calculator.Tests
             DEFAULT 15
             ENDDEFINE
             """;
-            var p = new IPFParser(text);
-            var result = p.Parse();
+            var p = new IPFParser();
+            var result = p.Parse(text);
             Assert.True(result);
         }
 
@@ -139,8 +139,8 @@ namespace IPFFees.Calculator.Tests
             DEFAULT 15
             ENDDEFINE
             """;
-            var p = new IPFParser(text);
-            var result = p.Parse();
+            var p = new IPFParser();
+            var result = p.Parse(text);
             Assert.False(result);
             var errors = p.GetErrors();
             Assert.Contains(errors, a => a.Item1 == IPFError.InvalidMinMaxDefault);
@@ -156,8 +156,8 @@ namespace IPFFees.Calculator.Tests
             DEFAULT 21
             ENDDEFINE
             """;
-            var p = new IPFParser(text);
-            var result = p.Parse();
+            var p = new IPFParser();
+            var result = p.Parse(text);
             Assert.False(result);
             var errors = p.GetErrors();
             Assert.Contains(errors, a => a.Item1 == IPFError.InvalidMinMaxDefault);
@@ -177,8 +177,8 @@ namespace IPFFees.Calculator.Tests
             DEFAULT 11
             ENDDEFINE
             """;
-            var p = new IPFParser(text);
-            var result = p.Parse();
+            var p = new IPFParser();
+            var result = p.Parse(text);
             Assert.False(result);
             var errors = p.GetErrors();
             Assert.Contains(errors, a => a.Item1 == IPFError.VariableDefinedMultipleTimes);
@@ -200,8 +200,8 @@ namespace IPFFees.Calculator.Tests
             YIELD 96 IF ClaimCount OVER 3 AND EntityType IS MicroEntity
             ENDCOMPUTE
             """;
-            var p = new IPFParser(text);
-            var result = p.Parse();
+            var p = new IPFParser();
+            var result = p.Parse(text);
             Assert.False(result);
             var errors = p.GetErrors();
             Assert.Contains(errors, a => a.Item1 == IPFError.FeeDefinedMultipleTimes);

@@ -18,8 +18,8 @@ namespace IPFees.Calculator.Tests
             DEFAULT NormalEntity
             ENDDEFINE
             """;
-            var p = new IPFParser(text);
-            var _ = p.Parse();
+            var p = new IPFParser();
+            var _ = p.Parse(text);
             var result = (IPFVariableList?)p.GetVariables().SingleOrDefault();
             Assert.NotNull(result);
             Assert.Equal("EntityType", result.Name);
@@ -42,8 +42,8 @@ namespace IPFees.Calculator.Tests
             DEFAULT 0
             ENDDEFINE
             """;
-            var p = new IPFParser(text);
-            var _ = p.Parse();
+            var p = new IPFParser();
+            var _ = p.Parse(text);
             var result = (IPFVariableNumber?)p.GetVariables().SingleOrDefault();
             Assert.NotNull(result);
             Assert.Equal("ClaimCount", result.Name);
@@ -63,8 +63,8 @@ namespace IPFees.Calculator.Tests
             DEFAULT TRUE
             ENDDEFINE
             """;
-            var p = new IPFParser(text);
-            var _ = p.Parse();
+            var p = new IPFParser();
+            var _ = p.Parse(text);
             var result = (IPFVariableBoolean?)p.GetVariables().SingleOrDefault();
             Assert.NotNull(result);
             Assert.Equal("ContainsDependentClaims", result.Name);
