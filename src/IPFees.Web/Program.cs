@@ -15,7 +15,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorPages();
-builder.Services.AddTransient<IIPFCalculator, IPFCalculator>();
+builder.Services.AddTransient<IDslCalculator, DslCalculator>();
 // Add logger
 builder.Logging.AddSerilog(logger);
 builder.Host.UseSerilog((ctx, lc) => lc.ReadFrom.Configuration(ctx.Configuration));

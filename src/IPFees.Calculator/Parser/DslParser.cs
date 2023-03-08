@@ -3,22 +3,22 @@ using System.Xml.Linq;
 
 namespace IPFees.Parser
 {
-    public class IPFParser : IIPFParser
+    public class DslParser : IDslParser
     {
         Parsing CurrentlyParsing = Parsing.None;
 
-        private IPFVariableList CurrentList { get; set; } = new IPFVariableList(string.Empty, string.Empty, new List<IPFListItem>(), string.Empty);
-        private IPFVariableNumber CurrentNumber { get; set; } = new IPFVariableNumber(string.Empty, string.Empty, int.MinValue, int.MaxValue, 0);
-        private IPFVariableBoolean CurrentBoolean { get; set; } = new IPFVariableBoolean(string.Empty, string.Empty, false);
-        private IPFFee CurrentFee { get; set; } = new IPFFee(string.Empty, false, new List<IPFItem>(), new List<IPFFeeVar>());
-        private IPFFeeCase CurrentFeeCase { get; set; } = new IPFFeeCase(Enumerable.Empty<string>(), new List<IPFFeeYield>());
+        private DslVariableList CurrentList { get; set; } = new DslVariableList(string.Empty, string.Empty, new List<DslListItem>(), string.Empty);
+        private DslVariableNumber CurrentNumber { get; set; } = new DslVariableNumber(string.Empty, string.Empty, int.MinValue, int.MaxValue, 0);
+        private DslVariableBoolean CurrentBoolean { get; set; } = new DslVariableBoolean(string.Empty, string.Empty, false);
+        private DslFee CurrentFee { get; set; } = new DslFee(string.Empty, false, new List<DslItem>(), new List<DslFeeVar>());
+        private DslFeeCase CurrentFeeCase { get; set; } = new DslFeeCase(Enumerable.Empty<string>(), new List<DslFeeYield>());
 
-        private IList<IPFVariable> IPFVariables = new List<IPFVariable>();
-        private IList<IPFFee> IPFFees = new List<IPFFee>();
-        private IList<(IPFError, string)> IPFErrors = new List<(IPFError, string)>();
+        private IList<DslVariable> IPFVariables = new List<DslVariable>();
+        private IList<DslFee> IPFFees = new List<DslFee>();
+        private IList<(DslError, string)> IPFErrors = new List<(DslError, string)>();
 
 
-        public IPFParser() { }
+        public DslParser() { }
 
         public bool Parse(string source)
         {
@@ -66,20 +66,20 @@ namespace IPFees.Parser
                     }
                     catch (Exception ex)
                     {
-                        IPFErrors.Add((IPFError.SyntaxError, $"[Line {i + 1}] Error: {ex.Message}"));
+                        IPFErrors.Add((DslError.SyntaxError, $"[Line {i + 1}] Error: {ex.Message}"));
                     }
                 }
                 // If the line hasn't been parsed until now, it's something wrong with it
                 if (!LineParsed)
                 {
-                    IPFErrors.Add((IPFError.SyntaxError, $"[Line {i + 1}] Error: Invalid syntax"));
+                    IPFErrors.Add((DslError.SyntaxError, $"[Line {i + 1}] Error: Invalid syntax"));
                 }
             }
 
             if (IPFErrors.Count > 0) return false;
 
             // Perform semantic checking
-            var errs = IPFSemanticChecker.Check(IPFVariables, IPFFees);
+            var errs = DslSemanticChecker.Check(IPFVariables, IPFFees);
             if (errs.Any())
             {
                 foreach (var e in errs) IPFErrors.Add(e);
@@ -89,18 +89,18 @@ namespace IPFees.Parser
             return true;
         }
 
-        public IEnumerable<IPFVariable> GetVariables()
+        public IEnumerable<DslVariable> GetVariables()
         {
             if (IPFErrors.Count > 0) throw new NotSupportedException("Unable to access variables. Check the error list.");
             return IPFVariables;
         }
 
-        public IEnumerable<IPFFee> GetFees()
+        public IEnumerable<DslFee> GetFees()
         {
             if (IPFErrors.Count > 0) throw new NotSupportedException("Unable to access fees. Check the error list.");
             return IPFFees;
         }
-        public IEnumerable<(IPFError, string)> GetErrors()
+        public IEnumerable<(DslError, string)> GetErrors()
         {
             return IPFErrors;
         }
@@ -167,7 +167,7 @@ namespace IPFees.Parser
             if (tokens[1] != "LIST") return false;
             if (tokens[3] != "AS") return false;
             CurrentlyParsing = Parsing.List;
-            CurrentList = new IPFVariableList(tokens[2], tokens[4], new List<IPFListItem>(), string.Empty);
+            CurrentList = new DslVariableList(tokens[2], tokens[4], new List<DslListItem>(), string.Empty);
             return true;
         }
 
@@ -177,7 +177,7 @@ namespace IPFees.Parser
             if (tokens.Length != 4) return false;
             if (tokens[0] != "CHOICE") return false;
             if (tokens[2] != "AS") return false;
-            var item = new IPFListItem(tokens[1], tokens[3]);
+            var item = new DslListItem(tokens[1], tokens[3]);
             CurrentList.Items.Add(item);
             return true;
         }
@@ -201,7 +201,7 @@ namespace IPFees.Parser
             if (tokens[1] != "NUMBER") return false;
             if (tokens[3] != "AS") return false;
             CurrentlyParsing = Parsing.Number;
-            CurrentNumber = new IPFVariableNumber(tokens[2], tokens[4], int.MinValue, int.MaxValue, 0);
+            CurrentNumber = new DslVariableNumber(tokens[2], tokens[4], int.MinValue, int.MaxValue, 0);
             return true;
         }
 
@@ -237,7 +237,7 @@ namespace IPFees.Parser
             if (tokens[1] != "BOOLEAN") return false;
             if (tokens[3] != "AS") return false;
             CurrentlyParsing = Parsing.Boolean;
-            CurrentBoolean = new IPFVariableBoolean(tokens[2], tokens[4], false);
+            CurrentBoolean = new DslVariableBoolean(tokens[2], tokens[4], false);
             return true;
         }
 
@@ -285,7 +285,7 @@ namespace IPFees.Parser
             if (tokens[1] != "FEE") return false;
             CurrentlyParsing = Parsing.Fee;
             var IsFeeOptional = (tokens.Length == 4 && tokens[3] == "OPTIONAL");
-            CurrentFee = new IPFFee(tokens[2], IsFeeOptional, new List<IPFItem>(), new List<IPFFeeVar>());
+            CurrentFee = new DslFee(tokens[2], IsFeeOptional, new List<DslItem>(), new List<DslFeeVar>());
             return true;
         }
 
@@ -296,7 +296,7 @@ namespace IPFees.Parser
             if (tokens[tokens.Length - 1] != "AS") return false;
             CurrentlyParsing = Parsing.FeeCase;
             var ConditionTokens = tokens.Skip(1).Take(tokens.Length - 2);
-            CurrentFeeCase = new IPFFeeCase(ConditionTokens, new List<IPFFeeYield>());
+            CurrentFeeCase = new DslFeeCase(ConditionTokens, new List<DslFeeYield>());
             return true;
         }
 
@@ -310,12 +310,12 @@ namespace IPFees.Parser
             if (tokens.Any(a => a.Equals("IF")))
             {
                 var ConditionTokens = tokens.AsEnumerable().Reverse().TakeWhile(w => !w.Equals("IF")).Reverse();
-                var Yield = new IPFFeeYield(ConditionTokens, ValueTokens);
+                var Yield = new DslFeeYield(ConditionTokens, ValueTokens);
                 CurrentFeeCase.Yields.Add(Yield);
             }
             else
             {
-                var Yield = new IPFFeeYield(Enumerable.Empty<string>(), ValueTokens);
+                var Yield = new DslFeeYield(Enumerable.Empty<string>(), ValueTokens);
                 CurrentFeeCase.Yields.Add(Yield);
             }
             return true;
@@ -328,7 +328,7 @@ namespace IPFees.Parser
             if (tokens[2] != "AS") return false;
             var VarName = new StringBuilder().AppendFormat($"{CurrentFee.Name}.{tokens[1]}").ToString();
             var ValueTokens = tokens.AsEnumerable().Skip(3);
-            CurrentFee.Vars.Add(new IPFFeeVar(VarName, ValueTokens));
+            CurrentFee.Vars.Add(new DslFeeVar(VarName, ValueTokens));
             return true;
         }
 
@@ -339,7 +339,7 @@ namespace IPFees.Parser
             if (tokens[0] != "ENDCASE") return false;
             CurrentlyParsing = Parsing.Fee;
             CurrentFee.Cases.Add(CurrentFeeCase);
-            CurrentFeeCase = new IPFFeeCase(Enumerable.Empty<string>(), new List<IPFFeeYield>());
+            CurrentFeeCase = new DslFeeCase(Enumerable.Empty<string>(), new List<DslFeeYield>());
             return true;
         }
 
@@ -354,7 +354,7 @@ namespace IPFees.Parser
                 CurrentFee.Cases.Add(CurrentFeeCase);
             }
             IPFFees.Add(CurrentFee);
-            CurrentFeeCase = new IPFFeeCase(Enumerable.Empty<string>(), new List<IPFFeeYield>());
+            CurrentFeeCase = new DslFeeCase(Enumerable.Empty<string>(), new List<DslFeeYield>());
             CurrentlyParsing = Parsing.None;
             return true;
         }

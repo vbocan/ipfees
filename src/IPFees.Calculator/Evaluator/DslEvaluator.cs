@@ -11,9 +11,9 @@ namespace IPFees.Evaluator
     /// Influenced by: https://github.com/toptensoftware/SimpleExpressionEngine
     /// https://medium.com/@toptensoftware/writing-a-simple-math-expression-engine-in-c-d414de18d4ce
     /// </summary>
-    public class IPFEvaluator
+    public class DslEvaluator
     {
-        public IPFEvaluator() { }
+        public DslEvaluator() { }
 
         private static readonly Dictionary<string, int> Operators = new() { { "LT", 4 }, { "LTE", 4 }, { "GT", 4 }, { "GTE", 4 }, { "EQ", 3 }, { "NEQ", 3 }, { "AND", 2 }, { "OR", 1 } };
 

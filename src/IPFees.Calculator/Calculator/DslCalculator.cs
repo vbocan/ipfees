@@ -3,11 +3,11 @@ using IPFees.Parser;
 
 namespace IPFees.Calculator
 {
-    public class IPFCalculator : IIPFCalculator
+    public class DslCalculator : IDslCalculator
     {
-        private IIPFParser Parser { get; set; }
+        private IDslParser Parser { get; set; }
 
-        public IPFCalculator(IIPFParser parser)
+        public DslCalculator(IDslParser parser)
         {
             this.Parser = parser;
         }
@@ -18,8 +18,8 @@ namespace IPFees.Calculator
         }
 
         public IEnumerable<string> GetErrors() => Parser.GetErrors().Select(s => s.Item2);
-        public IEnumerable<IPFVariable> GetVariables() => Parser.GetVariables();
-        public IEnumerable<IPFFee> GetFees() => Parser.GetFees();
+        public IEnumerable<DslVariable> GetVariables() => Parser.GetVariables();
+        public IEnumerable<DslFee> GetFees() => Parser.GetFees();
 
         public (double, double, IEnumerable<string>) Compute(IList<IPFValue> vars)
         {
@@ -40,16 +40,16 @@ namespace IPFees.Calculator
                 // Evaluate fee variables
                 foreach (var fv in fee.Vars)
                 {
-                    var fv_val = IPFEvaluator.EvaluateExpression(fv.ValueTokens.ToArray(), vars, fee.Name);
+                    var fv_val = DslEvaluator.EvaluateExpression(fv.ValueTokens.ToArray(), vars, fee.Name);
                     var fee_val = new IPFValueNumber(fv.Name, fv_val);
                     vars.Add(fee_val);
                 }
                 // Proceed with computation
                 double CurrentAmount = 0;
                 ComputeSteps.Add(string.Format("Amount is initially {0}", CurrentAmount));
-                foreach (IPFFeeCase fc in fee.Cases.Cast<IPFFeeCase>())
+                foreach (DslFeeCase fc in fee.Cases.Cast<DslFeeCase>())
                 {
-                    var case_cond = IPFEvaluator.EvaluateLogic(fc.Condition.ToArray(), vars, fee.Name);
+                    var case_cond = DslEvaluator.EvaluateLogic(fc.Condition.ToArray(), vars, fee.Name);
                     if (!case_cond)
                     {
                         ComputeSteps.Add(string.Format("Condition [{0}] is FALSE, skipping", string.Join(" ", fc.Condition)));
@@ -58,8 +58,8 @@ namespace IPFees.Calculator
                     if (fc.Condition.Any()) ComputeSteps.Add(string.Format("Condition [{0}] is TRUE, proceeding with evaluating individual expressions", string.Join(" ", fc.Condition)));
                     foreach (var b in fc.Yields)
                     {
-                        var cond_b = IPFEvaluator.EvaluateLogic(b.Condition.ToArray(), vars, fee.Name);
-                        var val_b = IPFEvaluator.EvaluateExpression(b.Values.ToArray(), vars, fee.Name);
+                        var cond_b = DslEvaluator.EvaluateLogic(b.Condition.ToArray(), vars, fee.Name);
+                        var val_b = DslEvaluator.EvaluateExpression(b.Values.ToArray(), vars, fee.Name);
                         if (b.Condition.Any()) ComputeSteps.Add(string.Format("Condition: [{0}] is [{1}]", string.Join(" ", b.Condition), cond_b));
                         if (cond_b)
                         {

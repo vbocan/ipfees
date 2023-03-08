@@ -9,12 +9,12 @@ namespace IPFees.Web.Pages
     public class DataCollectModel : PageModel
     {
         [BindProperty]
-        public IEnumerable<IPFVariable> Vars { get; set; }
+        public IEnumerable<DslVariable> Vars { get; set; }
 
-        private readonly IIPFCalculator _calc;
+        private readonly IDslCalculator _calc;
         private readonly ILogger<IndexModel> _logger;
 
-        public DataCollectModel(IIPFCalculator IPFCalculator, ILogger<IndexModel> logger)
+        public DataCollectModel(IDslCalculator IPFCalculator, ILogger<IndexModel> logger)
         {
             _calc = IPFCalculator;
             _logger = logger;

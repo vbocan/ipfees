@@ -16,7 +16,7 @@ namespace IPFFees.Calculator.Tests
             DEFAULT NormalEntity
             ENDDEFINE
             """;
-            var p = new IPFParser();
+            var p = new DslParser();
             var result = p.Parse(text);
             Assert.True(result);
             var errors = p.GetErrors();
@@ -34,11 +34,11 @@ namespace IPFFees.Calculator.Tests
             DEFAULT NormalEntity
             ENDDEFINE
             """;
-            var p = new IPFParser();
+            var p = new DslParser();
             var result = p.Parse(text);
             Assert.False(result);
             var errors = p.GetErrors();
-            Assert.Contains(errors, a => a.Item1 == IPFError.VariableDuplicateChoices);
+            Assert.Contains(errors, a => a.Item1 == DslError.VariableDuplicateChoices);
         }
 
         [Fact]
@@ -52,11 +52,11 @@ namespace IPFFees.Calculator.Tests
             DEFAULT TinyEntity
             ENDDEFINE
             """;
-            var p = new IPFParser();
+            var p = new DslParser();
             var result = p.Parse(text);
             Assert.False(result);
             var errors = p.GetErrors();
-            Assert.Contains(errors, a => a.Item1 == IPFError.VariableInvalidDefaultChoice);
+            Assert.Contains(errors, a => a.Item1 == DslError.VariableInvalidDefaultChoice);
         }
 
         [Fact]
@@ -70,11 +70,11 @@ namespace IPFFees.Calculator.Tests
             DEFAULT TinyEntity
             ENDDEFINE
             """;
-            var p = new IPFParser();
+            var p = new DslParser();
             var result = p.Parse(text);
             Assert.False(result);
             var errors = p.GetErrors();
-            Assert.Contains(errors, a => a.Item1 is IPFError.VariableDuplicateChoices or IPFError.VariableInvalidDefaultChoice);
+            Assert.Contains(errors, a => a.Item1 is DslError.VariableDuplicateChoices or DslError.VariableInvalidDefaultChoice);
         }
 
         [Fact]
@@ -85,11 +85,11 @@ namespace IPFFees.Calculator.Tests
             DEFINE LIST EntityType AS 'Select the desired entity type'
             ENDDEFINE
             """;
-            var p = new IPFParser();
+            var p = new DslParser();
             var result = p.Parse(text);
             Assert.False(result);
             var errors = p.GetErrors();
-            Assert.Contains(errors, a => a.Item1 == IPFError.VariableNoChoice);
+            Assert.Contains(errors, a => a.Item1 == DslError.VariableNoChoice);
         }
 
         [Fact]
@@ -107,11 +107,11 @@ namespace IPFFees.Calculator.Tests
             DEFAULT NormalEntity
             ENDDEFINE
             """;
-            var p = new IPFParser();
+            var p = new DslParser();
             var result = p.Parse(text);
             Assert.False(result);
             var errors = p.GetErrors();
-            Assert.Contains(errors, a => a.Item1 == IPFError.ChoiceDefinedInMultipleVariables);
+            Assert.Contains(errors, a => a.Item1 == DslError.ChoiceDefinedInMultipleVariables);
         }
 
         [Fact]
@@ -124,7 +124,7 @@ namespace IPFFees.Calculator.Tests
             DEFAULT 15
             ENDDEFINE
             """;
-            var p = new IPFParser();
+            var p = new DslParser();
             var result = p.Parse(text);
             Assert.True(result);
         }
@@ -139,11 +139,11 @@ namespace IPFFees.Calculator.Tests
             DEFAULT 15
             ENDDEFINE
             """;
-            var p = new IPFParser();
+            var p = new DslParser();
             var result = p.Parse(text);
             Assert.False(result);
             var errors = p.GetErrors();
-            Assert.Contains(errors, a => a.Item1 == IPFError.InvalidMinMaxDefault);
+            Assert.Contains(errors, a => a.Item1 == DslError.InvalidMinMaxDefault);
         }
 
         [Fact]
@@ -156,11 +156,11 @@ namespace IPFFees.Calculator.Tests
             DEFAULT 21
             ENDDEFINE
             """;
-            var p = new IPFParser();
+            var p = new DslParser();
             var result = p.Parse(text);
             Assert.False(result);
             var errors = p.GetErrors();
-            Assert.Contains(errors, a => a.Item1 == IPFError.InvalidMinMaxDefault);
+            Assert.Contains(errors, a => a.Item1 == DslError.InvalidMinMaxDefault);
         }
 
         [Fact]
@@ -177,11 +177,11 @@ namespace IPFFees.Calculator.Tests
             DEFAULT 11
             ENDDEFINE
             """;
-            var p = new IPFParser();
+            var p = new DslParser();
             var result = p.Parse(text);
             Assert.False(result);
             var errors = p.GetErrors();
-            Assert.Contains(errors, a => a.Item1 == IPFError.VariableDefinedMultipleTimes);
+            Assert.Contains(errors, a => a.Item1 == DslError.VariableDefinedMultipleTimes);
         }
 
         [Fact]
@@ -200,11 +200,11 @@ namespace IPFFees.Calculator.Tests
             YIELD 96 IF ClaimCount OVER 3 AND EntityType IS MicroEntity
             ENDCOMPUTE
             """;
-            var p = new IPFParser();
+            var p = new DslParser();
             var result = p.Parse(text);
             Assert.False(result);
             var errors = p.GetErrors();
-            Assert.Contains(errors, a => a.Item1 == IPFError.FeeDefinedMultipleTimes);
+            Assert.Contains(errors, a => a.Item1 == DslError.FeeDefinedMultipleTimes);
         }
     }
 }

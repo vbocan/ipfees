@@ -18,17 +18,17 @@ namespace IPFees.Calculator.Tests
             DEFAULT NormalEntity
             ENDDEFINE
             """;
-            var p = new IPFParser();
+            var p = new DslParser();
             var _ = p.Parse(text);
-            var result = (IPFVariableList?)p.GetVariables().SingleOrDefault();
+            var result = (DslVariableList?)p.GetVariables().SingleOrDefault();
             Assert.NotNull(result);
             Assert.Equal("EntityType", result.Name);
             Assert.Equal("Entity type", result.Text);
             Assert.Equal("NormalEntity", result.DefaultSymbol);
             Assert.Equal(3, result.Items.Count);
-            Assert.Equal(new IPFListItem("NormalEntity", "Normal"), result.Items[0]);
-            Assert.Equal(new IPFListItem("SmallEntity", "Small"), result.Items[1]);
-            Assert.Equal(new IPFListItem("MicroEntity", "Micro"), result.Items[2]);
+            Assert.Equal(new DslListItem("NormalEntity", "Normal"), result.Items[0]);
+            Assert.Equal(new DslListItem("SmallEntity", "Small"), result.Items[1]);
+            Assert.Equal(new DslListItem("MicroEntity", "Micro"), result.Items[2]);
         }
 
         [Fact]
@@ -42,9 +42,9 @@ namespace IPFees.Calculator.Tests
             DEFAULT 0
             ENDDEFINE
             """;
-            var p = new IPFParser();
+            var p = new DslParser();
             var _ = p.Parse(text);
-            var result = (IPFVariableNumber?)p.GetVariables().SingleOrDefault();
+            var result = (DslVariableNumber?)p.GetVariables().SingleOrDefault();
             Assert.NotNull(result);
             Assert.Equal("ClaimCount", result.Name);
             Assert.Equal("Number of claims", result.Text);
@@ -63,9 +63,9 @@ namespace IPFees.Calculator.Tests
             DEFAULT TRUE
             ENDDEFINE
             """;
-            var p = new IPFParser();
+            var p = new DslParser();
             var _ = p.Parse(text);
-            var result = (IPFVariableBoolean?)p.GetVariables().SingleOrDefault();
+            var result = (DslVariableBoolean?)p.GetVariables().SingleOrDefault();
             Assert.NotNull(result);
             Assert.Equal("ContainsDependentClaims", result.Name);
             Assert.Equal("Contains dependent claims", result.Text);

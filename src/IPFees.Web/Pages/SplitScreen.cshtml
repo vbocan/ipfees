@@ -51,8 +51,8 @@
                     {
                         switch (v)
                         {
-                            case IPFVariableList:
-                                var v1 = (IPFVariableList)v;
+                            case DslVariableList:
+                                var v1 = (DslVariableList)v;
                                 <label class="form-label" for="@v1.Name">@v1.Text</label>
                                 <select class="form-select form-select-lg mb-3" name="@v1.Name" id="@v1.Name">
                                     @foreach (var item in v1.Items)
@@ -68,15 +68,15 @@
                                     }
                                 </select>
                                 break;
-                            case IPFVariableNumber:
-                                var v2 = (IPFVariableNumber)v;
+                            case DslVariableNumber:
+                                var v2 = (DslVariableNumber)v;
                                 <div class="mb-3 col-md-6">
                                     <label class="form-label" for="@v2.Name">@v2.Text</label>
                                     <input class="form-control" type="number" id="@v2.Name" name="@v2.Name" value="@v2.DefaultValue" min="@v2.MinValue" max="@v2.MaxValue">
                                 </div>
                                 break;
-                            case IPFVariableBoolean:
-                                var v3 = (IPFVariableBoolean)v;
+                            case DslVariableBoolean:
+                                var v3 = (DslVariableBoolean)v;
                                 <div class="mb-3 form-check">
                                     <label class="form-check-label" for="@v3.Name">@v3.Text</label>
                                     @if (v3.DefaultValue)

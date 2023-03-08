@@ -8,9 +8,9 @@ namespace IPFees.Core
     {
         private IJurisdictionRepository Jurisdiction { get; set; }
         private IModuleRepository Module { get; set; }
-        private IIPFCalculator Calculator { get; set; }
+        private IDslCalculator Calculator { get; set; }
 
-        public OfficialFee(IJurisdictionRepository jurisdiction, IModuleRepository module, IIPFCalculator calculator)
+        public OfficialFee(IJurisdictionRepository jurisdiction, IModuleRepository module, IDslCalculator calculator)
         {
             Jurisdiction = jurisdiction;
             Module = module;

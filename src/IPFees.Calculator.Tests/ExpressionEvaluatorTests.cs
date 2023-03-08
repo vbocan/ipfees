@@ -15,7 +15,7 @@ namespace IPFees.Calculator.Tests
                 new IPFValueNumber("C", 30),
             };
             var tokens = "( B + 2 ) * C - 11 * ( B + 2 * A )".Split(new char[] { ' ' }, StringSplitOptions.None);
-            var ev = IPFEvaluator.EvaluateExpression(tokens, vars);
+            var ev = DslEvaluator.EvaluateExpression(tokens, vars);
             Assert.Equal(1448, ev);
         }
 
@@ -26,7 +26,7 @@ namespace IPFees.Calculator.Tests
                 new IPFValueNumber("A", 10),
             };
             var tokens = "A * -1".Split(new char[] { ' ' }, StringSplitOptions.None);
-            var ev = IPFEvaluator.EvaluateExpression(tokens, vars);
+            var ev = DslEvaluator.EvaluateExpression(tokens, vars);
             Assert.Equal(-10, ev);
         }
 
@@ -37,7 +37,7 @@ namespace IPFees.Calculator.Tests
                 new IPFValueNumber("A", 40.7),
             };
             var tokens = "FLOOR ( A )".Split(new char[] { ' ' }, StringSplitOptions.None);
-            var ev = IPFEvaluator.EvaluateExpression(tokens, vars);
+            var ev = DslEvaluator.EvaluateExpression(tokens, vars);
             Assert.Equal(40, ev);
         }
 
@@ -49,11 +49,11 @@ namespace IPFees.Calculator.Tests
                 new IPFValueNumber("B", 40.7),
             };
             var tokens1 = "ROUND ( A )".Split(new char[] { ' ' }, StringSplitOptions.None);
-            var ev1 = IPFEvaluator.EvaluateExpression(tokens1, vars);
+            var ev1 = DslEvaluator.EvaluateExpression(tokens1, vars);
             Assert.Equal(40, ev1);
 
             var tokens2 = "ROUND ( B )".Split(new char[] { ' ' }, StringSplitOptions.None);
-            var ev2 = IPFEvaluator.EvaluateExpression(tokens2, vars);
+            var ev2 = DslEvaluator.EvaluateExpression(tokens2, vars);
             Assert.Equal(41, ev2);
         }
 
@@ -64,7 +64,7 @@ namespace IPFees.Calculator.Tests
                 new IPFValueNumber("A", 40.3),
             };
             var tokens = "CEIL ( A )".Split(new char[] { ' ' }, StringSplitOptions.None);
-            var ev = IPFEvaluator.EvaluateExpression(tokens, vars);
+            var ev = DslEvaluator.EvaluateExpression(tokens, vars);
             Assert.Equal(41, ev);
         }
     }
