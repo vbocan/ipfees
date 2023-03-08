@@ -1,5 +1,4 @@
-﻿using IPFees.Core.Helpers;
-using IPFFees.Core.Data;
+﻿using IPFFees.Core.Data;
 using IPFFees.Core.Models;
 using Mapster;
 using MongoDB.Driver;
@@ -11,26 +10,29 @@ namespace IPFFees.Core
     public class Module : IModule
     {
         private readonly DataContext context;
-        private readonly IDateTimeHelper dateTimeHelper;
 
-        public Module(DataContext context, IDateTimeHelper dateTimeHelper)
+        public Module(DataContext context)
         {
             this.context = context;
-            this.dateTimeHelper = dateTimeHelper;
         }
-
-        public async Task<DbResult> AddModuleAsync(string name, string description, string code)
+        /// <summary>
+        /// Create a new module
+        /// </summary>
+        /// <param name="ModuleName">Module name.</param>
+        /// <returns>A DbResult structure containing the result of the database operation</returns>
+        /// <remarks>
+        /// A module is an IPF source code file that is meant to be included by calling code, akin to the #include functionality of the C programming language.
+        /// </remarks>
+        public async Task<DbResult> AddModuleAsync(string ModuleName)
         {
-            if (GetModules().Any(a => a.Name.Equals(name)))
+            if (GetModules().Any(a => a.Name.Equals(ModuleName)))
             {
-                return DbResult.Fail($"A module named '{name}' already exists.");
+                return DbResult.Fail($"A module named '{ModuleName}' already exists.");
             }
             var newDoc = new ModuleDoc
             {
-                Name = name,
-                Description = description,
-                Code = code,
-                LastUpdatedOn = dateTimeHelper.GetDateTimeNow()
+                Name = ModuleName,
+                LastUpdatedOn = DateTime.UtcNow.ToLocalTime()
             };
             try
             {
@@ -42,28 +44,67 @@ namespace IPFFees.Core
                 return DbResult.Fail(ex);
             }
         }
-
-        public async Task<DbResult> EditModuleAsync(string name, string description, string code)
+        /// <summary>
+        /// Set the module description
+        /// </summary>
+        /// <param name="ModuleName">Module name</param>
+        /// <param name="Description">Description of the functionality provided</param>        
+        /// <returns>A DbResult structure containing the result of the database operation</returns>
+        public async Task<DbResult> SetModuleDescriptionAsync(string ModuleName, string Description)
         {
-            var res = await context.ModuleCollection.UpdateOneAsync(r => r.Name.Equals(name),
+            var res = await context.ModuleCollection.UpdateOneAsync(r => r.Name.Equals(ModuleName),
                 Builders<ModuleDoc>
                 .Update
-                .Set(r => r.Description, description)
-                .Set(r => r.Code, code));
+                .Set(r => r.Description, Description));
             return (res.IsAcknowledged && res.ModifiedCount > 0) ? DbResult.Succeed() : DbResult.Fail();
         }
 
+        /// <summary>
+        /// Set the module source code
+        /// </summary>
+        /// <param name="ModuleName">Module name</param>
+        /// <param name="SourceCode">Source code of the module</param>        
+        /// <returns>A DbResult structure containing the result of the database operation</returns>
+        public async Task<DbResult> SetModuleSourceCodeAsync(string ModuleName, string SourceCode)
+        {
+            var res = await context.ModuleCollection.UpdateOneAsync(r => r.Name.Equals(ModuleName),
+                Builders<ModuleDoc>
+                .Update
+                .Set(r => r.SourceCode, SourceCode));
+            return (res.IsAcknowledged && res.ModifiedCount > 0) ? DbResult.Succeed() : DbResult.Fail();
+        }
+
+        /// <summary>
+        /// Get all registered modules.
+        /// </summary>
+        /// <returns>An enumeration of ModuleInfo objects</returns>
         public IEnumerable<ModuleInfo> GetModules()
         {
             var dbObjs = context.ModuleCollection.AsQueryable();
             return dbObjs.Adapt<IEnumerable<ModuleInfo>>();
         }
 
-        public async Task<DbResult> RemoveModuleAsync(string name)
+        /// <summary>
+        /// Get module by name
+        /// </summary>
+        /// <param name="ModuleName">Module name</param>
+        /// <returns>A ModuleInfo object</returns>
+        public ModuleInfo GetModuleByName(string ModuleName)
+        {
+            var dbObjs = context.ModuleCollection.AsQueryable().Where(w => w.Name.Equals(ModuleName)).Single();
+            return dbObjs.Adapt<ModuleInfo>();
+        }
+
+        /// <summary>
+        /// Remove a specified module
+        /// </summary>
+        /// <param name="ModuleName">Module name</param>
+        /// <returns>A DbResult structure containing the result of the database operation</returns>
+        public async Task<DbResult> RemoveModuleAsync(string ModuleName)
         {
             try
             {
-                await context.ModuleCollection.DeleteOneAsync(s => s.Name.Equals(name));
+                await context.ModuleCollection.DeleteOneAsync(s => s.Name.Equals(ModuleName));
                 return DbResult.Succeed();
             }
             catch (Exception ex)
