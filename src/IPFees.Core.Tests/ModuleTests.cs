@@ -6,7 +6,7 @@ namespace IPFees.Core.Tests
 {
     public class ModuleTests : IClassFixture<CoreFixture>
     {
-        private CoreFixture fixture;
+        private readonly CoreFixture fixture;
 
         public ModuleTests(CoreFixture fixture)
         {
