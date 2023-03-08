@@ -12,22 +12,18 @@ using static System.Net.Mime.MediaTypeNames;
 
 namespace IPFFees.Core
 {
-    public class Jurisdiction : IJurisdiction
+    public class JurisdictionRepository : IJurisdictionRepository
     {
         private readonly DataContext context;
-        private readonly IModule module;
-        private readonly IIPFCalculator calculator;
 
-        public Jurisdiction(DataContext context, IModule module, IIPFCalculator calculator)
+        public JurisdictionRepository(DataContext context)
         {
             this.context = context;
-            this.module = module;
-            this.calculator = calculator;
         }
         /// <summary>
         /// Create a new jurisdiction
         /// </summary>
-        /// <param name="JurisdictionName">Jurisdiction name.</param>
+        /// <param name="JurisdictionName">JurisdictionRepository name.</param>
         /// <returns>A DbResult structure containing the result of the database operation</returns>
         /// <remarks>
         /// A jurisdiction is an area where Intellectual Property rules are in effect and usually consists of one or more countries.        
@@ -56,7 +52,7 @@ namespace IPFFees.Core
         /// <summary>
         /// Set the jurisdiction description
         /// </summary>
-        /// <param name="JurisdictionName">Jurisdiction name</param>
+        /// <param name="JurisdictionName">JurisdictionRepository name</param>
         /// <param name="Description">Description of the functionality provided</param>        
         /// <returns>A DbResult structure containing the result of the database operation</returns>
         public async Task<DbResult> SetJurisdictionDescriptionAsync(string JurisdictionName, string Description)
@@ -71,7 +67,7 @@ namespace IPFFees.Core
         /// <summary>
         /// Set the jurisdiction source code
         /// </summary>
-        /// <param name="JurisdictionName">Jurisdiction name</param>
+        /// <param name="JurisdictionName">JurisdictionRepository name</param>
         /// <param name="SourceCode">Source code of the jurisdiction</param>        
         /// <returns>A DbResult structure containing the result of the database operation</returns>
         public async Task<DbResult> SetJurisdictionSourceCodeAsync(string JurisdictionName, string SourceCode)
@@ -96,7 +92,7 @@ namespace IPFFees.Core
         /// <summary>
         /// Get jurisdiction by name
         /// </summary>
-        /// <param name="JurisdictionName">Jurisdiction name</param>
+        /// <param name="JurisdictionName">JurisdictionRepository name</param>
         /// <returns>A JurisdictionInfo object</returns>
         public JurisdictionInfo GetJurisdictionByName(string JurisdictionName)
         {
@@ -107,7 +103,7 @@ namespace IPFFees.Core
         /// <summary>
         /// Remove a specified jurisdiction
         /// </summary>
-        /// <param name="JurisdictionName">Jurisdiction name</param>
+        /// <param name="JurisdictionName">JurisdictionRepository name</param>
         /// <returns>A DbResult structure containing the result of the database operation</returns>
         public async Task<DbResult> RemoveJurisdictionAsync(string JurisdictionName)
         {
@@ -125,7 +121,7 @@ namespace IPFFees.Core
         /// <summary>
         /// Set the jurisdiction description
         /// </summary>
-        /// <param name="JurisdictionName">Jurisdiction name</param>
+        /// <param name="JurisdictionName">JurisdictionRepository name</param>
         /// <param name="ModuleNames">An array of module names referenced by the jurisdiction</param>        
         /// <returns>A DbResult structure containing the result of the database operation</returns>
         public async Task<DbResult> SetReferencedModules(string JurisdictionName, string[] ModuleNames)
@@ -135,38 +131,6 @@ namespace IPFFees.Core
                 .Update
                 .Set(r => r.ReferencedModules, ModuleNames));
             return (res.IsAcknowledged && res.ModifiedCount > 0) ? DbResult.Succeed() : DbResult.Fail();
-        }
-
-        /// <summary>
-        /// Compute fees related to the given jurisdiction
-        /// </summary>
-        /// <param name="JurisdictionName">Jurisdiction name</param>
-        /// <param name="Vars">Calculation parameters</param>
-        public void ComputeFees(string JurisdictionName, IList<IPFValue> Vars)
-        {
-            var jur = GetJurisdictionByName(JurisdictionName) ?? throw new NotSupportedException($"Jurisdiction '{JurisdictionName}' does not exist.");
-            // Step 1: Parse the source code of the referenced modules (if any)
-            foreach (var rm in jur.ReferencedModules)
-            {
-                // Retrieve the referenced module
-                var mod = module.GetModuleByName(rm) ?? throw new NotSupportedException($"Module '{rm}' does not exist.");
-                calculator.Parse(mod.SourceCode);
-            }
-            // Step 2: Parse the source code of the current jurisdiction
-            calculator.Parse(jur.SourceCode);
-
-            // Step 3: Process calculation results
-            var CalcErrors = calculator.GetErrors();
-            TODO: Move this method to own class
-            //List<IPFValue> vars = new() {
-            //    new IPFValueString("EntityType", "NormalEntity"),
-            //    new IPFValueString("SituationType", "PreparedISA"),
-            //    new IPFValueNumber("SheetCount", 120),
-            //    new IPFValueNumber("ClaimCount", 7)
-            //};
-
-            var (TotalMandatoryAmount, TotalOptionalAMount, CalculationSteps) = calculator.Compute(Vars);
-
         }
     }
 }

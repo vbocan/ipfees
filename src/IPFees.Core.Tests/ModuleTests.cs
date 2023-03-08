@@ -16,7 +16,7 @@ namespace IPFees.Core.Tests
         [Fact]
         public async void AddModuleTest()
         {
-            var mod = new Module(fixture.DbContext);
+            var mod = new ModuleRepository(fixture.DbContext);
             var res1 = await mod.AddModuleAsync("Module-Add");
             Assert.True(res1.Success);
             var res2 = mod.GetModules().Any(a => a.Name.Equals("Module-Add"));
@@ -26,7 +26,7 @@ namespace IPFees.Core.Tests
         [Fact]
         public async void AddDuplicateModuleTest()
         {
-            var mod = new Module(fixture.DbContext);
+            var mod = new ModuleRepository(fixture.DbContext);
             var res1 = await mod.AddModuleAsync("Module-DuP");
             var res2 = await mod.AddModuleAsync("Module-DuP");
             Assert.True(res1.Success);
@@ -36,7 +36,7 @@ namespace IPFees.Core.Tests
         [Fact]
         public async void SetModuleDescriptionTest()
         {
-            var mod = new Module(fixture.DbContext);
+            var mod = new ModuleRepository(fixture.DbContext);
             var res1 = await mod.AddModuleAsync("Module-Set-Description");
             Assert.True(res1.Success);
             var res2 = await mod.SetModuleDescriptionAsync("Module-Set-Description", "Module Description");
@@ -48,7 +48,7 @@ namespace IPFees.Core.Tests
         [Fact]
         public async void SetModuleSourceCodeTest()
         {
-            var mod = new Module(fixture.DbContext);
+            var mod = new ModuleRepository(fixture.DbContext);
             var res1 = await mod.AddModuleAsync("Module-Set-SourceCode");
             Assert.True(res1.Success);
             var res2 = await mod.SetModuleSourceCodeAsync("Module-Set-SourceCode", "Source Code");
@@ -60,7 +60,7 @@ namespace IPFees.Core.Tests
         [Fact]
         public async void RemoveModulesTest()
         {
-            var mod = new Module(fixture.DbContext);
+            var mod = new ModuleRepository(fixture.DbContext);
             var res1 = await mod.AddModuleAsync("Module-Del");
             var res2 = await mod.RemoveModuleAsync("Module-Del");
             Assert.True(res1.Success);

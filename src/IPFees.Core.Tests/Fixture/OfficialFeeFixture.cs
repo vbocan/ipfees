@@ -6,22 +6,20 @@ using MongoDB.Driver;
 
 namespace IPFees.Core.Tests.Fixture
 {
-    public class CoreFixture : IDisposable
+    public class OfficialFeeFixture : IDisposable
     {
         public DataContext DbContext { get; private set; }
-        public IMongoCollection<ModuleDoc> ModuleCollection { get; private set; }
-        private readonly string connectionString = "mongodb+srv://abdroot:Test123@cluster0.dusbo.mongodb.net/CoreTest?retryWrites=true&w=majority";
+        private readonly string connectionString = "mongodb+srv://abdroot:Test123@cluster0.dusbo.mongodb.net/OfficialFeeTest?retryWrites=true&w=majority";
 
-        public CoreFixture()
+        public OfficialFeeFixture()
         {
             // Build database context based on the connection string
             DbContext = new DataContext(connectionString);
             DbContext.DropDatabase();
-            ModuleCollection = DbContext.ModuleCollection;
         }
 
         public void Dispose()
-        {
+        {            
         }
     }
 }

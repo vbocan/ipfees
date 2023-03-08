@@ -2,7 +2,7 @@
 
 namespace IPFFees.Core
 {
-    public interface IModule
+    public interface IModuleRepository
     {
         Task<DbResult> AddModuleAsync(string ModuleName);
         Task<DbResult> SetModuleDescriptionAsync(string ModuleName, string Description);
