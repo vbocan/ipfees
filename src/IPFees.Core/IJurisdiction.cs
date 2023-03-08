@@ -1,4 +1,5 @@
-﻿using IPFFees.Core.Data;
+﻿using IPFees.Evaluator;
+using IPFFees.Core.Data;
 
 namespace IPFFees.Core
 {
@@ -10,5 +11,7 @@ namespace IPFFees.Core
         IEnumerable<JurisdictionInfo> GetJurisdictions();
         JurisdictionInfo GetJurisdictionByName(string JurisdictionName);
         Task<DbResult> SetReferencedModules(string JurisdictionName, string[] ModuleNames);
+
+        void ComputeFees(string JurisdictionName, IList<IPFValue> Vars);
     }
 }

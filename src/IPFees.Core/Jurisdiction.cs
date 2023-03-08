@@ -1,19 +1,27 @@
-﻿using IPFFees.Core.Data;
+﻿using IPFees.Calculator;
+using IPFees.Evaluator;
+using IPFFees.Core.Data;
 using IPFFees.Core.Models;
 using Mapster;
 using MongoDB.Driver;
 using System.Diagnostics.Tracing;
 using System.Runtime.Versioning;
+using ZstdSharp;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace IPFFees.Core
 {
     public class Jurisdiction : IJurisdiction
     {
         private readonly DataContext context;
+        private readonly IModule module;
+        private readonly IIPFCalculator calculator;
 
-        public Jurisdiction(DataContext context)
+        public Jurisdiction(DataContext context, IModule module, IIPFCalculator calculator)
         {
             this.context = context;
+            this.module = module;
+            this.calculator = calculator;
         }
         /// <summary>
         /// Create a new jurisdiction
@@ -126,6 +134,38 @@ namespace IPFFees.Core
                 .Update
                 .Set(r => r.ReferencedModules, ModuleNames));
             return (res.IsAcknowledged && res.ModifiedCount > 0) ? DbResult.Succeed() : DbResult.Fail();
+        }
+
+        /// <summary>
+        /// Compute fees related to the given jurisdiction
+        /// </summary>
+        /// <param name="JurisdictionName">Jurisdiction name</param>
+        /// <param name="Vars">Calculation parameters</param>
+        public void ComputeFees(string JurisdictionName, IList<IPFValue> Vars)
+        {
+            var jur = GetJurisdictionByName(JurisdictionName) ?? throw new NotSupportedException($"Jurisdiction '{JurisdictionName}' does not exist.");
+            // Step 1: Parse the source code of the referenced modules (if any)
+            foreach (var rm in jur.ReferencedModules)
+            {
+                // Retrieve the referenced module
+                var mod = module.GetModuleByName(rm) ?? throw new NotSupportedException($"Module '{rm}' does not exist.");
+                calculator.Parse(mod.SourceCode);
+            }
+            // Step 2: Parse the source code of the current jurisdiction
+            calculator.Parse(jur.SourceCode);
+
+            // Step 3: Process calculation results
+            var CalcErrors = calculator.GetErrors();
+
+            //List<IPFValue> vars = new() {
+            //    new IPFValueString("EntityType", "NormalEntity"),
+            //    new IPFValueString("SituationType", "PreparedISA"),
+            //    new IPFValueNumber("SheetCount", 120),
+            //    new IPFValueNumber("ClaimCount", 7)
+            //};
+
+            var (TotalMandatoryAmount, TotalOptionalAMount, CalculationSteps) = calculator.Compute(Vars);
+
         }
     }
 }
