@@ -7,11 +7,11 @@ using System.Runtime.Versioning;
 
 namespace IPFFees.Core
 {
-    public class Module : IModule
+    public class ModuleRepository : IModuleRepository
     {
         private readonly DataContext context;
 
-        public Module(DataContext context)
+        public ModuleRepository(DataContext context)
         {
             this.context = context;
         }
