@@ -15,8 +15,8 @@ namespace IPFees.Calculator.Tests
             YIELD 64 IF EntityType EQUALS MicroEntity
             ENDCOMPUTE
             """;
-            var p = new IPFParser(text);
-            var _ = p.Parse();
+            var p = new IPFParser();
+            var _ = p.Parse(text);
             var result = p.GetFees().SingleOrDefault();
             Assert.NotNull(result);
             Assert.Equal("BasicNationalFee", result.Name);                        
@@ -48,8 +48,8 @@ namespace IPFees.Calculator.Tests
             ENDCASE            
             ENDCOMPUTE
             """;
-            var p = new IPFParser(text);
-            var _ = p.Parse();
+            var p = new IPFParser();
+            var _ = p.Parse(text);
             var result = p.GetFees().SingleOrDefault();
             Assert.NotNull(result);
             Assert.Equal("SearchFee", result.Name);
@@ -83,8 +83,8 @@ namespace IPFees.Calculator.Tests
             YIELD 160 IF EntityType EQUALS MicroEntity
             ENDCOMPUTE
             """;
-            var p = new IPFParser(text);
-            var _ = p.Parse();
+            var p = new IPFParser();
+            var _ = p.Parse(text);
             var result = p.GetFees().SingleOrDefault();
             Assert.NotNull(result);
             Assert.Equal("ExaminationFee", result.Name);

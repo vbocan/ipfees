@@ -3,9 +3,8 @@ using System.Xml.Linq;
 
 namespace IPFees.Parser
 {
-    public class IPFParser
+    public class IPFParser : IIPFParser
     {
-        string[] IPFData { get; set; }
         Parsing CurrentlyParsing = Parsing.None;
 
         private IPFVariableList CurrentList { get; set; } = new IPFVariableList(string.Empty, string.Empty, new List<IPFListItem>(), string.Empty);
@@ -19,12 +18,9 @@ namespace IPFees.Parser
         private IList<(IPFError, string)> IPFErrors = new List<(IPFError, string)>();
 
 
-        public IPFParser(string source)
-        {
-            IPFData = source.Split(new string[] { Environment.NewLine }, StringSplitOptions.None);
-        }
+        public IPFParser() { }
 
-        public bool Parse()
+        public bool Parse(string source)
         {
             Func<string[], bool>[] IPFParsers = new Func<string[], bool>[]
             {
@@ -44,6 +40,8 @@ namespace IPFees.Parser
                 ParseFeeEndCase,
                 ParseEndCompute
             };
+
+            string[] IPFData = source.Split(new string[] { Environment.NewLine }, StringSplitOptions.None);
 
             for (int i = 0; i < IPFData.Length; i++)
             {
@@ -68,13 +66,13 @@ namespace IPFees.Parser
                     }
                     catch (Exception ex)
                     {
-                        IPFErrors.Add((IPFError.SyntaxError, $"[Line {i + 1}] Error: {ex.Message}"));                        
+                        IPFErrors.Add((IPFError.SyntaxError, $"[Line {i + 1}] Error: {ex.Message}"));
                     }
                 }
                 // If the line hasn't been parsed until now, it's something wrong with it
                 if (!LineParsed)
                 {
-                    IPFErrors.Add((IPFError.SyntaxError, $"[Line {i + 1}] Error: Invalid syntax"));                    
+                    IPFErrors.Add((IPFError.SyntaxError, $"[Line {i + 1}] Error: Invalid syntax"));
                 }
             }
 
@@ -329,7 +327,7 @@ namespace IPFees.Parser
             if (tokens[0] != "LET") return false;
             if (tokens[2] != "AS") return false;
             var VarName = new StringBuilder().AppendFormat($"{CurrentFee.Name}.{tokens[1]}").ToString();
-            var ValueTokens = tokens.AsEnumerable().Skip(3);            
+            var ValueTokens = tokens.AsEnumerable().Skip(3);
             CurrentFee.Vars.Add(new IPFFeeVar(VarName, ValueTokens));
             return true;
         }
