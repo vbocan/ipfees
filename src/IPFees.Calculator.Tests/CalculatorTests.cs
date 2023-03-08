@@ -15,8 +15,8 @@ namespace IPFees.Calculator.Tests
             ENDCOMPUTE
             """;
             List<IPFValue> vars = new() { };
-            var parser = new IPFParser();
-            var calc = new IPFCalculator(parser);
+            var parser = new DslParser();
+            var calc = new DslCalculator(parser);
             calc.Parse(text);
             var (TotalAmount, _, _) = calc.Compute(vars);
 
@@ -34,8 +34,8 @@ namespace IPFees.Calculator.Tests
             ENDCOMPUTE
             """;
             List<IPFValue> vars = new() { };
-            var parser = new IPFParser();
-            var calc = new IPFCalculator(parser);
+            var parser = new DslParser();
+            var calc = new DslCalculator(parser);
             calc.Parse(text);
             var (TotalAmount, _, _) = calc.Compute(vars);
 
@@ -53,8 +53,8 @@ namespace IPFees.Calculator.Tests
             ENDCOMPUTE
             """;
             List<IPFValue> vars = new() { };
-            var parser = new IPFParser();
-            var calc = new IPFCalculator(parser);
+            var parser = new DslParser();
+            var calc = new DslCalculator(parser);
             calc.Parse(text);
             var (TotalAmount, _, _) = calc.Compute(vars);
 
@@ -74,8 +74,8 @@ namespace IPFees.Calculator.Tests
             List<IPFValue> vars = new() {
                 new IPFValueBoolean("C", true),
             };
-            var parser = new IPFParser();
-            var calc = new IPFCalculator(parser);
+            var parser = new DslParser();
+            var calc = new DslCalculator(parser);
             calc.Parse(text);
             var (TotalAmount, _, _) = calc.Compute(vars);
 
@@ -96,8 +96,8 @@ namespace IPFees.Calculator.Tests
             List<IPFValue> vars = new() {
                 new IPFValueString("EntityType", "NormalEntity"),
             };
-            var parser = new IPFParser();
-            var calc = new IPFCalculator(parser);
+            var parser = new DslParser();
+            var calc = new DslCalculator(parser);
             calc.Parse(text);
             var (TotalAmount, _, _) = calc.Compute(vars);
 
@@ -118,8 +118,8 @@ namespace IPFees.Calculator.Tests
             List<IPFValue> vars = new() {
                 new IPFValueString("EntityType", "NormalEntity"),
             };
-            var parser = new IPFParser();
-            var calc = new IPFCalculator(parser);
+            var parser = new DslParser();
+            var calc = new DslCalculator(parser);
             calc.Parse(text);
             var (TotalAmount, _, _) = calc.Compute(vars);
 
@@ -141,8 +141,8 @@ namespace IPFees.Calculator.Tests
             List<IPFValue> vars = new() {
                 new IPFValueNumber("A", 350),
             };
-            var parser = new IPFParser();
-            var calc = new IPFCalculator(parser);
+            var parser = new DslParser();
+            var calc = new DslCalculator(parser);
             calc.Parse(text);
             var (TotalAmount, _, _) = calc.Compute(vars);
 
@@ -163,8 +163,8 @@ namespace IPFees.Calculator.Tests
             ENDCOMPUTE
             """;
             List<IPFValue> vars = new() { };
-            var parser = new IPFParser();
-            var calc = new IPFCalculator(parser);
+            var parser = new DslParser();
+            var calc = new DslCalculator(parser);
             calc.Parse(text);
             var (TotalMandatoryAmount, TotalOptionalAmount, _) = calc.Compute(vars);
 
@@ -188,8 +188,8 @@ namespace IPFees.Calculator.Tests
             List<IPFValue> vars = new() {
                 new IPFValueString("EntityType", "NormalEntity"),
             };
-            var parser = new IPFParser();
-            var calc = new IPFCalculator(parser);
+            var parser = new DslParser();
+            var calc = new DslCalculator(parser);
             calc.Parse(text);
             var (TotalMandatoryAmount, TotalOptionalAmount, _) = calc.Compute(vars);
 
@@ -214,8 +214,8 @@ namespace IPFees.Calculator.Tests
                 new IPFValueString("EntityType", "SmallEntity"),
                 new IPFValueNumber("C", 2)
             };
-            var parser = new IPFParser();
-            var calc = new IPFCalculator(parser);
+            var parser = new DslParser();
+            var calc = new DslCalculator(parser);
             calc.Parse(text);
             var (TotalMandatoryAmount, TotalOptionalAmount, _) = calc.Compute(vars);
 
@@ -233,8 +233,8 @@ namespace IPFees.Calculator.Tests
             ENDCOMPUTE
             """;
             List<IPFValue> vars = new() { };
-            var parser = new IPFParser();
-            var calc = new IPFCalculator(parser);
+            var parser = new DslParser();
+            var calc = new DslCalculator(parser);
             calc.Parse(text);
             Assert.Throws<NotSupportedException>(()=> calc.Compute(vars));
         }

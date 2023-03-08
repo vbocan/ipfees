@@ -12,10 +12,10 @@ namespace IPFees.Web.Pages
         [BindProperty]
         public IEnumerable<string> ParseErrors { get; set; }
 
-        private readonly IIPFCalculator _calc;
+        private readonly IDslCalculator _calc;
         private readonly ILogger<IndexModel> _logger;
 
-        public IndexModel(IIPFCalculator IPFCalculator, ILogger<IndexModel> logger)
+        public IndexModel(IDslCalculator IPFCalculator, ILogger<IndexModel> logger)
         {
             _calc = IPFCalculator;
             _logger = logger;

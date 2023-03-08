@@ -19,10 +19,10 @@ namespace IPFees.Web.Pages
         [BindProperty]
         public List<IPFValue> CollectedVars { get; set; }
 
-        private readonly IIPFCalculator _calc;
+        private readonly IDslCalculator _calc;
         private readonly ILogger<IndexModel> _logger;
 
-        public ResultModel(IIPFCalculator IPFCalculator, ILogger<IndexModel> logger)
+        public ResultModel(IDslCalculator IPFCalculator, ILogger<IndexModel> logger)
         {
             _calc = IPFCalculator;
             _logger = logger;
@@ -48,14 +48,14 @@ namespace IPFees.Web.Pages
                 if (CalcVar == null) continue;
                 switch (CalcVar)
                 {
-                    case IPFVariableList:
+                    case DslVariableList:
                         CollectedVars.Add(new IPFValueString(CalcVar.Name, field.Value));
                         break;
-                    case IPFVariableNumber:
+                    case DslVariableNumber:
                         _ = int.TryParse(field.Value, out var val2);
                         CollectedVars.Add(new IPFValueNumber(CalcVar.Name, val2));
                         break;
-                    case IPFVariableBoolean:
+                    case DslVariableBoolean:
                         _ = bool.TryParse(field.Value[0], out var val3);
                         CollectedVars.Add(new IPFValueBoolean(CalcVar.Name, val3));
                         break;

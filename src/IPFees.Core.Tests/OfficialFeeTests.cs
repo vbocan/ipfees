@@ -47,8 +47,8 @@ namespace IPFees.Core.Tests
             Assert.True(res5.Success);
             var res6 = await jur.SetReferencedModules("Jur1", new string[] { "Mod1" });
             Assert.True(res6.Success);
-            var parser = new IPFParser();            
-            IIPFCalculator calc = new IPFCalculator(parser);
+            var parser = new DslParser();            
+            IDslCalculator calc = new DslCalculator(parser);
             OfficialFee of = new(jur, mod, calc);
             var res7 = of.Calculate("Jur1", new List<IPFValue> { });
             Assert.True(res7.IsSuccessfull);

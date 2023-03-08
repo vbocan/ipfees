@@ -7,8 +7,8 @@ using System.Drawing;
 
 string text = File.ReadAllText(@"..\..\..\us_fees.ipf");
 
-var parser = new IPFParser();
-var calc = new IPFCalculator(parser);
+var parser = new DslParser();
+var calc = new DslCalculator(parser);
 calc.Parse(text);
 var CalcErrors = calc.GetErrors();
 

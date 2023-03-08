@@ -1,6 +1,6 @@
 ﻿namespace IPFees.Parser
 {
-    public enum IPFError
+    public enum DslError
     {
         None,
         SyntaxError,

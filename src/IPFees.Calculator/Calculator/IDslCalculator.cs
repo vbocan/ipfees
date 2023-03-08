@@ -3,12 +3,12 @@ using IPFees.Parser;
 
 namespace IPFees.Calculator
 {
-    public interface IIPFCalculator
+    public interface IDslCalculator
     {
         bool Parse(string text);
         (double, double, IEnumerable<string>) Compute(IList<IPFValue> vars);
         IEnumerable<string> GetErrors();
-        IEnumerable<IPFFee> GetFees();
-        IEnumerable<IPFVariable> GetVariables();
+        IEnumerable<DslFee> GetFees();
+        IEnumerable<DslVariable> GetVariables();
     }
 }
