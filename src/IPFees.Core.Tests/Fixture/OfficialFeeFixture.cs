@@ -8,18 +8,21 @@ namespace IPFees.Core.Tests.Fixture
 {
     public class OfficialFeeFixture : IDisposable
     {
-        public DataContext DbContext { get; private set; }
+        public ModuleRepository ModuleRepository { get; set; }
+        public JurisdictionRepository JurisdictionRepository { get; set; }
         private readonly string connectionString = "mongodb+srv://abdroot:Test123@cluster0.dusbo.mongodb.net/OfficialFeeTest?retryWrites=true&w=majority";
 
         public OfficialFeeFixture()
         {
             // Build database context based on the connection string
-            DbContext = new DataContext(connectionString);
+            var DbContext = new DataContext(connectionString);
             DbContext.DropDatabase();
+            ModuleRepository = new ModuleRepository(DbContext);
+            JurisdictionRepository = new JurisdictionRepository(DbContext);
         }
 
         public void Dispose()
-        {            
+        {
         }
     }
 }
