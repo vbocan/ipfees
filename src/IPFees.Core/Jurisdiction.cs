@@ -3,6 +3,7 @@ using IPFees.Evaluator;
 using IPFFees.Core.Data;
 using IPFFees.Core.Models;
 using Mapster;
+using MongoDB.Bson;
 using MongoDB.Driver;
 using System.Diagnostics.Tracing;
 using System.Runtime.Versioning;
@@ -156,7 +157,7 @@ namespace IPFFees.Core
 
             // Step 3: Process calculation results
             var CalcErrors = calculator.GetErrors();
-
+            TODO: Move this method to own class
             //List<IPFValue> vars = new() {
             //    new IPFValueString("EntityType", "NormalEntity"),
             //    new IPFValueString("SituationType", "PreparedISA"),
