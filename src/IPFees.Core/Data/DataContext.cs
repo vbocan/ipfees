@@ -13,6 +13,7 @@ namespace IPFFees.Core.Data
     {
         public IMongoDatabase Context { get; private set; }
         public IMongoCollection<ModuleDoc> ModuleCollection { get; set; }
+        public IMongoCollection<JurisdictionDoc> JurisdictionCollection { get; set; }
 
         private string ConnectionString { get; set; }
         private string DatabaseName { get; set; }
@@ -26,6 +27,7 @@ namespace IPFFees.Core.Data
                 Context = client.GetDatabase(DatabaseName);
             
             ModuleCollection = Context.GetCollection<ModuleDoc>(ModuleDoc.CollectionName);
+            JurisdictionCollection = Context.GetCollection<JurisdictionDoc>(JurisdictionDoc.CollectionName);
         }
 
         public void DropDatabase()
