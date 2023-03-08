@@ -21,7 +21,7 @@ namespace IPFees.Core.Tests
         public async void OfficialFeeCalculationTest()
         {
             // First let's create a module containing some source code that will later be referenced by the jurisdiction
-            var mod = new ModuleRepository(fixture.DbContext);
+            var mod = fixture.ModuleRepository;
             var res2 = await mod.AddModuleAsync("Mod1");
             Assert.True(res2.Success);
             string modSourceCode =
@@ -33,7 +33,7 @@ namespace IPFees.Core.Tests
             var res3 = await mod.SetModuleSourceCodeAsync("Mod1", modSourceCode);
             Assert.True(res3.Success);
             // Now let's create a jurisdiction and the associated module
-            var jur = new JurisdictionRepository(fixture.DbContext);
+            var jur = fixture.JurisdictionRepository;
             var res4 = await jur.AddJurisdictionAsync("Jur1");
             Assert.True(res4.Success);
             string jurSourceCode =
