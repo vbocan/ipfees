@@ -1,6 +1,12 @@
 ﻿@page
 @model IPFees.Web.Pages.Module.IndexModel
 @{
+    ViewData["Title"] = "Modules";
 }
 
-<h1>Module Index</h1>
+<h1>Modules</h1>
+
+@foreach (var mi in Model.Modules)
+{
+    <p>@mi.Id - @mi.Name</p>
+}
