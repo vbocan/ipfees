@@ -17,7 +17,7 @@ namespace IPFFees.Core.Data
 
         private string ConnectionString { get; set; }
         private string DatabaseName { get; set; }
-
+        
         public DataContext(string ConnectionString)
         {
             this.ConnectionString = ConnectionString;
@@ -28,6 +28,12 @@ namespace IPFFees.Core.Data
             
             ModuleCollection = Context.GetCollection<ModuleDoc>(ModuleDoc.CollectionName);
             JurisdictionCollection = Context.GetCollection<JurisdictionDoc>(JurisdictionDoc.CollectionName);
+            // Ensure indexes are in place
+            /*
+            var actionLogBuilder = Builders<ActionLogDoc>.IndexKeys;
+            var indexModel = new CreateIndexModel<ActionLogDoc>(actionLogBuilder.Ascending(x => x.EventCode).Ascending(x => x.Timestamp).Ascending(x => x.User));
+            ActionLogCollection.Indexes.CreateOneAsync(indexModel).ConfigureAwait(false);
+            */
         }
 
         public void DropDatabase()
