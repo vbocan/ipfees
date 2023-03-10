@@ -29,7 +29,13 @@
             <div class="mb-3">
                 <label for="@Model.AvailableModules" class="form-label">Referenced Modules</label>
                 <select asp-for="@Model.ReferencedModules" class="form-select" size="5" multiple>
-                    <option value="">No Module</option>
+                    @if (!Model.ReferencedModules.Any())
+                    {
+                        <option selected value="">No referenced modules (code runs standalone)</option>
+                    } else
+                    {
+                        <option value="">No referenced modules (code runs standalone)</option>
+                    }
                     @foreach (var m in Model.AvailableModules)
                     {                        
                         if(Model.ReferencedModules.Any(q=>q.Equals(m)))
