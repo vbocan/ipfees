@@ -6,6 +6,7 @@ namespace IPFFees.Core
     public interface IJurisdictionRepository
     {
         Task<DbResult> AddJurisdictionAsync(string JurisdictionName);
+        Task<DbResult> SetJurisdictionDescriptionAsync(string JurisdictionName, string Description);
         Task<DbResult> SetJurisdictionSourceCodeAsync(string JurisdictionName, string SourceCode);
         Task<DbResult> RemoveJurisdictionAsync(string JurisdictionName);
         Task<IEnumerable<JurisdictionInfo>> GetJurisdictions();
