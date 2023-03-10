@@ -19,8 +19,8 @@ namespace IPFees.Core.Tests
             var jur = new JurisdictionRepository(fixture.DbContext);
             var res1 = await jur.AddJurisdictionAsync("JurisdictionRepository-Add");
             Assert.True(res1.Success);
-            var res2 = jur.GetJurisdictions().Any(a => a.Name.Equals("JurisdictionRepository-Add"));
-            Assert.True(res2);
+            var res2 = await jur.GetJurisdictionByName("JurisdictionRepository-Add");
+            Assert.True(res2 != null);
         }
 
         [Fact]
@@ -41,7 +41,7 @@ namespace IPFees.Core.Tests
             Assert.True(res1.Success);
             var res2 = await jur.SetJurisdictionDescriptionAsync("JurisdictionRepository-Set-Description", "JurisdictionRepository Description");
             Assert.True(res2.Success);
-            var mi = jur.GetJurisdictionByName("JurisdictionRepository-Set-Description");
+            var mi = await jur.GetJurisdictionByName("JurisdictionRepository-Set-Description");
             Assert.Equal("JurisdictionRepository Description", mi.Description);
         }
 
@@ -53,7 +53,7 @@ namespace IPFees.Core.Tests
             Assert.True(res1.Success);
             var res2 = await jur.SetJurisdictionSourceCodeAsync("JurisdictionRepository-Set-SourceCode", "Source Code");
             Assert.True(res2.Success);
-            var mi = jur.GetJurisdictionByName("JurisdictionRepository-Set-SourceCode");
+            var mi = await jur.GetJurisdictionByName("JurisdictionRepository-Set-SourceCode");
             Assert.Equal("Source Code", mi.SourceCode);
         }
 
@@ -75,7 +75,7 @@ namespace IPFees.Core.Tests
             Assert.True(res1.Success);
             var res2 = await jur.SetReferencedModules("JurisdictionRepository-Set-RefMods", new string[] { "Mod1", "Mod2" });
             Assert.True(res2.Success);
-            var mi = jur.GetJurisdictionByName("JurisdictionRepository-Set-RefMods");
+            var mi = await jur.GetJurisdictionByName("JurisdictionRepository-Set-RefMods");
             Assert.Equal(2, mi.ReferencedModules.Length);
         }
     }

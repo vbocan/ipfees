@@ -8,8 +8,8 @@ namespace IPFFees.Core
         Task<DbResult> AddJurisdictionAsync(string JurisdictionName);
         Task<DbResult> SetJurisdictionSourceCodeAsync(string JurisdictionName, string SourceCode);
         Task<DbResult> RemoveJurisdictionAsync(string JurisdictionName);
-        IEnumerable<JurisdictionInfo> GetJurisdictions();
-        JurisdictionInfo GetJurisdictionByName(string JurisdictionName);
+        Task<IEnumerable<JurisdictionInfo>> GetJurisdictions();
+        Task<JurisdictionInfo> GetJurisdictionByName(string JurisdictionName);
         Task<DbResult> SetReferencedModules(string JurisdictionName, string[] ModuleNames);        
     }
 }
