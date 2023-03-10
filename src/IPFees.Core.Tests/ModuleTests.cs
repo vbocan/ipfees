@@ -19,8 +19,8 @@ namespace IPFees.Core.Tests
             var mod = new ModuleRepository(fixture.DbContext);
             var res1 = await mod.AddModuleAsync("Module-Add");
             Assert.True(res1.Success);
-            var res2 = mod.GetModules().Any(a => a.Name.Equals("Module-Add"));
-            Assert.True(res2);
+            var res2 = await mod.GetModuleByName("Module-Add");
+            Assert.True(res2 != null);
         }
 
         [Fact]
@@ -41,7 +41,7 @@ namespace IPFees.Core.Tests
             Assert.True(res1.Success);
             var res2 = await mod.SetModuleDescriptionAsync("Module-Set-Description", "Module Description");
             Assert.True(res2.Success);
-            var mi = mod.GetModuleByName("Module-Set-Description");
+            var mi = await mod.GetModuleByName("Module-Set-Description");
             Assert.Equal("Module Description", mi.Description);
         }
 
@@ -53,9 +53,9 @@ namespace IPFees.Core.Tests
             Assert.True(res1.Success);
             var res2 = await mod.SetModuleSourceCodeAsync("Module-Set-SourceCode", "Source Code");
             Assert.True(res2.Success);
-            var mi = mod.GetModuleByName("Module-Set-SourceCode");
+            var mi = await mod.GetModuleByName("Module-Set-SourceCode");
             Assert.Equal("Source Code", mi.SourceCode);
-        }        
+        }
 
         [Fact]
         public async void RemoveModulesTest()

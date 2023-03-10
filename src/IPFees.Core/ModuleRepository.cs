@@ -1,6 +1,7 @@
 ﻿using IPFFees.Core.Data;
 using IPFFees.Core.Models;
 using Mapster;
+using MongoDB.Bson;
 using MongoDB.Driver;
 using System.Diagnostics.Tracing;
 using System.Runtime.Versioning;
@@ -25,7 +26,7 @@ namespace IPFFees.Core
         /// </remarks>
         public async Task<DbResult> AddModuleAsync(string ModuleName)
         {
-            if (GetModules().Any(a => a.Name.Equals(ModuleName)))
+            if (await GetModuleByName(ModuleName) != null)
             {
                 return DbResult.Fail($"A module named '{ModuleName}' already exists.");
             }
@@ -80,10 +81,10 @@ namespace IPFFees.Core
         /// Get all registered modules.
         /// </summary>
         /// <returns>An enumeration of ModuleInfo objects</returns>
-        public IEnumerable<ModuleInfo> GetModules()
+        public async Task<IEnumerable<ModuleInfo>> GetModules()
         {
-            var dbObjs = context.ModuleCollection.AsQueryable();
-            return dbObjs.Adapt<IEnumerable<ModuleInfo>>();
+            var dbObjs = await context.ModuleCollection.FindAsync(new BsonDocument());
+            return dbObjs.ToList().Adapt<IEnumerable<ModuleInfo>>();
         }
 
         /// <summary>
@@ -91,9 +92,10 @@ namespace IPFFees.Core
         /// </summary>
         /// <param name="ModuleName">Module name</param>
         /// <returns>A ModuleInfo object</returns>
-        public ModuleInfo GetModuleByName(string ModuleName)
+        public async Task<ModuleInfo> GetModuleByName(string ModuleName)
         {
-            var dbObjs = context.ModuleCollection.AsQueryable().Where(w => w.Name.Equals(ModuleName)).Single();
+            var filter = Builders<ModuleDoc>.Filter.Eq(m => m.Name, ModuleName);
+            var dbObjs = (await context.ModuleCollection.FindAsync(filter)).FirstOrDefaultAsync().Result;
             return dbObjs.Adapt<ModuleInfo>();
         }
 
