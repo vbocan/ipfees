@@ -33,15 +33,11 @@
                     }
                 </tbody>
             </table>
-            <div class="alert alert-light" role="alert">
-                @Model.Modules.Count() modules defined.
-            </div>            
+            <h6>@Model.Modules.Count() modules defined.</h6>
         }
         else
         {
-            <div class="alert alert-light" role="alert">
-                No modules defined.
-            </div>
+            <h6>Modules defined in the system appear here.</h6>
         }
     </div>
 </div>

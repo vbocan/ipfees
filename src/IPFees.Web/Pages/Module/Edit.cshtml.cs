@@ -19,12 +19,13 @@ namespace IPFees.Web.Pages.Module
             ErrorMessages = new List<string>();
         }
 
-        public void OnGet(string Id)
+        public async Task<IActionResult> OnGetAsync(string Id)
         {
-            var info = moduleRepository.GetModuleByName(Id);
+            var info = await moduleRepository.GetModuleByName(Id);
             Name = info.Name;
             Description = info.Description;
             SourceCode = info.SourceCode;
+            return Page();
         }
 
         public async Task<IActionResult> OnPostAsync()
