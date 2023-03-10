@@ -10,6 +10,8 @@ namespace IPFees.Web.Pages.Jurisdiction
     public class IndexModel : PageModel
     {
         [BindProperty] public IEnumerable<JurisdictionInfo> Jurisdictions { get; set; }
+        [BindProperty] public IEnumerable<string> Errors { get; set; }
+
         private readonly IJurisdictionRepository jurisdictionRepository;
     
         public IndexModel(IJurisdictionRepository jurisdictionRepository)
