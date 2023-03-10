@@ -52,8 +52,8 @@ namespace IPFees.Core.Tests
             OfficialFee of = new(jur, mod, calc);
             var res7 = await of.Calculate("Jur1", new List<IPFValue> { });
             Assert.True(res7.IsSuccessfull);
-            Assert.IsType<CalculationResultSuccess>(res7);
-            var res = (CalculationResultSuccess)res7;
+            Assert.IsType<OfficialFeeCalculationSuccess>(res7);
+            var res = (OfficialFeeCalculationSuccess)res7;
             Assert.Equal(500, res.TotalMandatoryAmount);
         }
 

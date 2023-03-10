@@ -13,10 +13,9 @@
         {
             <table class="table table-hover">
                 <thead>
-                    <tr>
-                        <th scope="col">Jurisdiction</th>
-                        <th scope="col">Description</th>
-                        <th scope="col">Referenced Modules</th>
+                    <tr>                        
+                        <th scope="col">Jurisdiction (click to run)</th>                        
+                        <th scope="col">References</th>
                         <th scope="col">Last Updated</th>
                         <th scope="col"></th>
 
@@ -26,8 +25,7 @@
                     @foreach (var mi in Model.Jurisdictions)
                     {
                         <tr>
-                            <th scope="row">@mi.Name</th>
-                            <td>@mi.Description</td>
+                            <th scope="row"><a asp-page="DataCollect" asp-route-id="@mi.Name">[@mi.Name] (@mi.Description)</a></th>
                             <td>@mi.ReferencedModules.Count()</td>
                             <td>@mi.LastUpdatedOn</td>
                             <td><a asp-page="Edit" asp-route-id="@mi.Name">Edit</a> | <a asp-page="Delete" asp-route-id="@mi.Name">Delete</a></td>
@@ -35,7 +33,7 @@
                     }
                 </tbody>
             </table>
-            <h6>@Model.Jurisdictions.Count() modules defined.</h6>
+            <h6>@Model.Jurisdictions.Count() jurisdictions defined.</h6>
         }
         else
         {
