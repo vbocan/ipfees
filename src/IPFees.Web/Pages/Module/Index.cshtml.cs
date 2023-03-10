@@ -16,9 +16,10 @@ namespace IPFees.Web.Pages.Module
         {
             this.moduleRepository = moduleRepository;            
         }
-        public void OnGet()
+        public async Task<IActionResult> OnGetAsync()
         {
-            Modules = moduleRepository.GetModules();
+            Modules = await moduleRepository.GetModules();
+            return Page();
         }
     }
 }
