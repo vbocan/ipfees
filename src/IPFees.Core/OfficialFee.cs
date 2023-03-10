@@ -23,14 +23,14 @@ namespace IPFees.Core
         /// <param name="JurisdictionName">JurisdictionRepository name</param>
         /// <param name="Vars">Calculation parameters</param>
         /// <exception cref="NotSupportedException"></exception>
-        public CalculationResultBase Calculate(string JurisdictionName, IList<IPFValue> Vars)
+        public async Task<CalculationResultBase> Calculate(string JurisdictionName, IList<IPFValue> Vars)
         {
-            var jur = Jurisdiction.GetJurisdictionByName(JurisdictionName) ?? throw new NotSupportedException($"JurisdictionRepository '{JurisdictionName}' does not exist.");
+            var jur = await Jurisdiction.GetJurisdictionByName(JurisdictionName) ?? throw new NotSupportedException($"JurisdictionRepository '{JurisdictionName}' does not exist.");
             // Step 1: Parse the source code of the referenced modules (if any)
             foreach (var rm in jur.ReferencedModules)
             {
                 // Retrieve the referenced module
-                var mod = Module.GetModuleByName(rm) ?? throw new NotSupportedException($"Module '{rm}' does not exist.");
+                var mod = await Module.GetModuleByName(rm) ?? throw new NotSupportedException($"Module '{rm}' does not exist.");
                 Calculator.Parse(mod.SourceCode);
             }
             // Step 2: Parse the source code of the current jurisdiction

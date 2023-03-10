@@ -6,6 +6,6 @@ namespace IPFFees.Core
 {
     public interface IOfficialFee
     {
-        CalculationResultBase Calculate(string JurisdictionName, IList<IPFValue> Vars);
+        Task<CalculationResultBase> Calculate(string JurisdictionName, IList<IPFValue> Vars);
     }
 }

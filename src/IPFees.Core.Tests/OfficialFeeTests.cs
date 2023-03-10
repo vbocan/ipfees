@@ -50,7 +50,7 @@ namespace IPFees.Core.Tests
             var parser = new DslParser();            
             IDslCalculator calc = new DslCalculator(parser);
             OfficialFee of = new(jur, mod, calc);
-            var res7 = of.Calculate("Jur1", new List<IPFValue> { });
+            var res7 = await of.Calculate("Jur1", new List<IPFValue> { });
             Assert.True(res7.IsSuccessfull);
             Assert.IsType<CalculationResultSuccess>(res7);
             var res = (CalculationResultSuccess)res7;
