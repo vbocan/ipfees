@@ -1,0 +1,39 @@
+﻿@page
+@model IPFees.Web.Pages.Jurisdiction.CreateModel
+@{
+    ViewData["Title"] = "Create Jurisdiction";
+}
+
+<h1>Create Jurisdiction</h1>
+
+<div class="row">
+    <div class="col-lg-6">
+        @if (Model.ErrorMessages.Any())
+        {
+            <div class="alert alert-danger d-flex align-items-center" role="alert">
+                <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Danger:"><use xlink:href="#exclamation-triangle-fill" /></svg>
+                <div>
+                    @foreach (var em in Model.ErrorMessages)
+                    {
+                        <text>@em</text>
+                        <br />
+                    }
+                </div>
+            </div>
+        }
+        <form method="post">
+            <div class="mb-3">
+                <label for="Info.Name" class="form-label">Name</label>
+                <input asp-for="Name" value="@Model.Name" class="form-control" required />                
+            </div>
+            <div class="mb-3">
+                <label for="Info.SourceCode" class="form-label">Source Code</label>
+                <textarea asp-for="SourceCode" class="form-control" rows="20" required></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">Create</button>
+            <a asp-page="./Index" class="btn btn-secondary">Cancel</a>
+        </form>
+    </div>
+</div>
+
+<partial name="_Symbols" />
