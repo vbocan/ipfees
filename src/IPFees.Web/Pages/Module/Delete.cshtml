@@ -1,0 +1,18 @@
+﻿@page "{id}"
+@model IPFees.Web.Pages.Module.DeleteModel
+@{
+}
+
+<h1>Delete Model</h1>
+<p>Are you sure you want to delete this item?</p>
+<div class="row">
+    <div class="col-6">
+        <form method="post">
+            <input type="hidden" asp-for="Id" />
+
+            <button type="submit" class="btn btn-danger">Delete</button>
+            <a asp-page="./Index">Cancel</a>
+        </form>
+
+    </div>
+</div>
