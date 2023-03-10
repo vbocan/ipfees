@@ -33,12 +33,12 @@ namespace IPFees.Web.Pages.Module
             res = await moduleRepository.SetModuleDescriptionAsync(Name, Description);
             if (!res.Success)
             {
-                ErrorMessages.Add($"Error setting module description: {res.Reason}");
+                ErrorMessages.Add($"Error setting description: {res.Reason}");
             }
             res = await moduleRepository.SetModuleSourceCodeAsync(Name, SourceCode);
             if (!res.Success)
             {
-                ErrorMessages.Add($"Error setting module source code: {res.Reason}");
+                ErrorMessages.Add($"Error setting source code: {res.Reason}");
             }
 
             if (ErrorMessages.Any()) return Page();

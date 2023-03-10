@@ -23,8 +23,23 @@
         }
         <form method="post">
             <div class="mb-3">
-                <label for="Info.Name" class="form-label">Name</label>
-                <input asp-for="Name" value="@Model.Name" class="form-control" required />                
+                <label for="@Model.Name" class="form-label">Name</label>
+                <input asp-for="Name" value="@Model.Name" class="form-control" aria-describedby="NameHelp" required />
+                <div id="NameHelp" class="form-text">You will not be able to edit this field later.</div>
+            </div>
+            <div class="mb-3">
+                <label for="@Model.Description" class="form-label">Description</label>
+                <input asp-for="Description" class="form-control" />
+            </div>
+            <div class="mb-3">
+                <label for="@Model.AvailableModules" class="form-label">Referenced Modules</label>
+                <select asp-for="@Model.ReferencedModules" class="form-select" size="5" multiple>
+                    <option selected value="">No Module</option>
+                    @foreach (var m in Model.AvailableModules)
+                    {
+                        <option value="@m.Name">@m.Name - @m.Description</option>
+                    }
+                </select>
             </div>
             <div class="mb-3">
                 <label for="Info.SourceCode" class="form-label">Source Code</label>
