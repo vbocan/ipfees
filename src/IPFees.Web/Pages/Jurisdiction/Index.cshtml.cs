@@ -10,15 +10,15 @@ namespace IPFees.Web.Pages.Jurisdiction
     public class IndexModel : PageModel
     {
         [BindProperty] public IEnumerable<JurisdictionInfo> Jurisdictions { get; set; }
-        private readonly IJurisdictionRepository moduleRepository;
-
-        public IndexModel(IJurisdictionRepository moduleRepository)
+        private readonly IJurisdictionRepository jurisdictionRepository;
+    
+        public IndexModel(IJurisdictionRepository jurisdictionRepository)
         {
-            this.moduleRepository = moduleRepository;            
+            this.jurisdictionRepository = jurisdictionRepository;            
         }
         public async Task<IActionResult> OnGetAsync()
         {
-            Jurisdictions = await moduleRepository.GetJurisdictions();
+            Jurisdictions = await jurisdictionRepository.GetJurisdictions();
             return Page();
         }
     }

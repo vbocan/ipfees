@@ -9,24 +9,24 @@ namespace IPFees.Web.Pages.Jurisdiction
         [BindProperty] public string Name { get; set; }
         [BindProperty] public IList<string> ErrorMessages { get; set; }
 
-        private readonly IJurisdictionRepository moduleRepository;
+        private readonly IJurisdictionRepository jurisdictionRepository;
 
-        public DeleteModel(IJurisdictionRepository moduleRepository)
+        public DeleteModel(IJurisdictionRepository jurisdictionRepository)
         {
-            this.moduleRepository = moduleRepository;
+            this.jurisdictionRepository = jurisdictionRepository;
             ErrorMessages = new List<string>();
         }
 
         public async Task<IActionResult> OnGetAsync(string Id)
         {
-            var info = await moduleRepository.GetJurisdictionByName(Id);
+            var info = await jurisdictionRepository.GetJurisdictionByName(Id);
             Name = info.Name;
             return Page();
         }
 
         public async Task<IActionResult> OnPostAsync()
         {
-            var res = await moduleRepository.RemoveJurisdictionAsync(Name);
+            var res = await jurisdictionRepository.RemoveJurisdictionAsync(Name);
             if (!res.Success)
             {
                 ErrorMessages.Add($"Error deleting jurisdiction: {res.Reason}");
