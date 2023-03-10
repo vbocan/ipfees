@@ -60,8 +60,9 @@ namespace IPFFees.Core
             var res = await context.JurisdictionCollection.UpdateOneAsync(r => r.Name.Equals(JurisdictionName),
                 Builders<JurisdictionDoc>
                 .Update
+                .Set(r => r.LastUpdatedOn, DateTime.UtcNow.ToLocalTime())
                 .Set(r => r.Description, Description));
-            return (res.IsAcknowledged && res.ModifiedCount > 0) ? DbResult.Succeed() : DbResult.Fail();
+            return res.IsAcknowledged ? DbResult.Succeed() : DbResult.Fail();
         }
 
         /// <summary>
@@ -75,8 +76,9 @@ namespace IPFFees.Core
             var res = await context.JurisdictionCollection.UpdateOneAsync(r => r.Name.Equals(JurisdictionName),
                 Builders<JurisdictionDoc>
                 .Update
+                .Set(r => r.LastUpdatedOn, DateTime.UtcNow.ToLocalTime())
                 .Set(r => r.SourceCode, SourceCode));
-            return (res.IsAcknowledged && res.ModifiedCount > 0) ? DbResult.Succeed() : DbResult.Fail();
+            return res.IsAcknowledged ? DbResult.Succeed() : DbResult.Fail();
         }
 
         /// <summary>
