@@ -15,6 +15,8 @@ namespace IPFees.Web.Pages.Module
         public IndexModel(IModuleRepository moduleRepository)
         {
             this.moduleRepository = moduleRepository;
+            moduleRepository.AddModuleAsync("Mod2");
+            moduleRepository.SetModuleDescriptionAsync("Mod2", "Description for Mod2");
         }
         public void OnGet()
         {
