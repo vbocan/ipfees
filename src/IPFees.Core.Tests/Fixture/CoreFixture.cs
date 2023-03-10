@@ -2,6 +2,7 @@
 using IPFFees.Core;
 using IPFFees.Core.Data;
 using IPFFees.Core.Models;
+using MongoDB.Bson;
 using MongoDB.Driver;
 
 namespace IPFees.Core.Tests.Fixture
@@ -16,7 +17,8 @@ namespace IPFees.Core.Tests.Fixture
         {
             // Build database context based on the connection string
             DbContext = new DataContext(connectionString);
-            DbContext.DropDatabase();
+            DbContext.ModuleCollection.DeleteMany(new BsonDocument());
+            DbContext.JurisdictionCollection.DeleteMany(new BsonDocument());
             ModuleCollection = DbContext.ModuleCollection;
         }
 
