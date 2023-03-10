@@ -30,7 +30,7 @@ namespace IPFFees.Core
         /// </remarks>
         public async Task<DbResult> AddJurisdictionAsync(string JurisdictionName)
         {
-            if (GetJurisdictions().Any(a => a.Name.Equals(JurisdictionName)))
+            if (await GetJurisdictionByName(JurisdictionName) != null)
             {
                 return DbResult.Fail($"A jurisdiction named '{JurisdictionName}' already exists.");
             }
@@ -85,10 +85,10 @@ namespace IPFFees.Core
         /// Get all registered jurisdictions.
         /// </summary>
         /// <returns>An enumeration of JurisdictionInfo objects</returns>
-        public IEnumerable<JurisdictionInfo> GetJurisdictions()
+        public async Task<IEnumerable<JurisdictionInfo>> GetJurisdictions()
         {
-            var dbObjs = context.JurisdictionCollection.AsQueryable();
-            return dbObjs.Adapt<IEnumerable<JurisdictionInfo>>();
+            var dbObjs = await context.JurisdictionCollection.FindAsync(new BsonDocument());
+            return dbObjs.ToList().Adapt<IEnumerable<JurisdictionInfo>>();
         }
 
         /// <summary>
@@ -96,9 +96,10 @@ namespace IPFFees.Core
         /// </summary>
         /// <param name="JurisdictionName">JurisdictionRepository name</param>
         /// <returns>A JurisdictionInfo object</returns>
-        public JurisdictionInfo GetJurisdictionByName(string JurisdictionName)
+        public async Task<JurisdictionInfo> GetJurisdictionByName(string JurisdictionName)
         {
-            var dbObjs = context.JurisdictionCollection.AsQueryable().Where(w => w.Name.Equals(JurisdictionName)).Single();
+            var filter = Builders<JurisdictionDoc>.Filter.Eq(m => m.Name, JurisdictionName);
+            var dbObjs = (await context.JurisdictionCollection.FindAsync(filter)).FirstOrDefaultAsync().Result;            
             return dbObjs.Adapt<JurisdictionInfo>();
         }
 
