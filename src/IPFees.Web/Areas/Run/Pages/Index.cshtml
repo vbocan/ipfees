@@ -6,6 +6,7 @@
 
 <h1>Data Collection</h1>
 <form asp-page="Result" method="post">
+    <input type="hidden" asp-for="@Model.Id" />
     <div class="col-md-9">
         @foreach (var v in Model.Vars)
         {

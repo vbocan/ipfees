@@ -16,9 +16,9 @@ namespace IPFees.Web.Areas.Run.Pages
         [BindProperty]
         public double TotalOptionalAmount { get; set; }
         [BindProperty]
-        public IEnumerable<string> ComputationSteps { get; set; }
+        public IEnumerable<string> CalculationSteps { get; set; }
         [BindProperty]
-        public string ComputationError { get; set; }
+        public IEnumerable<string> Errors { get; set; }
         [BindProperty]
         public List<IPFValue> CollectedVars { get; set; }
 
@@ -65,17 +65,30 @@ namespace IPFees.Web.Areas.Run.Pages
             }
 
             var result = await officialFee.Calculate(id, CollectedVars);
-            TODO: check result
-            // Log computation success
-            _logger.LogInformation("Success! Total mandatory amount is [{0}] and the total optional amount is [{1}]", TotalManadatoryAmount, TotalOptionalAmount);
-            foreach (var cs in ComputationSteps)
+
+            if (result is OfficialFeeResultFail)
             {
-                _logger.LogInformation("> {0}", cs);
+                Errors = (result as OfficialFeeResultFail).Errors;
+                // Log calculation failure
+                _logger.LogInformation("Fail!");
+                foreach (var e in Errors)
+                {
+                    _logger.LogInformation($"> {e}");
+                }
             }
-
-            //ComputationError = ex.Message;
-
-
+            else
+            {
+                var result1 = (result as OfficialFeeCalculationSuccess);
+                TotalManadatoryAmount = result1.TotalMandatoryAmount;
+                TotalOptionalAmount = result1.TotalOptionalAMount;
+                CalculationSteps = result1.CalculationSteps;
+                // Log computation success
+                _logger.LogInformation("Success! Total mandatory amount is [{0}] and the total optional amount is [{1}]", TotalManadatoryAmount, TotalOptionalAmount);
+                foreach (var cs in CalculationSteps)
+                {
+                    _logger.LogInformation($"> {cs}");
+                }
+            }
             return Page();
         }
     }

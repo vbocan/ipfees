@@ -32,12 +32,11 @@ builder.Services.AddSingleton(s => s.GetRequiredService<IOptions<ConnectionStrin
 builder.Services.AddSingleton<DataContext>(x => new DataContext(x.GetService<IOptions<ConnectionStrings>>().Value.MongoDbConnection));
 
 // Add IPFees services
-builder.Services.AddTransient<IDslCalculator, DslCalculator>();
 builder.Services.AddTransient<IDslParser, DslParser>();
+builder.Services.AddTransient<IDslCalculator, DslCalculator>();
 builder.Services.AddTransient<IJurisdictionRepository, JurisdictionRepository>();
 builder.Services.AddTransient<IModuleRepository, ModuleRepository>();
 builder.Services.AddTransient<IOfficialFee, OfficialFee>();
-
 
 // Add logger
 builder.Logging.AddSerilog(logger);
