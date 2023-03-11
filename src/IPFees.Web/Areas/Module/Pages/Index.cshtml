@@ -1,10 +1,10 @@
 ﻿@page
 @model IndexModel
 @{
-    ViewData["Title"] = "Modules";
+    ViewData["Title"] = "Module List";
 }
 
-<h1>Modules</h1>
+<h1>Module <small class="text-muted">List</small></h1>
 
 <div class="row">
     <div class="col-lg-6">
@@ -25,7 +25,7 @@
                     @foreach (var mi in Model.Modules)
                     {
                         <tr>
-                            <th scope="row">@mi.Name</th>
+                            <td>@mi.Name</td>
                             <td>@mi.Description</td>
                             <td>@mi.LastUpdatedOn</td>
                             <td><a asp-page="Edit" asp-route-id="@mi.Name">Edit</a> | <a asp-page="Delete" asp-route-id="@mi.Name">Delete</a></td>
