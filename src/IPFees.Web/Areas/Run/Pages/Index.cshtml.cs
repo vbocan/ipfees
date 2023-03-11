@@ -10,21 +10,24 @@ namespace IPFees.Web.Areas.Run.Pages
 {
     public class IndexModel : PageModel
     {
-        [BindProperty] public List<IPFValue> CollectedVars { get; set; }
-        [BindProperty] public IEnumerable<DslVariable> Vars { get; set; }
-        [BindProperty] public double TotalManadatoryAmount { get; set; }
-        [BindProperty] public double TotalOptionalAmount { get; set; }
-        [BindProperty] public IEnumerable<string> CalculationSteps { get; set; }
-        [BindProperty] public IEnumerable<string> Errors { get; set; }
         [BindProperty] public string Id { get; set; }
-
+        [BindProperty] public bool CalculationPending { get; set; } = true;
+        // Variables found in the source files
+        [BindProperty] public IEnumerable<DslVariable> ParsedVars { get; set; }
+        // Values collected from the user input
+        [BindProperty] public List<IPFValue> CollectedValues { get; set; }
+        // Calculation results
+        [BindProperty] public double TotalMandatoryAmount { get; set; }
+        [BindProperty] public double TotalOptionalAmount { get; set; }
+        // Calculation steps
+        [BindProperty] public IEnumerable<string> CalculationSteps { get; set; }
+        
         private readonly IOfficialFee officialFee;
         private readonly ILogger<IndexModel> _logger;
 
         public IndexModel(IOfficialFee officialFee, ILogger<IndexModel> logger)
         {
-            this.officialFee = officialFee;
-            Errors = new List<string>();
+            this.officialFee = officialFee;            
             _logger = logger;
         }
 
@@ -34,62 +37,65 @@ namespace IPFees.Web.Areas.Run.Pages
             var res = await officialFee.GetVariables(id);
             if (!res.IsSuccessfull)
             {
-                TempData["ParseErrors"] = (res as OfficialFeeResultFail).Errors.Distinct().ToList();
+                TempData["Errors"] = (res as OfficialFeeResultFail).Errors.Distinct().ToList();
                 return RedirectToPage("Error");
             }
-            Vars = (res as OfficialFeeParseSuccess).RequestedVariables;
+            ParsedVars = (res as OfficialFeeParseSuccess).ParsedVariables;
             return Page();
         }
 
         public async Task<IActionResult> OnPostResultAsync(string id, IFormCollection form)
         {
-            CollectedVars = new List<IPFValue>();
+            CollectedValues = new List<IPFValue>();
 
-            // Cycle through all form fields
+            // Cycle through all form fields to discover the type of individual form items
             foreach (var field in form)
             {
-                var CalcVar = Vars.SingleOrDefault(s => s.Name.Equals(field.Key));
+                var CalcVar = ParsedVars.SingleOrDefault(s => s.Name.Equals(field.Key));
                 if (CalcVar == null) continue;
                 switch (CalcVar)
                 {
                     case DslVariableList:
-                        CollectedVars.Add(new IPFValueString(CalcVar.Name, field.Value));
+                        CollectedValues.Add(new IPFValueString(CalcVar.Name, field.Value));
                         break;
                     case DslVariableNumber:
                         _ = int.TryParse(field.Value, out var val2);
-                        CollectedVars.Add(new IPFValueNumber(CalcVar.Name, val2));
+                        CollectedValues.Add(new IPFValueNumber(CalcVar.Name, val2));
                         break;
                     case DslVariableBoolean:
                         _ = bool.TryParse(field.Value[0], out var val3);
-                        CollectedVars.Add(new IPFValueBoolean(CalcVar.Name, val3));
+                        CollectedValues.Add(new IPFValueBoolean(CalcVar.Name, val3));
                         break;
                 }
             }
-
-            var result = await officialFee.Calculate(id, CollectedVars);
+            // Perform calculation using the values collected from the user
+            var result = await officialFee.Calculate(id, CollectedValues);
 
             if (result is OfficialFeeResultFail)
             {
-                Errors = (result as OfficialFeeResultFail).Errors;
+                var Errors = (result as OfficialFeeResultFail).Errors;
+                TempData["Errors"] = Errors.ToList();
                 // Log calculation failure
                 _logger.LogInformation("Fail!");
                 foreach (var e in Errors)
                 {
                     _logger.LogInformation($"> {e}");
                 }
+                return RedirectToPage("Error");
             }
             else
             {
                 var result1 = (result as OfficialFeeCalculationSuccess);
-                TotalManadatoryAmount = result1.TotalMandatoryAmount;
+                TotalMandatoryAmount = result1.TotalMandatoryAmount;
                 TotalOptionalAmount = result1.TotalOptionalAMount;
                 CalculationSteps = result1.CalculationSteps;
                 // Log computation success
-                _logger.LogInformation("Success! Total mandatory amount is [{0}] and the total optional amount is [{1}]", TotalManadatoryAmount, TotalOptionalAmount);
+                _logger.LogInformation("Success! Total mandatory amount is [{0}] and the total optional amount is [{1}]", TotalMandatoryAmount, TotalOptionalAmount);
                 foreach (var cs in CalculationSteps)
                 {
                     _logger.LogInformation($"> {cs}");
                 }
+                CalculationPending = false;
             }
 
             return Page();

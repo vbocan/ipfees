@@ -75,6 +75,6 @@ namespace IPFees.Core
         public abstract record OfficialFeeResult(bool IsSuccessfull);
         public record OfficialFeeResultFail(IEnumerable<string> Errors) : OfficialFeeResult(false);
         public record OfficialFeeCalculationSuccess(double TotalMandatoryAmount, double TotalOptionalAMount, IEnumerable<string> CalculationSteps) : OfficialFeeResult(true);
-        public record OfficialFeeParseSuccess(IEnumerable<DslVariable> RequestedVariables) : OfficialFeeResult(true);
+        public record OfficialFeeParseSuccess(IEnumerable<DslVariable> ParsedVariables) : OfficialFeeResult(true);
     }
 }

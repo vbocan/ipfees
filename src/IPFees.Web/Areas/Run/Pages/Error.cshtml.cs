@@ -16,7 +16,7 @@ namespace IPFees.Web.Areas.Run.Pages
         }
         public async Task<IActionResult> OnGetAsync()
         {
-            Errors = (IEnumerable<string>)TempData["ParseErrors"];
+            Errors = (IEnumerable<string>)TempData["Errors"];
             return Page();
         }
     }
