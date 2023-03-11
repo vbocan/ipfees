@@ -27,7 +27,7 @@ namespace IPFees.Web.Areas.Run.Pages
             var res = await officialFee.GetVariables(id);
             if (!res.IsSuccessfull)
             {
-                TempData["ParseErrors"] = (res as OfficialFeeResultFail).Errors.ToList();
+                TempData["ParseErrors"] = (res as OfficialFeeResultFail).Errors.Distinct().ToList();
                 return RedirectToPage("Error");
             }            
             Vars = (res as OfficialFeeParseSuccess).RequestedVariables;

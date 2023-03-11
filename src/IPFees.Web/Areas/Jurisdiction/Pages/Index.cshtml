@@ -1,10 +1,10 @@
 ﻿@page
 @model IndexModel
 @{
-    ViewData["Title"] = "Jurisdictions";
+    ViewData["Title"] = "Jurisdiction List";
 }
 
-<h1>Jurisdictions</h1>
+<h1>Jurisdiction <small class="text-muted">List</small></h1>
 
 <div class="row">
     <div class="col-lg-12">
@@ -25,7 +25,7 @@
                     @foreach (var mi in Model.Jurisdictions)
                     {
                         <tr>
-                            <th scope="row"><a asp-area="Run" asp-page="Index" asp-route-id="@mi.Name">[@mi.Name] (@mi.Description)</a></th>
+                            <td><a asp-area="Run" asp-page="Index" asp-route-id="@mi.Name">[@mi.Name] (@mi.Description)</a></td>
                             <td>@mi.ReferencedModules.Count()</td>
                             <td>@mi.LastUpdatedOn</td>
                             <td><a asp-page="Edit" asp-route-id="@mi.Name">Edit</a> | <a asp-page="Delete" asp-route-id="@mi.Name">Delete</a></td>

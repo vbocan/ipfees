@@ -9,8 +9,7 @@ namespace IPFees.Web.Areas.Jurisdiction.Pages
         [BindProperty] public string Name { get; set; }
         [BindProperty] public string Description { get; set; }
         [BindProperty] public string SourceCode { get; set; }
-        [BindProperty] public IEnumerable<ModuleInfo> AvailableModules { get; set; }
-        [BindProperty] public IList<string> ReferencedModules { get; set; }
+        [BindProperty] public IList<ModuleViewModel> ReferencedModules { get; set; }
         [BindProperty] public IList<string> ErrorMessages { get; set; }
 
         private readonly IJurisdictionRepository jurisdictionRepository;
@@ -25,12 +24,14 @@ namespace IPFees.Web.Areas.Jurisdiction.Pages
 
         public async Task<IActionResult> OnGetAsync(string Id)
         {
-            AvailableModules = await moduleRepository.GetModules();
-            var info = await jurisdictionRepository.GetJurisdictionByName(Id);
-            Name = info.Name;
-            Description = info.Description;
-            SourceCode = info.SourceCode;
-            ReferencedModules = info.ReferencedModules;
+            // Retrieve the jurisdiction by name
+            var jur = await jurisdictionRepository.GetJurisdictionByName(Id);
+            Name = jur.Name;
+            Description = jur.Description;
+            SourceCode = jur.SourceCode;
+            // Prepare view model for referenced modules
+            var Mods = await moduleRepository.GetModules();
+            ReferencedModules = Mods.Select(s => new ModuleViewModel(s.Name, s.Description, s.LastUpdatedOn, jur.ReferencedModules.Contains(s.Name))).ToList();
             return Page();
         }
 
@@ -41,8 +42,8 @@ namespace IPFees.Web.Areas.Jurisdiction.Pages
             {
                 ErrorMessages.Add($"Error setting description: {res.Reason}");
             }
-            string[] RefMod = ReferencedModules.Where(w => !string.IsNullOrEmpty(w)).ToArray();
-            res = await jurisdictionRepository.SetReferencedModules(Name, RefMod.ToArray());
+            string[] RefMod = ReferencedModules.Where(w => w.Checked).Select(s => s.Name).ToArray();
+            res = await jurisdictionRepository.SetReferencedModules(Name, RefMod);
             if (!res.Success)
             {
                 ErrorMessages.Add($"Error setting referenced modules: {res.Reason}");

@@ -6,12 +6,11 @@ using Microsoft.VisualBasic;
 namespace IPFees.Web.Areas.Jurisdiction.Pages
 {
     public class CreateModel : PageModel
-    {
+    {        
         [BindProperty] public string Name { get; set; }
         [BindProperty] public string Description { get; set; }
         [BindProperty] public string SourceCode { get; set; }
-        [BindProperty] public IEnumerable<ModuleInfo> AvailableModules { get; set; }
-        [BindProperty] public IList<string> ReferencedModules { get; set; }
+        [BindProperty] public IList<ModuleViewModel> ReferencedModules { get; set; }
         [BindProperty] public IList<string> ErrorMessages { get; set; }
 
         private readonly IJurisdictionRepository jurisdictionRepository;
@@ -26,7 +25,8 @@ namespace IPFees.Web.Areas.Jurisdiction.Pages
 
         public async Task<IActionResult> OnGetAsync()
         {
-            AvailableModules = await moduleRepository.GetModules();
+            var Mods = await moduleRepository.GetModules();
+            ReferencedModules = Mods.Select(s => new ModuleViewModel(s.Name, s.Description, s.LastUpdatedOn, false)).ToList();
             return Page();
         }
 
@@ -42,8 +42,8 @@ namespace IPFees.Web.Areas.Jurisdiction.Pages
             {
                 ErrorMessages.Add($"Error setting description: {res.Reason}");
             }
-            string[] RefMod = ReferencedModules.Where(w=>!string.IsNullOrEmpty(w)).ToArray();
-            res = await jurisdictionRepository.SetReferencedModules(Name, RefMod.ToArray());
+            string[] RefMod = ReferencedModules.Where(w => w.Checked).Select(s => s.Name).ToArray();
+            res = await jurisdictionRepository.SetReferencedModules(Name, RefMod);
             if (!res.Success)
             {
                 ErrorMessages.Add($"Error setting referenced modules: {res.Reason}");
@@ -58,4 +58,6 @@ namespace IPFees.Web.Areas.Jurisdiction.Pages
             else return RedirectToPage("Index");
         }
     }
+
+    public record ModuleViewModel(string Name, string Description, DateTime LastUpdatedOn, bool Checked);
 }

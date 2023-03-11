@@ -4,8 +4,8 @@
     ViewData["Title"] = "Edit Jurisdiction";
 }
 
-<h1>Edit Jurisdiction</h1>
-<p>Edit jurisdiction @Model.Name</p>
+<h1>Edit Jurisdiction <small class="text-muted">@Model.Name</small></h1>
+
 <div class="row">
     <div class="col-lg-6">
         @if (Model.ErrorMessages.Any())
@@ -27,26 +27,17 @@
                 <input asp-for="@Model.Description" class="form-control" />
             </div>
             <div class="mb-3">
-                <label for="@Model.AvailableModules" class="form-label">Referenced Modules</label>
-                <select asp-for="@Model.ReferencedModules" class="form-select" size="5" multiple>
-                    @if (!Model.ReferencedModules.Any())
-                    {
-                        <option selected value="">No referenced modules (code runs standalone)</option>
-                    } else
-                    {
-                        <option value="">No referenced modules (code runs standalone)</option>
-                    }
-                    @foreach (var m in Model.AvailableModules)
-                    {                        
-                        if(Model.ReferencedModules.Any(q=>q.Equals(m)))
-                        {
-                            <option selected value="@m.Name">@m.Name - @m.Description</option>
-                        } else
-                        {
-                            <option value="@m.Name">@m.Name - @m.Description</option>
-                        }                        
-                    }
-                </select>
+                <label for="@Model.ReferencedModules" class="form-label">Referenced Modules</label>
+                @for (var i = 0; i < Model.ReferencedModules.Count(); i++)
+                {
+                    <div class="form-check form-switch">
+                        <label class="form-check-label" for="@Model.ReferencedModules[i].Name">@Model.ReferencedModules[i].Description</label>
+                        <input class="form-check-input" type="checkbox" asp-for="@Model.ReferencedModules[i].Checked">
+                        <input type="hidden" asp-for="@Model.ReferencedModules[i].Checked" value="false">
+                        <input type="hidden" asp-for="@Model.ReferencedModules[i].Name">
+                    </div>
+                }
+                <div id="ReferencedModulesHelp" class="form-text">Source code associated to referenced modules is parsed along with the jurisdiction source code.</div>
             </div>
             <div class="mb-3">
                 <label for="SourceCode" class="form-label">Source Code</label>
