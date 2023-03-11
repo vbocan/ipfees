@@ -1,8 +1,11 @@
 using IPFees.Calculator;
 using IPFees.Evaluator;
 using IPFees.Parser;
+using IPFFees.Core;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using MongoDB.Bson;
+using static IPFees.Core.OfficialFee;
 
 namespace IPFees.Web.Areas.Run.Pages
 {
@@ -19,12 +22,12 @@ namespace IPFees.Web.Areas.Run.Pages
         [BindProperty]
         public List<IPFValue> CollectedVars { get; set; }
 
-        private readonly IDslCalculator _calc;
+        private readonly IOfficialFee officialFee;
         private readonly ILogger<ResultModel> _logger;
 
-        public ResultModel(IDslCalculator IPFCalculator, ILogger<ResultModel> logger)
+        public ResultModel(IOfficialFee officialFee, ILogger<ResultModel> logger)
         {
-            _calc = IPFCalculator;
+            this.officialFee = officialFee;
             _logger = logger;
         }
 
@@ -33,11 +36,10 @@ namespace IPFees.Web.Areas.Run.Pages
 
         }
 
-        public IActionResult OnPost(IFormCollection form)
+        public async Task<IActionResult> OnPostAsync(string id, IFormCollection form)
         {
-            string Code = (string)TempData.Peek("code");
-            _calc.Parse(Code);
-            var ParsedVars = _calc.GetVariables();
+            var res = await officialFee.GetVariables(id);
+            var ParsedVars = (res as OfficialFeeParseSuccess).RequestedVariables;
 
             CollectedVars = new List<IPFValue>();
 
@@ -61,29 +63,18 @@ namespace IPFees.Web.Areas.Run.Pages
                         break;
                 }
             }
-            // Log variable collection
-            _logger.LogInformation("COMPUTATION:");
-            foreach (var cv in CollectedVars)
+
+            var result = await officialFee.Calculate(id, CollectedVars);
+            TODO: check result
+            // Log computation success
+            _logger.LogInformation("Success! Total mandatory amount is [{0}] and the total optional amount is [{1}]", TotalManadatoryAmount, TotalOptionalAmount);
+            foreach (var cs in ComputationSteps)
             {
-                _logger.LogInformation("> {0}", cv);
+                _logger.LogInformation("> {0}", cs);
             }
 
-            try
-            {
-                (TotalManadatoryAmount, TotalOptionalAmount, ComputationSteps) = _calc.Compute(CollectedVars);
-                // Log computation success
-                _logger.LogInformation("Success! Total mandatory amount is [{0}] and the total optional amount is [{1}]", TotalManadatoryAmount, TotalOptionalAmount);
-                foreach (var cs in ComputationSteps)
-                {
-                    _logger.LogInformation("> {0}", cs);
-                }
-            }
-            catch (Exception ex)
-            {
-                ComputationError = ex.Message;
-                // Log computation error
-                _logger.LogInformation("Failed! Error is {0}.", ex.Message);
-            }
+            //ComputationError = ex.Message;
+
 
             return Page();
         }
