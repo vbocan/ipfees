@@ -56,10 +56,18 @@
                             break;
                     }
                 }
-                <button type="submit" class="btn btn-primary">Compute Result</button>
+                @if (Model.CalculationPending)
+                {
+                    <button type="submit" class="btn btn-primary">Compute Result</button>
+                }
             </div>
             <div class="col-md-12">
-                <a asp-area="Jurisdiction" asp-page="Index">Back to jurisdiction list</a>
+                @if (!Model.CalculationPending)
+                {
+                    <a asp-area="Run" asp-page="Index">Redo calculation</a>
+                    <br />
+                    <a asp-area="Jurisdiction" asp-page="Index">Back to jurisdiction list</a>
+                }
             </div>
         </form>
     </div>
