@@ -1,131 +1,133 @@
 ﻿@page "{id}"
 @model IndexModel
 @{
-    ViewData["Title"] = "Data Collection";
+    ViewData["Title"] = "Official Fee Calculation";
 }
 
-<h1>Data Collection</h1>
-<form asp-page-handler="Result" method="post">
-    <input type="hidden" asp-for="@Model.Id" />
-    <div class="col-md-9">
-        @foreach (var v in Model.Vars)
+<div class="row">
+    <div class="col-4">
+        <h1>User Input</h1>
+        <form asp-page-handler="Result" method="post">
+            <input type="hidden" asp-for="@Model.Id" />
+            <div class="col-md-9">
+                @foreach (var v in Model.ParsedVars ?? Enumerable.Empty<DslVariable>())
+                {
+                    switch (v)
+                    {
+                        case DslVariableList:
+                            var v1 = (DslVariableList)v;
+                            <label class="form-label" for="@v1.Name">@v1.Text</label>
+                            <select class="form-select form-select-lg mb-3" name="@v1.Name" id="@v1.Name">
+                                @foreach (var item in v1.Items)
+                                {
+                                    if (v1.DefaultSymbol.Equals(item.Symbol))
+                                    {
+                                        <option selected value="@item.Symbol">@item.Value</option>
+                                    }
+                                    else
+                                    {
+                                        <option value="@item.Symbol">@item.Value</option>
+                                    }
+                                }
+                            </select>
+                            break;
+                        case DslVariableNumber:
+                            var v2 = (DslVariableNumber)v;
+                            <div class="mb-3 col-md-6">
+                                <label class="form-label" for="@v2.Name">@v2.Text</label>
+                                <input class="form-control" type="number" id="@v2.Name" name="@v2.Name" value="@v2.DefaultValue" min="@v2.MinValue" max="@v2.MaxValue">
+                            </div>
+                            break;
+                        case DslVariableBoolean:
+                            var v3 = (DslVariableBoolean)v;
+                            <div class="mb-3 form-check">
+                                <label class="form-check-label" for="@v3.Name">@v3.Text</label>
+                                @if (v3.DefaultValue)
+                                {
+                                    <input class="form-check-input" type="checkbox" id="@v3.Name" name="@v3.Name" value="true" checked>
+                                    <input type="hidden" name="@v3.Name" value="false">
+                                }
+                                else
+                                {
+                                    <input class="form-check-input" type="checkbox" id="@v3.Name" name="@v3.Name" value="true">
+                                    <input type="hidden" name="@v3.Name" value="false">
+                                }
+                            </div>
+                            break;
+                    }
+                }
+                <button type="submit" class="btn btn-primary">Compute Result</button>
+            </div>
+            <div class="col-md-12">
+                <a asp-area="Jurisdiction" asp-page="Index">Back to jurisdiction list</a>
+            </div>
+        </form>
+    </div>
+
+    <div class="col-8">
+        <h1>Calculation Results</h1>
+        @if (Model.CalculationPending)
         {
-            switch (v)
+            <div class="col-md-6">
+                <p class="text-muted">Click the [Compute Result] button on the left.</p>
+            </div>
+        }
+        else
+        {
+            <div class="row">
+                <div class="col-md-4">
+                    <h4>Total: @((Model.TotalMandatoryAmount + Model.TotalOptionalAmount).ToString("0.00"))</h4>
+                </div>
+                <div class="col-md-8">
+                    <h6>Mandatory Fees: @Model.TotalMandatoryAmount.ToString("0.00") | Optional Fees: @Model.TotalOptionalAmount.ToString("0.00")</h6>
+                </div>
+            </div>
+
+            @if (Model.CollectedValues != null)
             {
-                case DslVariableList:
-                    var v1 = (DslVariableList)v;
-                    <label class="form-label" for="@v1.Name">@v1.Text</label>
-                    <select class="form-select form-select-lg mb-3" name="@v1.Name" id="@v1.Name">
-                        @foreach (var item in v1.Items)
+                var i = 1;
+                <table class="table table-sm">
+                    <thead>
+                        <tr>
+                            <th rowspan="2">Collected Values</th>
+                            <th scope="col"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var cv in Model.CollectedValues)
                         {
-                            if (v1.DefaultSymbol.Equals(item.Symbol))
-                            {
-                                <option selected value="@item.Symbol">@item.Value</option>
-                            }
-                            else
-                            {
-                                <option value="@item.Symbol">@item.Value</option>
-                            }
+                            <tr>
+                                <td>@i</td>
+                                <td>@cv.ToString()</td>
+                            </tr>
+                            i++;
                         }
-                    </select>                    
-                    break;
-                case DslVariableNumber:
-                    var v2 = (DslVariableNumber)v;
-                    <div class="mb-3 col-md-6">
-                        <label class="form-label" for="@v2.Name">@v2.Text</label>
-                        <input class="form-control" type="number" id="@v2.Name" name="@v2.Name" value="@v2.DefaultValue" min="@v2.MinValue" max="@v2.MaxValue">
-                    </div>
-                    break;
-                case DslVariableBoolean:
-                    var v3 = (DslVariableBoolean)v;
-                    <div class="mb-3 form-check">
-                        <label class="form-check-label" for="@v3.Name">@v3.Text</label>
-                        @if (v3.DefaultValue)
+                    </tbody>
+                </table>
+            }
+
+            @if (Model.CalculationSteps != null)
+            {
+                var i = 1;
+                <table class="table table-sm">
+                    <thead>
+                        <tr>
+                            <th rowspan="2">Calculation Steps</th>
+                            <th scope="col"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var e in Model.CalculationSteps)
                         {
-                            <input class="form-check-input" type="checkbox" id="@v3.Name" name="@v3.Name" value="true" checked>
-                            <input type="hidden" name="@v3.Name" value="false">
+                            <tr>
+                                <td>@i</td>
+                                <td>@e</td>
+                            </tr>
+                            i++;
                         }
-                        else
-                        {
-                            <input class="form-check-input" type="checkbox" id="@v3.Name" name="@v3.Name" value="true">
-                            <input type="hidden" name="@v3.Name" value="false">
-                        }
-                    </div>
-                    break;
+                    </tbody>
+                </table>
             }
         }
-        <button type="submit" class="btn btn-primary">Compute Result</button>
     </div>
-</form>
-
-<h1>Results</h1>
-
-<div class="col-md-6">
-    <h2>Grand Total: @((Model.TotalManadatoryAmount + Model.TotalOptionalAmount).ToString("0.00"))</h2>
-    <p>Total Mandatory Fees: @Model.TotalManadatoryAmount.ToString("0.00")</p>
-    <p>Total Optional Fees: @Model.TotalOptionalAmount.ToString("0.00")</p>
 </div>
-
-@if (Model.Errors.Any())
-{
-    <div class="alert alert-danger" role="alert">
-        <p>
-            @foreach (var e in Model.Errors)
-            {
-                <text>@e<br /></text>
-            }
-        </p>
-    </div>
-}
-
-@if (Model.CollectedVars != null)
-{
-    <div class="alert alert-secondary" role="alert">
-        Collected Variables
-    </div>
-    var i = 1;
-    <table class="table table-sm">
-        <thead>
-            <tr>
-                <th scope="col">#</th>
-                <th scope="col">Variable</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var cv in Model.CollectedVars)
-            {
-                <tr>
-                    <td>@i</td>
-                    <td>@cv.ToString()</td>
-                </tr>
-                i++;
-            }
-        </tbody>
-    </table>
-}
-
-@if (Model.CalculationSteps != null)
-{
-    <div class="alert alert-secondary" role="alert">
-        Calculation Steps
-    </div>
-    var i = 1;
-    <table class="table table-sm">
-        <thead>
-            <tr>
-                <th scope="col">#</th>
-                <th scope="col">Description</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var e in Model.CalculationSteps)
-            {
-                <tr>
-                    <td>@i</td>
-                    <td>@e</td>
-                </tr>
-                i++;
-            }
-        </tbody>
-    </table>
-}
