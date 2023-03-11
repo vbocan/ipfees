@@ -10,8 +10,8 @@ namespace IPFees.Web.Areas.Run.Pages
 {
     public class IndexModel : PageModel
     {
-        [BindProperty]
-        public IEnumerable<DslVariable> Vars { get; set; }
+        [BindProperty] public IEnumerable<DslVariable> Vars { get; set; }
+        [BindProperty] public string Id { get; set; }
 
         private readonly IOfficialFee officialFee;
         private readonly ILogger<IndexModel> _logger;
@@ -23,7 +23,8 @@ namespace IPFees.Web.Areas.Run.Pages
         }
 
         public async Task<IActionResult> OnGetAsync(string id)
-        {            
+        {
+            this.Id = id;
             var res = await officialFee.GetVariables(id);
             if (!res.IsSuccessfull)
             {

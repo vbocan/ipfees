@@ -10,10 +10,15 @@
     <p>Total Optional Fees: @Model.TotalOptionalAmount.ToString("0.00")</p>
 </div>
 
-@if (!string.IsNullOrEmpty(Model.ComputationError))
+@if (Model.Errors.Any())
 {
     <div class="alert alert-danger" role="alert">
-        @Model.ComputationError
+        <p>
+            @foreach (var e in Model.Errors)
+            {
+                <text>@e<br /></text>
+            }
+        </p>
     </div>
 }
 
@@ -43,10 +48,10 @@
     </table>
 }
 
-@if (Model.ComputationSteps != null)
+@if (Model.CalculationSteps != null)
 {
     <div class="alert alert-secondary" role="alert">
-        Computation Steps
+        Calculation Steps
     </div>
     var i = 1;
     <table class="table table-sm">
@@ -57,7 +62,7 @@
             </tr>
         </thead>
         <tbody>
-            @foreach (var e in Model.ComputationSteps)
+            @foreach (var e in Model.CalculationSteps)
             {
                 <tr>
                     <td>@i</td>
