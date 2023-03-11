@@ -1,0 +1,61 @@
+﻿@page "{id}"
+@model EditModel
+@{
+    ViewData["Title"] = "Edit Jurisdiction";
+}
+
+<h1>Edit Jurisdiction</h1>
+<p>Edit jurisdiction @Model.Name</p>
+<div class="row">
+    <div class="col-lg-6">
+        @if (Model.ErrorMessages.Any())
+        {
+            <div class="alert alert-danger d-flex align-items-center" role="alert">
+                <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Danger:"><use xlink:href="#exclamation-triangle-fill" /></svg>
+                <div>
+                    @foreach(var em in Model.ErrorMessages)
+                    {
+                        <text>@em</text><br/>
+                    }                    
+                </div>
+            </div>
+        }
+        <form method="post">
+            <input asp-for="@Model.Name" type="hidden" />
+            <div class="mb-3">
+                <label for="@Model.Description" class="form-label">Description</label>
+                <input asp-for="@Model.Description" class="form-control" />
+            </div>
+            <div class="mb-3">
+                <label for="@Model.AvailableModules" class="form-label">Referenced Modules</label>
+                <select asp-for="@Model.ReferencedModules" class="form-select" size="5" multiple>
+                    @if (!Model.ReferencedModules.Any())
+                    {
+                        <option selected value="">No referenced modules (code runs standalone)</option>
+                    } else
+                    {
+                        <option value="">No referenced modules (code runs standalone)</option>
+                    }
+                    @foreach (var m in Model.AvailableModules)
+                    {                        
+                        if(Model.ReferencedModules.Any(q=>q.Equals(m)))
+                        {
+                            <option selected value="@m.Name">@m.Name - @m.Description</option>
+                        } else
+                        {
+                            <option value="@m.Name">@m.Name - @m.Description</option>
+                        }                        
+                    }
+                </select>
+            </div>
+            <div class="mb-3">
+                <label for="SourceCode" class="form-label">Source Code</label>
+                <textarea asp-for="SourceCode" class="form-control" rows="20" required></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">Edit</button>
+            <a asp-page="./Index" class="btn btn-secondary">Cancel</a>
+        </form>
+    </div>
+</div>
+
+<partial name="_Symbols" />

@@ -1,0 +1,24 @@
+﻿@page
+@model ErrorModel
+@{
+    ViewData["Title"] = "Error";
+}
+
+@if (Model.Errors != null)
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">Errors</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var e in Model.Errors)
+            {
+                <tr>
+                    <td>@e</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
