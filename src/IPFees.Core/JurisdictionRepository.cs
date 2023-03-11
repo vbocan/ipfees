@@ -133,7 +133,7 @@ namespace IPFFees.Core
                 Builders<JurisdictionDoc>
                 .Update
                 .Set(r => r.ReferencedModules, ModuleNames));
-            return (res.IsAcknowledged && res.ModifiedCount > 0) ? DbResult.Succeed() : DbResult.Fail();
+            return res.IsAcknowledged ? DbResult.Succeed() : DbResult.Fail();
         }
     }
 }
