@@ -96,6 +96,10 @@ namespace IPFees.Web.Areas.Run.Pages
                     _logger.LogInformation($"> {cs}");
                 }
                 CalculationPending = false;
+                // TODO: To preserve user input, uncomment the two lines below.
+                // TODO: However, the parser will crash because it is invoked twice on the same source code
+                //var res = await officialFee.GetVariables(id);                
+                //ParsedVars = (res as OfficialFeeParseSuccess).ParsedVariables;                
             }
 
             return Page();
