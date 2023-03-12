@@ -1,6 +1,8 @@
 ﻿using IPFees.Calculator;
 using IPFees.Evaluator;
 using IPFees.Parser;
+using IPFees.Web.Areas.Jurisdiction.Pages;
+using IPFFees.Core;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
@@ -10,6 +12,7 @@ namespace IPFees.Web.Pages
     {
         [BindProperty]
         public string Code { get; set; }
+        [BindProperty] public IList<ModuleViewModel> ReferencedModules { get; set; }
 
         [BindProperty]
         public IEnumerable<string> ParseErrors { get; set; }
@@ -31,30 +34,45 @@ namespace IPFees.Web.Pages
 
         private readonly IDslCalculator _calc;
         private readonly ILogger<IndexModel> _logger;
+        private readonly IModuleRepository moduleRepository;
 
-        public SplitScreenModel(IDslCalculator IPFCalculator, ILogger<IndexModel> logger)
+        public SplitScreenModel(IDslCalculator IPFCalculator, IModuleRepository moduleRepository, ILogger<IndexModel> logger)
         {
             _calc = IPFCalculator;
+            this.moduleRepository = moduleRepository;
             _logger = logger;
         }
 
-        public void OnGet()
+        public async Task<IActionResult> OnGetAsync()
         {
-            if (Request.Cookies["IPFCode"] != null)
+            if (Request.Cookies["code"] != null)
             {
-                Code = @Request.Cookies["IPFCode"];
+                Code = @Request.Cookies["code"];
             }
+            // Prepare view model for referenced modules
+            var Mods = await moduleRepository.GetModules();
+            ReferencedModules = Mods.Select(s => new ModuleViewModel(s.Name, s.Description, s.LastUpdatedOn, false)).ToList();
+            TempData["modules"] = ReferencedModules;
+            return Page();
         }
 
-        public IActionResult OnPostExecuteCode()
+        public async Task<IActionResult> OnPostExecuteCodeAsync()
         {
             if (string.IsNullOrEmpty(Code)) return Page();
-            Response.Cookies.Append("IPFCode", Code);
+            Response.Cookies.Append("code", Code);
             // Log code execution
             _logger.LogInformation("Executing code:");
             foreach (var cl in Code.Split(Environment.NewLine, StringSplitOptions.RemoveEmptyEntries))
             {
                 _logger.LogInformation("> {0}", cl);
+            }
+            // Get referenced modules
+            var RefMod = (IEnumerable<string>)TempData.Peek("modules");
+            // Parse code
+            if (!_calc.Parse(Code))
+            {
+                ParseErrors = _calc.GetErrors();
+                return Page();
             }
             // Parse code
             if (!_calc.Parse(Code))
@@ -69,8 +87,16 @@ namespace IPFees.Web.Pages
             return Page();
         }
 
-        public IActionResult OnPostResult(IFormCollection form)
+        public async Task<IActionResult> OnPostResultAsync(IFormCollection form)
         {
+            // Get referenced modules
+            var RefMod = (IEnumerable<string>)TempData.Peek("modules");
+            // Parse code
+            if (!_calc.Parse(Code))
+            {
+                ParseErrors = _calc.GetErrors();
+                return Page();
+            }
             Code = (string)TempData.Peek("code");
             _calc.Parse(Code);
             Vars = _calc.GetVariables();
