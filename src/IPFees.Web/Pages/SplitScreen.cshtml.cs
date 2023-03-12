@@ -18,15 +18,15 @@ namespace IPFees.Web.Pages
         public IEnumerable<DslVariable> Vars { get; set; }
 
         [BindProperty]
-        public double TotalManadatoryAmount { get; set; }
+        public double TotalMandatoryAmount { get; set; }
         [BindProperty]
         public double TotalOptionalAmount { get; set; }
         [BindProperty]
-        public IEnumerable<string> ComputationSteps { get; set; }
+        public IEnumerable<string> CalculationSteps { get; set; }
         [BindProperty]
         public string ComputationError { get; set; }
         [BindProperty]
-        public List<IPFValue> CollectedVars { get; set; }
+        public List<IPFValue> CollectedValues { get; set; }
 
 
         private readonly IDslCalculator _calc;
@@ -75,7 +75,7 @@ namespace IPFees.Web.Pages
             _calc.Parse(Code);
             Vars = _calc.GetVariables();
 
-            CollectedVars = new List<IPFValue>();
+            CollectedValues = new List<IPFValue>();
 
             // Cycle through all form fields
             foreach (var field in form)
@@ -85,31 +85,31 @@ namespace IPFees.Web.Pages
                 switch (CalcVar)
                 {
                     case DslVariableList:
-                        CollectedVars.Add(new IPFValueString(CalcVar.Name, field.Value));
+                        CollectedValues.Add(new IPFValueString(CalcVar.Name, field.Value));
                         break;
                     case DslVariableNumber:
                         _ = int.TryParse(field.Value, out var val2);
-                        CollectedVars.Add(new IPFValueNumber(CalcVar.Name, val2));
+                        CollectedValues.Add(new IPFValueNumber(CalcVar.Name, val2));
                         break;
                     case DslVariableBoolean:
                         _ = bool.TryParse(field.Value[0], out var val3);
-                        CollectedVars.Add(new IPFValueBoolean(CalcVar.Name, val3));
+                        CollectedValues.Add(new IPFValueBoolean(CalcVar.Name, val3));
                         break;
                 }
             }
             // Log variable collection
             _logger.LogInformation("COMPUTATION:");
-            foreach (var cv in CollectedVars)
+            foreach (var cv in CollectedValues)
             {
                 _logger.LogInformation("> {0}", cv);
             }
 
             try
             {
-                (TotalManadatoryAmount, TotalOptionalAmount, ComputationSteps) = _calc.Compute(CollectedVars);
+                (TotalMandatoryAmount, TotalOptionalAmount, CalculationSteps) = _calc.Compute(CollectedValues);
                 // Log computation success
-                _logger.LogInformation("Success! Total mandatory amount is [{0}] and the total optional amount is [{1}]", TotalManadatoryAmount, TotalOptionalAmount);
-                foreach (var cs in ComputationSteps)
+                _logger.LogInformation("Success! Total mandatory amount is [{0}] and the total optional amount is [{1}]", TotalMandatoryAmount, TotalOptionalAmount);
+                foreach (var cs in CalculationSteps)
                 {
                     _logger.LogInformation("> {0}", cs);
                 }
