@@ -13,23 +13,15 @@ namespace IPFees.Web.Pages
         [BindProperty] public string Code { get; set; }
         [BindProperty] public IList<ModuleViewModel> ReferencedModules { get; set; }
 
-        [BindProperty]
-        public IEnumerable<string> ParseErrors { get; set; }
+        [BindProperty] public IEnumerable<string> ParseErrors { get; set; }
 
-        [BindProperty]
-        public IEnumerable<DslVariable> Vars { get; set; }
+        [BindProperty] public IEnumerable<DslVariable> Vars { get; set; }
 
-        [BindProperty]
-        public double TotalMandatoryAmount { get; set; }
-        [BindProperty]
-        public double TotalOptionalAmount { get; set; }
-        [BindProperty]
-        public IEnumerable<string> CalculationSteps { get; set; }
-        [BindProperty]
-        public string ComputationError { get; set; }
-        [BindProperty]
-        public List<IPFValue> CollectedValues { get; set; }
-
+        [BindProperty] public double TotalMandatoryAmount { get; set; }
+        [BindProperty] public double TotalOptionalAmount { get; set; }
+        [BindProperty] public IEnumerable<string> CalculationSteps { get; set; }
+        [BindProperty] public string ComputationError { get; set; }
+        [BindProperty] public List<IPFValue> CollectedValues { get; set; }
 
         private readonly IDslCalculator _calc;
         private readonly ILogger<IndexModel> _logger;
