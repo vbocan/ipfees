@@ -12,7 +12,7 @@
     </div>
 
     <div class="row">
-        <div class="col-4">
+        <div class="col-3">
             <h1>1. Code</h1>
             <form asp-page-handler="ExecuteCode" method="post">
                 <div class="mb-3">
@@ -54,7 +54,7 @@
             }
         </div>
 
-        <div class="col-4">
+        <div class="col-3">
             <h1>2. Data Collection</h1>
             <form asp-page-handler="Result" method="post">
                 @if (Model.Vars != null)
@@ -110,15 +110,11 @@
             </form>
         </div>
 
-        <div class="col-4">
+        <div class="col-6">
             <h1>3. Results</h1>
-            <div class="col-md-6">
-                <div class="col-md-4">
-                    <h4>Total: @((Model.TotalMandatoryAmount + Model.TotalOptionalAmount).ToString("0.00"))</h4>
-                </div>
-                <div class="col-md-8">
-                    <h6>Mandatory Fees: @Model.TotalMandatoryAmount.ToString("0.00") | Optional Fees: @Model.TotalOptionalAmount.ToString("0.00")</h6>
-                </div>
+            <div class="col-md-12">
+                <h4>Total: @((Model.TotalMandatoryAmount + Model.TotalOptionalAmount).ToString("0.00"))</h4>
+                <h6>Mandatory Fees: @Model.TotalMandatoryAmount.ToString("0.00") | Optional Fees: @Model.TotalOptionalAmount.ToString("0.00")</h6>
             </div>
 
             @if (!string.IsNullOrEmpty(Model.ComputationError))
