@@ -25,7 +25,7 @@ namespace IPFees.Web.Pages
 
         public async Task<IActionResult> OnGetAsync()
         {
-            var RefMod = (IEnumerable<string>)TempData.Peek("modules");
+            var RefMod = (IEnumerable<string>)TempData.Peek("modules") ?? Enumerable.Empty<string>();
             foreach (var rm in RefMod)
             {
                 var module = await moduleRepository.GetModuleByName(rm);
