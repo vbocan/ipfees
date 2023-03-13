@@ -10,8 +10,7 @@ namespace IPFees.Web.Pages
 {
     public class SplitScreenModel : PageModel
     {
-        [BindProperty]
-        public string Code { get; set; }
+        [BindProperty] public string Code { get; set; }
         [BindProperty] public IList<ModuleViewModel> ReferencedModules { get; set; }
 
         [BindProperty]
@@ -58,29 +57,23 @@ namespace IPFees.Web.Pages
 
         public async Task<IActionResult> OnPostExecuteCodeAsync()
         {
+            Code = (string)TempData.Peek("code");
             if (string.IsNullOrEmpty(Code)) return Page();
-            Response.Cookies.Append("code", Code);
             // Log code execution
             _logger.LogInformation("Executing code:");
             foreach (var cl in Code.Split(Environment.NewLine, StringSplitOptions.RemoveEmptyEntries))
             {
                 _logger.LogInformation("> {0}", cl);
             }
-            // Get referenced modules
-            var RefMod = (IEnumerable<string>)TempData.Peek("modules");
-            // Parse code
-            if (!_calc.Parse(Code))
+            // Parse referenced modules
+            var RefMod = (IEnumerable<string>)TempData.Peek("modules") ?? Enumerable.Empty<string>();
+            foreach (var rm in RefMod)
             {
-                ParseErrors = _calc.GetErrors();
-                return Page();
+                var module = await moduleRepository.GetModuleByName(rm);
+                _calc.Parse(module.SourceCode);
             }
-            // Parse code
-            if (!_calc.Parse(Code))
-            {
-                ParseErrors = _calc.GetErrors();
-                return Page();
-            }
-            TempData["code"] = Code;
+            _calc.Parse(Code);
+
             // Store parsed variables
             Vars = _calc.GetVariables();
 
@@ -89,16 +82,16 @@ namespace IPFees.Web.Pages
 
         public async Task<IActionResult> OnPostResultAsync(IFormCollection form)
         {
-            // Get referenced modules
-            var RefMod = (IEnumerable<string>)TempData.Peek("modules");
-            // Parse code
-            if (!_calc.Parse(Code))
+            var RefMod = (IEnumerable<string>)TempData.Peek("modules") ?? Enumerable.Empty<string>();
+            foreach (var rm in RefMod)
             {
-                ParseErrors = _calc.GetErrors();
-                return Page();
+                var module = await moduleRepository.GetModuleByName(rm);
+                _calc.Parse(module.SourceCode);
             }
+
             Code = (string)TempData.Peek("code");
             _calc.Parse(Code);
+
             Vars = _calc.GetVariables();
 
             CollectedValues = new List<IPFValue>();
