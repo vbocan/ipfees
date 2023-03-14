@@ -31,14 +31,22 @@ namespace IPFees.Web.Pages
         {
             _calc = IPFCalculator;
             this.moduleRepository = moduleRepository;
-            _logger = logger;            
+            _logger = logger;
         }
 
         public async Task<IActionResult> OnGetAsync()
         {
             // Prepare view model for referenced modules
-            var Mods = moduleRepository.GetModules().Result;
-            ReferencedModules = Mods.Select(s => new ModuleViewModel(s.Name, s.Description, s.LastUpdatedOn, false)).ToList();
+            var Mods = await moduleRepository.GetModules();
+            if (TempData["modules"] != null)
+            {
+                var RefMod = (IEnumerable<string>)TempData["modules"];
+                ReferencedModules = Mods.Select(s => new ModuleViewModel(s.Name, s.Description, s.LastUpdatedOn, RefMod.Contains(s.Name))).ToList();
+            }
+            else
+            {
+                ReferencedModules = Mods.Select(s => new ModuleViewModel(s.Name, s.Description, s.LastUpdatedOn, false)).ToList();
+            }
 
             if (Request.Cookies["code"] != null)
             {
@@ -48,7 +56,7 @@ namespace IPFees.Web.Pages
         }
 
         public async Task<IActionResult> OnPostExecuteCodeAsync()
-        {            
+        {
             if (string.IsNullOrEmpty(Code)) return Page();
             Response.Cookies.Append("code", Code);
             // Log code execution
@@ -56,9 +64,11 @@ namespace IPFees.Web.Pages
             foreach (var cl in Code.Split(Environment.NewLine, StringSplitOptions.RemoveEmptyEntries))
             {
                 _logger.LogInformation("> {0}", cl);
-            }            
-            // Parse referenced modules            
-            foreach (var rm in ReferencedModules.Where(w=>w.Checked).Select(s=>s.Name))
+            }
+            // Parse referenced modules
+            // Get referenced modules
+            var RefMod = ReferencedModules.Where(w => w.Checked).Select(s => s.Name).ToList();
+            foreach (var rm in RefMod)
             {
                 var module = await moduleRepository.GetModuleByName(rm);
                 _calc.Parse(module.SourceCode);
@@ -67,10 +77,10 @@ namespace IPFees.Web.Pages
 
             // Store parsed variables
             Vars = _calc.GetVariables();
-            TempData["modules"] = ReferencedModules.Where(w => w.Checked).Select(s => s.Name).ToList();
+            TempData["modules"] = RefMod;
             // Prepare view model for referenced modules
             var Mods = moduleRepository.GetModules().Result;
-            ReferencedModules = Mods.Select(s => new ModuleViewModel(s.Name, s.Description, s.LastUpdatedOn, false)).ToList();
+            ReferencedModules = Mods.Select(s => new ModuleViewModel(s.Name, s.Description, s.LastUpdatedOn, RefMod.Contains(s.Name))).ToList();
             return Page();
         }
 
@@ -86,7 +96,7 @@ namespace IPFees.Web.Pages
             // Parse code
             if (Request.Cookies["code"] != null)
             {
-                Code = @Request.Cookies["code"];
+                Code = Request.Cookies["code"];
             }
             _calc.Parse(Code);
 
@@ -140,7 +150,7 @@ namespace IPFees.Web.Pages
             TempData["modules"] = RefMod;
             // Prepare view model for referenced modules
             var Mods = moduleRepository.GetModules().Result;
-            ReferencedModules = Mods.Select(s => new ModuleViewModel(s.Name, s.Description, s.LastUpdatedOn, false)).ToList();
+            ReferencedModules = Mods.Select(s => new ModuleViewModel(s.Name, s.Description, s.LastUpdatedOn, RefMod.Contains(s.Name))).ToList();
             return Page();
         }
     }
