@@ -32,7 +32,16 @@ namespace IPFees.Web.Pages
             }
             // Prepare view model for referenced modules
             var Mods = await moduleRepository.GetModules();
-            ReferencedModules = Mods.Select(s => new ModuleViewModel(s.Name, s.Description, s.LastUpdatedOn, false)).ToList();
+            if (TempData["modules"] != null)
+            {
+                var RefMod = (IEnumerable<string>)TempData["modules"];
+                ReferencedModules = Mods.Select(s => new ModuleViewModel(s.Name, s.Description, s.LastUpdatedOn, RefMod.Contains(s.Name))).ToList();
+            }
+            else
+            {                
+                ReferencedModules = Mods.Select(s => new ModuleViewModel(s.Name, s.Description, s.LastUpdatedOn, false)).ToList();
+            }
+
             return Page();
         }
 
