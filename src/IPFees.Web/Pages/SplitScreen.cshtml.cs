@@ -58,9 +58,9 @@ namespace IPFees.Web.Pages
                 _logger.LogInformation("> {0}", cl);
             }            
             // Parse referenced modules            
-            foreach (var rm in ReferencedModules)
+            foreach (var rm in ReferencedModules.Where(w=>w.Checked).Select(s=>s.Name))
             {
-                var module = await moduleRepository.GetModuleByName(rm.Name);
+                var module = await moduleRepository.GetModuleByName(rm);
                 _calc.Parse(module.SourceCode);
             }
             _calc.Parse(Code);
@@ -68,6 +68,9 @@ namespace IPFees.Web.Pages
             // Store parsed variables
             Vars = _calc.GetVariables();
             TempData["modules"] = ReferencedModules.Where(w => w.Checked).Select(s => s.Name).ToList();
+            // Prepare view model for referenced modules
+            var Mods = moduleRepository.GetModules().Result;
+            ReferencedModules = Mods.Select(s => new ModuleViewModel(s.Name, s.Description, s.LastUpdatedOn, false)).ToList();
             return Page();
         }
 
@@ -75,7 +78,7 @@ namespace IPFees.Web.Pages
         {
             // Prepare view model for referenced modules            
             var RefMod = (IEnumerable<string>)TempData["modules"];
-            foreach (var rm in RefMod)
+            foreach (var rm in RefMod ?? Enumerable.Empty<string>())
             {
                 var module = await moduleRepository.GetModuleByName(rm);
                 _calc.Parse(module.SourceCode);
@@ -135,6 +138,9 @@ namespace IPFees.Web.Pages
                 _logger.LogInformation("Failed! Error is {0}.", ex.Message);
             }
             TempData["modules"] = RefMod;
+            // Prepare view model for referenced modules
+            var Mods = moduleRepository.GetModules().Result;
+            ReferencedModules = Mods.Select(s => new ModuleViewModel(s.Name, s.Description, s.LastUpdatedOn, false)).ToList();
             return Page();
         }
     }
