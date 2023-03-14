@@ -106,68 +106,85 @@
                         }
                     }
                 }
-                <button type="submit" class="btn btn-primary">Compute Result</button>
+                @if (!Model.CalculationPending)
+                {
+                    <button type="submit" class="btn btn-primary">Compute Result</button>
+                } else
+                {
+                    <div class="col-md-6">
+                        <p class="text-muted">Pending...</p>
+                    </div>
+                }
             </form>
         </div>
 
         <div class="col-6">
             <h1>3. Results</h1>
-            <div class="col-md-12">
-                <h4>Total: @((Model.TotalMandatoryAmount + Model.TotalOptionalAmount).ToString("0.00"))</h4>
-                <h6>Mandatory Fees: @Model.TotalMandatoryAmount.ToString("0.00") | Optional Fees: @Model.TotalOptionalAmount.ToString("0.00")</h6>
-            </div>
-
-            @if (!string.IsNullOrEmpty(Model.ComputationError))
+            @if (Model.CalculationPending)
             {
-                <div class="alert alert-danger" role="alert">
-                    @Model.ComputationError
+                <div class="col-md-6">
+                    <p class="text-muted">Pending...</p>
                 </div>
             }
+            else
+            {                
+                <div class="col-md-12">
+                    <h4>Total: @((Model.TotalMandatoryAmount + Model.TotalOptionalAmount).ToString("0.00"))</h4>
+                    <h6>Mandatory Fees: @Model.TotalMandatoryAmount.ToString("0.00") | Optional Fees: @Model.TotalOptionalAmount.ToString("0.00")</h6>
+                </div>
 
-            @if (Model.CollectedValues != null)
-            {
-                var i = 1;
-                <table class="table table-sm">
-                    <thead>
-                        <tr>
-                            <th rowspan="2">Collected Values</th>
-                            <th scope="col"></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach (var cv in Model.CollectedValues)
-                        {
-                            <tr>
-                                <td>@i</td>
-                                <td>@cv.ToString()</td>
-                            </tr>
-                            i++;
-                        }
-                    </tbody>
-                </table>
-            }
+                @if (!string.IsNullOrEmpty(Model.ComputationError))
+                {
+                    <div class="alert alert-danger" role="alert">
+                        @Model.ComputationError
+                    </div>
+                }
 
-            @if (Model.CalculationSteps != null)
-            {
-                var i = 1;
-                <table class="table table-sm">
-                    <thead>
-                        <tr>
-                            <th rowspan="2">Calculation Steps</th>
-                            <th scope="col"></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach (var e in Model.CalculationSteps)
-                        {
+                @if (Model.CollectedValues != null)
+                {
+                    var i = 1;
+                    <table class="table table-sm">
+                        <thead>
                             <tr>
-                                <td>@i</td>
-                                <td>@e</td>
+                                <th rowspan="2">Collected Values</th>
+                                <th scope="col"></th>
                             </tr>
-                            i++;
-                        }
-                    </tbody>
-                </table>
+                        </thead>
+                        <tbody>
+                            @foreach (var cv in Model.CollectedValues)
+                            {
+                                <tr>
+                                    <td>@i</td>
+                                    <td>@cv.ToString()</td>
+                                </tr>
+                                i++;
+                            }
+                        </tbody>
+                    </table>
+                }
+
+                @if (Model.CalculationSteps != null)
+                {
+                    var i = 1;
+                    <table class="table table-sm">
+                        <thead>
+                            <tr>
+                                <th rowspan="2">Calculation Steps</th>
+                                <th scope="col"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var e in Model.CalculationSteps)
+                            {
+                                <tr>
+                                    <td>@i</td>
+                                    <td>@e</td>
+                                </tr>
+                                i++;
+                            }
+                        </tbody>
+                    </table>
+                }
             }
         </div>
     </div>
