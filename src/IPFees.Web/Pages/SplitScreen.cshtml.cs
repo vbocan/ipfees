@@ -31,57 +31,60 @@ namespace IPFees.Web.Pages
         {
             _calc = IPFCalculator;
             this.moduleRepository = moduleRepository;
-            _logger = logger;
+            _logger = logger;            
         }
 
         public async Task<IActionResult> OnGetAsync()
         {
+            // Prepare view model for referenced modules
+            var Mods = moduleRepository.GetModules().Result;
+            ReferencedModules = Mods.Select(s => new ModuleViewModel(s.Name, s.Description, s.LastUpdatedOn, false)).ToList();
+
             if (Request.Cookies["code"] != null)
             {
-                Code = @Request.Cookies["code"];
+                Code = Request.Cookies["code"];
             }
-            // Prepare view model for referenced modules
-            var Mods = await moduleRepository.GetModules();
-            ReferencedModules = Mods.Select(s => new ModuleViewModel(s.Name, s.Description, s.LastUpdatedOn, false)).ToList();
-            TempData["modules"] = ReferencedModules;
             return Page();
         }
 
         public async Task<IActionResult> OnPostExecuteCodeAsync()
-        {
-            Code = (string)TempData.Peek("code");
+        {            
             if (string.IsNullOrEmpty(Code)) return Page();
+            Response.Cookies.Append("code", Code);
             // Log code execution
             _logger.LogInformation("Executing code:");
             foreach (var cl in Code.Split(Environment.NewLine, StringSplitOptions.RemoveEmptyEntries))
             {
                 _logger.LogInformation("> {0}", cl);
-            }
-            // Parse referenced modules
-            var RefMod = (IEnumerable<string>)TempData.Peek("modules") ?? Enumerable.Empty<string>();
-            foreach (var rm in RefMod)
+            }            
+            // Parse referenced modules            
+            foreach (var rm in ReferencedModules)
             {
-                var module = await moduleRepository.GetModuleByName(rm);
+                var module = await moduleRepository.GetModuleByName(rm.Name);
                 _calc.Parse(module.SourceCode);
             }
             _calc.Parse(Code);
 
             // Store parsed variables
             Vars = _calc.GetVariables();
-
+            TempData["modules"] = ReferencedModules.Where(w => w.Checked).Select(s => s.Name).ToList();
             return Page();
         }
 
         public async Task<IActionResult> OnPostResultAsync(IFormCollection form)
         {
-            var RefMod = (IEnumerable<string>)TempData.Peek("modules") ?? Enumerable.Empty<string>();
+            // Prepare view model for referenced modules            
+            var RefMod = (IEnumerable<string>)TempData["modules"];
             foreach (var rm in RefMod)
             {
                 var module = await moduleRepository.GetModuleByName(rm);
                 _calc.Parse(module.SourceCode);
             }
-
-            Code = (string)TempData.Peek("code");
+            // Parse code
+            if (Request.Cookies["code"] != null)
+            {
+                Code = @Request.Cookies["code"];
+            }
             _calc.Parse(Code);
 
             Vars = _calc.GetVariables();
@@ -131,7 +134,7 @@ namespace IPFees.Web.Pages
                 // Log computation error
                 _logger.LogInformation("Failed! Error is {0}.", ex.Message);
             }
-
+            TempData["modules"] = RefMod;
             return Page();
         }
     }
