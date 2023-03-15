@@ -13,6 +13,7 @@ namespace IPFees.Web.Pages
         [BindProperty] public string Code { get; set; }
         [BindProperty] public IList<ModuleViewModel> ReferencedModules { get; set; }
         [BindProperty] public bool CalculationPending { get; set; } = true;
+        [BindProperty] public bool ExecutionPending { get; set; } = true;
 
         [BindProperty] public IEnumerable<string> ParseErrors { get; set; }
 
@@ -82,6 +83,7 @@ namespace IPFees.Web.Pages
             // Prepare view model for referenced modules
             var Mods = moduleRepository.GetModules().Result;
             ReferencedModules = Mods.Select(s => new ModuleViewModel(s.Name, s.Description, s.LastUpdatedOn, RefMod.Contains(s.Name))).ToList();
+            ExecutionPending = false;
             return Page();
         }
 
