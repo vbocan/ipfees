@@ -210,7 +210,7 @@ namespace IPFees.Evaluator
             {
                 return v2.Value;
             }
-            // Variable is the COUNT property
+            // Variable is the COUNT property of a multiple selection list
             if (name.EndsWith("!COUNT"))
             {
                 // Determine the list name
