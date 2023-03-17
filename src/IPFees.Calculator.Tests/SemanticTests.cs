@@ -1,6 +1,6 @@
 using IPFees.Parser;
 
-namespace IPFFees.Calculator.Tests
+namespace IPFees.Calculator.Tests
 {
     public class SemanticTests
     {

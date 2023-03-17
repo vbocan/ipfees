@@ -2,7 +2,7 @@ using IPFees.Evaluator;
 using IPFees.Parser;
 using Newtonsoft.Json.Linq;
 
-namespace IPFFees.Calculator.Tests
+namespace IPFees.Calculator.Tests
 {
     public class LogicEvaluatorTests
     {
@@ -80,6 +80,28 @@ namespace IPFFees.Calculator.Tests
                 new IPFValueString("EntityType", "NewEntity"),
             };
             var tokens = "EntityType NEQ NormalEntity".Split(new char[] { ' ' }, StringSplitOptions.None);
+            var ev = DslEvaluator.EvaluateLogic(tokens, vars);
+            Assert.True(ev);
+        }
+
+        [Fact]
+        public void TestStringListIn()
+        {
+            var vars = new IPFValue[] {
+                new IPFValueStringList("EntityType", new[] { "NormalEntity", "SmallEntity" }.AsEnumerable()),
+            };
+            var tokens = "NormalEntity IN EntityType".Split(new char[] { ' ' }, StringSplitOptions.None);
+            var ev = DslEvaluator.EvaluateLogic(tokens, vars);
+            Assert.True(ev);
+        }
+
+        [Fact]
+        public void TestStringListNotIn()
+        {
+            var vars = new IPFValue[] {
+                new IPFValueStringList("EntityType", new[] { "NormalEntity", "SmallEntity" }.AsEnumerable()),
+            };
+            var tokens = "TinyEntity NIN EntityType".Split(new char[] { ' ' }, StringSplitOptions.None);
             var ev = DslEvaluator.EvaluateLogic(tokens, vars);
             Assert.True(ev);
         }

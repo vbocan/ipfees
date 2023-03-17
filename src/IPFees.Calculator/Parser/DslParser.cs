@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using System.Linq;
+using System.Text;
 using System.Xml.Linq;
 
 namespace IPFees.Parser
@@ -7,7 +8,8 @@ namespace IPFees.Parser
     {
         Parsing CurrentlyParsing = Parsing.None;
 
-        private DslVariableList CurrentList { get; set; } = new DslVariableList(string.Empty, string.Empty, new List<DslListItem>(), string.Empty, false);
+        private DslVariableList CurrentList { get; set; } = new DslVariableList(string.Empty, string.Empty, new List<DslListItem>(), string.Empty);
+        private DslVariableListMultiple CurrentListMultiple { get; set; } = new DslVariableListMultiple(string.Empty, string.Empty, new List<DslListItem>(), new List<string>());
         private DslVariableNumber CurrentNumber { get; set; } = new DslVariableNumber(string.Empty, string.Empty, int.MinValue, int.MaxValue, 0);
         private DslVariableBoolean CurrentBoolean { get; set; } = new DslVariableBoolean(string.Empty, string.Empty, false);
         private DslFee CurrentFee { get; set; } = new DslFee(string.Empty, false, new List<DslItem>(), new List<DslFeeVar>());
@@ -27,6 +29,9 @@ namespace IPFees.Parser
                 ParseList,
                 ParseListChoice,
                 ParseListDefaultValue,
+                ParseListMultiple,
+                ParseListMultipleChoice,
+                ParseListMultipleDefaultValues,
                 ParseNumber,
                 ParseNumberBetween,
                 ParseNumberDefault,
@@ -101,7 +106,7 @@ namespace IPFees.Parser
             {
                 if (line[i] == '\'') InString = !InString;
                 if (line[i] == '#' && !InString) break;
-            }            
+            }
             string line1 = line[..i].Trim();
             return line1;
         }
@@ -179,18 +184,12 @@ namespace IPFees.Parser
         bool ParseList(string[] tokens)
         {
             if (CurrentlyParsing != Parsing.None) return false;
-            if (tokens.Length != 5 && tokens.Length != 6) return false;
+            if (tokens.Length != 5) return false;
             if (tokens[0] != "DEFINE") return false;
             if (tokens[1] != "LIST") return false;
             if (tokens[3] != "AS") return false;
-            var IsMultiple = false;
-            if (tokens.Length == 6)
-            {
-                if (tokens[5] != "MULTIPLE") return false;
-                IsMultiple = true;
-            }
             CurrentlyParsing = Parsing.List;
-            CurrentList = new DslVariableList(tokens[2], tokens[4], new List<DslListItem>(), string.Empty, IsMultiple);
+            CurrentList = new DslVariableList(tokens[2], tokens[4], new List<DslListItem>(), string.Empty);
             return true;
         }
 
@@ -211,6 +210,42 @@ namespace IPFees.Parser
             if (tokens.Length != 2) return false;
             if (tokens[0] != "DEFAULT") return false;
             CurrentList = CurrentList with { DefaultSymbol = tokens[1] };
+            return true;
+        }
+        #endregion
+
+        #region List Parsing (Multiple Selection)
+        bool ParseListMultiple(string[] tokens)
+        {
+            if (CurrentlyParsing != Parsing.None) return false;
+            if (tokens.Length != 6) return false;
+            if (tokens[0] != "DEFINE") return false;
+            if (tokens[1] != "LIST") return false;
+            if (tokens[3] != "AS") return false;
+            if (tokens[5] != "MULTIPLE") return false;
+            CurrentlyParsing = Parsing.ListMultiple;
+            CurrentListMultiple = new DslVariableListMultiple(tokens[2], tokens[4], new List<DslListItem>(), new List<string>());
+            return true;
+        }
+
+        bool ParseListMultipleChoice(string[] tokens)
+        {
+            if (CurrentlyParsing != Parsing.ListMultiple) return false;
+            if (tokens.Length != 4) return false;
+            if (tokens[0] != "CHOICE") return false;
+            if (tokens[2] != "AS") return false;
+            var item = new DslListItem(tokens[1], tokens[3]);
+            CurrentListMultiple.Items.Add(item);
+            return true;
+        }
+
+        bool ParseListMultipleDefaultValues(string[] tokens)
+        {
+            if (CurrentlyParsing != Parsing.ListMultiple) return false;
+            if (!(tokens.Length > 1)) return false;
+            if (tokens[0] != "DEFAULT") return false;
+            var DefaultSymbols = string.Join("", tokens.Skip(1));
+            CurrentListMultiple = CurrentListMultiple with { DefaultSymbols = DefaultSymbols.Split(',', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries).ToList() };
             return true;
         }
         #endregion
@@ -284,6 +319,10 @@ namespace IPFees.Parser
             {
                 case Parsing.List:
                     IPFVariables.Add(CurrentList);
+                    CurrentlyParsing = Parsing.None;
+                    return true;
+                case Parsing.ListMultiple:
+                    IPFVariables.Add(CurrentListMultiple);
                     CurrentlyParsing = Parsing.None;
                     return true;
                 case Parsing.Boolean:
@@ -386,6 +425,6 @@ namespace IPFees.Parser
 
     internal enum Parsing
     {
-        None, List, Number, Boolean, Fee, FeeCase
+        None, List, ListMultiple, Number, Boolean, Fee, FeeCase
     }
 }

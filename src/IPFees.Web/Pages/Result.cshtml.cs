@@ -4,6 +4,7 @@ using IPFees.Parser;
 using IPFFees.Core;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using System.Diagnostics;
 
 namespace IPFees.Web.Pages
 {
@@ -59,6 +60,9 @@ namespace IPFees.Web.Pages
                 {
                     case DslVariableList:
                         CollectedValues.Add(new IPFValueString(CalcVar.Name, field.Value));
+                        break;
+                    case DslVariableListMultiple:
+                        CollectedValues.Add(new IPFValueStringList(CalcVar.Name, field.Value));
                         break;
                     case DslVariableNumber:
                         _ = int.TryParse(field.Value, out var val2);
