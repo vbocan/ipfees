@@ -119,7 +119,7 @@ namespace IPFees.Evaluator
                 var sb = new StringBuilder();
 
                 // Accept letter, digit or underscore
-                while (char.IsLetterOrDigit(_currentChar) || _currentChar == '_')
+                while (char.IsLetterOrDigit(_currentChar) || _currentChar == '_' || _currentChar == '!')
                 {
                     sb.Append(_currentChar);
                     NextChar();
