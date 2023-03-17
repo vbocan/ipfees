@@ -2,7 +2,7 @@
 {
     public abstract record DslVariable(string Name, string Text);
     public record DslVariableBoolean(string Name, string Text, bool DefaultValue) : DslVariable(Name, Text);
-    public record DslVariableList(string Name, string Text, IList<DslListItem> Items, string DefaultSymbol) : DslVariable(Name, Text);
+    public record DslVariableList(string Name, string Text, IList<DslListItem> Items, string DefaultSymbol, bool Multiple) : DslVariable(Name, Text);
     public record DslListItem(string Symbol, string Value);
     public record DslVariableNumber(string Name, string Text, int MinValue, int MaxValue, int DefaultValue) : DslVariable(Name, Text);
 

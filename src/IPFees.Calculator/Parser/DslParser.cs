@@ -7,7 +7,7 @@ namespace IPFees.Parser
     {
         Parsing CurrentlyParsing = Parsing.None;
 
-        private DslVariableList CurrentList { get; set; } = new DslVariableList(string.Empty, string.Empty, new List<DslListItem>(), string.Empty);
+        private DslVariableList CurrentList { get; set; } = new DslVariableList(string.Empty, string.Empty, new List<DslListItem>(), string.Empty, false);
         private DslVariableNumber CurrentNumber { get; set; } = new DslVariableNumber(string.Empty, string.Empty, int.MinValue, int.MaxValue, 0);
         private DslVariableBoolean CurrentBoolean { get; set; } = new DslVariableBoolean(string.Empty, string.Empty, false);
         private DslFee CurrentFee { get; set; } = new DslFee(string.Empty, false, new List<DslItem>(), new List<DslFeeVar>());
@@ -162,12 +162,13 @@ namespace IPFees.Parser
         bool ParseList(string[] tokens)
         {
             if (CurrentlyParsing != Parsing.None) return false;
-            if (tokens.Length != 5) return false;
+            if (tokens.Length != 5 && tokens.Length != 6) return false;
             if (tokens[0] != "DEFINE") return false;
             if (tokens[1] != "LIST") return false;
             if (tokens[3] != "AS") return false;
+            var IsMultiple = (tokens.Length > 4) && (tokens[5] == "MULTIPLE");
             CurrentlyParsing = Parsing.List;
-            CurrentList = new DslVariableList(tokens[2], tokens[4], new List<DslListItem>(), string.Empty);
+            CurrentList = new DslVariableList(tokens[2], tokens[4], new List<DslListItem>(), string.Empty, IsMultiple);
             return true;
         }
 
