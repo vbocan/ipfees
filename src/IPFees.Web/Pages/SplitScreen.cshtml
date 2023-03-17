@@ -80,6 +80,23 @@
                                     }
                                 </select>
                                 break;
+                            case DslVariableListMultiple:
+                                var v4 = (DslVariableListMultiple)v;
+                                <label class="form-label" for="@v4.Name">@v4.Text</label>
+                                <select class="form-select form-select-lg mb-3" name="@v4.Name" id="@v4.Name" multiple>
+                                    @foreach (var item in v4.Items)
+                                    {
+                                        if (v4.DefaultSymbols.Contains(item.Symbol))
+                                        {
+                                            <option selected value="@item.Symbol">@item.Value</option>
+                                        }
+                                        else
+                                        {
+                                            <option value="@item.Symbol">@item.Value</option>
+                                        }
+                                    }
+                                </select>
+                                break;
                             case DslVariableNumber:
                                 var v2 = (DslVariableNumber)v;
                                 <div class="mb-3 col-md-6">
@@ -109,7 +126,8 @@
                 @if (!Model.ExecutionPending)
                 {
                     <button type="submit" class="btn btn-primary">Compute Result</button>
-                } else
+                }
+                else
                 {
                     <div class="col-md-6">
                         <p class="text-muted">Click [Execute Code] on the left.</p>
@@ -127,7 +145,7 @@
                 </div>
             }
             else
-            {                
+            {
                 <div class="col-md-12">
                     <h4>Total: @((Model.TotalMandatoryAmount + Model.TotalOptionalAmount).ToString("0.00"))</h4>
                     <h6>Mandatory Fees: @Model.TotalMandatoryAmount.ToString("0.00") | Optional Fees: @Model.TotalOptionalAmount.ToString("0.00")</h6>
