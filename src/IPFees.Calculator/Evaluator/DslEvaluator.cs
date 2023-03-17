@@ -206,7 +206,22 @@ namespace IPFees.Evaluator
             // Variable is local to the current fee
             var VarName = new StringBuilder().AppendFormat($"{FeeName}.{name}").ToString();
             var v2 = Vars.OfType<IPFValueNumber>().Where(w => w.Name.Equals(VarName)).SingleOrDefault();
-            return v2 != null ? v2.Value : throw new InvalidDataException($"No variable [{name}] in fee [{FeeName}]'");
+            if (v2 != null)
+            {
+                return v2.Value;
+            }
+            // Variable is the COUNT property            
+            if (name.EndsWith("_COUNT"))
+            {
+                // Determine the list name
+                var ListName = name.Substring(0,name.Length - 6);
+                // Get the list by its name
+                var List = Vars.SingleOrDefault(s => s.Name.Equals(ListName)) as IPFValueStringList;
+                // Push the length of the list (number of items)
+                return List.Value.Count();
+            }
+
+            throw new InvalidDataException($"No variable [{name}] in fee [{FeeName}]'");
         }
 
         public double CallFunction(string name, double[] arguments)
