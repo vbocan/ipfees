@@ -31,6 +31,23 @@
                                 }
                             </select>
                             break;
+                        case DslVariableListMultiple:
+                            var v4 = (DslVariableListMultiple)v;
+                            <label class="form-label" for="@v4.Name">@v4.Text</label>
+                            <select class="form-select form-select-lg mb-3" name="@v4.Name" id="@v4.Name" multiple>
+                                @foreach (var item in v4.Items)
+                                {
+                                    if (v4.DefaultSymbols.Contains(item.Symbol))
+                                    {
+                                        <option selected value="@item.Symbol">@item.Value</option>
+                                    }
+                                    else
+                                    {
+                                        <option value="@item.Symbol">@item.Value</option>
+                                    }
+                                }
+                            </select>
+                            break;
                         case DslVariableNumber:
                             var v2 = (DslVariableNumber)v;
                             <div class="mb-3 col-md-6">
