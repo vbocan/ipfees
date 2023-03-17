@@ -14,19 +14,39 @@
                 case DslVariableList:
                     var v1 = (DslVariableList)v;
                     <label class="form-label" for="@v1.Name">@v1.Text</label>
-                    <select class="form-select form-select-lg mb-3" name="@v1.Name" id="@v1.Name">
-                        @foreach (var item in v1.Items)
-                        {
-                            if (v1.DefaultSymbol.Equals(item.Symbol))
+                    @if (v1.Multiple)
+                    {
+                        <!-- Multiple select list-->
+                        <select class="form-select form-select-lg mb-3" name="@v1.Name" id="@v1.Name" multiple>
+                            @foreach (var item in v1.Items)
                             {
-                                <option selected value="@item.Symbol">@item.Value</option>
+                                if (v1.DefaultSymbol.Equals(item.Symbol))
+                                {
+                                    <option selected value="@item.Symbol">@item.Value</option>
+                                }
+                                else
+                                {
+                                    <option value="@item.Symbol">@item.Value</option>
+                                }
                             }
-                            else
+                        </select>
+                    } else
+                    {
+                        <!-- Single select list-->
+                        <select class="form-select form-select-lg mb-3" name="@v1.Name" id="@v1.Name">
+                            @foreach (var item in v1.Items)
                             {
-                                <option value="@item.Symbol">@item.Value</option>
+                                if (v1.DefaultSymbol.Equals(item.Symbol))
+                                {
+                                    <option selected value="@item.Symbol">@item.Value</option>
+                                }
+                                else
+                                {
+                                    <option value="@item.Symbol">@item.Value</option>
+                                }
                             }
-                        }
-                    </select>                    
+                        </select>
+                    }
                     break;
                 case DslVariableNumber:
                     var v2 = (DslVariableNumber)v;

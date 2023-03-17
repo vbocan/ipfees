@@ -60,6 +60,27 @@ namespace IPFees.Calculator.Tests
         }
 
         [Fact]
+        public void TestCommentInString()
+        {
+            string text =
+            """
+            # Define a list variable
+            DEFINE LIST L1 AS 'List #1'
+            CHOICE C1 AS 'Choice #1'            
+            ENDDEFINE
+            """;
+            var p = new DslParser();
+            var _ = p.Parse(text);
+            var result = (DslVariableList?)p.GetVariables().SingleOrDefault();
+            Assert.NotNull(result);
+            Assert.Equal("L1", result.Name);
+            Assert.Equal("List #1", result.Text);            
+            Assert.False(result.Multiple);
+            Assert.Equal(1, result.Items.Count);
+            Assert.Equal(new DslListItem("C1", "Choice #1"), result.Items[0]);
+        }
+
+        [Fact]
         public void TestVariableNumber()
         {
             string text =
