@@ -45,9 +45,7 @@ namespace IPFees.Parser
 
             for (int i = 0; i < IPFData.Length; i++)
             {
-                // Ignore comments (after the # sign)
-                int CommentIndex = IPFData[i].IndexOf('#');
-                string line = (CommentIndex == -1 ? IPFData[i] : IPFData[i].Substring(0, CommentIndex)).Trim();
+                string line = ProcessComment(IPFData[i]);
                 // Do not process an empty line
                 if (string.IsNullOrEmpty(line)) { continue; }
                 // Generate tokens
@@ -87,6 +85,25 @@ namespace IPFees.Parser
             }
 
             return true;
+        }
+
+        /// <summary>
+        /// Strips comment from the input line
+        /// </summary>
+        /// <param name="line">Original source line</param>
+        /// <returns>Source line without comment (everything after the # character)</returns>
+        private static string ProcessComment(string line)
+        {
+            // Ignore comments (after the # sign) but only if the comment is outside a string
+            bool InString = false;
+            var i = 0;
+            for (; i < line.Length; i++)
+            {
+                if (line[i] == '\'') InString = !InString;
+                if (line[i] == '#' && !InString) break;
+            }            
+            string line1 = line[..i].Trim();
+            return line1;
         }
 
         public IEnumerable<DslVariable> GetVariables()
