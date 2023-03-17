@@ -166,7 +166,12 @@ namespace IPFees.Parser
             if (tokens[0] != "DEFINE") return false;
             if (tokens[1] != "LIST") return false;
             if (tokens[3] != "AS") return false;
-            var IsMultiple = (tokens.Length > 4) && (tokens[5] == "MULTIPLE");
+            var IsMultiple = false;
+            if (tokens.Length == 6)
+            {
+                if (tokens[5] != "MULTIPLE") return false;
+                IsMultiple = true;
+            }
             CurrentlyParsing = Parsing.List;
             CurrentList = new DslVariableList(tokens[2], tokens[4], new List<DslListItem>(), string.Empty, IsMultiple);
             return true;
