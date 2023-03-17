@@ -14,10 +14,11 @@
         </h6>
         <p class="card-text">
             The process of describing IP fees in IPFLang consists of determining what the inputs are and how the fee is composed off small amounts that accrue based on rules.<br/>
-            There are three types of inputs available:
+            There are four types of inputs available:
         </p>
         <ul>
             <li>String list with individual choices</li>
+            <li>String list with multiple choices</li>
             <li>Number (floating point), with lower and upper bounds as well as a default value</li>
             <li>Boolean (for yes/no types of responses)</li>
         </ul>
@@ -30,8 +31,8 @@
 
 <div class="card mb-3" style="width: 48rem;">
     <div class="card-body">
-        <h5 class="card-title">Multiple-Choice Input</h5>
-        <h6 class="card-subtitle mb-2 text-muted">Multiple-choice input displays a list of string choices and allows the user to select one of those. A default choice can be specified.</h6>
+        <h5 class="card-title">Single-Selection List</h5>
+        <h6 class="card-subtitle mb-2 text-muted">Single-selection input displays a list of string choices and allows the user to select one of those. A default choice must be specified.</h6>
         <p class="card-text">
             DEFINE LIST EntityType AS 'Select the desired entity type'<br />
             CHOICE NormalEntity AS 'Normal'<br />
@@ -40,6 +41,23 @@
             DEFAULT NormalEntity<br />
             ENDDEFINE
         </p>
+    </div>
+</div>
+
+<div class="card mb-3" style="width: 48rem;">
+    <div class="card-body">
+        <h5 class="card-title">Multiple-Selection List</h5>
+        <h6 class="card-subtitle mb-2 text-muted">Multiple-selection input displays a list of string choices and allows the user to select one or more of those. One or more default choices must be specified (separated by comma).</h6>
+        <p class="card-text">
+            DEFINE LIST EntityType AS 'Select the desired entity type' MULTIPLE<br />
+            CHOICE NormalEntity AS 'Normal'<br />
+            CHOICE SmallEntity AS 'Small'<br />
+            CHOICE MicroEntity AS 'Micro'<br />
+            DEFAULT SmallEntity,NormalEntity<br />
+            ENDDEFINE
+        </p>
+        <p>To get the number of selected choices, use the !COUNT property, e.g. EntityType!COUNT.</p>
+        <p>To test user selection, use the IN and NIN operators.</p>
     </div>
 </div>
 
@@ -154,6 +172,20 @@
             YIELD ROUND(420*((SheetCount-100)/50)) IF SheetCount GT 100 AND EntityType EQ NormalEntity<br />
             YIELD FLOOR(168*((SheetCount-100)/50)) IF SheetCount GT 100 AND EntityType EQ SmallEntity<br />
             YIELD CEIL(84*((SheetCount-100)/50)) IF SheetCount GT 100 AND EntityType EQ MicroEntity<br />
+            ENDCOMPUTE
+        </p>
+    </div>
+</div>
+
+<div class="card mb-3" style="width: 48rem;">
+    <div class="card-body">
+        <h5 class="card-title">List Selection Test</h5>
+        <h6 class="card-subtitle mb-2 text-muted">To test for user selection, use the IN and NIN operators.</h6>
+        <p class="card-text">
+            COMPUTE FEE SheetFee<br />
+            YIELD 100 IF Country1 IN Countries<br />
+            YIELD 200 IF Country2 IN Countries<br />
+            YIELD 25 IF Country1 NIN Countries AND COuntry2 NIN Countries
             ENDCOMPUTE
         </p>
     </div>
