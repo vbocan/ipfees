@@ -24,8 +24,7 @@ namespace IPFees.Calculator.Tests
             Assert.NotNull(result);
             Assert.Equal("EntityType", result.Name);
             Assert.Equal("Entity type", result.Text);
-            Assert.Equal("NormalEntity", result.DefaultSymbol);
-            Assert.False(result.Multiple);
+            Assert.Equal("NormalEntity", result.DefaultSymbol);            
             Assert.Equal(3, result.Items.Count);
             Assert.Equal(new DslListItem("NormalEntity", "Normal"), result.Items[0]);
             Assert.Equal(new DslListItem("SmallEntity", "Small"), result.Items[1]);
@@ -42,17 +41,17 @@ namespace IPFees.Calculator.Tests
             CHOICE NormalEntity AS 'Normal'
             CHOICE SmallEntity AS 'Small'
             CHOICE MicroEntity AS 'Micro'
-            DEFAULT NormalEntity
+            DEFAULT SmallEntity,NormalEntity
             ENDDEFINE
             """;
             var p = new DslParser();
             var _ = p.Parse(text);
-            var result = (DslVariableList?)p.GetVariables().SingleOrDefault();
+            var result = (DslVariableListMultiple?)p.GetVariables().SingleOrDefault();
             Assert.NotNull(result);
             Assert.Equal("EntityType", result.Name);
             Assert.Equal("Entity type", result.Text);
-            Assert.Equal("NormalEntity", result.DefaultSymbol);
-            Assert.True(result.Multiple);
+            Assert.Equal("SmallEntity", result.DefaultSymbols[0]);
+            Assert.Equal("NormalEntity", result.DefaultSymbols[1]);
             Assert.Equal(3, result.Items.Count);
             Assert.Equal(new DslListItem("NormalEntity", "Normal"), result.Items[0]);
             Assert.Equal(new DslListItem("SmallEntity", "Small"), result.Items[1]);
@@ -75,8 +74,7 @@ namespace IPFees.Calculator.Tests
             var result = (DslVariableList?)p.GetVariables().SingleOrDefault();
             Assert.NotNull(result);
             Assert.Equal("L1", result.Name);
-            Assert.Equal("List #1", result.Text);            
-            Assert.False(result.Multiple);
+            Assert.Equal("List #1", result.Text);
             Assert.Equal(1, result.Items.Count);
             Assert.Equal(new DslListItem("C1", "Choice #1"), result.Items[0]);
         }

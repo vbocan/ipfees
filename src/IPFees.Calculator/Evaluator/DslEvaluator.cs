@@ -15,7 +15,7 @@ namespace IPFees.Evaluator
     {
         public DslEvaluator() { }
 
-        private static readonly Dictionary<string, int> Operators = new() { { "LT", 4 }, { "LTE", 4 }, { "GT", 4 }, { "GTE", 4 }, { "EQ", 3 }, { "NEQ", 3 }, { "AND", 2 }, { "OR", 1 } };
+        private static readonly Dictionary<string, int> Operators = new() { { "LT", 4 }, { "LTE", 4 }, { "GT", 4 }, { "GTE", 4 }, { "EQ", 3 }, { "NEQ", 3 }, { "IN", 3 }, { "NIN", 3 }, { "AND", 2 }, { "OR", 1 } };
 
         public static double EvaluateExpression(string[] Tokens, IEnumerable<IPFValue> Vars) => EvaluateExpression(Tokens, Vars, string.Empty);
         public static double EvaluateExpression(string[] Tokens, IEnumerable<IPFValue> Vars, string FeeName)
@@ -35,7 +35,7 @@ namespace IPFees.Evaluator
             var ops = new Stack<string>();
 
             for (int i = 0; i < Tokens.Length; i++)
-            {                
+            {
                 // Current token is a global variable                
                 var Variable = Vars.SingleOrDefault(s => s.Name.Equals(Tokens[i]));
                 if (Variable is not null)
@@ -105,7 +105,7 @@ namespace IPFees.Evaluator
             var result = values.Pop();
             if (result is not IPFValueBoolean) throw new NotSupportedException(string.Format("Invalid logic expression: [{0}]", string.Join(' ', Tokens)));
             return (result as IPFValueBoolean).Value;
-        }        
+        }
 
         // Returns true if 'op2' has higher or same precedence as 'op1', otherwise returns false.
         private static bool HasPrecedence(string op1, string op2)
@@ -133,7 +133,7 @@ namespace IPFees.Evaluator
                     "OR" => new IPFValueBoolean(string.Empty, av || bv),
                     "EQ" => new IPFValueBoolean(string.Empty, av == bv),
                     "NEQ" => new IPFValueBoolean(string.Empty, av != bv),
-                    "LT" or "LTE" or "GT" or "GTE" => throw new NotSupportedException($"Operator [{op}] cannot compare boolean values"),
+                    "LT" or "LTE" or "GT" or "GTE" or "IN" or "NIN" => throw new NotSupportedException($"Operator [{op}] cannot compare booleans"),
                     _ => throw new InvalidDataException($"Unknown operator: '{op}'"),
                 };
             }
@@ -146,9 +146,22 @@ namespace IPFees.Evaluator
                 {
                     "EQ" => new IPFValueBoolean(string.Empty, av == bv),
                     "NEQ" => new IPFValueBoolean(string.Empty, av != bv),
-                    "AND" or "OR" or "LT" or "LTE" or "GT" or "GTE" => throw new NotSupportedException($"Operator [{op}] cannot compare string values"),
+                    "AND" or "OR" or "LT" or "LTE" or "GT" or "GTE" or "IN" or "NIN" => throw new NotSupportedException($"Operator [{op}] cannot compare strings"),
                     _ => throw new InvalidDataException($"Unknown operator: '{op}'"),
                 };
+            }
+            // Left value is string and right value is string list
+            else if (a is IPFValueString && b is IPFValueStringList)
+            {
+                var av = (a as IPFValueString).Value;
+                var bv = (b as IPFValueStringList).Value;
+                return op switch
+                {
+                    "IN" => new IPFValueBoolean(string.Empty, bv.Contains(av)),
+                    "NIN" => new IPFValueBoolean(string.Empty, !bv.Contains(av)),
+                    "EQ" or "NEQ" or "AND" or "OR" or "LT" or "LTE" or "GT" or "GTE" => throw new NotSupportedException($"Operator [{op}] cannot compare string lists"),
+                    _ => throw new InvalidDataException($"Unknown operator: '{op}'"),
+                }; ;
             }
             // Both values are numeric
             else if (a is IPFValueNumber && b is IPFValueNumber)
@@ -163,11 +176,11 @@ namespace IPFees.Evaluator
                     "LTE" => new IPFValueBoolean(string.Empty, av <= bv),
                     "GT" => new IPFValueBoolean(string.Empty, av > bv),
                     "GTE" => new IPFValueBoolean(string.Empty, av >= bv),
-                    "AND" or "OR" => throw new NotSupportedException($"Operator [{op}] cannot compare numeric values"),
+                    "AND" or "OR" or "IN" or "NIN" => throw new NotSupportedException($"Operator [{op}] cannot compare numbers"),
                     _ => throw new InvalidDataException($"Unknown operator: '{op}'"),
                 };
             }
-            else throw new NotSupportedException($"Type mismatch for [{a}] and [{b}], both should be either string, boolean or numeric)");
+            else throw new NotSupportedException($"Type mismatch for [{a}] and [{b}]");
         }
 
     }
