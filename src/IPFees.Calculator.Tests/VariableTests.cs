@@ -66,7 +66,8 @@ namespace IPFees.Calculator.Tests
             """
             # Define a list variable
             DEFINE LIST L1 AS 'List #1'
-            CHOICE C1 AS 'Choice #1'            
+            CHOICE C1 AS 'Choice #1'
+            DEFAULT C1
             ENDDEFINE
             """;
             var p = new DslParser();
