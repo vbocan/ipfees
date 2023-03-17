@@ -210,8 +210,8 @@ namespace IPFees.Evaluator
             {
                 return v2.Value;
             }
-            // Variable is the COUNT property            
-            if (name.EndsWith("_COUNT"))
+            // Variable is the COUNT property
+            if (name.EndsWith("!COUNT"))
             {
                 // Determine the list name
                 var ListName = name.Substring(0,name.Length - 6);

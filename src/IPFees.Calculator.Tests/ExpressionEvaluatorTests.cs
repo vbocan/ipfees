@@ -75,7 +75,7 @@ namespace IPFees.Calculator.Tests
                 new IPFValueStringList("A", new[] {"str1", "str2" }.ToList()),
                 new IPFValueNumber("N", 10.0),
             };
-            var tokens = "A_COUNT".Split(new char[] { ' ' }, StringSplitOptions.None);
+            var tokens = "A!COUNT".Split(new char[] { ' ' }, StringSplitOptions.None);
             var ev = DslEvaluator.EvaluateExpression(tokens, vars);
             Assert.Equal(2, ev);
         }
