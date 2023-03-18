@@ -64,7 +64,7 @@ namespace IPFees.Calculator
                         if (cond_b)
                         {
                             CurrentAmount += val_b;
-                            ComputeSteps.Add(string.Format("Expression [{0}] evaluates to [{1}], so the new amount is {2}", string.Join(" ", b.Values), val_b, CurrentAmount.ToString("0.00")));
+                            ComputeSteps.Add(string.Format("Expression [{0}] evaluates to [{1}], therefore the new amount is {2}", string.Join(" ", b.Values), val_b, CurrentAmount.ToString("0.00")));
                         }
                     }
                 }
