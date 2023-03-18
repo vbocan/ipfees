@@ -117,6 +117,9 @@ namespace IPFees.Web.Pages
                     case DslVariableList:
                         CollectedValues.Add(new IPFValueString(CalcVar.Name, field.Value));
                         break;
+                    case DslVariableListMultiple:
+                        CollectedValues.Add(new IPFValueStringList(CalcVar.Name, field.Value));
+                        break;
                     case DslVariableNumber:
                         _ = int.TryParse(field.Value, out var val2);
                         CollectedValues.Add(new IPFValueNumber(CalcVar.Name, val2));
