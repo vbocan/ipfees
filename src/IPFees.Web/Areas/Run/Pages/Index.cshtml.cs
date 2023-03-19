@@ -14,7 +14,7 @@ namespace IPFees.Web.Areas.Run.Pages
         [BindProperty] public string Id { get; set; }
         [BindProperty] public bool CalculationPending { get; set; } = true;
 
-        [BindProperty] public IList<ParsedVariableViewModel> ParsedVariables { get; set; }
+        [BindProperty] public IList<ParsedVariableViewModel> Vars { get; set; }
         [BindProperty] public IList<IPFValue> CollectedValues { get; set; }
 
         // Calculation results
@@ -41,7 +41,7 @@ namespace IPFees.Web.Areas.Run.Pages
                 TempData["Errors"] = (res as OfficialFeeResultFail).Errors.Distinct().ToList();
                 return RedirectToPage("Error");
             }
-            ParsedVariables = (res as OfficialFeeParseSuccess).ParsedVariables.Select(pv => new ParsedVariableViewModel(pv.Name, pv.GetType().ToString(), pv, string.Empty, Array.Empty<string>(), 0, false)).ToList();
+            Vars = (res as OfficialFeeParseSuccess).ParsedVariables.Select(pv => new ParsedVariableViewModel(pv.Name, pv.GetType().ToString(), pv, string.Empty, Array.Empty<string>(), 0, false)).ToList();
             return Page();
         }
 
@@ -50,7 +50,7 @@ namespace IPFees.Web.Areas.Run.Pages
             CollectedValues = new List<IPFValue>();
 
             // Cycle through all form fields to build the collected values list
-            foreach (var item in ParsedVariables)
+            foreach (var item in Vars)
             {
                 if (item.Type == typeof(DslVariableList).ToString())
                 {
