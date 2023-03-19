@@ -20,6 +20,7 @@ namespace IPFees.Web.Pages
         public string ComputationError { get; set; }
         [BindProperty]
         public List<IPFValue> CollectedValues { get; set; }
+        [BindProperty] public IList<ParsedVariableViewModel> Vars { get; set; }
 
         private readonly IDslCalculator _calc;
         private readonly ILogger<IndexModel> _logger;
@@ -37,7 +38,7 @@ namespace IPFees.Web.Pages
 
         }
 
-        public async Task<IActionResult> OnPostAsync(IFormCollection form)
+        public async Task<IActionResult> OnPostAsync()
         {
             var RefMod = (IEnumerable<string>)TempData.Peek("modules") ?? Enumerable.Empty<string>();
             foreach (var rm in RefMod)
@@ -49,29 +50,30 @@ namespace IPFees.Web.Pages
             _calc.Parse(Code);
             var ParsedVars = _calc.GetVariables();
 
-            CollectedValues = new List<IPFValue>();
+            CollectedValues = new List<IPFValue>();            
 
-            // Cycle through all form fields
-            foreach (var field in form)
+            // Cycle through all form fields to build the collected values list
+            foreach (var item in Vars)
             {
-                var CalcVar = ParsedVars.SingleOrDefault(s => s.Name.Equals(field.Key));
-                if (CalcVar == null) continue;
-                switch (CalcVar)
+                if (item.Type == typeof(DslVariableList).ToString())
                 {
-                    case DslVariableList:
-                        CollectedValues.Add(new IPFValueString(CalcVar.Name, field.Value));
-                        break;
-                    case DslVariableListMultiple:
-                        CollectedValues.Add(new IPFValueStringList(CalcVar.Name, field.Value));
-                        break;
-                    case DslVariableNumber:
-                        _ = int.TryParse(field.Value, out var val2);
-                        CollectedValues.Add(new IPFValueNumber(CalcVar.Name, val2));
-                        break;
-                    case DslVariableBoolean:
-                        _ = bool.TryParse(field.Value[0], out var val3);
-                        CollectedValues.Add(new IPFValueBoolean(CalcVar.Name, val3));
-                        break;
+                    // A single-selection list return a string
+                    CollectedValues.Add(new IPFValueString(item.Name, item.StrValue));
+                }
+                else if (item.Type == typeof(DslVariableListMultiple).ToString())
+                {
+                    // A multiple-selection list return a string list
+                    CollectedValues.Add(new IPFValueStringList(item.Name, item.ListValue));
+                }
+                else if (item.Type == typeof(DslVariableNumber).ToString())
+                {
+                    // A number input returns a double
+                    CollectedValues.Add(new IPFValueNumber(item.Name, item.DoubleValue));
+                }
+                else if (item.Type == typeof(DslVariableBoolean).ToString())
+                {
+                    // A boolean input returns a boolean
+                    CollectedValues.Add(new IPFValueBoolean(item.Name, item.BoolValue));
                 }
             }
             // Log variable collection
