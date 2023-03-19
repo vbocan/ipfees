@@ -42,7 +42,7 @@ namespace IPFees.Web.Pages
             var Mods = await moduleRepository.GetModules();
             if (TempData["modules"] != null)
             {
-                var RefMod = (IEnumerable<string>)TempData["modules"];
+                var RefMod = (IEnumerable<string>)TempData["modules"] ?? Enumerable.Empty<string>();
                 ReferencedModules = Mods.Select(s => new ModuleViewModel(s.Name, s.Description, s.LastUpdatedOn, RefMod.Contains(s.Name))).ToList();
             }
             else
@@ -79,7 +79,7 @@ namespace IPFees.Web.Pages
 
             // Store parsed variables
             Vars = _calc.GetVariables();
-            TempData["modules"] = RefMod;
+            if (RefMod.Any()) TempData["modules"] = RefMod;
             // Prepare view model for referenced modules
             var Mods = moduleRepository.GetModules().Result;
             ReferencedModules = Mods.Select(s => new ModuleViewModel(s.Name, s.Description, s.LastUpdatedOn, RefMod.Contains(s.Name))).ToList();
@@ -90,8 +90,8 @@ namespace IPFees.Web.Pages
         public async Task<IActionResult> OnPostResultAsync(IFormCollection form)
         {
             // Prepare view model for referenced modules            
-            var RefMod = (IEnumerable<string>)TempData["modules"];
-            foreach (var rm in RefMod ?? Enumerable.Empty<string>())
+            var RefMod = (IEnumerable<string>)TempData["modules"] ?? Enumerable.Empty<string>();
+            foreach (var rm in RefMod)
             {
                 var module = await moduleRepository.GetModuleByName(rm);
                 _calc.Parse(module.SourceCode);
@@ -153,7 +153,7 @@ namespace IPFees.Web.Pages
                 // Log computation error
                 _logger.LogInformation("Failed! Error is {0}.", ex.Message);
             }
-            TempData["modules"] = RefMod;
+            if (RefMod.Any()) TempData["modules"] = RefMod;
             // Prepare view model for referenced modules
             var Mods = moduleRepository.GetModules().Result;
             ReferencedModules = Mods.Select(s => new ModuleViewModel(s.Name, s.Description, s.LastUpdatedOn, RefMod.Contains(s.Name))).ToList();
