@@ -17,10 +17,10 @@
                     {
                         case DslVariableList:
                             var v1 = (DslVariableList)v.Var;
-                            <label class="form-label" for="@Model.VarItems[i].Value">@v1.Text</label>
+                            <label class="form-label" for="@v1.Name">@v1.Text</label>
                             <input type="hidden" asp-for="@Model.VarItems[i].Name" />
                             <input type="hidden" asp-for="@Model.VarItems[i].VarType" />
-                            <select class="form-select form-select-lg mb-3" asp-for="@Model.VarItems[i].Value">
+                            <select class="form-select form-select-lg mb-3" asp-for="@Model.VarItems[i].StrValue">
                                 @foreach (var item in v1.Items)
                                 {
                                     if (v1.DefaultSymbol.Equals(item.Symbol))
@@ -36,10 +36,10 @@
                             break;
                         case DslVariableListMultiple:
                             var v4 = (DslVariableListMultiple)v.Var;
-                            <label class="form-label" for="@Model.VarItems[i].Value">@v4.Text</label>
+                            <label class="form-label" for="@v4.Name">@v4.Text</label>
                             <input type="hidden" asp-for="@Model.VarItems[i].Name" />
                             <input type="hidden" asp-for="@Model.VarItems[i].VarType" />
-                            <select class="form-select form-select-lg mb-3" asp-for="@Model.VarItems[i].Value" multiple>
+                            <select class="form-select form-select-lg mb-3" asp-for="@Model.VarItems[i].ListValue" multiple>
                                 @foreach (var item in v4.Items)
                                 {
                                     if (v4.DefaultSymbols.Contains(item.Symbol))
@@ -59,7 +59,7 @@
                                 <label class="form-label" for="@v2.Name">@v2.Text</label>
                                 <input type="hidden" asp-for="@Model.VarItems[i].Name" />
                                 <input type="hidden" asp-for="@Model.VarItems[i].VarType" />
-                                <input class="form-control" type="number" asp-for="@Model.VarItems[i].Value" value="@v2.DefaultValue" min="@v2.MinValue" max="@v2.MaxValue">
+                                <input class="form-control" type="number" asp-for="@Model.VarItems[i].DoubleValue" value="@v2.DefaultValue" min="@v2.MinValue" max="@v2.MaxValue">
                             </div>
                             break;
                         case DslVariableBoolean:
@@ -70,12 +70,12 @@
                                 <input type="hidden" asp-for="@Model.VarItems[i].VarType" />
                                 @if (v3.DefaultValue)
                                 {
-                                    <input class="form-check-input" type="checkbox" asp-for="@Model.VarItems[i].Value" value="true" checked>
+                                    <input class="form-check-input" type="checkbox" asp-for="@Model.VarItems[i].BoolValue" value="true" checked>
                                     <input type="hidden" name="@v3.Name" value="false">
                                 }
                                 else
                                 {
-                                    <input class="form-check-input" type="checkbox" asp-for="@Model.VarItems[i].Value" value="true">
+                                    <input class="form-check-input" type="checkbox" asp-for="@Model.VarItems[i].BoolValue" value="true">
                                     <input type="hidden" name="@v3.Name" value="false">
                                 }
                             </div>

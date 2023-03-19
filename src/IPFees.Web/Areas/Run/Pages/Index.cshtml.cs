@@ -14,8 +14,8 @@ namespace IPFees.Web.Areas.Run.Pages
         [BindProperty] public string Id { get; set; }
         [BindProperty] public bool CalculationPending { get; set; } = true;
 
-        [BindProperty] public IList<ItemViewModel> VarItems { get; set; }        
-        [BindProperty] public List<IPFValue> CollectedValues { get; set; }
+        [BindProperty] public IList<ItemViewModel> VarItems { get; set; }
+        [BindProperty] public IList<IPFValue> CollectedValues { get; set; }
 
         // Calculation results
         [BindProperty] public double TotalMandatoryAmount { get; set; }
@@ -42,11 +42,11 @@ namespace IPFees.Web.Areas.Run.Pages
                 return RedirectToPage("Error");
             }
             var ParsedVars = (res as OfficialFeeParseSuccess).ParsedVariables;
-            VarItems = ParsedVars.Select(s => new ItemViewModel(s.Name, s.GetType().ToString(), string.Empty, s)).ToList();
+            VarItems = ParsedVars.Select(pv => new ItemViewModel(pv.Name, pv.GetType().ToString(), pv, string.Empty, Array.Empty<string>(), 0, false)).ToList();
             return Page();
         }
 
-        public async Task<IActionResult> OnPostResultAsync(string id, IFormCollection form)
+        public async Task<IActionResult> OnPostResultAsync(string id)
         {
             CollectedValues = new List<IPFValue>();
 
@@ -55,21 +55,21 @@ namespace IPFees.Web.Areas.Run.Pages
             {
                 if (item.VarType == typeof(DslVariableList).ToString())
                 {
-                    CollectedValues.Add(new IPFValueString(item.Name, item.Value));
+                    CollectedValues.Add(new IPFValueString(item.Name, item.StrValue));
                 }
                 else if (item.VarType == typeof(DslVariableListMultiple).ToString())
                 {
-                    CollectedValues.Add(new IPFValueStringList(item.Name, Enumerable.Empty<string>()));
+                    CollectedValues.Add(new IPFValueStringList(item.Name, item.ListValue));
                 }
                 else if (item.VarType == typeof(DslVariableNumber).ToString())
                 {
-                    _ = int.TryParse(item.Value, out var val2);
-                    CollectedValues.Add(new IPFValueNumber(item.Name, val2));
+                    //_ = int.TryParse(item.Value, out var val2);
+                    CollectedValues.Add(new IPFValueNumber(item.Name, item.DoubleValue));
                 }
                 else if (item.VarType == typeof(DslVariableBoolean).ToString())
                 {
-                    _ = bool.TryParse(item.Value, out var val3);
-                    CollectedValues.Add(new IPFValueBoolean(item.Name, val3));
+                    //_ = bool.TryParse(item.Value, out var val3);
+                    CollectedValues.Add(new IPFValueBoolean(item.Name, item.BoolValue));
                 }
             }
             // Perform calculation using the values collected from the user
@@ -99,16 +99,12 @@ namespace IPFees.Web.Areas.Run.Pages
                 {
                     _logger.LogInformation($"> {cs}");
                 }
-                CalculationPending = false;
-                // TODO: To preserve user input, uncomment the two lines below.
-                // TODO: However, the parser will crash because it is invoked twice on the same source code
-                //var res = await officialFee.GetVariables(id);                
-                //ParsedVars = (res as OfficialFeeParseSuccess).ParsedVariables;                
+                CalculationPending = false;                
             }
 
             return Page();
         }
     }
 
-    public record ItemViewModel(string Name, string VarType, object Value, DslVariable Var);
+    public record ItemViewModel(string Name, string VarType, DslVariable Var, string StrValue, string[] ListValue, double DoubleValue, bool BoolValue);
 }
