@@ -4,6 +4,7 @@ using IPFees.Parser;
 using IPFFees.Core;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using System.Diagnostics.Eventing.Reader;
 using static IPFees.Core.OfficialFee;
 
 namespace IPFees.Web.Areas.Run.Pages
@@ -12,22 +13,22 @@ namespace IPFees.Web.Areas.Run.Pages
     {
         [BindProperty] public string Id { get; set; }
         [BindProperty] public bool CalculationPending { get; set; } = true;
-        // Variables found in the source files
-        [BindProperty] public IEnumerable<DslVariable> ParsedVars { get; set; }
-        // Values collected from the user input
+
+        [BindProperty] public IList<ItemViewModel> VarItems { get; set; }        
         [BindProperty] public List<IPFValue> CollectedValues { get; set; }
+
         // Calculation results
         [BindProperty] public double TotalMandatoryAmount { get; set; }
         [BindProperty] public double TotalOptionalAmount { get; set; }
         // Calculation steps
         [BindProperty] public IEnumerable<string> CalculationSteps { get; set; }
-        
+
         private readonly IOfficialFee officialFee;
         private readonly ILogger<IndexModel> _logger;
 
         public IndexModel(IOfficialFee officialFee, ILogger<IndexModel> logger)
         {
-            this.officialFee = officialFee;            
+            this.officialFee = officialFee;
             _logger = logger;
         }
 
@@ -40,7 +41,8 @@ namespace IPFees.Web.Areas.Run.Pages
                 TempData["Errors"] = (res as OfficialFeeResultFail).Errors.Distinct().ToList();
                 return RedirectToPage("Error");
             }
-            ParsedVars = (res as OfficialFeeParseSuccess).ParsedVariables;
+            var ParsedVars = (res as OfficialFeeParseSuccess).ParsedVariables;
+            VarItems = ParsedVars.Select(s => new ItemViewModel(s.Name, s.GetType().ToString(), string.Empty, s)).ToList();
             return Page();
         }
 
@@ -49,26 +51,25 @@ namespace IPFees.Web.Areas.Run.Pages
             CollectedValues = new List<IPFValue>();
 
             // Cycle through all form fields to discover the type of individual form items
-            foreach (var field in form)
+            foreach (var item in VarItems)
             {
-                var CalcVar = ParsedVars.SingleOrDefault(s => s.Name.Equals(field.Key));
-                if (CalcVar == null) continue;
-                switch (CalcVar)
+                if (item.VarType == typeof(DslVariableList).ToString())
                 {
-                    case DslVariableList:
-                        CollectedValues.Add(new IPFValueString(CalcVar.Name, field.Value));
-                        break;
-                    case DslVariableListMultiple:
-                        CollectedValues.Add(new IPFValueStringList(CalcVar.Name, field.Value));
-                        break;
-                    case DslVariableNumber:
-                        _ = int.TryParse(field.Value, out var val2);
-                        CollectedValues.Add(new IPFValueNumber(CalcVar.Name, val2));
-                        break;
-                    case DslVariableBoolean:
-                        _ = bool.TryParse(field.Value[0], out var val3);
-                        CollectedValues.Add(new IPFValueBoolean(CalcVar.Name, val3));
-                        break;
+                    CollectedValues.Add(new IPFValueString(item.Name, item.Value));
+                }
+                else if (item.VarType == typeof(DslVariableListMultiple).ToString())
+                {
+                    CollectedValues.Add(new IPFValueStringList(item.Name, Enumerable.Empty<string>()));
+                }
+                else if (item.VarType == typeof(DslVariableNumber).ToString())
+                {
+                    _ = int.TryParse(item.Value, out var val2);
+                    CollectedValues.Add(new IPFValueNumber(item.Name, val2));
+                }
+                else if (item.VarType == typeof(DslVariableBoolean).ToString())
+                {
+                    _ = bool.TryParse(item.Value, out var val3);
+                    CollectedValues.Add(new IPFValueBoolean(item.Name, val3));
                 }
             }
             // Perform calculation using the values collected from the user
@@ -108,4 +109,6 @@ namespace IPFees.Web.Areas.Run.Pages
             return Page();
         }
     }
+
+    public record ItemViewModel(string Name, string VarType, object Value, DslVariable Var);
 }
