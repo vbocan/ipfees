@@ -214,5 +214,38 @@ namespace IPFees.Calculator.Tests
             var tokens = "A AND 11".Split(new char[] { ' ' }, StringSplitOptions.None);
             Assert.Throws<NotSupportedException>(() => DslEvaluator.EvaluateLogic(tokens, vars));
         }
+
+        [Fact]
+        public void TestDateYearsFromNow()
+        {
+            var vars = new IPFValue[] {
+                new IPFValueDate("D", DateOnly.Parse("01.01.1975", null, System.Globalization.DateTimeStyles.None)),                
+            };
+            var tokens = "D!YEARSFROMNOW GT 30".Split(new char[] { ' ' }, StringSplitOptions.None);
+            var ev = DslEvaluator.EvaluateLogic(tokens, vars);
+            Assert.True(ev);
+        }
+
+        [Fact]
+        public void TestDateMonthsFromNow()
+        {
+            var vars = new IPFValue[] {
+                new IPFValueDate("D", DateOnly.Parse("01.01.1975", null, System.Globalization.DateTimeStyles.None)),
+            };
+            var tokens = "D!MONTHSFROMNOW GT 300".Split(new char[] { ' ' }, StringSplitOptions.None);
+            var ev = DslEvaluator.EvaluateLogic(tokens, vars);
+            Assert.True(ev);
+        }
+
+        [Fact]
+        public void TestDaysMonthsFromNow()
+        {
+            var vars = new IPFValue[] {
+                new IPFValueDate("D", DateOnly.Parse("01.01.1975", null, System.Globalization.DateTimeStyles.None)),
+            };
+            var tokens = "D!DAYSFROMNOW GT 3000".Split(new char[] { ' ' }, StringSplitOptions.None);            
+            var ev = DslEvaluator.EvaluateLogic(tokens, vars);
+            Assert.True(ev);
+        }
     }
 }
