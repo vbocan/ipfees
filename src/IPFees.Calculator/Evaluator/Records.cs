@@ -28,6 +28,13 @@ namespace IPFees.Evaluator
             return string.Format("[number: {0} = {1}]", Name, Value);
         }
     };
+    public record IPFValueDate(string Name, DateOnly Value) : IPFValue(Name)
+    {
+        public override string ToString()
+        {
+            return string.Format("[date: {0} = {1}]", Name, Value.ToString("dd.MM.yyyy"));
+        }
+    };
     public record IPFValueBoolean(string Name, bool Value) : IPFValue(Name)
     {
         public override string ToString()

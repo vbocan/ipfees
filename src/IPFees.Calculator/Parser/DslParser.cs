@@ -300,7 +300,7 @@ namespace IPFees.Parser
             if (tokens[1] != "DATE") return false;
             if (tokens[3] != "AS") return false;
             CurrentlyParsing = Parsing.Date;
-            CurrentDate = new DslVariableDate(tokens[2], tokens[4], DateTime.MinValue, DateTime.MaxValue, DateTime.Now);
+            CurrentDate = new DslVariableDate(tokens[2], tokens[4], DateOnly.FromDateTime(DateTime.MinValue), DateOnly.FromDateTime(DateTime.MaxValue.Date), DateOnly.FromDateTime(DateTime.Now));
             return true;
         }
 
@@ -313,7 +313,7 @@ namespace IPFees.Parser
             for (int i = 0; i < tokens.Length; i++) { if (tokens[i].Equals("TODAY")) tokens[i] = DateTime.Now.ToString("dd.MM.yyyy"); }
             if (!DateTime.TryParseExact(tokens[1], "dd.MM.yyyy", null, DateTimeStyles.None, out DateTime MinValue)) return false;
             if (!DateTime.TryParseExact(tokens[3], "dd.MM.yyyy", null, DateTimeStyles.None, out DateTime MaxValue)) return false;
-            CurrentDate = CurrentDate with { MinValue = MinValue, MaxValue = MaxValue };
+            CurrentDate = CurrentDate with { MinValue = DateOnly.FromDateTime(MinValue), MaxValue = DateOnly.FromDateTime(MaxValue) };
             return true;
         }
 
@@ -324,7 +324,7 @@ namespace IPFees.Parser
             if (tokens[0] != "DEFAULT") return false;
             for (int i = 0; i < tokens.Length; i++) { if (tokens[i].Equals("TODAY")) tokens[i] = DateTime.Now.ToString("dd.MM.yyyy"); }
             if (!DateTime.TryParseExact(tokens[1], "dd.MM.yyyy", null, DateTimeStyles.None, out DateTime DefaultValue)) return false;
-            CurrentDate = CurrentDate with { DefaultValue = DefaultValue };
+            CurrentDate = CurrentDate with { DefaultValue = DateOnly.FromDateTime(DefaultValue) };
             return true;
         }
         #endregion
