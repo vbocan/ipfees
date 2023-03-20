@@ -279,7 +279,7 @@ namespace IPFees.Calculator.Tests
         }
 
         [Fact]
-        public void TestVariableDefinedMultipleTimes()
+        public void TestVariableListDefinedMultipleTimes()
         {
             string text =
             """
@@ -322,6 +322,78 @@ namespace IPFees.Calculator.Tests
             Assert.False(result);
             var errors = p.GetErrors();
             Assert.Contains(errors, a => a.Item1 == DslError.FeeDefinedMultipleTimes);
+        }
+        #endregion
+
+        #region Date Tests
+        [Fact]
+        public void TestDateMinMax()
+        {
+            string text =
+            """
+            DEFINE DATE SubmissionDate AS 'Pick the submission date'
+            BETWEEN 01.01.2023 AND 31.12.2023
+            DEFAULT 01.07.2023
+            ENDDEFINE
+            """;
+            var p = new DslParser();
+            var result = p.Parse(text);
+            Assert.True(result);
+        }
+
+        [Fact]
+        public void TestDateMinOverMax()
+        {
+            string text =
+            """
+            DEFINE DATE SubmissionDate AS 'Pick the submission date'
+            BETWEEN 31.12.2023 AND 01.01.2023
+            DEFAULT 01.07.2023
+            ENDDEFINE
+            """;
+            var p = new DslParser();
+            var result = p.Parse(text);
+            Assert.False(result);
+            var errors = p.GetErrors();
+            Assert.Contains(errors, a => a.Item1 == DslError.InvalidMinMaxDefault);
+        }
+
+        [Fact]
+        public void TestDateDefaultOutOfRange()
+        {
+            string text =
+            """
+            DEFINE DATE SubmissionDate AS 'Pick the submission date'
+            BETWEEN 01.01.2023 AND 31.12.2023
+            DEFAULT 01.07.2024
+            ENDDEFINE
+            """;
+            var p = new DslParser();
+            var result = p.Parse(text);
+            Assert.False(result);
+            var errors = p.GetErrors();
+            Assert.Contains(errors, a => a.Item1 == DslError.InvalidMinMaxDefault);
+        }
+
+        [Fact]
+        public void TestVariableDateDefinedMultipleTimes()
+        {
+            string text =
+            """
+            DEFINE DATE SubmissionDate AS 'Pick the submission date'
+            BETWEEN 01.01.2023 AND 31.12.2023
+            DEFAULT 01.07.2023
+            ENDDEFINE
+            DEFINE DATE SubmissionDate AS 'Pick the submission date'
+            BETWEEN 01.01.2023 AND 31.12.2023
+            DEFAULT 01.07.2023
+            ENDDEFINE
+            """;
+            var p = new DslParser();
+            var result = p.Parse(text);
+            Assert.False(result);
+            var errors = p.GetErrors();
+            Assert.Contains(errors, a => a.Item1 == DslError.VariableDefinedMultipleTimes);
         }
         #endregion
     }
