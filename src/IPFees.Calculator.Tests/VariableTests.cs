@@ -23,7 +23,7 @@ namespace IPFees.Calculator.Tests
             Assert.NotNull(result);
             Assert.Equal("EntityType", result.Name);
             Assert.Equal("Entity type", result.Text);
-            Assert.Equal("NormalEntity", result.DefaultSymbol);            
+            Assert.Equal("NormalEntity", result.DefaultSymbol);
             Assert.Equal(3, result.Items.Count);
             Assert.Equal(new DslListItem("NormalEntity", "Normal"), result.Items[0]);
             Assert.Equal(new DslListItem("SmallEntity", "Small"), result.Items[1]);
@@ -136,9 +136,9 @@ namespace IPFees.Calculator.Tests
             Assert.NotNull(result);
             Assert.Equal("ApplicationDate", result.Name);
             Assert.Equal("Application date", result.Text);
-            Assert.Equal(new DateTime(2023, 3, 1), result.DefaultValue);
-            Assert.Equal(new DateTime(2023, 1, 1), result.MinValue);
-            Assert.Equal(DateTime.Now.Date, result.MaxValue);            
-        }        
+            Assert.Equal(DateOnly.ParseExact("01.03.2023", "dd.MM.yyyy", null, System.Globalization.DateTimeStyles.None), result.DefaultValue);
+            Assert.Equal(DateOnly.ParseExact("01.01.2023", "dd.MM.yyyy", null, System.Globalization.DateTimeStyles.None), result.MinValue);
+            Assert.Equal(DateOnly.FromDateTime(DateTime.Now), result.MaxValue);
+        }
     }
 }
