@@ -6,7 +6,7 @@
     public record DslVariableListMultiple(string Name, string Text, IList<DslListItem> Items, IList<string> DefaultSymbols) : DslVariable(Name, Text);
     public record DslListItem(string Symbol, string Value);
     public record DslVariableNumber(string Name, string Text, int MinValue, int MaxValue, int DefaultValue) : DslVariable(Name, Text);
-    public record DslVariableDate(string Name, string Text, DateTime MinValue, DateTime MaxValue, DateTime DefaultValue) : DslVariable(Name, Text);
+    public record DslVariableDate(string Name, string Text, DateOnly MinValue, DateOnly MaxValue, DateOnly DefaultValue) : DslVariable(Name, Text);
 
     public abstract record DslItem(IEnumerable<string> Condition);
     public record DslFee(string Name, bool Optional, IList<DslItem> Cases, IList<DslFeeVar> Vars)
