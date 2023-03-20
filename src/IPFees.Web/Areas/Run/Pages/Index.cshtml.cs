@@ -41,7 +41,7 @@ namespace IPFees.Web.Areas.Run.Pages
                 TempData["Errors"] = (res as OfficialFeeResultFail).Errors.Distinct().ToList();
                 return RedirectToPage("Error");
             }
-            Vars = (res as OfficialFeeParseSuccess).ParsedVariables.Select(pv => new ParsedVariableViewModel(pv.Name, pv.GetType().ToString(), pv, string.Empty, Array.Empty<string>(), 0, false)).ToList();
+            Vars = (res as OfficialFeeParseSuccess).ParsedVariables.Select(pv => new ParsedVariableViewModel(pv.Name, pv.GetType().ToString(), pv, string.Empty, Array.Empty<string>(), 0, false, DateOnly.MinValue)).ToList();
             return Page();
         }
 
@@ -107,5 +107,5 @@ namespace IPFees.Web.Areas.Run.Pages
         }
     }
 
-    public record ParsedVariableViewModel(string Name, string Type, DslVariable Var, string StrValue, string[] ListValue, double DoubleValue, bool BoolValue);
+    public record ParsedVariableViewModel(string Name, string Type, DslVariable Var, string StrValue, string[] ListValue, double DoubleValue, bool BoolValue, DateOnly DateValue);
 }
