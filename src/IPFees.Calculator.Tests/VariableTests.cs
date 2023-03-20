@@ -1,5 +1,4 @@
 using IPFees.Parser;
-using Newtonsoft.Json.Linq;
 
 namespace IPFees.Calculator.Tests
 {
@@ -119,5 +118,27 @@ namespace IPFees.Calculator.Tests
             Assert.Equal("Contains dependent claims", result.Text);
             Assert.True(result.DefaultValue);
         }
+
+        [Fact]
+        public void TestVariableDate()
+        {
+            string text =
+            """
+            # Define a date variable
+            DEFINE DATE ApplicationDate AS 'Application date'
+            BETWEEN 2023-01-01 AND $TODAY
+            DEFAULT 2023-03-01
+            ENDDEFINE
+            """;
+            var p = new DslParser();
+            var _ = p.Parse(text);
+            var result = (DslVariableDate?)p.GetVariables().SingleOrDefault();
+            Assert.NotNull(result);
+            Assert.Equal("ApplicationDate", result.Name);
+            Assert.Equal("Application date", result.Text);
+            Assert.Equal(new DateTime(2023, 3, 1), result.DefaultValue);
+            Assert.Equal(new DateTime(2023, 1, 1), result.MinValue);
+            Assert.Equal(DateTime.Now.Date, result.MaxValue);            
+        }        
     }
 }
