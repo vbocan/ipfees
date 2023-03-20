@@ -61,7 +61,35 @@
             foreach (var er in VarList.SelectMany(s => s.Items.DistinctBy(e => e.Symbol)).Select(a => a.Symbol).GroupBy(x => x).Where(g => g.Count() > 1).Select(y => y.Key))
             {
                 yield return (DslError.ChoiceDefinedInMultipleVariables, string.Format("Choice [{0}] is defined in multiple variables.", er));
-            }            
+            }
+
+            // Multiple-selection list variables should not:
+            // - have zero choices
+            // - have no default choice
+            // - have duplicate choices
+            // - have the default choice other than the defined choices
+            // - have the same choice defined in multiple variables
+            var VarListMultiple = IPFVars.OfType<DslVariableListMultiple>();
+            foreach (var er in VarListMultiple.Where(vl => vl.Items.Count == 0).Select(s => s.Name))
+            {
+                yield return (DslError.VariableNoChoice, string.Format("Variable [{0}] has no associated choices.", er));
+            }
+            foreach (var er in VarListMultiple.Where(vl => !vl.DefaultSymbols.Any()).Select(s => s.Name))
+            {
+                yield return (DslError.VariableNoDefaultChoice, string.Format("Variable [{0}] has no default choice.", er));
+            }
+            foreach (var er in VarListMultiple.Where(vl => vl.Items.Count != vl.Items.Select(s => s.Symbol).Distinct().Count()).Select(s => s.Name))
+            {
+                yield return (DslError.VariableDuplicateChoices, string.Format("Variable [{0}] has duplicate choices.", er));
+            }
+            foreach (var er in VarListMultiple.Where(w => w.DefaultSymbols.Except(w.Items.Select(s => s.Symbol)).Any()).Select(s => s.Name))
+            {
+                yield return (DslError.VariableInvalidDefaultChoice, string.Format("Default choice for variable [{0}] is invalid.", er));
+            }
+            foreach (var er in VarListMultiple.SelectMany(s => s.Items.DistinctBy(e => e.Symbol)).Select(a => a.Symbol).GroupBy(x => x).Where(g => g.Count() > 1).Select(y => y.Key))
+            {
+                yield return (DslError.ChoiceDefinedInMultipleVariables, string.Format("Choice [{0}] is defined in multiple variables.", er));
+            }
         }
     }
 }
