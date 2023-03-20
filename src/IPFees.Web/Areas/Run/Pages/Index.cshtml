@@ -16,6 +16,13 @@
                     <input type="hidden" asp-for="@Model.Vars[i].Type" />
                     switch (Model.Vars[i].Var)
                     {
+                        case DslVariableDate:
+                            var v0 = (DslVariableDate)Model.Vars[i].Var;                            
+                            <div class="mb-3 col-md-6">
+                                <label class="form-label" for="@v0.Name">@v0.Text</label>
+                                <input class="form-control" type="date" asp-for="@Model.Vars[i].DateValue" value="@v0.DefaultValue.ToString("yyyy-MM-dd")" min="@v0.MinValue.ToString("yyyy-MM-dd")" max="@v0.MaxValue.ToString("yyyy-MM-dd")">
+                            </div>
+                            break;
                         case DslVariableList:
                             var v1 = (DslVariableList)Model.Vars[i].Var;
                             <label class="form-label" for="@v1.Name">@v1.Text</label>
