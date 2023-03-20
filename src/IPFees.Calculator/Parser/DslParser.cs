@@ -223,11 +223,10 @@ namespace IPFees.Parser
         bool ParseListMultiple(string[] tokens)
         {
             if (CurrentlyParsing != Parsing.None) return false;
-            if (tokens.Length != 6) return false;
+            if (tokens.Length != 5) return false;
             if (tokens[0] != "DEFINE") return false;
-            if (tokens[1] != "LIST") return false;
-            if (tokens[3] != "AS") return false;
-            if (tokens[5] != "MULTIPLE") return false;
+            if (tokens[1] != "MULTILIST") return false;
+            if (tokens[3] != "AS") return false;            
             CurrentlyParsing = Parsing.ListMultiple;
             CurrentListMultiple = new DslVariableListMultiple(tokens[2], tokens[4], new List<DslListItem>(), new List<string>());
             return true;

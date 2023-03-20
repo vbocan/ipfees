@@ -36,7 +36,7 @@ namespace IPFees.Calculator.Tests
             string text =
             """
             # Define a multiple-selection list variable
-            DEFINE LIST EntityType AS 'Entity type' MULTIPLE
+            DEFINE MULTILIST EntityType AS 'Entity type'
             CHOICE NormalEntity AS 'Normal'
             CHOICE SmallEntity AS 'Small'
             CHOICE MicroEntity AS 'Micro'

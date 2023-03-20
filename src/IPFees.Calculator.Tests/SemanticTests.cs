@@ -122,7 +122,7 @@ namespace IPFees.Calculator.Tests
         {
             string text =
             """
-            DEFINE LIST EntityType AS 'Select the desired entity type' MULTIPLE
+            DEFINE MULTILIST EntityType AS 'Select the desired entity type'
             CHOICE NormalEntity AS 'Normal'
             CHOICE SmallEntity AS 'Small'
             CHOICE MicroEntity AS 'Micro'
@@ -141,7 +141,7 @@ namespace IPFees.Calculator.Tests
         {
             string text =
             """
-            DEFINE LIST EntityType AS 'Select the desired entity type' MULTIPLE
+            DEFINE MULTILIST EntityType AS 'Select the desired entity type'
             CHOICE NormalEntity AS 'Normal'
             CHOICE NormalEntity AS 'Small'
             DEFAULT NormalEntity
@@ -159,7 +159,7 @@ namespace IPFees.Calculator.Tests
         {
             string text =
             """
-            DEFINE LIST EntityType AS 'Select the desired entity type' MULTIPLE
+            DEFINE MULTILIST EntityType AS 'Select the desired entity type'
             CHOICE NormalEntity AS 'Normal'
             CHOICE SmallEntity AS 'Small'
             DEFAULT TinyEntity,ExtremEntity
@@ -177,7 +177,7 @@ namespace IPFees.Calculator.Tests
         {
             string text =
             """
-            DEFINE LIST EntityType AS 'Select the desired entity type'
+            DEFINE MULTILIST EntityType AS 'Select the desired entity type'
             CHOICE NormalEntity AS 'Normal'
             CHOICE NormalEntity AS 'Normal'
             DEFAULT TinyEntity
@@ -195,7 +195,7 @@ namespace IPFees.Calculator.Tests
         {
             string text =
             """
-            DEFINE LIST EntityType AS 'Select the desired entity type' MULTIPLE
+            DEFINE MULTILIST EntityType AS 'Select the desired entity type'
             ENDDEFINE
             """;
             var p = new DslParser();
@@ -210,12 +210,12 @@ namespace IPFees.Calculator.Tests
         {
             string text =
             """
-            DEFINE LIST EntityType1 AS 'Select the desired entity type'
+            DEFINE MULTILIST EntityType1 AS 'Select the desired entity type'
             CHOICE NormalEntity AS 'Normal'
             DEFAULT NormalEntity
             ENDDEFINE
 
-            DEFINE LIST EntityType2 AS 'Select the desired entity type'
+            DEFINE MULTILIST EntityType2 AS 'Select the desired entity type'
             CHOICE NormalEntity AS 'Normal'
             DEFAULT NormalEntity
             ENDDEFINE
