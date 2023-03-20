@@ -99,7 +99,6 @@
             {
                 yield return (DslError.InvalidMinMaxDefault, string.Format("Invalid parameters for variable [{0}]. The Min value must not be greater than the Max value and the default value must be between Min and Max.", er));
             }
-
         }
     }
 }
