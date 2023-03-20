@@ -90,6 +90,16 @@
             {
                 yield return (DslError.ChoiceDefinedInMultipleVariables, string.Format("Choice [{0}] is defined in multiple variables.", er));
             }
+
+            // Date variables should not:
+            // - have a MinValue greater than MaxValue
+            // - have a DefaultValue less than MinValue or greater than MaxValue            
+            var VarDateErrors = IPFVars.OfType<DslVariableDate>().Where(w => w.MinValue > w.MaxValue || w.DefaultValue < w.MinValue || w.DefaultValue > w.MaxValue).Select(s => s.Name);
+            foreach (var er in VarDateErrors)
+            {
+                yield return (DslError.InvalidMinMaxDefault, string.Format("Invalid parameters for variable [{0}]. The Min value must not be greater than the Max value and the default value must be between Min and Max.", er));
+            }
+
         }
     }
 }
