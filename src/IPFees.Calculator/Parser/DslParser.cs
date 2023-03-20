@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Globalization;
+using System.Linq;
 using System.Text;
 using System.Xml.Linq;
 
@@ -11,6 +12,7 @@ namespace IPFees.Parser
         private DslVariableList CurrentList { get; set; } = new DslVariableList(string.Empty, string.Empty, new List<DslListItem>(), string.Empty);
         private DslVariableListMultiple CurrentListMultiple { get; set; } = new DslVariableListMultiple(string.Empty, string.Empty, new List<DslListItem>(), new List<string>());
         private DslVariableNumber CurrentNumber { get; set; } = new DslVariableNumber(string.Empty, string.Empty, int.MinValue, int.MaxValue, 0);
+        private DslVariableDate CurrentDate { get; set; } = new DslVariableDate(string.Empty, string.Empty, DateTime.MinValue, DateTime.MaxValue, DateTime.Now);
         private DslVariableBoolean CurrentBoolean { get; set; } = new DslVariableBoolean(string.Empty, string.Empty, false);
         private DslFee CurrentFee { get; set; } = new DslFee(string.Empty, false, new List<DslItem>(), new List<DslFeeVar>());
         private DslFeeCase CurrentFeeCase { get; set; } = new DslFeeCase(Enumerable.Empty<string>(), new List<DslFeeYield>());
@@ -35,6 +37,9 @@ namespace IPFees.Parser
                 ParseNumber,
                 ParseNumberBetween,
                 ParseNumberDefault,
+                ParseDate,
+                ParseDateBetween,
+                ParseDateDefault,
                 ParseBoolean,
                 ParseBooleanDefault,
                 ParseEndDefine,
@@ -286,6 +291,44 @@ namespace IPFees.Parser
         }
         #endregion
 
+        #region Date Parsing
+        bool ParseDate(string[] tokens)
+        {
+            if (CurrentlyParsing != Parsing.None) return false;
+            if (tokens.Length != 5) return false;
+            if (tokens[0] != "DEFINE") return false;
+            if (tokens[1] != "DATE") return false;
+            if (tokens[3] != "AS") return false;
+            CurrentlyParsing = Parsing.Date;
+            CurrentDate = new DslVariableDate(tokens[2], tokens[4], DateTime.MinValue, DateTime.MaxValue, DateTime.Now);
+            return true;
+        }
+
+        bool ParseDateBetween(string[] tokens)
+        {
+            if (CurrentlyParsing != Parsing.Date) return false;
+            if (tokens.Length != 4) return false;
+            if (tokens[0] != "BETWEEN") return false;
+            if (tokens[2] != "AND") return false;
+            for (int i = 0; i < tokens.Length; i++) { if (tokens[i].Equals("TODAY")) tokens[i] = DateTime.Now.ToString("dd.MM.yyyy"); }
+            if (!DateTime.TryParseExact(tokens[1], "dd.MM.yyyy", null, DateTimeStyles.None, out DateTime MinValue)) return false;
+            if (!DateTime.TryParseExact(tokens[3], "dd.MM.yyyy", null, DateTimeStyles.None, out DateTime MaxValue)) return false;
+            CurrentDate = CurrentDate with { MinValue = MinValue, MaxValue = MaxValue };
+            return true;
+        }
+
+        bool ParseDateDefault(string[] tokens)
+        {
+            if (CurrentlyParsing != Parsing.Date) return false;
+            if (tokens.Length != 2) return false;
+            if (tokens[0] != "DEFAULT") return false;
+            for (int i = 0; i < tokens.Length; i++) { if (tokens[i].Equals("TODAY")) tokens[i] = DateTime.Now.ToString("dd.MM.yyyy"); }
+            if (!DateTime.TryParseExact(tokens[1], "dd.MM.yyyy", null, DateTimeStyles.None, out DateTime DefaultValue)) return false;
+            CurrentDate = CurrentDate with { DefaultValue = DefaultValue };
+            return true;
+        }
+        #endregion
+
         #region Boolean Parsing
         bool ParseBoolean(string[] tokens)
         {
@@ -331,6 +374,10 @@ namespace IPFees.Parser
                     return true;
                 case Parsing.Number:
                     IPFVariables.Add(CurrentNumber);
+                    CurrentlyParsing = Parsing.None;
+                    return true;
+                case Parsing.Date:
+                    IPFVariables.Add(CurrentDate);
                     CurrentlyParsing = Parsing.None;
                     return true;
             }
@@ -425,6 +472,6 @@ namespace IPFees.Parser
 
     internal enum Parsing
     {
-        None, List, ListMultiple, Number, Boolean, Fee, FeeCase
+        None, List, ListMultiple, Number, Date, Boolean, Fee, FeeCase
     }
 }
