@@ -12,7 +12,7 @@ namespace IPFees.Parser
         private DslVariableList CurrentList { get; set; } = new DslVariableList(string.Empty, string.Empty, new List<DslListItem>(), string.Empty);
         private DslVariableListMultiple CurrentListMultiple { get; set; } = new DslVariableListMultiple(string.Empty, string.Empty, new List<DslListItem>(), new List<string>());
         private DslVariableNumber CurrentNumber { get; set; } = new DslVariableNumber(string.Empty, string.Empty, int.MinValue, int.MaxValue, 0);
-        private DslVariableDate CurrentDate { get; set; } = new DslVariableDate(string.Empty, string.Empty, DateTime.MinValue, DateTime.MaxValue, DateTime.Now);
+        private DslVariableDate CurrentDate { get; set; } = new DslVariableDate(string.Empty, string.Empty, DateOnly.MinValue, DateOnly.MaxValue, DateOnly.FromDateTime(DateTime.Now));
         private DslVariableBoolean CurrentBoolean { get; set; } = new DslVariableBoolean(string.Empty, string.Empty, false);
         private DslFee CurrentFee { get; set; } = new DslFee(string.Empty, false, new List<DslItem>(), new List<DslFeeVar>());
         private DslFeeCase CurrentFeeCase { get; set; } = new DslFeeCase(Enumerable.Empty<string>(), new List<DslFeeYield>());
