@@ -126,8 +126,8 @@ namespace IPFees.Calculator.Tests
             """
             # Define a date variable
             DEFINE DATE ApplicationDate AS 'Application date'
-            BETWEEN 2023-01-01 AND $TODAY
-            DEFAULT 2023-03-01
+            BETWEEN 01.01.2023 AND TODAY
+            DEFAULT 01.03.2023
             ENDDEFINE
             """;
             var p = new DslParser();
