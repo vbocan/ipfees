@@ -216,34 +216,34 @@ namespace IPFees.Calculator.Tests
         }
 
         [Fact]
-        public void TestDateYearsFromNow()
+        public void TestDateYearsToNow()
         {
             var vars = new IPFValue[] {
                 new IPFValueDate("D", DateOnly.Parse("01.01.1975", null, System.Globalization.DateTimeStyles.None)),                
             };
-            var tokens = "D!YEARSFROMNOW GT 30".Split(new char[] { ' ' }, StringSplitOptions.None);
+            var tokens = "D!YEARSTONOW GT 30".Split(new char[] { ' ' }, StringSplitOptions.None);
             var ev = DslEvaluator.EvaluateLogic(tokens, vars);
             Assert.True(ev);
         }
 
         [Fact]
-        public void TestDateMonthsFromNow()
+        public void TestDateMonthsToNow()
         {
             var vars = new IPFValue[] {
                 new IPFValueDate("D", DateOnly.Parse("01.01.1975", null, System.Globalization.DateTimeStyles.None)),
             };
-            var tokens = "D!MONTHSFROMNOW GT 300".Split(new char[] { ' ' }, StringSplitOptions.None);
+            var tokens = "D!MONTHSTONOW GT 300".Split(new char[] { ' ' }, StringSplitOptions.None);
             var ev = DslEvaluator.EvaluateLogic(tokens, vars);
             Assert.True(ev);
         }
 
         [Fact]
-        public void TestDaysMonthsFromNow()
+        public void TestDaysMonthsToNow()
         {
             var vars = new IPFValue[] {
                 new IPFValueDate("D", DateOnly.Parse("01.01.1975", null, System.Globalization.DateTimeStyles.None)),
             };
-            var tokens = "D!DAYSFROMNOW GT 3000".Split(new char[] { ' ' }, StringSplitOptions.None);            
+            var tokens = "D!DAYSTONOW GT 3000".Split(new char[] { ' ' }, StringSplitOptions.None);            
             var ev = DslEvaluator.EvaluateLogic(tokens, vars);
             Assert.True(ev);
         }
