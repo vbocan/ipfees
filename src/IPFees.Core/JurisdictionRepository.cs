@@ -145,7 +145,7 @@ namespace IPFFees.Core
         /// <param name="Id">Jurisdiction id</param>
         /// <param name="ModuleIds">An array of module ids referenced by the jurisdiction</param>
         /// <returns>A DbResult structure containing the result of the database operation</returns>
-        public async Task<DbResult> SetReferencedModules(Guid Id, Guid[] ModuleIds)
+        public async Task<DbResult> SetReferencedModules(Guid Id, IList<Guid> ModuleIds)
         {
             var res = await context.JurisdictionCollection.UpdateOneAsync(r => r.Id.Equals(Id),
                 Builders<JurisdictionDoc>

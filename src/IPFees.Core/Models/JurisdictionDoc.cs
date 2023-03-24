@@ -16,6 +16,7 @@ namespace IPFFees.Core.Models
             Name = string.Empty;
             Description = string.Empty;
             SourceCode = string.Empty;
+            ReferencedModules = new List<Guid>();
             LastUpdatedOn = DateTime.MinValue;
         }
 
@@ -24,7 +25,7 @@ namespace IPFFees.Core.Models
         public string Name { get; set; }
         public string Description { get; set; }
         public string SourceCode { get; set; }
-        public Guid[] ReferencedModules { get; set; }
+        public IList<Guid> ReferencedModules { get; set; }
         [BsonDateTimeOptions(Kind = DateTimeKind.Local)]
         public DateTime LastUpdatedOn { get; set; }
     }

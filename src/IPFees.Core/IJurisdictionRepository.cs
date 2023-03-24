@@ -12,6 +12,6 @@ namespace IPFFees.Core
         Task<DbResult> RemoveJurisdictionAsync(Guid Id);
         Task<IEnumerable<JurisdictionInfo>> GetJurisdictions();
         Task<JurisdictionInfo> GetJurisdictionById(Guid Id);
-        Task<DbResult> SetReferencedModules(Guid Id, Guid[] ModuleNames);
+        Task<DbResult> SetReferencedModules(Guid Id, IList<Guid> ModuleIds);
     }
 }

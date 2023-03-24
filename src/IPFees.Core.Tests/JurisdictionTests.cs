@@ -88,7 +88,7 @@ namespace IPFees.Core.Tests
             var res2 = await jur.SetReferencedModules(res1.Id, new Guid[] { Guid.NewGuid(), Guid.NewGuid() });
             Assert.True(res2.Success);
             var mi = await jur.GetJurisdictionById(res1.Id);
-            Assert.Equal(2, mi.ReferencedModules.Length);
+            Assert.Equal(2, mi.ReferencedModules.Count());
         }
     }
 }
