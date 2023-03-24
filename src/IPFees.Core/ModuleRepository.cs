@@ -19,20 +19,21 @@ namespace IPFFees.Core
         /// <summary>
         /// Create a new module
         /// </summary>
-        /// <param name="ModuleName">Module name.</param>
+        /// <param name="Name">Module name</param>
         /// <returns>A DbResult structure containing the result of the database operation</returns>
         /// <remarks>
         /// A module is an IPF source code file that is meant to be included by calling code, akin to the #include functionality of the C programming language.
         /// </remarks>
-        public async Task<DbResult> AddModuleAsync(string ModuleName)
+        public async Task<DbResult> AddModuleAsync(string Name)
         {
-            if (await GetModuleByName(ModuleName) != null)
+            var Modules = await GetModules();
+            if (Modules.Any(a => a.Name.Equals(Name)))
             {
-                return DbResult.Fail($"A module named '{ModuleName}' already exists.");
+                return DbResult.Fail($"A module named '{Name}' already exists.");
             }
             var newDoc = new ModuleDoc
             {
-                Name = ModuleName,
+                Name = Name,
                 LastUpdatedOn = DateTime.UtcNow.ToLocalTime()
             };
             try
@@ -45,15 +46,32 @@ namespace IPFFees.Core
                 return DbResult.Fail(ex);
             }
         }
+
+        /// <summary>
+        /// Set the module name
+        /// </summary>
+        /// <param name="Id">Module id</param>
+        /// <param name="Name">Module name</param>        
+        /// <returns>A DbResult structure containing the result of the database operation</returns>
+        public async Task<DbResult> SetModuleNameAsync(Guid Id, string Name)
+        {
+            var res = await context.ModuleCollection.UpdateOneAsync(r => r.Id.Equals(Id),
+                Builders<ModuleDoc>
+                .Update
+                .Set(r => r.LastUpdatedOn, DateTime.UtcNow.ToLocalTime())
+                .Set(r => r.Name, Name));
+            return res.IsAcknowledged ? DbResult.Succeed() : DbResult.Fail();
+        }
+
         /// <summary>
         /// Set the module description
         /// </summary>
-        /// <param name="ModuleName">Module name</param>
+        /// <param name="Id">Module id</param>
         /// <param name="Description">Description of the functionality provided</param>        
         /// <returns>A DbResult structure containing the result of the database operation</returns>
-        public async Task<DbResult> SetModuleDescriptionAsync(string ModuleName, string Description)
+        public async Task<DbResult> SetModuleDescriptionAsync(Guid Id, string Description)
         {
-            var res = await context.ModuleCollection.UpdateOneAsync(r => r.Name.Equals(ModuleName),
+            var res = await context.ModuleCollection.UpdateOneAsync(r => r.Id.Equals(Id),
                 Builders<ModuleDoc>
                 .Update
                 .Set(r => r.LastUpdatedOn, DateTime.UtcNow.ToLocalTime())
@@ -64,12 +82,12 @@ namespace IPFFees.Core
         /// <summary>
         /// Set the module source code
         /// </summary>
-        /// <param name="ModuleName">Module name</param>
+        /// <param name="Id">Module id</param>
         /// <param name="SourceCode">Source code of the module</param>        
         /// <returns>A DbResult structure containing the result of the database operation</returns>
-        public async Task<DbResult> SetModuleSourceCodeAsync(string ModuleName, string SourceCode)
+        public async Task<DbResult> SetModuleSourceCodeAsync(Guid Id, string SourceCode)
         {
-            var res = await context.ModuleCollection.UpdateOneAsync(r => r.Name.Equals(ModuleName),
+            var res = await context.ModuleCollection.UpdateOneAsync(r => r.Id.Equals(Id),
                 Builders<ModuleDoc>
                 .Update
                 .Set(r => r.LastUpdatedOn, DateTime.UtcNow.ToLocalTime())
@@ -90,11 +108,11 @@ namespace IPFFees.Core
         /// <summary>
         /// Get module by name
         /// </summary>
-        /// <param name="ModuleName">Module name</param>
+        /// <param name="Id">Module id</param>
         /// <returns>A ModuleInfo object</returns>
-        public async Task<ModuleInfo> GetModuleByName(string ModuleName)
+        public async Task<ModuleInfo> GetModuleById(Guid Id)
         {
-            var filter = Builders<ModuleDoc>.Filter.Eq(m => m.Name, ModuleName);
+            var filter = Builders<ModuleDoc>.Filter.Eq(m => m.Id, Id);
             var dbObjs = (await context.ModuleCollection.FindAsync(filter)).FirstOrDefaultAsync().Result;
             return dbObjs.Adapt<ModuleInfo>();
         }
@@ -104,11 +122,11 @@ namespace IPFFees.Core
         /// </summary>
         /// <param name="ModuleName">Module name</param>
         /// <returns>A DbResult structure containing the result of the database operation</returns>
-        public async Task<DbResult> RemoveModuleAsync(string ModuleName)
+        public async Task<DbResult> RemoveModuleAsync(Guid Id)
         {
             try
             {
-                await context.ModuleCollection.DeleteOneAsync(s => s.Name.Equals(ModuleName));
+                await context.ModuleCollection.DeleteOneAsync(s => s.Id.Equals(Id));
                 return DbResult.Succeed();
             }
             catch (Exception ex)

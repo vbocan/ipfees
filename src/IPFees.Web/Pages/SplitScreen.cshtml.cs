@@ -43,11 +43,11 @@ namespace IPFees.Web.Pages
             if (TempData["modules"] != null)
             {
                 var RefMod = (IEnumerable<string>)TempData["modules"] ?? Enumerable.Empty<string>();
-                ReferencedModules = Mods.Select(s => new ModuleViewModel(s.Name, s.Description, s.LastUpdatedOn, RefMod.Contains(s.Name))).ToList();
+                ReferencedModules = Mods.Select(s => new ModuleViewModel(s.Id, s.Name, s.Description, s.LastUpdatedOn, RefMod.Contains(s.Name))).ToList();
             }
             else
             {
-                ReferencedModules = Mods.Select(s => new ModuleViewModel(s.Name, s.Description, s.LastUpdatedOn, false)).ToList();
+                ReferencedModules = Mods.Select(s => new ModuleViewModel(s.Id, s.Name, s.Description, s.LastUpdatedOn, false)).ToList();
             }
 
             if (Request.Cookies["code"] != null)
@@ -72,7 +72,7 @@ namespace IPFees.Web.Pages
             var RefMod = ReferencedModules.Where(w => w.Checked).Select(s => s.Name).ToList();
             foreach (var rm in RefMod)
             {
-                var module = await moduleRepository.GetModuleByName(rm);
+                var module = await moduleRepository.GetModuleById(Guid.Parse(rm));
                 _calc.Parse(module.SourceCode);
             }
             _calc.Parse(Code);
@@ -82,7 +82,7 @@ namespace IPFees.Web.Pages
             if (RefMod.Any()) TempData["modules"] = RefMod;
             // Prepare view model for referenced modules
             var Mods = moduleRepository.GetModules().Result;
-            ReferencedModules = Mods.Select(s => new ModuleViewModel(s.Name, s.Description, s.LastUpdatedOn, RefMod.Contains(s.Name))).ToList();
+            ReferencedModules = Mods.Select(s => new ModuleViewModel(s.Id, s.Name, s.Description, s.LastUpdatedOn, RefMod.Contains(s.Name))).ToList();
             ExecutionPending = false;
             return Page();
         }
@@ -93,7 +93,7 @@ namespace IPFees.Web.Pages
             var RefMod = (IEnumerable<string>)TempData["modules"] ?? Enumerable.Empty<string>();
             foreach (var rm in RefMod)
             {
-                var module = await moduleRepository.GetModuleByName(rm);
+                var module = await moduleRepository.GetModuleById(Guid.Parse(rm));
                 _calc.Parse(module.SourceCode);
             }
             // Parse code
@@ -156,7 +156,7 @@ namespace IPFees.Web.Pages
             if (RefMod.Any()) TempData["modules"] = RefMod;
             // Prepare view model for referenced modules
             var Mods = moduleRepository.GetModules().Result;
-            ReferencedModules = Mods.Select(s => new ModuleViewModel(s.Name, s.Description, s.LastUpdatedOn, RefMod.Contains(s.Name))).ToList();
+            ReferencedModules = Mods.Select(s => new ModuleViewModel(s.Id, s.Name, s.Description, s.LastUpdatedOn, RefMod.Contains(s.Name))).ToList();
             CalculationPending = false;
             return Page();
         }

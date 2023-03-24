@@ -5,12 +5,13 @@ namespace IPFFees.Core
 {
     public interface IJurisdictionRepository
     {
-        Task<DbResult> AddJurisdictionAsync(string JurisdictionName);
-        Task<DbResult> SetJurisdictionDescriptionAsync(string JurisdictionName, string Description);
-        Task<DbResult> SetJurisdictionSourceCodeAsync(string JurisdictionName, string SourceCode);
-        Task<DbResult> RemoveJurisdictionAsync(string JurisdictionName);
+        Task<DbResult> AddJurisdictionAsync(string Name);
+        Task<DbResult> SetJurisdictionNameAsync(Guid Id, string Name);
+        Task<DbResult> SetJurisdictionDescriptionAsync(Guid Id, string Description);
+        Task<DbResult> SetJurisdictionSourceCodeAsync(Guid Id, string SourceCode);
+        Task<DbResult> RemoveJurisdictionAsync(Guid Id);
         Task<IEnumerable<JurisdictionInfo>> GetJurisdictions();
-        Task<JurisdictionInfo> GetJurisdictionByName(string JurisdictionName);
-        Task<DbResult> SetReferencedModules(string JurisdictionName, string[] ModuleNames);        
+        Task<JurisdictionInfo> GetJurisdictionById(Guid Id);
+        Task<DbResult> SetReferencedModules(Guid Id, IList<Guid> ModuleIds);
     }
 }

@@ -17,16 +17,16 @@ namespace IPFees.Web.Areas.Jurisdiction.Pages
             ErrorMessages = new List<string>();
         }
 
-        public async Task<IActionResult> OnGetAsync(string Id)
+        public async Task<IActionResult> OnGetAsync(Guid Id)
         {
-            var info = await jurisdictionRepository.GetJurisdictionByName(Id);
+            var info = await jurisdictionRepository.GetJurisdictionById(Id);
             Name = info.Name;
             return Page();
         }
 
-        public async Task<IActionResult> OnPostAsync()
+        public async Task<IActionResult> OnPostAsync(Guid Id)
         {
-            var res = await jurisdictionRepository.RemoveJurisdictionAsync(Name);
+            var res = await jurisdictionRepository.RemoveJurisdictionAsync(Id);
             if (!res.Success)
             {
                 ErrorMessages.Add($"Error deleting jurisdiction: {res.Reason}");

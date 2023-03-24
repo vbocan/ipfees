@@ -17,16 +17,16 @@ namespace IPFees.Web.Areas.Module.Pages
             ErrorMessages = new List<string>();
         }
 
-        public async Task<IActionResult> OnGetAsync(string Id)
+        public async Task<IActionResult> OnGetAsync(Guid Id)
         {
-            var info = await moduleRepository.GetModuleByName(Id);
+            var info = await moduleRepository.GetModuleById(Id);
             Name = info.Name;
             return Page();
         }
 
-        public async Task<IActionResult> OnPostAsync()
+        public async Task<IActionResult> OnPostAsync(Guid Id)
         {
-            var res = await moduleRepository.RemoveModuleAsync(Name);
+            var res = await moduleRepository.RemoveModuleAsync(Id);
             if (!res.Success)
             {
                 ErrorMessages.Add($"Error deleting module: {res.Reason}");

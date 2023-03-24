@@ -1,4 +1,4 @@
 ﻿namespace IPFFees.Core
 {
-    public record JurisdictionInfo(string Name, string Description, string SourceCode, string[] ReferencedModules, DateTime LastUpdatedOn);
+    public record JurisdictionInfo(Guid Id, string Name, string Description, string SourceCode, IEnumerable<Guid> ReferencedModules, DateTime LastUpdatedOn);
 }

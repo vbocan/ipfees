@@ -22,36 +22,41 @@ namespace IPFees.Web.Areas.Jurisdiction.Pages
             ErrorMessages = new List<string>();
         }
 
-        public async Task<IActionResult> OnGetAsync(string Id)
+        public async Task<IActionResult> OnGetAsync(Guid Id)
         {
             // Retrieve the jurisdiction by name
-            var jur = await jurisdictionRepository.GetJurisdictionByName(Id);
+            var jur = await jurisdictionRepository.GetJurisdictionById(Id);
             Name = jur.Name;
             Description = jur.Description;
             SourceCode = jur.SourceCode;
             // Prepare view model for referenced modules
             var Mods = await moduleRepository.GetModules();
-            ReferencedModules = Mods.Select(s => new ModuleViewModel(s.Name, s.Description, s.LastUpdatedOn, jur.ReferencedModules.Contains(s.Name))).ToList();
+            ReferencedModules = Mods.Select(s => new ModuleViewModel(s.Id, s.Name, s.Description, s.LastUpdatedOn, jur.ReferencedModules.Contains(s.Id))).ToList();
             return Page();
         }
 
-        public async Task<IActionResult> OnPostAsync()
+        public async Task<IActionResult> OnPostAsync(Guid Id)
         {
-            var res = await jurisdictionRepository.SetJurisdictionDescriptionAsync(Name, Description);
-            if (!res.Success)
+            var res1 = await jurisdictionRepository.SetJurisdictionNameAsync(Id, Name);
+            if (!res1.Success)
             {
-                ErrorMessages.Add($"Error setting description: {res.Reason}");
+                ErrorMessages.Add($"Error setting name: {res1.Reason}");
             }
-            string[] RefMod = ReferencedModules.Where(w => w.Checked).Select(s => s.Name).ToArray();
-            res = await jurisdictionRepository.SetReferencedModules(Name, RefMod);
-            if (!res.Success)
+            var res2 = await jurisdictionRepository.SetJurisdictionDescriptionAsync(Id, Description);
+            if (!res2.Success)
             {
-                ErrorMessages.Add($"Error setting referenced modules: {res.Reason}");
+                ErrorMessages.Add($"Error setting description: {res2.Reason}");
             }
-            res = await jurisdictionRepository.SetJurisdictionSourceCodeAsync(Name, SourceCode);
-            if (!res.Success)
+            var RefMod = ReferencedModules.Where(w => w.Checked).Select(s => s.Id).ToList();
+            var res3 = await jurisdictionRepository.SetReferencedModules(Id, RefMod);
+            if (!res3.Success)
             {
-                ErrorMessages.Add($"Error setting source code: {res.Reason}");
+                ErrorMessages.Add($"Error setting referenced modules: {res3.Reason}");
+            }
+            var res4 = await jurisdictionRepository.SetJurisdictionSourceCodeAsync(Id, SourceCode);
+            if (!res4.Success)
+            {
+                ErrorMessages.Add($"Error setting source code: {res4.Reason}");
             }
 
             if (ErrorMessages.Any()) return Page();
