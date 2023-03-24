@@ -23,20 +23,21 @@ namespace IPFFees.Core
         /// <summary>
         /// Create a new jurisdiction
         /// </summary>
-        /// <param name="JurisdictionName">JurisdictionRepository name.</param>
+        /// <param name="Name">Jurisdiction name</param>
         /// <returns>A DbResult structure containing the result of the database operation</returns>
         /// <remarks>
         /// A jurisdiction is an area where Intellectual Property rules are in effect and usually consists of one or more countries.        
         /// </remarks>
-        public async Task<DbResult> AddJurisdictionAsync(string JurisdictionName)
+        public async Task<DbResult> AddJurisdictionAsync(string Name)
         {
-            if (await GetJurisdictionByName(JurisdictionName) != null)
+            var Jurisdictions = await GetJurisdictions();
+            if (Jurisdictions.Any(a => a.Name.Equals(Name)))
             {
-                return DbResult.Fail($"A jurisdiction named '{JurisdictionName}' already exists.");
+                return DbResult.Fail($"A jurisdiction named '{Name}' already exists.");
             }
             var newDoc = new JurisdictionDoc
             {
-                Name = JurisdictionName,
+                Name = Name,
                 LastUpdatedOn = DateTime.UtcNow.ToLocalTime()
             };
             try
@@ -49,15 +50,32 @@ namespace IPFFees.Core
                 return DbResult.Fail(ex);
             }
         }
+
+        /// <summary>
+        /// Set the jurisdiction name
+        /// </summary>
+        /// <param name="Id">Jurisdiction id</param>
+        /// <param name="Name">Jurisdiction name</param>
+        /// <returns>A DbResult structure containing the result of the database operation</returns>
+        public async Task<DbResult> SetJurisdictionNameAsync(Guid Id, string Name)
+        {
+            var res = await context.JurisdictionCollection.UpdateOneAsync(r => r.Id.Equals(Id),
+                Builders<JurisdictionDoc>
+                .Update
+                .Set(r => r.LastUpdatedOn, DateTime.UtcNow.ToLocalTime())
+                .Set(r => r.Name, Name));
+            return res.IsAcknowledged ? DbResult.Succeed() : DbResult.Fail();
+        }
+
         /// <summary>
         /// Set the jurisdiction description
         /// </summary>
-        /// <param name="JurisdictionName">JurisdictionRepository name</param>
+        /// <param name="Id">Jurisdiction id</param>
         /// <param name="Description">Description of the functionality provided</param>        
         /// <returns>A DbResult structure containing the result of the database operation</returns>
-        public async Task<DbResult> SetJurisdictionDescriptionAsync(string JurisdictionName, string Description)
+        public async Task<DbResult> SetJurisdictionDescriptionAsync(Guid Id, string Description)
         {
-            var res = await context.JurisdictionCollection.UpdateOneAsync(r => r.Name.Equals(JurisdictionName),
+            var res = await context.JurisdictionCollection.UpdateOneAsync(r => r.Id.Equals(Id),
                 Builders<JurisdictionDoc>
                 .Update
                 .Set(r => r.LastUpdatedOn, DateTime.UtcNow.ToLocalTime())
@@ -68,12 +86,12 @@ namespace IPFFees.Core
         /// <summary>
         /// Set the jurisdiction source code
         /// </summary>
-        /// <param name="JurisdictionName">JurisdictionRepository name</param>
+        /// <param name="Id">Jurisdiction id</param>
         /// <param name="SourceCode">Source code of the jurisdiction</param>        
         /// <returns>A DbResult structure containing the result of the database operation</returns>
-        public async Task<DbResult> SetJurisdictionSourceCodeAsync(string JurisdictionName, string SourceCode)
+        public async Task<DbResult> SetJurisdictionSourceCodeAsync(Guid Id, string SourceCode)
         {
-            var res = await context.JurisdictionCollection.UpdateOneAsync(r => r.Name.Equals(JurisdictionName),
+            var res = await context.JurisdictionCollection.UpdateOneAsync(r => r.Id.Equals(Id),
                 Builders<JurisdictionDoc>
                 .Update
                 .Set(r => r.LastUpdatedOn, DateTime.UtcNow.ToLocalTime())
@@ -94,25 +112,25 @@ namespace IPFFees.Core
         /// <summary>
         /// Get jurisdiction by name
         /// </summary>
-        /// <param name="JurisdictionName">JurisdictionRepository name</param>
+        /// <param name="Id">Jurisdiction id</param>
         /// <returns>A JurisdictionInfo object</returns>
-        public async Task<JurisdictionInfo> GetJurisdictionByName(string JurisdictionName)
+        public async Task<JurisdictionInfo> GetJurisdictionById(Guid Id)
         {
-            var filter = Builders<JurisdictionDoc>.Filter.Eq(m => m.Name, JurisdictionName);
-            var dbObjs = (await context.JurisdictionCollection.FindAsync(filter)).FirstOrDefaultAsync().Result;            
+            var filter = Builders<JurisdictionDoc>.Filter.Eq(m => m.Id, Id);
+            var dbObjs = (await context.JurisdictionCollection.FindAsync(filter)).FirstOrDefaultAsync().Result;
             return dbObjs.Adapt<JurisdictionInfo>();
         }
 
         /// <summary>
         /// Remove a specified jurisdiction
         /// </summary>
-        /// <param name="JurisdictionName">JurisdictionRepository name</param>
+        /// <param name="Id">Jurisdiction id</param>
         /// <returns>A DbResult structure containing the result of the database operation</returns>
-        public async Task<DbResult> RemoveJurisdictionAsync(string JurisdictionName)
+        public async Task<DbResult> RemoveJurisdictionAsync(Guid Id)
         {
             try
             {
-                await context.JurisdictionCollection.DeleteOneAsync(s => s.Name.Equals(JurisdictionName));
+                await context.JurisdictionCollection.DeleteOneAsync(s => s.Id.Equals(Id));
                 return DbResult.Succeed();
             }
             catch (Exception ex)
@@ -122,17 +140,17 @@ namespace IPFFees.Core
         }
 
         /// <summary>
-        /// Set the jurisdiction description
+        /// Set the modules referenced by the jurisdiction
         /// </summary>
-        /// <param name="JurisdictionName">JurisdictionRepository name</param>
-        /// <param name="ModuleNames">An array of module names referenced by the jurisdiction</param>        
+        /// <param name="Id">Jurisdiction id</param>
+        /// <param name="ModuleIds">An array of module ids referenced by the jurisdiction</param>
         /// <returns>A DbResult structure containing the result of the database operation</returns>
-        public async Task<DbResult> SetReferencedModules(string JurisdictionName, string[] ModuleNames)
+        public async Task<DbResult> SetReferencedModules(Guid Id, IList<Guid> ModuleIds)
         {
-            var res = await context.JurisdictionCollection.UpdateOneAsync(r => r.Name.Equals(JurisdictionName),
+            var res = await context.JurisdictionCollection.UpdateOneAsync(r => r.Id.Equals(Id),
                 Builders<JurisdictionDoc>
                 .Update
-                .Set(r => r.ReferencedModules, ModuleNames));
+                .Set(r => r.ReferencedModules, ModuleIds));
             return res.IsAcknowledged ? DbResult.Succeed() : DbResult.Fail();
         }
     }

@@ -7,7 +7,7 @@ namespace IPFFees.Core
 {
     public interface IOfficialFee
     {
-        Task<OfficialFeeResult> GetVariables(string JurisdictionName);
-        Task<OfficialFeeResult> Calculate(string JurisdictionName, IList<IPFValue> Vars);
+        Task<OfficialFeeResult> GetVariables(Guid JurisdictionId);
+        Task<OfficialFeeResult> Calculate(Guid JurisdictionId, IList<IPFValue> Vars);
     }
 }

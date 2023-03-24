@@ -19,23 +19,28 @@ namespace IPFees.Web.Areas.Module.Pages
             ErrorMessages = new List<string>();
         }
 
-        public async Task<IActionResult> OnGetAsync(string Id)
+        public async Task<IActionResult> OnGetAsync(Guid Id)
         {
-            var info = await moduleRepository.GetModuleByName(Id);
+            var info = await moduleRepository.GetModuleById(Id);
             Name = info.Name;
             Description = info.Description;
             SourceCode = info.SourceCode;
             return Page();
         }
 
-        public async Task<IActionResult> OnPostAsync()
+        public async Task<IActionResult> OnPostAsync(Guid Id)
         {
-            var res = await moduleRepository.SetModuleDescriptionAsync(Name, Description);
+            var res = await moduleRepository.SetModuleNameAsync(Id, Name);
+            if (!res.Success)
+            {
+                ErrorMessages.Add($"Error setting name: {res.Reason}");
+            }
+            res = await moduleRepository.SetModuleDescriptionAsync(Id, Description);
             if (!res.Success)
             {
                 ErrorMessages.Add($"Error setting description: {res.Reason}");
             }
-            res = await moduleRepository.SetModuleSourceCodeAsync(Name, SourceCode);
+            res = await moduleRepository.SetModuleSourceCodeAsync(Id, SourceCode);
             if (!res.Success)
             {
                 ErrorMessages.Add($"Error setting source code: {res.Reason}");

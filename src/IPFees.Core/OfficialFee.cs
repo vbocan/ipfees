@@ -21,17 +21,17 @@ namespace IPFees.Core
         /// <summary>
         /// Compute the official fees for the specified jurisdiction
         /// </summary>
-        /// <param name="JurisdictionName">JurisdictionRepository name</param>
+        /// <param name="JurisdictionId">Jurisdiction Id</param>
         /// <param name="Vars">Calculation parameters</param>
         /// <exception cref="NotSupportedException"></exception>
-        public async Task<OfficialFeeResult> Calculate(string JurisdictionName, IList<IPFValue> Vars)
+        public async Task<OfficialFeeResult> Calculate(Guid JurisdictionId, IList<IPFValue> Vars)
         {
-            var jur = await Jurisdiction.GetJurisdictionByName(JurisdictionName) ?? throw new NotSupportedException($"JurisdictionRepository '{JurisdictionName}' does not exist.");
+            var jur = await Jurisdiction.GetJurisdictionById(JurisdictionId) ?? throw new NotSupportedException($"Jurisdiction '{JurisdictionId}' does not exist.");
             // Step 1: Parse the source code of the referenced modules (if any)
             foreach (var rm in jur.ReferencedModules)
             {
                 // Retrieve the referenced module
-                var mod = await Module.GetModuleByName(rm) ?? throw new NotSupportedException($"Module '{rm}' does not exist.");
+                var mod = await Module.GetModuleById(rm) ?? throw new NotSupportedException($"Module '{rm}' does not exist.");
                 Calculator.Parse(mod.SourceCode);
             }
             // Step 2: Parse the source code of the current jurisdiction
@@ -48,14 +48,14 @@ namespace IPFees.Core
             }
         }
 
-        public async Task<OfficialFeeResult> GetVariables(string JurisdictionName)
+        public async Task<OfficialFeeResult> GetVariables(Guid JurisdictionId)
         {
-            var jur = await Jurisdiction.GetJurisdictionByName(JurisdictionName) ?? throw new NotSupportedException($"JurisdictionRepository '{JurisdictionName}' does not exist.");
+            var jur = await Jurisdiction.GetJurisdictionById(JurisdictionId) ?? throw new NotSupportedException($"Jurisdiction '{JurisdictionId}' does not exist.");
             // Step 1: Parse the source code of the referenced modules (if any)
             foreach (var rm in jur.ReferencedModules)
             {
                 // Retrieve the referenced module
-                var mod = await Module.GetModuleByName(rm) ?? throw new NotSupportedException($"Module '{rm}' does not exist.");
+                var mod = await Module.GetModuleById(rm) ?? throw new NotSupportedException($"Module '{rm}' does not exist.");
                 Calculator.Parse(mod.SourceCode);
             }
             // Step 2: Parse the source code of the current jurisdiction
