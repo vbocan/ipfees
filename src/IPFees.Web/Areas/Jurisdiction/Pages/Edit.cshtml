@@ -20,8 +20,11 @@
                 </div>
             </div>
         }
-        <form method="post">
-            <input asp-for="@Model.Name" type="hidden" />
+        <form method="post">            
+            <div class="mb-3">
+                <label for="@Model.Name" class="form-label">Name</label>
+                <input asp-for="Name" value="@Model.Name" class="form-control" required />                
+            </div>
             <div class="mb-3">
                 <label for="@Model.Description" class="form-label">Description</label>
                 <input asp-for="@Model.Description" class="form-control" />
@@ -31,10 +34,10 @@
                 @for (var i = 0; i < Model.ReferencedModules.Count(); i++)
                 {
                     <div class="form-check form-switch">
-                        <label class="form-check-label" for="@Model.ReferencedModules[i].Name">@Model.ReferencedModules[i].Description</label>
+                        <label class="form-check-label" for="@Model.ReferencedModules[i].Name">@Model.ReferencedModules[i].Name (@Model.ReferencedModules[i].Description)</label>
                         <input class="form-check-input" type="checkbox" asp-for="@Model.ReferencedModules[i].Checked">
                         <input type="hidden" asp-for="@Model.ReferencedModules[i].Checked" value="false">
-                        <input type="hidden" asp-for="@Model.ReferencedModules[i].Name">
+                        <input type="hidden" asp-for="@Model.ReferencedModules[i].Id">
                     </div>
                 }
                 <div id="ReferencedModulesHelp" class="form-text">Source code associated to referenced modules is parsed along with the jurisdiction source code.</div>

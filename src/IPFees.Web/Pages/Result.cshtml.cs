@@ -43,7 +43,7 @@ namespace IPFees.Web.Pages
             var RefMod = (IEnumerable<string>)TempData.Peek("modules") ?? Enumerable.Empty<string>();
             foreach (var rm in RefMod)
             {
-                var module = await moduleRepository.GetModuleByName(rm);
+                var module = await moduleRepository.GetModuleById(Guid.Parse(rm));
                 _calc.Parse(module.SourceCode);
             }
             string Code = (string)TempData.Peek("code");

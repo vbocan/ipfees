@@ -35,11 +35,11 @@ namespace IPFees.Web.Pages
             if (TempData["modules"] != null)
             {
                 var RefMod = (IEnumerable<string>)TempData["modules"];
-                ReferencedModules = Mods.Select(s => new ModuleViewModel(s.Name, s.Description, s.LastUpdatedOn, RefMod.Contains(s.Name))).ToList();
+                ReferencedModules = Mods.Select(s => new ModuleViewModel(s.Id, s.Name, s.Description, s.LastUpdatedOn, RefMod.Contains(s.Name))).ToList();
             }
             else
             {                
-                ReferencedModules = Mods.Select(s => new ModuleViewModel(s.Name, s.Description, s.LastUpdatedOn, false)).ToList();
+                ReferencedModules = Mods.Select(s => new ModuleViewModel(s.Id, s.Name, s.Description, s.LastUpdatedOn, false)).ToList();
             }
 
             return Page();

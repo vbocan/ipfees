@@ -26,32 +26,32 @@ namespace IPFees.Web.Areas.Jurisdiction.Pages
         public async Task<IActionResult> OnGetAsync()
         {
             var Mods = await moduleRepository.GetModules();
-            ReferencedModules = Mods.Select(s => new ModuleViewModel(s.Name, s.Description, s.LastUpdatedOn, false)).ToList();
+            ReferencedModules = Mods.Select(s => new ModuleViewModel(s.Id, s.Name, s.Description, s.LastUpdatedOn, false)).ToList();
             return Page();
         }
 
         public async Task<IActionResult> OnPostAsync()
         {
-            var res = await jurisdictionRepository.AddJurisdictionAsync(Name);
-            if (!res.Success)
+            var res1 = await jurisdictionRepository.AddJurisdictionAsync(Name);
+            if (!res1.Success)
             {
-                ErrorMessages.Add($"Error creating jurisdiction: {res.Reason}");
+                ErrorMessages.Add($"Error creating jurisdiction: {res1.Reason}");
             }
-            res = await jurisdictionRepository.SetJurisdictionDescriptionAsync(Name, Description);
-            if (!res.Success)
+            var res2 = await jurisdictionRepository.SetJurisdictionDescriptionAsync(res1.Id, Description);
+            if (!res2.Success)
             {
-                ErrorMessages.Add($"Error setting description: {res.Reason}");
+                ErrorMessages.Add($"Error setting description: {res2.Reason}");
             }
-            string[] RefMod = ReferencedModules.Where(w => w.Checked).Select(s => s.Name).ToArray();
-            res = await jurisdictionRepository.SetReferencedModules(Name, RefMod);
-            if (!res.Success)
+            var RefMod = ReferencedModules.Where(w => w.Checked).Select(s => s.Id).ToList();
+            var res3 = await jurisdictionRepository.SetReferencedModules(res1.Id, RefMod);
+            if (!res3.Success)
             {
-                ErrorMessages.Add($"Error setting referenced modules: {res.Reason}");
+                ErrorMessages.Add($"Error setting referenced modules: {res3.Reason}");
             }
-            res = await jurisdictionRepository.SetJurisdictionSourceCodeAsync(Name, SourceCode);
-            if (!res.Success)
+            var res4 = await jurisdictionRepository.SetJurisdictionSourceCodeAsync(res1.Id, SourceCode);
+            if (!res4.Success)
             {
-                ErrorMessages.Add($"Error setting source code: {res.Reason}");
+                ErrorMessages.Add($"Error setting source code: {res4.Reason}");
             }
 
             if (ErrorMessages.Any()) return Page();
@@ -59,5 +59,5 @@ namespace IPFees.Web.Areas.Jurisdiction.Pages
         }
     }
 
-    public record ModuleViewModel(string Name, string Description, DateTime LastUpdatedOn, bool Checked);
+    public record ModuleViewModel(Guid Id, string Name, string Description, DateTime LastUpdatedOn, bool Checked);
 }
