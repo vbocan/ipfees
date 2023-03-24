@@ -25,10 +25,10 @@
                     @foreach (var mi in Model.Jurisdictions)
                     {
                         <tr>
-                            <td><a asp-area="Run" asp-page="Index" asp-route-id="@mi.Name">[@mi.Name] (@mi.Description)</a></td>
+                            <td><a asp-area="Run" asp-page="Index" asp-route-id="@mi.Id">[@mi.Name] (@mi.Description)</a></td>
                             <td>@mi.ReferencedModules.Count()</td>
                             <td>@mi.LastUpdatedOn</td>
-                            <td><a asp-page="Edit" asp-route-id="@mi.Name">Edit</a> | <a asp-page="Delete" asp-route-id="@mi.Name">Delete</a></td>
+                            <td><a asp-page="Edit" asp-route-id="@mi.Id">Edit</a> | <a asp-page="Delete" asp-route-id="@mi.Id">Delete</a></td>
                         </tr>
                     }
                 </tbody>
@@ -37,7 +37,7 @@
         }
         else
         {
-            <h6>Jurisdictions defined in the system appear here.</h6>
+            <h6>Defined jurisdictions appear here.</h6>
         }
     </div>
 </div>

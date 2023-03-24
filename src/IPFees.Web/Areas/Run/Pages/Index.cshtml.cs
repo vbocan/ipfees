@@ -11,7 +11,7 @@ namespace IPFees.Web.Areas.Run.Pages
 {
     public class IndexModel : PageModel
     {
-        [BindProperty] public string Id { get; set; }
+        [BindProperty] public Guid Id { get; set; }
         [BindProperty] public bool CalculationPending { get; set; } = true;
 
         [BindProperty] public IList<ParsedVariableViewModel> Vars { get; set; }
@@ -32,7 +32,7 @@ namespace IPFees.Web.Areas.Run.Pages
             _logger = logger;
         }
 
-        public async Task<IActionResult> OnGetAsync(string id)
+        public async Task<IActionResult> OnGetAsync(Guid id)
         {
             this.Id = id;
             var res = await officialFee.GetVariables(id);
@@ -45,7 +45,7 @@ namespace IPFees.Web.Areas.Run.Pages
             return Page();
         }
 
-        public async Task<IActionResult> OnPostResultAsync(string id)
+        public async Task<IActionResult> OnPostResultAsync(Guid id)
         {
             CollectedValues = new List<IPFValue>();
 
