@@ -24,8 +24,7 @@
         <form method="post">
             <div class="mb-3">
                 <label for="@Model.Name" class="form-label">Name</label>
-                <input asp-for="Name" value="@Model.Name" class="form-control" aria-describedby="NameHelp" required />
-                <div id="NameHelp" class="form-text">You will not be able to edit this field later.</div>
+                <input asp-for="Name" value="@Model.Name" class="form-control" required />                
             </div>
             <div class="mb-3">
                 <label for="@Model.Description" class="form-label">Description</label>

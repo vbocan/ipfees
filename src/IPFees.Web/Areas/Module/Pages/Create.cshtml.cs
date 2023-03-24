@@ -20,25 +20,25 @@ namespace IPFees.Web.Areas.Module.Pages
         }
 
         public void OnGet()
-        {            
+        {
         }
 
         public async Task<IActionResult> OnPostAsync()
         {
-            var res = await moduleRepository.AddModuleAsync(Name);
-            if (!res.Success)
+            var res1 = await moduleRepository.AddModuleAsync(Name);
+            if (!res1.Success)
             {
-                ErrorMessages.Add($"Error creating module: {res.Reason}");
+                ErrorMessages.Add($"Error creating module: {res1.Reason}");
             }
-            res = await moduleRepository.SetModuleDescriptionAsync(Name, Description);
-            if (!res.Success)
+            var res2 = await moduleRepository.SetModuleDescriptionAsync(res1.Id, Description);
+            if (!res2.Success)
             {
-                ErrorMessages.Add($"Error setting description: {res.Reason}");
+                ErrorMessages.Add($"Error setting description: {res2.Reason}");
             }
-            res = await moduleRepository.SetModuleSourceCodeAsync(Name, SourceCode);
-            if (!res.Success)
+            var res3 = await moduleRepository.SetModuleSourceCodeAsync(res1.Id, SourceCode);
+            if (!res3.Success)
             {
-                ErrorMessages.Add($"Error setting source code: {res.Reason}");
+                ErrorMessages.Add($"Error setting source code: {res3.Reason}");
             }
 
             if (ErrorMessages.Any()) return Page();
