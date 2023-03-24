@@ -30,8 +30,6 @@ namespace IPFees.Evaluator
             // If no tokens are provided, the logic is implicitly true
             if (Tokens.Length == 0) return true;
 
-            var Context = new EvaluatorContext(Vars, FeeName);
-
             // Stack for values
             var values = new Stack<IPFValue>();
             // Stack for operators
@@ -39,13 +37,21 @@ namespace IPFees.Evaluator
 
             for (int i = 0; i < Tokens.Length; i++)
             {
-                try
+                // Current token is a global variable                
+                var Variable = Vars.SingleOrDefault(s => s.Name.Equals(Tokens[i]));
+                if (Variable is not null)
                 {
-                    var res = Context.ResolveVariable(Tokens[i]);
-                    values.Push(new IPFValueNumber(string.Empty, res));
+                    values.Push(Variable);
                     continue;
                 }
-                catch (Exception) { }
+                // Current token in a fee local variable
+                var VarName = new StringBuilder().AppendFormat($"{Tokens[i]}.{FeeName}").ToString();
+                var Variable2 = Vars.SingleOrDefault(s => s.Name.Equals(VarName));
+                if (Variable2 is not null)
+                {
+                    values.Push(Variable2);
+                    continue;
+                }
                 // Current token is an opening brace, push it to 'ops'
                 if (Tokens[i].Equals("("))
                 {
