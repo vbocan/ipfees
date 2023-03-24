@@ -32,7 +32,7 @@
 
 <div class="card mb-3" style="width: 48rem;">
     <div class="card-body">
-        <h5 class="card-title">Single-Selection List</h5>
+        <h5 class="card-title">Single-Selection Input</h5>
         <h6 class="card-subtitle mb-2 text-muted">Single-selection input displays a list of string choices and allows the user to select one of those. A default choice must be specified.</h6>
         <p class="card-text">
             DEFINE LIST EntityType AS 'Select the desired entity type'<br />
@@ -47,7 +47,7 @@
 
 <div class="card mb-3" style="width: 48rem;">
     <div class="card-body">
-        <h5 class="card-title">Multiple-Selection List</h5>
+        <h5 class="card-title">Multiple-Selection Input</h5>
         <h6 class="card-subtitle mb-2 text-muted">Multiple-selection input displays a list of string choices and allows the user to select one or more of those. One or more default choices must be specified (separated by comma).</h6>
         <p class="card-text">
             DEFINE MULTILIST EntityType AS 'Select the desired entity type'<br />
@@ -58,7 +58,7 @@
             ENDDEFINE
         </p>
         <p>To get the number of selected choices, use the !COUNT property, e.g. EntityType!COUNT.</p>
-        <p>To test user selection, use the IN and NIN operators.</p>
+        <p>To test user selection, use the IN (regular inclusion test) and NIN (not-in) operators, e.g. YIELD 100 IF MicroEntity IN EntityType or YEILD 200 IF SmallEntity NIN EntityType.</p>
     </div>
 </div>
 
@@ -197,13 +197,30 @@
 
 <div class="card mb-3" style="width: 48rem;">
     <div class="card-body">
-        <h5 class="card-title">List Selection Test</h5>
+        <h5 class="card-title">Choice Selection Test</h5>
         <h6 class="card-subtitle mb-2 text-muted">To test for user selection, use the IN and NIN operators.</h6>
         <p class="card-text">
             COMPUTE FEE SheetFee<br />
             YIELD 100 IF Country1 IN Countries<br />
             YIELD 200 IF Country2 IN Countries<br />
-            YIELD 25 IF Country1 NIN Countries AND COuntry2 NIN Countries
+            YIELD 25 IF Country1 NIN Countries AND Country2 NIN Countries<br/>
+            ENDCOMPUTE
+        </p>
+    </div>
+</div>
+
+<div class="card mb-3" style="width: 48rem;">
+    <div class="card-body">
+        <h5 class="card-title">Date Selection Test</h5>
+        <h6 class="card-subtitle mb-2 text-muted">Dates cannot currently be used as such, but rather via properties that compute the number of years/months/days to the current date. The properties are !YEARSTONOW, !MONTHSTONOW, and !DAYSTONOW.</h6>
+        <p class="card-text">
+            DEFINE DATE D1 AS 'My birthday'<br/>
+            BETWEEN 01.01.1975 AND 31.12.1990<br />
+            DEFAULT 31.10.1975<br />
+            ENDDEFINE<br />
+            <br />
+            COMPUTE FEE Fee1<br />
+            YIELD 10 * ROUND(D1!YEARSTONOW) IF D1!YEARSTONOW GT 40<br />
             ENDCOMPUTE
         </p>
     </div>
