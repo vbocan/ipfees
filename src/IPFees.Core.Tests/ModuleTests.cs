@@ -34,6 +34,18 @@ namespace IPFees.Core.Tests
         }
 
         [Fact]
+        public async void SetModuleNameTest()
+        {
+            var mod = new ModuleRepository(fixture.DbContext);
+            var res1 = await mod.AddModuleAsync("Module-Set-Name");
+            Assert.True(res1.Success);
+            var res2 = await mod.SetModuleNameAsync(res1.Id, "Module Name");
+            Assert.True(res2.Success);
+            var mi = await mod.GetModuleById(res1.Id);
+            Assert.Equal("Module Name", mi.Name);
+        }
+
+        [Fact]
         public async void SetModuleDescriptionTest()
         {
             var mod = new ModuleRepository(fixture.DbContext);
