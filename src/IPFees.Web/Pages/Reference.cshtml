@@ -3,8 +3,8 @@
 @{
     ViewData["Title"] = "IPFLang Reference";
 }
-<h1>IPFLang - A Domain-Specific Language for Modern IP Fees Calculation</h1>
-<h2>Reference</h2>
+<h1>IPFLang</h1>
+<h2>A Domain-Specific Language for Modern IP Fees Calculation</h2>
 
 <div class="card mb-3" style="width: 48rem;">
     <div class="card-body">
@@ -14,13 +14,14 @@
         </h6>
         <p class="card-text">
             The process of describing IP fees in IPFLang consists of determining what the inputs are and how the fee is composed off small amounts that accrue based on rules.<br/>
-            There are four types of inputs available:
+            There are five types of inputs available:
         </p>
         <ul>
             <li>String list with individual choices</li>
             <li>String list with multiple choices</li>
             <li>Number (floating point), with lower and upper bounds as well as a default value</li>
             <li>Boolean (for yes/no types of responses)</li>
+            <li>Date (for selecting the number of yers/months/days to a specific date)</li>
         </ul>
         <p>
             Inputs are presented as HTML controls that the user fill in and upon form submission, the values are used to compute the fee. The system displays the full list of steps taken to reach the result, to aid debugging.
@@ -49,7 +50,7 @@
         <h5 class="card-title">Multiple-Selection List</h5>
         <h6 class="card-subtitle mb-2 text-muted">Multiple-selection input displays a list of string choices and allows the user to select one or more of those. One or more default choices must be specified (separated by comma).</h6>
         <p class="card-text">
-            DEFINE LIST EntityType AS 'Select the desired entity type' MULTIPLE<br />
+            DEFINE MULTILIST EntityType AS 'Select the desired entity type'<br />
             CHOICE NormalEntity AS 'Normal'<br />
             CHOICE SmallEntity AS 'Small'<br />
             CHOICE MicroEntity AS 'Micro'<br />
@@ -64,7 +65,7 @@
 <div class="card mb-3" style="width: 48rem;">
     <div class="card-body">
         <h5 class="card-title">Number Input</h5>
-        <h6 class="card-subtitle mb-2 text-muted">Number inputs allow entering a numeric value (floating point), bounded by lower and upper limits. A default value can be specified.</h6>
+        <h6 class="card-subtitle mb-2 text-muted">Number inputs allow entering a numeric value (floating point), bounded by lower and upper limits. A default value must be specified.</h6>
         <p class="card-text">
             DEFINE NUMBER SheetCount AS 'Enter the number of sheets'<br />
             BETWEEN 10 AND 1000<br />
@@ -79,10 +80,27 @@
         <h5 class="card-title">Boolean Input</h5>
         <h6 class="card-subtitle mb-2 text-muted">Boolean inputs allow selecting a condition. The default selection can be specified.</h6>
         <p class="card-text">
-            DEFINE BOOLEAN ContainsDependentClaims AS 'Does this contain  dependent claims?'<br />
+            DEFINE BOOLEAN ContainsDependentClaims AS 'Does this contain dependent claims?'<br />
             DEFAULT TRUE<br />
             ENDDEFINE
         </p>
+    </div>
+</div>
+
+<div class="card mb-3" style="width: 48rem;">
+    <div class="card-body">
+        <h5 class="card-title">Date Input</h5>
+        <h6 class="card-subtitle mb-2 text-muted">Date inputs allow entering a date bounded by lower and upper limits. A default date must be specified.</h6>
+        <p class="card-test">
+            The special value TODAY is replaced at runtime with the actual value. The date format is DD.MM.YYYY.
+        </p>
+        <p class="card-text">
+            DEFINE DATE ApplicationDate AS 'Application date'<br/>
+            BETWEEN 01.01.2023 AND TODAY<br />
+            DEFAULT 01.03.2023<br />
+            ENDDEFINE
+        </p>
+        <p>The date input cannot currently be used by itself. To get the number of years from a specific date in the past till now, use the !YEARSTONOW property, e.g. ApplicationDate!YEARSTONOW. Similarly, use the !MONTHSTONOW and !DAYSTONOW properties.</p>
     </div>
 </div>
 
@@ -207,7 +225,7 @@
 
 <div class="card mb-3" style="width: 48rem;">
     <div class="card-body">
-        <h5 class="card-title">Full Example</h5>
+        <h5 class="card-title">Example</h5>
         <h6 class="card-subtitle mb-2 text-muted">Use this as a starting point to your own fee computation.</h6>
         <p class="card-text">
             DEFINE LIST EntityType AS 'Select the desired entity type'<br />
