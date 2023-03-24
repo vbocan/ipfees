@@ -17,9 +17,9 @@ namespace IPFees.Core.Tests
         public async void AddJurisdictionTest()
         {
             var jur = new JurisdictionRepository(fixture.DbContext);
-            var res1 = await jur.AddJurisdictionAsync("JurisdictionRepository-Add");
+            var res1 = await jur.AddJurisdictionAsync("Jurisdiction-Add");
             Assert.True(res1.Success);
-            var res2 = await jur.GetJurisdictionByName("JurisdictionRepository-Add");
+            var res2 = await jur.GetJurisdictionById(res1.Id);
             Assert.True(res2 != null);
         }
 
@@ -27,8 +27,8 @@ namespace IPFees.Core.Tests
         public async void AddDuplicateJurisdictionTest()
         {
             var jur = new JurisdictionRepository(fixture.DbContext);
-            var res1 = await jur.AddJurisdictionAsync("JurisdictionRepository-DuP");
-            var res2 = await jur.AddJurisdictionAsync("JurisdictionRepository-DuP");
+            var res1 = await jur.AddJurisdictionAsync("Jurisdiction-DuP");
+            var res2 = await jur.AddJurisdictionAsync("Jurisdiction-DuP");
             Assert.True(res1.Success);
             Assert.False(res2.Success);
         }
@@ -37,23 +37,23 @@ namespace IPFees.Core.Tests
         public async void SetJurisdictionDescriptionTest()
         {
             var jur = new JurisdictionRepository(fixture.DbContext);
-            var res1 = await jur.AddJurisdictionAsync("JurisdictionRepository-Set-Description");
+            var res1 = await jur.AddJurisdictionAsync("Jurisdiction-Set-Description");
             Assert.True(res1.Success);
-            var res2 = await jur.SetJurisdictionDescriptionAsync("JurisdictionRepository-Set-Description", "JurisdictionRepository Description");
+            var res2 = await jur.SetJurisdictionDescriptionAsync(res1.Id, "Jurisdiction Description");
             Assert.True(res2.Success);
-            var mi = await jur.GetJurisdictionByName("JurisdictionRepository-Set-Description");
-            Assert.Equal("JurisdictionRepository Description", mi.Description);
+            var mi = await jur.GetJurisdictionById(res1.Id);
+            Assert.Equal("Jurisdiction Description", mi.Description);
         }
 
         [Fact]
         public async void SetJurisdictionSourceCodeTest()
         {
             var jur = new JurisdictionRepository(fixture.DbContext);
-            var res1 = await jur.AddJurisdictionAsync("JurisdictionRepository-Set-SourceCode");
+            var res1 = await jur.AddJurisdictionAsync("Jurisdiction-Set-SourceCode");
             Assert.True(res1.Success);
-            var res2 = await jur.SetJurisdictionSourceCodeAsync("JurisdictionRepository-Set-SourceCode", "Source Code");
+            var res2 = await jur.SetJurisdictionSourceCodeAsync(res1.Id, "Source Code");
             Assert.True(res2.Success);
-            var mi = await jur.GetJurisdictionByName("JurisdictionRepository-Set-SourceCode");
+            var mi = await jur.GetJurisdictionById(res1.Id);
             Assert.Equal("Source Code", mi.SourceCode);
         }
 
@@ -61,8 +61,8 @@ namespace IPFees.Core.Tests
         public async void RemoveJurisdictionsTest()
         {
             var jur = new JurisdictionRepository(fixture.DbContext);
-            var res1 = await jur.AddJurisdictionAsync("JurisdictionRepository-Del");
-            var res2 = await jur.RemoveJurisdictionAsync("JurisdictionRepository-Del");
+            var res1 = await jur.AddJurisdictionAsync("Jurisdiction-Del");
+            var res2 = await jur.RemoveJurisdictionAsync(res1.Id);
             Assert.True(res1.Success);
             Assert.True(res2.Success);
         }
@@ -71,11 +71,11 @@ namespace IPFees.Core.Tests
         public async void SetJurisdictionReferencedModulesTest()
         {
             var jur = new JurisdictionRepository(fixture.DbContext);
-            var res1 = await jur.AddJurisdictionAsync("JurisdictionRepository-Set-RefMods");
+            var res1 = await jur.AddJurisdictionAsync("Jurisdiction-Set-RefMods");
             Assert.True(res1.Success);
-            var res2 = await jur.SetReferencedModules("JurisdictionRepository-Set-RefMods", new string[] { "Mod1", "Mod2" });
+            var res2 = await jur.SetReferencedModules(res1.Id, new Guid[] { Guid.NewGuid(), Guid.NewGuid() });
             Assert.True(res2.Success);
-            var mi = await jur.GetJurisdictionByName("JurisdictionRepository-Set-RefMods");
+            var mi = await jur.GetJurisdictionById(res1.Id);
             Assert.Equal(2, mi.ReferencedModules.Length);
         }
     }

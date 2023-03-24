@@ -19,7 +19,7 @@ namespace IPFees.Core.Tests
             var mod = new ModuleRepository(fixture.DbContext);
             var res1 = await mod.AddModuleAsync("Module-Add");
             Assert.True(res1.Success);
-            var res2 = await mod.GetModuleByName("Module-Add");
+            var res2 = await mod.GetModuleById(res1.Id);
             Assert.True(res2 != null);
         }
 
@@ -39,9 +39,9 @@ namespace IPFees.Core.Tests
             var mod = new ModuleRepository(fixture.DbContext);
             var res1 = await mod.AddModuleAsync("Module-Set-Description");
             Assert.True(res1.Success);
-            var res2 = await mod.SetModuleDescriptionAsync("Module-Set-Description", "Module Description");
+            var res2 = await mod.SetModuleDescriptionAsync(res1.Id, "Module Description");
             Assert.True(res2.Success);
-            var mi = await mod.GetModuleByName("Module-Set-Description");
+            var mi = await mod.GetModuleById(res1.Id);
             Assert.Equal("Module Description", mi.Description);
         }
 
@@ -51,9 +51,9 @@ namespace IPFees.Core.Tests
             var mod = new ModuleRepository(fixture.DbContext);
             var res1 = await mod.AddModuleAsync("Module-Set-SourceCode");
             Assert.True(res1.Success);
-            var res2 = await mod.SetModuleSourceCodeAsync("Module-Set-SourceCode", "Source Code");
+            var res2 = await mod.SetModuleSourceCodeAsync(res1.Id, "Source Code");
             Assert.True(res2.Success);
-            var mi = await mod.GetModuleByName("Module-Set-SourceCode");
+            var mi = await mod.GetModuleById(res1.Id);
             Assert.Equal("Source Code", mi.SourceCode);
         }
 
@@ -62,7 +62,7 @@ namespace IPFees.Core.Tests
         {
             var mod = new ModuleRepository(fixture.DbContext);
             var res1 = await mod.AddModuleAsync("Module-Del");
-            var res2 = await mod.RemoveModuleAsync("Module-Del");
+            var res2 = await mod.RemoveModuleAsync(res1.Id);
             Assert.True(res1.Success);
             Assert.True(res2.Success);
         }

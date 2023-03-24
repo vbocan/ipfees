@@ -30,7 +30,7 @@ namespace IPFees.Core.Tests
             YIELD 100            
             ENDCOMPUTE
             """;
-            var res3 = await mod.SetModuleSourceCodeAsync("Mod1", modSourceCode);
+            var res3 = await mod.SetModuleSourceCodeAsync(res2.Id, modSourceCode);
             Assert.True(res3.Success);
             // Now let's create a jurisdiction and the associated module
             var jur = fixture.JurisdictionRepository;
@@ -43,14 +43,14 @@ namespace IPFees.Core.Tests
             YIELD 80
             ENDCOMPUTE
             """;
-            var res5 = await jur.SetJurisdictionSourceCodeAsync("Jur1", jurSourceCode);
+            var res5 = await jur.SetJurisdictionSourceCodeAsync(res4.Id, jurSourceCode);
             Assert.True(res5.Success);
-            var res6 = await jur.SetReferencedModules("Jur1", new string[] { "Mod1" });
+            var res6 = await jur.SetReferencedModules(res4.Id, new Guid[] { res2.Id });
             Assert.True(res6.Success);
             var parser = new DslParser();            
             IDslCalculator calc = new DslCalculator(parser);
             OfficialFee of = new(jur, mod, calc);
-            var res7 = await of.Calculate("Jur1", new List<IPFValue> { });
+            var res7 = await of.Calculate(res4.Id, new List<IPFValue> { });
             Assert.True(res7.IsSuccessfull);
             Assert.IsType<OfficialFeeCalculationSuccess>(res7);
             var res = (OfficialFeeCalculationSuccess)res7;
