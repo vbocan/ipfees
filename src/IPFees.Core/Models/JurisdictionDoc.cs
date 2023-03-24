@@ -24,7 +24,7 @@ namespace IPFFees.Core.Models
         public string Name { get; set; }
         public string Description { get; set; }
         public string SourceCode { get; set; }
-        public string[] ReferencedModules { get; set; }
+        public Guid[] ReferencedModules { get; set; }
         [BsonDateTimeOptions(Kind = DateTimeKind.Local)]
         public DateTime LastUpdatedOn { get; set; }
     }
