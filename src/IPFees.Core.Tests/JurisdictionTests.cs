@@ -34,6 +34,18 @@ namespace IPFees.Core.Tests
         }
 
         [Fact]
+        public async void SetJurisdictionNameTest()
+        {
+            var jur = new JurisdictionRepository(fixture.DbContext);
+            var res1 = await jur.AddJurisdictionAsync("Jurisdiction-Set-Name");
+            Assert.True(res1.Success);
+            var res2 = await jur.SetJurisdictionNameAsync(res1.Id, "Jurisdiction Name");
+            Assert.True(res2.Success);
+            var mi = await jur.GetJurisdictionById(res1.Id);
+            Assert.Equal("Jurisdiction Name", mi.Name);
+        }
+
+        [Fact]
         public async void SetJurisdictionDescriptionTest()
         {
             var jur = new JurisdictionRepository(fixture.DbContext);
