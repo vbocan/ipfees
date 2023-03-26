@@ -102,6 +102,19 @@ namespace IPFees.Evaluator
                 return new IPFValueNumber(string.Empty, difference.TotalDays);
             }
             #endregion
+            #region ENDOFMONTH property of a date
+            if (name.EndsWith("!ENDOFMONTH"))
+            {
+                // Determine date name
+                var DateName = name[..^11];
+                // Get the date by its name
+                var Date = Vars.SingleOrDefault(s => s.Name.Equals(DateName)) as IPFValueDate;
+                var givenDate = Date.Value;
+                int daysInMonth = DateTime.DaysInMonth(givenDate.Year, givenDate.Month);
+                DateOnly endOfMonth = new DateOnly(givenDate.Year, givenDate.Month, daysInMonth);
+                return new IPFValueDate(string.Empty, endOfMonth);
+            }
+            #endregion
             return null;
         }
     }
