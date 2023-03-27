@@ -128,6 +128,10 @@ namespace IPFees.Web.Pages
                         _ = bool.TryParse(field.Value[0], out var val3);
                         CollectedValues.Add(new IPFValueBoolean(CalcVar.Name, val3));
                         break;
+                    case DslVariableDate:
+                        _ = DateOnly.TryParse(field.Value[0], out var val4);
+                        CollectedValues.Add(new IPFValueDate(CalcVar.Name, val4));
+                        break;
                 }
             }
             // Log variable collection

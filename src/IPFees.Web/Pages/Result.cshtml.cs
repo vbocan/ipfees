@@ -75,6 +75,11 @@ namespace IPFees.Web.Pages
                     // A boolean input returns a boolean
                     CollectedValues.Add(new IPFValueBoolean(item.Name, item.BoolValue));
                 }
+                else if (item.Type == typeof(DslVariableDate).ToString())
+                {
+                    // A date input returns a date
+                    CollectedValues.Add(new IPFValueDate(item.Name, item.DateValue));
+                }
             }
             // Log variable collection
             _logger.LogInformation("COMPUTATION:");
