@@ -100,9 +100,14 @@
             DEFAULT 01.03.2023<br />
             ENDDEFINE
         </p>
-        <p>To get the number of years from a specific date in the past till now, use the !YEARSTONOW property, e.g. ApplicationDate!YEARSTONOW. Similarly, use the !MONTHSTONOW and !DAYSTONOW properties.</p>
-        <p>TO get the last day of the month, use the !ENDOFMONTH property, e.g. if the date is 01.01.2023, the !ENDOFMONTH property returns 31.01.2023.</p>
-    </div>
+        <p>THe date type cannot currently be used as such, but it employs several properties, as follows:</p>\
+        <ul>
+            <li>!YEARSTONOW - gets the number of years from a specific date in the past until now (a floating-point number).</li>
+            <li>!MONTHSTONOW - gets the number of months from a specific date in the past until now (a floating-point number).</li>
+            <li>!MONTHSTONOW_FROMLASTDAY - gets the number of months from the last day of the month of a specific date in the past until now (a floating-point number). For instance, if the supplied date is 01.01.2023, the last day of the month is 31.01.2023 and that will be used to compute the number of months until now.</li>
+            <li>!DAYSTONOW - gets the number of days from a specific date in the past until now (a floating-point number).</li>
+        </ul>
+        </div>
 </div>
 
 <div class="card mb-3" style="width: 48rem;">
