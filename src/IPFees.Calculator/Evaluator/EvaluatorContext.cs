@@ -61,9 +61,12 @@ namespace IPFees.Evaluator
                 // Determine the list name
                 var ListName = name[..^6];
                 // Get the list by its name
-                var List = Vars.SingleOrDefault(s => s.Name.Equals(ListName)) as IPFValueStringList;
-                // Push the length of the list (number of items)
-                return new IPFValueNumber(string.Empty, List.Value.Count());
+                var List = Vars.SingleOrDefault(s => s.Name.Equals(ListName));
+                if (List is not null)
+                {
+                    // Push the length of the list (number of items)
+                    return new IPFValueNumber(string.Empty, (List as IPFValueStringList).Value.Count());
+                }
             }
             #endregion
             #region YEARSTONOW property of a date
@@ -72,10 +75,13 @@ namespace IPFees.Evaluator
                 // Determine date name
                 var DateName = name[..^11];
                 // Get the date by its name
-                var Date = Vars.SingleOrDefault(s => s.Name.Equals(DateName)) as IPFValueDate;
-                // Push the difference between dates as years
-                TimeSpan difference = DateTime.Now.Subtract(Date.Value.ToDateTime(TimeOnly.MinValue));
-                return new IPFValueNumber(string.Empty, difference.TotalDays / 365.25);
+                var Date = Vars.SingleOrDefault(s => s.Name.Equals(DateName));
+                if (Date is not null)
+                {
+                    // Push the difference between dates as years
+                    TimeSpan difference = DateTime.Now.Subtract((Date as IPFValueDate).Value.ToDateTime(TimeOnly.MinValue));
+                    return new IPFValueNumber(string.Empty, difference.TotalDays / 365.25);
+                }
             }
             #endregion
             #region MONTHSTONOW property of a date
@@ -84,10 +90,13 @@ namespace IPFees.Evaluator
                 // Determine date name
                 var DateName = name[..^12];
                 // Get the date by its name
-                var Date = Vars.SingleOrDefault(s => s.Name.Equals(DateName)) as IPFValueDate;
-                // Push the difference between dates as months
-                TimeSpan difference = DateTime.Now.Subtract(Date.Value.ToDateTime(TimeOnly.MinValue));
-                return new IPFValueNumber(string.Empty, difference.TotalDays / (365.25 / 12));
+                var Date = Vars.SingleOrDefault(s => s.Name.Equals(DateName));
+                if (Date is not null)
+                {
+                    // Push the difference between dates as months
+                    TimeSpan difference = DateTime.Now.Subtract((Date as IPFValueDate).Value.ToDateTime(TimeOnly.MinValue));
+                    return new IPFValueNumber(string.Empty, difference.TotalDays / (365.25 / 12));
+                }
             }
             #endregion
             #region DAYSTONOW property of a date
@@ -96,10 +105,13 @@ namespace IPFees.Evaluator
                 // Determine date name
                 var DateName = name[..^10];
                 // Get the date by its name
-                var Date = Vars.SingleOrDefault(s => s.Name.Equals(DateName)) as IPFValueDate;
-                // Push the difference between dates as days
-                TimeSpan difference = DateTime.Now.Subtract(Date.Value.ToDateTime(TimeOnly.MinValue));
-                return new IPFValueNumber(string.Empty, difference.TotalDays);
+                var Date = Vars.SingleOrDefault(s => s.Name.Equals(DateName));
+                if (Date is not null)
+                {
+                    // Push the difference between dates as days
+                    TimeSpan difference = DateTime.Now.Subtract((Date as IPFValueDate).Value.ToDateTime(TimeOnly.MinValue));
+                    return new IPFValueNumber(string.Empty, difference.TotalDays);
+                }
             }
             #endregion
             #region MONTHSTONOW property of a date
@@ -108,13 +120,16 @@ namespace IPFees.Evaluator
                 // Determine date name
                 var DateName = name[..^24];
                 // Get the date by its name
-                var Date = Vars.SingleOrDefault(s => s.Name.Equals(DateName)) as IPFValueDate;
-                var givenDate = Date.Value;
-                int daysInMonth = DateTime.DaysInMonth(givenDate.Year, givenDate.Month);
-                DateOnly endOfMonth = new DateOnly(givenDate.Year, givenDate.Month, daysInMonth);
-                // Push the difference between dates as months
-                TimeSpan difference = DateTime.Now.Subtract(endOfMonth.ToDateTime(TimeOnly.MinValue));
-                return new IPFValueNumber(string.Empty, difference.TotalDays / (365.25 / 12));
+                var Date = Vars.SingleOrDefault(s => s.Name.Equals(DateName));
+                if (Date is not null)
+                {
+                    var givenDate = (Date as IPFValueDate).Value;
+                    int daysInMonth = DateTime.DaysInMonth(givenDate.Year, givenDate.Month);
+                    DateOnly endOfMonth = new DateOnly(givenDate.Year, givenDate.Month, daysInMonth);
+                    // Push the difference between dates as months
+                    TimeSpan difference = DateTime.Now.Subtract(endOfMonth.ToDateTime(TimeOnly.MinValue));
+                    return new IPFValueNumber(string.Empty, difference.TotalDays / (365.25 / 12));
+                }
             }
             #endregion
             return null;
