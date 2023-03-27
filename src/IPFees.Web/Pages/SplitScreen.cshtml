@@ -24,6 +24,7 @@
                             <input class="form-check-input" type="checkbox" asp-for="@Model.ReferencedModules[i].Checked">
                             <input type="hidden" asp-for="@Model.ReferencedModules[i].Checked" value="false">
                             <input type="hidden" asp-for="@Model.ReferencedModules[i].Name">
+                            <input type="hidden" asp-for="@Model.ReferencedModules[i].Id">
                         </div>
                     }
                     <div id="ReferencedModulesHelp" class="form-text">Source code associated to referenced modules is parsed along with the jurisdiction source code.</div>
@@ -63,6 +64,13 @@
                     {
                         switch (v)
                         {
+                            case DslVariableDate:
+                                var v0 = (DslVariableDate)v;
+                                <div class="mb-3 col-md-6">
+                                    <label class="form-label" for="@v0.Name">@v0.Text</label>
+                                    <input class="form-control" type="date" id="@v0.Name" name="@v0.Name" value="@v0.DefaultValue.ToString("yyyy-MM-dd")" min="@v0.MinValue.ToString("yyyy-MM-dd")" max="@v0.MaxValue.ToString("yyyy-MM-dd")">
+                                </div>
+                                break;
                             case DslVariableList:
                                 var v1 = (DslVariableList)v;
                                 <label class="form-label" for="@v1.Name">@v1.Text</label>
