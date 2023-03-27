@@ -249,13 +249,12 @@ namespace IPFees.Calculator.Tests
         }
 
         [Fact]
-        public void TestDateEndOfMonth()
+        public void TestDateMonthsToNowFromLastDay()
         {
             var vars = new IPFValue[] {
-                new IPFValueDate("D1", DateOnly.Parse("01.01.2023", null, System.Globalization.DateTimeStyles.None)),
-                new IPFValueDate("D2", DateOnly.Parse("31.01.2023", null, System.Globalization.DateTimeStyles.None)),
+                new IPFValueDate("D", DateOnly.Parse("01.01.1975", null, System.Globalization.DateTimeStyles.None)),
             };
-            var tokens = "D1!ENDOFMONTH EQ D2".Split(new char[] { ' ' }, StringSplitOptions.None);
+            var tokens = "D!MONTHSTONOW_FROMLASTDAY GT 300".Split(new char[] { ' ' }, StringSplitOptions.None);
             var ev = DslEvaluator.EvaluateLogic(tokens, vars);
             Assert.True(ev);
         }
