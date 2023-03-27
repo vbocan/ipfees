@@ -36,10 +36,10 @@ namespace IPFees.Web.Pages
             var Code = (string)TempData.Peek("code");
             _calc.Parse(Code);
 
-            Vars = _calc.GetVariables().Select(pv => new ParsedVariableViewModel(pv.Name, pv.GetType().ToString(), pv, string.Empty, Array.Empty<string>(), 0, false)).ToList();
+            Vars = _calc.GetVariables().Select(pv => new ParsedVariableViewModel(pv.Name, pv.GetType().ToString(), pv, string.Empty, Array.Empty<string>(), 0, false, DateOnly.MinValue)).ToList();
             return Page();
         }
     }
 
-    public record ParsedVariableViewModel(string Name, string Type, DslVariable Var, string StrValue, string[] ListValue, double DoubleValue, bool BoolValue);
+    public record ParsedVariableViewModel(string Name, string Type, DslVariable Var, string StrValue, string[] ListValue, double DoubleValue, bool BoolValue, DateOnly DateValue);
 }
