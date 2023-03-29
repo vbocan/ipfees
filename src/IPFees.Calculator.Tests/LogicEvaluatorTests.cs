@@ -247,5 +247,16 @@ namespace IPFees.Calculator.Tests
             var ev = DslEvaluator.EvaluateLogic(tokens, vars);
             Assert.True(ev);
         }
+
+        [Fact]
+        public void TestDateMonthsToNowFromLastDay()
+        {
+            var vars = new IPFValue[] {
+                new IPFValueDate("D", DateOnly.Parse("01.01.1975", null, System.Globalization.DateTimeStyles.None)),
+            };
+            var tokens = "D!MONTHSTONOW_FROMLASTDAY GT 300".Split(new char[] { ' ' }, StringSplitOptions.None);
+            var ev = DslEvaluator.EvaluateLogic(tokens, vars);
+            Assert.True(ev);
+        }
     }
 }
