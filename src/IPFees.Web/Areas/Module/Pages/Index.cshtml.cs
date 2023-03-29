@@ -9,18 +9,31 @@ namespace IPFees.Web.Areas.Module.Pages
 {
     public class IndexModel : PageModel
     {
-        [BindProperty] public IEnumerable<ModuleInfo> Modules { get; set; }
+        [BindProperty] public IEnumerable<ModuleViewModel> Modules { get; set; }
         private readonly IModuleRepository moduleRepository;
+        private readonly IJurisdictionRepository jurisdictionRepository;
 
-        public IndexModel(IModuleRepository moduleRepository)
+        public IndexModel(IJurisdictionRepository jurisdictionRepository, IModuleRepository moduleRepository)
         {
-            this.moduleRepository = moduleRepository;            
+            this.jurisdictionRepository = jurisdictionRepository;
+            this.moduleRepository = moduleRepository;
         }
         public async Task<IActionResult> OnGetAsync()
         {
-            var DbMod = await moduleRepository.GetModules();
-            Modules = DbMod.OrderByDescending(o => o.LastUpdatedOn);
+            // Retrieve modules from the database
+            var DbMod = (await moduleRepository.GetModules()).OrderByDescending(o => o.LastUpdatedOn);
+            // Compute the number of jurisdictions that reference each module
+            var DbJur = await jurisdictionRepository.GetJurisdictions();
+            Modules = from m in DbMod
+                      select new ModuleViewModel
+                      (m,
+                          (from j in DbJur
+                           where j.ReferencedModules.Contains(m.Id)
+                           select j).Count()
+                      );
             return Page();
         }
     }
+
+    public record ModuleViewModel(ModuleInfo Mod, int Count);
 }
