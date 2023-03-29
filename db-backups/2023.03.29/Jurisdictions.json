@@ -1,0 +1,555 @@
+[{
+  "_id": {
+    "$binary": {
+      "base64": "XejKCdm5X0WmRdNdE2mdXg==",
+      "subType": "03"
+    }
+  },
+  "Name": "ro-RO",
+  "Description": "Sample jurisdiction",
+  "SourceCode": "COMPUTE FEE BasicNationalFee\r\nYIELD 320 IF EntityType EQ NormalEntity\r\nYIELD 128 IF EntityType EQ SmallEntity\r\nYIELD 64 IF EntityType EQ MicroEntity\r\nENDCOMPUTE\r\n\r\nCOMPUTE FEE SearchFee\r\nCASE SituationType EQ PreparedIPEA AS\r\nYIELD 0 IF EntityType EQ NormalEntity\r\nYIELD 0 IF EntityType EQ SmallEntity\r\nYIELD 0 IF EntityType EQ MicroEntity\r\nENDCASE\r\nCASE SituationType EQ PaidAsISA AS\r\nYIELD 140 IF EntityType EQ NormalEntity\r\nYIELD 56 IF EntityType EQ SmallEntity\r\nYIELD 28 IF EntityType EQ MicroEntity\r\nENDCASE\r\nCASE SituationType EQ PreparedISA AS\r\nYIELD 540 IF EntityType EQ NormalEntity\r\nYIELD 216 IF EntityType EQ SmallEntity\r\nYIELD 108 IF EntityType EQ MicroEntity\r\nENDCASE\r\nYIELD 700 IF EntityType EQ NormalEntity\r\nYIELD 280 IF EntityType EQ SmallEntity\r\nYIELD 140 IF EntityType EQ MicroEntity\r\nENDCOMPUTE\r\n\r\nCOMPUTE FEE ExaminationFee\r\nCASE SituationType EQ PreparedIPEA AS\r\nYIELD 0 IF EntityType EQ NormalEntity\r\nYIELD 0 IF EntityType EQ SmallEntity\r\nYIELD 0 IF EntityType EQ MicroEntity\r\nENDCASE\r\nYIELD 800 IF EntityType EQ NormalEntity\r\nYIELD 360 IF EntityType EQ SmallEntity\r\nYIELD 160 IF EntityType EQ MicroEntity\r\nENDCOMPUTE\r\n\r\nCOMPUTE FEE SheetFee\r\nLET A AS 420\r\nLET B AS 420\r\nLET C AS 420\r\nYIELD ROUND(A*((SheetCount-100)/50)) IF SheetCount GT 100 AND EntityType EQ NormalEntity\r\nYIELD ROUND(B*((SheetCount-100)/50)) IF SheetCount GT 100 AND EntityType EQ SmallEntity\r\nYIELD ROUND(C*((SheetCount-100)/50)) IF SheetCount GT 100 AND EntityType EQ MicroEntity\r\nENDCOMPUTE\r\n\r\nCOMPUTE FEE ClaimFee\r\nYIELD (480*ClaimCount) IF ClaimCount GT 3 AND EntityType EQ NormalEntity\r\nYIELD (192*ClaimCount) IF ClaimCount GT 3 AND EntityType EQ SmallEntity\r\nYIELD (96*ClaimCount) IF ClaimCount GT 3 AND EntityType EQ MicroEntity\r\nENDCOMPUTE",
+  "ReferencedModules": [
+    {
+      "$binary": {
+        "base64": "dPxVbX5A2kK53izx+Cg5Mg==",
+        "subType": "03"
+      }
+    }
+  ],
+  "LastUpdatedOn": {
+    "$date": "2023-03-24T18:48:54.666Z"
+  }
+},{
+  "_id": {
+    "$binary": {
+      "base64": "PQ+uGWw+YEy2eo8XQ86Lkw==",
+      "subType": "03"
+    }
+  },
+  "Name": "PCT-EP",
+  "Description": "PCT regional phase in Europe",
+  "SourceCode": "# File name: PCT-EP-OFF\r\n# File content: Official fees for PCT regional phase: EPO\r\n# Valid until 31/03/2023\r\n# Currency: EUR\r\n# MODULES: ApplicationDate; ISA; IPRP\r\n\r\nDEFINE NUMBER SheetCount AS 'Number of sheets?'\r\nBETWEEN 1 AND 100000\r\nDEFAULT 15\r\nENDDEFINE\r\n\r\nDEFINE NUMBER ClaimCount AS 'Number of claims?'\r\nBETWEEN 1 AND 100\r\nDEFAULT 15\r\nENDDEFINE\r\n\r\nDEFINE MULTILIST VAL_CTY AS 'Select validation countries'\r\nCHOICE VAL_NONE AS 'NONE'\r\nCHOICE VAL_CD AS 'Cambodia'\r\nCHOICE VAL_MA AS 'Morocco'\r\nCHOICE VAL_MD AS 'Republic of Moldova'\r\nCHOICE VAL_TN AS 'Tunisia'\r\nDEFAULT VAL_NONE\r\nENDDEFINE\r\n\r\nDEFINE BOOLEAN Extension AS 'Designate Bosnia and Herzegovina?'\r\nDEFAULT FALSE\r\nENDDEFINE\r\n\r\nCOMPUTE FEE OFF_BasicNationalFee\r\nYIELD 130\r\nENDCOMPUTE\r\n\r\nCOMPUTE FEE OFF_DesignationFee\r\nYIELD 630\r\nENDCOMPUTE\r\n\r\nCOMPUTE FEE OFF_ExtensionFee OPTIONAL\r\nYIELD 102 IF Extension EQ TRUE\r\nENDCOMPUTE\r\n\r\nCOMPUTE FEE OFF_SheetFee\r\nYIELD 16*(SheetCount-35) IF SheetCount GT 35\r\nENDCOMPUTE\r\n\r\nCOMPUTE FEE OFF_ClaimFee\r\nLET CF1 AS 250\r\nLET CF2 AS 630\r\nYIELD CF1*(ClaimCount-15) IF ClaimCount GT 15 AND ClaimCount LT 51\r\nYIELD CF2*(ClaimCount-50) + CF1*(ClaimCount-15-(ClaimCount-50)) IF ClaimCount GT 50\r\nENDCOMPUTE\r\n\r\nCOMPUTE FEE OFF_SearchFee\r\nLET SF1 AS 1390\r\nLET SF2 AS 1185\r\n\r\nYIELD 0 IF ISA EQ ISA_EPO\r\nYIELD SF1-SF2 IF ISA EQ ISA_AT OR ISA EQ ISA_FI OR ISA EQ ISA_NPI OR ISA EQ ISA_ES OR ISA EQ ISA_SE OR ISA EQ ISA_TR OR ISA EQ ISA_VI\r\nYIELD SF1 IF ISA EQ ISA_NONE\r\nENDCOMPUTE\r\n\r\nCOMPUTE FEE OFF_ExaminationFee\r\nLET ExFee1 AS 1955\r\nLET ExFee2 AS 1750\r\nLET Discount AS 0.75\r\n\r\nCASE IPRP EQ IPRP_EPO AS # discount scheme if EPO has prepared IPRP (Chapter II)\r\nYIELD ExFee1*Discount IF ISA EQ ISA_EPO \r\nYIELD ExFee2*Discount IF ISA NEQ ISA_EPO\r\nENDCASE\r\n\r\nCASE IPRP NEQ IPRP_EPO AS # no discount scheme\r\nYIELD ExFee1 IF ISA EQ ISA_EPO\r\nYIELD ExFee2 IF ISA NEQ ISA_EPO\r\nENDCASE\r\n\r\nENDCOMPUTE\r\n\r\nCOMPUTE FEE OFF_ValidationFee_CD\r\nYIELD 180 IF VAL_CD IN VAL_CTY\r\nENDCOMPUTE\r\nCOMPUTE FEE OFF_ValidationFee_MA\r\nYIELD 240 IF VAL_MA IN VAL_CTY\r\nENDCOMPUTE\r\nCOMPUTE FEE OFF_ValidationFee_MD\r\nYIELD 200 IF VAL_MD IN VAL_CTY\r\nENDCOMPUTE\r\nCOMPUTE FEE OFF_ValidationFee_TN\r\nYIELD 180 IF VAL_TN IN VAL_CTY\r\nENDCOMPUTE\r\n\r\n# need to check if 3rd annuity is due (>1.5 years after filing date)\r\nCOMPUTE FEE OFF_Renewal3\r\nLET RenFee AS 505\r\nLET RenMonth AS ROUND(ApplicationDate!MONTHSTONOW_FROMLASTDAY) #calculate difference in months to today\r\nYIELD RenFee IF RenMonth GTE 18\r\nENDCOMPUTE",
+  "ReferencedModules": [
+    {
+      "$binary": {
+        "base64": "y8ws32h6906ToqSk1RY2tA==",
+        "subType": "03"
+      }
+    },
+    {
+      "$binary": {
+        "base64": "yJkZPzopiES33gyACEIelQ==",
+        "subType": "03"
+      }
+    },
+    {
+      "$binary": {
+        "base64": "2dPsleatHEyJ3m6za69vCA==",
+        "subType": "03"
+      }
+    }
+  ],
+  "LastUpdatedOn": {
+    "$date": "2023-03-27T15:27:47.192Z"
+  }
+},{
+  "_id": {
+    "$binary": {
+      "base64": "0j42hLjtvUa2oaKBu4EErQ==",
+      "subType": "03"
+    }
+  },
+  "Name": "PCT-AE",
+  "Description": "PCT national phase in UAE",
+  "SourceCode": "# File name: PCT-AE-OFF\r\n# File content: Official fees for PCT regional phase: UAE\r\n# Valid until n/a\r\n# Currency: AED\r\n# MODULES: Application Date;\r\n\r\nCOMPUTE FEE OFF_BasicNationalFee\r\nYIELD 2000 IF EntitySize NEQ Entity_Person\r\nYIELD 1000 IF EntitySize EQ Entity_Person\r\nENDCOMPUTE\r\n\r\nCOMPUTE FEE OFF_PublicationFee OPTIONAL\r\nYIELD 800 IF EntitySize NEQ Entity_Person\r\nYIELD 400 IF EntitySize EQ Entity_Person\r\nENDCOMPUTE\r\n\r\n# Annuities are due as of the first anniversary based on the filing date (not end of the month)\r\nCOMPUTE FEE OFF_Renewal\r\nLET RenMonth AS ROUND(ApplicationDate!MONTHSTONOW) #calculate difference in months to today\r\nYIELD 800 #for year 2 (assumption: the NPE will always occur a year after filing date)\r\nYIELD 840 IF RenMonth GTE 12 #year 3\r\nYIELD 880 IF RenMonth GTE 24 #year 4\r\nENDCOMPUTE",
+  "ReferencedModules": [
+    {
+      "$binary": {
+        "base64": "y8ws32h6906ToqSk1RY2tA==",
+        "subType": "03"
+      }
+    },
+    {
+      "$binary": {
+        "base64": "P80vSkMGs06aNvKSzHRSpQ==",
+        "subType": "03"
+      }
+    }
+  ],
+  "LastUpdatedOn": {
+    "$date": "2023-03-27T15:57:06.318Z"
+  }
+},{
+  "_id": {
+    "$binary": {
+      "base64": "JeRGSBuZJES97h4hJIcP0Q==",
+      "subType": "03"
+    }
+  },
+  "Name": "PCT-AG",
+  "Description": "PAT national phase in Antigua & Barbuda",
+  "SourceCode": "# File name: PCT-AG-OFF\r\n# File content: Official fees for PCT regional phase: Antigua & Barbuda\r\n# Valid until n/a\r\n# Currency: XCD\r\n# MODULES: Application Date\r\n\r\nDEFINE NUMBER ClaimCount AS 'Number of claims?'\r\nBETWEEN 1 AND 1000\r\nDEFAULT 10\r\nENDDEFINE\r\n\r\nCOMPUTE FEE OFF_BasicNationalFee\r\nYIELD 800\r\nENDCOMPUTE\r\n\r\nCOMPUTE FEE OFF_ClaimFee\r\nYIELD 10*(ClaimCount-20) IF ClaimCount GT 20\r\nENDCOMPUTE\r\n\r\nCOMPUTE FEE OFF_PublicationFee\r\nYIELD 75\r\nENDCOMPUTE\r\n\r\nCOMPUTE FEE OFF_GrantFee OPTIONAL\r\nYIELD 1000+50 #Fee for grant + Fee for publication of grant of patent\r\nENDCOMPUTE\r\n\r\n# Annuities are due as of the first anniversary based on the filing date (not end of the month)\r\nCOMPUTE FEE OFF_Renewal\r\nLET RenMonth AS ROUND(ApplicationDate!MONTHSTONOW) #calculate difference in months to today\r\nYIELD 200 #for year 2 (assumption: the NPE will always occur a year after filing date)\r\nYIELD 300 IF RenMonth GTE 12 #year 3\r\nYIELD 400 IF RenMonth GTE 24 #year 4\r\nENDCOMPUTE",
+  "ReferencedModules": [
+    {
+      "$binary": {
+        "base64": "y8ws32h6906ToqSk1RY2tA==",
+        "subType": "03"
+      }
+    }
+  ],
+  "LastUpdatedOn": {
+    "$date": "2023-03-27T16:14:45.430Z"
+  }
+},{
+  "_id": {
+    "$binary": {
+      "base64": "ZHW8Q8zeDkKyfwflVur2pQ==",
+      "subType": "03"
+    }
+  },
+  "Name": "PCT-AO",
+  "Description": "PCT national phase in Angola",
+  "SourceCode": "# File name: PCT-AO-OFF\r\n# File content: Official fees for PCT regional phase: Angola\r\n# Valid until n/a\r\n# Currency: AOA\r\n# MODULES: Application Date;\r\n\r\nDEFINE NUMBER ClaimCount AS 'Number of claims?'\r\nBETWEEN 1 AND 1000\r\nDEFAULT 15\r\nENDDEFINE\r\n\r\nCOMPUTE FEE OFF_BasicNationalFee\r\nYIELD 27722\r\nYIELD 792*(ClaimCount-15) IF ClaimCount GT 15\r\nENDCOMPUTE\r\n\r\nCOMPUTE FEE OFF_ExaminationFee OPTIONAL\r\n#examination fee payable within 3 years of IFD\r\nYIELD 27280\r\nENDCOMPUTE\r\n\r\n# Annuities are due as of the first anniversary based on the filing date (not end of the month)\r\nCOMPUTE FEE OFF_Renewal\r\nLET RenMonth AS ROUND(ApplicationDate!MONTHSTONOW) #calculate difference in months to today\r\nYIELD 3784 #for 1st anniversary (assumption: the NPE will always occur a year after filing date)\r\nYIELD 4050 IF RenMonth GTE 12 #2nd anniversary\r\nYIELD 4400 IF RenMonth GTE 24 #3rd anniversary\r\nENDCOMPUTE",
+  "ReferencedModules": [
+    {
+      "$binary": {
+        "base64": "y8ws32h6906ToqSk1RY2tA==",
+        "subType": "03"
+      }
+    }
+  ],
+  "LastUpdatedOn": {
+    "$date": "2023-03-27T13:36:19.203Z"
+  }
+},{
+  "_id": {
+    "$binary": {
+      "base64": "MtE3bfgzWkmqDJPlgj1K3g==",
+      "subType": "03"
+    }
+  },
+  "Name": "PCT-AP",
+  "Description": "PCT regional phase in ARIPO",
+  "SourceCode": "# File name: PCT-AP-OFF\r\n# File content: Official fees for PCT regional phase: ARIPO\r\n# Valid until n/a\r\n# Currency: USD\r\n# MODULES: Application Date; ISR_AVAILABLE\r\n\r\n# Examination request: 3 years as of international filing date\r\n\r\nDEFINE NUMBER CountryCount AS 'Number of designations?'\r\nBETWEEN 1 AND 22\r\nDEFAULT 22  # number of ARIPO member states\r\n# Botswana, Eswatini, Gambia, Ghana, Kenya, Lesotho, Liberia, Malawi, Mozambique, Namibia, Rwanda, Sao Tome and Principe, Sierra Leone, Somalia (not member of the Harare Protocol), the Sudan, the United Republic of Tanzania, Uganda, Zambia and Zimbabwe\r\nENDDEFINE\r\n\r\nDEFINE NUMBER SheetCount AS 'Number of sheets?'\r\nBETWEEN 1 AND 10000\r\nDEFAULT 30\r\nENDDEFINE\r\n\r\nDEFINE NUMBER ClaimCount AS 'Number of claims?'\r\nBETWEEN 1 AND 1000\r\nDEFAULT 10\r\nENDDEFINE\r\n\r\nCOMPUTE FEE OFF_BasicNationalFee\r\nYIELD 232\r\nENDCOMPUTE\r\n\r\nCOMPUTE FEE OFF_DesignationFee\r\nYIELD 85*CountryCount\r\nENDCOMPUTE\r\n\r\nCOMPUTE FEE OFF_PublicationFee\r\nYIELD 350\r\nYIELD 20*(SheetCount-30) IF SheetCount GT 30\r\nYIELD 50*(ClaimCount-10) IF ClaimCount GT 10\r\nENDCOMPUTE\r\n\r\nCOMPUTE FEE OFF_SearchFee\r\nYIELD 0 IF ISR_AVAILABLE EQ TRUE\r\nYIELD 300 IF ISR_AVAILABLE EQ FALSE\r\nENDCOMPUTE\r\n\r\nCOMPUTE FEE OFF_ExaminationFee\r\nYIELD 300 # 3 years as of international filing date\r\nENDCOMPUTE\r\n\r\nCOMPUTE FEE OFF_GrantFee OPTIONAL\r\nYIELD 350\r\nENDCOMPUTE\r\n\r\n# need to check if due (1-3 years after filing date)\r\nCOMPUTE FEE OFF_Renewal\r\nLET RenMonth AS ROUND(ApplicationDate!MONTHSTONOW) #calculate difference in months to today\r\nYIELD 50 # year 1\r\nYIELD 70 IF RenMonth GTE 12 # year 2\r\nYIELD 90 IF RenMonth GTE 24 # year 3\r\nENDCOMPUTE",
+  "ReferencedModules": [
+    {
+      "$binary": {
+        "base64": "y8ws32h6906ToqSk1RY2tA==",
+        "subType": "03"
+      }
+    },
+    {
+      "$binary": {
+        "base64": "ToC5VXUsjUOmzyP5ljoeeQ==",
+        "subType": "03"
+      }
+    }
+  ],
+  "LastUpdatedOn": {
+    "$date": "2023-03-27T14:48:20.957Z"
+  }
+},{
+  "_id": {
+    "$binary": {
+      "base64": "Jp55zuyDCE2f0WESadmBSg==",
+      "subType": "03"
+    }
+  },
+  "Name": "PCT_AU",
+  "Description": "Entry of national phase in Australia",
+  "SourceCode": "# File name: PCT-AU-OFF\r\n# File content: Official fees for PCT national phase: Australia\r\n# Valid until n/a\r\n# Currency: AUD\r\n# MODULES: IPRP (IPER)\r\n\r\nCOMPUTE FEE OFF_BasicNationalFee\r\nYIELD 370\r\nENDCOMPUTE\r\n\r\nCOMPUTE FEE OFF_ExaminationFee OPTIONAL #Ex Request within 5 years of IFD\r\nYIELD 300 IF IPRP EQ IPRP_AU\r\nYIELD 490 IF IPRP NEQ IPRP_AU\r\nENDCOMPUTE\r\n",
+  "ReferencedModules": [
+    {
+      "$binary": {
+        "base64": "2dPsleatHEyJ3m6za69vCA==",
+        "subType": "03"
+      }
+    }
+  ],
+  "LastUpdatedOn": {
+    "$date": "2023-03-27T15:33:17.656Z"
+  }
+},{
+  "_id": {
+    "$binary": {
+      "base64": "gxHICeNQ80uNXjW8aPBBPw==",
+      "subType": "03"
+    }
+  },
+  "Name": "PCT-AZ",
+  "Description": "Entry of national phase in Azerbaijan",
+  "SourceCode": "# File name: PCT-AZ-OFF\r\n# File content: Official fees for PCT national phase: Azerbaijan\r\n# Valid until n/a\r\n# Currency: AZN\r\n# MODULES: ApplicationDate; EntitySize; IndependentClaimCount\r\n\r\nDEFINE NUMBER ClaimCount AS 'Number of claims?'\r\nBETWEEN 1 AND 1000\r\nDEFAULT 10\r\nENDDEFINE\r\n\r\nCOMPUTE FEE OFF_BasicNationalFee\r\nYIELD 20\r\nENDCOMPUTE \r\n\r\nCOMPUTE FEE OFF_ClaimFee\r\nYIELD 7 * (IndependentClaimCount-1) IF IndependentClaimCount GT 1\r\nYIELD 7 * (ClaimCount-10) IF ClaimCount GT 10\r\nENDCOMPUTE\r\n\r\nCOMPUTE FEE OFF_Renewal\r\nLET RenMonth AS ROUND(ApplicationDate!MONTHSTONOW) #calculate difference in months to today\r\n\r\nCASE RenMonth GTE 24 AS\r\n   YIELD 50 IF EntitySize NEQ Entity_Person\r\n   YIELD 10 IF EntitySize EQ Entity_Person\r\nENDCASE\r\n\r\nENDCOMPUTE",
+  "ReferencedModules": [
+    {
+      "$binary": {
+        "base64": "y8ws32h6906ToqSk1RY2tA==",
+        "subType": "03"
+      }
+    },
+    {
+      "$binary": {
+        "base64": "P80vSkMGs06aNvKSzHRSpQ==",
+        "subType": "03"
+      }
+    },
+    {
+      "$binary": {
+        "base64": "81Z/aOqIAUy+TOp5VhmYbw==",
+        "subType": "03"
+      }
+    }
+  ],
+  "LastUpdatedOn": {
+    "$date": "2023-03-28T09:10:18.571Z"
+  }
+},{
+  "_id": {
+    "$binary": {
+      "base64": "M4UN15hgMkq2n9+UxaBIbg==",
+      "subType": "03"
+    }
+  },
+  "Name": "PCT-AM",
+  "Description": "Entry of national phase in Armenia",
+  "SourceCode": "# File name: PCT-AM-OFF\r\n# File content: Official fees for PCT regional phase: Armenia\r\n# Valid until n/a\r\n# Currency: AMD\r\n# MODULES: EntitySize\r\n\r\nDEFINE NUMBER ClaimCount AS 'Number of claims?'\r\nBETWEEN 1 AND 1000\r\nDEFAULT 5\r\nENDDEFINE\r\n\r\nDEFINE NUMBER SheetCount AS 'Number of sheets?'\r\nBETWEEN 1 AND 10000\r\nDEFAULT 10\r\nENDDEFINE\r\n\r\nDEFINE NUMBER PriorityCount AS 'Number of priorities?'\r\nBETWEEN 1 AND 999\r\nDEFAULT 1\r\nENDDEFINE\r\n\r\nCOMPUTE FEE OFF_BasicNationalFee\r\nLET Fee AS 20000\r\nYIELD Fee\r\nYIELD -Fee*0.75 IF EntitySize EQ Entity_Person OR EntitySize EQ Entity_Less25 \r\nYIELD -Fee*0.5 IF EntitySize EQ Entity_Small OR EntitySize EQ Entity_Less100\r\nENDCOMPUTE\r\n\r\nCOMPUTE FEE OFF_ClaimFee\r\nLET Fee AS 5000\r\nCASE ClaimCount GT 5 AS\r\nYIELD Fee*(ClaimCount-5)\r\nYIELD -Fee*(ClaimCount-5)*0.75 IF EntitySize EQ Entity_Person OR EntitySize EQ Entity_Less25 \r\nYIELD -Fee*(ClaimCount-5)*0.5 IF EntitySize EQ Entity_Small OR EntitySize EQ Entity_Less100\r\nENDCASE\r\nENDCOMPUTE\r\n\r\nCOMPUTE FEE OFF_PriorityFee\r\nLET Fee AS 10000\r\nYIELD Fee*PriorityCount\r\nYIELD -Fee*PriorityCount*0.75 IF EntitySize EQ Entity_Person OR EntitySize EQ Entity_Less25 \r\nYIELD -Fee*PriorityCount*0.5 IF EntitySize EQ Entity_Small OR EntitySize EQ Entity_Less100\r\nENDCOMPUTE\r\n\r\nCOMPUTE FEE OFF_GrantFee OPTIONAL\r\nLET Fee AS 15000\r\nYIELD Fee\r\nYIELD -Fee*0.75 IF EntitySize EQ Entity_Person OR EntitySize EQ Entity_Less25 \r\nYIELD -Fee*0.5 IF EntitySize EQ Entity_Small OR EntitySize EQ Entity_Less100\r\nENDCOMPUTE\r\n\r\nCOMPUTE FEE OFF_PublicationFee OPTIONAL\r\n#per sheet >25\r\nLET Fee AS 2500\r\nCASE SheetCount GT 25 AS\r\n   YIELD Fee*(SheetCount-25)\r\n   YIELD -Fee*(SheetCount-25)*0.75 IF EntitySize EQ Entity_Person OR EntitySize EQ Entity_Less25\r\n   YIELD -Fee*(SheetCount-25)*0.5 IF EntitySize EQ Entity_Small OR EntitySize EQ Entity_Less100\r\nENDCASE\r\nENDCOMPUTE\r\n\r\n# no annuities before grant\r\nCOMPUTE FEE OFF_Renewal\r\nYIELD 0\r\nENDCOMPUTE",
+  "ReferencedModules": [
+    {
+      "$binary": {
+        "base64": "P80vSkMGs06aNvKSzHRSpQ==",
+        "subType": "03"
+      }
+    }
+  ],
+  "LastUpdatedOn": {
+    "$date": "2023-03-27T16:31:42.585Z"
+  }
+},{
+  "_id": {
+    "$binary": {
+      "base64": "eTG4vLOZdUitNqwCE6miWA==",
+      "subType": "03"
+    }
+  },
+  "Name": "PCT-AT",
+  "Description": "Entry of national phase in Austria",
+  "SourceCode": "# File name: PCT-AT-OFF\r\n# File content: Official fees for PCT regional phase: Austria\r\n# Valid until n/a\r\n# Currency: EUR\r\n# MODULES: NONE\r\n\r\nDEFINE NUMBER ClaimCount AS 'Number of claims?'\r\nBETWEEN 1 AND 1000\r\nDEFAULT 10\r\nENDDEFINE\r\n\r\nDEFINE NUMBER SheetCount AS 'Number of sheets?' #used only for optional publication fee\r\nBETWEEN 1 AND 10000\r\nDEFAULT 15\r\nENDDEFINE\r\n\r\nCOMPUTE FEE OFF_BasicNationalFee\r\nYIELD 52 #entry fee\r\nYIELD 50 #document fee\r\nENDCOMPUTE\r\n\r\nCOMPUTE FEE OFF_SearchExaminationFee\r\nYIELD 292\r\nYIELD 104*CEIL((ClaimCount-10)/10) IF ClaimCount GT 10\r\nENDCOMPUTE\r\n\r\nCOMPUTE FEE OFF_PublicationFee OPTIONAL\r\nYIELD 208\r\nYIELD 135*CEIL((SheetCount-15)/15) IF SheetCount GT 15\r\nENDCOMPUTE\r\n\r\n# Annuities payable only after grant\r\nCOMPUTE FEE OFF_Renewal\r\nYIELD 0\r\nENDCOMPUTE",
+  "ReferencedModules": [],
+  "LastUpdatedOn": {
+    "$date": "2023-03-28T06:28:44.807Z"
+  }
+},{
+  "_id": {
+    "$binary": {
+      "base64": "9Mrkm7lH60aTJq6k0hUiCw==",
+      "subType": "03"
+    }
+  },
+  "Name": "PCT-AL",
+  "Description": "Entry of national phase in Albania",
+  "SourceCode": "# File name: PCT-AL-OFF\r\n# File content: Official fees for PCT regional phase: Albania\r\n# Valid until n/a\r\n# Currency: ALL\r\n# MODULES: NONE\r\n\r\nCOMPUTE FEE OFF_BasicNationalFee\r\nYIELD 7000\r\nENDCOMPUTE\r\n\r\n#patents are granted without examination; within 10 years of NPE an examination report from another office must be filed to effect grant\r\nCOMPUTE FEE OFF_GrantFee OPTIONAL\r\nYIELD 6000\r\nENDCOMPUTE\r\n\r\n# no annuities before grant\r\nCOMPUTE FEE OFF_Renewal\r\nYIELD 0\r\nENDCOMPUTE",
+  "ReferencedModules": [],
+  "LastUpdatedOn": {
+    "$date": "2023-03-28T06:29:43.005Z"
+  }
+},{
+  "_id": {
+    "$binary": {
+      "base64": "6kLIHv2JN0y0wp+JmyFfAA==",
+      "subType": "03"
+    }
+  },
+  "Name": "PCT-EA",
+  "Description": "Entry of regional phase in Eurasia",
+  "SourceCode": "# File name: PCT-EA-OFF\r\n# File content: Official fees for PCT regional phase: EAPO\r\n# Valid until n/a\r\n# Currency: RUB\r\n# MODULES: ISR_AVAILABLE; IndependentClaimCount;\r\n\r\n# all calculations for non EAPO residents. These would be entitled to certain fee reductions.\r\n\r\nDEFINE NUMBER ClaimCount AS 'Number of claims?'\r\nBETWEEN 1 AND 1000\r\nDEFAULT 5\r\nENDDEFINE\r\n\r\nCOMPUTE FEE OFF_BasicNationalFee\r\nLET Fee AS 36000\r\nYIELD Fee*0.75 IF ISR_AVAILABLE EQ TRUE\r\nYIELD Fee IF ISR_AVAILABLE EQ FALSE\r\nENDCOMPUTE\r\n\r\nCOMPUTE FEE OFF_ExaminationFee\r\nLET Fee AS 40000\r\nLET IndepClaimFee AS 13000\r\nYIELD Fee\r\nYIELD Fee IF IndependentClaimCount EQ 2\r\nYIELD Fee  + IndepClaimFee*(IndependentClaimCount-2) IF IndependentClaimCount GT 2\r\nENDCOMPUTE\r\n\r\nCOMPUTE FEE OFF_ClaimFee\r\nLET CF1 AS 6500\r\nLET CF2 AS 5200\r\nLET CF3 AS 4800\r\n# 1-5 = none; 6-20(=15): 4800; 21-50 (=30): 5200; >50: 6500\r\nYIELD CF1*(ClaimCount-50) + CF2*30 + CF3*15 IF ClaimCount GT 50\r\nYIELD CF2*(ClaimCount-20) + CF3*15 IF ClaimCount GT 20 AND ClaimCount LT 51\r\nYIELD CF3*(ClaimCount-5) IF ClaimCount GT 5 AND ClaimCount LT 21\r\nENDCOMPUTE\r\n\r\nCOMPUTE FEE OFF_GrantFee OPTIONAL\r\nYIELD 25000\r\nENDCOMPUTE",
+  "ReferencedModules": [
+    {
+      "$binary": {
+        "base64": "ToC5VXUsjUOmzyP5ljoeeQ==",
+        "subType": "03"
+      }
+    },
+    {
+      "$binary": {
+        "base64": "81Z/aOqIAUy+TOp5VhmYbw==",
+        "subType": "03"
+      }
+    }
+  ],
+  "LastUpdatedOn": {
+    "$date": "2023-03-28T09:12:53.930Z"
+  }
+},{
+  "_id": {
+    "$binary": {
+      "base64": "iE7O4QzqNUOYrTIRQTpNfg==",
+      "subType": "03"
+    }
+  },
+  "Name": "PCT-OA",
+  "Description": "Entry of regional phase in OAPI",
+  "SourceCode": "# File name: PCT-OA-OFF\r\n# File content: Official fees for PCT regional phase: OAPI\r\n# Valid until n/a\r\n# Currency: CFA (XAF)\r\n# MODULES: ApplicationDate; PriorityCount;\r\n\r\nDEFINE NUMBER SheetCount AS 'Number of sheets?'\r\nBETWEEN 1 AND 10000\r\nDEFAULT 30\r\nENDDEFINE\r\n\r\nDEFINE NUMBER ClaimCount AS 'Number of claims?'\r\nBETWEEN 1 AND 1000\r\nDEFAULT 10\r\nENDDEFINE\r\n\r\nCOMPUTE FEE OFF_BasicNationalFee\r\nYIELD 225000\r\nENDCOMPUTE\r\n\r\nCOMPUTE FEE OFF_PublicationFee\r\nYIELD 365000\r\nENDCOMPUTE\r\n\r\nCOMPUTE FEE OFF_PriorityFee\r\nYIELD 63000 * PriorityCount\r\nENDCOMPUTE\r\n\r\nCOMPUTE FEE OFF_ClaimFee\r\nYIELD 45000 * (ClaimCount-10) IF ClaimCount GT 10\r\nENDCOMPUTE\r\n\r\nCOMPUTE FEE Off_AcceptanceFee  # 0 for 1-10 sheets\r\nLET SF1 AS 120000\r\nLET SF2 AS 300000\r\nLET SF3 AS 600000\r\nLET SF4 AS 80000\r\n\r\nYIELD SF1*10 + SF2*10 + SF3*10 + SF4*((SheetCount-40)/10) IF SheetCount GT 40            # each additional set of 10 sheets > 40\r\nYIELD SF1*10 + SF2*10 + SF3*(SheetCount-30) IF SheetCount GT 30 AND SheetCount LT 41  # 31-40 sheets \r\nYIELD SF1*10 + SF2*(SheetCount-20) IF SheetCount GT 20 AND SheetCount LT 31           # 21-30 sheets\r\nYIELD SF1*(SheetCount-10) IF SheetCount GT 10 AND SheetCount LT 21                    # 11-20 sheets\r\nENDCOMPUTE\r\n\r\n# need to verify with office if really payable upon entry\r\nCOMPUTE FEE OFF_Renewal\r\nLET RenMonth AS ROUND(ApplicationDate!MONTHSTONOW) #calculate difference in months to today\r\n\r\nYIELD 220000 IF RenMonth GTE 12\r\nYIELD 220000 IF RenMonth GTE 24\r\n\r\nENDCOMPUTE",
+  "ReferencedModules": [
+    {
+      "$binary": {
+        "base64": "y8ws32h6906ToqSk1RY2tA==",
+        "subType": "03"
+      }
+    },
+    {
+      "$binary": {
+        "base64": "/T11zrraJEahVNTF5+09mA==",
+        "subType": "03"
+      }
+    }
+  ],
+  "LastUpdatedOn": {
+    "$date": "2023-03-28T09:14:58.269Z"
+  }
+},{
+  "_id": {
+    "$binary": {
+      "base64": "+TPPtR1Xk0qlB7HT2/+Z0A==",
+      "subType": "03"
+    }
+  },
+  "Name": "PCT-BA",
+  "Description": "Entry of national phase in Bosnia & Herzegovina",
+  "SourceCode": "# File name: PCT-BA-OFF\r\n# File content: Official fees for PCT national phase: Bosnia and Herzegovina\r\n# Valid until n/a\r\n# Currency: BAM\r\n# MODULES: NONE\r\n\r\nDEFINE NUMBER ClaimCount AS 'Number of claims?'\r\nBETWEEN 1 AND 1000\r\nDEFAULT 10\r\nENDDEFINE\r\n\r\nDEFINE NUMBER SheetCount AS 'Number of sheets?'\r\nBETWEEN 1 AND 10000\r\nDEFAULT 30\r\nENDDEFINE\r\n\r\nCOMPUTE FEE OFF_BasicNationalFee\r\nYIELD 260\r\nENDCOMPUTE\r\n\r\nCOMPUTE FEE OFF_PublicationFee OPTIONAL\r\nYIELD 60\r\nYIELD 11*(ClaimCount-10) IF ClaimCount GT 10\r\nYIELD 3*(SheetCount-30) IF SheetCount GT 30\r\nENDCOMPUTE\r\n\r\n# No annuities payable before grant\r\nCOMPUTE FEE OFF_Renewal\r\nYIELD 0\r\nENDCOMPUTE",
+  "ReferencedModules": [],
+  "LastUpdatedOn": {
+    "$date": "2023-03-28T06:45:29.715Z"
+  }
+},{
+  "_id": {
+    "$binary": {
+      "base64": "gQE9w44PgEWPB9J9yE+MBQ==",
+      "subType": "03"
+    }
+  },
+  "Name": "PCT-BB",
+  "Description": "Entry of national phase in Barbados",
+  "SourceCode": "# File name: PCT-BB-OFF\r\n# File content: Official fees for PCT national phase: Barbados\r\n# Valid until n/a\r\n# Currency: BBD\r\n# MODULES: ApplicationDate\r\n\r\nCOMPUTE FEE OFF_BasicNationalFee\r\nYIELD 300\r\nENDCOMPUTE\r\n\r\nCOMPUTE FEE OFF_Renewal\r\nLET RenMonth AS ROUND(ApplicationDate!MONTHSTONOW) #calculate difference in months to today\r\nYIELD 200 IF RenMonth GTE 12 #year 2\r\nYIELD 300 IF RenMonth GTE 24 #year 3\r\nENDCOMPUTE\r\n",
+  "ReferencedModules": [
+    {
+      "$binary": {
+        "base64": "y8ws32h6906ToqSk1RY2tA==",
+        "subType": "03"
+      }
+    }
+  ],
+  "LastUpdatedOn": {
+    "$date": "2023-03-28T06:53:43.101Z"
+  }
+},{
+  "_id": {
+    "$binary": {
+      "base64": "OrzmlG4/FEKHCaevuLWxdw==",
+      "subType": "03"
+    }
+  },
+  "Name": "PCT-BG",
+  "Description": "Entry of national phase in Bulgaria",
+  "SourceCode": "# File name: PCT-BG-OFF\r\n# File content: Official fees for PCT national phase: Bulgaria\r\n# Valid until n/a\r\n# Currency: BGN\r\n# MODULES: PriorityCount\r\n\r\nCOMPUTE FEE OFF_BasicNationalFee\r\nYIELD 40+70 #filing plus publication fees\r\nENDCOMPUTE\r\n\r\nCOMPUTE FEE OFF_ExaminationFee\r\nYIELD 180\r\nENDCOMPUTE\r\n\r\nCOMPUTE FEE OFF_PriorityFee\r\nYIELD 20*PriorityCount\r\nENDCOMPUTE",
+  "ReferencedModules": [
+    {
+      "$binary": {
+        "base64": "/T11zrraJEahVNTF5+09mA==",
+        "subType": "03"
+      }
+    }
+  ],
+  "LastUpdatedOn": {
+    "$date": "2023-03-28T07:03:08.620Z"
+  }
+},{
+  "_id": {
+    "$binary": {
+      "base64": "FuM3rmBIHUumr/xR/j/DAA==",
+      "subType": "03"
+    }
+  },
+  "Name": "PCT-BH",
+  "Description": "Entry of national phase in Bahrain",
+  "SourceCode": "# File name: PCT-BH-OFF\r\n# File content: Official fees for PCT national phase: Bahrain\r\n# Valid until n/a\r\n# Currency: BHD\r\n# MODULES: ApplicationDate; EntitySize\r\n\r\nCOMPUTE FEE OFF_BasicNationalFee\r\nYIELD 270 IF EntitySize EQ Entity_Person\r\nYIELD 540 IF EntitySize NEQ Entity_Person\r\nENDCOMPUTE\r\n\r\nCOMPUTE FEE OFF_PublicationFee\r\nYIELD 160 IF EntitySize EQ Entity_Person\r\nYIELD 320 IF EntitySize NEQ Entity_Person\r\nENDCOMPUTE\r\n\r\nCOMPUTE FEE OFF_Renewal\r\nLET RenMonth AS ROUND(ApplicationDate!MONTHSTONOW) #calculate difference in months to today\r\nYIELD 200 IF RenMonth GTE 12 #year 2\r\nENDCOMPUTE",
+  "ReferencedModules": [
+    {
+      "$binary": {
+        "base64": "y8ws32h6906ToqSk1RY2tA==",
+        "subType": "03"
+      }
+    },
+    {
+      "$binary": {
+        "base64": "P80vSkMGs06aNvKSzHRSpQ==",
+        "subType": "03"
+      }
+    }
+  ],
+  "LastUpdatedOn": {
+    "$date": "2023-03-28T07:11:32.345Z"
+  }
+},{
+  "_id": {
+    "$binary": {
+      "base64": "C09IKkiuJUudFlRxHCrlDw==",
+      "subType": "03"
+    }
+  },
+  "Name": "PCT-BN",
+  "Description": "entry of national phase in Brunei Darussalam",
+  "SourceCode": "# File name: PCT-BN-OFF\r\n# File content: Official fees for PCT national phase: Brunei Darussalam\r\n# Valid until n/a\r\n# Currency: BND\r\n# MODULES: NONE\r\n\r\nCOMPUTE FEE OFF_BasicNationalFee\r\nYIELD 160\r\nENDCOMPUTE\r\n\r\nCOMPUTE FEE OFF_ExaminationFee OPTIONAL\r\nYIELD 1100\r\nENDCOMPUTE\r\n\r\n#no annuities due before year 5",
+  "ReferencedModules": [],
+  "LastUpdatedOn": {
+    "$date": "2023-03-28T07:16:03.408Z"
+  }
+},{
+  "_id": {
+    "$binary": {
+      "base64": "lZCQkP/M2EWE3dnxN4X5DQ==",
+      "subType": "03"
+    }
+  },
+  "Name": "PCT-BR",
+  "Description": "Entry of national phase in Brazil",
+  "SourceCode": "# File name: PCT-BR-OFF\r\n# File content: Official fees for PCT national phase: Brazil\r\n# Valid until n/a\r\n# Currency: BRL\r\n# MODULES: ApplicationDate\r\n\r\nDEFINE NUMBER ClaimCount AS 'Number of claims?'\r\nBETWEEN 1 AND 100\r\nDEFAULT 10\r\nENDDEFINE\r\n\r\nCOMPUTE FEE OFF_BasicNationalFee\r\nYIELD 175\r\nENDCOMPUTE\r\n\r\nCOMPUTE FEE OFF_ExaminationFee\r\nYIELD 590  # 10 claims included; due date 36 months after IFD\r\nENDCOMPUTE\r\n\r\nCOMPUTE FEE OFF_ClaimFee\r\nLET CF1 AS 100\r\nLET CF2 AS 200\r\nLET CF3 AS 500\r\n\r\n# between 10 and incl. 15 claims:\r\nYIELD CF1*(ClaimCount-10) IF ClaimCount GT 10 AND ClaimCount LTE 15\r\n\r\n# between 15 and incl. 30 claims\r\nYIELD CF2*(ClaimCount-15) + CF1*5 IF ClaimCount GT 15 AND ClaimCount LTE 30\r\n\r\n# above 30 claims\r\nYIELD CF3*(ClaimCount-30) + CF2*15 + CF1*5 IF ClaimCount GT 30\r\n\r\nENDCOMPUTE\r\n\r\nCOMPUTE FEE OFF_Renewal\r\nLET RenMonth AS ROUND(ApplicationDate!MONTHSTONOW) #calculate difference in months to today\r\nYIELD 295 # year 1\r\nYIELD 295 IF RenMonth GTE 12 # year 2\r\nYIELD 780 IF RenMonth GTE 24 # year 3\r\nENDCOMPUTE",
+  "ReferencedModules": [
+    {
+      "$binary": {
+        "base64": "y8ws32h6906ToqSk1RY2tA==",
+        "subType": "03"
+      }
+    }
+  ],
+  "LastUpdatedOn": {
+    "$date": "2023-03-28T08:39:46.955Z"
+  }
+},{
+  "_id": {
+    "$binary": {
+      "base64": "9gqZXnamM0mZRknyfSqInA==",
+      "subType": "03"
+    }
+  },
+  "Name": "PCT-BW",
+  "Description": "Entry of national phase in Botswana",
+  "SourceCode": "# File name: PCT-BW-OFF\r\n# File content: Official fees for PCT national phase: Botswana\r\n# Valid until n/a\r\n# Currency: BWP\r\n# MODULES: ApplicationDate; EntitySize\r\n\r\nCOMPUTE FEE OFF_BasicNationalFee\r\nLET Fee AS 300\r\nYIELD Fee\r\nYIELD -Fee*0.5 IF EntitySize EQ Entity_Person OR EntitySize EQ Entity_Less25 OR EntitySize EQ Entity_Less100\r\nENDCOMPUTE\r\n\r\nCOMPUTE FEE OFF_GrantFee OPTIONAL\r\nLET Fee AS 300\r\nYIELD Fee\r\nYIELD -Fee*0.5 IF EntitySize EQ Entity_Person OR EntitySize EQ Entity_Less25 OR EntitySize EQ Entity_Less100\r\nENDCOMPUTE\r\n\r\nCOMPUTE FEE OFF_Renewal\r\nLET RenMonth AS ROUND(ApplicationDate!MONTHSTONOW) #calculate difference in months to today\r\nLET RF1 AS 60\r\nLET RF2 AS 240\r\nLET RF3 AS 300\r\n\r\nYIELD RF1 # year 1\r\nYIELD -RF1*0.5 IF EntitySize EQ Entity_Person OR EntitySize EQ Entity_Less25 OR EntitySize EQ Entity_Less100\r\n\r\nYIELD RF2 IF RenMonth GTE 12 # year 2\r\nYIELD -RF2*0.5 IF EntitySize EQ Entity_Person OR EntitySize EQ Entity_Less25 OR EntitySize EQ Entity_Less100\r\n\r\nYIELD RF3 IF RenMonth GTE 24 # year 3\r\nYIELD -RF3*0.5 IF EntitySize EQ Entity_Person OR EntitySize EQ Entity_Less25 OR EntitySize EQ Entity_Less100\r\n\r\nENDCOMPUTE",
+  "ReferencedModules": [
+    {
+      "$binary": {
+        "base64": "y8ws32h6906ToqSk1RY2tA==",
+        "subType": "03"
+      }
+    },
+    {
+      "$binary": {
+        "base64": "P80vSkMGs06aNvKSzHRSpQ==",
+        "subType": "03"
+      }
+    }
+  ],
+  "LastUpdatedOn": {
+    "$date": "2023-03-28T08:54:30.276Z"
+  }
+},{
+  "_id": {
+    "$binary": {
+      "base64": "n/Zf04nY30yiJSsSf7fZHw==",
+      "subType": "03"
+    }
+  },
+  "Name": "PCT-BY",
+  "Description": "Entry of regional phase in Belarus",
+  "SourceCode": "# File name: PCT-BY-OFF\r\n# File content: Official fees for PCT national phase: Belarus\r\n# Valid until n/a\r\n# Currency: BYN\r\n# MODULES: ISR_AVAILABLE; IndependentClaimCount;\r\n\r\nCOMPUTE FEE OFF_BasicNationalFee\r\nLET Fee AS 90.65\r\nYIELD Fee\r\nENDCOMPUTE\r\n\r\nCOMPUTE FEE OFF_ClaimFee\r\nLET CF AS 38.85\r\nYIELD CF*(IndependentClaimCount-1) IF IndependentClaimCount GT 1\r\nENDCOMPUTE\r\n\r\nCOMPUTE FEE OFF_ExaminationFee\r\nLET Fee1 AS 440.30 \r\nLET Fee2 AS 0.5 * Fee1 # 50% Discount if ISR available\r\nLET IndepClaimFee AS 259 # no discount seems to apply here\r\n\r\nYIELD Fee1 IF ISR_AVAILABLE NEQ TRUE\r\nYIELD Fee2 IF ISR_AVAILABLE EQ TRUE\r\nYIELD IndepClaimFee*(IndependentClaimCount-1) IF IndependentClaimCount GT 1\r\nENDCOMPUTE\r\n\r\nCOMPUTE FEE OFF_GrantFee OPTIONAL\r\nYIELD 181.30\r\nENDCOMPUTE\r\n\r\n# no annuities before grant",
+  "ReferencedModules": [
+    {
+      "$binary": {
+        "base64": "ToC5VXUsjUOmzyP5ljoeeQ==",
+        "subType": "03"
+      }
+    },
+    {
+      "$binary": {
+        "base64": "81Z/aOqIAUy+TOp5VhmYbw==",
+        "subType": "03"
+      }
+    }
+  ],
+  "LastUpdatedOn": {
+    "$date": "2023-03-28T09:11:39.492Z"
+  }
+},{
+  "_id": {
+    "$binary": {
+      "base64": "kbann+Dfnkm4RhWG+NF/4g==",
+      "subType": "03"
+    }
+  },
+  "Name": "PCT_BZ",
+  "Description": "Entry of national phase in Belize",
+  "SourceCode": "# File name: PCT-BZ-OFF\r\n# File content: Official fees for PCT national phase: Belize\r\n# Valid until n/a\r\n# Currency: BZD\r\n# MODULES: ApplicationDate;\r\n\r\nCOMPUTE FEE OFF_BasicNationalFee\r\nLET Fee AS 300\r\nYIELD Fee\r\nENDCOMPUTE\r\n\r\nCOMPUTE FEE OFF_GrantFee OPTIONAL\r\nLET Fee AS 300\r\nYIELD Fee\r\nENDCOMPUTE\r\n\r\nCOMPUTE FEE OFF_Renewal\r\nLET RenMonth AS ROUND(ApplicationDate!MONTHSTONOW) #calculate difference in months to today\r\nYIELD 100\r\nYIELD 200 IF RenMonth GTE 12 #year 2\r\nYIELD 300 IF RenMonth GTE 24 #year 3\r\nENDCOMPUTE\r\n",
+  "ReferencedModules": [
+    {
+      "$binary": {
+        "base64": "y8ws32h6906ToqSk1RY2tA==",
+        "subType": "03"
+      }
+    }
+  ],
+  "LastUpdatedOn": {
+    "$date": "2023-03-28T09:21:04.533Z"
+  }
+},{
+  "_id": {
+    "$binary": {
+      "base64": "D3bkVwCAw0ixZ6ksm+J9vg==",
+      "subType": "03"
+    }
+  },
+  "Name": "PCT-CA",
+  "Description": "Entry of national phase in Canada",
+  "SourceCode": "# File name: PCT-CA-OFF\r\n# File content: Official fees for PCT national phase: Canada\r\n# Valid until n/a\r\n# Currency: CAD\r\n# MODULES: ApplicationDate; ISA; EntitySize; \r\n\r\nCOMPUTE FEE OFF_BasicNationalFee\r\nYIELD 203.59 IF EntitySize EQ Entity_Small\r\nYIELD 407.18 IF EntitySize NEQ Entity_Small\r\nENDCOMPUTE\r\n\r\n# ExReq 4 years after IFD\r\nCOMPUTE FEE OFF_ExaminationFee OPTIONAL\r\n\r\nCASE ISA EQ ISA_CA AS\r\n   YIELD 100 IF EntitySize EQ Entity_Small\r\n   YIELD 203.59 IF EntitySize NEQ Entity_Small\r\nENDCASE\r\n\r\nCASE ISA NEQ ISA_CA AS\r\n   YIELD 407.18 IF EntitySize EQ Entity_Small\r\n   YIELD 814.37 IF EntitySize NEQ Entity_Small\r\nENDCASE\r\n\r\nENDCOMPUTE\r\n\r\nCOMPUTE FEE OFF_Renewal\r\nLET RenMonth AS ROUND(ApplicationDate!MONTHSTONOW) #calculate difference in months to today\r\n\r\nLET AnnFeeSmall AS 50\r\nLET AnnFeeLarge AS 100\r\n\r\nCASE EntitySize EQ Entity_Small AS \r\n   YIELD AnnFeeSmall #year 2\r\n   YIELD AnnFeeSmall IF RenMonth GTE 12 #year 3\r\n   YIELD AnnFeeSmall IF RenMonth GTE 24 #year 4\r\nENDCASE\r\n\r\nCASE EntitySize NEQ Entity_Small AS \r\n   YIELD AnnFeeLarge #year 2\r\n   YIELD AnnFeeLarge IF RenMonth GTE 12 #year 3\r\n   YIELD AnnFeeLarge IF RenMonth GTE 24 #year 4\r\nENDCASE\r\n\r\nENDCOMPUTE",
+  "ReferencedModules": [
+    {
+      "$binary": {
+        "base64": "y8ws32h6906ToqSk1RY2tA==",
+        "subType": "03"
+      }
+    },
+    {
+      "$binary": {
+        "base64": "yJkZPzopiES33gyACEIelQ==",
+        "subType": "03"
+      }
+    },
+    {
+      "$binary": {
+        "base64": "P80vSkMGs06aNvKSzHRSpQ==",
+        "subType": "03"
+      }
+    }
+  ],
+  "LastUpdatedOn": {
+    "$date": "2023-03-28T14:55:42.472Z"
+  }
+},{
+  "_id": {
+    "$binary": {
+      "base64": "Kz5CqHr+sECWIPn3cYUx+A==",
+      "subType": "03"
+    }
+  },
+  "Name": "PCT-CH",
+  "Description": "Entry of national phase in Switzerland",
+  "SourceCode": "# File name: PCT-CH-OFF\r\n# File content: Official fees for PCT national phase: Switzerland\r\n# Valid until n/a\r\n# Currency: CHF\r\n# MODULES: ClaimCount\r\n\r\nCOMPUTE FEE OFF_BasicNationalFee\r\nYIELD 200\r\nENDCOMPUTE\r\n\r\nCOMPUTE FEE OFF_ClaimFee\r\nYIELD 50*(ClaimCount-10) IF ClaimCount GT 10\r\nENDCOMPUTE\r\n\r\nCOMPUTE FEE OFF_ExaminationFee OPTIONAL\r\nYIELD 500\r\nENDCOMPUTE\r\n\r\n#annuities only after year 4",
+  "ReferencedModules": [
+    {
+      "$binary": {
+        "base64": "w8nNogLgFk6LaXxGQ42hYA==",
+        "subType": "03"
+      }
+    }
+  ],
+  "LastUpdatedOn": {
+    "$date": "2023-03-28T20:48:16.674Z"
+  }
+}]
