@@ -13,14 +13,15 @@ namespace IPFees.Web.Areas.Jurisdiction.Pages
         [BindProperty] public IEnumerable<string> Errors { get; set; }
 
         private readonly IJurisdictionRepository jurisdictionRepository;
-    
+
         public IndexModel(IJurisdictionRepository jurisdictionRepository)
         {
-            this.jurisdictionRepository = jurisdictionRepository;            
+            this.jurisdictionRepository = jurisdictionRepository;
         }
         public async Task<IActionResult> OnGetAsync()
         {
-            Jurisdictions = await jurisdictionRepository.GetJurisdictions();
+            var DbJur = await jurisdictionRepository.GetJurisdictions();
+            Jurisdictions = DbJur.OrderByDescending(o => o.LastUpdatedOn);
             return Page();
         }
     }
