@@ -16,6 +16,7 @@
                     <tr>
                         <th scope="col">Module</th>
                         <th scope="col">Description</th>
+                        <th scope="col">Reference Count</th>
                         <th scope="col">Last Updated</th>
                         <th scope="col"></th>
 
@@ -25,10 +26,11 @@
                     @foreach (var mi in Model.Modules)
                     {
                         <tr>
-                            <td>@mi.Name</td>
-                            <td>@mi.Description</td>
-                            <td>@mi.LastUpdatedOn</td>
-                            <td><a asp-page="Edit" asp-route-id="@mi.Id">Edit</a> | <a asp-page="Delete" asp-route-id="@mi.Id">Delete</a></td>
+                            <td>@mi.Mod.Name</td>
+                            <td>@mi.Mod.Description</td>
+                            <td>@mi.Count</td>
+                            <td>@mi.Mod.LastUpdatedOn</td>
+                            <td><a asp-page="Edit" asp-route-id="@mi.Mod.Id">Edit</a> | <a asp-page="Delete" asp-route-id="@mi.Mod.Id">Delete</a></td>
                         </tr>
                     }
                 </tbody>
