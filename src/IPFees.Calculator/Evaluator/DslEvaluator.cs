@@ -176,6 +176,23 @@ namespace IPFees.Evaluator
                     _ => throw new InvalidDataException($"Unknown operator: '{op}'"),
                 };
             }
+            // Both values are dates
+            else if (a is IPFValueDate && b is IPFValueDate)
+            {
+                var av = (a as IPFValueDate).Value;
+                var bv = (b as IPFValueDate).Value;
+                return op switch
+                {
+                    "EQ" => new IPFValueBoolean(string.Empty, av == bv),
+                    "NEQ" => new IPFValueBoolean(string.Empty, av != bv),
+                    "LT" => new IPFValueBoolean(string.Empty, av < bv),
+                    "LTE" => new IPFValueBoolean(string.Empty, av <= bv),
+                    "GT" => new IPFValueBoolean(string.Empty, av > bv),
+                    "GTE" => new IPFValueBoolean(string.Empty, av >= bv),
+                    "AND" or "OR" or "IN" or "NIN" => throw new NotSupportedException($"Operator [{op}] cannot compare dates"),
+                    _ => throw new InvalidDataException($"Unknown operator: '{op}'"),
+                };
+            }
             else throw new NotSupportedException($"Type mismatch for [{a}] and [{b}]");
         }
 
