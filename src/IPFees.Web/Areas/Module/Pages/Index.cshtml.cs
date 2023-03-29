@@ -18,7 +18,8 @@ namespace IPFees.Web.Areas.Module.Pages
         }
         public async Task<IActionResult> OnGetAsync()
         {
-            Modules = await moduleRepository.GetModules();
+            var DbMod = await moduleRepository.GetModules();
+            Modules = DbMod.OrderByDescending(o => o.LastUpdatedOn);
             return Page();
         }
     }
