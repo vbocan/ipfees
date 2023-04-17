@@ -1,4 +1,6 @@
-﻿namespace IPFees.Parser
+﻿using System.Xml.Linq;
+
+namespace IPFees.Parser
 {
     public abstract record DslVariable(string Name, string Text);
     public record DslVariableBoolean(string Name, string Text, bool DefaultValue) : DslVariable(Name, Text);
@@ -42,6 +44,13 @@
         public override string ToString()
         {
             return string.Format("VAR: {0} AS [{1}]", Name, string.Join(Environment.NewLine, ValueTokens));
+        }
+    }
+    public record DslReturn(string Symbol, string Text)
+    {
+        public override string ToString()
+        {
+            return string.Format("RETURN: {0} AS [{1}]", Symbol, Text);
         }
     }
 }

@@ -53,7 +53,7 @@ foreach (var v in vars)
 }
 Console.WriteLine();
 
-var (TotalMandatoryAmount, TotalOptionalAMount, CalculationSteps) = calc.Compute(vars);
+var (TotalMandatoryAmount, TotalOptionalAMount, CalculationSteps, Returns) = calc.Compute(vars);
 
 Console.WriteLine("Total mandatory amount: {0}".Pastel(Color.White).PastelBg(Color.DarkRed), TotalMandatoryAmount);
 Console.WriteLine("Total optional amount: {0}".Pastel(Color.White).PastelBg(Color.DarkRed), TotalOptionalAMount);
@@ -63,4 +63,10 @@ Console.WriteLine("CALCULATION STEPS: ======================================".Pa
 foreach (var s in CalculationSteps)
 {
     Console.WriteLine(s);
+}
+
+Console.WriteLine("RETURNS: ======================================".Pastel(ConsoleColor.Yellow));
+foreach (var r in Returns)
+{
+    Console.WriteLine(r);
 }

@@ -17,6 +17,8 @@ namespace IPFees.Web.Pages
         [BindProperty]
         public IEnumerable<string> CalculationSteps { get; set; }
         [BindProperty]
+        public IEnumerable<(string,string)> Returns { get; set; }
+        [BindProperty]
         public string ComputationError { get; set; }
         [BindProperty]
         public List<IPFValue> CollectedValues { get; set; }
@@ -90,7 +92,7 @@ namespace IPFees.Web.Pages
 
             try
             {
-                (TotalMandatoryAmount, TotalOptionalAmount, CalculationSteps) = _calc.Compute(CollectedValues);
+                (TotalMandatoryAmount, TotalOptionalAmount, CalculationSteps, Returns) = _calc.Compute(CollectedValues);
                 // Log computation success
                 _logger.LogInformation("Success! Total mandatory amount is [{0}] and the total optional amount is [{1}]", TotalMandatoryAmount, TotalOptionalAmount);
                 foreach (var cs in CalculationSteps)

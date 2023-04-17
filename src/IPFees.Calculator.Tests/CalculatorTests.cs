@@ -18,7 +18,7 @@ namespace IPFees.Calculator.Tests
             var parser = new DslParser();
             var calc = new DslCalculator(parser);
             calc.Parse(text);
-            var (TotalAmount, _, _) = calc.Compute(vars);
+            var (TotalAmount, _, _, _) = calc.Compute(vars);
 
             Assert.Equal(0, TotalAmount);
         }
@@ -37,7 +37,7 @@ namespace IPFees.Calculator.Tests
             var parser = new DslParser();
             var calc = new DslCalculator(parser);
             calc.Parse(text);
-            var (TotalAmount, _, _) = calc.Compute(vars);
+            var (TotalAmount, _, _, _) = calc.Compute(vars);
 
             Assert.Equal(400, TotalAmount);
         }
@@ -56,7 +56,7 @@ namespace IPFees.Calculator.Tests
             var parser = new DslParser();
             var calc = new DslCalculator(parser);
             calc.Parse(text);
-            var (TotalAmount, _, _) = calc.Compute(vars);
+            var (TotalAmount, _, _, _) = calc.Compute(vars);
 
             Assert.Equal(400, TotalAmount);
         }
@@ -77,7 +77,7 @@ namespace IPFees.Calculator.Tests
             var parser = new DslParser();
             var calc = new DslCalculator(parser);
             calc.Parse(text);
-            var (TotalAmount, _, _) = calc.Compute(vars);
+            var (TotalAmount, _, _, _) = calc.Compute(vars);
 
             Assert.Equal(320, TotalAmount);
         }
@@ -99,7 +99,7 @@ namespace IPFees.Calculator.Tests
             var parser = new DslParser();
             var calc = new DslCalculator(parser);
             calc.Parse(text);
-            var (TotalAmount, _, _) = calc.Compute(vars);
+            var (TotalAmount, _, _, _) = calc.Compute(vars);
 
             Assert.Equal(320, TotalAmount);
         }
@@ -121,7 +121,7 @@ namespace IPFees.Calculator.Tests
             var parser = new DslParser();
             var calc = new DslCalculator(parser);
             calc.Parse(text);
-            var (TotalAmount, _, _) = calc.Compute(vars);
+            var (TotalAmount, _, _, _) = calc.Compute(vars);
 
             Assert.Equal(4, TotalAmount);
         }
@@ -144,7 +144,7 @@ namespace IPFees.Calculator.Tests
             var parser = new DslParser();
             var calc = new DslCalculator(parser);
             calc.Parse(text);
-            var (TotalAmount, _, _) = calc.Compute(vars);
+            var (TotalAmount, _, _, _) = calc.Compute(vars);
 
             Assert.Equal(10, TotalAmount);
         }
@@ -166,7 +166,7 @@ namespace IPFees.Calculator.Tests
             var parser = new DslParser();
             var calc = new DslCalculator(parser);
             calc.Parse(text);
-            var (TotalMandatoryAmount, TotalOptionalAmount, _) = calc.Compute(vars);
+            var (TotalMandatoryAmount, TotalOptionalAmount, _, _) = calc.Compute(vars);
 
             Assert.Equal(10, TotalMandatoryAmount);
             Assert.Equal(20, TotalOptionalAmount);
@@ -191,7 +191,7 @@ namespace IPFees.Calculator.Tests
             var parser = new DslParser();
             var calc = new DslCalculator(parser);
             calc.Parse(text);
-            var (TotalMandatoryAmount, TotalOptionalAmount, _) = calc.Compute(vars);
+            var (TotalMandatoryAmount, TotalOptionalAmount, _, _) = calc.Compute(vars);
 
             Assert.Equal(520, TotalMandatoryAmount);
             Assert.Equal(0, TotalOptionalAmount);
@@ -217,7 +217,7 @@ namespace IPFees.Calculator.Tests
             var parser = new DslParser();
             var calc = new DslCalculator(parser);
             calc.Parse(text);
-            var (TotalMandatoryAmount, TotalOptionalAmount, _) = calc.Compute(vars);
+            var (TotalMandatoryAmount, TotalOptionalAmount, _, _) = calc.Compute(vars);
 
             Assert.Equal(148, TotalMandatoryAmount);
             Assert.Equal(0, TotalOptionalAmount);

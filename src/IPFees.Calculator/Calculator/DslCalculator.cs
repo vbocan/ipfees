@@ -20,8 +20,9 @@ namespace IPFees.Calculator
         public IEnumerable<string> GetErrors() => Parser.GetErrors().Select(s => s.Item2);
         public IEnumerable<DslVariable> GetVariables() => Parser.GetVariables();
         public IEnumerable<DslFee> GetFees() => Parser.GetFees();
+        public IEnumerable<DslReturn> GetReturns() => Parser.GetReturns();
 
-        public (double, double, IEnumerable<string>) Compute(IList<IPFValue> vars)
+        public (double, double, IEnumerable<string>, IEnumerable<(string, string)>) Compute(IList<IPFValue> vars)
         {
             double TotalMandatoryAmount = 0;
             double TotalOptionalAmount = 0;
@@ -83,7 +84,8 @@ namespace IPFees.Calculator
             ComputeSteps.Add(string.Format("Total amount for mandatory fees: [{0}]", TotalMandatoryAmount.ToString("0.00")));
             ComputeSteps.Add(string.Format("Total amount for optional fees: [{0}]", TotalOptionalAmount.ToString("0.00")));
             ComputeSteps.Add(string.Format("Grand total: [{0}]", (TotalMandatoryAmount + TotalOptionalAmount).ToString("0.00")));
-            return (TotalMandatoryAmount, TotalOptionalAmount, ComputeSteps);
+            var Returns = Parser.GetReturns().Select(s => (s.Symbol, s.Text));
+            return (TotalMandatoryAmount, TotalOptionalAmount, ComputeSteps, Returns);
         }
     }
 }
