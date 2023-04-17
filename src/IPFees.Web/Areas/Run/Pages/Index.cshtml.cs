@@ -22,6 +22,8 @@ namespace IPFees.Web.Areas.Run.Pages
         [BindProperty] public double TotalOptionalAmount { get; set; }
         // Calculation steps
         [BindProperty] public IEnumerable<string> CalculationSteps { get; set; }
+        // Returns
+        [BindProperty] public IEnumerable<(string, string)> Returns { get; set; }
 
         private readonly IOfficialFee officialFee;
         private readonly ILogger<IndexModel> _logger;
@@ -99,6 +101,7 @@ namespace IPFees.Web.Areas.Run.Pages
                 TotalMandatoryAmount = result1.TotalMandatoryAmount;
                 TotalOptionalAmount = result1.TotalOptionalAMount;
                 CalculationSteps = result1.CalculationSteps;
+                Returns = result1.Returns;
                 // Log computation success
                 _logger.LogInformation("Success! Total mandatory amount is [{0}] and the total optional amount is [{1}]", TotalMandatoryAmount, TotalOptionalAmount);
                 foreach (var cs in CalculationSteps)

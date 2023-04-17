@@ -66,3 +66,28 @@
         </tbody>
     </table>
 }
+
+@if (Model.Returns != null)
+{
+    var i = 1;
+    <table class="table table-sm">
+        <thead>
+            <tr>
+                <th rowspan="2">Returns</th>
+                <th scope="col"></th>
+                <th scope="col"></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var e in Model.Returns)
+            {
+                <tr>
+                    <td>@i</td>
+                    <td>@e.Item1</td>
+                    <td>@e.Item2</td>
+                </tr>
+                i++;
+            }
+        </tbody>
+    </table>
+}

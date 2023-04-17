@@ -43,8 +43,8 @@ namespace IPFees.Core
             }
             else
             {
-                var (TotalMandatoryAmount, TotalOptionalAMount, CalculationSteps) = Calculator.Compute(Vars);
-                return new OfficialFeeCalculationSuccess(TotalMandatoryAmount, TotalOptionalAMount, CalculationSteps);
+                var (TotalMandatoryAmount, TotalOptionalAMount, CalculationSteps, Returns) = Calculator.Compute(Vars);
+                return new OfficialFeeCalculationSuccess(TotalMandatoryAmount, TotalOptionalAMount, CalculationSteps, Returns);
             }
         }
 
@@ -74,7 +74,7 @@ namespace IPFees.Core
 
         public abstract record OfficialFeeResult(bool IsSuccessfull);
         public record OfficialFeeResultFail(IEnumerable<string> Errors) : OfficialFeeResult(false);
-        public record OfficialFeeCalculationSuccess(double TotalMandatoryAmount, double TotalOptionalAMount, IEnumerable<string> CalculationSteps) : OfficialFeeResult(true);
+        public record OfficialFeeCalculationSuccess(double TotalMandatoryAmount, double TotalOptionalAMount, IEnumerable<string> CalculationSteps, IEnumerable<(string, string)> Returns) : OfficialFeeResult(true);
         public record OfficialFeeParseSuccess(IEnumerable<DslVariable> ParsedVariables) : OfficialFeeResult(true);
     }
 }

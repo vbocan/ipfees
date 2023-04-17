@@ -17,6 +17,7 @@ namespace IPFees.Parser
         private DslFee CurrentFee { get; set; } = new DslFee(string.Empty, false, new List<DslItem>(), new List<DslFeeVar>());
         private DslFeeCase CurrentFeeCase { get; set; } = new DslFeeCase(Enumerable.Empty<string>(), new List<DslFeeYield>());
 
+        private IList<DslReturn> IPFReturns = new List<DslReturn>();
         private IList<DslVariable> IPFVariables = new List<DslVariable>();
         private IList<DslFee> IPFFees = new List<DslFee>();
         private IList<(DslError, string)> IPFErrors = new List<(DslError, string)>();
@@ -48,7 +49,8 @@ namespace IPFees.Parser
                 ParseFeeYield,
                 ParseFeeLet,
                 ParseFeeEndCase,
-                ParseEndCompute
+                ParseEndCompute,
+                ParseReturn
             };
 
             string[] IPFData = source.Split(new string[] { Environment.NewLine }, StringSplitOptions.None);
@@ -114,6 +116,12 @@ namespace IPFees.Parser
             }
             string line1 = line[..i].Trim();
             return line1;
+        }
+
+        public IEnumerable<DslReturn> GetReturns()
+        {
+            if (IPFErrors.Count > 0) throw new NotSupportedException("Unable to access returned items. Check the error list.");
+            return IPFReturns;
         }
 
         public IEnumerable<DslVariable> GetVariables()
@@ -464,6 +472,19 @@ namespace IPFees.Parser
             IPFFees.Add(CurrentFee);
             CurrentFeeCase = new DslFeeCase(Enumerable.Empty<string>(), new List<DslFeeYield>());
             CurrentlyParsing = Parsing.None;
+            return true;
+        }
+        #endregion
+
+        #region Return parsing
+        bool ParseReturn(string[] tokens)
+        {
+            if (CurrentlyParsing != Parsing.None) return false;
+            if (tokens.Length != 4) return false;
+            if (tokens[0] != "RETURN") return false;
+            if (tokens[2] != "AS") return false;
+            var item = new DslReturn(tokens[1], tokens[3]);
+            IPFReturns.Add(item);
             return true;
         }
         #endregion
