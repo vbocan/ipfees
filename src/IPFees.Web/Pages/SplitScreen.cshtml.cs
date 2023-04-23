@@ -76,7 +76,7 @@ namespace IPFees.Web.Pages
             if (RefMod.Any()) TempData["modules"] = RefMod;
             // Prepare view model for referenced modules
             var Mods = moduleRepository.GetModules().Result;
-            ReferencedModules = Mods.Select(s => new ModuleViewModel(s.Id, s.Name, s.Description, s.LastUpdatedOn, RefMod.Contains(s.Name))).ToList();
+            ReferencedModules = Mods.Select(s => new ModuleViewModel(s.Id, s.Name, s.Description, s.LastUpdatedOn, RefMod.Contains(s.Id.ToString()))).ToList();
             ExecutionPending = false;
             return Page();
         }
@@ -154,7 +154,7 @@ namespace IPFees.Web.Pages
             if (RefMod.Any()) TempData["modules"] = RefMod;
             // Prepare view model for referenced modules
             var Mods = moduleRepository.GetModules().Result;
-            ReferencedModules = Mods.Select(s => new ModuleViewModel(s.Id, s.Name, s.Description, s.LastUpdatedOn, RefMod.Contains(s.Name))).ToList();
+            ReferencedModules = Mods.Select(s => new ModuleViewModel(s.Id, s.Name, s.Description, s.LastUpdatedOn, RefMod.Contains(s.Id.ToString()))).ToList();
             CalculationPending = false;
             return Page();
         }
