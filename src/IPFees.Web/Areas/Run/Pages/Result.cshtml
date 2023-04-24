@@ -1,0 +1,93 @@
+﻿@page
+@model ResultModel
+@{
+    ViewData["Title"] = "Calculation Result";
+}
+
+<h1>Calculation Results</h1>
+<div class="row">
+    <div class="col-md-4">
+        <h4>Total: @((Model.TotalMandatoryAmount + Model.TotalOptionalAmount).ToString("0.00"))</h4>
+    </div>
+    <div class="col-md-8">
+        <h6>Mandatory Fees: @Model.TotalMandatoryAmount.ToString("0.00") | Optional Fees: @Model.TotalOptionalAmount.ToString("0.00")</h6>
+    </div>
+</div>
+
+@if (!string.IsNullOrEmpty(Model.ComputationError))
+{
+    <div class="alert alert-danger" role="alert">
+        @Model.ComputationError
+    </div>
+}
+
+@if (Model.CollectedValues != null)
+{
+    var i = 1;
+    <table class="table table-sm">
+        <thead>
+            <tr>
+                <th rowspan="2">Collected Values</th>
+                <th scope="col"></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var cv in Model.CollectedValues)
+            {
+                <tr>
+                    <td>@i</td>
+                    <td>@cv.ToString()</td>
+                </tr>
+                i++;
+            }
+        </tbody>
+    </table>
+}
+
+@if (Model.CalculationSteps != null)
+{
+    var i = 1;
+    <table class="table table-sm">
+        <thead>
+            <tr>
+                <th rowspan="2">Calculation Steps</th>
+                <th scope="col"></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var e in Model.CalculationSteps)
+            {
+                <tr>
+                    <td>@i</td>
+                    <td>@e</td>
+                </tr>
+                i++;
+            }
+        </tbody>
+    </table>
+}
+
+@if (Model.Returns != null)
+{
+    var i = 1;
+    <table class="table table-sm">
+        <thead>
+            <tr>
+                <th rowspan="2">Returns</th>
+                <th scope="col"></th>
+                <th scope="col"></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var e in Model.Returns)
+            {
+                <tr>
+                    <td>@i</td>
+                    <td>@e.Item1</td>
+                    <td>@e.Item2</td>
+                </tr>
+                i++;
+            }
+        </tbody>
+    </table>
+}
