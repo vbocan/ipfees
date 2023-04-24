@@ -9,7 +9,7 @@ using static IPFees.Core.OfficialFee;
 
 namespace IPFees.Web.Areas.Run.Pages
 {
-    public class IndexModel : PageModel
+    public class JurisdictionModel : PageModel
     {
         [BindProperty] public Guid Id { get; set; }
         [BindProperty] public bool CalculationPending { get; set; } = true;
@@ -26,9 +26,9 @@ namespace IPFees.Web.Areas.Run.Pages
         [BindProperty] public IEnumerable<(string, string)> Returns { get; set; }
 
         private readonly IOfficialFee officialFee;
-        private readonly ILogger<IndexModel> _logger;
+        private readonly ILogger<JurisdictionModel> _logger;
 
-        public IndexModel(IOfficialFee officialFee, ILogger<IndexModel> logger)
+        public JurisdictionModel(IOfficialFee officialFee, ILogger<JurisdictionModel> logger)
         {
             this.officialFee = officialFee;
             _logger = logger;
