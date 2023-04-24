@@ -25,7 +25,7 @@
                     @foreach (var mi in Model.Jurisdictions)
                     {
                         <tr>
-                            <td><a asp-area="Run" asp-page="Index" asp-route-id="@mi.Id">[@mi.Name] (@mi.Description)</a></td>
+                            <td><a asp-area="Run" asp-page="Jurisdiction" asp-route-id="@mi.Id">[@mi.Name] (@mi.Description)</a></td>
                             <td>@mi.ReferencedModules.Count()</td>
                             <td>@mi.LastUpdatedOn</td>
                             <td><a asp-page="Edit" asp-route-id="@mi.Id">Edit</a> | <a asp-page="Delete" asp-route-id="@mi.Id">Delete</a></td>
