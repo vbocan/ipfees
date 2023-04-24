@@ -1,0 +1,41 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Jurisdiction Selection";
+}
+
+<h1>Jurisdiction <small class="text-muted">Selection</small></h1>
+
+<div class="row">
+    <div class="col-lg-12">
+        @if (Model.Jurisdictions.Any())
+        {
+            <form method="post">
+                <div class="row">
+                    @for (var i = 0; i < Model.SelectedJurisdictions.Count(); i++)
+                    {
+                        <div class="col-sm-3 shadow p-3 mb-5 bg-white rounded">
+                            <div class="form-check form-switch">
+                                <label class="form-check-label" for="@Model.SelectedJurisdictions[i].Name">@Model.SelectedJurisdictions[i].Description</label>
+                                <input class="form-check-input" type="checkbox" asp-for="@Model.SelectedJurisdictions[i].Checked">
+                                <input type="hidden" asp-for="@Model.SelectedJurisdictions[i].Checked" value="false">
+                                <input type="hidden" asp-for="@Model.SelectedJurisdictions[i].Name">
+                                <input type="hidden" asp-for="@Model.SelectedJurisdictions[i].Id">
+                            </div>
+                        </div>
+                    }
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        <button type="submit" class="btn btn-primary">Compute Fees</button>
+                    </div>
+                </div>                
+            </form>
+            <h6>@Model.Jurisdictions.Count() jurisdictions displayed.</h6>
+        }
+        else
+        {
+            <h6>No jurisdictions defined. Please contact the administrator.</h6>
+        }
+    </div>
+</div>
