@@ -12,9 +12,9 @@ namespace IPFees.Web.Areas.Run.Pages
 {
     public class DataCollectModel : PageModel
     {
-        //[BindProperty] public IEnumerable<JurisdictionInfo> Jurisdictions { get; set; }
+        [BindProperty] public IEnumerable<Guid> SelectedJurisdictions { get; set; }
         [BindProperty] public IList<ParsedVariableViewModel> Vars { get; set; }
-        [BindProperty] public IEnumerable<string> Errors { get; set; }
+        [BindProperty] public IList<string> Errors { get; set; }
 
         private readonly IJurisdictionRepository jurisdictionRepository;
         private readonly IOfficialFee officialFee;
@@ -24,11 +24,13 @@ namespace IPFees.Web.Areas.Run.Pages
         {
             this.jurisdictionRepository = jurisdictionRepository;
             this.officialFee = officialFee;
+            this.Errors = new List<string>();
             _logger = logger;
         }
 
         public async Task<IActionResult> OnGetAsync(IEnumerable<Guid> Id)
         {
+            SelectedJurisdictions = Id;
             var VarMap = new Dictionary<string, DslVariable>();
             // Get selected jurisdictions
             foreach (var id in Id)
@@ -37,23 +39,33 @@ namespace IPFees.Web.Areas.Run.Pages
                 var res = await officialFee.GetVariables(id);
                 if (res is OfficialFeeResultFail)
                 {
-                    var rf = res as OfficialFeeResultFail;
-                    foreach (var e in rf.Errors) Errors.Append(e);
-                    return Page();
+
+                    Errors.Add($"Failed to process jurisdiction {id}.");
                 }
-                // Store parsed variables and remove duplicates
-                foreach (var pv in (res as OfficialFeeParseSuccess).ParsedVariables)
+                else
                 {
-                    VarMap.Add(pv.Name, pv);
+                    // Store parsed variables and remove duplicates
+                    foreach (var pv in (res as OfficialFeeParseSuccess).ParsedVariables)
+                    {
+                        VarMap.Add(pv.Name, pv);
+                    }
                 }
             }
-            Vars = VarMap.Values.Select(pv => new ParsedVariableViewModel(pv.Name, pv.GetType().ToString(), pv, string.Empty, Array.Empty<string>(), 0, false, DateOnly.MinValue)).ToList();
-            return Page();
+            if (Errors.Any())
+            {
+                TempData["Errors"] = Errors;
+                return RedirectToPage("Error");
+            }
+            else
+            {
+                Vars = VarMap.Values.Select(pv => new ParsedVariableViewModel(pv.Name, pv.GetType().ToString(), pv, string.Empty, Array.Empty<string>(), 0, false, DateOnly.MinValue)).ToList();
+                return Page();
+            }
         }
 
         public async Task<IActionResult> OnPostAsync()
-        {            
-            return RedirectToPage("Result");
+        {
+            return RedirectToPage("Result", new { area = "Run", Id = SelectedJurisdictions });
         }
 
         private async Task PopulateItems()
