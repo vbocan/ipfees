@@ -17,18 +17,18 @@ namespace IPFees.Web.Areas.Run.Pages
         [BindProperty] public string ComputationError { get; set; }
         [BindProperty] public List<IPFValue> CollectedValues { get; set; }
         [BindProperty] public IList<ParsedVariableViewModel> Vars { get; set; }
-        [BindProperty] public IOfficialFee officialFee { get; set; }
-        [BindProperty] public IEnumerable<Guid> SelectedJurisdictions { get; set; }
+        //[BindProperty] public IOfficialFee officialFee { get; set; }
+        [BindProperty] public Guid[] SelectedJurisdictions { get; set; }
 
         private readonly ILogger<ResultModel> _logger;
 
         public ResultModel(IOfficialFee officialFee, ILogger<ResultModel> logger)
         {
-            this.officialFee = officialFee;
+            //this.officialFee = officialFee;
             _logger = logger;
         }
 
-        public async Task<IActionResult> OnGetAsync(IEnumerable<Guid> Id)
+        public async Task<IActionResult> OnGetAsync(Guid[] Id)
         {
             SelectedJurisdictions = Id;
             return Page();
@@ -72,7 +72,7 @@ namespace IPFees.Web.Areas.Run.Pages
             {
                 try
                 {
-                    var ofr = await officialFee.Calculate(id, CollectedValues);
+                    //var ofr = await officialFee.Calculate(id, CollectedValues);
                     // Log computation success
                     _logger.LogInformation("Success! Total mandatory amount is [{0}] and the total optional amount is [{1}]", TotalMandatoryAmount, TotalOptionalAmount);
                     foreach (var cs in CalculationSteps)
