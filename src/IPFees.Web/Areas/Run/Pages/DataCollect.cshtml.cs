@@ -16,13 +16,11 @@ namespace IPFees.Web.Areas.Run.Pages
         [BindProperty] public IList<ParsedVariableViewModel> Vars { get; set; }
         [BindProperty] public IList<string> Errors { get; set; }
 
-        private readonly IJurisdictionRepository jurisdictionRepository;
         private readonly IOfficialFee officialFee;
         private readonly ILogger<DataCollectModel> _logger;
 
-        public DataCollectModel(IJurisdictionRepository jurisdictionRepository, IOfficialFee officialFee, ILogger<DataCollectModel> logger)
+        public DataCollectModel(IOfficialFee officialFee, ILogger<DataCollectModel> logger)
         {
-            this.jurisdictionRepository = jurisdictionRepository;
             this.officialFee = officialFee;
             this.Errors = new List<string>();
             _logger = logger;
@@ -67,10 +65,5 @@ namespace IPFees.Web.Areas.Run.Pages
         {
             return RedirectToPage("Result", new { area = "Run", Id = SelectedJurisdictions });
         }
-
-        private async Task PopulateItems()
-        {
-
-        }
-    }    
+    }
 }

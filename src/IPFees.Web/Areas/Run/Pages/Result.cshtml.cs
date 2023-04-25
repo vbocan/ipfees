@@ -10,7 +10,6 @@ namespace IPFees.Web.Areas.Run.Pages
 {
     public class ResultModel : PageModel
     {
-        [BindProperty] public IEnumerable<Guid> SelectedJurisdictions { get; set; }
         [BindProperty] public double TotalMandatoryAmount { get; set; }
         [BindProperty] public double TotalOptionalAmount { get; set; }
         [BindProperty] public IEnumerable<string> CalculationSteps { get; set; }
@@ -28,14 +27,14 @@ namespace IPFees.Web.Areas.Run.Pages
             _logger = logger;
         }
 
-        public async Task<IActionResult> OnGetAsync(IEnumerable<Guid> Id)
+        public async Task<IActionResult> OnGetAsync()
         {
-            SelectedJurisdictions = Id;
             return Page();
         }
 
         public async Task<IActionResult> OnPostAsync()
         {
+            var SelectedJurisdictions = (IEnumerable<Guid>)TempData["SelectedJurisdictions"] ?? Enumerable.Empty<Guid>();
             CollectedValues = new List<IPFValue>();            
 
             // Cycle through all form fields to build the collected values list
@@ -67,6 +66,7 @@ namespace IPFees.Web.Areas.Run.Pages
                     CollectedValues.Add(new IPFValueDate(item.Name, item.DateValue));
                 }
             }
+
             foreach (var id in SelectedJurisdictions)
             {
                 try
