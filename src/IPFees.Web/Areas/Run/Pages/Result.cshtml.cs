@@ -5,26 +5,23 @@ using IPFFees.Core;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using System.Diagnostics;
+using static IPFees.Core.OfficialFee;
 
 namespace IPFees.Web.Areas.Run.Pages
 {
     public class ResultModel : PageModel
     {
-        [BindProperty] public double TotalMandatoryAmount { get; set; }
-        [BindProperty] public double TotalOptionalAmount { get; set; }
-        [BindProperty] public IEnumerable<string> CalculationSteps { get; set; }
-        [BindProperty] public IEnumerable<(string,string)> Returns { get; set; }
         [BindProperty] public string ComputationError { get; set; }
         [BindProperty] public List<IPFValue> CollectedValues { get; set; }
         [BindProperty] public IList<ParsedVariableViewModel> Vars { get; set; }
-        //[BindProperty] public IOfficialFee officialFee { get; set; }
         [BindProperty] public Guid[] SelectedJurisdictions { get; set; }
-
+        [BindProperty] public OfficialFeeResult[] OfficialFeeResults { get; set; }
+        private readonly IOfficialFee officialFee;
         private readonly ILogger<ResultModel> _logger;
 
         public ResultModel(IOfficialFee officialFee, ILogger<ResultModel> logger)
         {
-            //this.officialFee = officialFee;
+            this.officialFee = officialFee;
             _logger = logger;
         }
 
@@ -35,8 +32,8 @@ namespace IPFees.Web.Areas.Run.Pages
         }
 
         public async Task<IActionResult> OnPostAsync()
-        {            
-            CollectedValues = new List<IPFValue>();            
+        {
+            CollectedValues = new List<IPFValue>();
 
             // Cycle through all form fields to build the collected values list
             foreach (var item in Vars)
@@ -68,24 +65,14 @@ namespace IPFees.Web.Areas.Run.Pages
                 }
             }
 
-            foreach (var id in SelectedJurisdictions)
+            try
             {
-                try
-                {
-                    //var ofr = await officialFee.Calculate(id, CollectedValues);
-                    // Log computation success
-                    _logger.LogInformation("Success! Total mandatory amount is [{0}] and the total optional amount is [{1}]", TotalMandatoryAmount, TotalOptionalAmount);
-                    foreach (var cs in CalculationSteps)
-                    {
-                        _logger.LogInformation("> {0}", cs);
-                    }
-                }
-                catch (Exception ex)
-                {
-                    ComputationError = ex.Message;
-                    // Log computation error
-                    _logger.LogInformation("Failed! Error is {0}.", ex.Message);
-                }
+                OfficialFeeResults = officialFee.Calculate(SelectedJurisdictions.AsEnumerable(), CollectedValues).ToBlockingEnumerable().ToArray();
+            }
+            catch (Exception ex)
+            {
+                ComputationError = ex.Message;
+                // Log computation error                    
             }
 
             return Page();
