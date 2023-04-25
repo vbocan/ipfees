@@ -1,12 +1,6 @@
-using IPFees.Calculator;
-using IPFees.Evaluator;
-using IPFees.Parser;
 using IPFFees.Core;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using System.Diagnostics.Eventing.Reader;
-using System.Linq;
-using static IPFees.Core.OfficialFee;
 
 namespace IPFees.Web.Areas.Run.Pages
 {
