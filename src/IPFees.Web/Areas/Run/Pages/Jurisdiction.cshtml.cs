@@ -99,7 +99,7 @@ namespace IPFees.Web.Areas.Run.Pages
             {
                 var result1 = (result as OfficialFeeCalculationSuccess);
                 TotalMandatoryAmount = result1.TotalMandatoryAmount;
-                TotalOptionalAmount = result1.TotalOptionalAMount;
+                TotalOptionalAmount = result1.TotalOptionalAmount;
                 CalculationSteps = result1.CalculationSteps;
                 Returns = result1.Returns;
                 // Log computation success
