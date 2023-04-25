@@ -12,7 +12,7 @@ namespace IPFees.Web.Areas.Run.Pages
 {
     public class DataCollectModel : PageModel
     {
-        [BindProperty] public IEnumerable<Guid> SelectedJurisdictions { get; set; }
+        [BindProperty] public Guid[] SelectedJurisdictions { get; set; }
         [BindProperty] public IList<ParsedVariableViewModel> Vars { get; set; }
         [BindProperty] public IList<string> Errors { get; set; }
 
@@ -26,7 +26,7 @@ namespace IPFees.Web.Areas.Run.Pages
             _logger = logger;
         }
 
-        public async Task<IActionResult> OnGetAsync(IEnumerable<Guid> Id)
+        public async Task<IActionResult> OnGetAsync(Guid[] Id)
         {
             SelectedJurisdictions = Id;
             var VarMap = new Dictionary<string, DslVariable>();
@@ -59,11 +59,6 @@ namespace IPFees.Web.Areas.Run.Pages
                 Vars = VarMap.Values.Select(pv => new ParsedVariableViewModel(pv.Name, pv.GetType().ToString(), pv, string.Empty, Array.Empty<string>(), 0, false, DateOnly.MinValue)).ToList();
                 return Page();
             }
-        }
-
-        public async Task<IActionResult> OnPostAsync()
-        {
-            return RedirectToPage("Result", new { area = "Run", Id = SelectedJurisdictions });
         }
     }
 }
