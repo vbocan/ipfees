@@ -2,6 +2,7 @@
 using IPFees.Evaluator;
 using IPFees.Parser;
 using IPFFees.Core;
+using System.Linq;
 
 namespace IPFees.Core
 {
@@ -87,14 +88,9 @@ namespace IPFees.Core
             }
         }
 
-        public async Task<IEnumerable<OfficialFeeResult>> GetVariables(IEnumerable<Guid> JurisdictionIds)
+        public async IAsyncEnumerable<OfficialFeeResult> GetVariables(IEnumerable<Guid> JurisdictionIds)
         {
-            // TODO: Finish to implement the method!!!!
-            // Reset calculator
-            Calculator.Reset();
-            var VarMap = new Dictionary<string, DslVariable>();
-            var Errors = new List<string>();
-
+            var hs = new HashSet<string>();
             foreach (var id in JurisdictionIds)
             {
                 var v = await GetVariables(id);
@@ -102,18 +98,13 @@ namespace IPFees.Core
                 {
                     foreach (var pv in (v as OfficialFeeParseSuccess).ParsedVariables)
                     {
-                        if (!VarMap.ContainsKey(pv.Name)) VarMap.Add(pv.Name, pv);
+                        if (!hs.Contains(pv.Name))
+                        {
+                            hs.Add(pv.Name);
+                            yield return v;
+                        }
                     }
                 }
-                else
-                {
-                    Errors.AddRange((v as OfficialFeeResultFail).Errors);
-                }
-            }
-
-            if (Errors.Any())
-            {
-                return new OfficialFeeResultFail(jur.Name, jur.Description, Errors);
             }
         }
 

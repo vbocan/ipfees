@@ -29,36 +29,17 @@ namespace IPFees.Web.Areas.Run.Pages
         public async Task<IActionResult> OnGetAsync(Guid[] Id)
         {
             SelectedJurisdictions = Id;
-            var VarMap = new Dictionary<string, DslVariable>();
-            // Get selected jurisdictions
-            foreach (var id in Id)
-            {                
-                // For each jurisdiction, get the inputs that need to be displayed to the user
-                var res = await officialFee.GetVariables(id);
-                if (res is OfficialFeeResultFail)
-                {
 
-                    Errors.Add($"Failed to process jurisdiction {id}.");
-                }
-                else
-                {
-                    // Store parsed variables and remove duplicates
-                    foreach (var pv in (res as OfficialFeeParseSuccess).ParsedVariables)
-                    {
-                        if(!VarMap.ContainsKey(pv.Name)) VarMap.Add(pv.Name, pv);
-                    }
-                }
-            }
-            if (Errors.Any())
+            // For each jurisdiction, get the inputs that need to be displayed to the user
+            var res = officialFee.GetVariables(Id).ToBlockingEnumerable();
+            // Check for errors in the parse process
+            if (res.Any(a => !a.IsSuccessfull))
             {
-                TempData["Errors"] = Errors;
-                return RedirectToPage("Error");
+                var err = res.OfType<OfficialFeeResultFail>().Select(s => $"Internal error processing jurisdiction [{s.JurisdictionName}] - {s.JurisdictionName}");
+                return RedirectToPage("Error", new { err });
             }
-            else
-            {
-                Vars = VarMap.Values.Select(pv => new ParsedVariableViewModel(pv.Name, pv.GetType().ToString(), pv, string.Empty, Array.Empty<string>(), 0, false, DateOnly.MinValue)).ToList();
-                return Page();
-            }
+            Vars = res.OfType<OfficialFeeParseSuccess>().SelectMany(sm => sm.ParsedVariables).Select(pv => new ParsedVariableViewModel(pv.Name, pv.GetType().ToString(), pv, string.Empty, Array.Empty<string>(), 0, false, DateOnly.MinValue)).ToList();
+            return Page();
         }
     }
 }
