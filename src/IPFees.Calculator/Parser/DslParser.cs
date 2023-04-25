@@ -488,6 +488,15 @@ namespace IPFees.Parser
             return true;
         }
         #endregion
+        #region Reset
+        public void Reset()
+        {
+            IPFReturns.Clear();
+            IPFVariables.Clear();
+            IPFFees.Clear();
+            IPFErrors.Clear();
+        }
+        #endregion
     }
 
     internal enum Parsing
