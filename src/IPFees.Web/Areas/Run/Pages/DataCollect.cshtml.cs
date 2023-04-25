@@ -32,7 +32,7 @@ namespace IPFees.Web.Areas.Run.Pages
             var VarMap = new Dictionary<string, DslVariable>();
             // Get selected jurisdictions
             foreach (var id in Id)
-            {
+            {                
                 // For each jurisdiction, get the inputs that need to be displayed to the user
                 var res = await officialFee.GetVariables(id);
                 if (res is OfficialFeeResultFail)
@@ -45,7 +45,7 @@ namespace IPFees.Web.Areas.Run.Pages
                     // Store parsed variables and remove duplicates
                     foreach (var pv in (res as OfficialFeeParseSuccess).ParsedVariables)
                     {
-                        VarMap.Add(pv.Name, pv);
+                        if(!VarMap.ContainsKey(pv.Name)) VarMap.Add(pv.Name, pv);
                     }
                 }
             }
