@@ -41,12 +41,12 @@ namespace IPFees.Core
             if (!res)
             {
                 var Errors = Calculator.GetErrors();
-                return new OfficialFeeResultFail(Errors);
+                return new OfficialFeeResultFail(jur.Name, jur.Description, Errors);
             }
             else
             {
-                var (TotalMandatoryAmount, TotalOptionalAMount, CalculationSteps, Returns) = Calculator.Compute(Vars);
-                return new OfficialFeeCalculationSuccess(JurisdictionId, TotalMandatoryAmount, TotalOptionalAMount, CalculationSteps, Returns);
+                var (TotalMandatoryAmount, TotalOptionalAmount, CalculationSteps, Returns) = Calculator.Compute(Vars);
+                return new OfficialFeeCalculationSuccess(jur.Name, jur.Description, TotalMandatoryAmount, TotalOptionalAmount, CalculationSteps, Returns);
             }
         }
 
@@ -78,18 +78,18 @@ namespace IPFees.Core
             if (!res)
             {
                 var Errors = Calculator.GetErrors();
-                return new OfficialFeeResultFail(Errors);
+                return new OfficialFeeResultFail(jur.Name, jur.Description, Errors);
             }
             else
             {
                 var Vars = Calculator.GetVariables();
-                return new OfficialFeeParseSuccess(JurisdictionId, Vars);
+                return new OfficialFeeParseSuccess(jur.Name, jur.Description, Vars);
             }
         }
 
         public abstract record OfficialFeeResult(bool IsSuccessfull);
-        public record OfficialFeeResultFail(IEnumerable<string> Errors) : OfficialFeeResult(false);
-        public record OfficialFeeCalculationSuccess(Guid JurisdictionId, double TotalMandatoryAmount, double TotalOptionalAmount, IEnumerable<string> CalculationSteps, IEnumerable<(string, string)> Returns) : OfficialFeeResult(true);
-        public record OfficialFeeParseSuccess(Guid JurisdictionId, IEnumerable<DslVariable> ParsedVariables) : OfficialFeeResult(true);
+        public record OfficialFeeResultFail(string JurisdictionName, string JurisdictionDescription, IEnumerable<string> Errors) : OfficialFeeResult(false);
+        public record OfficialFeeCalculationSuccess(string JurisdictionName, string JurisdictionDescription, double TotalMandatoryAmount, double TotalOptionalAmount, IEnumerable<string> CalculationSteps, IEnumerable<(string, string)> Returns) : OfficialFeeResult(true);
+        public record OfficialFeeParseSuccess(string JurisdictionName, string JurisdictionDescription, IEnumerable<DslVariable> ParsedVariables) : OfficialFeeResult(true);
     }
 }
