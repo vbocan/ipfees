@@ -8,6 +8,7 @@ namespace IPFFees.Core
     public interface IOfficialFee
     {
         Task<OfficialFeeResult> GetVariables(Guid JurisdictionId);
+        IAsyncEnumerable<OfficialFeeResult> GetVariables(IEnumerable<Guid> JurisdictionIds);
         Task<OfficialFeeResult> Calculate(Guid JurisdictionId, IList<IPFValue> Vars);
         IAsyncEnumerable<OfficialFeeResult> Calculate(IEnumerable<Guid> JurisdictionIds, IList<IPFValue> Vars);
     }

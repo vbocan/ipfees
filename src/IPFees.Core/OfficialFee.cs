@@ -87,6 +87,36 @@ namespace IPFees.Core
             }
         }
 
+        public async Task<IEnumerable<OfficialFeeResult>> GetVariables(IEnumerable<Guid> JurisdictionIds)
+        {
+            // TODO: Finish to implement the method!!!!
+            // Reset calculator
+            Calculator.Reset();
+            var VarMap = new Dictionary<string, DslVariable>();
+            var Errors = new List<string>();
+
+            foreach (var id in JurisdictionIds)
+            {
+                var v = await GetVariables(id);
+                if (v.IsSuccessfull)
+                {
+                    foreach (var pv in (v as OfficialFeeParseSuccess).ParsedVariables)
+                    {
+                        if (!VarMap.ContainsKey(pv.Name)) VarMap.Add(pv.Name, pv);
+                    }
+                }
+                else
+                {
+                    Errors.AddRange((v as OfficialFeeResultFail).Errors);
+                }
+            }
+
+            if (Errors.Any())
+            {
+                return new OfficialFeeResultFail(jur.Name, jur.Description, Errors);
+            }
+        }
+
         public abstract record OfficialFeeResult(bool IsSuccessfull);
         public record OfficialFeeResultFail(string JurisdictionName, string JurisdictionDescription, IEnumerable<string> Errors) : OfficialFeeResult(false);
         public record OfficialFeeCalculationSuccess(string JurisdictionName, string JurisdictionDescription, double TotalMandatoryAmount, double TotalOptionalAmount, IEnumerable<string> CalculationSteps, IEnumerable<(string, string)> Returns) : OfficialFeeResult(true);
