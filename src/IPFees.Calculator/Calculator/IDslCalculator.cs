@@ -5,6 +5,7 @@ namespace IPFees.Calculator
 {
     public interface IDslCalculator
     {
+        void Reset();
         bool Parse(string text);
         (double, double, IEnumerable<string>, IEnumerable<(string, string)>) Compute(IList<IPFValue> vars);
         IEnumerable<string> GetErrors();

@@ -87,5 +87,10 @@ namespace IPFees.Calculator
             var Returns = Parser.GetReturns().Select(s => (s.Symbol, s.Text));
             return (TotalMandatoryAmount, TotalOptionalAmount, ComputeSteps, Returns);
         }
+
+        public void Reset()
+        {
+            Parser.Reset();
+        }
     }
 }

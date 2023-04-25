@@ -1,4 +1,6 @@
-﻿namespace IPFees.Parser
+﻿using System.Runtime.CompilerServices;
+
+namespace IPFees.Parser
 {
     public interface IDslParser
     {
@@ -7,5 +9,6 @@
         IEnumerable<DslVariable> GetVariables();
         IEnumerable<DslReturn> GetReturns();
         bool Parse(string source);
+        void Reset();
     }
 }
