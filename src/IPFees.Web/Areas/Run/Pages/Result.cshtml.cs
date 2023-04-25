@@ -18,6 +18,7 @@ namespace IPFees.Web.Areas.Run.Pages
         [BindProperty] public List<IPFValue> CollectedValues { get; set; }
         [BindProperty] public IList<ParsedVariableViewModel> Vars { get; set; }
         [BindProperty] public IOfficialFee officialFee { get; set; }
+        [BindProperty] public IEnumerable<Guid> SelectedJurisdictions { get; set; }
 
         private readonly ILogger<ResultModel> _logger;
 
@@ -27,14 +28,14 @@ namespace IPFees.Web.Areas.Run.Pages
             _logger = logger;
         }
 
-        public async Task<IActionResult> OnGetAsync()
+        public async Task<IActionResult> OnGetAsync(IEnumerable<Guid> Id)
         {
+            SelectedJurisdictions = Id;
             return Page();
         }
 
         public async Task<IActionResult> OnPostAsync()
-        {
-            var SelectedJurisdictions = (IEnumerable<Guid>)TempData["SelectedJurisdictions"] ?? Enumerable.Empty<Guid>();
+        {            
             CollectedValues = new List<IPFValue>();            
 
             // Cycle through all form fields to build the collected values list
