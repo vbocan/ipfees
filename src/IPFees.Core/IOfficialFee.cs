@@ -9,5 +9,6 @@ namespace IPFFees.Core
     {
         Task<OfficialFeeResult> GetVariables(Guid JurisdictionId);
         Task<OfficialFeeResult> Calculate(Guid JurisdictionId, IList<IPFValue> Vars);
+        IAsyncEnumerable<OfficialFeeResult> Calculate(IEnumerable<Guid> JurisdictionIds, IList<IPFValue> Vars);
     }
 }
