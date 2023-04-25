@@ -39,9 +39,8 @@ namespace IPFees.Web.Areas.Run.Pages
             this.Id = id;
             var res = await officialFee.GetVariables(id);
             if (!res.IsSuccessfull)
-            {
-                TempData["Errors"] = (res as OfficialFeeResultFail).Errors.Distinct().ToList();
-                return RedirectToPage("Error");
+            {                
+                return RedirectToPage("Error", new { err = (res as OfficialFeeResultFail).Errors.Distinct().ToList() });
             }
             Vars = (res as OfficialFeeParseSuccess).ParsedVariables.Select(pv => new ParsedVariableViewModel(pv.Name, pv.GetType().ToString(), pv, string.Empty, Array.Empty<string>(), 0, false, DateOnly.MinValue)).ToList();
             return Page();
@@ -85,15 +84,7 @@ namespace IPFees.Web.Areas.Run.Pages
 
             if (result is OfficialFeeResultFail)
             {
-                var Errors = (result as OfficialFeeResultFail).Errors;
-                TempData["Errors"] = Errors.ToList();
-                // Log calculation failure
-                _logger.LogInformation("Fail!");
-                foreach (var e in Errors)
-                {
-                    _logger.LogInformation($"> {e}");
-                }
-                return RedirectToPage("Error");
+                return RedirectToPage("Error", new { err = (result as OfficialFeeResultFail).Errors.Distinct().ToList() });
             }
             else
             {
