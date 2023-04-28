@@ -90,22 +90,9 @@ namespace IPFees.Core
 
         public async IAsyncEnumerable<OfficialFeeResult> GetVariables(IEnumerable<Guid> JurisdictionIds)
         {
-            var hs = new HashSet<string>();
-            foreach (var id in JurisdictionIds)
-            {
-                var v = await GetVariables(id);
-                if (v.IsSuccessfull)
-                {
-                    foreach (var pv in (v as OfficialFeeParseSuccess).ParsedVariables)
-                    {
-                        if (!hs.Contains(pv.Name))
-                        {
-                            hs.Add(pv.Name);
-                            yield return v;
-                        }
-                    }
-                }
-            }
+            // TODO: Collect only distinct variables after processing all jurisdictions
+
+            foreach (var id in JurisdictionIds1) yield return await GetVariables(id);
         }
 
         public abstract record OfficialFeeResult(bool IsSuccessfull);
