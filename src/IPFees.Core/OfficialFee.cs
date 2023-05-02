@@ -23,9 +23,9 @@ namespace IPFees.Core
         /// Compute the official fees for the specified jurisdiction
         /// </summary>
         /// <param name="JurisdictionId">Jurisdiction Id</param>
-        /// <param name="Vars">Calculation parameters</param>
+        /// <param name="InputValues">Calculation parameters</param>
         /// <exception cref="NotSupportedException"></exception>
-        public async Task<OfficialFeeResult> Calculate(Guid JurisdictionId, IList<IPFValue> Vars)
+        public async Task<FeeResult> Calculate(Guid JurisdictionId, IList<IPFValue> InputValues)
         {
             // Reset calculator
             Calculator.Reset();
@@ -42,27 +42,27 @@ namespace IPFees.Core
             if (!res)
             {
                 var Errors = Calculator.GetErrors();
-                return new OfficialFeeResultFail(jur.Name, jur.Description, Errors);
+                return new FeeResultFail(jur.Name, jur.Description, Errors);
             }
             else
             {
-                var (TotalMandatoryAmount, TotalOptionalAmount, CalculationSteps, Returns) = Calculator.Compute(Vars);
-                return new OfficialFeeCalculationSuccess(jur.Name, jur.Description, TotalMandatoryAmount, TotalOptionalAmount, CalculationSteps, Returns);
+                var (TotalMandatoryAmount, TotalOptionalAmount, CalculationSteps, Returns) = Calculator.Compute(InputValues);
+                return new FeeResultCalculation(jur.Name, jur.Description, TotalMandatoryAmount, TotalOptionalAmount, CalculationSteps, Returns);
             }
         }
 
         /// <summary>
-        /// Compute the official fees for the specified jurisdiction
+        /// Compute official fees for the all specified jurisdictions
         /// </summary>
-        /// <param name="JurisdictionId">Jurisdiction Id</param>
-        /// <param name="Vars">Calculation parameters</param>
+        /// <param name="JurisdictionIds">Jurisdiction Ids</param>
+        /// <param name="InputValues">Calculation parameters</param>
         /// <exception cref="NotSupportedException"></exception>
-        public async IAsyncEnumerable<OfficialFeeResult> Calculate(IEnumerable<Guid> JurisdictionIds, IList<IPFValue> Vars)
+        public async IAsyncEnumerable<FeeResult> Calculate(IEnumerable<Guid> JurisdictionIds, IList<IPFValue> InputValues)
         {
-            foreach (var id in JurisdictionIds) yield return await Calculate(id, Vars);
+            foreach (var id in JurisdictionIds) yield return await Calculate(id, InputValues);
         }
 
-        public async Task<OfficialFeeResult> GetVariables(Guid JurisdictionId)
+        public async Task<FeeResult> GetInputs(Guid JurisdictionId)
         {
             // Reset calculator
             Calculator.Reset();
@@ -79,25 +79,41 @@ namespace IPFees.Core
             if (!res)
             {
                 var Errors = Calculator.GetErrors();
-                return new OfficialFeeResultFail(jur.Name, jur.Description, Errors);
+                return new FeeResultFail(jur.Name, jur.Description, Errors);
             }
             else
             {
-                var Vars = Calculator.GetVariables();
-                return new OfficialFeeParseSuccess(jur.Name, jur.Description, Vars);
+                var Vars = Calculator.GetInputs();
+                return new FeeResultParse(jur.Name, jur.Description, Vars);
             }
         }
 
-        public async IAsyncEnumerable<OfficialFeeResult> GetVariables(IEnumerable<Guid> JurisdictionIds)
+        public async Task<(IEnumerable<DslInput>, IEnumerable<FeeResultFail>)> GetConsolidatedInputs(IEnumerable<Guid> JurisdictionIds)
         {
-            // TODO: Collect only distinct variables after processing all jurisdictions
+            var Errors = new List<FeeResultFail>();
+            var Inputs = new List<DslInput>();
 
-            foreach (var id in JurisdictionIds1) yield return await GetVariables(id);
+            foreach (var id in JurisdictionIds)
+            {
+                var inp = await GetInputs(id);
+                if (inp is FeeResultFail)
+                {
+                    Errors.Add(inp as FeeResultFail);
+                }
+                else
+                {
+                    var fps = inp as FeeResultParse;
+                    Inputs.AddRange(fps.JurisdictionInputs);
+                }
+            }
+
+            var DedupedInputs = Inputs.DistinctBy(d => d.Name);
+            return (DedupedInputs, Errors);
         }
-
-        public abstract record OfficialFeeResult(bool IsSuccessfull);
-        public record OfficialFeeResultFail(string JurisdictionName, string JurisdictionDescription, IEnumerable<string> Errors) : OfficialFeeResult(false);
-        public record OfficialFeeCalculationSuccess(string JurisdictionName, string JurisdictionDescription, double TotalMandatoryAmount, double TotalOptionalAmount, IEnumerable<string> CalculationSteps, IEnumerable<(string, string)> Returns) : OfficialFeeResult(true);
-        public record OfficialFeeParseSuccess(string JurisdictionName, string JurisdictionDescription, IEnumerable<DslVariable> ParsedVariables) : OfficialFeeResult(true);
     }
+
+    public abstract record FeeResult();
+    public record FeeResultFail(string JurisdictionName, string JurisdictionDescription, IEnumerable<string> Errors) : FeeResult();
+    public record FeeResultCalculation(string JurisdictionName, string JurisdictionDescription, double TotalMandatoryAmount, double TotalOptionalAmount, IEnumerable<string> CalculationSteps, IEnumerable<(string, string)> Returns) : FeeResult();
+    public record FeeResultParse(string JurisdictionName, string JurisdictionDescription, IEnumerable<DslInput> JurisdictionInputs) : FeeResult();
 }

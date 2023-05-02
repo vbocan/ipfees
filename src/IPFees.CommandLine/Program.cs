@@ -14,8 +14,8 @@ var CalcErrors = calc.GetErrors();
 
 if (!CalcErrors.Any())
 {
-    Console.WriteLine("PARSED VARIABLES ===============================================".Pastel(ConsoleColor.Yellow));
-    foreach (var v in calc.GetVariables())
+    Console.WriteLine("PARSED INPUTS ==================================================".Pastel(ConsoleColor.Yellow));
+    foreach (var v in calc.GetInputs())
     {
         Console.WriteLine(v);
     }

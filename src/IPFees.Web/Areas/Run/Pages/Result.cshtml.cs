@@ -1,4 +1,5 @@
 using IPFees.Calculator;
+using IPFees.Core;
 using IPFees.Evaluator;
 using IPFees.Parser;
 using IPFFees.Core;
@@ -13,9 +14,9 @@ namespace IPFees.Web.Areas.Run.Pages
     {
         [BindProperty] public string ComputationError { get; set; }
         [BindProperty] public List<IPFValue> CollectedValues { get; set; }
-        [BindProperty] public IList<ParsedVariableViewModel> Vars { get; set; }
+        [BindProperty] public IList<InputViewModel> Inputs { get; set; }
         [BindProperty] public Guid[] SelectedJurisdictions { get; set; }
-        [BindProperty] public OfficialFeeResult[] OfficialFeeResults { get; set; }
+        [BindProperty] public FeeResult[] FeeResults { get; set; }
         private readonly IOfficialFee officialFee;
         private readonly ILogger<ResultModel> _logger;
 
@@ -36,36 +37,36 @@ namespace IPFees.Web.Areas.Run.Pages
             CollectedValues = new List<IPFValue>();
 
             // Cycle through all form fields to build the collected values list
-            foreach (var item in Vars)
+            foreach (var item in Inputs)
             {
-                if (item.Type == typeof(DslVariableList).ToString())
+                if (item.Type == typeof(DslInputList).ToString())
                 {
                     // A single-selection list return a string
                     CollectedValues.Add(new IPFValueString(item.Name, item.StrValue));
                 }
-                else if (item.Type == typeof(DslVariableListMultiple).ToString())
+                else if (item.Type == typeof(DslInputListMultiple).ToString())
                 {
                     // A multiple-selection list return a string list
                     CollectedValues.Add(new IPFValueStringList(item.Name, item.ListValue));
                 }
-                else if (item.Type == typeof(DslVariableNumber).ToString())
+                else if (item.Type == typeof(DslInputNumber).ToString())
                 {
                     // A number input returns a double
                     CollectedValues.Add(new IPFValueNumber(item.Name, item.DoubleValue));
                 }
-                else if (item.Type == typeof(DslVariableBoolean).ToString())
+                else if (item.Type == typeof(DslInputBoolean).ToString())
                 {
                     // A boolean input returns a boolean
                     CollectedValues.Add(new IPFValueBoolean(item.Name, item.BoolValue));
                 }
-                else if (item.Type == typeof(DslVariableDate).ToString())
+                else if (item.Type == typeof(DslInputDate).ToString())
                 {
                     // A date input returns a date
                     CollectedValues.Add(new IPFValueDate(item.Name, item.DateValue));
                 }
             }
 
-            OfficialFeeResults = officialFee.Calculate(SelectedJurisdictions.AsEnumerable(), CollectedValues).ToBlockingEnumerable().ToArray();
+            FeeResults = officialFee.Calculate(SelectedJurisdictions.AsEnumerable(), CollectedValues).ToBlockingEnumerable().ToArray();
             return Page();
         }
     }

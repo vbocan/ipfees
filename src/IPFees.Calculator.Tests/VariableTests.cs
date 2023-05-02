@@ -19,7 +19,7 @@ namespace IPFees.Calculator.Tests
             """;
             var p = new DslParser();
             var _ = p.Parse(text);
-            var result = (DslVariableList?)p.GetVariables().SingleOrDefault();
+            var result = (DslInputList?)p.GetInputs().SingleOrDefault();
             Assert.NotNull(result);
             Assert.Equal("EntityType", result.Name);
             Assert.Equal("Entity type", result.Text);
@@ -45,7 +45,7 @@ namespace IPFees.Calculator.Tests
             """;
             var p = new DslParser();
             var _ = p.Parse(text);
-            var result = (DslVariableListMultiple?)p.GetVariables().SingleOrDefault();
+            var result = (DslInputListMultiple?)p.GetInputs().SingleOrDefault();
             Assert.NotNull(result);
             Assert.Equal("EntityType", result.Name);
             Assert.Equal("Entity type", result.Text);
@@ -70,7 +70,7 @@ namespace IPFees.Calculator.Tests
             """;
             var p = new DslParser();
             var _ = p.Parse(text);
-            var result = (DslVariableList?)p.GetVariables().SingleOrDefault();
+            var result = (DslInputList?)p.GetInputs().SingleOrDefault();
             Assert.NotNull(result);
             Assert.Equal("L1", result.Name);
             Assert.Equal("List #1", result.Text);
@@ -91,7 +91,7 @@ namespace IPFees.Calculator.Tests
             """;
             var p = new DslParser();
             var _ = p.Parse(text);
-            var result = (DslVariableNumber?)p.GetVariables().SingleOrDefault();
+            var result = (DslInputNumber?)p.GetInputs().SingleOrDefault();
             Assert.NotNull(result);
             Assert.Equal("ClaimCount", result.Name);
             Assert.Equal("Number of claims", result.Text);
@@ -112,7 +112,7 @@ namespace IPFees.Calculator.Tests
             """;
             var p = new DslParser();
             var _ = p.Parse(text);
-            var result = (DslVariableBoolean?)p.GetVariables().SingleOrDefault();
+            var result = (DslInputBoolean?)p.GetInputs().SingleOrDefault();
             Assert.NotNull(result);
             Assert.Equal("ContainsDependentClaims", result.Name);
             Assert.Equal("Contains dependent claims", result.Text);
@@ -132,7 +132,7 @@ namespace IPFees.Calculator.Tests
             """;
             var p = new DslParser();
             var _ = p.Parse(text);
-            var result = (DslVariableDate?)p.GetVariables().SingleOrDefault();
+            var result = (DslInputDate?)p.GetInputs().SingleOrDefault();
             Assert.NotNull(result);
             Assert.Equal("ApplicationDate", result.Name);
             Assert.Equal("Application date", result.Text);

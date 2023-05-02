@@ -50,10 +50,9 @@ namespace IPFees.Core.Tests
             var parser = new DslParser();            
             IDslCalculator calc = new DslCalculator(parser);
             OfficialFee of = new(jur, mod, calc);
-            var res7 = await of.Calculate(res4.Id, new List<IPFValue> { });
-            Assert.True(res7.IsSuccessfull);
-            Assert.IsType<OfficialFeeCalculationSuccess>(res7);
-            var res = (OfficialFeeCalculationSuccess)res7;
+            var res7 = await of.Calculate(res4.Id, new List<IPFValue> { });            
+            Assert.IsType<FeeResultCalculation>(res7);
+            var res = (FeeResultCalculation)res7;
             Assert.Equal(500, res.TotalMandatoryAmount);
         }
         [Fact]
@@ -107,13 +106,12 @@ namespace IPFees.Core.Tests
             IDslCalculator calc = new DslCalculator(parser);
             OfficialFee of = new(jur, mod, calc);
             var res10 = of.Calculate((new[] { res4.Id, res7.Id }).AsEnumerable(), new List<IPFValue> { });
-            var res11 = res10.ToBlockingEnumerable().ToArray();
-            Assert.True(res11.All(a=>a.IsSuccessfull));
-            Assert.IsType<OfficialFeeCalculationSuccess>(res11[0]);
-            Assert.IsType<OfficialFeeCalculationSuccess>(res11[1]);
-            var c1 = (OfficialFeeCalculationSuccess)res11[0];
+            var res11 = res10.ToBlockingEnumerable().ToArray();            
+            Assert.IsType<FeeResultCalculation>(res11[0]);
+            Assert.IsType<FeeResultCalculation>(res11[1]);
+            var c1 = (FeeResultCalculation)res11[0];
             Assert.Equal(500, c1.TotalMandatoryAmount);
-            var c2 = (OfficialFeeCalculationSuccess)res11[1];
+            var c2 = (FeeResultCalculation)res11[1];
             Assert.Equal(510, c2.TotalMandatoryAmount);
         }
     }

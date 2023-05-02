@@ -1,4 +1,5 @@
 ﻿@page
+@using IPFees.Core;
 @using static IPFees.Core.OfficialFee;
 @model ResultModel
 @{
@@ -10,12 +11,12 @@
 <div class="row">
     <div class="col-lg-6">
         <div class="accordion" id="accordionResult">
-            @for (int i = 0; i < Model.OfficialFeeResults.Count(); i++)
+            @for (int i = 0; i < Model.FeeResults.Count(); i++)
             {
-                var fr = Model.OfficialFeeResults[i];
-                @if (fr.IsSuccessfull)
+                var fr = Model.FeeResults[i];
+                @if (fr is FeeResultCalculation)
                 {
-                    var res = (OfficialFeeCalculationSuccess)fr;
+                    var res = (FeeResultCalculation)fr;
                     <div class="accordion-item">
                         <h2 class="accordion-header" id="@($"heading-{i}")">
                             <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#@($"collapse-{i}")" aria-expanded="true" aria-controls="@($"collapse-{i}")">
@@ -43,7 +44,7 @@
                 }
                 else
                 {
-                    var res = (OfficialFeeResultFail)fr;
+                    var res = (FeeResultFail)fr;
                     <div class="accordion-item">
                         <h2 class="accordion-header" id="@($"heading-{i}")">
                             <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#@($"collapse-{i}")" aria-expanded="true" aria-controls="@($"collapse-{i}")">
@@ -52,7 +53,7 @@
                         </h2>
                         <div id="@($"collapse-{i}")" class="accordion-collapse collapse" aria-labelledby="@($"heading-{i}")" data-bs-parent="#accordionResult">
                             <div class="accordion-body">
-                                Calculation has failed (most probably an internal error).
+                                Calculation has failed.
                             </div>
                         </div>
                     </div>

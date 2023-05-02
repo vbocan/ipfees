@@ -2,7 +2,7 @@
 {
     class DslSemanticChecker
     {
-        static public IEnumerable<(DslError, string)> Check(IEnumerable<DslVariable> IPFVars, IEnumerable<DslFee> IPFFees)
+        static public IEnumerable<(DslError, string)> Check(IEnumerable<DslInput> IPFVars, IEnumerable<DslFee> IPFFees)
         {
             // Variables should not:
             // - have duplicate names
@@ -29,7 +29,7 @@
             // Number variables should not:
             // - have a MinValue greater than MaxValue
             // - have a DefaultValue less than MinValue or greater than MaxValue            
-            var VarNumberErrors = IPFVars.OfType<DslVariableNumber>().Where(w => w.MinValue > w.MaxValue || w.DefaultValue < w.MinValue || w.DefaultValue > w.MaxValue).Select(s => s.Name);
+            var VarNumberErrors = IPFVars.OfType<DslInputNumber>().Where(w => w.MinValue > w.MaxValue || w.DefaultValue < w.MinValue || w.DefaultValue > w.MaxValue).Select(s => s.Name);
             foreach (var er in VarNumberErrors)
             {
                 yield return (DslError.InvalidMinMaxDefault, string.Format("Invalid parameters for variable [{0}]. The Min value must not be greater than the Max value and the default value must be between Min and Max.", er));
@@ -41,7 +41,7 @@
             // - have duplicate choices
             // - have the default choice other than the defined choices
             // - have the same choice defined in multiple variables
-            var VarList = IPFVars.OfType<DslVariableList>();
+            var VarList = IPFVars.OfType<DslInputList>();
             foreach (var er in VarList.Where(vl => vl.Items.Count == 0).Select(s => s.Name))
             {
                 yield return (DslError.VariableNoChoice, string.Format("Variable [{0}] has no associated choices.", er));
@@ -69,7 +69,7 @@
             // - have duplicate choices
             // - have the default choice other than the defined choices
             // - have the same choice defined in multiple variables
-            var VarListMultiple = IPFVars.OfType<DslVariableListMultiple>();
+            var VarListMultiple = IPFVars.OfType<DslInputListMultiple>();
             foreach (var er in VarListMultiple.Where(vl => vl.Items.Count == 0).Select(s => s.Name))
             {
                 yield return (DslError.VariableNoChoice, string.Format("Variable [{0}] has no associated choices.", er));
@@ -94,7 +94,7 @@
             // Date variables should not:
             // - have a MinValue greater than MaxValue
             // - have a DefaultValue less than MinValue or greater than MaxValue            
-            var VarDateErrors = IPFVars.OfType<DslVariableDate>().Where(w => w.MinValue > w.MaxValue || w.DefaultValue < w.MinValue || w.DefaultValue > w.MaxValue).Select(s => s.Name);
+            var VarDateErrors = IPFVars.OfType<DslInputDate>().Where(w => w.MinValue > w.MaxValue || w.DefaultValue < w.MinValue || w.DefaultValue > w.MaxValue).Select(s => s.Name);
             foreach (var er in VarDateErrors)
             {
                 yield return (DslError.InvalidMinMaxDefault, string.Format("Invalid parameters for variable [{0}]. The Min value must not be greater than the Max value and the default value must be between Min and Max.", er));

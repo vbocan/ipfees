@@ -1,4 +1,5 @@
 using IPFees.Calculator;
+using IPFees.Core;
 using IPFees.Evaluator;
 using IPFees.Parser;
 using IPFFees.Core;
@@ -14,7 +15,7 @@ namespace IPFees.Web.Areas.Run.Pages
         [BindProperty] public Guid Id { get; set; }
         [BindProperty] public bool CalculationPending { get; set; } = true;
 
-        [BindProperty] public IList<ParsedVariableViewModel> Vars { get; set; }
+        [BindProperty] public IList<InputViewModel> Inputs { get; set; }
         [BindProperty] public IList<IPFValue> CollectedValues { get; set; }
 
         // Calculation results
@@ -37,12 +38,12 @@ namespace IPFees.Web.Areas.Run.Pages
         public async Task<IActionResult> OnGetAsync(Guid id)
         {
             this.Id = id;
-            var res = await officialFee.GetVariables(id);
-            if (!res.IsSuccessfull)
+            var res = await officialFee.GetInputs(id);
+            if (res is FeeResultFail)
             {                
-                return RedirectToPage("Error", new { err = (res as OfficialFeeResultFail).Errors.Distinct().ToList() });
+                return RedirectToPage("Error", new { err = (res as FeeResultFail).Errors.Distinct().ToList() });
             }
-            Vars = (res as OfficialFeeParseSuccess).ParsedVariables.Select(pv => new ParsedVariableViewModel(pv.Name, pv.GetType().ToString(), pv, string.Empty, Array.Empty<string>(), 0, false, DateOnly.MinValue)).ToList();
+            Inputs = (res as FeeResultParse).JurisdictionInputs.Select(pv => new InputViewModel(pv.Name, pv.GetType().ToString(), pv, string.Empty, Array.Empty<string>(), 0, false, DateOnly.MinValue)).ToList();
             return Page();
         }
 
@@ -51,29 +52,29 @@ namespace IPFees.Web.Areas.Run.Pages
             CollectedValues = new List<IPFValue>();
 
             // Cycle through all form fields to build the collected values list
-            foreach (var item in Vars)
+            foreach (var item in Inputs)
             {
-                if (item.Type == typeof(DslVariableList).ToString())
+                if (item.Type == typeof(DslInputList).ToString())
                 {
                     // A single-selection list return a string
                     CollectedValues.Add(new IPFValueString(item.Name, item.StrValue));
                 }
-                else if (item.Type == typeof(DslVariableListMultiple).ToString())
+                else if (item.Type == typeof(DslInputListMultiple).ToString())
                 {
                     // A multiple-selection list return a string list
                     CollectedValues.Add(new IPFValueStringList(item.Name, item.ListValue));
                 }
-                else if (item.Type == typeof(DslVariableNumber).ToString())
+                else if (item.Type == typeof(DslInputNumber).ToString())
                 {
                     // A number input returns a double
                     CollectedValues.Add(new IPFValueNumber(item.Name, item.DoubleValue));
                 }
-                else if (item.Type == typeof(DslVariableBoolean).ToString())
+                else if (item.Type == typeof(DslInputBoolean).ToString())
                 {
                     // A boolean input returns a boolean
                     CollectedValues.Add(new IPFValueBoolean(item.Name, item.BoolValue));
                 }
-                else if (item.Type == typeof(DslVariableDate).ToString())
+                else if (item.Type == typeof(DslInputDate).ToString())
                 {
                     // A date input returns a date
                     CollectedValues.Add(new IPFValueDate(item.Name, item.DateValue));
@@ -82,13 +83,13 @@ namespace IPFees.Web.Areas.Run.Pages
             // Perform calculation using the values collected from the user
             var result = await officialFee.Calculate(id, CollectedValues);
 
-            if (result is OfficialFeeResultFail)
+            if (result is FeeResultFail)
             {
-                return RedirectToPage("Error", new { err = (result as OfficialFeeResultFail).Errors.Distinct().ToList() });
+                return RedirectToPage("Error", new { err = (result as FeeResultFail).Errors.Distinct().ToList() });
             }
             else
             {
-                var result1 = (result as OfficialFeeCalculationSuccess);
+                var result1 = (result as FeeResultCalculation);
                 TotalMandatoryAmount = result1.TotalMandatoryAmount;
                 TotalOptionalAmount = result1.TotalOptionalAmount;
                 CalculationSteps = result1.CalculationSteps;
@@ -106,5 +107,7 @@ namespace IPFees.Web.Areas.Run.Pages
         }
     }
 
-    public record ParsedVariableViewModel(string Name, string Type, DslVariable Var, string StrValue, string[] ListValue, double DoubleValue, bool BoolValue, DateOnly DateValue);
+    public record InputViewModel(string Name, string Type, DslInput Var, string StrValue, string[] ListValue, double DoubleValue, bool BoolValue, DateOnly DateValue);
+    public record FailedJurisdictionViewModel(string JurisdictionName, string JurisdictionDescription);
+
 }
