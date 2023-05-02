@@ -40,8 +40,9 @@ namespace IPFees.Web.Areas.Run.Pages
             this.Id = id;
             var res = await officialFee.GetInputs(id);
             if (res is FeeResultFail)
-            {                
-                return RedirectToPage("Error", new { err = (res as FeeResultFail).Errors.Distinct().ToList() });
+            {
+                TempData["Errors"] = (res as FeeResultFail).Errors.ToArray();
+                return RedirectToPage("Error");
             }
             Inputs = (res as FeeResultParse).JurisdictionInputs.Select(pv => new InputViewModel(pv.Name, pv.GetType().ToString(), pv, string.Empty, Array.Empty<string>(), 0, false, DateOnly.MinValue)).ToList();
             return Page();
