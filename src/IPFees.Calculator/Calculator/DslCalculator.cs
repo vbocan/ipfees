@@ -18,11 +18,11 @@ namespace IPFees.Calculator
         }
 
         public IEnumerable<string> GetErrors() => Parser.GetErrors().Select(s => s.Item2);
-        public IEnumerable<DslVariable> GetVariables() => Parser.GetVariables();
+        public IEnumerable<DslInput> GetInputs() => Parser.GetInputs();
         public IEnumerable<DslFee> GetFees() => Parser.GetFees();
         public IEnumerable<DslReturn> GetReturns() => Parser.GetReturns();
 
-        public (double, double, IEnumerable<string>, IEnumerable<(string, string)>) Compute(IEnumerable<IPFValue> vars)
+        public (double, double, IEnumerable<string>, IEnumerable<(string, string)>) Compute(IEnumerable<IPFValue> InputValues)
         {
             double TotalMandatoryAmount = 0;
             double TotalOptionalAmount = 0;
@@ -40,7 +40,7 @@ namespace IPFees.Calculator
                 }
                 // Compose fee local variables
                 var AllVars = new List<IPFValue>();
-                AllVars.AddRange(vars);
+                AllVars.AddRange(InputValues);
                 foreach (var fv in fee.Vars)
                 {
                     var fv_val = DslEvaluator.EvaluateExpression(fv.ValueTokens.ToArray(), AllVars, fee.Name);

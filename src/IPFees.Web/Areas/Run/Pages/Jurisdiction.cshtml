@@ -10,23 +10,23 @@
         <form asp-page-handler="Result" method="post">
             <input type="hidden" asp-for="@Model.Id" />
             <div class="col-md-9">
-                @for (int i = 0; i < Model.Vars.Count; i++)
+                @for (int i = 0; i < Model.Inputs.Count; i++)
                 {
-                    <input type="hidden" asp-for="@Model.Vars[i].Name" />
-                    <input type="hidden" asp-for="@Model.Vars[i].Type" />
-                    switch (Model.Vars[i].Var)
+                    <input type="hidden" asp-for="@Model.Inputs[i].Name" />
+                    <input type="hidden" asp-for="@Model.Inputs[i].Type" />
+                    switch (Model.Inputs[i].Var)
                     {
-                        case DslVariableDate:
-                            var v0 = (DslVariableDate)Model.Vars[i].Var;                            
+                        case DslInputDate:
+                            var v0 = (DslInputDate)Model.Inputs[i].Var;                            
                             <div class="mb-3 col-md-6">
                                 <label class="form-label" for="@v0.Name">@v0.Text</label>
-                                <input class="form-control" type="date" asp-for="@Model.Vars[i].DateValue" value="@v0.DefaultValue.ToString("yyyy-MM-dd")" min="@v0.MinValue.ToString("yyyy-MM-dd")" max="@v0.MaxValue.ToString("yyyy-MM-dd")">
+                                <input class="form-control" type="date" asp-for="@Model.Inputs[i].DateValue" value="@v0.DefaultValue.ToString("yyyy-MM-dd")" min="@v0.MinValue.ToString("yyyy-MM-dd")" max="@v0.MaxValue.ToString("yyyy-MM-dd")">
                             </div>
                             break;
-                        case DslVariableList:
-                            var v1 = (DslVariableList)Model.Vars[i].Var;
+                        case DslInputList:
+                            var v1 = (DslInputList)Model.Inputs[i].Var;
                             <label class="form-label" for="@v1.Name">@v1.Text</label>
-                            <select class="form-select form-select-lg mb-3" asp-for="@Model.Vars[i].StrValue">
+                            <select class="form-select form-select-lg mb-3" asp-for="@Model.Inputs[i].StrValue">
                                 @foreach (var item in v1.Items)
                                 {
                                     if (v1.DefaultSymbol.Equals(item.Symbol))
@@ -40,10 +40,10 @@
                                 }
                             </select>
                             break;
-                        case DslVariableListMultiple:
-                            var v2 = (DslVariableListMultiple)Model.Vars[i].Var;
+                        case DslInputListMultiple:
+                            var v2 = (DslInputListMultiple)Model.Inputs[i].Var;
                             <label class="form-label" for="@v2.Name">@v2.Text</label>
-                            <select class="form-select form-select-lg mb-3" asp-for="@Model.Vars[i].ListValue" multiple>
+                            <select class="form-select form-select-lg mb-3" asp-for="@Model.Inputs[i].ListValue" multiple>
                                 @foreach (var item in v2.Items)
                                 {
                                     if (v2.DefaultSymbols.Contains(item.Symbol))
@@ -57,25 +57,25 @@
                                 }
                             </select>
                             break;
-                        case DslVariableNumber:
-                            var v3 = (DslVariableNumber)Model.Vars[i].Var;
+                        case DslInputNumber:
+                            var v3 = (DslInputNumber)Model.Inputs[i].Var;
                             <div class="mb-3 col-md-6">
                                 <label class="form-label" for="@v3.Name">@v3.Text</label>
-                                <input class="form-control" type="number" asp-for="@Model.Vars[i].DoubleValue" value="@v3.DefaultValue" min="@v3.MinValue" max="@v3.MaxValue">
+                                <input class="form-control" type="number" asp-for="@Model.Inputs[i].DoubleValue" value="@v3.DefaultValue" min="@v3.MinValue" max="@v3.MaxValue">
                             </div>
                             break;
-                        case DslVariableBoolean:
-                            var v4 = (DslVariableBoolean)Model.Vars[i].Var;
+                        case DslInputBoolean:
+                            var v4 = (DslInputBoolean)Model.Inputs[i].Var;
                             <div class="mb-3 form-check">
                                 <label class="form-check-label" for="@v4.Name">@v4.Text</label>
                                 @if (v4.DefaultValue)
                                 {
-                                    <input class="form-check-input" type="checkbox" asp-for="@Model.Vars[i].BoolValue" value="true" checked>
+                                    <input class="form-check-input" type="checkbox" asp-for="@Model.Inputs[i].BoolValue" value="true" checked>
                                     <input type="hidden" name="@v4.Name" value="false">
                                 }
                                 else
                                 {
-                                    <input class="form-check-input" type="checkbox" asp-for="@Model.Vars[i].BoolValue" value="true">
+                                    <input class="form-check-input" type="checkbox" asp-for="@Model.Inputs[i].BoolValue" value="true">
                                     <input type="hidden" name="@v4.Name" value="false">
                                 }
                             </div>

@@ -9,16 +9,16 @@ namespace IPFees.Parser
     {
         Parsing CurrentlyParsing = Parsing.None;
 
-        private DslVariableList CurrentList { get; set; } = new DslVariableList(string.Empty, string.Empty, new List<DslListItem>(), string.Empty);
-        private DslVariableListMultiple CurrentListMultiple { get; set; } = new DslVariableListMultiple(string.Empty, string.Empty, new List<DslListItem>(), new List<string>());
-        private DslVariableNumber CurrentNumber { get; set; } = new DslVariableNumber(string.Empty, string.Empty, int.MinValue, int.MaxValue, 0);
-        private DslVariableDate CurrentDate { get; set; } = new DslVariableDate(string.Empty, string.Empty, DateOnly.MinValue, DateOnly.MaxValue, DateOnly.FromDateTime(DateTime.Now));
-        private DslVariableBoolean CurrentBoolean { get; set; } = new DslVariableBoolean(string.Empty, string.Empty, false);
+        private DslInputList CurrentList { get; set; } = new DslInputList(string.Empty, string.Empty, new List<DslListItem>(), string.Empty);
+        private DslInputListMultiple CurrentListMultiple { get; set; } = new DslInputListMultiple(string.Empty, string.Empty, new List<DslListItem>(), new List<string>());
+        private DslInputNumber CurrentNumber { get; set; } = new DslInputNumber(string.Empty, string.Empty, int.MinValue, int.MaxValue, 0);
+        private DslInputDate CurrentDate { get; set; } = new DslInputDate(string.Empty, string.Empty, DateOnly.MinValue, DateOnly.MaxValue, DateOnly.FromDateTime(DateTime.Now));
+        private DslInputBoolean CurrentBoolean { get; set; } = new DslInputBoolean(string.Empty, string.Empty, false);
         private DslFee CurrentFee { get; set; } = new DslFee(string.Empty, false, new List<DslItem>(), new List<DslFeeVar>());
         private DslFeeCase CurrentFeeCase { get; set; } = new DslFeeCase(Enumerable.Empty<string>(), new List<DslFeeYield>());
 
         private IList<DslReturn> IPFReturns = new List<DslReturn>();
-        private IList<DslVariable> IPFVariables = new List<DslVariable>();
+        private IList<DslInput> IPFInputs = new List<DslInput>();
         private IList<DslFee> IPFFees = new List<DslFee>();
         private IList<(DslError, string)> IPFErrors = new List<(DslError, string)>();
 
@@ -89,7 +89,7 @@ namespace IPFees.Parser
             if (IPFErrors.Count > 0) return false;
 
             // Perform semantic checking
-            var errs = DslSemanticChecker.Check(IPFVariables, IPFFees);
+            var errs = DslSemanticChecker.Check(IPFInputs, IPFFees);
             if (errs.Any())
             {
                 foreach (var e in errs) IPFErrors.Add(e);
@@ -124,10 +124,10 @@ namespace IPFees.Parser
             return IPFReturns;
         }
 
-        public IEnumerable<DslVariable> GetVariables()
+        public IEnumerable<DslInput> GetInputs()
         {
             if (IPFErrors.Count > 0) throw new NotSupportedException("Unable to access variables. Check the error list.");
-            return IPFVariables;
+            return IPFInputs;
         }
 
         public IEnumerable<DslFee> GetFees()
@@ -202,7 +202,7 @@ namespace IPFees.Parser
             if (tokens[1] != "LIST") return false;
             if (tokens[3] != "AS") return false;
             CurrentlyParsing = Parsing.List;
-            CurrentList = new DslVariableList(tokens[2], tokens[4], new List<DslListItem>(), string.Empty);
+            CurrentList = new DslInputList(tokens[2], tokens[4], new List<DslListItem>(), string.Empty);
             return true;
         }
 
@@ -236,7 +236,7 @@ namespace IPFees.Parser
             if (tokens[1] != "MULTILIST") return false;
             if (tokens[3] != "AS") return false;            
             CurrentlyParsing = Parsing.ListMultiple;
-            CurrentListMultiple = new DslVariableListMultiple(tokens[2], tokens[4], new List<DslListItem>(), new List<string>());
+            CurrentListMultiple = new DslInputListMultiple(tokens[2], tokens[4], new List<DslListItem>(), new List<string>());
             return true;
         }
 
@@ -271,7 +271,7 @@ namespace IPFees.Parser
             if (tokens[1] != "NUMBER") return false;
             if (tokens[3] != "AS") return false;
             CurrentlyParsing = Parsing.Number;
-            CurrentNumber = new DslVariableNumber(tokens[2], tokens[4], int.MinValue, int.MaxValue, 0);
+            CurrentNumber = new DslInputNumber(tokens[2], tokens[4], int.MinValue, int.MaxValue, 0);
             return true;
         }
 
@@ -307,7 +307,7 @@ namespace IPFees.Parser
             if (tokens[1] != "DATE") return false;
             if (tokens[3] != "AS") return false;
             CurrentlyParsing = Parsing.Date;
-            CurrentDate = new DslVariableDate(tokens[2], tokens[4], DateOnly.FromDateTime(DateTime.MinValue), DateOnly.FromDateTime(DateTime.MaxValue.Date), DateOnly.FromDateTime(DateTime.Now));
+            CurrentDate = new DslInputDate(tokens[2], tokens[4], DateOnly.FromDateTime(DateTime.MinValue), DateOnly.FromDateTime(DateTime.MaxValue.Date), DateOnly.FromDateTime(DateTime.Now));
             return true;
         }
 
@@ -345,7 +345,7 @@ namespace IPFees.Parser
             if (tokens[1] != "BOOLEAN") return false;
             if (tokens[3] != "AS") return false;
             CurrentlyParsing = Parsing.Boolean;
-            CurrentBoolean = new DslVariableBoolean(tokens[2], tokens[4], false);
+            CurrentBoolean = new DslInputBoolean(tokens[2], tokens[4], false);
             return true;
         }
 
@@ -368,23 +368,23 @@ namespace IPFees.Parser
             switch (CurrentlyParsing)
             {
                 case Parsing.List:
-                    IPFVariables.Add(CurrentList);
+                    IPFInputs.Add(CurrentList);
                     CurrentlyParsing = Parsing.None;
                     return true;
                 case Parsing.ListMultiple:
-                    IPFVariables.Add(CurrentListMultiple);
+                    IPFInputs.Add(CurrentListMultiple);
                     CurrentlyParsing = Parsing.None;
                     return true;
                 case Parsing.Boolean:
-                    IPFVariables.Add(CurrentBoolean);
+                    IPFInputs.Add(CurrentBoolean);
                     CurrentlyParsing = Parsing.None;
                     return true;
                 case Parsing.Number:
-                    IPFVariables.Add(CurrentNumber);
+                    IPFInputs.Add(CurrentNumber);
                     CurrentlyParsing = Parsing.None;
                     return true;
                 case Parsing.Date:
-                    IPFVariables.Add(CurrentDate);
+                    IPFInputs.Add(CurrentDate);
                     CurrentlyParsing = Parsing.None;
                     return true;
             }
@@ -492,7 +492,7 @@ namespace IPFees.Parser
         public void Reset()
         {
             IPFReturns.Clear();
-            IPFVariables.Clear();
+            IPFInputs.Clear();
             IPFFees.Clear();
             IPFErrors.Clear();
         }

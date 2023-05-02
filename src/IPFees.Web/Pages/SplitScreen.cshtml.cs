@@ -17,7 +17,7 @@ namespace IPFees.Web.Pages
 
         [BindProperty] public IEnumerable<string> ParseErrors { get; set; }
 
-        [BindProperty] public IEnumerable<DslVariable> Vars { get; set; }
+        [BindProperty] public IEnumerable<DslInput> Vars { get; set; }
 
         [BindProperty] public double TotalMandatoryAmount { get; set; }
         [BindProperty] public double TotalOptionalAmount { get; set; }
@@ -72,7 +72,7 @@ namespace IPFees.Web.Pages
             _calc.Parse(Code);
 
             // Store parsed variables
-            Vars = _calc.GetVariables();
+            Vars = _calc.GetInputs();
             if (RefMod.Any()) TempData["modules"] = RefMod;
             // Prepare view model for referenced modules
             var Mods = moduleRepository.GetModules().Result;
@@ -97,7 +97,7 @@ namespace IPFees.Web.Pages
             }
             _calc.Parse(Code);
 
-            Vars = _calc.GetVariables();
+            Vars = _calc.GetInputs();
 
             CollectedValues = new List<IPFValue>();
 
@@ -108,21 +108,21 @@ namespace IPFees.Web.Pages
                 if (CalcVar == null) continue;
                 switch (CalcVar)
                 {
-                    case DslVariableList:
+                    case DslInputList:
                         CollectedValues.Add(new IPFValueString(CalcVar.Name, field.Value));
                         break;
-                    case DslVariableListMultiple:
+                    case DslInputListMultiple:
                         CollectedValues.Add(new IPFValueStringList(CalcVar.Name, field.Value));
                         break;
-                    case DslVariableNumber:
+                    case DslInputNumber:
                         _ = int.TryParse(field.Value, out var val2);
                         CollectedValues.Add(new IPFValueNumber(CalcVar.Name, val2));
                         break;
-                    case DslVariableBoolean:
+                    case DslInputBoolean:
                         _ = bool.TryParse(field.Value[0], out var val3);
                         CollectedValues.Add(new IPFValueBoolean(CalcVar.Name, val3));
                         break;
-                    case DslVariableDate:
+                    case DslInputDate:
                         _ = DateOnly.TryParse(field.Value[0], out var val4);
                         CollectedValues.Add(new IPFValueDate(CalcVar.Name, val4));
                         break;

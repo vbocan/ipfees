@@ -6,7 +6,7 @@ namespace IPFees.Parser
     {
         IEnumerable<(DslError, string)> GetErrors();
         IEnumerable<DslFee> GetFees();
-        IEnumerable<DslVariable> GetVariables();
+        IEnumerable<DslInput> GetInputs();
         IEnumerable<DslReturn> GetReturns();
         bool Parse(string source);
         void Reset();

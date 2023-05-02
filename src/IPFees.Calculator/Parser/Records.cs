@@ -2,13 +2,13 @@
 
 namespace IPFees.Parser
 {
-    public abstract record DslVariable(string Name, string Text);
-    public record DslVariableBoolean(string Name, string Text, bool DefaultValue) : DslVariable(Name, Text);
-    public record DslVariableList(string Name, string Text, IList<DslListItem> Items, string DefaultSymbol) : DslVariable(Name, Text);
-    public record DslVariableListMultiple(string Name, string Text, IList<DslListItem> Items, IList<string> DefaultSymbols) : DslVariable(Name, Text);
+    public abstract record DslInput(string Name, string Text);
+    public record DslInputBoolean(string Name, string Text, bool DefaultValue) : DslInput(Name, Text);
+    public record DslInputList(string Name, string Text, IList<DslListItem> Items, string DefaultSymbol) : DslInput(Name, Text);
+    public record DslInputListMultiple(string Name, string Text, IList<DslListItem> Items, IList<string> DefaultSymbols) : DslInput(Name, Text);
     public record DslListItem(string Symbol, string Value);
-    public record DslVariableNumber(string Name, string Text, int MinValue, int MaxValue, int DefaultValue) : DslVariable(Name, Text);
-    public record DslVariableDate(string Name, string Text, DateOnly MinValue, DateOnly MaxValue, DateOnly DefaultValue) : DslVariable(Name, Text);
+    public record DslInputNumber(string Name, string Text, int MinValue, int MaxValue, int DefaultValue) : DslInput(Name, Text);
+    public record DslInputDate(string Name, string Text, DateOnly MinValue, DateOnly MaxValue, DateOnly DefaultValue) : DslInput(Name, Text);
 
     public abstract record DslItem(IEnumerable<string> Condition);
     public record DslFee(string Name, bool Optional, IList<DslItem> Cases, IList<DslFeeVar> Vars)
