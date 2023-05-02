@@ -83,8 +83,8 @@ namespace IPFees.Core
             }
             else
             {
-                var Vars = Calculator.GetInputs();
-                return new FeeResultParse(jur.Name, jur.Description, Vars);
+                var Inputs = Calculator.GetInputs();
+                return new FeeResultParse(jur.Name, jur.Description, Inputs);
             }
         }
 
