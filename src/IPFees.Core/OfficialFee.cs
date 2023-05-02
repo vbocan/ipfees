@@ -95,11 +95,7 @@ namespace IPFees.Core
 
             foreach (var id in JurisdictionIds)
             {
-                var StartTime = DateTime.Now;
-                Console.Write("Getting input...");
                 var inp = await GetInputs(id);
-                var EndTime = DateTime.Now;
-                Console.WriteLine($"in {(EndTime-StartTime).TotalMilliseconds} ms.");
                 if (inp is FeeResultFail)
                 {
                     Errors.Add(inp as FeeResultFail);
