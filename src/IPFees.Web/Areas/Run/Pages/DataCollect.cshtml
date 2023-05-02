@@ -94,8 +94,8 @@
 <div class="row">
     <div class="col-8 mt-5">
         @if (Model.Errors.Any())
-        {            
-            <p>Fees for the following jurisdictions will not be calculated:</p>
+        {
+            <p>Fees for the following jurisdictions will <strong>not</strong> be calculated:</p>
             <ul>
                 @foreach (var e in Model.Errors)
                 {
