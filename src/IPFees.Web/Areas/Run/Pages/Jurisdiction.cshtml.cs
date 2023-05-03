@@ -38,7 +38,7 @@ namespace IPFees.Web.Areas.Run.Pages
         public async Task<IActionResult> OnGetAsync(Guid id)
         {
             this.Id = id;
-            var res = await officialFee.GetInputs(id);
+            var res = officialFee.GetInputs(id);
             if (res is FeeResultFail)
             {
                 TempData["Errors"] = (res as FeeResultFail).Errors.ToArray();
@@ -82,7 +82,7 @@ namespace IPFees.Web.Areas.Run.Pages
                 }
             }
             // Perform calculation using the values collected from the user
-            var result = await officialFee.Calculate(id, CollectedValues);
+            var result = officialFee.Calculate(id, CollectedValues);
 
             if (result is FeeResultFail)
             {
