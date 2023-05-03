@@ -8,16 +8,19 @@ namespace IPFees.Core
 {
     public class OfficialFee : IOfficialFee
     {
-        private IJurisdictionRepository Jurisdiction { get; set; }
-        private IModuleRepository Module { get; set; }
-        private IDslCalculator Calculator { get; set; }
+        private readonly IDslCalculator Calculator;
+        private readonly IEnumerable<JurisdictionInfo> Jurisdictions;
+        private readonly IEnumerable<ModuleInfo> Modules;
 
         public OfficialFee(IJurisdictionRepository jurisdiction, IModuleRepository module, IDslCalculator calculator)
         {
-            Jurisdiction = jurisdiction;
-            Module = module;
             Calculator = calculator;
+            Jurisdictions = jurisdiction.GetJurisdictions().Result;
+            Modules = module.GetModules().Result;
         }
+
+        private JurisdictionInfo? GetJurisdictionById(Guid Id) => Jurisdictions.SingleOrDefault(w => w.Id.Equals(Id));
+        private ModuleInfo? GetModuleById(Guid Id) => Modules.SingleOrDefault(w => w.Id.Equals(Id));
 
         /// <summary>
         /// Compute the official fees for the specified jurisdiction
@@ -25,16 +28,16 @@ namespace IPFees.Core
         /// <param name="JurisdictionId">Jurisdiction Id</param>
         /// <param name="InputValues">Calculation parameters</param>
         /// <exception cref="NotSupportedException"></exception>
-        public async Task<FeeResult> Calculate(Guid JurisdictionId, IList<IPFValue> InputValues)
+        public FeeResult Calculate(Guid JurisdictionId, IList<IPFValue> InputValues)
         {
             // Reset calculator
             Calculator.Reset();
-            var jur = await Jurisdiction.GetJurisdictionById(JurisdictionId) ?? throw new NotSupportedException($"Jurisdiction '{JurisdictionId}' does not exist.");
+            var jur = GetJurisdictionById(JurisdictionId) ?? throw new NotSupportedException($"Jurisdiction '{JurisdictionId}' does not exist.");
             // Step 1: Parse the source code of the referenced modules (if any)
             foreach (var rm in jur.ReferencedModules)
             {
                 // Retrieve the referenced module
-                var mod = await Module.GetModuleById(rm) ?? throw new NotSupportedException($"Module '{rm}' does not exist.");
+                var mod = GetModuleById(rm) ?? throw new NotSupportedException($"Module '{rm}' does not exist.");
                 Calculator.Parse(mod.SourceCode);
             }
             // Step 2: Parse the source code of the current jurisdiction
@@ -57,21 +60,21 @@ namespace IPFees.Core
         /// <param name="JurisdictionIds">Jurisdiction Ids</param>
         /// <param name="InputValues">Calculation parameters</param>
         /// <exception cref="NotSupportedException"></exception>
-        public async IAsyncEnumerable<FeeResult> Calculate(IEnumerable<Guid> JurisdictionIds, IList<IPFValue> InputValues)
+        public IEnumerable<FeeResult> Calculate(IEnumerable<Guid> JurisdictionIds, IList<IPFValue> InputValues)
         {
-            foreach (var id in JurisdictionIds) yield return await Calculate(id, InputValues);
+            foreach (var id in JurisdictionIds) yield return Calculate(id, InputValues);
         }
 
-        public async Task<FeeResult> GetInputs(Guid JurisdictionId)
+        public FeeResult GetInputs(Guid JurisdictionId)
         {
             // Reset calculator
             Calculator.Reset();
-            var jur = await Jurisdiction.GetJurisdictionById(JurisdictionId) ?? throw new NotSupportedException($"Jurisdiction '{JurisdictionId}' does not exist.");
+            var jur = GetJurisdictionById(JurisdictionId) ?? throw new NotSupportedException($"Jurisdiction '{JurisdictionId}' does not exist.");
             // Step 1: Parse the source code of the referenced modules (if any)
             foreach (var rm in jur.ReferencedModules)
             {
                 // Retrieve the referenced module
-                var mod = await Module.GetModuleById(rm) ?? throw new NotSupportedException($"Module '{rm}' does not exist.");
+                var mod = GetModuleById(rm) ?? throw new NotSupportedException($"Module '{rm}' does not exist.");
                 Calculator.Parse(mod.SourceCode);
             }
             // Step 2: Parse the source code of the current jurisdiction
@@ -88,14 +91,14 @@ namespace IPFees.Core
             }
         }
 
-        public async Task<(IEnumerable<DslInput>, IEnumerable<FeeResultFail>)> GetConsolidatedInputs(IEnumerable<Guid> JurisdictionIds)
+        public (IEnumerable<DslInput>, IEnumerable<FeeResultFail>) GetConsolidatedInputs(IEnumerable<Guid> JurisdictionIds)
         {
             var Errors = new List<FeeResultFail>();
             var Inputs = new List<DslInput>();
 
             foreach (var id in JurisdictionIds)
             {
-                var inp = await GetInputs(id);
+                var inp = GetInputs(id);
                 if (inp is FeeResultFail)
                 {
                     Errors.Add(inp as FeeResultFail);

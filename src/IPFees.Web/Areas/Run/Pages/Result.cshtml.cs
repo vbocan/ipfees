@@ -66,7 +66,7 @@ namespace IPFees.Web.Areas.Run.Pages
                 }
             }
 
-            FeeResults = officialFee.Calculate(SelectedJurisdictions.AsEnumerable(), CollectedValues).ToBlockingEnumerable().ToArray();
+            FeeResults = officialFee.Calculate(SelectedJurisdictions.AsEnumerable(), CollectedValues).ToArray();
             return Page();
         }
     }

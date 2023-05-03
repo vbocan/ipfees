@@ -32,7 +32,7 @@ namespace IPFees.Web.Areas.Run.Pages
             SelectedJurisdictions = Id;
 
             // For each jurisdiction, get the inputs that need to be displayed to the user
-            var (inputs, errs) = await officialFee.GetConsolidatedInputs(Id);
+            var (inputs, errs) = officialFee.GetConsolidatedInputs(Id);
 
             Inputs = inputs.Select(pv => new InputViewModel(pv.Name, pv.GetType().ToString(), pv, string.Empty, Array.Empty<string>(), 0, false, DateOnly.MinValue)).ToList();
             Errors = errs.Select(s => $"[{s.JurisdictionName}] - {s.JurisdictionName} (Internal Error)");
