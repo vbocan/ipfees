@@ -60,7 +60,7 @@ namespace IPFees.Core.Tests
         {
             // First let's create a module containing some source code that will later be referenced by the jurisdiction
             var mod = fixture.ModuleRepository;
-            var res2 = await mod.AddModuleAsync("Mod1");
+            var res2 = await mod.AddModuleAsync("Mod1m");
             Assert.True(res2.Success);
             string modSourceCode =
             """
@@ -72,7 +72,7 @@ namespace IPFees.Core.Tests
             Assert.True(res3.Success);
             // Now let's create a jurisdiction and the associated module
             var jur = fixture.JurisdictionRepository;
-            var res4 = await jur.AddJurisdictionAsync("Jur1");
+            var res4 = await jur.AddJurisdictionAsync("Jur1m");
             Assert.True(res4.Success);
             string jurSourceCode =
             """
@@ -87,7 +87,7 @@ namespace IPFees.Core.Tests
             Assert.True(res6.Success);
 
             // Now let's create another jurisdiction and the associated module            
-            var res7 = await jur.AddJurisdictionAsync("Jur2");
+            var res7 = await jur.AddJurisdictionAsync("Jur2m");
             Assert.True(res7.Success);
             jurSourceCode =
             """
