@@ -16,7 +16,7 @@ namespace IPFees.Web.Areas.Run.Pages
         [BindProperty] public List<IPFValue> CollectedValues { get; set; }
         [BindProperty] public IList<InputViewModel> Inputs { get; set; }
         [BindProperty] public Guid[] SelectedJurisdictions { get; set; }
-        [BindProperty] public FeeResult[] FeeResults { get; set; }
+        [BindProperty] public IEnumerable<FeeResult> FeeResults { get; set; }
         private readonly IOfficialFee officialFee;
         private readonly ILogger<ResultModel> _logger;
 
@@ -66,7 +66,7 @@ namespace IPFees.Web.Areas.Run.Pages
                 }
             }
 
-            FeeResults = officialFee.Calculate(SelectedJurisdictions.AsEnumerable(), CollectedValues).ToArray();
+            FeeResults = officialFee.Calculate(SelectedJurisdictions.AsEnumerable(), CollectedValues);
             return Page();
         }
     }
