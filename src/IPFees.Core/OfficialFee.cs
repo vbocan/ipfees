@@ -47,10 +47,15 @@ namespace IPFees.Core
                 var Errors = Calculator.GetErrors();
                 return new FeeResultFail(jur.Name, jur.Description, Errors);
             }
-            else
+
+            try
             {
                 var (TotalMandatoryAmount, TotalOptionalAmount, CalculationSteps, Returns) = Calculator.Compute(InputValues);
                 return new FeeResultCalculation(jur.Name, jur.Description, TotalMandatoryAmount, TotalOptionalAmount, CalculationSteps, Returns);
+            }
+            catch (Exception ex)
+            {
+                return new FeeResultFail(jur.Name, jur.Description, new string[] { ex.Message });
             }
         }
 
