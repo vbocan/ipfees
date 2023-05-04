@@ -86,15 +86,16 @@ namespace IPFees.Web.Areas.Run.Pages
 
             if (result is FeeResultFail)
             {
-                return RedirectToPage("Error", new { err = (result as FeeResultFail).Errors.Distinct().ToList() });
+                TempData["Errors"] = (result as FeeResultFail).Errors.Distinct().ToList();
+                return RedirectToPage("Error");
             }
             else
             {
-                var result1 = (result as FeeResultCalculation);
-                TotalMandatoryAmount = result1.TotalMandatoryAmount;
-                TotalOptionalAmount = result1.TotalOptionalAmount;
-                CalculationSteps = result1.CalculationSteps;
-                Returns = result1.Returns;
+                var res = (result as FeeResultCalculation);
+                TotalMandatoryAmount = res.TotalMandatoryAmount;
+                TotalOptionalAmount = res.TotalOptionalAmount;
+                CalculationSteps = res.CalculationSteps;
+                Returns = res.Returns;
                 // Log computation success
                 _logger.LogInformation("Success! Total mandatory amount is [{0}] and the total optional amount is [{1}]", TotalMandatoryAmount, TotalOptionalAmount);
                 foreach (var cs in CalculationSteps)
