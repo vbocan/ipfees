@@ -1,10 +1,10 @@
 ﻿using IPFees.Core;
 using IPFees.Evaluator;
 using IPFees.Parser;
-using IPFFees.Core.Data;
+using IPFees.Core.Data;
 using static IPFees.Core.OfficialFee;
 
-namespace IPFFees.Core
+namespace IPFees.Core
 {
     public interface IOfficialFee
     {

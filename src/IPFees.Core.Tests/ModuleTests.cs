@@ -1,6 +1,6 @@
 using IPFees.Core.Tests.Fixture;
-using IPFFees.Core;
-using IPFFees.Core.Data;
+using IPFees.Core;
+using IPFees.Core.Data;
 
 namespace IPFees.Core.Tests
 {

@@ -1,7 +1,7 @@
 ﻿using IPFees.Calculator;
-using IPFFees.Core;
-using IPFFees.Core.Data;
-using IPFFees.Core.Models;
+using IPFees.Core;
+using IPFees.Core.Data;
+using IPFees.Core.Models;
 using MongoDB.Bson;
 using MongoDB.Driver;
 

@@ -1,6 +1,6 @@
 using IPFees.Evaluator;
 using IPFees.Web.Data;
-using IPFFees.Core;
+using IPFees.Core;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Options;

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace IPFFees.Core.Data
+namespace IPFees.Core.Data
 {
     public class DbResult
     {

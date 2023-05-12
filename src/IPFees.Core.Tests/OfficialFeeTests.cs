@@ -2,8 +2,8 @@ using IPFees.Calculator;
 using IPFees.Core.Tests.Fixture;
 using IPFees.Evaluator;
 using IPFees.Parser;
-using IPFFees.Core;
-using IPFFees.Core.Data;
+using IPFees.Core;
+using IPFees.Core.Data;
 using static IPFees.Core.OfficialFee;
 
 namespace IPFees.Core.Tests
