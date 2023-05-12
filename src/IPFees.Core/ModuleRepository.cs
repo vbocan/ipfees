@@ -1,12 +1,12 @@
-﻿using IPFFees.Core.Data;
-using IPFFees.Core.Models;
+﻿using IPFees.Core.Data;
+using IPFees.Core.Models;
 using Mapster;
 using MongoDB.Bson;
 using MongoDB.Driver;
 using System.Diagnostics.Tracing;
 using System.Runtime.Versioning;
 
-namespace IPFFees.Core
+namespace IPFees.Core
 {
     public class ModuleRepository : IModuleRepository
     {

@@ -1,6 +1,7 @@
 using IPFees.Core.Tests.Fixture;
-using IPFFees.Core;
-using IPFFees.Core.Data;
+using IPFees.Core;
+using IPFees.Core.Data;
+using IPFees.Core.Models;
 
 namespace IPFees.Core.Tests
 {
@@ -43,6 +44,18 @@ namespace IPFees.Core.Tests
             Assert.True(res2.Success);
             var mi = await jur.GetJurisdictionById(res1.Id);
             Assert.Equal("Jurisdiction Name", mi.Name);
+        }
+
+        [Fact]
+        public async void SetJurisdictionCategoryTest()
+        {
+            var jur = new JurisdictionRepository(fixture.DbContext);
+            var res1 = await jur.AddJurisdictionAsync("Jurisdiction-Set-Category");
+            Assert.True(res1.Success);
+            var res2 = await jur.SetJurisdictionCategoryAsync(res1.Id, JurisdictionCategory.OfficialFees);
+            Assert.True(res2.Success);
+            var mi = await jur.GetJurisdictionById(res1.Id);
+            Assert.Equal(JurisdictionCategory.OfficialFees, mi.Category);
         }
 
         [Fact]
