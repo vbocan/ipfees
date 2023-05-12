@@ -14,7 +14,8 @@
             <table class="table table-hover">
                 <thead>
                     <tr>                        
-                        <th scope="col">Jurisdiction (click to run)</th>                        
+                        <th scope="col">Jurisdiction (click to run)</th>
+                        <th scope="col">Description</th>
                         <th scope="col">References</th>
                         <th scope="col">Last Updated</th>
                         <th scope="col"></th>
@@ -25,7 +26,8 @@
                     @foreach (var mi in Model.Jurisdictions)
                     {
                         <tr>
-                            <td><a asp-area="Run" asp-page="Jurisdiction" asp-route-id="@mi.Id">[@mi.Name] (@mi.Description)</a></td>
+                            <td><a asp-area="Run" asp-page="Jurisdiction" asp-route-id="@mi.Id">@mi.Name</a></td>
+                            <td>@mi.Description</td>
                             <td>@mi.ReferencedModules.Count()</td>
                             <td>@mi.LastUpdatedOn</td>
                             <td><a asp-page="Edit" asp-route-id="@mi.Id">Edit</a> | <a asp-page="Delete" asp-route-id="@mi.Id">Delete</a></td>
