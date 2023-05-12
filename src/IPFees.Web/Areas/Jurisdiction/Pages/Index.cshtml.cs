@@ -21,7 +21,7 @@ namespace IPFees.Web.Areas.Jurisdiction.Pages
         public async Task<IActionResult> OnGetAsync()
         {
             var DbJur = await jurisdictionRepository.GetJurisdictions();
-            Jurisdictions = DbJur.OrderByDescending(o => o.LastUpdatedOn);
+            Jurisdictions = DbJur.OrderBy(o => o.Name).ThenBy(o=>o.LastUpdatedOn);
             return Page();
         }
     }
