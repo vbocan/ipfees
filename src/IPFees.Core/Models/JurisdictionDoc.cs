@@ -1,4 +1,5 @@
-﻿using MongoDB.Bson.Serialization.Attributes;
+﻿using MongoDB.Bson;
+using MongoDB.Bson.Serialization.Attributes;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,6 +24,7 @@ namespace IPFees.Core.Models
 
         [BsonId]
         public Guid Id { get; set; }
+        [BsonRepresentation(BsonType.String)]
         public JurisdictionCategory Category { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
