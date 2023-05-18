@@ -1,7 +1,7 @@
 ﻿using IPFees.Calculator;
 using IPFees.Evaluator;
 using IPFees.Parser;
-using IPFFees.Core;
+using IPFees.Core;
 using System.Linq;
 
 namespace IPFees.Core

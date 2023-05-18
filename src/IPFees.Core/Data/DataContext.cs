@@ -1,4 +1,4 @@
-﻿using IPFFees.Core.Models;
+﻿using IPFees.Core.Models;
 using Microsoft.Extensions.Options;
 using MongoDB.Driver;
 using System;
@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace IPFFees.Core.Data
+namespace IPFees.Core.Data
 {
     public class DataContext
     {

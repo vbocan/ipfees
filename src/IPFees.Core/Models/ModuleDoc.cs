@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace IPFFees.Core.Models
+namespace IPFees.Core.Models
 {
     [BsonIgnoreExtraElements]
     public class ModuleDoc

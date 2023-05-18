@@ -1,6 +1,6 @@
-﻿using IPFFees.Core.Data;
+﻿using IPFees.Core.Data;
 
-namespace IPFFees.Core
+namespace IPFees.Core
 {
     public interface IModuleRepository
     {
