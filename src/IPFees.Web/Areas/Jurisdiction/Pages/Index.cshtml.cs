@@ -1,9 +1,7 @@
-using IPFees.Evaluator;
-using IPFees.Web.Data;
-using IPFFees.Core;
+using IPFees.Core;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.Extensions.Options;
+using System.Runtime.InteropServices;
 
 namespace IPFees.Web.Areas.Jurisdiction.Pages
 {
@@ -21,7 +19,7 @@ namespace IPFees.Web.Areas.Jurisdiction.Pages
         public async Task<IActionResult> OnGetAsync()
         {
             var DbJur = await jurisdictionRepository.GetJurisdictions();
-            Jurisdictions = DbJur.OrderByDescending(o => o.LastUpdatedOn);
+            Jurisdictions = DbJur.OrderBy(o => o.Name).ThenBy(o=>o.Category);
             return Page();
         }
     }

@@ -1,7 +1,8 @@
 ﻿using IPFees.Calculator;
+using IPFees.Core;
 using IPFees.Evaluator;
-using IPFFees.Core.Data;
-using IPFFees.Core.Models;
+using IPFees.Core.Data;
+using IPFees.Core.Models;
 using Mapster;
 using MongoDB.Bson;
 using MongoDB.Driver;
@@ -10,7 +11,7 @@ using System.Runtime.Versioning;
 using ZstdSharp;
 using static System.Net.Mime.MediaTypeNames;
 
-namespace IPFFees.Core
+namespace IPFees.Core
 {
     public class JurisdictionRepository : IJurisdictionRepository
     {
@@ -49,6 +50,22 @@ namespace IPFFees.Core
             {
                 return DbResult.Fail(ex);
             }
+        }
+
+        /// <summary>
+        /// Set the jurisdiction category
+        /// </summary>
+        /// <param name="Id">Jurisdiction id</param>
+        /// <param name="Category">Jurisdiction category</param>
+        /// <returns>A DbResult structure containing the result of the database operation</returns>
+        public async Task<DbResult> SetJurisdictionCategoryAsync(Guid Id, JurisdictionCategory Category)
+        {
+            var res = await context.JurisdictionCollection.UpdateOneAsync(r => r.Id.Equals(Id),
+                Builders<JurisdictionDoc>
+                .Update
+                .Set(r => r.LastUpdatedOn, DateTime.UtcNow.ToLocalTime())
+                .Set(r => r.Category, Category));
+            return res.IsAcknowledged ? DbResult.Succeed() : DbResult.Fail();
         }
 
         /// <summary>
@@ -110,7 +127,7 @@ namespace IPFFees.Core
         }
 
         /// <summary>
-        /// Get jurisdiction by name
+        /// Get jurisdiction by Id
         /// </summary>
         /// <param name="Id">Jurisdiction id</param>
         /// <returns>A JurisdictionInfo object</returns>

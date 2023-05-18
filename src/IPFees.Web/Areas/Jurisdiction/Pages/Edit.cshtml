@@ -13,17 +13,25 @@
             <div class="alert alert-danger d-flex align-items-center" role="alert">
                 <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Danger:"><use xlink:href="#exclamation-triangle-fill" /></svg>
                 <div>
-                    @foreach(var em in Model.ErrorMessages)
+                    @foreach (var em in Model.ErrorMessages)
                     {
-                        <text>@em</text><br/>
-                    }                    
+                        <text>@em</text>
+
+                        <br />
+                    }
                 </div>
             </div>
         }
-        <form method="post">            
+        <form method="post">
+            <div class="mb-3 col-md-4">
+                <label for="@Model.Category" class="form-label">Category</label>
+                <select class="form-select form-select-lg mb-3" asp-for="@Model.Category" asp-items="Model.CategoryItems" required>
+                    <option value="">Select category...</option>
+                </select>
+            </div>
             <div class="mb-3">
                 <label for="@Model.Name" class="form-label">Name</label>
-                <input asp-for="Name" value="@Model.Name" class="form-control" required />                
+                <input asp-for="Name" value="@Model.Name" class="form-control" required />
             </div>
             <div class="mb-3">
                 <label for="@Model.Description" class="form-label">Description</label>

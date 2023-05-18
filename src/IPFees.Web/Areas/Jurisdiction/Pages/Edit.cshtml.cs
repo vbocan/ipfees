@@ -1,16 +1,20 @@
-using IPFFees.Core;
+using IPFees.Core;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace IPFees.Web.Areas.Jurisdiction.Pages
 {
     public class EditModel : PageModel
     {
+        [BindProperty] public string Category { get; set; }
         [BindProperty] public string Name { get; set; }
         [BindProperty] public string Description { get; set; }
         [BindProperty] public string SourceCode { get; set; }
         [BindProperty] public IList<ModuleViewModel> ReferencedModules { get; set; }
         [BindProperty] public IList<string> ErrorMessages { get; set; }
+
+        public IEnumerable<SelectListItem> CategoryItems { get; set; }
 
         private readonly IJurisdictionRepository jurisdictionRepository;
         private readonly IModuleRepository moduleRepository;
@@ -19,6 +23,7 @@ namespace IPFees.Web.Areas.Jurisdiction.Pages
         {
             this.jurisdictionRepository = jurisdictionRepository;
             this.moduleRepository = moduleRepository;
+            CategoryItems = Enum.GetValues<JurisdictionCategory>().AsEnumerable().Select(s => new SelectListItem(s.ValueAsString(), s.ToString()));
             ErrorMessages = new List<string>();
         }
 
@@ -29,6 +34,7 @@ namespace IPFees.Web.Areas.Jurisdiction.Pages
             Name = jur.Name;
             Description = jur.Description;
             SourceCode = jur.SourceCode;
+            Category = jur.Category.ToString();
             // Prepare view model for referenced modules
             var Mods = await moduleRepository.GetModules();
             ReferencedModules = Mods.Select(s => new ModuleViewModel(s.Id, s.Name, s.Description, s.LastUpdatedOn, jur.ReferencedModules.Contains(s.Id))).ToList();
@@ -57,6 +63,12 @@ namespace IPFees.Web.Areas.Jurisdiction.Pages
             if (!res4.Success)
             {
                 ErrorMessages.Add($"Error setting source code: {res4.Reason}");
+            }
+            var parsedCategory = (JurisdictionCategory)Enum.Parse(typeof(JurisdictionCategory), Category);
+            var res5 = await jurisdictionRepository.SetJurisdictionCategoryAsync(Id, parsedCategory);
+            if (!res5.Success)
+            {
+                ErrorMessages.Add($"Error setting category: {res5.Reason}");
             }
 
             if (ErrorMessages.Any()) return Page();
