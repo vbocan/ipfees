@@ -27,6 +27,8 @@ namespace IPFees.Web.Areas.Module.Pages
             Name = info.Name;
             Description = info.Description;
             SourceCode = info.SourceCode;
+            Category = info.Category;
+            Weight = info.Weight;
             return Page();
         }
 
