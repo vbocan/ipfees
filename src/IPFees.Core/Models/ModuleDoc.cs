@@ -1,9 +1,4 @@
 ﻿using MongoDB.Bson.Serialization.Attributes;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace IPFees.Core.Models
 {
@@ -12,10 +7,13 @@ namespace IPFees.Core.Models
     {
         public const string CollectionName = "Modules";
 
-        public ModuleDoc() {
+        public ModuleDoc()
+        {
             Name = string.Empty;
             Description = string.Empty;
             SourceCode = string.Empty;
+            Category = string.Empty;
+            Weight = 100;
             LastUpdatedOn = DateTime.MinValue;
         }
 
@@ -23,6 +21,8 @@ namespace IPFees.Core.Models
         public Guid Id { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
+        public string Category { get; set; }
+        public int Weight { get; set; }
         public string SourceCode { get; set; }
         [BsonDateTimeOptions(Kind = DateTimeKind.Local)]
         public DateTime LastUpdatedOn { get; set; }
