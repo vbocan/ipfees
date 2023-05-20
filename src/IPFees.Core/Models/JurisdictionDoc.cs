@@ -1,10 +1,5 @@
 ﻿using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace IPFees.Core.Models
 {
@@ -26,6 +21,8 @@ namespace IPFees.Core.Models
         public Guid Id { get; set; }
         [BsonRepresentation(BsonType.String)]
         public JurisdictionCategory Category { get; set; }
+        [BsonRepresentation(BsonType.String)]
+        public JurisdictionAttorneyFeeLevel AttorneyFeeLevel { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
         public string SourceCode { get; set; }

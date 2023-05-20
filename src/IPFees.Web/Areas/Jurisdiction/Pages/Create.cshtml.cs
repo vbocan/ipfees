@@ -8,6 +8,7 @@ namespace IPFees.Web.Areas.Jurisdiction.Pages
     public class CreateModel : PageModel
     {
         [BindProperty] public string Category { get; set; }
+        [BindProperty] public string AttorneyFeeLevel { get; set; }
         [BindProperty] public string Name { get; set; }
         [BindProperty] public string Description { get; set; }
         [BindProperty] public string SourceCode { get; set; }
@@ -15,6 +16,7 @@ namespace IPFees.Web.Areas.Jurisdiction.Pages
         [BindProperty] public IList<string> ErrorMessages { get; set; }
 
         public IEnumerable<SelectListItem> CategoryItems { get; set; }
+        public IEnumerable<SelectListItem> AttorneyFeeLevelItems { get; set; }
 
         private readonly IJurisdictionRepository jurisdictionRepository;
         private readonly IModuleRepository moduleRepository;
@@ -24,6 +26,7 @@ namespace IPFees.Web.Areas.Jurisdiction.Pages
             this.jurisdictionRepository = jurisdictionRepository;
             this.moduleRepository = moduleRepository;
             CategoryItems = Enum.GetValues<JurisdictionCategory>().AsEnumerable().Select(s => new SelectListItem(s.ValueAsString(), s.ToString()));
+            AttorneyFeeLevelItems = Enum.GetValues<JurisdictionAttorneyFeeLevel>().AsEnumerable().Select(s => new SelectListItem(s.ValueAsString(), s.ToString()));
             ErrorMessages = new List<string>();
         }
 
@@ -63,6 +66,13 @@ namespace IPFees.Web.Areas.Jurisdiction.Pages
             {
                 ErrorMessages.Add($"Error setting category: {res5.Reason}");
             }
+            var parsedAttorneyFeeLevel = (JurisdictionAttorneyFeeLevel)Enum.Parse(typeof(JurisdictionAttorneyFeeLevel), AttorneyFeeLevel);
+            var res6 = await jurisdictionRepository.SetJurisdictionAttorneyFeeLevelAsync(res1.Id, parsedAttorneyFeeLevel);
+            if (!res6.Success)
+            {
+                ErrorMessages.Add($"Error setting category: {res6.Reason}");
+            }
+
 
             if (ErrorMessages.Any()) return Page();
             else return RedirectToPage("Index");

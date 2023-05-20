@@ -6,7 +6,7 @@
         PartnerFees
     }
 
-    public static class ExtensionMethods
+    public static class ExtensionMethods1
     {
         public static string ValueAsString(this JurisdictionCategory e)
         {
