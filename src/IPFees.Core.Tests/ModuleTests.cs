@@ -58,6 +58,30 @@ namespace IPFees.Core.Tests
         }
 
         [Fact]
+        public async void SetModuleCategoryTest()
+        {
+            var mod = new ModuleRepository(fixture.DbContext);
+            var res1 = await mod.AddModuleAsync("Module-Set-Category");
+            Assert.True(res1.Success);
+            var res2 = await mod.SetModuleCategoryAsync(res1.Id, "Module Category");
+            Assert.True(res2.Success);
+            var mi = await mod.GetModuleById(res1.Id);
+            Assert.Equal("Module Category", mi.Category);
+        }
+
+        [Fact]
+        public async void SetModuleWeightTest()
+        {
+            var mod = new ModuleRepository(fixture.DbContext);
+            var res1 = await mod.AddModuleAsync("Module-Set-Weight");
+            Assert.True(res1.Success);
+            var res2 = await mod.SetModuleWeightAsync(res1.Id, 33);
+            Assert.True(res2.Success);
+            var mi = await mod.GetModuleById(res1.Id);
+            Assert.Equal(33, mi.Weight);
+        }
+
+        [Fact]
         public async void SetModuleSourceCodeTest()
         {
             var mod = new ModuleRepository(fixture.DbContext);

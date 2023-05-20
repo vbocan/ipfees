@@ -31,6 +31,14 @@
                 <input asp-for="Description" class="form-control" />
             </div>
             <div class="mb-3">
+                <label for="@Model.Category" class="form-label">Category</label>
+                <input asp-for="Category" class="form-control" />
+            </div>
+            <div class="mb-3">
+                <label for="@Model.Weight" class="form-label">Weight</label>
+                <input asp-for="Weight" class="form-control" type="number" min="1" max="100" />
+            </div>
+            <div class="mb-3">
                 <label for="@Model.SourceCode" class="form-label">Source Code</label>
                 <textarea asp-for="SourceCode" class="form-control" rows="20" required></textarea>
             </div>

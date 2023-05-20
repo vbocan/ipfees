@@ -8,6 +8,8 @@ namespace IPFees.Web.Areas.Module.Pages
     {
         [BindProperty] public string Name { get; set; }
         [BindProperty] public string Description { get; set; }
+        [BindProperty] public string Category { get; set; }
+        [BindProperty] public int Weight { get; set; }
         [BindProperty] public string SourceCode { get; set; }
         [BindProperty] public IList<string> ErrorMessages { get; set; }
 
@@ -44,6 +46,16 @@ namespace IPFees.Web.Areas.Module.Pages
             if (!res.Success)
             {
                 ErrorMessages.Add($"Error setting source code: {res.Reason}");
+            }
+            res = await moduleRepository.SetModuleCategoryAsync(Id, Category);
+            if (!res.Success)
+            {
+                ErrorMessages.Add($"Error setting category: {res.Reason}");
+            }
+            res = await moduleRepository.SetModuleWeightAsync(Id, Weight);
+            if (!res.Success)
+            {
+                ErrorMessages.Add($"Error setting weight: {res.Reason}");
             }
 
             if (ErrorMessages.Any()) return Page();
