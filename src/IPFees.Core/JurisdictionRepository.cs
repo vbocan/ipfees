@@ -1,15 +1,10 @@
 ﻿using IPFees.Calculator;
-using IPFees.Core;
 using IPFees.Evaluator;
 using IPFees.Core.Data;
 using IPFees.Core.Models;
 using Mapster;
 using MongoDB.Bson;
 using MongoDB.Driver;
-using System.Diagnostics.Tracing;
-using System.Runtime.Versioning;
-using ZstdSharp;
-using static System.Net.Mime.MediaTypeNames;
 
 namespace IPFees.Core
 {
@@ -65,6 +60,22 @@ namespace IPFees.Core
                 .Update
                 .Set(r => r.LastUpdatedOn, DateTime.UtcNow.ToLocalTime())
                 .Set(r => r.Category, Category));
+            return res.IsAcknowledged ? DbResult.Succeed() : DbResult.Fail();
+        }
+
+        /// <summary>
+        /// Set the jurisdiction attorney fee level
+        /// </summary>
+        /// <param name="Id">Jurisdiction id</param>
+        /// <param name="AttorneyFeeLevel">Jurisdiction attorney fee level</param>
+        /// <returns>A DbResult structure containing the result of the database operation</returns>
+        public async Task<DbResult> SetJurisdictionAttorneyFeeLevelAsync(Guid Id, JurisdictionAttorneyFeeLevel AttorneyFeeLevel)
+        {
+            var res = await context.JurisdictionCollection.UpdateOneAsync(r => r.Id.Equals(Id),
+                Builders<JurisdictionDoc>
+                .Update
+                .Set(r => r.LastUpdatedOn, DateTime.UtcNow.ToLocalTime())
+                .Set(r => r.AttorneyFeeLevel, AttorneyFeeLevel));
             return res.IsAcknowledged ? DbResult.Succeed() : DbResult.Fail();
         }
 

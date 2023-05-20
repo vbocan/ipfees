@@ -29,6 +29,12 @@
                     <option value="">Select category...</option>
                 </select>
             </div>
+            <div class="mb-3 col-md-4">
+                <label for="@Model.AttorneyFeeLevel" class="form-label">Attorney Fee Level</label>
+                <select class="form-select form-select-lg mb-3" asp-for="@Model.AttorneyFeeLevel" asp-items="Model.AttorneyFeeLevelItems" required>
+                    <option value="">Select fee level...</option>
+                </select>
+            </div>
             <div class="mb-3">
                 <label for="@Model.Name" class="form-label">Name</label>
                 <input asp-for="Name" value="@Model.Name" class="form-control" required />

@@ -1,7 +1,4 @@
 using IPFees.Core.Tests.Fixture;
-using IPFees.Core;
-using IPFees.Core.Data;
-using IPFees.Core.Models;
 
 namespace IPFees.Core.Tests
 {
@@ -56,6 +53,18 @@ namespace IPFees.Core.Tests
             Assert.True(res2.Success);
             var mi = await jur.GetJurisdictionById(res1.Id);
             Assert.Equal(JurisdictionCategory.OfficialFees, mi.Category);
+        }
+
+        [Fact]
+        public async void SetJurisdictionAttorneyFeeLevelTest()
+        {
+            var jur = new JurisdictionRepository(fixture.DbContext);
+            var res1 = await jur.AddJurisdictionAsync("Jurisdiction-Set-AttorneyFeeLevel");
+            Assert.True(res1.Success);
+            var res2 = await jur.SetJurisdictionAttorneyFeeLevelAsync(res1.Id, JurisdictionAttorneyFeeLevel.Level1);
+            Assert.True(res2.Success);
+            var mi = await jur.GetJurisdictionById(res1.Id);
+            Assert.Equal(JurisdictionAttorneyFeeLevel.Level1, mi.AttorneyFeeLevel);
         }
 
         [Fact]
