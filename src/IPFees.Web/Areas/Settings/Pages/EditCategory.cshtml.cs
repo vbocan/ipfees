@@ -4,15 +4,16 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace IPFees.Web.Areas.Settings.Pages
 {
-    public class EditCategoryWeightModel : PageModel
+    public class EditCategoryModel : PageModel
     {
         [BindProperty] public string Category { get; set; }
         [BindProperty] public int Weight { get; set; }
+        [BindProperty] public string Description { get; set; }
         [BindProperty] public IList<string> ErrorMessages { get; set; }
 
         private readonly IKeyValueRepository keyvalueRepository;
 
-        public EditCategoryWeightModel(IKeyValueRepository keyvalueRepository)
+        public EditCategoryModel(IKeyValueRepository keyvalueRepository)
         {
             this.keyvalueRepository = keyvalueRepository;
             ErrorMessages = new List<string>();
@@ -21,16 +22,16 @@ namespace IPFees.Web.Areas.Settings.Pages
         public async Task<IActionResult> OnGetAsync(string Id)
         {            
             Category = Id;
-            Weight = await keyvalueRepository.GetCategoryWeightAsync(Id);
+            (Weight, Description) = await keyvalueRepository.GetCategoryAsync(Id);
             return Page();
         }
 
         public async Task<IActionResult> OnPostAsync(string Id)
         {
-            var res = await keyvalueRepository.SetCategoryWeightAsync(Id, Weight);
+            var res = await keyvalueRepository.SetCategoryAsync(Id, Weight, Description);
             if (!res.Success)
             {
-                ErrorMessages.Add($"Error setting weight: {res.Reason}");
+                ErrorMessages.Add($"Error updating category: {res.Reason}");
             }
             
             if (ErrorMessages.Any()) return Page();
