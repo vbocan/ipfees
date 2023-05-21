@@ -93,23 +93,7 @@ namespace IPFees.Core
                 .Set(r => r.LastUpdatedOn, DateTime.UtcNow.ToLocalTime())
                 .Set(r => r.Category, Category));
             return res.IsAcknowledged ? DbResult.Succeed() : DbResult.Fail();
-        }
-
-        /// <summary>
-        /// Set the module weight
-        /// </summary>
-        /// <param name="Id">Module id</param>
-        /// <param name="Weight">Weight of the functionality provided</param>        
-        /// <returns>A DbResult structure containing the result of the database operation</returns>
-        public async Task<DbResult> SetModuleWeightAsync(Guid Id, int Weight)
-        {
-            var res = await context.ModuleCollection.UpdateOneAsync(r => r.Id.Equals(Id),
-                Builders<ModuleDoc>
-                .Update
-                .Set(r => r.LastUpdatedOn, DateTime.UtcNow.ToLocalTime())
-                .Set(r => r.Weight, Weight));
-            return res.IsAcknowledged ? DbResult.Succeed() : DbResult.Fail();
-        }
+        }        
 
         /// <summary>
         /// Set the module source code
