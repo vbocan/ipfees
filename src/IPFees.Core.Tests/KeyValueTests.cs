@@ -40,7 +40,7 @@ namespace IPFees.Core.Tests
         public async void GetInvalidKey()
         {
             var kv = new KeyValueRepository(fixture.DbContext);
-            var res1 = await kv.GetKeyAsync("Key1");
+            var res1 = await kv.GetKeyAsync("UnknownKey");
             Assert.Equal(0, res1);
         }
     }
