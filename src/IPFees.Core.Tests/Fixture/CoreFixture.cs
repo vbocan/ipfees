@@ -9,8 +9,7 @@ namespace IPFees.Core.Tests.Fixture
 {
     public class CoreFixture : IDisposable
     {
-        public DataContext DbContext { get; private set; }
-        public IMongoCollection<ModuleDoc> ModuleCollection { get; private set; }
+        public DataContext DbContext { get; private set; }        
         private readonly string connectionString = "mongodb+srv://abdroot:Test123@cluster0.dusbo.mongodb.net/CoreTest?retryWrites=true&w=majority";
 
         public CoreFixture()
@@ -19,7 +18,7 @@ namespace IPFees.Core.Tests.Fixture
             DbContext = new DataContext(connectionString);
             DbContext.ModuleCollection.DeleteMany(new BsonDocument());
             DbContext.JurisdictionCollection.DeleteMany(new BsonDocument());
-            ModuleCollection = DbContext.ModuleCollection;
+            DbContext.KeyValueCollection.DeleteMany(new BsonDocument());            
         }
 
         public void Dispose()

@@ -14,6 +14,7 @@ namespace IPFees.Core.Data
         public IMongoDatabase Context { get; private set; }
         public IMongoCollection<ModuleDoc> ModuleCollection { get; set; }
         public IMongoCollection<JurisdictionDoc> JurisdictionCollection { get; set; }
+        public IMongoCollection<KeyValueDoc> KeyValueCollection { get; set; }
 
         private string ConnectionString { get; set; }
         private string DatabaseName { get; set; }
@@ -28,6 +29,7 @@ namespace IPFees.Core.Data
             
             ModuleCollection = Context.GetCollection<ModuleDoc>(ModuleDoc.CollectionName);
             JurisdictionCollection = Context.GetCollection<JurisdictionDoc>(JurisdictionDoc.CollectionName);
+            KeyValueCollection = Context.GetCollection<KeyValueDoc>(KeyValueDoc.CollectionName);
             // Ensure indexes are in place
             /*
             var actionLogBuilder = Builders<ActionLogDoc>.IndexKeys;
