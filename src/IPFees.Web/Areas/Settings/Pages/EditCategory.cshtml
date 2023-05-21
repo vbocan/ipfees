@@ -1,10 +1,10 @@
 ﻿@page "{id}"
-@model EditCategoryWeightModel
+@model EditCategoryModel
 @{
-    ViewData["Title"] = "Module Category Weight";
+    ViewData["Title"] = "Module Category";
 }
 
-<h1>Weight <small class="text-muted">@Model.Category</small></h1>
+<h1>Module Category <small class="text-muted">@Model.Category</small></h1>
 
 <div class="row">
     <div class="col-lg-4">
@@ -28,7 +28,11 @@
             <div class="mb-3">
                 <label for="@Model.Weight" class="form-label">Weight</label>
                 <input asp-for="Weight" value="@Model.Weight" class="form-control" required />
-            </div>            
+            </div>
+            <div class="mb-3">
+                <label for="@Model.Description" class="form-label">Description</label>
+                <input asp-for="Description" value="@Model.Description" class="form-control" required />
+            </div>
             <button type="submit" class="btn btn-primary">Save</button>
             <a asp-page="./Index" class="btn btn-secondary">Cancel</a>
         </form>

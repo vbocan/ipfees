@@ -15,7 +15,8 @@
                 <thead>
                     <tr>
                         <th scope="col">Category</th>
-                        <th scope="col">Weight</th>                        
+                        <th scope="col">Weight</th>
+                        <th scope="col">Description</th>
                         <th scope="col"></th>
 
                     </tr>
@@ -24,9 +25,10 @@
                     @foreach (var mi in Model.ModuleCategories)
                     {
                         <tr>
-                            <td>@mi.Category</td>
-                            <td>@mi.Weight</td>                            
-                            <td><a asp-page="EditCategoryWeight" asp-route-id="@mi.Category">Edit</a></td>
+                            <td>@mi.Name</td>
+                            <td>@mi.Weight</td>
+                            <td>@mi.Description</td>
+                            <td><a asp-page="EditCategory" asp-route-id="@mi.Name">Edit</a></td>
                         </tr>
                     }
                 </tbody>

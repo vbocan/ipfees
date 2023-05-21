@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using IPFees.Core.Repository;
 using IPFees.Core.Model;
 using IPFees.Core.Enum;
+using System.Xml.Linq;
 
 namespace IPFees.Web.Areas.Settings.Pages
 {
@@ -22,10 +23,11 @@ namespace IPFees.Web.Areas.Settings.Pages
         public async Task<IActionResult> OnGetAsync()
         {
             // Retrieve the distinct list of categories
-            ModuleCategories = (await moduleRepository.GetModules())
-                .DistinctBy(d => d.Category)
-                .Select(s => new ModuleCategoryInfo(s.Category, keyvalueRepository.GetCategoryWeightAsync(s.Category).Result))
-                .OrderBy(o => o.Weight);
+            ModuleCategories = from s in (await moduleRepository.GetModules()).DistinctBy(d => d.Category)
+                               let cd = keyvalueRepository.GetCategoryAsync(s.Category).Result
+                               orderby cd.Item1 ascending
+                               select new ModuleCategoryInfo(s.Name, cd.Item1, cd.Item2);
+                
             // Retrieve the list of attorney fee levels
             AttorneyFees = from s in Enum.GetValues(typeof(JurisdictionAttorneyFeeLevel)).Cast<JurisdictionAttorneyFeeLevel>()
                            let af = keyvalueRepository.GetAttorneyFeeAsync(s).Result
