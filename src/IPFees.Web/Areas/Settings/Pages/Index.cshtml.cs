@@ -5,12 +5,15 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Options;
 using IPFees.Core.Repository;
 using IPFees.Core.Model;
+using System;
+using IPFees.Core.Enum;
 
 namespace IPFees.Web.Areas.Settings.Pages
 {
     public class IndexModel : PageModel
     {
         [BindProperty] public IEnumerable<ModuleCategoryInfo> ModuleCategories { get; set; }
+        [BindProperty] public IEnumerable<AttorneyFeeInfo> AttorneyFees { get; set; }
 
         private readonly IKeyValueRepository keyvalueRepository;
         private readonly IModuleRepository moduleRepository;
@@ -29,6 +32,8 @@ namespace IPFees.Web.Areas.Settings.Pages
                 .DistinctBy(d => d.Category)
                 .Select(s => new ModuleCategoryInfo(s.Category, keyvalueRepository.GetKeyAsync(s.Category).Result))
                 .OrderBy(o => o.Weight);
+            // Retrieve the list of attorney fee levels
+            AttorneyFees = Enum.GetValues(typeof(JurisdictionAttorneyFeeLevel)).Cast<JurisdictionAttorneyFeeLevel>().Select(s => new AttorneyFeeInfo(s.ValueAsString(), 10, "AAA"));
             return Page();
         }
     }
