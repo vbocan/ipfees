@@ -61,7 +61,7 @@
                     @foreach (var mi in Model.AttorneyFees)
                     {
                         <tr>
-                            <td>@mi.FeeLevel</td>
+                            <td>@mi.FeeLevel.ValueAsString()</td>
                             <td>@mi.Amount</td>
                             <td>@mi.Currency</td>
                             <td><a asp-page="EditAttorneyFee" asp-route-id="@mi.FeeLevel">Edit</a></td>
