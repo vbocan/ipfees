@@ -1,10 +1,10 @@
 using IPFees.Calculator;
 using IPFees.Evaluator;
 using IPFees.Parser;
-using IPFees.Core;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using System.Diagnostics;
+using IPFees.Core.Repository;
 
 namespace IPFees.Web.Pages
 {

@@ -1,6 +1,7 @@
 ﻿using IPFees.Core.Data;
+using IPFees.Core.Model;
 
-namespace IPFees.Core
+namespace IPFees.Core.Repository
 {
     public interface IModuleRepository
     {
@@ -8,7 +9,7 @@ namespace IPFees.Core
         Task<DbResult> SetModuleNameAsync(Guid Id, string Name);
         Task<DbResult> SetModuleDescriptionAsync(Guid Id, string Description);
         Task<DbResult> SetModuleSourceCodeAsync(Guid Id, string SourceCode);
-        Task<DbResult> SetModuleCategoryAsync(Guid Id, string Category);        
+        Task<DbResult> SetModuleCategoryAsync(Guid Id, string Category);
         Task<DbResult> RemoveModuleAsync(Guid Id);
         Task<IEnumerable<ModuleInfo>> GetModules();
         Task<ModuleInfo> GetModuleById(Guid Id);

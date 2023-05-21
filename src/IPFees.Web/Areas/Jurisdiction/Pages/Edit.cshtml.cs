@@ -1,4 +1,6 @@
 using IPFees.Core;
+using IPFees.Core.Enum;
+using IPFees.Core.Repository;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;

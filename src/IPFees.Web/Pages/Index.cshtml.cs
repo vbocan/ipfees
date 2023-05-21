@@ -1,8 +1,8 @@
 ﻿using IPFees.Calculator;
 using IPFees.Web.Areas.Jurisdiction.Pages;
-using IPFees.Core;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using IPFees.Core.Repository;
 
 namespace IPFees.Web.Pages
 {

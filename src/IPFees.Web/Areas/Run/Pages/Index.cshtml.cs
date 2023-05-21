@@ -1,4 +1,5 @@
-using IPFees.Core;
+using IPFees.Core.Model;
+using IPFees.Core.Repository;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 

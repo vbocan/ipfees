@@ -1,6 +1,6 @@
 ﻿using MongoDB.Bson.Serialization.Attributes;
 
-namespace IPFees.Core.Models
+namespace IPFees.Core.Model
 {
     [BsonIgnoreExtraElements]
     public class ModuleDoc

@@ -1,9 +1,10 @@
 using IPFees.Evaluator;
 using IPFees.Web.Data;
-using IPFees.Core;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Options;
+using IPFees.Core.Repository;
+using IPFees.Core.Model;
 
 namespace IPFees.Web.Areas.Module.Pages
 {

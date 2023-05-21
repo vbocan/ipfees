@@ -1,4 +1,4 @@
-﻿using IPFees.Core.Models;
+﻿using IPFees.Core.Model;
 using Microsoft.Extensions.Options;
 using MongoDB.Driver;
 using System;

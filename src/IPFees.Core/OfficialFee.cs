@@ -1,8 +1,9 @@
 ﻿using IPFees.Calculator;
 using IPFees.Evaluator;
 using IPFees.Parser;
-using IPFees.Core;
 using System.Linq;
+using IPFees.Core.Repository;
+using IPFees.Core.Model;
 
 namespace IPFees.Core
 {

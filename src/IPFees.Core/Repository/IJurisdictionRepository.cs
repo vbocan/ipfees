@@ -1,6 +1,8 @@
 ﻿using IPFees.Core.Data;
+using IPFees.Core.Enum;
+using IPFees.Core.Model;
 
-namespace IPFees.Core
+namespace IPFees.Core.Repository
 {
     public interface IJurisdictionRepository
     {

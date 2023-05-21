@@ -1,4 +1,4 @@
-﻿namespace IPFees.Core
+﻿namespace IPFees.Core.Enum
 {
     public enum JurisdictionAttorneyFeeLevel
     {
