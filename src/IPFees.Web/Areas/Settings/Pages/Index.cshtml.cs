@@ -1,11 +1,7 @@
-using IPFees.Evaluator;
-using IPFees.Web.Data;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.Extensions.Options;
 using IPFees.Core.Repository;
 using IPFees.Core.Model;
-using System;
 using IPFees.Core.Enum;
 
 namespace IPFees.Web.Areas.Settings.Pages
@@ -16,13 +12,11 @@ namespace IPFees.Web.Areas.Settings.Pages
         [BindProperty] public IEnumerable<AttorneyFeeInfo> AttorneyFees { get; set; }
 
         private readonly IKeyValueRepository keyvalueRepository;
-        private readonly IModuleRepository moduleRepository;
-        private readonly IJurisdictionRepository jurisdictionRepository;
+        private readonly IModuleRepository moduleRepository;        
 
-        public IndexModel(IKeyValueRepository keyvalueRepository, IJurisdictionRepository jurisdictionRepository, IModuleRepository moduleRepository)
+        public IndexModel(IKeyValueRepository keyvalueRepository, IModuleRepository moduleRepository)
         {
-            this.keyvalueRepository = keyvalueRepository;
-            this.jurisdictionRepository = jurisdictionRepository;
+            this.keyvalueRepository = keyvalueRepository;            
             this.moduleRepository = moduleRepository;
         }
         public async Task<IActionResult> OnGetAsync()
