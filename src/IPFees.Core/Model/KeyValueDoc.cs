@@ -17,6 +17,6 @@ namespace IPFees.Core.Model
         [BsonId]
         public ObjectId Id { get; set; }
         public string Key { get; set; }
-        public int Value { get; set; }
+        public object Value { get; set; }
     }    
 }

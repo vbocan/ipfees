@@ -2,6 +2,7 @@ using IPFees.Core.Tests.Fixture;
 using IPFees.Core;
 using IPFees.Core.Data;
 using IPFees.Core.Repository;
+using IPFees.Core.Enum;
 
 namespace IPFees.Core.Tests
 {
@@ -15,33 +16,66 @@ namespace IPFees.Core.Tests
         }
 
         [Fact]
-        public async void SetGetKeyTest()
+        public async void SetGetAttorneyFeeTest()
         {
             var kv = new KeyValueRepository(fixture.DbContext);
-            var res1 = await kv.SetKeyAsync("Key1", 100);
+            var res1 = await kv.SetAttorneyFeeAsync(JurisdictionAttorneyFeeLevel.Level1, 150, "USD");
             Assert.True(res1.Success);
-            var res2 = await kv.GetKeyAsync("Key1");
+            var res2 = await kv.GetAttorneyFeeAsync(JurisdictionAttorneyFeeLevel.Level1);
+            Assert.Equal(150, res2.Item1);
+            Assert.Equal("USD", res2.Item2);
+        }
+
+        [Fact]
+        public async void SetGetAttorneyFeeConsecutiveTest()
+        {
+            var kv = new KeyValueRepository(fixture.DbContext);
+            var res1 = await kv.SetAttorneyFeeAsync(JurisdictionAttorneyFeeLevel.Level2, 150, "USD");
+            Assert.True(res1.Success);
+            var res2 = await kv.SetAttorneyFeeAsync(JurisdictionAttorneyFeeLevel.Level2, 200, "EUR");
+            Assert.True(res2.Success);
+            var res3 = await kv.GetAttorneyFeeAsync(JurisdictionAttorneyFeeLevel.Level2);
+            Assert.Equal(200, res3.Item1);
+            Assert.Equal("EUR", res3.Item2);
+        }
+
+        [Fact]
+        public async void SetGetAttorneyFeeInvalidTest()
+        {
+            var kv = new KeyValueRepository(fixture.DbContext);
+            var res1 = await kv.GetAttorneyFeeAsync(JurisdictionAttorneyFeeLevel.Level3);
+            Assert.Equal(0, res1.Item1);
+            Assert.Equal(string.Empty, res1.Item2);
+        }
+
+        [Fact]
+        public async void SetGetCategoryWeightTest()
+        {
+            var kv = new KeyValueRepository(fixture.DbContext);
+            var res1 = await kv.SetCategoryWeightAsync("Category #1", 100);
+            Assert.True(res1.Success);
+            var res2 = await kv.GetCategoryWeightAsync("Category #1");
             Assert.Equal(100, res2);
         }
 
         [Fact]
-        public async void ConsecutiveSetKeyTest()
+        public async void SetGetCategoryWeightConsecutiveTest()
         {
             var kv = new KeyValueRepository(fixture.DbContext);
-            var res1 = await kv.SetKeyAsync("Key1", 100);
+            var res1 = await kv.SetCategoryWeightAsync("Category #2", 100);
             Assert.True(res1.Success);
-            var res2 = await kv.SetKeyAsync("Key1", 120);
+            var res2 = await kv.SetCategoryWeightAsync("Category #2", 200);
             Assert.True(res2.Success);
-            var res3 = await kv.GetKeyAsync("Key1");
-            Assert.Equal(120, res3);
+            var res3 = await kv.GetCategoryWeightAsync("Category #2");
+            Assert.Equal(200, res3);
         }
 
         [Fact]
-        public async void GetInvalidKey()
+        public async void SetGetCategoryWeightInvalidTest()
         {
             var kv = new KeyValueRepository(fixture.DbContext);
-            var res1 = await kv.GetKeyAsync("UnknownKey");
-            Assert.Equal(0, res1);
+            var res = await kv.GetCategoryWeightAsync("Category #3");
+            Assert.Equal(0, res);
         }
     }
 }

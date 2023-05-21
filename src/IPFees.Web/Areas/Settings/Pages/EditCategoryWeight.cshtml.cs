@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace IPFees.Web.Areas.Settings.Pages
 {
-    public class EditModel : PageModel
+    public class EditCategoryWeightModel : PageModel
     {
         [BindProperty] public string Category { get; set; }
         [BindProperty] public int Weight { get; set; }
@@ -12,7 +12,7 @@ namespace IPFees.Web.Areas.Settings.Pages
 
         private readonly IKeyValueRepository keyvalueRepository;
 
-        public EditModel(IKeyValueRepository keyvalueRepository)
+        public EditCategoryWeightModel(IKeyValueRepository keyvalueRepository)
         {
             this.keyvalueRepository = keyvalueRepository;
             ErrorMessages = new List<string>();
@@ -21,13 +21,13 @@ namespace IPFees.Web.Areas.Settings.Pages
         public async Task<IActionResult> OnGetAsync(string Id)
         {            
             Category = Id;
-            Weight = await keyvalueRepository.GetKeyAsync(Id);
+            Weight = await keyvalueRepository.GetCategoryWeightAsync(Id);
             return Page();
         }
 
         public async Task<IActionResult> OnPostAsync(string Id)
         {
-            var res = await keyvalueRepository.SetKeyAsync(Id, Weight);
+            var res = await keyvalueRepository.SetCategoryWeightAsync(Id, Weight);
             if (!res.Success)
             {
                 ErrorMessages.Add($"Error setting weight: {res.Reason}");
