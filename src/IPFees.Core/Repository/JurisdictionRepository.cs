@@ -1,12 +1,13 @@
 ﻿using IPFees.Calculator;
 using IPFees.Evaluator;
 using IPFees.Core.Data;
-using IPFees.Core.Models;
+using IPFees.Core.Model;
 using Mapster;
 using MongoDB.Bson;
 using MongoDB.Driver;
+using IPFees.Core.Enum;
 
-namespace IPFees.Core
+namespace IPFees.Core.Repository
 {
     public class JurisdictionRepository : IJurisdictionRepository
     {

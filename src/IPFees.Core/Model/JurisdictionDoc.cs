@@ -1,7 +1,8 @@
-﻿using MongoDB.Bson;
+﻿using IPFees.Core.Enum;
+using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
 
-namespace IPFees.Core.Models
+namespace IPFees.Core.Model
 {
     [BsonIgnoreExtraElements]
     public class JurisdictionDoc

@@ -1,3 +1,5 @@
+using IPFees.Core.Enum;
+using IPFees.Core.Repository;
 using IPFees.Core.Tests.Fixture;
 
 namespace IPFees.Core.Tests

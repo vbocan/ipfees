@@ -1,12 +1,12 @@
 ﻿using IPFees.Core.Data;
-using IPFees.Core.Models;
+using IPFees.Core.Model;
 using Mapster;
 using MongoDB.Bson;
 using MongoDB.Driver;
 using System.Diagnostics.Tracing;
 using System.Runtime.Versioning;
 
-namespace IPFees.Core
+namespace IPFees.Core.Repository
 {
     public class ModuleRepository : IModuleRepository
     {
@@ -93,7 +93,7 @@ namespace IPFees.Core
                 .Set(r => r.LastUpdatedOn, DateTime.UtcNow.ToLocalTime())
                 .Set(r => r.Category, Category));
             return res.IsAcknowledged ? DbResult.Succeed() : DbResult.Fail();
-        }        
+        }
 
         /// <summary>
         /// Set the module source code
