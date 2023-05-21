@@ -49,33 +49,36 @@ namespace IPFees.Core.Tests
         }
 
         [Fact]
-        public async void SetGetCategoryWeightTest()
+        public async void SetGetCategoryTest()
         {
             var kv = new KeyValueRepository(fixture.DbContext);
-            var res1 = await kv.SetCategoryWeightAsync("Category #1", 100);
+            var res1 = await kv.SetCategoryAsync("Category #1", 100, "Description");
             Assert.True(res1.Success);
-            var res2 = await kv.GetCategoryWeightAsync("Category #1");
-            Assert.Equal(100, res2);
+            var res2 = await kv.GetCategoryAsync("Category #1");
+            Assert.Equal(100, res2.Item1);
+            Assert.Equal("Description", res2.Item2);
         }
 
         [Fact]
-        public async void SetGetCategoryWeightConsecutiveTest()
+        public async void SetGetCategoryConsecutiveTest()
         {
             var kv = new KeyValueRepository(fixture.DbContext);
-            var res1 = await kv.SetCategoryWeightAsync("Category #2", 100);
+            var res1 = await kv.SetCategoryAsync("Category #2", 100, "Description");
             Assert.True(res1.Success);
-            var res2 = await kv.SetCategoryWeightAsync("Category #2", 200);
+            var res2 = await kv.SetCategoryAsync("Category #2", 150, "Description2");
             Assert.True(res2.Success);
-            var res3 = await kv.GetCategoryWeightAsync("Category #2");
-            Assert.Equal(200, res3);
+            var res3 = await kv.GetCategoryAsync("Category #2");
+            Assert.Equal(150, res3.Item1);
+            Assert.Equal("Description2", res3.Item2);
         }
 
         [Fact]
-        public async void SetGetCategoryWeightInvalidTest()
+        public async void SetGetCategoryInvalidTest()
         {
             var kv = new KeyValueRepository(fixture.DbContext);
-            var res = await kv.GetCategoryWeightAsync("Category #3");
-            Assert.Equal(0, res);
+            var res = await kv.GetCategoryAsync("Category #3");
+            Assert.Equal(0, res.Item1);
+            Assert.Equal(string.Empty, res.Item2);
         }
     }
 }

@@ -4,13 +4,15 @@ using IPFees.Core.Model;
 using Mapster;
 using MongoDB.Bson;
 using MongoDB.Driver;
+using static MongoDB.Driver.WriteConcern;
 
 namespace IPFees.Core.Repository
 {
     public class KeyValueRepository : IKeyValueRepository
     {
         private readonly DataContext context;
-        private const string CategoryWeightPrefix = "CATEGORYWEIGHT";
+        private const string CategoryDescriptionPrefix = "CATEGORYDESCRIPTION";
+        private const string CategoryWeightPrefix = "CATEGORYWEIGHT";        
         private const string AttorneyFeeAmountPrefix = "ATTORNEYFEEAMOUNT";
         private const string AttorneyFeeCurrencyPrefix = "ATTORNEYFEECURRENCY";
 
@@ -19,16 +21,25 @@ namespace IPFees.Core.Repository
             this.context = context;
         }
 
-        #region Category Weight
-        public async Task<DbResult> SetCategoryWeightAsync(string Category, int Weight) => await SetKeyAsync($"{CategoryWeightPrefix}_{Category}", Weight);
-        public async Task<int> GetCategoryWeightAsync(string Category)
+        #region Category Settings
+        public async Task<DbResult> SetCategoryAsync(string Name, int Weight, string Description)
         {
-            var obj = await GetKeyAsync($"{CategoryWeightPrefix}_{Category}");
-            return Convert.ToInt32(obj ?? 0);
+            var res1 = await SetKeyAsync($"{CategoryWeightPrefix}_{Name}", Weight);
+            if (!res1.Success) return res1;
+            var res2 = await SetKeyAsync($"{CategoryDescriptionPrefix}_{Name}", Description);
+            if (!res2.Success) return res2;            
+            return DbResult.Succeed();            
+        }
+        public async Task<(int, string)> GetCategoryAsync(string Name)
+        {
+            var obj = await GetKeyAsync($"{CategoryWeightPrefix}_{Name}");
+            int Weight = Convert.ToInt32(obj ?? 0);
+            var Description = await GetKeyAsync($"{CategoryDescriptionPrefix}_{Name}") as string;
+            return (Weight, Description ?? string.Empty);
         }
         #endregion
 
-        #region Attorney Fees
+        #region Attorney Fee Settings
         public async Task<DbResult> SetAttorneyFeeAsync(JurisdictionAttorneyFeeLevel feeLevel, int Amount, string Currency)
         {
             var res1 = await SetKeyAsync($"{AttorneyFeeAmountPrefix}_{feeLevel}", Amount);
