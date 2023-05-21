@@ -39,3 +39,39 @@
         }
     </div>
 </div>
+
+<div class="row">
+    <div class="col-lg-6">
+        <h2>Attorney Fees</h2>
+        @if (Model.AttorneyFees.Any())
+        {
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th scope="col">Attorney Fee Level</th>
+                        <th scope="col">Amount</th>
+                        <th scope="col">Currency</th>
+                        <th scope="col"></th>
+
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var mi in Model.AttorneyFees)
+                    {
+                        <tr>
+                            <td>@mi.FeeLevel</td>
+                            <td>@mi.Amount</td>
+                            <td>@mi.Currency</td>
+                            <td><a asp-page="Edit" asp-route-id="@mi.FeeLevel">Edit</a></td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+            <h6>@Model.AttorneyFees.Count() attorney fee levels.</h6>
+        }
+        else
+        {
+            <h6>Attorney fees appear here.</h6>
+        }
+    </div>
+</div>
