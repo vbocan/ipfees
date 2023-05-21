@@ -2,5 +2,5 @@
 
 namespace IPFees.Core.Model
 {
-    public record AttorneyFeeInfo(string FeeLevel, int Amount, string Currency);
+    public record AttorneyFeeInfo(JurisdictionAttorneyFeeLevel FeeLevel, int Amount, string Currency);
 }

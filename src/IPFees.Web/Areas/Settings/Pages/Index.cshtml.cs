@@ -30,10 +30,12 @@ namespace IPFees.Web.Areas.Settings.Pages
             // Retrieve the distinct list of categories
             ModuleCategories = (await moduleRepository.GetModules())
                 .DistinctBy(d => d.Category)
-                .Select(s => new ModuleCategoryInfo(s.Category, keyvalueRepository.GetKeyAsync(s.Category).Result))
+                .Select(s => new ModuleCategoryInfo(s.Category, keyvalueRepository.GetCategoryWeightAsync(s.Category).Result))
                 .OrderBy(o => o.Weight);
             // Retrieve the list of attorney fee levels
-            AttorneyFees = Enum.GetValues(typeof(JurisdictionAttorneyFeeLevel)).Cast<JurisdictionAttorneyFeeLevel>().Select(s => new AttorneyFeeInfo(s.ValueAsString(), 10, "AAA"));
+            AttorneyFees = from s in Enum.GetValues(typeof(JurisdictionAttorneyFeeLevel)).Cast<JurisdictionAttorneyFeeLevel>()
+                           let af = keyvalueRepository.GetAttorneyFeeAsync(s).Result
+                           select new AttorneyFeeInfo(s, af.Item1, af.Item2);
             return Page();
         }
     }
