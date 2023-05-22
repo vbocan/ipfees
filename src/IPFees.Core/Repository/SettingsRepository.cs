@@ -28,13 +28,13 @@ namespace IPFees.Core.Repository
             return res.IsAcknowledged ? DbResult.Succeed() : DbResult.Fail();
         }
 
-        public async Task<(string?, int)> GetModuleGroupAsync(string GroupName)
+        public async Task<(string, int)> GetModuleGroupAsync(string GroupName)
         {
             var filter = Builders<SettingsDoc>.Filter.Empty;            
             var res = (await context.SettingsCollection.FindAsync(filter)).FirstOrDefault();
             var GroupDescription = res.ModuleGroups.FirstOrDefault(w=>w.GroupName.Equals(GroupName))?.GroupDescription;            
             var GroupIndex = res.ModuleGroups.FindIndex(w => w.GroupName.Equals(GroupName));
-            return (GroupDescription, GroupIndex);
+            return (GroupDescription ?? string.Empty, GroupIndex);
         }
 
         public async Task MoveModuleGroupDownAsync(string GroupName)
@@ -87,7 +87,7 @@ namespace IPFees.Core.Repository
             return res.IsAcknowledged ? DbResult.Succeed() : DbResult.Fail();
         }
 
-        public async Task<(double, string?)> GetAttorneyFeeAsync(JurisdictionAttorneyFeeLevel Level)
+        public async Task<(double, string)> GetAttorneyFeeAsync(JurisdictionAttorneyFeeLevel Level)
         {
             var filter = Builders<SettingsDoc>.Filter.Empty;
             var res = (await context.SettingsCollection.FindAsync(filter)).FirstOrDefault();

@@ -12,7 +12,7 @@ namespace IPFees.Core.Model
             Name = string.Empty;
             Description = string.Empty;
             SourceCode = string.Empty;
-            Category = string.Empty;            
+            GroupName = string.Empty;            
             LastUpdatedOn = DateTime.MinValue;
         }
 
@@ -20,7 +20,7 @@ namespace IPFees.Core.Model
         public Guid Id { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
-        public string Category { get; set; }        
+        public string GroupName { get; set; }        
         public string SourceCode { get; set; }
         [BsonDateTimeOptions(Kind = DateTimeKind.Local)]
         public DateTime LastUpdatedOn { get; set; }

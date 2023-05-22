@@ -8,29 +8,29 @@ namespace IPFees.Web.Areas.Settings.Pages
     public class EditAttorneyFeeModel : PageModel
     {
         [BindProperty] public string AttorneyFeeLevel { get; set; }
-        [BindProperty] public int Amount { get; set; }
+        [BindProperty] public double Amount { get; set; }
         [BindProperty] public string Currency { get; set; }
 
         [BindProperty] public IList<string> ErrorMessages { get; set; }
 
-        private readonly ISettingsRepository keyvalueRepository;
+        private readonly ISettingsRepository settingRepository;
 
-        public EditAttorneyFeeModel(ISettingsRepository keyvalueRepository)
+        public EditAttorneyFeeModel(ISettingsRepository settingRepository)
         {
-            this.keyvalueRepository = keyvalueRepository;
+            this.settingRepository = settingRepository;
             ErrorMessages = new List<string>();
         }
 
         public async Task<IActionResult> OnGetAsync(string Id)
         {
             AttorneyFeeLevel = Id;
-            (Amount, Currency) = await keyvalueRepository.GetAttorneyFeeAsync(Enum.Parse<JurisdictionAttorneyFeeLevel>(Id));
+            (Amount, Currency) = await settingRepository.GetAttorneyFeeAsync(Enum.Parse<JurisdictionAttorneyFeeLevel>(Id));
             return Page();
         }
 
         public async Task<IActionResult> OnPostAsync(string Id)
         {
-            var res = await keyvalueRepository.SetAttorneyFeeAsync(Enum.Parse<JurisdictionAttorneyFeeLevel>(Id), Amount, Currency);
+            var res = await settingRepository.SetAttorneyFeeLevelAsync(Enum.Parse<JurisdictionAttorneyFeeLevel>(Id), Amount, Currency);
             if (!res.Success)
             {
                 ErrorMessages.Add($"Error setting attorney fee: {res.Reason}");

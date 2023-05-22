@@ -8,7 +8,7 @@ namespace IPFees.Web.Areas.Module.Pages
     {
         [BindProperty] public string Name { get; set; }
         [BindProperty] public string Description { get; set; }
-        [BindProperty] public string Category { get; set; }        
+        [BindProperty] public string GroupName { get; set; }        
         [BindProperty] public string SourceCode { get; set; }
         [BindProperty] public IList<string> ErrorMessages { get; set; }
 
@@ -26,7 +26,7 @@ namespace IPFees.Web.Areas.Module.Pages
             Name = info.Name;
             Description = info.Description;
             SourceCode = info.SourceCode;
-            Category = info.Category;            
+            GroupName = info.GroupName;            
             return Page();
         }
 
@@ -47,10 +47,10 @@ namespace IPFees.Web.Areas.Module.Pages
             {
                 ErrorMessages.Add($"Error setting source code: {res.Reason}");
             }
-            res = await moduleRepository.SetModuleCategoryAsync(Id, Category);
+            res = await moduleRepository.SetModuleGroupAsync(Id, GroupName);
             if (!res.Success)
             {
-                ErrorMessages.Add($"Error setting category: {res.Reason}");
+                ErrorMessages.Add($"Error setting group name: {res.Reason}");
             }
             
             if (ErrorMessages.Any()) return Page();
