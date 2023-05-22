@@ -36,7 +36,7 @@ builder.Services.AddTransient<IDslParser, DslParser>();
 builder.Services.AddTransient<IDslCalculator, DslCalculator>();
 builder.Services.AddTransient<IJurisdictionRepository, JurisdictionRepository>();
 builder.Services.AddTransient<IModuleRepository, ModuleRepository>();
-builder.Services.AddTransient<IKeyValueRepository, KeyValueRepository>();
+builder.Services.AddTransient<ISettingsRepository, SettingsRepository>();
 builder.Services.AddTransient<IOfficialFee, OfficialFee>();
 
 // Add logger

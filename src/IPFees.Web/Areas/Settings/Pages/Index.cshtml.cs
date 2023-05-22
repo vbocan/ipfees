@@ -12,10 +12,10 @@ namespace IPFees.Web.Areas.Settings.Pages
         [BindProperty] public IEnumerable<ModuleCategoryInfo> ModuleCategories { get; set; }
         [BindProperty] public IEnumerable<AttorneyFeeInfo> AttorneyFees { get; set; }
 
-        private readonly IKeyValueRepository keyvalueRepository;
+        private readonly ISettingsRepository keyvalueRepository;
         private readonly IModuleRepository moduleRepository;
 
-        public IndexModel(IKeyValueRepository keyvalueRepository, IModuleRepository moduleRepository)
+        public IndexModel(ISettingsRepository keyvalueRepository, IModuleRepository moduleRepository)
         {
             this.keyvalueRepository = keyvalueRepository;
             this.moduleRepository = moduleRepository;
