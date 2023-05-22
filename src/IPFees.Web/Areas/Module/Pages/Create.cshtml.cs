@@ -41,10 +41,10 @@ namespace IPFees.Web.Areas.Module.Pages
             {
                 ErrorMessages.Add($"Error setting source code: {res3.Reason}");
             }
-            var res4 = await moduleRepository.SetModuleCategoryAsync(res1.Id, Category);
+            var res4 = await moduleRepository.SetModuleGroupAsync(res1.Id, Category);
             if (!res4.Success)
             {
-                ErrorMessages.Add($"Error setting category: {res4.Reason}");
+                ErrorMessages.Add($"Error setting group: {res4.Reason}");
             }
 
             if (ErrorMessages.Any()) return Page();

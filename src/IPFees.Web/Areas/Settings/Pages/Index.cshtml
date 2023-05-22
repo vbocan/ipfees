@@ -8,32 +8,32 @@
 
 <div class="row">
     <div class="col-lg-6">
-        <h2>Module Categories</h2>
-        @if (Model.ModuleCategories.Any())
+        <h2>Module Groups</h2>
+        @if (Model.ModuleGroups.Any())
         {
             <table class="table table-hover">
                 <thead>
                     <tr>
-                        <th scope="col">Category</th>
-                        <th scope="col">Weight</th>
+                        <th scope="col">#</th>
+                        <th scope="col">Group</th>                        
                         <th scope="col">Description</th>
                         <th scope="col"></th>
 
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach (var mi in Model.ModuleCategories)
+                    @foreach (var mi in Model.ModuleGroups)
                     {
                         <tr>
-                            <td>@mi.Name</td>
-                            <td>@mi.Weight</td>
-                            <td>@mi.Description</td>
-                            <td><a asp-page="EditCategory" asp-route-id="@mi.Name">Edit</a></td>
+                            <td>@mi.GroupIndex</td>
+                            <td>@mi.GroupName</td>
+                            <td>@mi.GroupDescription</td>                            
+                            <td><a asp-page="EditCategory" asp-route-id="@mi.GroupName">Edit</a></td>
                         </tr>
                     }
                 </tbody>
             </table>
-            <h6>@Model.ModuleCategories.Count() module categories.</h6>
+            <h6>@Model.ModuleGroups.Count() module categories.</h6>
         }
         else
         {
