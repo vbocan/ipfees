@@ -11,9 +11,9 @@ namespace IPFees.Web.Areas.Settings.Pages
         [BindProperty] public string Description { get; set; }
         [BindProperty] public IList<string> ErrorMessages { get; set; }
 
-        private readonly IKeyValueRepository keyvalueRepository;
+        private readonly ISettingsRepository keyvalueRepository;
 
-        public EditCategoryModel(IKeyValueRepository keyvalueRepository)
+        public EditCategoryModel(ISettingsRepository keyvalueRepository)
         {
             this.keyvalueRepository = keyvalueRepository;
             ErrorMessages = new List<string>();

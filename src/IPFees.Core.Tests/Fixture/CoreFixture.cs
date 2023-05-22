@@ -18,7 +18,7 @@ namespace IPFees.Core.Tests.Fixture
             DbContext = new DataContext(connectionString);
             DbContext.ModuleCollection.DeleteMany(new BsonDocument());
             DbContext.JurisdictionCollection.DeleteMany(new BsonDocument());
-            DbContext.KeyValueCollection.DeleteMany(new BsonDocument());            
+            DbContext.SettingsCollection.DeleteMany(new BsonDocument());            
         }
 
         public void Dispose()
