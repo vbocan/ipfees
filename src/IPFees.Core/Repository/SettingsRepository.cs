@@ -34,7 +34,7 @@ namespace IPFees.Core.Repository
             var res = (await context.SettingsCollection.FindAsync(filter)).FirstOrDefault();
             var GroupDescription = res.ModuleGroups.FirstOrDefault(w=>w.GroupName.Equals(GroupName))?.GroupDescription;            
             var GroupIndex = res.ModuleGroups.FindIndex(w => w.GroupName.Equals(GroupName));
-            return (GroupDescription ?? string.Empty, GroupIndex);
+            return (GroupDescription ?? string.Empty, GroupIndex + 1);
         }
 
         public async Task MoveModuleGroupDownAsync(string GroupName)
