@@ -4,10 +4,6 @@ using IPFees.Core.Model;
 using Mapster;
 using MongoDB.Bson;
 using MongoDB.Driver;
-using System.Collections.Generic;
-using System.Xml.Linq;
-using static MongoDB.Driver.WriteConcern;
-using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace IPFees.Core.Repository
 {
