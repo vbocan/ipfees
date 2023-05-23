@@ -22,77 +22,82 @@ namespace IPFees.Core.Repository
         #region Category Settings
         public async Task<DbResult> SetModuleGroupAsync(string GroupName, string GroupDescription)
         {
-            var filter = Builders<SettingsDoc>.Filter.Empty;
-            var update = Builders<SettingsDoc>.Update.AddToSet(f => f.ModuleGroups, new ModuleGroup(GroupName, GroupDescription));
-            var res = await context.SettingsCollection.UpdateOneAsync(filter, update, new UpdateOptions { IsUpsert = true });
+            var res = await context.ModuleGroupsCollection.UpdateOneAsync(r => r.GroupName.Equals(GroupName),
+                Builders<ModuleGroupsDoc>
+                .Update
+                .Set(r => r.GroupName, GroupName)
+                .Set(r => r.GroupDescription, GroupDescription),
+                new UpdateOptions { IsUpsert = true }
+                );
             return res.IsAcknowledged ? DbResult.Succeed() : DbResult.Fail();
         }
 
-        public async Task<(string, int)> GetModuleGroupAsync(string GroupName)
+        public async Task<IEnumerable<ModuleGroupInfo>> GetModuleGroupsAsync()
         {
-            var filter = Builders<SettingsDoc>.Filter.Empty;            
-            var res = (await context.SettingsCollection.FindAsync(filter)).FirstOrDefault();
-            var GroupDescription = res.ModuleGroups.FirstOrDefault(w=>w.GroupName.Equals(GroupName))?.GroupDescription;            
-            var GroupIndex = res.ModuleGroups.FindIndex(w => w.GroupName.Equals(GroupName));
-            return (GroupDescription ?? string.Empty, GroupIndex + 1);
+            var dbObjs = await context.ModuleGroupsCollection.FindAsync(new BsonDocument());
+            return dbObjs.ToList().Adapt<IEnumerable<ModuleGroupInfo>>();
+        }
+
+        public async Task<ModuleGroupInfo> GetModuleGroupAsync(string GroupName)
+        {
+            var filter = Builders<ModuleGroupsDoc>.Filter.Eq(m => m.GroupName, GroupName);
+            var dbObjs = (await context.ModuleGroupsCollection.FindAsync(filter)).FirstOrDefaultAsync().Result;
+            if (dbObjs != null)
+            {
+                return dbObjs.Adapt<ModuleGroupInfo>();
+            }
+            else
+            {
+                return new ModuleGroupInfo(GroupName, string.Empty, -1);
+            }
         }
 
         public async Task MoveModuleGroupDownAsync(string GroupName)
         {
-            var filter = Builders<SettingsDoc>.Filter.Empty;
-            var res = (await context.SettingsCollection.FindAsync(filter)).FirstOrDefault();
-            MoveGroupDown(res.ModuleGroups, GroupName);
+            //var filter = Builders<SettingsDoc>.Filter.Empty;
+            //var res = (await context.SettingsCollection.FindAsync(filter)).FirstOrDefault();
+            //MoveGroupDown(res.ModuleGroups, GroupName);
         }
 
         public async Task MoveModuleGroupUpAsync(string GroupName)
         {
-            var filter = Builders<SettingsDoc>.Filter.Empty;
-            var res = (await context.SettingsCollection.FindAsync(filter)).FirstOrDefault();
-            MoveGroupUp(res.ModuleGroups, GroupName);
+            //var filter = Builders<SettingsDoc>.Filter.Empty;
+            //var res = (await context.SettingsCollection.FindAsync(filter)).FirstOrDefault();
+            //MoveGroupUp(res.ModuleGroups, GroupName);
         }
-        #endregion
-
-        #region Helpers
-        private void MoveGroupDown(List<ModuleGroup> items, string GroupName)
-        {
-            // Find the index of the record with the specified group name
-            int index = items.FindIndex(record => record.GroupName.Equals(GroupName));
-            // If the record was found and it's not already the last item in the list
-            if (index != -1 && index < items.Count - 1)
-            {
-                // Swap the record with the next one
-                (items[index + 1], items[index]) = (items[index], items[index + 1]);
-            }
-        }
-
-        private void MoveGroupUp(List<ModuleGroup> items, string GroupName)
-        {
-            // Find the index of the record with the specified group name
-            int index = items.FindIndex(record => record.GroupName.Equals(GroupName));
-            // If the record was found and it's not already the first item in the list
-            if (index != -1 && index > 0)
-            {
-                // Swap the record with the previous one
-                (items[index - 1], items[index]) = (items[index], items[index - 1]);
-            }
-        }
-        #endregion
+        #endregion        
 
         #region Attorney Fees Level Settings
-        public async Task<DbResult> SetAttorneyFeeLevelAsync(JurisdictionAttorneyFeeLevel Level, double Amount, string Currency)
+        public async Task<DbResult> SetAttorneyFeeAsync(JurisdictionAttorneyFeeLevel FeeLevel, double Amount, string Currency)
         {
-            var filter = Builders<SettingsDoc>.Filter.Empty;
-            var update = Builders<SettingsDoc>.Update.AddToSet(f => f.AttorneyFeeLevels, new AttorneyFee(Level, Amount, Currency));
-            var res = await context.SettingsCollection.UpdateOneAsync(filter, update, new UpdateOptions { IsUpsert = true });
+            var res = await context.AttorneyFeesCollection.UpdateOneAsync(r => r.FeeLevel.Equals(FeeLevel),
+                Builders<AttorneyFeesDoc>
+                .Update
+                .Set(r => r.Amount, Amount)
+                .Set(r => r.Currency, Currency),
+                new UpdateOptions { IsUpsert = true }
+                );
             return res.IsAcknowledged ? DbResult.Succeed() : DbResult.Fail();
         }
 
-        public async Task<(double, string)> GetAttorneyFeeAsync(JurisdictionAttorneyFeeLevel Level)
+        public async Task<IEnumerable<AttorneyFeeInfo>> GetAttorneyFeesAsync()
         {
-            var filter = Builders<SettingsDoc>.Filter.Empty;
-            var res = (await context.SettingsCollection.FindAsync(filter)).FirstOrDefault();
-            var af = res.AttorneyFeeLevels.FirstOrDefault(w => w.Level.Equals(Level));            
-            return (af?.Amount ?? 0.0, af?.Currency ?? string.Empty);
+            var dbObjs = await context.AttorneyFeesCollection.FindAsync(new BsonDocument());
+            return dbObjs.ToList().Adapt<IEnumerable<AttorneyFeeInfo>>();
+        }
+
+        public async Task<AttorneyFeeInfo> GetAttorneyFeeAsync(JurisdictionAttorneyFeeLevel FeeLevel)
+        {
+            var filter = Builders<AttorneyFeesDoc>.Filter.Eq(m => m.FeeLevel, FeeLevel);
+            var dbObjs = (await context.AttorneyFeesCollection.FindAsync(filter)).FirstOrDefaultAsync().Result;
+            if (dbObjs != null)
+            {
+                return dbObjs.Adapt<AttorneyFeeInfo>();
+            }
+            else
+            {
+                return new AttorneyFeeInfo(FeeLevel, 0, string.Empty);
+            }
         }
         #endregion
     }

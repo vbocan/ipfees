@@ -9,7 +9,7 @@ namespace IPFees.Web.Areas.Settings.Pages
 {
     public class IndexModel : PageModel
     {
-        [BindProperty] public IEnumerable<ModuleCategoryInfo> ModuleGroups { get; set; }
+        [BindProperty] public IEnumerable<ModuleGroupInfo> ModuleGroups { get; set; }
         [BindProperty] public IEnumerable<AttorneyFeeInfo> AttorneyFees { get; set; }
 
         private readonly ISettingsRepository settingsRepository;
@@ -25,14 +25,14 @@ namespace IPFees.Web.Areas.Settings.Pages
             // Retrieve the distinct list of module groups
             var mca = from s in (await moduleRepository.GetModules()).DistinctBy(d => d.GroupName)
                      let cd = settingsRepository.GetModuleGroupAsync(s.GroupName).Result
-                     orderby cd.Item1 ascending
-                     select new ModuleCategoryInfo(s.GroupName, cd.Item1 ?? string.Empty, cd.Item2);
+                     orderby cd.GroupIndex ascending
+                     select new ModuleGroupInfo(s.GroupName, cd.GroupDescription ?? string.Empty, cd.GroupIndex);
             ModuleGroups = mca.ToList();
 
             // Retrieve the list of attorney fee levels
             var afs = from s in Enum.GetValues(typeof(JurisdictionAttorneyFeeLevel)).Cast<JurisdictionAttorneyFeeLevel>()
                      let af = settingsRepository.GetAttorneyFeeAsync(s).Result
-                     select new AttorneyFeeInfo(s, af.Item1, af.Item2 ?? string.Empty);
+                     select new AttorneyFeeInfo(s, af.Amount, af.Currency ?? string.Empty);
             AttorneyFees = afs.ToList();
             return Page();
         }
