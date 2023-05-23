@@ -23,7 +23,7 @@ namespace IPFees.Web.Areas.Settings.Pages
         public async Task<IActionResult> OnGetAsync()
         {
             // Retrieve the distinct list of module groups
-            var mca = from s in (await moduleRepository.GetModules()).DistinctBy(d => d.GroupName)
+            var mca = from s in (await moduleRepository.GetModules()).Where(w=>!string.IsNullOrEmpty(w.GroupName)).DistinctBy(d => d.GroupName)
                      let cd = settingsRepository.GetModuleGroupAsync(s.GroupName).Result
                      orderby cd.GroupIndex ascending
                      select new ModuleGroupInfo(s.GroupName, cd.GroupDescription ?? string.Empty, cd.GroupIndex);
