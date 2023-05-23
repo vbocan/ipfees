@@ -26,7 +26,8 @@ namespace IPFees.Core.Repository
                 Builders<ModuleGroupsDoc>
                 .Update
                 .Set(r => r.GroupName, GroupName)
-                .Set(r => r.GroupDescription, GroupDescription),
+                .Set(r => r.GroupDescription, GroupDescription)
+                .SetOnInsert(r => r.GroupIndex, 1),
                 new UpdateOptions { IsUpsert = true }
                 );
             return res.IsAcknowledged ? DbResult.Succeed() : DbResult.Fail();
