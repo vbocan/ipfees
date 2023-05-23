@@ -1,10 +1,10 @@
 ﻿@page "{id}"
 @model EditGroupModel
 @{
-    ViewData["Title"] = "Module Category";
+    ViewData["Title"] = "Module Group";
 }
 
-<h1>Module Category <small class="text-muted">@Model.GroupName</small></h1>
+<h1>Module Group <small class="text-muted">@Model.GroupName</small></h1>
 
 <div class="row">
     <div class="col-lg-4">
@@ -22,7 +22,7 @@
         }
         <form method="post">            
             <div class="mb-3">
-                <label for="@Model.GroupName" class="form-label">Category</label>
+                <label for="@Model.GroupName" class="form-label">Group</label>
                 <input asp-for="GroupName" class="form-control" disabled />
             </div>
             <div class="mb-3">

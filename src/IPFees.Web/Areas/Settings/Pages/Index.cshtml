@@ -13,8 +13,7 @@
         {
             <table class="table table-hover">
                 <thead>
-                    <tr>
-                        <th scope="col">#</th>
+                    <tr>                        
                         <th scope="col">Group</th>                        
                         <th scope="col">Description</th>
                         <th scope="col"></th>
@@ -24,11 +23,10 @@
                 <tbody>
                     @foreach (var mi in Model.ModuleGroups)
                     {
-                        <tr>
-                            <td>@mi.GroupIndex</td>
+                        <tr>                            
                             <td>@mi.GroupName</td>
                             <td>@mi.GroupDescription</td>                            
-                            <td><a asp-page="EditCategory" asp-route-id="@mi.GroupName">Edit</a></td>
+                            <td><a asp-page="EditGroup" asp-route-id="@mi.GroupName">Edit</a></td>
                         </tr>
                     }
                 </tbody>
