@@ -22,7 +22,9 @@ namespace IPFees.Web.Areas.Settings.Pages
         public async Task<IActionResult> OnGetAsync(string Id)
         {            
             GroupName = Id;
-            (GroupDescription, GroupIndex) = await settingsRepository.GetModuleGroupAsync(Id);
+            var mgi = await settingsRepository.GetModuleGroupAsync(Id);
+            GroupDescription = mgi.GroupDescription;
+            GroupIndex = mgi.GroupIndex;
             return Page();
         }
 
