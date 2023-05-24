@@ -1,0 +1,1 @@
+mongodump -d IPFees mongodb+srv://valerbocan:cxpAkYCALM15zC8j@ipfeescluster.ayqdiey.mongodb.net/IPFees
