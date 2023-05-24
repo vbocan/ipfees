@@ -13,13 +13,13 @@ namespace IPFees.Core.Model
         {
             GroupName = string.Empty;
             GroupDescription = string.Empty;
-            GroupIndex = 1;
+            GroupWeight = 1;
         }
 
         [BsonId]
         public ObjectId Id { get; set; }
         public string GroupName { get; set; }
         public string GroupDescription { get; set; }
-        public int GroupIndex { get; set; }
+        public int GroupWeight { get; set; }
     }
 }
