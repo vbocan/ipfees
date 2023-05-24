@@ -57,19 +57,7 @@ namespace IPFees.Core.Tests
             var mi = await mod.GetModuleById(res1.Id);
             Assert.Equal("Module Description", mi.Description);
         }
-
-        [Fact]
-        public async void SetModuleGroupTest()
-        {
-            var mod = new ModuleRepository(fixture.DbContext);
-            var res1 = await mod.AddModuleAsync("Module-Set-Group");
-            Assert.True(res1.Success);
-            var res2 = await mod.SetModuleGroupAsync(res1.Id, "Module Group");
-            Assert.True(res2.Success);
-            var mi = await mod.GetModuleById(res1.Id);
-            Assert.Equal("Module Group", mi.GroupName);
-        }        
-
+        
         [Fact]
         public async void SetModuleSourceCodeTest()
         {

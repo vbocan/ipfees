@@ -13,42 +13,7 @@ namespace IPFees.Core.Repository
         public SettingsRepository(DataContext context)
         {
             this.context = context;
-        }
-
-        #region Category Settings
-        public async Task<DbResult> SetModuleGroupAsync(string GroupName, string GroupDescription, int GroupWeight)
-        {
-            var res = await context.ModuleGroupsCollection.UpdateOneAsync(r => r.GroupName.Equals(GroupName),
-                Builders<ModuleGroupsDoc>
-                .Update
-                .Set(r => r.GroupName, GroupName)
-                .Set(r => r.GroupDescription, GroupDescription)
-                .Set(r => r.GroupWeight, GroupWeight),
-                new UpdateOptions { IsUpsert = true }
-                );
-            return res.IsAcknowledged ? DbResult.Succeed() : DbResult.Fail();
-        }
-
-        public async Task<IEnumerable<ModuleGroupInfo>> GetModuleGroupsAsync()
-        {
-            var dbObjs = await context.ModuleGroupsCollection.FindAsync(new BsonDocument());
-            return dbObjs.ToList().Adapt<IEnumerable<ModuleGroupInfo>>();
-        }
-
-        public async Task<ModuleGroupInfo> GetModuleGroupAsync(string GroupName)
-        {
-            var filter = Builders<ModuleGroupsDoc>.Filter.Eq(m => m.GroupName, GroupName);
-            var dbObjs = (await context.ModuleGroupsCollection.FindAsync(filter)).FirstOrDefaultAsync().Result;
-            if (dbObjs != null)
-            {
-                return dbObjs.Adapt<ModuleGroupInfo>();
-            }
-            else
-            {
-                return new ModuleGroupInfo(GroupName, string.Empty, -1);
-            }
         }        
-        #endregion        
 
         #region Attorney Fees Level Settings
         public async Task<DbResult> SetAttorneyFeeAsync(JurisdictionAttorneyFeeLevel FeeLevel, double Amount, string Currency)

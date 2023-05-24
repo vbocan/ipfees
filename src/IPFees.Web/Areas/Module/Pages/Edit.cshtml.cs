@@ -7,8 +7,7 @@ namespace IPFees.Web.Areas.Module.Pages
     public class EditModel : PageModel
     {
         [BindProperty] public string Name { get; set; }
-        [BindProperty] public string Description { get; set; }
-        [BindProperty] public string GroupName { get; set; }        
+        [BindProperty] public string Description { get; set; }        
         [BindProperty] public string SourceCode { get; set; }
         [BindProperty] public IList<string> ErrorMessages { get; set; }
 
@@ -25,8 +24,7 @@ namespace IPFees.Web.Areas.Module.Pages
             var info = await moduleRepository.GetModuleById(Id);
             Name = info.Name;
             Description = info.Description;
-            SourceCode = info.SourceCode;
-            GroupName = info.GroupName;            
+            SourceCode = info.SourceCode;            
             return Page();
         }
 
@@ -46,12 +44,7 @@ namespace IPFees.Web.Areas.Module.Pages
             if (!res.Success)
             {
                 ErrorMessages.Add($"Error setting source code: {res.Reason}");
-            }
-            res = await moduleRepository.SetModuleGroupAsync(Id, GroupName);
-            if (!res.Success)
-            {
-                ErrorMessages.Add($"Error setting group name: {res.Reason}");
-            }
+            }            
             
             if (ErrorMessages.Any()) return Page();
             else return RedirectToPage("Index");
