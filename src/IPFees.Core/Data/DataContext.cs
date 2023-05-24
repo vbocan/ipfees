@@ -13,8 +13,7 @@ namespace IPFees.Core.Data
     {
         public IMongoDatabase Context { get; private set; }
         public IMongoCollection<ModuleDoc> ModuleCollection { get; set; }
-        public IMongoCollection<JurisdictionDoc> JurisdictionCollection { get; set; }
-        public IMongoCollection<ModuleGroupsDoc> ModuleGroupsCollection { get; set; }
+        public IMongoCollection<JurisdictionDoc> JurisdictionCollection { get; set; }        
         public IMongoCollection<AttorneyFeesDoc> AttorneyFeesCollection { get; set; }
 
         private string ConnectionString { get; set; }
@@ -29,8 +28,7 @@ namespace IPFees.Core.Data
                 Context = client.GetDatabase(DatabaseName);
             
             ModuleCollection = Context.GetCollection<ModuleDoc>(ModuleDoc.CollectionName);
-            JurisdictionCollection = Context.GetCollection<JurisdictionDoc>(JurisdictionDoc.CollectionName);
-            ModuleGroupsCollection = Context.GetCollection<ModuleGroupsDoc>(ModuleGroupsDoc.CollectionName);
+            JurisdictionCollection = Context.GetCollection<JurisdictionDoc>(JurisdictionDoc.CollectionName);            
             AttorneyFeesCollection = Context.GetCollection<AttorneyFeesDoc>(AttorneyFeesDoc.CollectionName);
             // Ensure indexes are in place
             /*

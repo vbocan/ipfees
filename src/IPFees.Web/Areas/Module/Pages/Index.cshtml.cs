@@ -22,7 +22,7 @@ namespace IPFees.Web.Areas.Module.Pages
         public async Task<IActionResult> OnGetAsync()
         {
             // Retrieve modules from the database
-            var DbMod = (await moduleRepository.GetModules()).OrderBy(o => o.Name).ThenBy(t=>t.GroupName);
+            var DbMod = (await moduleRepository.GetModules()).OrderBy(o => o.Name).ThenBy(t=>t.LastUpdatedOn);
             // Compute the number of jurisdictions that reference each module
             var DbJur = await jurisdictionRepository.GetJurisdictions();
             Modules = from m in DbMod
