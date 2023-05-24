@@ -1,72 +1,73 @@
-﻿using IPFees.Calculator;
-using IPFees.Evaluator;
-using IPFees.Parser;
-using Pastel;
-using System.Drawing;
+﻿using IPFees.Core.Data;
+using IPFees.Core.Enum;
+using IPFees.Core.Repository;
 
+string folderPath = "..\\..\\..\\..\\..\\assets\\TranslationFiles";
 
-string text = File.ReadAllText(@"..\..\..\us_fees.ipf");
+string[] txtFiles = Directory.GetFiles(folderPath, "*.txt");
+var dc = new DataContext("mongodb+srv://valerbocan:cxpAkYCALM15zC8j@ipfeescluster.ayqdiey.mongodb.net/IPFeesDev?retryWrites=true&w=majority");
+var jr = new JurisdictionRepository(dc);
 
-var parser = new DslParser();
-var calc = new DslCalculator(parser);
-calc.Parse(text);
-var CalcErrors = calc.GetErrors();
-
-if (!CalcErrors.Any())
+foreach (string filePath in txtFiles)
 {
-    Console.WriteLine("PARSED INPUTS ==================================================".Pastel(ConsoleColor.Yellow));
-    foreach (var v in calc.GetInputs())
-    {
-        Console.WriteLine(v);
-    }
+    string fileName = Path.GetFileName(filePath);
+    Console.WriteLine($"Processing file: {fileName}");
 
+    string contents = File.ReadAllText(filePath);
+    var Name = ExtractName(contents);
+    if (string.IsNullOrEmpty(Name)) throw new ApplicationException("Invalid filename!");
+    var Description = ExtractDescription(contents);
+    if (string.IsNullOrEmpty(Description)) throw new ApplicationException("Invalid description!");
+
+    var res = await jr.AddJurisdictionAsync(Name);
+    if (!res.Success)
+    {
+        throw new ApplicationException($"Impossible to add jurisdiction {Name}!");
+    }
+    await jr.SetJurisdictionDescriptionAsync(res.Id, Description);
+    await jr.SetJurisdictionAttorneyFeeLevelAsync(res.Id, JurisdictionAttorneyFeeLevel.Level1);
+    await jr.SetJurisdictionCategoryAsync(res.Id, JurisdictionCategory.TranslationFees);
+    await jr.SetReferencedModules(res.Id, new Guid[] { Guid.Parse("907f2be0-8028-4df8-a2a6-39ae971a44a0") });
+    await jr.SetJurisdictionSourceCodeAsync(res.Id, contents);
     Console.WriteLine();
-    Console.WriteLine("PARSED FEES: ===================================================".Pastel(ConsoleColor.Yellow));
-    foreach (var f in calc.GetFees())
+}
+
+string ExtractName(string contents)
+{
+    string[] lines = contents.Split('\n');
+
+    foreach (string line in lines)
     {
-        Console.WriteLine(f);
+        string trimmedLine = line.Trim();
+
+        if (!string.IsNullOrEmpty(trimmedLine))
+        {
+            // # File name: PCT-AE-AGT
+            if (trimmedLine.StartsWith("# File name:"))
+            {
+                return trimmedLine[13..].Trim();
+            }
+        }
     }
+    return string.Empty;
 }
-else
+
+string ExtractDescription(string contents)
 {
-    Console.WriteLine("Errors detected:");
-    foreach (var e in calc.GetErrors())
+    string[] lines = contents.Split('\n');
+
+    foreach (string line in lines)
     {
-        Console.WriteLine(e);
+        string trimmedLine = line.Trim();
+
+        if (!string.IsNullOrEmpty(trimmedLine))
+        {
+            // # File content: Partner fees for PCT national phase: United Arab Emirates
+            if (trimmedLine.StartsWith("# File content:"))
+            {
+                return trimmedLine[15..].Trim();
+            }
+        }
     }
-    return;
-}
-
-Console.WriteLine();
-Console.WriteLine("FEE COMPUTATION: ========================================".Pastel(ConsoleColor.Yellow));
-List<IPFValue> vars = new() {
-    new IPFValueString("EntityType", "NormalEntity"),
-    new IPFValueString("SituationType", "PreparedISA"),
-    new IPFValueNumber("SheetCount", 120),
-    new IPFValueNumber("ClaimCount", 7)
-};
-
-Console.WriteLine("Input variables:".Pastel(ConsoleColor.White));
-foreach (var v in vars)
-{
-    Console.WriteLine(v.ToString().Pastel(ConsoleColor.Cyan));
-}
-Console.WriteLine();
-
-var (TotalMandatoryAmount, TotalOptionalAMount, CalculationSteps, Returns) = calc.Compute(vars);
-
-Console.WriteLine("Total mandatory amount: {0}".Pastel(Color.White).PastelBg(Color.DarkRed), TotalMandatoryAmount);
-Console.WriteLine("Total optional amount: {0}".Pastel(Color.White).PastelBg(Color.DarkRed), TotalOptionalAMount);
-Console.WriteLine("Grand Total: {0}".Pastel(Color.White).PastelBg(Color.Red), TotalMandatoryAmount + TotalOptionalAMount);
-
-Console.WriteLine("CALCULATION STEPS: ======================================".Pastel(ConsoleColor.Yellow));
-foreach (var s in CalculationSteps)
-{
-    Console.WriteLine(s);
-}
-
-Console.WriteLine("RETURNS: ======================================".Pastel(ConsoleColor.Yellow));
-foreach (var r in Returns)
-{
-    Console.WriteLine(r);
+    return string.Empty;
 }

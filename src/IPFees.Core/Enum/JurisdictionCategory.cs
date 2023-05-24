@@ -3,7 +3,8 @@
     public enum JurisdictionCategory
     {
         OfficialFees,
-        PartnerFees
+        PartnerFees,
+        TranslationFees
     }
 
     public static class ExtensionMethods1
@@ -14,6 +15,7 @@
             {
                 JurisdictionCategory.OfficialFees => "Official Fees",
                 JurisdictionCategory.PartnerFees => "Partner Fees",
+                JurisdictionCategory.TranslationFees => "Translation Fees",
                 _ => "N/A",
             };
         }

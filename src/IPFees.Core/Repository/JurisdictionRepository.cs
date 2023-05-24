@@ -17,6 +17,11 @@ namespace IPFees.Core.Repository
         {
             this.context = context;
         }
+
+        public JurisdictionRepository()
+        {
+        }
+
         /// <summary>
         /// Create a new jurisdiction
         /// </summary>
