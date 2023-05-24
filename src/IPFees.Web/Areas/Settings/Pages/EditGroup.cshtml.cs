@@ -8,7 +8,7 @@ namespace IPFees.Web.Areas.Settings.Pages
     {
         [BindProperty] public string GroupName { get; set; }
         [BindProperty] public string GroupDescription { get; set; }
-        [BindProperty] public int GroupIndex { get; set; }
+        [BindProperty] public int GroupWeight { get; set; }        
         [BindProperty] public IList<string> ErrorMessages { get; set; }
 
         private readonly ISettingsRepository settingsRepository;
@@ -24,13 +24,13 @@ namespace IPFees.Web.Areas.Settings.Pages
             GroupName = Id;
             var mgi = await settingsRepository.GetModuleGroupAsync(Id);
             GroupDescription = mgi.GroupDescription;
-            GroupIndex = mgi.GroupIndex;
+            GroupWeight = mgi.GroupWeight;
             return Page();
         }
 
         public async Task<IActionResult> OnPostAsync(string Id)
         {
-            var res = await settingsRepository.SetModuleGroupAsync(Id, GroupDescription);
+            var res = await settingsRepository.SetModuleGroupAsync(Id, GroupDescription, GroupWeight);
             if (!res.Success)
             {
                 ErrorMessages.Add($"Error updating group: {res.Reason}");

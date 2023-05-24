@@ -29,6 +29,10 @@
                 <label for="@Model.GroupDescription" class="form-label">Description</label>
                 <input asp-for="GroupDescription" value="@Model.GroupDescription" class="form-control" required />
             </div>
+            <div class="mb-3">
+                <label for="@Model.GroupWeight" class="form-label">Weight</label>
+                <input asp-for="GroupWeight" value="@Model.GroupWeight" class="form-control" />
+            </div>
             <button type="submit" class="btn btn-primary">Save</button>
             <a asp-page="./Index" class="btn btn-secondary">Cancel</a>
         </form>

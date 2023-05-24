@@ -16,14 +16,14 @@ namespace IPFees.Core.Repository
         }
 
         #region Category Settings
-        public async Task<DbResult> SetModuleGroupAsync(string GroupName, string GroupDescription)
+        public async Task<DbResult> SetModuleGroupAsync(string GroupName, string GroupDescription, int GroupWeight)
         {
             var res = await context.ModuleGroupsCollection.UpdateOneAsync(r => r.GroupName.Equals(GroupName),
                 Builders<ModuleGroupsDoc>
                 .Update
                 .Set(r => r.GroupName, GroupName)
                 .Set(r => r.GroupDescription, GroupDescription)
-                .SetOnInsert(r => r.GroupIndex, 1),
+                .Set(r => r.GroupWeight, GroupWeight),
                 new UpdateOptions { IsUpsert = true }
                 );
             return res.IsAcknowledged ? DbResult.Succeed() : DbResult.Fail();
@@ -47,21 +47,7 @@ namespace IPFees.Core.Repository
             {
                 return new ModuleGroupInfo(GroupName, string.Empty, -1);
             }
-        }
-
-        public async Task MoveModuleGroupDownAsync(string GroupName)
-        {
-            //var filter = Builders<SettingsDoc>.Filter.Empty;
-            //var res = (await context.SettingsCollection.FindAsync(filter)).FirstOrDefault();
-            //MoveGroupDown(res.ModuleGroups, GroupName);
-        }
-
-        public async Task MoveModuleGroupUpAsync(string GroupName)
-        {
-            //var filter = Builders<SettingsDoc>.Filter.Empty;
-            //var res = (await context.SettingsCollection.FindAsync(filter)).FirstOrDefault();
-            //MoveGroupUp(res.ModuleGroups, GroupName);
-        }
+        }        
         #endregion        
 
         #region Attorney Fees Level Settings
