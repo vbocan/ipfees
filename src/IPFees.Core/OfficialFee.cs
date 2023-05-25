@@ -16,7 +16,7 @@ namespace IPFees.Core
         public OfficialFee(IFeeRepository jurisdiction, IModuleRepository module, IDslCalculator calculator)
         {
             Calculator = calculator;
-            Jurisdictions = jurisdiction.GetJurisdictions().Result;
+            Jurisdictions = jurisdiction.GetFees().Result;
             Modules = module.GetModules().Result;
         }
 

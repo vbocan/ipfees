@@ -35,7 +35,7 @@ namespace IPFees.Web.Areas.Fee.Pages
         public async Task<IActionResult> OnGetAsync(Guid Id)
         {
             // Retrieve the fee by name
-            var jur = await feeRepository.GetJurisdictionById(Id);
+            var jur = await feeRepository.GetFeeById(Id);
             Name = jur.Name;
             Description = jur.Description;
             SourceCode = jur.SourceCode;
@@ -49,12 +49,12 @@ namespace IPFees.Web.Areas.Fee.Pages
 
         public async Task<IActionResult> OnPostAsync(Guid Id)
         {
-            var res1 = await feeRepository.SetJurisdictionNameAsync(Id, Name);
+            var res1 = await feeRepository.SetFeeNameAsync(Id, Name);
             if (!res1.Success)
             {
                 ErrorMessages.Add($"Error setting name: {res1.Reason}");
             }
-            var res2 = await feeRepository.SetJurisdictionDescriptionAsync(Id, Description);
+            var res2 = await feeRepository.SetFeeDescriptionAsync(Id, Description);
             if (!res2.Success)
             {
                 ErrorMessages.Add($"Error setting description: {res2.Reason}");
@@ -65,19 +65,19 @@ namespace IPFees.Web.Areas.Fee.Pages
             {
                 ErrorMessages.Add($"Error setting referenced modules: {res3.Reason}");
             }
-            var res4 = await feeRepository.SetJurisdictionSourceCodeAsync(Id, SourceCode);
+            var res4 = await feeRepository.SetFeeSourceCodeAsync(Id, SourceCode);
             if (!res4.Success)
             {
                 ErrorMessages.Add($"Error setting source code: {res4.Reason}");
             }
             var parsedCategory = (JurisdictionCategory)Enum.Parse(typeof(JurisdictionCategory), Category);
-            var res5 = await feeRepository.SetJurisdictionCategoryAsync(Id, parsedCategory);
+            var res5 = await feeRepository.SetFeeCategoryAsync(Id, parsedCategory);
             if (!res5.Success)
             {
                 ErrorMessages.Add($"Error setting category: {res5.Reason}");
             }
             var parsedAttorneyFeeLevel = (JurisdictionAttorneyFeeLevel)Enum.Parse(typeof(JurisdictionAttorneyFeeLevel), AttorneyFeeLevel);
-            var res6 = await feeRepository.SetJurisdictionAttorneyFeeLevelAsync(Id, parsedAttorneyFeeLevel);
+            var res6 = await feeRepository.SetFeeAttorneyFeeLevelAsync(Id, parsedAttorneyFeeLevel);
             if (!res6.Success)
             {
                 ErrorMessages.Add($"Error setting fee level: {res6.Reason}");
