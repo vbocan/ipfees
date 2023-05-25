@@ -37,7 +37,7 @@ namespace IPFees.Core.Repository
             {
                 return DbResult.Fail($"A jurisdiction named '{Name}' already exists.");
             }
-            var newDoc = new JurisdictionDoc
+            var newDoc = new FeeDoc
             {
                 Name = Name,
                 LastUpdatedOn = DateTime.UtcNow.ToLocalTime()
@@ -62,7 +62,7 @@ namespace IPFees.Core.Repository
         public async Task<DbResult> SetJurisdictionCategoryAsync(Guid Id, JurisdictionCategory Category)
         {
             var res = await context.JurisdictionCollection.UpdateOneAsync(r => r.Id.Equals(Id),
-                Builders<JurisdictionDoc>
+                Builders<FeeDoc>
                 .Update
                 .Set(r => r.LastUpdatedOn, DateTime.UtcNow.ToLocalTime())
                 .Set(r => r.Category, Category));
@@ -78,7 +78,7 @@ namespace IPFees.Core.Repository
         public async Task<DbResult> SetJurisdictionAttorneyFeeLevelAsync(Guid Id, JurisdictionAttorneyFeeLevel AttorneyFeeLevel)
         {
             var res = await context.JurisdictionCollection.UpdateOneAsync(r => r.Id.Equals(Id),
-                Builders<JurisdictionDoc>
+                Builders<FeeDoc>
                 .Update
                 .Set(r => r.LastUpdatedOn, DateTime.UtcNow.ToLocalTime())
                 .Set(r => r.AttorneyFeeLevel, AttorneyFeeLevel));
@@ -94,7 +94,7 @@ namespace IPFees.Core.Repository
         public async Task<DbResult> SetJurisdictionNameAsync(Guid Id, string Name)
         {
             var res = await context.JurisdictionCollection.UpdateOneAsync(r => r.Id.Equals(Id),
-                Builders<JurisdictionDoc>
+                Builders<FeeDoc>
                 .Update
                 .Set(r => r.LastUpdatedOn, DateTime.UtcNow.ToLocalTime())
                 .Set(r => r.Name, Name));
@@ -110,7 +110,7 @@ namespace IPFees.Core.Repository
         public async Task<DbResult> SetJurisdictionDescriptionAsync(Guid Id, string Description)
         {
             var res = await context.JurisdictionCollection.UpdateOneAsync(r => r.Id.Equals(Id),
-                Builders<JurisdictionDoc>
+                Builders<FeeDoc>
                 .Update
                 .Set(r => r.LastUpdatedOn, DateTime.UtcNow.ToLocalTime())
                 .Set(r => r.Description, Description));
@@ -126,7 +126,7 @@ namespace IPFees.Core.Repository
         public async Task<DbResult> SetJurisdictionSourceCodeAsync(Guid Id, string SourceCode)
         {
             var res = await context.JurisdictionCollection.UpdateOneAsync(r => r.Id.Equals(Id),
-                Builders<JurisdictionDoc>
+                Builders<FeeDoc>
                 .Update
                 .Set(r => r.LastUpdatedOn, DateTime.UtcNow.ToLocalTime())
                 .Set(r => r.SourceCode, SourceCode));
@@ -150,7 +150,7 @@ namespace IPFees.Core.Repository
         /// <returns>A JurisdictionInfo object</returns>
         public async Task<JurisdictionInfo> GetJurisdictionById(Guid Id)
         {
-            var filter = Builders<JurisdictionDoc>.Filter.Eq(m => m.Id, Id);
+            var filter = Builders<FeeDoc>.Filter.Eq(m => m.Id, Id);
             var dbObjs = (await context.JurisdictionCollection.FindAsync(filter)).FirstOrDefaultAsync().Result;
             return dbObjs.Adapt<JurisdictionInfo>();
         }
@@ -182,7 +182,7 @@ namespace IPFees.Core.Repository
         public async Task<DbResult> SetReferencedModules(Guid Id, IList<Guid> ModuleIds)
         {
             var res = await context.JurisdictionCollection.UpdateOneAsync(r => r.Id.Equals(Id),
-                Builders<JurisdictionDoc>
+                Builders<FeeDoc>
                 .Update
                 .Set(r => r.ReferencedModules, ModuleIds));
             return res.IsAcknowledged ? DbResult.Succeed() : DbResult.Fail();
