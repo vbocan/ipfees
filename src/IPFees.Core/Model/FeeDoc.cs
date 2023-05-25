@@ -5,11 +5,11 @@ using MongoDB.Bson.Serialization.Attributes;
 namespace IPFees.Core.Model
 {
     [BsonIgnoreExtraElements]
-    public class JurisdictionDoc
+    public class FeeDoc
     {
-        public const string CollectionName = "Jurisdictions";
+        public const string CollectionName = "Fees";
 
-        public JurisdictionDoc() {
+        public FeeDoc() {
             Category = JurisdictionCategory.OfficialFees;
             Name = string.Empty;
             Description = string.Empty;
