@@ -25,8 +25,7 @@ foreach (string filePath in txtFiles)
         throw new ApplicationException($"Impossible to add jurisdiction {Name}!");
     }
     await jr.SetJurisdictionDescriptionAsync(res.Id, Description);
-    await jr.SetJurisdictionAttorneyFeeLevelAsync(res.Id, JurisdictionAttorneyFeeLevel.Level1);
-    await jr.SetJurisdictionCategoryAsync(res.Id, JurisdictionCategory.TranslationFees);
+    await jr.SetJurisdictionAttorneyFeeLevelAsync(res.Id, JurisdictionAttorneyFeeLevel.Level1);    
     await jr.SetReferencedModules(res.Id, new Guid[] { Guid.Parse("907f2be0-8028-4df8-a2a6-39ae971a44a0") });
     await jr.SetJurisdictionSourceCodeAsync(res.Id, contents);
     Console.WriteLine();

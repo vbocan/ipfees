@@ -7,8 +7,7 @@ namespace IPFees.Web.Areas.Module.Pages
     public class CreateModel : PageModel
     {
         [BindProperty] public string Name { get; set; }
-        [BindProperty] public string Description { get; set; }
-        [BindProperty] public string Category { get; set; }        
+        [BindProperty] public string Description { get; set; }        
         [BindProperty] public string SourceCode { get; set; }
         [BindProperty] public IList<string> ErrorMessages { get; set; }
 
@@ -40,11 +39,6 @@ namespace IPFees.Web.Areas.Module.Pages
             if (!res3.Success)
             {
                 ErrorMessages.Add($"Error setting source code: {res3.Reason}");
-            }
-            var res4 = await moduleRepository.SetModuleGroupAsync(res1.Id, Category);
-            if (!res4.Success)
-            {
-                ErrorMessages.Add($"Error setting group: {res4.Reason}");
             }
 
             if (ErrorMessages.Any()) return Page();

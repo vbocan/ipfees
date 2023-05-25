@@ -3,8 +3,7 @@
     public enum JurisdictionCategory
     {
         OfficialFees,
-        PartnerFees,
-        TranslationFees
+        PartnerFees,        
     }
 
     public static class ExtensionMethods1
@@ -14,8 +13,7 @@
             return e switch
             {
                 JurisdictionCategory.OfficialFees => "Official Fees",
-                JurisdictionCategory.PartnerFees => "Partner Fees",
-                JurisdictionCategory.TranslationFees => "Translation Fees",
+                JurisdictionCategory.PartnerFees => "Partner Fees",                
                 _ => "N/A",
             };
         }
