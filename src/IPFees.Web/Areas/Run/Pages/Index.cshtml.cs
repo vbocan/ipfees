@@ -7,31 +7,31 @@ namespace IPFees.Web.Areas.Run.Pages
 {
     public class IndexModel : PageModel
     {
-        [BindProperty] public IEnumerable<FeeInfo> Fees { get; set; }
-        [BindProperty] public IList<FeeViewModel> SelectedFees { get; set; }
+        [BindProperty] public IEnumerable<JurisdictionInfo> Jurisdictions { get; set; }
+        [BindProperty] public IList<JurisdictionViewModel> SelectedJurisdictions { get; set; }
 
-        private readonly IFeeRepository feeRepository;        
+        private readonly IJurisdictionRepository jurisdictionRepository;        
         private readonly ILogger<IndexModel> _logger;
 
-        public IndexModel(IFeeRepository feeRepository, ILogger<IndexModel> logger)
+        public IndexModel(IJurisdictionRepository jurisdictionRepository, ILogger<IndexModel> logger)
         {
-            this.feeRepository = feeRepository;            
+            this.jurisdictionRepository = jurisdictionRepository;            
             _logger = logger;
         }
 
         public async Task<IActionResult> OnGetAsync()
         {
-            Fees = await feeRepository.GetFees();
-            SelectedFees = Fees.OrderBy(o => o.Name).Select(s => new FeeViewModel(s.Id, s.Name, s.Description, true)).ToList();
+            Jurisdictions = await jurisdictionRepository.GetJurisdictions();
+            SelectedJurisdictions = Jurisdictions.OrderBy(o => o.Name).Select(s => new JurisdictionViewModel(s.Id, s.Name, s.Description, true)).ToList();
             return Page();
         }
 
         public async Task<IActionResult> OnPostAsync()
         {
-            var SelJur = await SelectedFees.ToAsyncEnumerable().Where(w => w.Checked).Select(s => s.Id).ToListAsync();
+            var SelJur = await SelectedJurisdictions.ToAsyncEnumerable().Where(w => w.Checked).Select(s => s.Id).ToListAsync();
             return RedirectToPage("DataCollect", new { area = "Run", Id = SelJur });
         }
     }
 
-    public record FeeViewModel(Guid Id, string Name, string Description, bool Checked);
+    public record JurisdictionViewModel(Guid Id, string Name, string Description, bool Checked);
 }
