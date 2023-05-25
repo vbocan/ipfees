@@ -1,0 +1,1 @@
+{"indexes":[{"v":{"$numberInt":"2"},"key":{"_id":{"$numberInt":"1"}},"name":"_id_"}],"uuid":"f4294138c2624159953f574c6c328dd0","collectionName":"Jurisdictions","type":"collection"}
