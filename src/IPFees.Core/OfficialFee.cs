@@ -10,7 +10,7 @@ namespace IPFees.Core
     public class OfficialFee : IOfficialFee
     {
         private readonly IDslCalculator Calculator;
-        private readonly IEnumerable<JurisdictionInfo> Jurisdictions;
+        private readonly IEnumerable<FeeInfo> Jurisdictions;
         private readonly IEnumerable<ModuleInfo> Modules;
 
         public OfficialFee(IFeeRepository jurisdiction, IModuleRepository module, IDslCalculator calculator)
@@ -20,7 +20,7 @@ namespace IPFees.Core
             Modules = module.GetModules().Result;
         }
 
-        private JurisdictionInfo? GetJurisdictionById(Guid Id) => Jurisdictions.SingleOrDefault(w => w.Id.Equals(Id));
+        private FeeInfo? GetJurisdictionById(Guid Id) => Jurisdictions.SingleOrDefault(w => w.Id.Equals(Id));
         private ModuleInfo? GetModuleById(Guid Id) => Modules.SingleOrDefault(w => w.Id.Equals(Id));
 
         /// <summary>

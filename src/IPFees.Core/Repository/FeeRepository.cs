@@ -137,10 +137,10 @@ namespace IPFees.Core.Repository
         /// Get all registered jurisdictions.
         /// </summary>
         /// <returns>An enumeration of JurisdictionInfo objects</returns>
-        public async Task<IEnumerable<JurisdictionInfo>> GetJurisdictions()
+        public async Task<IEnumerable<FeeInfo>> GetJurisdictions()
         {
             var dbObjs = await context.JurisdictionCollection.FindAsync(new BsonDocument());
-            return dbObjs.ToList().Adapt<IEnumerable<JurisdictionInfo>>();
+            return dbObjs.ToList().Adapt<IEnumerable<FeeInfo>>();
         }
 
         /// <summary>
@@ -148,11 +148,11 @@ namespace IPFees.Core.Repository
         /// </summary>
         /// <param name="Id">Jurisdiction id</param>
         /// <returns>A JurisdictionInfo object</returns>
-        public async Task<JurisdictionInfo> GetJurisdictionById(Guid Id)
+        public async Task<FeeInfo> GetJurisdictionById(Guid Id)
         {
             var filter = Builders<FeeDoc>.Filter.Eq(m => m.Id, Id);
             var dbObjs = (await context.JurisdictionCollection.FindAsync(filter)).FirstOrDefaultAsync().Result;
-            return dbObjs.Adapt<JurisdictionInfo>();
+            return dbObjs.Adapt<FeeInfo>();
         }
 
         /// <summary>
