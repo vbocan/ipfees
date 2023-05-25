@@ -17,7 +17,7 @@ namespace IPFees.Core.Tests.Fixture
             // Build database context based on the connection string
             DbContext = new DataContext(connectionString);
             DbContext.ModuleCollection.DeleteMany(new BsonDocument());
-            DbContext.JurisdictionCollection.DeleteMany(new BsonDocument());            
+            DbContext.FeeCollection.DeleteMany(new BsonDocument());            
             DbContext.AttorneyFeesCollection.DeleteMany(new BsonDocument());
         }
 

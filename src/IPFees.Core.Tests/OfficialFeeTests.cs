@@ -33,8 +33,8 @@ namespace IPFees.Core.Tests
             var res3 = await mod.SetModuleSourceCodeAsync(res2.Id, modSourceCode);
             Assert.True(res3.Success);
             // Now let's create a jurisdiction and the associated module
-            var jur = fixture.JurisdictionRepository;
-            var res4 = await jur.AddJurisdictionAsync("Jur1");
+            var jur = fixture.FeeRepository;
+            var res4 = await jur.AddFeeAsync("Jur1");
             Assert.True(res4.Success);
             string jurSourceCode =
             """
@@ -43,7 +43,7 @@ namespace IPFees.Core.Tests
             YIELD 80
             ENDCOMPUTE
             """;
-            var res5 = await jur.SetJurisdictionSourceCodeAsync(res4.Id, jurSourceCode);
+            var res5 = await jur.SetFeeSourceCodeAsync(res4.Id, jurSourceCode);
             Assert.True(res5.Success);
             var res6 = await jur.SetReferencedModules(res4.Id, new Guid[] { res2.Id });
             Assert.True(res6.Success);
@@ -71,8 +71,8 @@ namespace IPFees.Core.Tests
             var res3 = await mod.SetModuleSourceCodeAsync(res2.Id, modSourceCode);
             Assert.True(res3.Success);
             // Now let's create a jurisdiction and the associated module
-            var jur = fixture.JurisdictionRepository;
-            var res4 = await jur.AddJurisdictionAsync("Jur1m");
+            var jur = fixture.FeeRepository;
+            var res4 = await jur.AddFeeAsync("Jur1m");
             Assert.True(res4.Success);
             string jurSourceCode =
             """
@@ -81,13 +81,13 @@ namespace IPFees.Core.Tests
             YIELD 80
             ENDCOMPUTE
             """;
-            var res5 = await jur.SetJurisdictionSourceCodeAsync(res4.Id, jurSourceCode);
+            var res5 = await jur.SetFeeSourceCodeAsync(res4.Id, jurSourceCode);
             Assert.True(res5.Success);
             var res6 = await jur.SetReferencedModules(res4.Id, new Guid[] { res2.Id });
             Assert.True(res6.Success);
 
             // Now let's create another jurisdiction and the associated module            
-            var res7 = await jur.AddJurisdictionAsync("Jur2m");
+            var res7 = await jur.AddFeeAsync("Jur2m");
             Assert.True(res7.Success);
             jurSourceCode =
             """
@@ -97,7 +97,7 @@ namespace IPFees.Core.Tests
             YIELD 10
             ENDCOMPUTE
             """;
-            var res8 = await jur.SetJurisdictionSourceCodeAsync(res7.Id, jurSourceCode);
+            var res8 = await jur.SetFeeSourceCodeAsync(res7.Id, jurSourceCode);
             Assert.True(res8.Success);
             var res9 = await jur.SetReferencedModules(res7.Id, new Guid[] { res2.Id });
             Assert.True(res9.Success);

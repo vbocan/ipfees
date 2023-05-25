@@ -12,11 +12,11 @@ namespace IPFees.Web.Areas.Module.Pages
     {
         [BindProperty] public IEnumerable<ModuleViewModel> Modules { get; set; }
         private readonly IModuleRepository moduleRepository;
-        private readonly IFeeRepository jurisdictionRepository;
+        private readonly IFeeRepository feeRepository;
 
-        public IndexModel(IFeeRepository jurisdictionRepository, IModuleRepository moduleRepository)
+        public IndexModel(IFeeRepository feeRepository, IModuleRepository moduleRepository)
         {
-            this.jurisdictionRepository = jurisdictionRepository;
+            this.feeRepository = feeRepository;
             this.moduleRepository = moduleRepository;
         }
         public async Task<IActionResult> OnGetAsync()
@@ -24,7 +24,7 @@ namespace IPFees.Web.Areas.Module.Pages
             // Retrieve modules from the database
             var DbMod = (await moduleRepository.GetModules()).OrderBy(o => o.Name).ThenBy(t=>t.LastUpdatedOn);
             // Compute the number of jurisdictions that reference each module
-            var DbJur = await jurisdictionRepository.GetJurisdictions();
+            var DbJur = await feeRepository.GetFees();
             Modules = from m in DbMod
                       select new ModuleViewModel
                       (m,

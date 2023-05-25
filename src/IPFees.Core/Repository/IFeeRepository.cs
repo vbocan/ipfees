@@ -6,15 +6,15 @@ namespace IPFees.Core.Repository
 {
     public interface IFeeRepository
     {
-        Task<DbResult> AddJurisdictionAsync(string Name);
-        Task<DbResult> SetJurisdictionCategoryAsync(Guid Id, JurisdictionCategory Category);
-        Task<DbResult> SetJurisdictionAttorneyFeeLevelAsync(Guid Id, JurisdictionAttorneyFeeLevel AttorneyFeeLevel);
-        Task<DbResult> SetJurisdictionNameAsync(Guid Id, string Name);
-        Task<DbResult> SetJurisdictionDescriptionAsync(Guid Id, string Description);
-        Task<DbResult> SetJurisdictionSourceCodeAsync(Guid Id, string SourceCode);
-        Task<DbResult> RemoveJurisdictionAsync(Guid Id);
-        Task<IEnumerable<FeeInfo>> GetJurisdictions();
-        Task<FeeInfo> GetJurisdictionById(Guid Id);
+        Task<DbResult> AddFeeAsync(string Name);
+        Task<DbResult> SetFeeCategoryAsync(Guid Id, JurisdictionCategory Category);
+        Task<DbResult> SetFeeAttorneyFeeLevelAsync(Guid Id, JurisdictionAttorneyFeeLevel AttorneyFeeLevel);
+        Task<DbResult> SetFeeNameAsync(Guid Id, string Name);
+        Task<DbResult> SetFeeDescriptionAsync(Guid Id, string Description);
+        Task<DbResult> SetFeeSourceCodeAsync(Guid Id, string SourceCode);
+        Task<DbResult> RemoveFeeAsync(Guid Id);
+        Task<IEnumerable<FeeInfo>> GetFees();
+        Task<FeeInfo> GetFeeById(Guid Id);
         Task<DbResult> SetReferencedModules(Guid Id, IList<Guid> ModuleIds);
     }
 }

@@ -23,19 +23,19 @@ namespace IPFees.Core.Repository
         }
 
         /// <summary>
-        /// Create a new jurisdiction
+        /// Create a new fee
         /// </summary>
-        /// <param name="Name">Jurisdiction name</param>
+        /// <param name="Name">Fee name</param>
         /// <returns>A DbResult structure containing the result of the database operation</returns>
         /// <remarks>
-        /// A jurisdiction is an area where Intellectual Property rules are in effect and usually consists of one or more countries.        
+        /// A fee is an area where Intellectual Property rules are in effect and usually consists of one or more countries.        
         /// </remarks>
-        public async Task<DbResult> AddJurisdictionAsync(string Name)
+        public async Task<DbResult> AddFeeAsync(string Name)
         {
-            var Jurisdictions = await GetJurisdictions();
-            if (Jurisdictions.Any(a => a.Name.Equals(Name)))
+            var Fees = await GetFees();
+            if (Fees.Any(a => a.Name.Equals(Name)))
             {
-                return DbResult.Fail($"A jurisdiction named '{Name}' already exists.");
+                return DbResult.Fail($"A fee named '{Name}' already exists.");
             }
             var newDoc = new FeeDoc
             {
@@ -44,7 +44,7 @@ namespace IPFees.Core.Repository
             };
             try
             {
-                await context.JurisdictionCollection.InsertOneAsync(newDoc);
+                await context.FeeCollection.InsertOneAsync(newDoc);
                 return DbResult.Succeed(newDoc.Id);
             }
             catch (Exception ex)
@@ -54,14 +54,14 @@ namespace IPFees.Core.Repository
         }
 
         /// <summary>
-        /// Set the jurisdiction category
+        /// Set the fee category
         /// </summary>
-        /// <param name="Id">Jurisdiction id</param>
-        /// <param name="Category">Jurisdiction category</param>
+        /// <param name="Id">Fee id</param>
+        /// <param name="Category">Fee category</param>
         /// <returns>A DbResult structure containing the result of the database operation</returns>
-        public async Task<DbResult> SetJurisdictionCategoryAsync(Guid Id, JurisdictionCategory Category)
+        public async Task<DbResult> SetFeeCategoryAsync(Guid Id, JurisdictionCategory Category)
         {
-            var res = await context.JurisdictionCollection.UpdateOneAsync(r => r.Id.Equals(Id),
+            var res = await context.FeeCollection.UpdateOneAsync(r => r.Id.Equals(Id),
                 Builders<FeeDoc>
                 .Update
                 .Set(r => r.LastUpdatedOn, DateTime.UtcNow.ToLocalTime())
@@ -70,14 +70,14 @@ namespace IPFees.Core.Repository
         }
 
         /// <summary>
-        /// Set the jurisdiction attorney fee level
+        /// Set the fee attorney fee level
         /// </summary>
-        /// <param name="Id">Jurisdiction id</param>
-        /// <param name="AttorneyFeeLevel">Jurisdiction attorney fee level</param>
+        /// <param name="Id">Fee id</param>
+        /// <param name="AttorneyFeeLevel">Fee attorney fee level</param>
         /// <returns>A DbResult structure containing the result of the database operation</returns>
-        public async Task<DbResult> SetJurisdictionAttorneyFeeLevelAsync(Guid Id, JurisdictionAttorneyFeeLevel AttorneyFeeLevel)
+        public async Task<DbResult> SetFeeAttorneyFeeLevelAsync(Guid Id, JurisdictionAttorneyFeeLevel AttorneyFeeLevel)
         {
-            var res = await context.JurisdictionCollection.UpdateOneAsync(r => r.Id.Equals(Id),
+            var res = await context.FeeCollection.UpdateOneAsync(r => r.Id.Equals(Id),
                 Builders<FeeDoc>
                 .Update
                 .Set(r => r.LastUpdatedOn, DateTime.UtcNow.ToLocalTime())
@@ -86,14 +86,14 @@ namespace IPFees.Core.Repository
         }
 
         /// <summary>
-        /// Set the jurisdiction name
+        /// Set the fee name
         /// </summary>
-        /// <param name="Id">Jurisdiction id</param>
-        /// <param name="Name">Jurisdiction name</param>
+        /// <param name="Id">Fee id</param>
+        /// <param name="Name">Fee name</param>
         /// <returns>A DbResult structure containing the result of the database operation</returns>
-        public async Task<DbResult> SetJurisdictionNameAsync(Guid Id, string Name)
+        public async Task<DbResult> SetFeeNameAsync(Guid Id, string Name)
         {
-            var res = await context.JurisdictionCollection.UpdateOneAsync(r => r.Id.Equals(Id),
+            var res = await context.FeeCollection.UpdateOneAsync(r => r.Id.Equals(Id),
                 Builders<FeeDoc>
                 .Update
                 .Set(r => r.LastUpdatedOn, DateTime.UtcNow.ToLocalTime())
@@ -102,14 +102,14 @@ namespace IPFees.Core.Repository
         }
 
         /// <summary>
-        /// Set the jurisdiction description
+        /// Set the fee description
         /// </summary>
-        /// <param name="Id">Jurisdiction id</param>
+        /// <param name="Id">Fee id</param>
         /// <param name="Description">Description of the functionality provided</param>        
         /// <returns>A DbResult structure containing the result of the database operation</returns>
-        public async Task<DbResult> SetJurisdictionDescriptionAsync(Guid Id, string Description)
+        public async Task<DbResult> SetFeeDescriptionAsync(Guid Id, string Description)
         {
-            var res = await context.JurisdictionCollection.UpdateOneAsync(r => r.Id.Equals(Id),
+            var res = await context.FeeCollection.UpdateOneAsync(r => r.Id.Equals(Id),
                 Builders<FeeDoc>
                 .Update
                 .Set(r => r.LastUpdatedOn, DateTime.UtcNow.ToLocalTime())
@@ -118,14 +118,14 @@ namespace IPFees.Core.Repository
         }
 
         /// <summary>
-        /// Set the jurisdiction source code
+        /// Set the fee source code
         /// </summary>
-        /// <param name="Id">Jurisdiction id</param>
-        /// <param name="SourceCode">Source code of the jurisdiction</param>        
+        /// <param name="Id">Fee id</param>
+        /// <param name="SourceCode">Source code of the fee</param>        
         /// <returns>A DbResult structure containing the result of the database operation</returns>
-        public async Task<DbResult> SetJurisdictionSourceCodeAsync(Guid Id, string SourceCode)
+        public async Task<DbResult> SetFeeSourceCodeAsync(Guid Id, string SourceCode)
         {
-            var res = await context.JurisdictionCollection.UpdateOneAsync(r => r.Id.Equals(Id),
+            var res = await context.FeeCollection.UpdateOneAsync(r => r.Id.Equals(Id),
                 Builders<FeeDoc>
                 .Update
                 .Set(r => r.LastUpdatedOn, DateTime.UtcNow.ToLocalTime())
@@ -134,37 +134,37 @@ namespace IPFees.Core.Repository
         }
 
         /// <summary>
-        /// Get all registered jurisdictions.
+        /// Get all registered fees.
         /// </summary>
-        /// <returns>An enumeration of JurisdictionInfo objects</returns>
-        public async Task<IEnumerable<FeeInfo>> GetJurisdictions()
+        /// <returns>An enumeration of FeeInfo objects</returns>
+        public async Task<IEnumerable<FeeInfo>> GetFees()
         {
-            var dbObjs = await context.JurisdictionCollection.FindAsync(new BsonDocument());
+            var dbObjs = await context.FeeCollection.FindAsync(new BsonDocument());
             return dbObjs.ToList().Adapt<IEnumerable<FeeInfo>>();
         }
 
         /// <summary>
-        /// Get jurisdiction by Id
+        /// Get fee by Id
         /// </summary>
-        /// <param name="Id">Jurisdiction id</param>
-        /// <returns>A JurisdictionInfo object</returns>
-        public async Task<FeeInfo> GetJurisdictionById(Guid Id)
+        /// <param name="Id">Fee id</param>
+        /// <returns>A FeeInfo object</returns>
+        public async Task<FeeInfo> GetFeeById(Guid Id)
         {
             var filter = Builders<FeeDoc>.Filter.Eq(m => m.Id, Id);
-            var dbObjs = (await context.JurisdictionCollection.FindAsync(filter)).FirstOrDefaultAsync().Result;
+            var dbObjs = (await context.FeeCollection.FindAsync(filter)).FirstOrDefaultAsync().Result;
             return dbObjs.Adapt<FeeInfo>();
         }
 
         /// <summary>
-        /// Remove a specified jurisdiction
+        /// Remove a specified fee
         /// </summary>
-        /// <param name="Id">Jurisdiction id</param>
+        /// <param name="Id">Fee id</param>
         /// <returns>A DbResult structure containing the result of the database operation</returns>
-        public async Task<DbResult> RemoveJurisdictionAsync(Guid Id)
+        public async Task<DbResult> RemoveFeeAsync(Guid Id)
         {
             try
             {
-                await context.JurisdictionCollection.DeleteOneAsync(s => s.Id.Equals(Id));
+                await context.FeeCollection.DeleteOneAsync(s => s.Id.Equals(Id));
                 return DbResult.Succeed();
             }
             catch (Exception ex)
@@ -174,14 +174,14 @@ namespace IPFees.Core.Repository
         }
 
         /// <summary>
-        /// Set the modules referenced by the jurisdiction
+        /// Set the modules referenced by the fee
         /// </summary>
-        /// <param name="Id">Jurisdiction id</param>
-        /// <param name="ModuleIds">An array of module ids referenced by the jurisdiction</param>
+        /// <param name="Id">Fee id</param>
+        /// <param name="ModuleIds">An array of module ids referenced by the fee</param>
         /// <returns>A DbResult structure containing the result of the database operation</returns>
         public async Task<DbResult> SetReferencedModules(Guid Id, IList<Guid> ModuleIds)
         {
-            var res = await context.JurisdictionCollection.UpdateOneAsync(r => r.Id.Equals(Id),
+            var res = await context.FeeCollection.UpdateOneAsync(r => r.Id.Equals(Id),
                 Builders<FeeDoc>
                 .Update
                 .Set(r => r.ReferencedModules, ModuleIds));

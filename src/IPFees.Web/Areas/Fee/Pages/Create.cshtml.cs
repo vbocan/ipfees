@@ -41,12 +41,12 @@ namespace IPFees.Web.Areas.Fee.Pages
 
         public async Task<IActionResult> OnPostAsync()
         {
-            var res1 = await feeRepository.AddJurisdictionAsync(Name);
+            var res1 = await feeRepository.AddFeeAsync(Name);
             if (!res1.Success)
             {
                 ErrorMessages.Add($"Error creating fee: {res1.Reason}");
             }
-            var res2 = await feeRepository.SetJurisdictionDescriptionAsync(res1.Id, Description);
+            var res2 = await feeRepository.SetFeeDescriptionAsync(res1.Id, Description);
             if (!res2.Success)
             {
                 ErrorMessages.Add($"Error setting description: {res2.Reason}");
@@ -57,19 +57,19 @@ namespace IPFees.Web.Areas.Fee.Pages
             {
                 ErrorMessages.Add($"Error setting referenced modules: {res3.Reason}");
             }
-            var res4 = await feeRepository.SetJurisdictionSourceCodeAsync(res1.Id, SourceCode);
+            var res4 = await feeRepository.SetFeeSourceCodeAsync(res1.Id, SourceCode);
             if (!res4.Success)
             {
                 ErrorMessages.Add($"Error setting source code: {res4.Reason}");
             }
             var parsedCategory = (JurisdictionCategory)Enum.Parse(typeof(JurisdictionCategory), Category);
-            var res5 = await feeRepository.SetJurisdictionCategoryAsync(res1.Id, parsedCategory);
+            var res5 = await feeRepository.SetFeeCategoryAsync(res1.Id, parsedCategory);
             if (!res5.Success)
             {
                 ErrorMessages.Add($"Error setting category: {res5.Reason}");
             }
             var parsedAttorneyFeeLevel = (JurisdictionAttorneyFeeLevel)Enum.Parse(typeof(JurisdictionAttorneyFeeLevel), AttorneyFeeLevel);
-            var res6 = await feeRepository.SetJurisdictionAttorneyFeeLevelAsync(res1.Id, parsedAttorneyFeeLevel);
+            var res6 = await feeRepository.SetFeeAttorneyFeeLevelAsync(res1.Id, parsedAttorneyFeeLevel);
             if (!res6.Success)
             {
                 ErrorMessages.Add($"Error setting category: {res6.Reason}");

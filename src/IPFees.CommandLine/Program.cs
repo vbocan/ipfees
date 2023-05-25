@@ -19,15 +19,15 @@ foreach (string filePath in txtFiles)
     var Description = ExtractDescription(contents);
     if (string.IsNullOrEmpty(Description)) throw new ApplicationException("Invalid description!");
 
-    var res = await jr.AddJurisdictionAsync(Name);
+    var res = await jr.AddFeeAsync(Name);
     if (!res.Success)
     {
         throw new ApplicationException($"Impossible to add jurisdiction {Name}!");
     }
-    await jr.SetJurisdictionDescriptionAsync(res.Id, Description);
-    await jr.SetJurisdictionAttorneyFeeLevelAsync(res.Id, JurisdictionAttorneyFeeLevel.Level1);    
+    await jr.SetFeeDescriptionAsync(res.Id, Description);
+    await jr.SetFeeAttorneyFeeLevelAsync(res.Id, JurisdictionAttorneyFeeLevel.Level1);    
     await jr.SetReferencedModules(res.Id, new Guid[] { Guid.Parse("907f2be0-8028-4df8-a2a6-39ae971a44a0") });
-    await jr.SetJurisdictionSourceCodeAsync(res.Id, contents);
+    await jr.SetFeeSourceCodeAsync(res.Id, contents);
     Console.WriteLine();
 }
 

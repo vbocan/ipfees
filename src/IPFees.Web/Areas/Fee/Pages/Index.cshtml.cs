@@ -19,7 +19,7 @@ namespace IPFees.Web.Areas.Fee.Pages
         }
         public async Task<IActionResult> OnGetAsync()
         {
-            var DbJur = await feeRepository.GetJurisdictions();
+            var DbJur = await feeRepository.GetFees();
             Fees = DbJur.OrderBy(o => o.Name).ThenBy(o=>o.Category);
             return Page();
         }

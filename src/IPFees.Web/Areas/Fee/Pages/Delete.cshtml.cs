@@ -19,14 +19,14 @@ namespace IPFees.Web.Areas.Fee.Pages
 
         public async Task<IActionResult> OnGetAsync(Guid Id)
         {
-            var info = await feeRepository.GetJurisdictionById(Id);
+            var info = await feeRepository.GetFeeById(Id);
             Name = info.Name;
             return Page();
         }
 
         public async Task<IActionResult> OnPostAsync(Guid Id)
         {
-            var res = await feeRepository.RemoveJurisdictionAsync(Id);
+            var res = await feeRepository.RemoveFeeAsync(Id);
             if (!res.Success)
             {
                 ErrorMessages.Add($"Error deleting fee: {res.Reason}");

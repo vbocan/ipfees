@@ -4,114 +4,114 @@ using IPFees.Core.Tests.Fixture;
 
 namespace IPFees.Core.Tests
 {
-    public class JurisdictionTests : IClassFixture<CoreFixture>
+    public class FeeTests : IClassFixture<CoreFixture>
     {
         private readonly CoreFixture fixture;
 
-        public JurisdictionTests(CoreFixture fixture)
+        public FeeTests(CoreFixture fixture)
         {
             this.fixture = fixture;
         }
 
         [Fact]
-        public async void AddJurisdictionTest()
+        public async void AddFeeTest()
         {
             var jur = new FeeRepository(fixture.DbContext);
-            var res1 = await jur.AddJurisdictionAsync("Jurisdiction-Add");
+            var res1 = await jur.AddFeeAsync("Fee-Add");
             Assert.True(res1.Success);
-            var res2 = await jur.GetJurisdictionById(res1.Id);
+            var res2 = await jur.GetFeeById(res1.Id);
             Assert.True(res2 != null);
         }
 
         [Fact]
-        public async void AddDuplicateJurisdictionTest()
+        public async void AddDuplicateFeeTest()
         {
             var jur = new FeeRepository(fixture.DbContext);
-            var res1 = await jur.AddJurisdictionAsync("Jurisdiction-DuP");
-            var res2 = await jur.AddJurisdictionAsync("Jurisdiction-DuP");
+            var res1 = await jur.AddFeeAsync("Fee-DuP");
+            var res2 = await jur.AddFeeAsync("Fee-DuP");
             Assert.True(res1.Success);
             Assert.False(res2.Success);
         }
 
         [Fact]
-        public async void SetJurisdictionNameTest()
+        public async void SetFeeNameTest()
         {
             var jur = new FeeRepository(fixture.DbContext);
-            var res1 = await jur.AddJurisdictionAsync("Jurisdiction-Set-Name");
+            var res1 = await jur.AddFeeAsync("Fee-Set-Name");
             Assert.True(res1.Success);
-            var res2 = await jur.SetJurisdictionNameAsync(res1.Id, "Jurisdiction Name");
+            var res2 = await jur.SetFeeNameAsync(res1.Id, "Fee Name");
             Assert.True(res2.Success);
-            var mi = await jur.GetJurisdictionById(res1.Id);
-            Assert.Equal("Jurisdiction Name", mi.Name);
+            var mi = await jur.GetFeeById(res1.Id);
+            Assert.Equal("Fee Name", mi.Name);
         }
 
         [Fact]
-        public async void SetJurisdictionCategoryTest()
+        public async void SetFeeCategoryTest()
         {
             var jur = new FeeRepository(fixture.DbContext);
-            var res1 = await jur.AddJurisdictionAsync("Jurisdiction-Set-Category");
+            var res1 = await jur.AddFeeAsync("Fee-Set-Category");
             Assert.True(res1.Success);
-            var res2 = await jur.SetJurisdictionCategoryAsync(res1.Id, JurisdictionCategory.OfficialFees);
+            var res2 = await jur.SetFeeCategoryAsync(res1.Id, JurisdictionCategory.OfficialFees);
             Assert.True(res2.Success);
-            var mi = await jur.GetJurisdictionById(res1.Id);
+            var mi = await jur.GetFeeById(res1.Id);
             Assert.Equal(JurisdictionCategory.OfficialFees, mi.Category);
         }
 
         [Fact]
-        public async void SetJurisdictionAttorneyFeeLevelTest()
+        public async void SetFeeAttorneyFeeLevelTest()
         {
             var jur = new FeeRepository(fixture.DbContext);
-            var res1 = await jur.AddJurisdictionAsync("Jurisdiction-Set-AttorneyFeeLevel");
+            var res1 = await jur.AddFeeAsync("Fee-Set-AttorneyFeeLevel");
             Assert.True(res1.Success);
-            var res2 = await jur.SetJurisdictionAttorneyFeeLevelAsync(res1.Id, JurisdictionAttorneyFeeLevel.Level1);
+            var res2 = await jur.SetFeeAttorneyFeeLevelAsync(res1.Id, JurisdictionAttorneyFeeLevel.Level1);
             Assert.True(res2.Success);
-            var mi = await jur.GetJurisdictionById(res1.Id);
+            var mi = await jur.GetFeeById(res1.Id);
             Assert.Equal(JurisdictionAttorneyFeeLevel.Level1, mi.AttorneyFeeLevel);
         }
 
         [Fact]
-        public async void SetJurisdictionDescriptionTest()
+        public async void SetFeeDescriptionTest()
         {
             var jur = new FeeRepository(fixture.DbContext);
-            var res1 = await jur.AddJurisdictionAsync("Jurisdiction-Set-Description");
+            var res1 = await jur.AddFeeAsync("Fee-Set-Description");
             Assert.True(res1.Success);
-            var res2 = await jur.SetJurisdictionDescriptionAsync(res1.Id, "Jurisdiction Description");
+            var res2 = await jur.SetFeeDescriptionAsync(res1.Id, "Fee Description");
             Assert.True(res2.Success);
-            var mi = await jur.GetJurisdictionById(res1.Id);
-            Assert.Equal("Jurisdiction Description", mi.Description);
+            var mi = await jur.GetFeeById(res1.Id);
+            Assert.Equal("Fee Description", mi.Description);
         }
 
         [Fact]
-        public async void SetJurisdictionSourceCodeTest()
+        public async void SetFeeSourceCodeTest()
         {
             var jur = new FeeRepository(fixture.DbContext);
-            var res1 = await jur.AddJurisdictionAsync("Jurisdiction-Set-SourceCode");
+            var res1 = await jur.AddFeeAsync("Fee-Set-SourceCode");
             Assert.True(res1.Success);
-            var res2 = await jur.SetJurisdictionSourceCodeAsync(res1.Id, "Source Code");
+            var res2 = await jur.SetFeeSourceCodeAsync(res1.Id, "Source Code");
             Assert.True(res2.Success);
-            var mi = await jur.GetJurisdictionById(res1.Id);
+            var mi = await jur.GetFeeById(res1.Id);
             Assert.Equal("Source Code", mi.SourceCode);
         }
 
         [Fact]
-        public async void RemoveJurisdictionsTest()
+        public async void RemoveFeesTest()
         {
             var jur = new FeeRepository(fixture.DbContext);
-            var res1 = await jur.AddJurisdictionAsync("Jurisdiction-Del");
-            var res2 = await jur.RemoveJurisdictionAsync(res1.Id);
+            var res1 = await jur.AddFeeAsync("Fee-Del");
+            var res2 = await jur.RemoveFeeAsync(res1.Id);
             Assert.True(res1.Success);
             Assert.True(res2.Success);
         }
 
         [Fact]
-        public async void SetJurisdictionReferencedModulesTest()
+        public async void SetFeeReferencedModulesTest()
         {
             var jur = new FeeRepository(fixture.DbContext);
-            var res1 = await jur.AddJurisdictionAsync("Jurisdiction-Set-RefMods");
+            var res1 = await jur.AddFeeAsync("Fee-Set-RefMods");
             Assert.True(res1.Success);
             var res2 = await jur.SetReferencedModules(res1.Id, new Guid[] { Guid.NewGuid(), Guid.NewGuid() });
             Assert.True(res2.Success);
-            var mi = await jur.GetJurisdictionById(res1.Id);
+            var mi = await jur.GetFeeById(res1.Id);
             Assert.Equal(2, mi.ReferencedModules.Count());
         }
     }
