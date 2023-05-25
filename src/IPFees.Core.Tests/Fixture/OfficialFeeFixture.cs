@@ -10,7 +10,7 @@ namespace IPFees.Core.Tests.Fixture
     public class OfficialFeeFixture : IDisposable
     {
         public ModuleRepository ModuleRepository { get; set; }
-        public JurisdictionRepository JurisdictionRepository { get; set; }
+        public FeeRepository JurisdictionRepository { get; set; }
         private readonly string connectionString = "mongodb+srv://abdroot:Test123@cluster0.dusbo.mongodb.net/OfficialFeeTest?retryWrites=true&w=majority";
 
         public OfficialFeeFixture()
@@ -20,7 +20,7 @@ namespace IPFees.Core.Tests.Fixture
             DbContext.ModuleCollection.DeleteMany(new BsonDocument());
             DbContext.JurisdictionCollection.DeleteMany(new BsonDocument());
             ModuleRepository = new ModuleRepository(DbContext);
-            JurisdictionRepository = new JurisdictionRepository(DbContext);
+            JurisdictionRepository = new FeeRepository(DbContext);
         }
 
         public void Dispose()
