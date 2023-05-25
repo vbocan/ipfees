@@ -9,9 +9,9 @@
         <h1>Fee Input Parameters</h1>
         <strong>TODO: Display categorized inputs and ordered by weight!</strong>
         <form asp-page="Result" asp-area="Run" method="post">
-            @for (int i = 0; i < Model.SelectedJurisdictions.Count(); i++)
+            @for (int i = 0; i < Model.SelectedFees.Count(); i++)
             {
-                <input type="hidden" asp-for="@Model.SelectedJurisdictions[i]" />
+                <input type="hidden" asp-for="@Model.SelectedFees[i]" />
             }
             <div class="col-md-9">
                 @for (int i = 0; i < Model.Inputs.Count; i++)
@@ -96,7 +96,7 @@
     <div class="col-8 mt-5">
         @if (Model.Errors.Any())
         {
-            <p>Fees for the following jurisdictions will <strong>not</strong> be calculated:</p>
+            <p>Fees for the following fees will <strong>not</strong> be calculated:</p>
             <ul>
                 @foreach (var e in Model.Errors)
                 {

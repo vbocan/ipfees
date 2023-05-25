@@ -1,10 +1,10 @@
 ﻿@page
 @model IndexModel
 @{
-    ViewData["Title"] = "Jurisdiction Selection";
+    ViewData["Title"] = "Fee Selection";
 }
 
-<h1>Jurisdiction <small class="text-muted">Selection</small></h1>
+<h1>Fee <small class="text-muted">Selection</small></h1>
 
 <div class="row">
     <div class="col-lg-12">
@@ -31,11 +31,11 @@
                     </div>
                 </div>                
             </form>
-            <h6>@Model.Fees.Count() jurisdictions displayed.</h6>
+            <h6>@Model.Fees.Count() fees displayed.</h6>
         }
         else
         {
-            <h6>No jurisdictions defined. Please contact the administrator.</h6>
+            <h6>No fees defined. Please contact the administrator.</h6>
         }
     </div>
 </div>

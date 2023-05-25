@@ -23,7 +23,7 @@ namespace IPFees.Web.Areas.Module.Pages
         {
             // Retrieve modules from the database
             var DbMod = (await moduleRepository.GetModules()).OrderBy(o => o.Name).ThenBy(t=>t.LastUpdatedOn);
-            // Compute the number of jurisdictions that reference each module
+            // Compute the number of fees that reference each module
             var DbJur = await feeRepository.GetFees();
             Modules = from m in DbMod
                       select new ModuleViewModel

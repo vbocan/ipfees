@@ -22,10 +22,10 @@ foreach (string filePath in txtFiles)
     var res = await jr.AddFeeAsync(Name);
     if (!res.Success)
     {
-        throw new ApplicationException($"Impossible to add jurisdiction {Name}!");
+        throw new ApplicationException($"Impossible to add fee {Name}!");
     }
     await jr.SetFeeDescriptionAsync(res.Id, Description);
-    await jr.SetFeeAttorneyFeeLevelAsync(res.Id, JurisdictionAttorneyFeeLevel.Level1);    
+    await jr.SetAttorneyFeeLevelAsync(res.Id, AttorneyFeeLevel.Level1);    
     await jr.SetReferencedModules(res.Id, new Guid[] { Guid.Parse("907f2be0-8028-4df8-a2a6-39ae971a44a0") });
     await jr.SetFeeSourceCodeAsync(res.Id, contents);
     Console.WriteLine();

@@ -19,9 +19,9 @@ namespace IPFees.Core.Tests
         public async void SetGetAttorneyFeeTest()
         {
             var sr = new SettingsRepository(fixture.DbContext);
-            var res1 = await sr.SetAttorneyFeeAsync(JurisdictionAttorneyFeeLevel.Level1, 150, "USD");
+            var res1 = await sr.SetAttorneyFeeAsync(AttorneyFeeLevel.Level1, 150, "USD");
             Assert.True(res1.Success);
-            var res2 = await sr.GetAttorneyFeeAsync(JurisdictionAttorneyFeeLevel.Level1);
+            var res2 = await sr.GetAttorneyFeeAsync(AttorneyFeeLevel.Level1);
             Assert.Equal(150, res2.Amount);
             Assert.Equal("USD", res2.Currency);
         }
@@ -30,11 +30,11 @@ namespace IPFees.Core.Tests
         public async void SetGetAttorneyFeeConsecutiveTest()
         {
             var sr = new SettingsRepository(fixture.DbContext);
-            var res1 = await sr.SetAttorneyFeeAsync(JurisdictionAttorneyFeeLevel.Level2, 150, "USD");
+            var res1 = await sr.SetAttorneyFeeAsync(AttorneyFeeLevel.Level2, 150, "USD");
             Assert.True(res1.Success);
-            var res2 = await sr.SetAttorneyFeeAsync(JurisdictionAttorneyFeeLevel.Level2, 200, "EUR");
+            var res2 = await sr.SetAttorneyFeeAsync(AttorneyFeeLevel.Level2, 200, "EUR");
             Assert.True(res2.Success);
-            var res3 = await sr.GetAttorneyFeeAsync(JurisdictionAttorneyFeeLevel.Level2);
+            var res3 = await sr.GetAttorneyFeeAsync(AttorneyFeeLevel.Level2);
             Assert.Equal(200, res3.Amount);
             Assert.Equal("EUR", res3.Currency);
         }
@@ -43,7 +43,7 @@ namespace IPFees.Core.Tests
         public async void SetGetAttorneyFeeInvalidTest()
         {
             var sr = new SettingsRepository(fixture.DbContext);
-            var res1 = await sr.GetAttorneyFeeAsync(JurisdictionAttorneyFeeLevel.Level3);
+            var res1 = await sr.GetAttorneyFeeAsync(AttorneyFeeLevel.Level3);
             Assert.Equal(0, res1.Amount);
             Assert.Equal(string.Empty, res1.Currency);
         }               

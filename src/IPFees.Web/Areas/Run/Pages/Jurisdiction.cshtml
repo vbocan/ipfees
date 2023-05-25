@@ -1,5 +1,5 @@
 ﻿@page "{id}"
-@model JurisdictionModel
+@model FeeModel
 @{
     ViewData["Title"] = "Official Fee Calculation";
 }
@@ -90,9 +90,9 @@
             <div class="col-md-12">
                 @if (!Model.CalculationPending)
                 {
-                    <a asp-area="Run" asp-page="Jurisdiction">Redo calculation</a>
+                    <a asp-area="Run" asp-page="Fee">Redo calculation</a>
                     <br />
-                    <a asp-area="Jurisdiction" asp-page="Index">Back to jurisdiction list</a>
+                    <a asp-area="Fee" asp-page="Index">Back to fee list</a>
                 }
             </div>
         </form>

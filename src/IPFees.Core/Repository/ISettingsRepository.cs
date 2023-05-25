@@ -6,8 +6,8 @@ namespace IPFees.Core.Repository
 {
     public interface ISettingsRepository
     {
-        Task<DbResult> SetAttorneyFeeAsync(JurisdictionAttorneyFeeLevel FeeLevel, double Amount, string Currency);
+        Task<DbResult> SetAttorneyFeeAsync(AttorneyFeeLevel FeeLevel, double Amount, string Currency);
         Task<IEnumerable<AttorneyFeeInfo>> GetAttorneyFeesAsync();
-        Task<AttorneyFeeInfo> GetAttorneyFeeAsync(JurisdictionAttorneyFeeLevel FeeLevel);
+        Task<AttorneyFeeInfo> GetAttorneyFeeAsync(AttorneyFeeLevel FeeLevel);
     }
 }

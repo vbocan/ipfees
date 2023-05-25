@@ -10,7 +10,7 @@ namespace IPFees.Core.Model
         public const string CollectionName = "Fees";
 
         public FeeDoc() {
-            Category = JurisdictionCategory.OfficialFees;
+            Category = FeeCategory.OfficialFees;
             Name = string.Empty;
             Description = string.Empty;
             SourceCode = string.Empty;
@@ -21,9 +21,9 @@ namespace IPFees.Core.Model
         [BsonId]
         public Guid Id { get; set; }
         [BsonRepresentation(BsonType.String)]
-        public JurisdictionCategory Category { get; set; }
+        public FeeCategory Category { get; set; }
         [BsonRepresentation(BsonType.String)]
-        public JurisdictionAttorneyFeeLevel AttorneyFeeLevel { get; set; }
+        public AttorneyFeeLevel AttorneyFeeLevel { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
         public string SourceCode { get; set; }

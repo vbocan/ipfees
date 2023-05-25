@@ -16,7 +16,7 @@ namespace IPFees.Core.Repository
         }        
 
         #region Attorney Fees Level Settings
-        public async Task<DbResult> SetAttorneyFeeAsync(JurisdictionAttorneyFeeLevel FeeLevel, double Amount, string Currency)
+        public async Task<DbResult> SetAttorneyFeeAsync(AttorneyFeeLevel FeeLevel, double Amount, string Currency)
         {
             var res = await context.AttorneyFeesCollection.UpdateOneAsync(r => r.FeeLevel.Equals(FeeLevel),
                 Builders<AttorneyFeesDoc>
@@ -34,7 +34,7 @@ namespace IPFees.Core.Repository
             return dbObjs.ToList().Adapt<IEnumerable<AttorneyFeeInfo>>();
         }
 
-        public async Task<AttorneyFeeInfo> GetAttorneyFeeAsync(JurisdictionAttorneyFeeLevel FeeLevel)
+        public async Task<AttorneyFeeInfo> GetAttorneyFeeAsync(AttorneyFeeLevel FeeLevel)
         {
             var filter = Builders<AttorneyFeesDoc>.Filter.Eq(m => m.FeeLevel, FeeLevel);
             var dbObjs = (await context.AttorneyFeesCollection.FindAsync(filter)).FirstOrDefaultAsync().Result;
