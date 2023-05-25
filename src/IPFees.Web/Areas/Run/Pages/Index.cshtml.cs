@@ -7,7 +7,7 @@ namespace IPFees.Web.Areas.Run.Pages
 {
     public class IndexModel : PageModel
     {
-        [BindProperty] public IEnumerable<JurisdictionInfo> Jurisdictions { get; set; }
+        [BindProperty] public IEnumerable<FeeInfo> Jurisdictions { get; set; }
         [BindProperty] public IList<JurisdictionViewModel> SelectedJurisdictions { get; set; }
 
         private readonly IFeeRepository jurisdictionRepository;        

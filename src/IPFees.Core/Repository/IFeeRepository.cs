@@ -13,8 +13,8 @@ namespace IPFees.Core.Repository
         Task<DbResult> SetJurisdictionDescriptionAsync(Guid Id, string Description);
         Task<DbResult> SetJurisdictionSourceCodeAsync(Guid Id, string SourceCode);
         Task<DbResult> RemoveJurisdictionAsync(Guid Id);
-        Task<IEnumerable<JurisdictionInfo>> GetJurisdictions();
-        Task<JurisdictionInfo> GetJurisdictionById(Guid Id);
+        Task<IEnumerable<FeeInfo>> GetJurisdictions();
+        Task<FeeInfo> GetJurisdictionById(Guid Id);
         Task<DbResult> SetReferencedModules(Guid Id, IList<Guid> ModuleIds);
     }
 }

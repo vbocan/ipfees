@@ -8,7 +8,7 @@ namespace IPFees.Web.Areas.Fee.Pages
 {
     public class IndexModel : PageModel
     {
-        [BindProperty] public IEnumerable<JurisdictionInfo> Fees { get; set; }
+        [BindProperty] public IEnumerable<FeeInfo> Fees { get; set; }
         [BindProperty] public IEnumerable<string> Errors { get; set; }
 
         private readonly IFeeRepository feeRepository;
