@@ -22,8 +22,6 @@ namespace IPFees.Core.Model
         public Guid Id { get; set; }
         [BsonRepresentation(BsonType.String)]
         public FeeCategory Category { get; set; }
-        [BsonRepresentation(BsonType.String)]
-        public AttorneyFeeLevel AttorneyFeeLevel { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
         public string SourceCode { get; set; }

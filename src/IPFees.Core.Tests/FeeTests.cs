@@ -55,19 +55,7 @@ namespace IPFees.Core.Tests
             Assert.True(res2.Success);
             var mi = await jur.GetFeeById(res1.Id);
             Assert.Equal(FeeCategory.OfficialFees, mi.Category);
-        }
-
-        [Fact]
-        public async void SetAttorneyFeeLevelTest()
-        {
-            var jur = new FeeRepository(fixture.DbContext);
-            var res1 = await jur.AddFeeAsync("Fee-Set-AttorneyFeeLevel");
-            Assert.True(res1.Success);
-            var res2 = await jur.SetAttorneyFeeLevelAsync(res1.Id, AttorneyFeeLevel.Level1);
-            Assert.True(res2.Success);
-            var mi = await jur.GetFeeById(res1.Id);
-            Assert.Equal(AttorneyFeeLevel.Level1, mi.AttorneyFeeLevel);
-        }
+        }        
 
         [Fact]
         public async void SetFeeDescriptionTest()

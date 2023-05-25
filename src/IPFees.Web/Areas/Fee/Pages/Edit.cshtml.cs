@@ -9,8 +9,7 @@ namespace IPFees.Web.Areas.Fee.Pages
 {
     public class EditModel : PageModel
     {
-        [BindProperty] public string Category { get; set; }
-        [BindProperty] public string AttorneyFeeLevel { get; set; }
+        [BindProperty] public string Category { get; set; }        
         [BindProperty] public string Name { get; set; }
         [BindProperty] public string Description { get; set; }
         [BindProperty] public string SourceCode { get; set; }
@@ -27,8 +26,7 @@ namespace IPFees.Web.Areas.Fee.Pages
         {
             this.feeRepository = feeRepository;
             this.moduleRepository = moduleRepository;
-            CategoryItems = Enum.GetValues<FeeCategory>().AsEnumerable().Select(s => new SelectListItem(s.ValueAsString(), s.ToString()));
-            AttorneyFeeLevelItems = Enum.GetValues<AttorneyFeeLevel>().AsEnumerable().Select(s => new SelectListItem(s.ValueAsString(), s.ToString()));
+            CategoryItems = Enum.GetValues<FeeCategory>().AsEnumerable().Select(s => new SelectListItem(s.ValueAsString(), s.ToString()));            
             ErrorMessages = new List<string>();
         }
 
@@ -39,8 +37,7 @@ namespace IPFees.Web.Areas.Fee.Pages
             Name = jur.Name;
             Description = jur.Description;
             SourceCode = jur.SourceCode;
-            Category = jur.Category.ToString();
-            AttorneyFeeLevel = jur.AttorneyFeeLevel.ToString();
+            Category = jur.Category.ToString();            
             // Prepare view model for referenced modules
             var Mods = await moduleRepository.GetModules();
             ReferencedModules = Mods.Select(s => new ModuleViewModel(s.Id, s.Name, s.Description, s.LastUpdatedOn, jur.ReferencedModules.Contains(s.Id))).ToList();
@@ -75,13 +72,7 @@ namespace IPFees.Web.Areas.Fee.Pages
             if (!res5.Success)
             {
                 ErrorMessages.Add($"Error setting category: {res5.Reason}");
-            }
-            var parsedAttorneyFeeLevel = (AttorneyFeeLevel)Enum.Parse(typeof(AttorneyFeeLevel), AttorneyFeeLevel);
-            var res6 = await feeRepository.SetAttorneyFeeLevelAsync(Id, parsedAttorneyFeeLevel);
-            if (!res6.Success)
-            {
-                ErrorMessages.Add($"Error setting fee level: {res6.Reason}");
-            }
+            }            
 
             if (ErrorMessages.Any()) return Page();
             else return RedirectToPage("Index");

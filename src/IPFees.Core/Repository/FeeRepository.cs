@@ -68,23 +68,7 @@ namespace IPFees.Core.Repository
                 .Set(r => r.Category, Category));
             return res.IsAcknowledged ? DbResult.Succeed() : DbResult.Fail();
         }
-
-        /// <summary>
-        /// Set the fee attorney fee level
-        /// </summary>
-        /// <param name="Id">Fee id</param>
-        /// <param name="AttorneyFeeLevel">Fee attorney fee level</param>
-        /// <returns>A DbResult structure containing the result of the database operation</returns>
-        public async Task<DbResult> SetAttorneyFeeLevelAsync(Guid Id, AttorneyFeeLevel AttorneyFeeLevel)
-        {
-            var res = await context.FeeCollection.UpdateOneAsync(r => r.Id.Equals(Id),
-                Builders<FeeDoc>
-                .Update
-                .Set(r => r.LastUpdatedOn, DateTime.UtcNow.ToLocalTime())
-                .Set(r => r.AttorneyFeeLevel, AttorneyFeeLevel));
-            return res.IsAcknowledged ? DbResult.Succeed() : DbResult.Fail();
-        }
-
+        
         /// <summary>
         /// Set the fee name
         /// </summary>

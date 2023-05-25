@@ -67,14 +67,7 @@ namespace IPFees.Web.Areas.Fee.Pages
             if (!res5.Success)
             {
                 ErrorMessages.Add($"Error setting category: {res5.Reason}");
-            }
-            var parsedAttorneyFeeLevel = (AttorneyFeeLevel)Enum.Parse(typeof(AttorneyFeeLevel), AttorneyFeeLevel);
-            var res6 = await feeRepository.SetAttorneyFeeLevelAsync(res1.Id, parsedAttorneyFeeLevel);
-            if (!res6.Success)
-            {
-                ErrorMessages.Add($"Error setting category: {res6.Reason}");
-            }
-
+            }            
 
             if (ErrorMessages.Any()) return Page();
             else return RedirectToPage("Index");
