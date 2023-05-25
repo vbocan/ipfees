@@ -1,0 +1,43 @@
+﻿@page "{id}"
+@model EditModel
+@{
+    ViewData["Title"] = "Edit Jurisdiction";
+}
+
+<h1>Edit Jurisdiction <small class="text-muted">@Model.Name</small></h1>
+
+<div class="row">
+    <div class="col-lg-12">
+        @if (Model.ErrorMessages.Any())
+        {
+            <div class="alert alert-danger d-flex align-items-center" role="alert">
+                <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Danger:"><use xlink:href="#exclamation-triangle-fill" /></svg>
+                <div>
+                    @foreach(var em in Model.ErrorMessages)
+                    {
+                        <text>@em</text><br/>
+                    }                    
+                </div>
+            </div>
+        }
+        <form method="post">
+            <div class="mb-3">
+                <label for="@Model.Name" class="form-label">Name</label>
+                <input asp-for="Name" value="@Model.Name" class="form-control" required />                
+            </div>            
+            <div class="mb-3">
+                <label for="Description" class="form-label">Description</label>
+                <input asp-for="Description" class="form-control" />
+            </div>            
+            <div class="mb-3 col-md-4">
+                <label for="@Model.AttorneyFeeLevel" class="form-label">Attorney Fee Level</label>
+                <select class="form-select form-select-lg mb-3" asp-for="@Model.AttorneyFeeLevel" asp-items="Model.AttorneyFeeLevelItems" required>
+                    <option value="">Select fee level...</option>
+                </select>
+            </div>
+            <button type="submit" class="btn btn-primary">Save</button>
+            <a asp-page="./Index" class="btn btn-secondary">Cancel</a>
+        </form>
+    </div>
+</div>
+
