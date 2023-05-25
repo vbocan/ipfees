@@ -1,1 +1,6 @@
-mongodump -d IPFees mongodb+srv://valerbocan:cxpAkYCALM15zC8j@ipfeescluster.ayqdiey.mongodb.net/IPFees
+Dump Db to archive
+mongodump --archive="ipfees-production-2023.05.25" --db=IPFees mongodb+srv://valerbocan:cxpAkYCALM15zC8j@ipfeescluster.ayqdiey.mongodb.net
+
+
+Restore archive to a different database
+mongorestore --archive="ipfees-production-2023.05.25" --nsFrom='IPFees.*' --nsTo='IPFeesDev.*' mongodb+srv://valerbocan:cxpAkYCALM15zC8j@ipfeescluster.ayqdiey.mongodb.net
