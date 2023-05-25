@@ -8,8 +8,7 @@ namespace IPFees.Core.Repository
         Task<DbResult> AddModuleAsync(string Name);
         Task<DbResult> SetModuleNameAsync(Guid Id, string Name);
         Task<DbResult> SetModuleDescriptionAsync(Guid Id, string Description);
-        Task<DbResult> SetModuleSourceCodeAsync(Guid Id, string SourceCode);
-        Task<DbResult> SetModuleGroupAsync(Guid Id, string Group);
+        Task<DbResult> SetModuleSourceCodeAsync(Guid Id, string SourceCode);        
         Task<DbResult> RemoveModuleAsync(Guid Id);
         Task<IEnumerable<ModuleInfo>> GetModules();
         Task<ModuleInfo> GetModuleById(Guid Id);

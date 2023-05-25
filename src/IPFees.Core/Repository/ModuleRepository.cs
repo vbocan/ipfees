@@ -80,22 +80,6 @@ namespace IPFees.Core.Repository
         }
 
         /// <summary>
-        /// Set the module group
-        /// </summary>
-        /// <param name="Id">Module id</param>
-        /// <param name="GroupName">Group for the functionality provided</param>        
-        /// <returns>A DbResult structure containing the result of the database operation</returns>
-        public async Task<DbResult> SetModuleGroupAsync(Guid Id, string GroupName)
-        {
-            var res = await context.ModuleCollection.UpdateOneAsync(r => r.Id.Equals(Id),
-                Builders<ModuleDoc>
-                .Update
-                .Set(r => r.LastUpdatedOn, DateTime.UtcNow.ToLocalTime())
-                .Set(r => r.GroupName, GroupName));
-            return res.IsAcknowledged ? DbResult.Succeed() : DbResult.Fail();
-        }
-
-        /// <summary>
         /// Set the module source code
         /// </summary>
         /// <param name="Id">Module id</param>
