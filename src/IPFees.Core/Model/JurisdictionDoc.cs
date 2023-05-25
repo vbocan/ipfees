@@ -1,4 +1,5 @@
 ﻿using IPFees.Core.Enum;
+using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
 
 namespace IPFees.Core.Model
@@ -19,7 +20,8 @@ namespace IPFees.Core.Model
         [BsonId]
         public Guid Id { get; set; }
         public string Name { get; set; }
-        public string Description { get; set; }        
+        public string Description { get; set; }
+        [BsonRepresentation(BsonType.String)]
         public AttorneyFeeLevel AttorneyFeeLevel { get; set; }
         [BsonDateTimeOptions(Kind = DateTimeKind.Local)]
         public DateTime LastUpdatedOn { get; set; }
