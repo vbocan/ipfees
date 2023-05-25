@@ -15,9 +15,8 @@
                 <thead>
                     <tr>
                         <th scope="col">Module</th>
-                        <th scope="col">Description</th>                        
+                        <th scope="col">Description</th>
                         <th scope="col">References</th>
-                        <th scope="col">Last Updated</th>
                         <th scope="col"></th>
 
                     </tr>
@@ -26,10 +25,11 @@
                     @foreach (var mi in Model.Modules)
                     {
                         <tr>
-                            <td>@mi.Mod.Name</td>
-                            <td>@mi.Mod.Description</td>                            
+                            <td>
+                                <button class="btn btn-light btn-sm" aria-disabled="true" data-bs-toggle="tooltip" data-bs-placement="right" title="Last updated: @mi.Mod.LastUpdatedOn">@mi.Mod.Name</button>
+                            </td>
+                            <td>@mi.Mod.Description</td>
                             <td>@mi.Count</td>
-                            <td>@mi.Mod.LastUpdatedOn</td>
                             <td><a asp-page="Edit" asp-route-id="@mi.Mod.Id">Edit</a> | <a asp-page="Delete" asp-route-id="@mi.Mod.Id">Delete</a></td>
                         </tr>
                     }
@@ -43,3 +43,13 @@
         }
     </div>
 </div>
+
+@section Scripts {
+    <!-- Enable tooltips in page -->
+    <script>
+        var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+        var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+            return new bootstrap.Tooltip(tooltipTriggerEl)
+        })
+    </script>
+}
