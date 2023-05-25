@@ -1,17 +1,17 @@
 ﻿@page
 @model DataCollectModel
 @{
-    ViewData["Title"] = "Fee Input Parameters";
+    ViewData["Title"] = "Input Parameters";
 }
 
 <div class="row">
     <div class="col-8">
-        <h1>Fee Input Parameters</h1>
+        <h1>Input Parameters</h1>
         <strong>TODO: Display categorized inputs and ordered by weight!</strong>
         <form asp-page="Result" asp-area="Run" method="post">
-            @for (int i = 0; i < Model.SelectedFees.Count(); i++)
+            @for (int i = 0; i < Model.SelectedJurisdictions.Count(); i++)
             {
-                <input type="hidden" asp-for="@Model.SelectedFees[i]" />
+                <input type="hidden" asp-for="@Model.SelectedJurisdictions[i]" />
             }
             <div class="col-md-9">
                 @for (int i = 0; i < Model.Inputs.Count; i++)
