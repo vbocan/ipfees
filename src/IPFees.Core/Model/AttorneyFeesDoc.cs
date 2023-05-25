@@ -10,7 +10,7 @@ namespace IPFees.Core.Model
         public const string CollectionName = "AttorneyFees";
 
         public AttorneyFeesDoc() {
-            FeeLevel = JurisdictionAttorneyFeeLevel.Level1;
+            FeeLevel = AttorneyFeeLevel.Level1;
             Amount = 0;
             Currency = string.Empty;
         }
@@ -18,7 +18,7 @@ namespace IPFees.Core.Model
         [BsonId]
         public ObjectId Id { get; set; }
         [BsonRepresentation(BsonType.String)]
-        public JurisdictionAttorneyFeeLevel FeeLevel { get; set; }
+        public AttorneyFeeLevel FeeLevel { get; set; }
         public double Amount { get; set; }
         public string Currency { get; set; }
     }

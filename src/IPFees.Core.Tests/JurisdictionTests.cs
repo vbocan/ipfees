@@ -51,22 +51,22 @@ namespace IPFees.Core.Tests
             var jur = new FeeRepository(fixture.DbContext);
             var res1 = await jur.AddFeeAsync("Fee-Set-Category");
             Assert.True(res1.Success);
-            var res2 = await jur.SetFeeCategoryAsync(res1.Id, JurisdictionCategory.OfficialFees);
+            var res2 = await jur.SetFeeCategoryAsync(res1.Id, FeeCategory.OfficialFees);
             Assert.True(res2.Success);
             var mi = await jur.GetFeeById(res1.Id);
-            Assert.Equal(JurisdictionCategory.OfficialFees, mi.Category);
+            Assert.Equal(FeeCategory.OfficialFees, mi.Category);
         }
 
         [Fact]
-        public async void SetFeeAttorneyFeeLevelTest()
+        public async void SetAttorneyFeeLevelTest()
         {
             var jur = new FeeRepository(fixture.DbContext);
             var res1 = await jur.AddFeeAsync("Fee-Set-AttorneyFeeLevel");
             Assert.True(res1.Success);
-            var res2 = await jur.SetFeeAttorneyFeeLevelAsync(res1.Id, JurisdictionAttorneyFeeLevel.Level1);
+            var res2 = await jur.SetAttorneyFeeLevelAsync(res1.Id, AttorneyFeeLevel.Level1);
             Assert.True(res2.Success);
             var mi = await jur.GetFeeById(res1.Id);
-            Assert.Equal(JurisdictionAttorneyFeeLevel.Level1, mi.AttorneyFeeLevel);
+            Assert.Equal(AttorneyFeeLevel.Level1, mi.AttorneyFeeLevel);
         }
 
         [Fact]

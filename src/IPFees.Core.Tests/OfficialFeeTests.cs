@@ -20,7 +20,7 @@ namespace IPFees.Core.Tests
         [Fact]
         public async void OfficialFeeSingleCalculationTest()
         {
-            // First let's create a module containing some source code that will later be referenced by the jurisdiction
+            // First let's create a module containing some source code that will later be referenced by the fee
             var mod = fixture.ModuleRepository;
             var res2 = await mod.AddModuleAsync("Mod1");
             Assert.True(res2.Success);
@@ -32,7 +32,7 @@ namespace IPFees.Core.Tests
             """;
             var res3 = await mod.SetModuleSourceCodeAsync(res2.Id, modSourceCode);
             Assert.True(res3.Success);
-            // Now let's create a jurisdiction and the associated module
+            // Now let's create a fee and the associated module
             var jur = fixture.FeeRepository;
             var res4 = await jur.AddFeeAsync("Jur1");
             Assert.True(res4.Success);
@@ -58,7 +58,7 @@ namespace IPFees.Core.Tests
         [Fact]
         public async void OfficialFeeMultipleCalculationTest()
         {
-            // First let's create a module containing some source code that will later be referenced by the jurisdiction
+            // First let's create a module containing some source code that will later be referenced by the fee
             var mod = fixture.ModuleRepository;
             var res2 = await mod.AddModuleAsync("Mod1m");
             Assert.True(res2.Success);
@@ -70,7 +70,7 @@ namespace IPFees.Core.Tests
             """;
             var res3 = await mod.SetModuleSourceCodeAsync(res2.Id, modSourceCode);
             Assert.True(res3.Success);
-            // Now let's create a jurisdiction and the associated module
+            // Now let's create a fee and the associated module
             var jur = fixture.FeeRepository;
             var res4 = await jur.AddFeeAsync("Jur1m");
             Assert.True(res4.Success);
@@ -86,7 +86,7 @@ namespace IPFees.Core.Tests
             var res6 = await jur.SetReferencedModules(res4.Id, new Guid[] { res2.Id });
             Assert.True(res6.Success);
 
-            // Now let's create another jurisdiction and the associated module            
+            // Now let's create another fee and the associated module            
             var res7 = await jur.AddFeeAsync("Jur2m");
             Assert.True(res7.Success);
             jurSourceCode =

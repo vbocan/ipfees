@@ -24,7 +24,7 @@ namespace IPFees.Web.Areas.Settings.Pages
         public async Task<IActionResult> OnGetAsync(string Id)
         {
             AttorneyFeeLevel = Id;
-            var afi = await settingRepository.GetAttorneyFeeAsync(Enum.Parse<JurisdictionAttorneyFeeLevel>(Id));
+            var afi = await settingRepository.GetAttorneyFeeAsync(Enum.Parse<AttorneyFeeLevel>(Id));
             Amount = afi.Amount;
             Currency = afi.Currency;
             return Page();
@@ -32,7 +32,7 @@ namespace IPFees.Web.Areas.Settings.Pages
 
         public async Task<IActionResult> OnPostAsync(string Id)
         {
-            var res = await settingRepository.SetAttorneyFeeAsync(Enum.Parse<JurisdictionAttorneyFeeLevel>(Id), Amount, Currency);
+            var res = await settingRepository.SetAttorneyFeeAsync(Enum.Parse<AttorneyFeeLevel>(Id), Amount, Currency);
             if (!res.Success)
             {
                 ErrorMessages.Add($"Error setting attorney fee: {res.Reason}");

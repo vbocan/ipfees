@@ -10,7 +10,7 @@ using static IPFees.Core.OfficialFee;
 
 namespace IPFees.Web.Areas.Run.Pages
 {
-    public class JurisdictionModel : PageModel
+    public class FeeModel : PageModel
     {
         [BindProperty] public Guid Id { get; set; }
         [BindProperty] public bool CalculationPending { get; set; } = true;
@@ -27,9 +27,9 @@ namespace IPFees.Web.Areas.Run.Pages
         [BindProperty] public IEnumerable<(string, string)> Returns { get; set; }
 
         private readonly IOfficialFee officialFee;
-        private readonly ILogger<JurisdictionModel> _logger;
+        private readonly ILogger<FeeModel> _logger;
 
-        public JurisdictionModel(IOfficialFee officialFee, ILogger<JurisdictionModel> logger)
+        public FeeModel(IOfficialFee officialFee, ILogger<FeeModel> logger)
         {
             this.officialFee = officialFee;
             _logger = logger;
@@ -44,7 +44,7 @@ namespace IPFees.Web.Areas.Run.Pages
                 TempData["Errors"] = (res as FeeResultFail).Errors.ToArray();
                 return RedirectToPage("Error");
             }
-            Inputs = (res as FeeResultParse).JurisdictionInputs.Select(pv => new InputViewModel(pv.Name, pv.GetType().ToString(), pv, string.Empty, Array.Empty<string>(), 0, false, DateOnly.MinValue)).ToList();
+            Inputs = (res as FeeResultParse).FeeInputs.Select(pv => new InputViewModel(pv.Name, pv.GetType().ToString(), pv, string.Empty, Array.Empty<string>(), 0, false, DateOnly.MinValue)).ToList();
             return Page();
         }
 
@@ -110,6 +110,6 @@ namespace IPFees.Web.Areas.Run.Pages
     }
 
     public record InputViewModel(string Name, string Type, DslInput Var, string StrValue, string[] ListValue, double DoubleValue, bool BoolValue, DateOnly DateValue);
-    public record FailedJurisdictionViewModel(string JurisdictionName, string JurisdictionDescription);
+    public record FailedFeeViewModel(string FeeName, string FeeDescription);
 
 }

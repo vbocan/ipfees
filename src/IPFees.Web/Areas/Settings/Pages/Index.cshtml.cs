@@ -22,7 +22,7 @@ namespace IPFees.Web.Areas.Settings.Pages
         public async Task<IActionResult> OnGetAsync()
         {
             // Retrieve the list of attorney fee levels
-            var afs = from s in Enum.GetValues(typeof(JurisdictionAttorneyFeeLevel)).Cast<JurisdictionAttorneyFeeLevel>()
+            var afs = from s in Enum.GetValues(typeof(AttorneyFeeLevel)).Cast<AttorneyFeeLevel>()
                      let af = settingsRepository.GetAttorneyFeeAsync(s).Result
                      select new AttorneyFeeInfo(s, af.Amount, af.Currency ?? string.Empty);
             AttorneyFees = afs.ToList();

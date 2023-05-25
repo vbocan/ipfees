@@ -8,10 +8,10 @@ namespace IPFees.Core
 {
     public interface IOfficialFee
     {
-        FeeResult GetInputs(Guid JurisdictionId);
-        (IEnumerable<DslInput>, IEnumerable<FeeResultFail>) GetConsolidatedInputs(IEnumerable<Guid> JurisdictionIds);
+        FeeResult GetInputs(Guid FeeId);
+        (IEnumerable<DslInput>, IEnumerable<FeeResultFail>) GetConsolidatedInputs(IEnumerable<Guid> FeeIds);
 
-        FeeResult Calculate(Guid JurisdictionId, IList<IPFValue> InputValues);
-        IEnumerable<FeeResult> Calculate(IEnumerable<Guid> JurisdictionIds, IList<IPFValue> InputValues);        
+        FeeResult Calculate(Guid FeeId, IList<IPFValue> InputValues);
+        IEnumerable<FeeResult> Calculate(IEnumerable<Guid> FeeIds, IList<IPFValue> InputValues);        
     }
 }

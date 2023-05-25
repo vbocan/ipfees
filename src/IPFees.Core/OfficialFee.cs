@@ -10,30 +10,30 @@ namespace IPFees.Core
     public class OfficialFee : IOfficialFee
     {
         private readonly IDslCalculator Calculator;
-        private readonly IEnumerable<FeeInfo> Jurisdictions;
+        private readonly IEnumerable<FeeInfo> Fees;
         private readonly IEnumerable<ModuleInfo> Modules;
 
-        public OfficialFee(IFeeRepository jurisdiction, IModuleRepository module, IDslCalculator calculator)
+        public OfficialFee(IFeeRepository fee, IModuleRepository module, IDslCalculator calculator)
         {
             Calculator = calculator;
-            Jurisdictions = jurisdiction.GetFees().Result;
+            Fees = fee.GetFees().Result;
             Modules = module.GetModules().Result;
         }
 
-        private FeeInfo? GetJurisdictionById(Guid Id) => Jurisdictions.SingleOrDefault(w => w.Id.Equals(Id));
+        private FeeInfo? GetFeeById(Guid Id) => Fees.SingleOrDefault(w => w.Id.Equals(Id));
         private ModuleInfo? GetModuleById(Guid Id) => Modules.SingleOrDefault(w => w.Id.Equals(Id));
 
         /// <summary>
-        /// Compute the official fees for the specified jurisdiction
+        /// Compute the official fees for the specified fee
         /// </summary>
-        /// <param name="JurisdictionId">Jurisdiction Id</param>
+        /// <param name="FeeId">Fee Id</param>
         /// <param name="InputValues">Calculation parameters</param>
         /// <exception cref="NotSupportedException"></exception>
-        public FeeResult Calculate(Guid JurisdictionId, IList<IPFValue> InputValues)
+        public FeeResult Calculate(Guid FeeId, IList<IPFValue> InputValues)
         {
             // Reset calculator
             Calculator.Reset();
-            var jur = GetJurisdictionById(JurisdictionId) ?? throw new NotSupportedException($"Jurisdiction '{JurisdictionId}' does not exist.");
+            var jur = GetFeeById(FeeId) ?? throw new NotSupportedException($"Fee '{FeeId}' does not exist.");
             // Step 1: Parse the source code of the referenced modules (if any)
             foreach (var rm in jur.ReferencedModules)
             {
@@ -41,7 +41,7 @@ namespace IPFees.Core
                 var mod = GetModuleById(rm) ?? throw new NotSupportedException($"Module '{rm}' does not exist.");
                 Calculator.Parse(mod.SourceCode);
             }
-            // Step 2: Parse the source code of the current jurisdiction
+            // Step 2: Parse the source code of the current fee
             var res = Calculator.Parse(jur.SourceCode);
             if (!res)
             {
@@ -61,21 +61,21 @@ namespace IPFees.Core
         }
 
         /// <summary>
-        /// Compute official fees for the all specified jurisdictions
+        /// Compute official fees for the all specified fees
         /// </summary>
-        /// <param name="JurisdictionIds">Jurisdiction Ids</param>
+        /// <param name="FeeIds">Fee Ids</param>
         /// <param name="InputValues">Calculation parameters</param>
         /// <exception cref="NotSupportedException"></exception>
-        public IEnumerable<FeeResult> Calculate(IEnumerable<Guid> JurisdictionIds, IList<IPFValue> InputValues)
+        public IEnumerable<FeeResult> Calculate(IEnumerable<Guid> FeeIds, IList<IPFValue> InputValues)
         {
-            foreach (var id in JurisdictionIds) yield return Calculate(id, InputValues);
+            foreach (var id in FeeIds) yield return Calculate(id, InputValues);
         }
 
-        public FeeResult GetInputs(Guid JurisdictionId)
+        public FeeResult GetInputs(Guid FeeId)
         {
             // Reset calculator
             Calculator.Reset();
-            var jur = GetJurisdictionById(JurisdictionId) ?? throw new NotSupportedException($"Jurisdiction '{JurisdictionId}' does not exist.");
+            var jur = GetFeeById(FeeId) ?? throw new NotSupportedException($"Fee '{FeeId}' does not exist.");
             // Step 1: Parse the source code of the referenced modules (if any)
             foreach (var rm in jur.ReferencedModules)
             {
@@ -83,7 +83,7 @@ namespace IPFees.Core
                 var mod = GetModuleById(rm) ?? throw new NotSupportedException($"Module '{rm}' does not exist.");
                 Calculator.Parse(mod.SourceCode);
             }
-            // Step 2: Parse the source code of the current jurisdiction
+            // Step 2: Parse the source code of the current fee
             var res = Calculator.Parse(jur.SourceCode);
             if (!res)
             {
@@ -97,12 +97,12 @@ namespace IPFees.Core
             }
         }
 
-        public (IEnumerable<DslInput>, IEnumerable<FeeResultFail>) GetConsolidatedInputs(IEnumerable<Guid> JurisdictionIds)
+        public (IEnumerable<DslInput>, IEnumerable<FeeResultFail>) GetConsolidatedInputs(IEnumerable<Guid> FeeIds)
         {
             var Errors = new List<FeeResultFail>();
             var Inputs = new List<DslInput>();
 
-            foreach (var id in JurisdictionIds)
+            foreach (var id in FeeIds)
             {
                 var inp = GetInputs(id);
                 if (inp is FeeResultFail)
@@ -112,7 +112,7 @@ namespace IPFees.Core
                 else
                 {
                     var fps = inp as FeeResultParse;
-                    Inputs.AddRange(fps.JurisdictionInputs);
+                    Inputs.AddRange(fps.FeeInputs);
                 }
             }
 
@@ -122,7 +122,7 @@ namespace IPFees.Core
     }
 
     public abstract record FeeResult();
-    public record FeeResultFail(string JurisdictionName, string JurisdictionDescription, IEnumerable<string> Errors) : FeeResult();
-    public record FeeResultCalculation(string JurisdictionName, string JurisdictionDescription, double TotalMandatoryAmount, double TotalOptionalAmount, IEnumerable<string> CalculationSteps, IEnumerable<(string, string)> Returns) : FeeResult();
-    public record FeeResultParse(string JurisdictionName, string JurisdictionDescription, IEnumerable<DslInput> JurisdictionInputs) : FeeResult();
+    public record FeeResultFail(string FeeName, string FeeDescription, IEnumerable<string> Errors) : FeeResult();
+    public record FeeResultCalculation(string FeeName, string FeeDescription, double TotalMandatoryAmount, double TotalOptionalAmount, IEnumerable<string> CalculationSteps, IEnumerable<(string, string)> Returns) : FeeResult();
+    public record FeeResultParse(string FeeName, string FeeDescription, IEnumerable<DslInput> FeeInputs) : FeeResult();
 }

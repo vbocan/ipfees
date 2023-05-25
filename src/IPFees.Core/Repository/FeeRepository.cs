@@ -59,7 +59,7 @@ namespace IPFees.Core.Repository
         /// <param name="Id">Fee id</param>
         /// <param name="Category">Fee category</param>
         /// <returns>A DbResult structure containing the result of the database operation</returns>
-        public async Task<DbResult> SetFeeCategoryAsync(Guid Id, JurisdictionCategory Category)
+        public async Task<DbResult> SetFeeCategoryAsync(Guid Id, FeeCategory Category)
         {
             var res = await context.FeeCollection.UpdateOneAsync(r => r.Id.Equals(Id),
                 Builders<FeeDoc>
@@ -75,7 +75,7 @@ namespace IPFees.Core.Repository
         /// <param name="Id">Fee id</param>
         /// <param name="AttorneyFeeLevel">Fee attorney fee level</param>
         /// <returns>A DbResult structure containing the result of the database operation</returns>
-        public async Task<DbResult> SetFeeAttorneyFeeLevelAsync(Guid Id, JurisdictionAttorneyFeeLevel AttorneyFeeLevel)
+        public async Task<DbResult> SetAttorneyFeeLevelAsync(Guid Id, AttorneyFeeLevel AttorneyFeeLevel)
         {
             var res = await context.FeeCollection.UpdateOneAsync(r => r.Id.Equals(Id),
                 Builders<FeeDoc>
