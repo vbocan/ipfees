@@ -13,7 +13,7 @@ namespace IPFees.Core
         private readonly IEnumerable<JurisdictionInfo> Jurisdictions;
         private readonly IEnumerable<ModuleInfo> Modules;
 
-        public OfficialFee(IJurisdictionRepository jurisdiction, IModuleRepository module, IDslCalculator calculator)
+        public OfficialFee(IFeeRepository jurisdiction, IModuleRepository module, IDslCalculator calculator)
         {
             Calculator = calculator;
             Jurisdictions = jurisdiction.GetJurisdictions().Result;

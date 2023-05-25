@@ -9,16 +9,16 @@ using IPFees.Core.Enum;
 
 namespace IPFees.Core.Repository
 {
-    public class JurisdictionRepository : IJurisdictionRepository
+    public class FeeRepository : IFeeRepository
     {
         private readonly DataContext context;
 
-        public JurisdictionRepository(DataContext context)
+        public FeeRepository(DataContext context)
         {
             this.context = context;
         }
 
-        public JurisdictionRepository()
+        public FeeRepository()
         {
         }
 

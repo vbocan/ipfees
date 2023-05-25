@@ -12,9 +12,9 @@ namespace IPFees.Web.Areas.Module.Pages
     {
         [BindProperty] public IEnumerable<ModuleViewModel> Modules { get; set; }
         private readonly IModuleRepository moduleRepository;
-        private readonly IJurisdictionRepository jurisdictionRepository;
+        private readonly IFeeRepository jurisdictionRepository;
 
-        public IndexModel(IJurisdictionRepository jurisdictionRepository, IModuleRepository moduleRepository)
+        public IndexModel(IFeeRepository jurisdictionRepository, IModuleRepository moduleRepository)
         {
             this.jurisdictionRepository = jurisdictionRepository;
             this.moduleRepository = moduleRepository;

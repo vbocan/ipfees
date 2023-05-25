@@ -34,7 +34,7 @@ builder.Services.AddSingleton<DataContext>(x => new DataContext(x.GetService<IOp
 // Add IPFees services
 builder.Services.AddTransient<IDslParser, DslParser>();
 builder.Services.AddTransient<IDslCalculator, DslCalculator>();
-builder.Services.AddTransient<IJurisdictionRepository, JurisdictionRepository>();
+builder.Services.AddTransient<IFeeRepository, FeeRepository>();
 builder.Services.AddTransient<IModuleRepository, ModuleRepository>();
 builder.Services.AddTransient<ISettingsRepository, SettingsRepository>();
 builder.Services.AddTransient<IOfficialFee, OfficialFee>();

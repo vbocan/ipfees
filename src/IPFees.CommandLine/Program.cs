@@ -6,7 +6,7 @@ string folderPath = "..\\..\\..\\..\\..\\assets\\TranslationFiles";
 
 string[] txtFiles = Directory.GetFiles(folderPath, "*.txt");
 var dc = new DataContext("mongodb+srv://valerbocan:cxpAkYCALM15zC8j@ipfeescluster.ayqdiey.mongodb.net/IPFeesDev?retryWrites=true&w=majority");
-var jr = new JurisdictionRepository(dc);
+var jr = new FeeRepository(dc);
 
 foreach (string filePath in txtFiles)
 {

@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
-namespace IPFees.Web.Areas.Jurisdiction.Pages
+namespace IPFees.Web.Areas.Fee.Pages
 {
     public class CreateModel : PageModel
     {
@@ -20,12 +20,12 @@ namespace IPFees.Web.Areas.Jurisdiction.Pages
         public IEnumerable<SelectListItem> CategoryItems { get; set; }
         public IEnumerable<SelectListItem> AttorneyFeeLevelItems { get; set; }
 
-        private readonly IJurisdictionRepository jurisdictionRepository;
+        private readonly IFeeRepository feeRepository;
         private readonly IModuleRepository moduleRepository;
 
-        public CreateModel(IJurisdictionRepository jurisdictionRepository, IModuleRepository moduleRepository)
+        public CreateModel(IFeeRepository feeRepository, IModuleRepository moduleRepository)
         {
-            this.jurisdictionRepository = jurisdictionRepository;
+            this.feeRepository = feeRepository;
             this.moduleRepository = moduleRepository;
             CategoryItems = Enum.GetValues<JurisdictionCategory>().AsEnumerable().Select(s => new SelectListItem(s.ValueAsString(), s.ToString()));
             AttorneyFeeLevelItems = Enum.GetValues<JurisdictionAttorneyFeeLevel>().AsEnumerable().Select(s => new SelectListItem(s.ValueAsString(), s.ToString()));
@@ -41,35 +41,35 @@ namespace IPFees.Web.Areas.Jurisdiction.Pages
 
         public async Task<IActionResult> OnPostAsync()
         {
-            var res1 = await jurisdictionRepository.AddJurisdictionAsync(Name);
+            var res1 = await feeRepository.AddJurisdictionAsync(Name);
             if (!res1.Success)
             {
-                ErrorMessages.Add($"Error creating jurisdiction: {res1.Reason}");
+                ErrorMessages.Add($"Error creating fee: {res1.Reason}");
             }
-            var res2 = await jurisdictionRepository.SetJurisdictionDescriptionAsync(res1.Id, Description);
+            var res2 = await feeRepository.SetJurisdictionDescriptionAsync(res1.Id, Description);
             if (!res2.Success)
             {
                 ErrorMessages.Add($"Error setting description: {res2.Reason}");
             }
             var RefMod = ReferencedModules.Where(w => w.Checked).Select(s => s.Id).ToList();
-            var res3 = await jurisdictionRepository.SetReferencedModules(res1.Id, RefMod);
+            var res3 = await feeRepository.SetReferencedModules(res1.Id, RefMod);
             if (!res3.Success)
             {
                 ErrorMessages.Add($"Error setting referenced modules: {res3.Reason}");
             }
-            var res4 = await jurisdictionRepository.SetJurisdictionSourceCodeAsync(res1.Id, SourceCode);
+            var res4 = await feeRepository.SetJurisdictionSourceCodeAsync(res1.Id, SourceCode);
             if (!res4.Success)
             {
                 ErrorMessages.Add($"Error setting source code: {res4.Reason}");
             }
             var parsedCategory = (JurisdictionCategory)Enum.Parse(typeof(JurisdictionCategory), Category);
-            var res5 = await jurisdictionRepository.SetJurisdictionCategoryAsync(res1.Id, parsedCategory);
+            var res5 = await feeRepository.SetJurisdictionCategoryAsync(res1.Id, parsedCategory);
             if (!res5.Success)
             {
                 ErrorMessages.Add($"Error setting category: {res5.Reason}");
             }
             var parsedAttorneyFeeLevel = (JurisdictionAttorneyFeeLevel)Enum.Parse(typeof(JurisdictionAttorneyFeeLevel), AttorneyFeeLevel);
-            var res6 = await jurisdictionRepository.SetJurisdictionAttorneyFeeLevelAsync(res1.Id, parsedAttorneyFeeLevel);
+            var res6 = await feeRepository.SetJurisdictionAttorneyFeeLevelAsync(res1.Id, parsedAttorneyFeeLevel);
             if (!res6.Success)
             {
                 ErrorMessages.Add($"Error setting category: {res6.Reason}");

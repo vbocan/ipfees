@@ -10,10 +10,10 @@ namespace IPFees.Web.Areas.Run.Pages
         [BindProperty] public IEnumerable<JurisdictionInfo> Jurisdictions { get; set; }
         [BindProperty] public IList<JurisdictionViewModel> SelectedJurisdictions { get; set; }
 
-        private readonly IJurisdictionRepository jurisdictionRepository;        
+        private readonly IFeeRepository jurisdictionRepository;        
         private readonly ILogger<IndexModel> _logger;
 
-        public IndexModel(IJurisdictionRepository jurisdictionRepository, ILogger<IndexModel> logger)
+        public IndexModel(IFeeRepository jurisdictionRepository, ILogger<IndexModel> logger)
         {
             this.jurisdictionRepository = jurisdictionRepository;            
             _logger = logger;

@@ -4,7 +4,7 @@ using IPFees.Core.Model;
 
 namespace IPFees.Core.Repository
 {
-    public interface IJurisdictionRepository
+    public interface IFeeRepository
     {
         Task<DbResult> AddJurisdictionAsync(string Name);
         Task<DbResult> SetJurisdictionCategoryAsync(Guid Id, JurisdictionCategory Category);
