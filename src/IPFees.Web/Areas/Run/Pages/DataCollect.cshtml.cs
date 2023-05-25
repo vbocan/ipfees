@@ -13,7 +13,7 @@ namespace IPFees.Web.Areas.Run.Pages
 {
     public class DataCollectModel : PageModel
     {
-        [BindProperty] public Guid[] SelectedFees { get; set; }
+        [BindProperty] public Guid[] SelectedJurisdictions { get; set; }
         [BindProperty] public IList<InputViewModel> Inputs { get; set; }
         [BindProperty] public IEnumerable<string> Errors { get; set; }        
 
@@ -29,7 +29,7 @@ namespace IPFees.Web.Areas.Run.Pages
 
         public async Task<IActionResult> OnGetAsync(Guid[] Id)
         {
-            SelectedFees = Id;
+            SelectedJurisdictions = Id;
 
             // For each fee, get the inputs that need to be displayed to the user
             var (inputs, errs) = officialFee.GetConsolidatedInputs(Id);
