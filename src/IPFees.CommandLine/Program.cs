@@ -1,7 +1,28 @@
 ﻿using IPFees.Core.Data;
 using IPFees.Core.Enum;
 using IPFees.Core.Repository;
+using IPFees.Evaluator;
+using SharpCompress.Common;
 
+string filePath = "..\\..\\..\\..\\..\\db-backups\\IPFeesDev.Fees.csv";
+var dc = new DataContext("mongodb+srv://valerbocan:cxpAkYCALM15zC8j@ipfeescluster.ayqdiey.mongodb.net/IPFeesDev?retryWrites=true&w=majority");
+var jr = new JurisdictionRepository(dc);
+
+string contents = File.ReadAllText(filePath);
+
+string[] lines = contents.Split('\n');
+
+foreach (string line in lines)
+{
+    string Name = line[..2];
+    string Description = line[3..];
+    Console.WriteLine($"Processing {Name},{Description}");
+    var id = await jr.AddJurisdictionAsync(Name);
+    await jr.SetJurisdictionDescriptionAsync(id.Id, Description);
+    await jr.SetJurisdictionAttorneyFeeLevelAsync(id.Id, AttorneyFeeLevel.Level1);
+}
+
+/*
 string folderPath = "..\\..\\..\\..\\..\\assets\\TranslationFiles";
 
 string[] txtFiles = Directory.GetFiles(folderPath, "*.txt");
@@ -69,4 +90,4 @@ string ExtractDescription(string contents)
         }
     }
     return string.Empty;
-}
+}*/
