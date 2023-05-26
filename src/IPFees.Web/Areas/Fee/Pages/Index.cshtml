@@ -15,6 +15,7 @@
                 <thead>
                     <tr>
                         <th scope="col">Fee</th>
+                        <th scope="col">Jurisdiction</th>
                         <th scope="col">Category</th>                        
                         <th scope="col">Description</th>
                         <th scope="col">References</th>
@@ -29,6 +30,7 @@
                             <td>
                                 <a class="btn btn-light btn-sm" role="button" aria-disabled="true" data-bs-toggle="tooltip" data-bs-placement="right" title="Last updated: @mi.LastUpdatedOn" asp-area="Run" asp-page="Fee" asp-route-id="@mi.Id">@mi.Name</a>
                             </td>
+                            <td>@mi.JurisdictionName</td>
                             <td>@mi.Category.ValueAsString()</td>                            
                             <td>@mi.Description</td>
                             <td>@mi.ReferencedModules.Count()</td>

@@ -29,6 +29,12 @@
                 </select>
             </div>
             <div class="mb-3 col-md-4">
+                <label for="@Model.JurisdictionName" class="form-label">Linked Jurisdiction</label>
+                <select class="form-select form-select-lg mb-3" asp-for="@Model.JurisdictionName" asp-items="Model.JurisdictionNameItems" required>
+                    <option value="">Select jurisdiction...</option>
+                </select>
+            </div>
+            <div class="mb-3 col-md-4">
                 <label for="@Model.AttorneyFeeLevel" class="form-label">Attorney Fee Level</label>
                 <select class="form-select form-select-lg mb-3" asp-for="@Model.AttorneyFeeLevel" asp-items="Model.AttorneyFeeLevelItems" required>
                     <option value="">Select fee level...</option>
