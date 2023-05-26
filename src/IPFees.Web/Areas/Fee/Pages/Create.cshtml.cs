@@ -9,8 +9,7 @@ namespace IPFees.Web.Areas.Fee.Pages
 {
     public class CreateModel : PageModel
     {
-        [BindProperty] public string Category { get; set; }
-        [BindProperty] public string AttorneyFeeLevel { get; set; }
+        [BindProperty] public string Category { get; set; }        
         [BindProperty] public string Name { get; set; }
         [BindProperty] public string JurisdictionName { get; set; }
         [BindProperty] public string Description { get; set; }
@@ -18,8 +17,7 @@ namespace IPFees.Web.Areas.Fee.Pages
         [BindProperty] public IList<ModuleViewModel> ReferencedModules { get; set; }
         [BindProperty] public IList<string> ErrorMessages { get; set; }
 
-        public IEnumerable<SelectListItem> CategoryItems { get; set; }
-        public IEnumerable<SelectListItem> AttorneyFeeLevelItems { get; set; }
+        public IEnumerable<SelectListItem> CategoryItems { get; set; }        
         public IEnumerable<SelectListItem> JurisdictionNameItems { get; set; }
         
         private readonly IFeeRepository feeRepository;
@@ -29,8 +27,7 @@ namespace IPFees.Web.Areas.Fee.Pages
         {            
             this.feeRepository = feeRepository;
             this.moduleRepository = moduleRepository;
-            CategoryItems = Enum.GetValues<FeeCategory>().AsEnumerable().Select(s => new SelectListItem(s.ValueAsString(), s.ToString()));
-            AttorneyFeeLevelItems = Enum.GetValues<AttorneyFeeLevel>().AsEnumerable().Select(s => new SelectListItem(s.ValueAsString(), s.ToString()));
+            CategoryItems = Enum.GetValues<FeeCategory>().AsEnumerable().Select(s => new SelectListItem(s.ValueAsString(), s.ToString()));            
             JurisdictionNameItems = jurisdictionRepository.GetJurisdictions().Result.Select(s => new SelectListItem($"{s.Name} - {s.Description}", s.Name));
             ErrorMessages = new List<string>();
         }
