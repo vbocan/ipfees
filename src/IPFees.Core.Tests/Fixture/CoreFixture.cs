@@ -10,7 +10,7 @@ namespace IPFees.Core.Tests.Fixture
     public class CoreFixture : IDisposable
     {
         public DataContext DbContext { get; private set; }        
-        private readonly string connectionString = "mongodb+srv://abdroot:Test123@cluster0.dusbo.mongodb.net/CoreTest?retryWrites=true&w=majority";
+        private readonly string connectionString = "mongodb+srv://abdroot:Test123@cluster0.dusbo.mongodb.net/IPFeesTest?retryWrites=true&w=majority";
 
         public CoreFixture()
         {
