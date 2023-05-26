@@ -4,15 +4,15 @@ using IPFees.Evaluator;
 using IPFees.Parser;
 using IPFees.Core;
 using IPFees.Core.Data;
-using static IPFees.Core.OfficialFee;
+using static IPFees.Core.FeeCalculator;
 
 namespace IPFees.Core.Tests
 {
-    public class OfficialFeeTests : IClassFixture<OfficialFeeFixture>
+    public class FeeCalculatorTests : IClassFixture<FeeCalculatorFixture>
     {
-        private readonly OfficialFeeFixture fixture;
+        private readonly FeeCalculatorFixture fixture;
 
-        public OfficialFeeTests(OfficialFeeFixture fixture)
+        public FeeCalculatorTests(FeeCalculatorFixture fixture)
         {
             this.fixture = fixture;
         }
@@ -49,7 +49,7 @@ namespace IPFees.Core.Tests
             Assert.True(res6.Success);
             var parser = new DslParser();            
             IDslCalculator calc = new DslCalculator(parser);
-            OfficialFee of = new(jur, mod, calc);
+            FeeCalculator of = new(jur, mod, calc);
             var res7 = of.Calculate(res4.Id, new List<IPFValue> { });            
             Assert.IsType<FeeResultCalculation>(res7);
             var res = (FeeResultCalculation)res7;
@@ -104,7 +104,7 @@ namespace IPFees.Core.Tests
 
             var parser = new DslParser();
             IDslCalculator calc = new DslCalculator(parser);
-            OfficialFee of = new(jur, mod, calc);
+            FeeCalculator of = new(jur, mod, calc);
             var res10 = of.Calculate((new[] { res4.Id, res7.Id }).AsEnumerable(), new List<IPFValue> { });
             var res11 = res10.ToArray();            
             Assert.IsType<FeeResultCalculation>(res11[0]);

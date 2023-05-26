@@ -1,12 +1,9 @@
-﻿using IPFees.Core;
-using IPFees.Evaluator;
+﻿using IPFees.Evaluator;
 using IPFees.Parser;
-using IPFees.Core.Data;
-using static IPFees.Core.OfficialFee;
 
 namespace IPFees.Core
 {
-    public interface IOfficialFee
+    public interface IFeeCalculator
     {
         FeeResult GetInputs(Guid FeeId);
         (IEnumerable<DslInput>, IEnumerable<FeeResultFail>) GetConsolidatedInputs(IEnumerable<Guid> FeeIds);
