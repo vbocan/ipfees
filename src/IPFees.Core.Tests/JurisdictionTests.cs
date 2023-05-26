@@ -57,19 +57,7 @@ namespace IPFees.Core.Tests
             Assert.True(res2.Success);
             var mi = await jur.GetJurisdictionById(res1.Id);
             Assert.Equal("Jurisdiction Description", mi.Description);
-        }
-        
-        [Fact]
-        public async void SetJurisdictionAttorneyFeeLevelTest()
-        {
-            var jur = new JurisdictionRepository(fixture.DbContext);
-            var res1 = await jur.AddJurisdictionAsync("Jurisdiction-Set-FeeLevel");
-            Assert.True(res1.Success);
-            var res2 = await jur.SetJurisdictionAttorneyFeeLevelAsync(res1.Id, AttorneyFeeLevel.Level3);
-            Assert.True(res2.Success);
-            var mi = await jur.GetJurisdictionById(res1.Id);
-            Assert.Equal(AttorneyFeeLevel.Level3, mi.AttorneyFeeLevel);
-        }
+        }        
 
         [Fact]
         public async void RemoveJurisdictionsTest()

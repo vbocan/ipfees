@@ -14,6 +14,7 @@ namespace IPFees.Core.Model
             Name = string.Empty;
             Description = string.Empty;
             SourceCode = string.Empty;
+            JurisdictionName = string.Empty;
             ReferencedModules = new List<Guid>();
             LastUpdatedOn = DateTime.MinValue;
         }
@@ -24,6 +25,7 @@ namespace IPFees.Core.Model
         public FeeCategory Category { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
+        public string JurisdictionName { get; set; }
         public string SourceCode { get; set; }
         public IList<Guid> ReferencedModules { get; set; }
         [BsonDateTimeOptions(Kind = DateTimeKind.Local)]
