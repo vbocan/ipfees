@@ -11,6 +11,7 @@ namespace IPFees.Web.Areas.Fee.Pages
     {
         [BindProperty] public string Category { get; set; }        
         [BindProperty] public string Name { get; set; }
+        [BindProperty] public string JurisdictionName { get; set; }
         [BindProperty] public string Description { get; set; }
         [BindProperty] public string SourceCode { get; set; }
         [BindProperty] public IList<ModuleViewModel> ReferencedModules { get; set; }
@@ -18,15 +19,17 @@ namespace IPFees.Web.Areas.Fee.Pages
 
         public IEnumerable<SelectListItem> CategoryItems { get; set; }
         public IEnumerable<SelectListItem> AttorneyFeeLevelItems { get; set; }
+        public IEnumerable<SelectListItem> JurisdictionNameItems { get; set; }
 
         private readonly IFeeRepository feeRepository;
         private readonly IModuleRepository moduleRepository;
 
-        public EditModel(IFeeRepository feeRepository, IModuleRepository moduleRepository)
+        public EditModel(IJurisdictionRepository jurisdictionRepository, IFeeRepository feeRepository, IModuleRepository moduleRepository)
         {
             this.feeRepository = feeRepository;
             this.moduleRepository = moduleRepository;
-            CategoryItems = Enum.GetValues<FeeCategory>().AsEnumerable().Select(s => new SelectListItem(s.ValueAsString(), s.ToString()));            
+            CategoryItems = Enum.GetValues<FeeCategory>().AsEnumerable().Select(s => new SelectListItem(s.ValueAsString(), s.ToString()));
+            JurisdictionNameItems = jurisdictionRepository.GetJurisdictions().Result.Select(s => new SelectListItem($"{s.Name} - {s.Description}", s.Name));
             ErrorMessages = new List<string>();
         }
 
@@ -35,6 +38,7 @@ namespace IPFees.Web.Areas.Fee.Pages
             // Retrieve the fee by name
             var jur = await feeRepository.GetFeeById(Id);
             Name = jur.Name;
+            JurisdictionName = jur.JurisdictionName;
             Description = jur.Description;
             SourceCode = jur.SourceCode;
             Category = jur.Category.ToString();            
@@ -72,7 +76,12 @@ namespace IPFees.Web.Areas.Fee.Pages
             if (!res5.Success)
             {
                 ErrorMessages.Add($"Error setting category: {res5.Reason}");
-            }            
+            }
+            var res6 = await feeRepository.SetFeeJurisdictionNameAsync(res1.Id, JurisdictionName);
+            if (!res6.Success)
+            {
+                ErrorMessages.Add($"Error setting jurisdiction name: {res6.Reason}");
+            }
 
             if (ErrorMessages.Any()) return Page();
             else return RedirectToPage("Index");

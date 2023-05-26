@@ -29,6 +29,12 @@
                     <option value="">Select category...</option>
                 </select>
             </div>
+            <div class="mb-3 col-md-4">
+                <label for="@Model.JurisdictionName" class="form-label">Linked Jurisdiction</label>
+                <select class="form-select form-select-lg mb-3" asp-for="@Model.JurisdictionName" asp-items="Model.JurisdictionNameItems" required>
+                    <option value="">Select jurisdiction...</option>
+                </select>
+            </div>
             <div class="mb-3">
                 <label for="@Model.Name" class="form-label">Name</label>
                 <input asp-for="Name" value="@Model.Name" class="form-control" required />
