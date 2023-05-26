@@ -4,7 +4,7 @@ using IPFees.Parser;
 
 namespace IPFees.Core
 {
-    public class JurisdictionFeeManager
+    public class JurisdictionFeeManager : IJurisdictionFeeManager
     {
         private readonly IFeeCalculator feeCalculator;
         private readonly IFeeRepository feeRepository;
@@ -15,7 +15,7 @@ namespace IPFees.Core
             this.feeRepository = feeRepository;
         }
 
-        (IEnumerable<DslInput>, IEnumerable<FeeResultFail>) GetConsolidatedInputs(IEnumerable<string> JurisdictionNames)
+        public (IEnumerable<DslInput>, IEnumerable<FeeResultFail>) GetConsolidatedInputs(IEnumerable<string> JurisdictionNames)
         {
             var Inputs = new List<DslInput>();
             var Errors = new List<FeeResultFail>();
@@ -29,7 +29,7 @@ namespace IPFees.Core
             return (Inputs, Errors);
         }
 
-        IEnumerable<FeeResult> Calculate(IEnumerable<string> JurisdictionNames, IList<IPFValue> InputValues)
+        public IEnumerable<FeeResult> Calculate(IEnumerable<string> JurisdictionNames, IList<IPFValue> InputValues)
         {
             var Results = new List<FeeResult>();
             foreach (var jur in JurisdictionNames)
