@@ -5,10 +5,7 @@ namespace IPFees.Core
 {
     public interface IFeeCalculator
     {
-        FeeResult GetInputs(Guid FeeId);
-        (IEnumerable<DslInput>, IEnumerable<FeeResultFail>) GetConsolidatedInputs(IEnumerable<Guid> FeeIds);
-
-        FeeResult Calculate(Guid FeeId, IList<IPFValue> InputValues);
-        IEnumerable<FeeResult> Calculate(IEnumerable<Guid> FeeIds, IList<IPFValue> InputValues);        
+        FeeResult GetInputs(Guid FeeId);        
+        FeeResult Calculate(Guid FeeId, IList<IPFValue> InputValues);        
     }
 }

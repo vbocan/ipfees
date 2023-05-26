@@ -60,17 +60,6 @@ namespace IPFees.Core
         }
 
         /// <summary>
-        /// Compute specified fees
-        /// </summary>
-        /// <param name="FeeIds">Fee Ids</param>
-        /// <param name="InputValues">Calculation parameters</param>
-        /// <exception cref="NotSupportedException"></exception>
-        public IEnumerable<FeeResult> Calculate(IEnumerable<Guid> FeeIds, IList<IPFValue> InputValues)
-        {
-            foreach (var id in FeeIds) yield return Calculate(id, InputValues);
-        }
-
-        /// <summary>
         /// Get the inputs needed for the specified fee
         /// </summary>
         /// <param name="FeeId">Fee Id</param>
@@ -100,35 +89,7 @@ namespace IPFees.Core
                 var Inputs = Calculator.GetInputs();
                 return new FeeResultParse(jur.Name, jur.Description, Inputs);
             }
-        }
-
-        /// <summary>
-        /// Get the consolidated inputs needed to calculate multiple fees
-        /// </summary>
-        /// <param name="FeeIds">Enumeration of fee Ids</param>
-        /// <returns>A list of inputs from all fees, taken once</returns>
-        public (IEnumerable<DslInput>, IEnumerable<FeeResultFail>) GetConsolidatedInputs(IEnumerable<Guid> FeeIds)
-        {
-            var Errors = new List<FeeResultFail>();
-            var Inputs = new List<DslInput>();
-
-            foreach (var id in FeeIds)
-            {
-                var inp = GetInputs(id);
-                if (inp is FeeResultFail)
-                {
-                    Errors.Add(inp as FeeResultFail);
-                }
-                else
-                {
-                    var fps = inp as FeeResultParse;
-                    Inputs.AddRange(fps.FeeInputs);
-                }
-            }
-
-            var DedupedInputs = Inputs.DistinctBy(d => d.Name);
-            return (DedupedInputs, Errors);
-        }
+        }        
     }
 
     public abstract record FeeResult();
