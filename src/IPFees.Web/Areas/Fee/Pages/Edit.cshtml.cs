@@ -17,8 +17,7 @@ namespace IPFees.Web.Areas.Fee.Pages
         [BindProperty] public IList<ModuleViewModel> ReferencedModules { get; set; }
         [BindProperty] public IList<string> ErrorMessages { get; set; }
 
-        public IEnumerable<SelectListItem> CategoryItems { get; set; }
-        public IEnumerable<SelectListItem> AttorneyFeeLevelItems { get; set; }
+        public IEnumerable<SelectListItem> CategoryItems { get; set; }        
         public IEnumerable<SelectListItem> JurisdictionNameItems { get; set; }
 
         private readonly IFeeRepository feeRepository;
