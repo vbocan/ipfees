@@ -28,7 +28,7 @@ namespace IPFees.Web.Areas.Run.Pages
 
         public async Task<IActionResult> OnPostAsync()
         {
-            var SelJur = await SelectedJurisdictions.ToAsyncEnumerable().Where(w => w.Checked).Select(s => s.Id).ToListAsync();
+            var SelJur = await SelectedJurisdictions.ToAsyncEnumerable().Where(w => w.Checked).Select(s => s.Name).ToListAsync();
             return RedirectToPage("DataCollect", new { area = "Run", Id = SelJur });
         }
     }
