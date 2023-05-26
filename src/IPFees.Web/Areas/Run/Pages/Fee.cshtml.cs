@@ -6,7 +6,7 @@ using IPFees.Core;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using System.Diagnostics.Eventing.Reader;
-using static IPFees.Core.OfficialFee;
+using static IPFees.Core.FeeCalculator;
 
 namespace IPFees.Web.Areas.Run.Pages
 {
@@ -26,10 +26,10 @@ namespace IPFees.Web.Areas.Run.Pages
         // Returns
         [BindProperty] public IEnumerable<(string, string)> Returns { get; set; }
 
-        private readonly IOfficialFee officialFee;
+        private readonly IFeeCalculator officialFee;
         private readonly ILogger<FeeModel> _logger;
 
-        public FeeModel(IOfficialFee officialFee, ILogger<FeeModel> logger)
+        public FeeModel(IFeeCalculator officialFee, ILogger<FeeModel> logger)
         {
             this.officialFee = officialFee;
             _logger = logger;

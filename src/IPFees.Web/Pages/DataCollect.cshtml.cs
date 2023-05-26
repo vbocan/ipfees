@@ -4,7 +4,7 @@ using IPFees.Parser;
 using IPFees.Web.Areas.Run.Pages;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using static IPFees.Core.OfficialFee;
+using static IPFees.Core.FeeCalculator;
 using IPFees.Core.Repository;
 
 namespace IPFees.Web.Pages

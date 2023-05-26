@@ -1,19 +1,18 @@
 ﻿using IPFees.Calculator;
+using IPFees.Core.Model;
+using IPFees.Core.Repository;
 using IPFees.Evaluator;
 using IPFees.Parser;
-using System.Linq;
-using IPFees.Core.Repository;
-using IPFees.Core.Model;
 
 namespace IPFees.Core
 {
-    public class OfficialFee : IOfficialFee
+    public class FeeCalculator : IFeeCalculator
     {
         private readonly IDslCalculator Calculator;
         private readonly IEnumerable<FeeInfo> Fees;
         private readonly IEnumerable<ModuleInfo> Modules;
 
-        public OfficialFee(IFeeRepository fee, IModuleRepository module, IDslCalculator calculator)
+        public FeeCalculator(IFeeRepository fee, IModuleRepository module, IDslCalculator calculator)
         {
             Calculator = calculator;
             Fees = fee.GetFees().Result;

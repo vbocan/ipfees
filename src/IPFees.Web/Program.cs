@@ -38,7 +38,7 @@ builder.Services.AddTransient<IFeeRepository, FeeRepository>();
 builder.Services.AddTransient<IModuleRepository, ModuleRepository>();
 builder.Services.AddTransient<IJurisdictionRepository, JurisdictionRepository>();
 builder.Services.AddTransient<ISettingsRepository, SettingsRepository>();
-builder.Services.AddTransient<IOfficialFee, OfficialFee>();
+builder.Services.AddTransient<IFeeCalculator, FeeCalculator>();
 
 // Add logger
 builder.Logging.AddSerilog(logger);
