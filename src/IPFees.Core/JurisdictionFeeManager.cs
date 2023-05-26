@@ -1,18 +1,21 @@
-﻿using IPFees.Core.Repository;
+﻿using IPFees.Core.Enum;
+using IPFees.Core.Model;
+using IPFees.Core.Repository;
 using IPFees.Evaluator;
 using IPFees.Parser;
+using System;
 
 namespace IPFees.Core
 {
     public class JurisdictionFeeManager : IJurisdictionFeeManager
     {
         private readonly IFeeCalculator feeCalculator;
-        private readonly IFeeRepository feeRepository;
+        private readonly IFeeRepository feeRepository;        
 
         public JurisdictionFeeManager(IFeeCalculator feeCalculator, IFeeRepository feeRepository)
         {
             this.feeCalculator = feeCalculator;
-            this.feeRepository = feeRepository;
+            this.feeRepository = feeRepository;            
         }
 
         public (IEnumerable<DslInput>, IEnumerable<FeeResultFail>) GetConsolidatedInputs(IEnumerable<string> JurisdictionNames)
@@ -24,7 +27,7 @@ namespace IPFees.Core
                 var fees = GetFeesForJurisdiction(jur);
                 foreach (var f in fees)
                 {
-                    var inp = feeCalculator.GetInputs(f);
+                    var inp = feeCalculator.GetInputs(f.Id);
                     if (inp is FeeResultFail)
                     {
                         Errors.Add(inp as FeeResultFail);
@@ -45,13 +48,19 @@ namespace IPFees.Core
             var Results = new List<FeeResult>();
             foreach (var jur in JurisdictionNames)
             {
-                //var fees = GetFeesForJurisdiction(jur);
-                //var res = feeCalculator.Calculate(fees, InputValues);
-                //Results.AddRange(res);
+                var fees = GetFeesForJurisdiction(jur);
+                foreach(var f in fees)
+                {
+                    // TODO:
+                    // Evaluate the current fee
+                    // var res = feeCalculator.Calculate(f.Id, InputValues);
+                    // Strore result according to fee type (official fee, partner fee, attorney fee)
+                    //Results.AddRange(res);
+                }
             }
             return Results;
         }
 
-        private IEnumerable<Guid> GetFeesForJurisdiction(string JurisdictionName) => feeRepository.GetFees().Result.Where(w => w.JurisdictionName.Equals(JurisdictionName)).Select(s => s.Id);
+        private IEnumerable<FeeInfo> GetFeesForJurisdiction(string JurisdictionName) => feeRepository.GetFees().Result.Where(w => w.JurisdictionName.Equals(JurisdictionName));
     }
 }
