@@ -86,6 +86,22 @@ namespace IPFees.Core.Repository
         }
 
         /// <summary>
+        /// Set the name of the jurisdiction associated to the fee
+        /// </summary>
+        /// <param name="Id">Fee id</param>
+        /// <param name="JurisdictionName">Jurisdiction name</param>
+        /// <returns>A DbResult structure containing the result of the database operation</returns>
+        public async Task<DbResult> SetFeeJurisdictionNameAsync(Guid Id, string JurisdictionName)
+        {
+            var res = await context.FeeCollection.UpdateOneAsync(r => r.Id.Equals(Id),
+                Builders<FeeDoc>
+                .Update
+                .Set(r => r.LastUpdatedOn, DateTime.UtcNow.ToLocalTime())
+                .Set(r => r.JurisdictionName, JurisdictionName));
+            return res.IsAcknowledged ? DbResult.Succeed() : DbResult.Fail();
+        }
+
+        /// <summary>
         /// Set the fee description
         /// </summary>
         /// <param name="Id">Fee id</param>

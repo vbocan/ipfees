@@ -7,8 +7,9 @@ namespace IPFees.Core.Repository
     public interface IFeeRepository
     {
         Task<DbResult> AddFeeAsync(string Name);
-        Task<DbResult> SetFeeCategoryAsync(Guid Id, FeeCategory Category);        
+        Task<DbResult> SetFeeCategoryAsync(Guid Id, FeeCategory Category);
         Task<DbResult> SetFeeNameAsync(Guid Id, string Name);
+        Task<DbResult> SetFeeJurisdictionNameAsync(Guid Id, string JurisdictionName);
         Task<DbResult> SetFeeDescriptionAsync(Guid Id, string Description);
         Task<DbResult> SetFeeSourceCodeAsync(Guid Id, string SourceCode);
         Task<DbResult> RemoveFeeAsync(Guid Id);
