@@ -23,7 +23,7 @@ namespace IPFees.Core
         private ModuleInfo? GetModuleById(Guid Id) => Modules.SingleOrDefault(w => w.Id.Equals(Id));
 
         /// <summary>
-        /// Compute the official fees for the specified fee
+        /// Compute the specified fee
         /// </summary>
         /// <param name="FeeId">Fee Id</param>
         /// <param name="InputValues">Calculation parameters</param>
@@ -60,7 +60,7 @@ namespace IPFees.Core
         }
 
         /// <summary>
-        /// Compute official fees for the all specified fees
+        /// Compute specified fees
         /// </summary>
         /// <param name="FeeIds">Fee Ids</param>
         /// <param name="InputValues">Calculation parameters</param>
@@ -70,6 +70,12 @@ namespace IPFees.Core
             foreach (var id in FeeIds) yield return Calculate(id, InputValues);
         }
 
+        /// <summary>
+        /// Get the inputs needed for the specified fee
+        /// </summary>
+        /// <param name="FeeId">Fee Id</param>
+        /// <returns>List of inputs needed for invoking the fee calculation</returns>
+        /// <exception cref="NotSupportedException"></exception>
         public FeeResult GetInputs(Guid FeeId)
         {
             // Reset calculator
@@ -96,6 +102,11 @@ namespace IPFees.Core
             }
         }
 
+        /// <summary>
+        /// Get the consolidated inputs needed to calculate multiple fees
+        /// </summary>
+        /// <param name="FeeIds">Enumeration of fee Ids</param>
+        /// <returns>A list of inputs from all fees, taken once</returns>
         public (IEnumerable<DslInput>, IEnumerable<FeeResultFail>) GetConsolidatedInputs(IEnumerable<Guid> FeeIds)
         {
             var Errors = new List<FeeResultFail>();
