@@ -13,5 +13,6 @@ namespace IPFees.Core.Repository
         Task<DbResult> RemoveJurisdictionAsync(Guid Id);
         Task<IEnumerable<JurisdictionInfo>> GetJurisdictions();
         Task<JurisdictionInfo> GetJurisdictionById(Guid Id);
+        Task<JurisdictionInfo> GetJurisdictionByName(string Name);
     }
 }

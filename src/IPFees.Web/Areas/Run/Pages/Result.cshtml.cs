@@ -66,7 +66,7 @@ namespace IPFees.Web.Areas.Run.Pages
                 }
             }
 
-            FeeResults = jurisdictionFeeManager.Calculate(SelectedJurisdictions.AsEnumerable(), CollectedValues);
+            FeeResults = await jurisdictionFeeManager.Calculate(SelectedJurisdictions.AsEnumerable(), CollectedValues);
             return Page();
         }
     }
