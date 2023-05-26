@@ -107,13 +107,25 @@ namespace IPFees.Core.Repository
         }
 
         /// <summary>
-        /// Get jurisdiction by name
+        /// Get jurisdiction by Id
         /// </summary>
         /// <param name="Id">Jurisdiction id</param>
         /// <returns>A JurisdictionInfo object</returns>
         public async Task<JurisdictionInfo> GetJurisdictionById(Guid Id)
         {
             var filter = Builders<JurisdictionDoc>.Filter.Eq(m => m.Id, Id);
+            var dbObjs = (await context.JurisdictionCollection.FindAsync(filter)).FirstOrDefaultAsync().Result;
+            return dbObjs.Adapt<JurisdictionInfo>();
+        }
+
+        /// <summary>
+        /// Get jurisdiction by name
+        /// </summary>
+        /// <param name="Name">Jurisdiction name</param>
+        /// <returns>A JurisdictionInfo object</returns>
+        public async Task<JurisdictionInfo> GetJurisdictionByName(string Name)
+        {
+            var filter = Builders<JurisdictionDoc>.Filter.Eq(m => m.Name, Name);
             var dbObjs = (await context.JurisdictionCollection.FindAsync(filter)).FirstOrDefaultAsync().Result;
             return dbObjs.Adapt<JurisdictionInfo>();
         }
