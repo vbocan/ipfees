@@ -17,12 +17,12 @@ namespace IPFees.Web.Areas.Run.Pages
         [BindProperty] public IList<InputViewModel> Inputs { get; set; }
         [BindProperty] public IEnumerable<string> Errors { get; set; }        
 
-        private readonly IFeeCalculator officialFee;
+        private readonly IFeeCalculator feeCalculator;
         private readonly ILogger<DataCollectModel> _logger;
 
-        public DataCollectModel(IFeeCalculator officialFee, ILogger<DataCollectModel> logger)
+        public DataCollectModel(IFeeCalculator feeCalculator, ILogger<DataCollectModel> logger)
         {
-            this.officialFee = officialFee;
+            this.feeCalculator = feeCalculator;
             this.Errors = new List<string>();
             _logger = logger;
         }
@@ -31,8 +31,8 @@ namespace IPFees.Web.Areas.Run.Pages
         {
             SelectedJurisdictions = Id;
 
-            // For each fee, get the inputs that need to be displayed to the user
-            var (inputs, errs) = officialFee.GetConsolidatedInputs(Id);
+            // For each jurisdiction, get the inputs that need to be displayed to the user
+            var (inputs, errs) = feeCalculator.GetConsolidatedInputs(Id);
 
             Inputs = inputs.Select(pv => new InputViewModel(pv.Name, pv.GetType().ToString(), pv, string.Empty, Array.Empty<string>(), 0, false, DateOnly.MinValue)).ToList();
             Errors = errs.Select(s => $"[{s.FeeName}] - {s.FeeName} (Internal Error)");
