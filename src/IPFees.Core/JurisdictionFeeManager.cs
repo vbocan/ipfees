@@ -22,11 +22,22 @@ namespace IPFees.Core
             foreach(var jur in JurisdictionNames)
             {
                 var fees = GetFeesForJurisdiction(jur);
-                var (x, y) = feeCalculator.GetConsolidatedInputs(fees);
-                Inputs.AddRange(x);
-                Errors.AddRange(y);                 
+                foreach (var f in fees)
+                {
+                    var inp = feeCalculator.GetInputs(f);
+                    if (inp is FeeResultFail)
+                    {
+                        Errors.Add(inp as FeeResultFail);
+                    }
+                    else
+                    {
+                        var fps = inp as FeeResultParse;
+                        Inputs.AddRange(fps.FeeInputs);
+                    }
+                }
             }
-            return (Inputs, Errors);
+            var DedupedInputs = Inputs.DistinctBy(d => d.Name);
+            return (DedupedInputs, Errors);
         }
 
         public IEnumerable<FeeResult> Calculate(IEnumerable<string> JurisdictionNames, IList<IPFValue> InputValues)
@@ -34,9 +45,9 @@ namespace IPFees.Core
             var Results = new List<FeeResult>();
             foreach (var jur in JurisdictionNames)
             {
-                var fees = GetFeesForJurisdiction(jur);
-                var res = feeCalculator.Calculate(fees, InputValues);
-                Results.AddRange(res);
+                //var fees = GetFeesForJurisdiction(jur);
+                //var res = feeCalculator.Calculate(fees, InputValues);
+                //Results.AddRange(res);
             }
             return Results;
         }
