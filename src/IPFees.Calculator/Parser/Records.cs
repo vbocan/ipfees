@@ -2,13 +2,13 @@
 
 namespace IPFees.Parser
 {
-    public abstract record DslInput(string Name, string Text);
-    public record DslInputBoolean(string Name, string Text, bool DefaultValue) : DslInput(Name, Text);
-    public record DslInputList(string Name, string Text, IList<DslListItem> Items, string DefaultSymbol) : DslInput(Name, Text);
-    public record DslInputListMultiple(string Name, string Text, IList<DslListItem> Items, IList<string> DefaultSymbols) : DslInput(Name, Text);
+    public abstract record DslInput(string Name, string Text, string Group);
+    public record DslInputBoolean(string Name, string Text, string Group, bool DefaultValue) : DslInput(Name, Text, Group);
+    public record DslInputList(string Name, string Text, string Group, IList<DslListItem> Items, string DefaultSymbol) : DslInput(Name, Text, Group);
+    public record DslInputListMultiple(string Name, string Text, string Group, IList<DslListItem> Items, IList<string> DefaultSymbols) : DslInput(Name, Text, Group);
     public record DslListItem(string Symbol, string Value);
-    public record DslInputNumber(string Name, string Text, int MinValue, int MaxValue, int DefaultValue) : DslInput(Name, Text);
-    public record DslInputDate(string Name, string Text, DateOnly MinValue, DateOnly MaxValue, DateOnly DefaultValue) : DslInput(Name, Text);
+    public record DslInputNumber(string Name, string Text, string Group, int MinValue, int MaxValue, int DefaultValue) : DslInput(Name, Text, Group);
+    public record DslInputDate(string Name, string Text, string Group, DateOnly MinValue, DateOnly MaxValue, DateOnly DefaultValue) : DslInput(Name, Text, Group);
 
     public abstract record DslItem(IEnumerable<string> Condition);
     public record DslFee(string Name, bool Optional, IList<DslItem> Cases, IList<DslFeeVar> Vars)
