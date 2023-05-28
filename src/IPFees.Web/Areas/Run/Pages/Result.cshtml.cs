@@ -1,12 +1,8 @@
-using IPFees.Calculator;
 using IPFees.Core;
 using IPFees.Evaluator;
 using IPFees.Parser;
-using IPFees.Core;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using System.Diagnostics;
-using static IPFees.Core.FeeCalculator;
 
 namespace IPFees.Web.Areas.Run.Pages
 {
@@ -16,7 +12,7 @@ namespace IPFees.Web.Areas.Run.Pages
         [BindProperty] public List<IPFValue> CollectedValues { get; set; }
         [BindProperty] public IList<InputViewModel> Inputs { get; set; }
         [BindProperty] public string[] SelectedJurisdictions { get; set; }
-        [BindProperty] public IEnumerable<FeeResult> FeeResults { get; set; }
+        [BindProperty] public TotalFeeInfo FeeResults { get; set; }
         private readonly IJurisdictionFeeManager jurisdictionFeeManager;
         private readonly ILogger<ResultModel> _logger;
 
