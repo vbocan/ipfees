@@ -1,13 +1,7 @@
-using IPFees.Calculator;
 using IPFees.Core;
-using IPFees.Evaluator;
 using IPFees.Parser;
-using IPFees.Core;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using System.Diagnostics.Eventing.Reader;
-using System.Linq;
-using static IPFees.Core.FeeCalculator;
 
 namespace IPFees.Web.Areas.Run.Pages
 {
@@ -15,7 +9,8 @@ namespace IPFees.Web.Areas.Run.Pages
     {
         [BindProperty] public string[] SelectedJurisdictions { get; set; }
         [BindProperty] public IList<InputViewModel> Inputs { get; set; }
-        [BindProperty] public IEnumerable<string> Errors { get; set; }        
+        [BindProperty] public IEnumerable<GroupViewModel> Groups { get; set; }
+        [BindProperty] public IEnumerable<string> Errors { get; set; }
 
         private readonly IJurisdictionFeeManager jurisdictionFeeManager;
         private readonly ILogger<DataCollectModel> _logger;
@@ -32,11 +27,14 @@ namespace IPFees.Web.Areas.Run.Pages
             SelectedJurisdictions = Id;
 
             // For each jurisdiction, get the inputs that need to be displayed to the user
-            var (inputs, errs) = jurisdictionFeeManager.GetConsolidatedInputs(Id);
+            var (inputs, groups, errs) = jurisdictionFeeManager.GetConsolidatedInputs(Id);
 
             Inputs = inputs.Select(pv => new InputViewModel(pv.Name, pv.GetType().ToString(), pv, string.Empty, Array.Empty<string>(), 0, false, DateOnly.MinValue)).ToList();
+            Groups = groups.OrderBy(o => o.Weight).ThenBy(p => p.Name).Select(pv => new GroupViewModel(pv.Name, pv.Text, pv.Weight));
             Errors = errs.Select(s => $"[{s.FeeName}] - {s.FeeName} (Internal Error)");
             return Page();
         }
     }
+
+    public record GroupViewModel(string Name, string Text, int Weight);
 }

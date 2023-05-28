@@ -109,7 +109,7 @@ namespace IPFees.Web.Areas.Run.Pages
         }
     }
 
-    public record InputViewModel(string Name, string Type, DslInput Var, string StrValue, string[] ListValue, double DoubleValue, bool BoolValue, DateOnly DateValue);
+    public record InputViewModel(string Name, string Type, DslInput Var, string StrValue, string[] ListValue, double DoubleValue, bool BoolValue, DateOnly DateValue);    
     public record FailedFeeViewModel(string FeeName, string FeeDescription);
 
 }

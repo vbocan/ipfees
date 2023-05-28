@@ -8,6 +8,10 @@
     <div class="col-8">
         <h1>Input Parameters</h1>
         <strong>TODO: Display categorized inputs and ordered by weight!</strong>
+        @foreach(var g in Model.Groups)
+        {
+            <p>@g.Name @g.Text @g.Weight</p>
+        }
         <form asp-page="Result" asp-area="Run" method="post">
             @for (int i = 0; i < Model.SelectedJurisdictions.Count(); i++)
             {
@@ -22,6 +26,7 @@
                     {
                         case DslInputDate:
                             var v0 = (DslInputDate)Model.Inputs[i].Var;
+                            <span>Group: @v0.Group</span>
                             <div class="mb-3 col-md-6">
                                 <label class="form-label" for="@v0.Name">@v0.Text</label>
                                 <input class="form-control" type="date" asp-for="@Model.Inputs[i].DateValue" value="@v0.DefaultValue.ToString("yyyy-MM-dd")" min="@v0.MinValue.ToString("yyyy-MM-dd")" max="@v0.MaxValue.ToString("yyyy-MM-dd")">
@@ -96,7 +101,7 @@
     <div class="col-8 mt-5">
         @if (Model.Errors.Any())
         {
-            <p>Fees for the following fees will <strong>not</strong> be calculated:</p>
+            <p>The following fees will <strong>not</strong> be calculated:</p>
             <ul>
                 @foreach (var e in Model.Errors)
                 {

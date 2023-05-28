@@ -21,10 +21,11 @@ namespace IPFees.Core
             this.jurisdictionRepository = jurisdictionRepository;
             this.settingsRepository = settingsRepository;
         }
-
-        public (IEnumerable<DslInput>, IEnumerable<FeeResultFail>) GetConsolidatedInputs(IEnumerable<string> JurisdictionNames)
+        
+        public (IEnumerable<DslInput>, IEnumerable<DslGroup>, IEnumerable<FeeResultFail>) GetConsolidatedInputs(IEnumerable<string> JurisdictionNames)
         {
             var Inputs = new List<DslInput>();
+            var Groups = new List<DslGroup>();
             var Errors = new List<FeeResultFail>();
             foreach (var jur in JurisdictionNames)
             {
@@ -40,11 +41,13 @@ namespace IPFees.Core
                     {
                         var fps = inp as FeeResultParse;
                         Inputs.AddRange(fps.FeeInputs);
+                        Groups.AddRange(fps.FeeGroups);
                     }
                 }
             }
             var DedupedInputs = Inputs.DistinctBy(d => d.Name);
-            return (DedupedInputs, Errors);
+            var DedupedGroups = Groups.DistinctBy(d => d.Name);
+            return (DedupedInputs, DedupedGroups, Errors);
         }
 
         /// <summary>
