@@ -117,6 +117,18 @@
 
 <div class="card mb-3" style="width: 48rem;">
     <div class="card-body">
+        <h5 class="card-title">Input Grouping</h5>
+        <h6 class="card-subtitle mb-2 text-muted">Groups assigned to inputs can be assigned individual texts and weights. Upon display on the user interface, all inputs will be grouped by their group and ordered by weight (the heavier an input is, the lower it appears in the list).<br/>Grouping definition is usually declared in an autorun module which gets executed automatically, even if it is not referenced by a fee definition.</h6>
+        <p class="card-text">
+            DEFINE GROUP G1 AS 'Application date inputs' WITH WEIGHT 100<br />
+            DEFINE GROUP G2 AS 'Translation related inputs' WITH WEIGHT 150<br />
+            DEFINE GROUP G3 AS 'Claim related inputs' WITH WEIGHT 200
+        </p>
+    </div>
+</div>
+
+<div class="card mb-3" style="width: 48rem;">
+    <div class="card-body">
         <h5 class="card-title">Fee Definition</h5>
         <h6 class="card-subtitle mb-2 text-muted">Any number of fees can be created and they all account towards the grand total. In it's simplest form, a fee yields a singe value with no condition.</h6>
         <p class="card-text">
