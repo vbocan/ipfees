@@ -21,6 +21,7 @@ namespace IPFees.Calculator
         public IEnumerable<DslInput> GetInputs() => Parser.GetInputs();
         public IEnumerable<DslFee> GetFees() => Parser.GetFees();
         public IEnumerable<DslReturn> GetReturns() => Parser.GetReturns();
+        public IEnumerable<DslGroup> GetGroups() => Parser.GetGroups();
 
         public (double, double, IEnumerable<string>, IEnumerable<(string, string)>) Compute(IEnumerable<IPFValue> InputValues)
         {

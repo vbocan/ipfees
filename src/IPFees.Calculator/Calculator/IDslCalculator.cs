@@ -11,6 +11,7 @@ namespace IPFees.Calculator
         IEnumerable<string> GetErrors();
         IEnumerable<DslFee> GetFees();
         IEnumerable<DslInput> GetInputs();
+        IEnumerable<DslGroup> GetGroups();
         IEnumerable<DslReturn> GetReturns();
     }
 }
