@@ -9,6 +9,7 @@ namespace IPFees.Parser
     public record DslListItem(string Symbol, string Value);
     public record DslInputNumber(string Name, string Text, string Group, int MinValue, int MaxValue, int DefaultValue) : DslInput(Name, Text, Group);
     public record DslInputDate(string Name, string Text, string Group, DateOnly MinValue, DateOnly MaxValue, DateOnly DefaultValue) : DslInput(Name, Text, Group);
+    public record DslGroup(string Name, string Text, int Weight);
 
     public abstract record DslItem(IEnumerable<string> Condition);
     public record DslFee(string Name, bool Optional, IList<DslItem> Cases, IList<DslFeeVar> Vars)

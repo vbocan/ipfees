@@ -8,6 +8,7 @@ namespace IPFees.Parser
         IEnumerable<DslFee> GetFees();
         IEnumerable<DslInput> GetInputs();
         IEnumerable<DslReturn> GetReturns();
+        IEnumerable<DslGroup> GetGroups();
         bool Parse(string source);
         void Reset();
     }

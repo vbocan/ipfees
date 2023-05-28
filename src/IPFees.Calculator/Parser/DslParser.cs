@@ -9,7 +9,7 @@ namespace IPFees.Parser
     public class DslParser : IDslParser
     {
         Parsing CurrentlyParsing = Parsing.None;
-
+        
         private DslInputList CurrentList { get; set; } = new DslInputList(string.Empty, string.Empty, string.Empty, new List<DslListItem>(), string.Empty);
         private DslInputListMultiple CurrentListMultiple { get; set; } = new DslInputListMultiple(string.Empty, string.Empty, string.Empty, new List<DslListItem>(), new List<string>());
         private DslInputNumber CurrentNumber { get; set; } = new DslInputNumber(string.Empty, string.Empty, string.Empty, int.MinValue, int.MaxValue, 0);
@@ -18,6 +18,7 @@ namespace IPFees.Parser
         private DslFee CurrentFee { get; set; } = new DslFee(string.Empty, false, new List<DslItem>(), new List<DslFeeVar>());
         private DslFeeCase CurrentFeeCase { get; set; } = new DslFeeCase(Enumerable.Empty<string>(), new List<DslFeeYield>());
 
+        private readonly IList<DslGroup> IPFGroups = new List<DslGroup>();
         private readonly IList<DslReturn> IPFReturns = new List<DslReturn>();
         private readonly IList<DslInput> IPFInputs = new List<DslInput>();
         private readonly IList<DslFee> IPFFees = new List<DslFee>();
@@ -30,6 +31,7 @@ namespace IPFees.Parser
         {
             Func<string[], bool>[] IPFParsers = new Func<string[], bool>[]
             {
+                ParseGroup,
                 ParseList,
                 ParseListChoice,
                 ParseListDefaultValue,
@@ -130,6 +132,12 @@ namespace IPFees.Parser
             return IPFReturns;
         }
 
+        public IEnumerable<DslGroup> GetGroups()
+        {
+            if (IPFErrors.Count > 0) throw new NotSupportedException("Unable to access returned items. Check the error list.");
+            return IPFGroups;
+        }
+
         public IEnumerable<DslInput> GetInputs()
         {
             if (IPFErrors.Count > 0) throw new NotSupportedException("Unable to access variables. Check the error list.");
@@ -196,6 +204,23 @@ namespace IPFees.Parser
             {
                 yield return token;
             }
+        }
+        #endregion
+
+        #region Group Parsing
+        bool ParseGroup(string[] tokens)
+        {            
+            if (CurrentlyParsing != Parsing.None) return false;
+            if (tokens.Length != 8) return false;
+            if (tokens[0] != "DEFINE") return false;
+            if (tokens[1] != "GROUP") return false;
+            if (tokens[3] != "AS") return false;
+            if (tokens[5] != "WITH") return false;
+            if (tokens[6] != "WEIGHT") return false;
+            if (!int.TryParse(tokens[7], out int GroupWeight)) return false;
+            var item = new DslGroup(tokens[2], tokens[4], GroupWeight);
+            IPFGroups.Add(item);
+            return true;            
         }
         #endregion
 
