@@ -76,7 +76,7 @@ namespace IPFees.Web.Areas.Fee.Pages
             {
                 ErrorMessages.Add($"Error setting category: {res5.Reason}");
             }
-            var res6 = await feeRepository.SetFeeJurisdictionNameAsync(res1.Id, JurisdictionName);
+            var res6 = await feeRepository.SetFeeJurisdictionNameAsync(Id, JurisdictionName);
             if (!res6.Success)
             {
                 ErrorMessages.Add($"Error setting jurisdiction name: {res6.Reason}");
