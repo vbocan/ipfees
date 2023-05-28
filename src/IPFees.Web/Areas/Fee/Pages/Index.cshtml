@@ -30,7 +30,7 @@
                             <td>
                                 <a class="btn btn-light btn-sm" role="button" aria-disabled="true" data-bs-toggle="tooltip" data-bs-placement="right" title="Last updated: @mi.LastUpdatedOn" asp-area="Run" asp-page="Fee" asp-route-id="@mi.Id">@mi.Name</a>
                             </td>
-                            <td>@mi.JurisdictionName</td>
+                            <td><img src="@($"/flags/{mi.JurisdictionName.ToLower()}.png")" alt="@mi.JurisdictionName" class="rounded float-left" /> @mi.JurisdictionName</td>
                             <td>@mi.Category.ValueAsString()</td>                            
                             <td>@mi.Description</td>
                             <td>@mi.ReferencedModules.Count()</td>
@@ -49,6 +49,11 @@
         {
             <h6>Defined fees appear here.</h6>
         }
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-6">
+        <p>Flags courtesy of <a href="https://flagpedia.net" target="_blank">flagpedia.net</a></p>
     </div>
 </div>
 
