@@ -57,7 +57,19 @@ namespace IPFees.Core.Tests
             var mi = await mod.GetModuleById(res1.Id);
             Assert.Equal("Module Description", mi.Description);
         }
-        
+
+        [Fact]
+        public async void SetModuleAutoRunStatusTest()
+        {
+            var mod = new ModuleRepository(fixture.DbContext);
+            var res1 = await mod.AddModuleAsync("Module-Set-AutoRun");
+            Assert.True(res1.Success);
+            var res2 = await mod.SetModuleAutorunStatusAsync(res1.Id, true);
+            Assert.True(res2.Success);
+            var mi = await mod.GetModuleById(res1.Id);
+            Assert.True(mi.AutoRun);
+        }
+
         [Fact]
         public async void SetModuleSourceCodeTest()
         {

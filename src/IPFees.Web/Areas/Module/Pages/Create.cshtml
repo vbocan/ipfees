@@ -24,11 +24,19 @@
         <form method="post">
             <div class="mb-3">
                 <label for="@Model.Name" class="form-label">Name</label>
-                <input asp-for="Name" value="@Model.Name" class="form-control" required />                
+                <input asp-for="Name" value="@Model.Name" class="form-control" required />
             </div>
             <div class="mb-3">
                 <label for="@Model.Description" class="form-label">Description</label>
                 <input asp-for="Description" class="form-control" />
+            </div>
+            <div class="mb-3">
+                <div class="form-check form-switch">
+                    <label class="form-check-label" for="@Model.AutoRun">Module runs automatically</label>
+                    <input class="form-check-input" type="checkbox" asp-for="@Model.AutoRun">
+                    <input type="hidden" asp-for="@Model.AutoRun" value="false">
+                </div>
+                <div id="AutoRunHelp" class="form-text">Modules that run automatically do not need to be referenced.</div>
             </div>
             <div class="mb-3">
                 <label for="@Model.SourceCode" class="form-label">Source Code</label>

@@ -80,6 +80,22 @@ namespace IPFees.Core.Repository
         }
 
         /// <summary>
+        /// Set the module autorun status
+        /// </summary>
+        /// <param name="Id">Module id</param>
+        /// <param name="AutoRun">TRUE if this is an autorun module</param>
+        /// <returns>A DbResult structure containing the result of the database operation</returns>
+        public async Task<DbResult> SetModuleAutoRunStatusAsync(Guid Id, bool AutoRun)
+        {
+            var res = await context.ModuleCollection.UpdateOneAsync(r => r.Id.Equals(Id),
+                Builders<ModuleDoc>
+                .Update
+                .Set(r => r.LastUpdatedOn, DateTime.UtcNow.ToLocalTime())
+                .Set(r => r.AutoRun, AutoRun));
+            return res.IsAcknowledged ? DbResult.Succeed() : DbResult.Fail();
+        }
+
+        /// <summary>
         /// Set the module source code
         /// </summary>
         /// <param name="Id">Module id</param>
