@@ -33,9 +33,10 @@
 <div class="card mb-3" style="width: 48rem;">
     <div class="card-body">
         <h5 class="card-title">Single-Selection Input</h5>
-        <h6 class="card-subtitle mb-2 text-muted">Single-selection input displays a list of string choices and allows the user to select one of those. A default choice must be specified.</h6>
+        <h6 class="card-subtitle mb-2 text-muted">Single-selection input displays a list of string choices and allows the user to select one of those. A default choice must be specified. The group to which the input belongs can be specified (optional).</h6>
         <p class="card-text">
             DEFINE LIST EntityType AS 'Select the desired entity type'<br />
+            GROUP G1 <em>(optional)</em><br/>
             CHOICE NormalEntity AS 'Normal'<br />
             CHOICE SmallEntity AS 'Small'<br />
             CHOICE MicroEntity AS 'Micro'<br />
@@ -48,9 +49,10 @@
 <div class="card mb-3" style="width: 48rem;">
     <div class="card-body">
         <h5 class="card-title">Multiple-Selection Input</h5>
-        <h6 class="card-subtitle mb-2 text-muted">Multiple-selection input displays a list of string choices and allows the user to select one or more of those. One or more default choices must be specified (separated by comma).</h6>
+        <h6 class="card-subtitle mb-2 text-muted">Multiple-selection input displays a list of string choices and allows the user to select one or more of those. One or more default choices must be specified (separated by comma). The group to which the input belongs can be specified (optional).</h6>
         <p class="card-text">
             DEFINE MULTILIST EntityType AS 'Select the desired entity type'<br />
+            GROUP G2 <em>(optional)</em><br />
             CHOICE NormalEntity AS 'Normal'<br />
             CHOICE SmallEntity AS 'Small'<br />
             CHOICE MicroEntity AS 'Micro'<br />
@@ -65,9 +67,10 @@
 <div class="card mb-3" style="width: 48rem;">
     <div class="card-body">
         <h5 class="card-title">Number Input</h5>
-        <h6 class="card-subtitle mb-2 text-muted">Number inputs allow entering a numeric value (floating point), bounded by lower and upper limits. A default value must be specified.</h6>
+        <h6 class="card-subtitle mb-2 text-muted">Number inputs allow entering a numeric value (floating point), bounded by lower and upper limits. A default value must be specified. The group to which the input belongs can be specified (optional).</h6>
         <p class="card-text">
             DEFINE NUMBER SheetCount AS 'Enter the number of sheets'<br />
+            GROUP G3 <em>(optional)</em><br />
             BETWEEN 10 AND 1000<br />
             DEFAULT 15<br />
             ENDDEFINE
@@ -78,9 +81,10 @@
 <div class="card mb-3" style="width: 48rem;">
     <div class="card-body">
         <h5 class="card-title">Boolean Input</h5>
-        <h6 class="card-subtitle mb-2 text-muted">Boolean inputs allow selecting a condition. The default selection can be specified.</h6>
+        <h6 class="card-subtitle mb-2 text-muted">Boolean inputs allow selecting a condition. The default selection can be specified. The group to which the input belongs can be specified (optional).</h6>
         <p class="card-text">
             DEFINE BOOLEAN ContainsDependentClaims AS 'Does this contain dependent claims?'<br />
+            GROUP G4 <em>(optional)</em><br />
             DEFAULT TRUE<br />
             ENDDEFINE
         </p>
@@ -90,12 +94,13 @@
 <div class="card mb-3" style="width: 48rem;">
     <div class="card-body">
         <h5 class="card-title">Date Input</h5>
-        <h6 class="card-subtitle mb-2 text-muted">Date inputs allow entering a date bounded by lower and upper limits. A default date must be specified.</h6>
+        <h6 class="card-subtitle mb-2 text-muted">Date inputs allow entering a date bounded by lower and upper limits. A default date must be specified. The group to which the input belongs can be specified (optional).</h6>
         <p class="card-test">
             The special value TODAY is replaced at runtime with the actual value. The date format is DD.MM.YYYY.
         </p>
         <p class="card-text">
             DEFINE DATE ApplicationDate AS 'Application date'<br/>
+            GROUP G5 <em>(optional)</em><br />
             BETWEEN 01.01.2023 AND TODAY<br />
             DEFAULT 01.03.2023<br />
             ENDDEFINE

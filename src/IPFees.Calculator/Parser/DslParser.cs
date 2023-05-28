@@ -1,4 +1,5 @@
-﻿using System.Globalization;
+﻿using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Xml.Linq;
@@ -9,18 +10,18 @@ namespace IPFees.Parser
     {
         Parsing CurrentlyParsing = Parsing.None;
 
-        private DslInputList CurrentList { get; set; } = new DslInputList(string.Empty, string.Empty, new List<DslListItem>(), string.Empty);
-        private DslInputListMultiple CurrentListMultiple { get; set; } = new DslInputListMultiple(string.Empty, string.Empty, new List<DslListItem>(), new List<string>());
-        private DslInputNumber CurrentNumber { get; set; } = new DslInputNumber(string.Empty, string.Empty, int.MinValue, int.MaxValue, 0);
-        private DslInputDate CurrentDate { get; set; } = new DslInputDate(string.Empty, string.Empty, DateOnly.MinValue, DateOnly.MaxValue, DateOnly.FromDateTime(DateTime.Now));
-        private DslInputBoolean CurrentBoolean { get; set; } = new DslInputBoolean(string.Empty, string.Empty, false);
+        private DslInputList CurrentList { get; set; } = new DslInputList(string.Empty, string.Empty, string.Empty, new List<DslListItem>(), string.Empty);
+        private DslInputListMultiple CurrentListMultiple { get; set; } = new DslInputListMultiple(string.Empty, string.Empty, string.Empty, new List<DslListItem>(), new List<string>());
+        private DslInputNumber CurrentNumber { get; set; } = new DslInputNumber(string.Empty, string.Empty, string.Empty, int.MinValue, int.MaxValue, 0);
+        private DslInputDate CurrentDate { get; set; } = new DslInputDate(string.Empty, string.Empty, string.Empty, DateOnly.MinValue, DateOnly.MaxValue, DateOnly.FromDateTime(DateTime.Now));
+        private DslInputBoolean CurrentBoolean { get; set; } = new DslInputBoolean(string.Empty, string.Empty, string.Empty, false);
         private DslFee CurrentFee { get; set; } = new DslFee(string.Empty, false, new List<DslItem>(), new List<DslFeeVar>());
         private DslFeeCase CurrentFeeCase { get; set; } = new DslFeeCase(Enumerable.Empty<string>(), new List<DslFeeYield>());
 
-        private IList<DslReturn> IPFReturns = new List<DslReturn>();
-        private IList<DslInput> IPFInputs = new List<DslInput>();
-        private IList<DslFee> IPFFees = new List<DslFee>();
-        private IList<(DslError, string)> IPFErrors = new List<(DslError, string)>();
+        private readonly IList<DslReturn> IPFReturns = new List<DslReturn>();
+        private readonly IList<DslInput> IPFInputs = new List<DslInput>();
+        private readonly IList<DslFee> IPFFees = new List<DslFee>();
+        private readonly IList<(DslError, string)> IPFErrors = new List<(DslError, string)>();
 
 
         public DslParser() { }
@@ -32,17 +33,22 @@ namespace IPFees.Parser
                 ParseList,
                 ParseListChoice,
                 ParseListDefaultValue,
+                ParseListGroup,
                 ParseListMultiple,
                 ParseListMultipleChoice,
                 ParseListMultipleDefaultValues,
+                ParseListMultipleGroup,
                 ParseNumber,
                 ParseNumberBetween,
                 ParseNumberDefault,
+                ParseNumberGroup,
                 ParseDate,
                 ParseDateBetween,
                 ParseDateDefault,
+                ParseDateGroup,
                 ParseBoolean,
                 ParseBooleanDefault,
+                ParseBooleanGroup,
                 ParseEndDefine,
                 ParseFee,
                 ParseFeeCase,
@@ -202,7 +208,7 @@ namespace IPFees.Parser
             if (tokens[1] != "LIST") return false;
             if (tokens[3] != "AS") return false;
             CurrentlyParsing = Parsing.List;
-            CurrentList = new DslInputList(tokens[2], tokens[4], new List<DslListItem>(), string.Empty);
+            CurrentList = new DslInputList(tokens[2], tokens[4], string.Empty, new List<DslListItem>(), string.Empty);
             return true;
         }
 
@@ -225,6 +231,15 @@ namespace IPFees.Parser
             CurrentList = CurrentList with { DefaultSymbol = tokens[1] };
             return true;
         }
+
+        bool ParseListGroup(string[] tokens)
+        {
+            if (CurrentlyParsing != Parsing.List) return false;
+            if (tokens.Length != 2) return false;
+            if (tokens[0] != "GROUP") return false;
+            CurrentList = CurrentList with { Group = tokens[1] };
+            return true;
+        }
         #endregion
 
         #region List Parsing (Multiple Selection)
@@ -234,9 +249,9 @@ namespace IPFees.Parser
             if (tokens.Length != 5) return false;
             if (tokens[0] != "DEFINE") return false;
             if (tokens[1] != "MULTILIST") return false;
-            if (tokens[3] != "AS") return false;            
+            if (tokens[3] != "AS") return false;
             CurrentlyParsing = Parsing.ListMultiple;
-            CurrentListMultiple = new DslInputListMultiple(tokens[2], tokens[4], new List<DslListItem>(), new List<string>());
+            CurrentListMultiple = new DslInputListMultiple(tokens[2], tokens[4], string.Empty, new List<DslListItem>(), new List<string>());
             return true;
         }
 
@@ -260,6 +275,15 @@ namespace IPFees.Parser
             CurrentListMultiple = CurrentListMultiple with { DefaultSymbols = DefaultSymbols.Split(',', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries).ToList() };
             return true;
         }
+
+        bool ParseListMultipleGroup(string[] tokens)
+        {
+            if (CurrentlyParsing != Parsing.ListMultiple) return false;
+            if (tokens.Length != 2) return false;
+            if (tokens[0] != "GROUP") return false;
+            CurrentListMultiple = CurrentListMultiple with { Group = tokens[1] };
+            return true;
+        }
         #endregion
 
         #region Number Parsing
@@ -271,7 +295,7 @@ namespace IPFees.Parser
             if (tokens[1] != "NUMBER") return false;
             if (tokens[3] != "AS") return false;
             CurrentlyParsing = Parsing.Number;
-            CurrentNumber = new DslInputNumber(tokens[2], tokens[4], int.MinValue, int.MaxValue, 0);
+            CurrentNumber = new DslInputNumber(tokens[2], tokens[4], string.Empty, int.MinValue, int.MaxValue, 0);
             return true;
         }
 
@@ -296,6 +320,15 @@ namespace IPFees.Parser
             CurrentNumber = CurrentNumber with { DefaultValue = DefaultValue };
             return true;
         }
+
+        bool ParseNumberGroup(string[] tokens)
+        {
+            if (CurrentlyParsing != Parsing.Number) return false;
+            if (tokens.Length != 2) return false;
+            if (tokens[0] != "GROUP") return false;
+            CurrentNumber = CurrentNumber with { Group = tokens[1] };
+            return true;
+        }
         #endregion
 
         #region Date Parsing
@@ -307,7 +340,7 @@ namespace IPFees.Parser
             if (tokens[1] != "DATE") return false;
             if (tokens[3] != "AS") return false;
             CurrentlyParsing = Parsing.Date;
-            CurrentDate = new DslInputDate(tokens[2], tokens[4], DateOnly.FromDateTime(DateTime.MinValue), DateOnly.FromDateTime(DateTime.MaxValue.Date), DateOnly.FromDateTime(DateTime.Now));
+            CurrentDate = new DslInputDate(tokens[2], tokens[4], string.Empty, DateOnly.FromDateTime(DateTime.MinValue), DateOnly.FromDateTime(DateTime.MaxValue.Date), DateOnly.FromDateTime(DateTime.Now));
             return true;
         }
 
@@ -334,6 +367,15 @@ namespace IPFees.Parser
             CurrentDate = CurrentDate with { DefaultValue = DateOnly.FromDateTime(DefaultValue) };
             return true;
         }
+
+        bool ParseDateGroup(string[] tokens)
+        {
+            if (CurrentlyParsing != Parsing.Date) return false;
+            if (tokens.Length != 2) return false;
+            if (tokens[0] != "GROUP") return false;
+            CurrentDate = CurrentDate with { Group = tokens[1] };
+            return true;
+        }
         #endregion
 
         #region Boolean Parsing
@@ -345,7 +387,7 @@ namespace IPFees.Parser
             if (tokens[1] != "BOOLEAN") return false;
             if (tokens[3] != "AS") return false;
             CurrentlyParsing = Parsing.Boolean;
-            CurrentBoolean = new DslInputBoolean(tokens[2], tokens[4], false);
+            CurrentBoolean = new DslInputBoolean(tokens[2], tokens[4], string.Empty, false);
             return true;
         }
 
@@ -356,6 +398,15 @@ namespace IPFees.Parser
             if (tokens[0] != "DEFAULT") return false;
             if (!bool.TryParse(tokens[1], out bool BooleanValue)) return false;
             CurrentBoolean = CurrentBoolean with { DefaultValue = BooleanValue };
+            return true;
+        }
+
+        bool ParseBooleanGroup(string[] tokens)
+        {
+            if (CurrentlyParsing != Parsing.Boolean) return false;
+            if (tokens.Length != 2) return false;
+            if (tokens[0] != "GROUP") return false;
+            CurrentBoolean = CurrentBoolean with { Group = tokens[1] };
             return true;
         }
         #endregion

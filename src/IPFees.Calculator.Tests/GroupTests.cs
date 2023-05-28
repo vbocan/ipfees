@@ -2,41 +2,37 @@ using IPFees.Parser;
 
 namespace IPFees.Calculator.Tests
 {
-    public class VariableTests
+    public class GroupTests
     {
         [Fact]
-        public void TestVariableList()
+        public void TestGroupList()
         {
             string text =
             """
             # Define a list variable
             DEFINE LIST EntityType AS 'Entity type'
+            GROUP G1
             CHOICE NormalEntity AS 'Normal'
             CHOICE SmallEntity AS 'Small'
             CHOICE MicroEntity AS 'Micro'
-            DEFAULT NormalEntity
+            DEFAULT NormalEntity            
             ENDDEFINE
             """;
             var p = new DslParser();
             var _ = p.Parse(text);
             var result = (DslInputList?)p.GetInputs().SingleOrDefault();
             Assert.NotNull(result);
-            Assert.Equal("EntityType", result.Name);
-            Assert.Equal("Entity type", result.Text);
-            Assert.Equal("NormalEntity", result.DefaultSymbol);
-            Assert.Equal(3, result.Items.Count);
-            Assert.Equal(new DslListItem("NormalEntity", "Normal"), result.Items[0]);
-            Assert.Equal(new DslListItem("SmallEntity", "Small"), result.Items[1]);
-            Assert.Equal(new DslListItem("MicroEntity", "Micro"), result.Items[2]);
+            Assert.Equal("G1", result.Group);            
         }
 
         [Fact]
-        public void TestVariableListMultiple()
+        public void TestGroupListMultiple()
         {
             string text =
             """
             # Define a multiple-selection list variable
             DEFINE MULTILIST EntityType AS 'Entity type'
+            GROUP G2
             CHOICE NormalEntity AS 'Normal'
             CHOICE SmallEntity AS 'Small'
             CHOICE MicroEntity AS 'Micro'
@@ -47,14 +43,7 @@ namespace IPFees.Calculator.Tests
             var _ = p.Parse(text);
             var result = (DslInputListMultiple?)p.GetInputs().SingleOrDefault();
             Assert.NotNull(result);
-            Assert.Equal("EntityType", result.Name);
-            Assert.Equal("Entity type", result.Text);
-            Assert.Equal("SmallEntity", result.DefaultSymbols[0]);
-            Assert.Equal("NormalEntity", result.DefaultSymbols[1]);
-            Assert.Equal(3, result.Items.Count);
-            Assert.Equal(new DslListItem("NormalEntity", "Normal"), result.Items[0]);
-            Assert.Equal(new DslListItem("SmallEntity", "Small"), result.Items[1]);
-            Assert.Equal(new DslListItem("MicroEntity", "Micro"), result.Items[2]);
+            Assert.Equal("G2", result.Group);            
         }
 
         [Fact]
@@ -64,6 +53,7 @@ namespace IPFees.Calculator.Tests
             """
             # Define a list variable
             DEFINE LIST L1 AS 'List #1'
+            GROUP G3
             CHOICE C1 AS 'Choice #1'
             DEFAULT C1
             ENDDEFINE
@@ -72,19 +62,17 @@ namespace IPFees.Calculator.Tests
             var _ = p.Parse(text);
             var result = (DslInputList?)p.GetInputs().SingleOrDefault();
             Assert.NotNull(result);
-            Assert.Equal("L1", result.Name);
-            Assert.Equal("List #1", result.Text);
-            Assert.Equal(1, result.Items.Count);
-            Assert.Equal(new DslListItem("C1", "Choice #1"), result.Items[0]);
+            Assert.Equal("G3", result.Group);            
         }
 
         [Fact]
-        public void TestVariableNumber()
+        public void TestGroupNumber()
         {
             string text =
             """
             # Define a number variable
             DEFINE NUMBER ClaimCount AS 'Number of claims'
+            GROUP G4
             BETWEEN 0 AND 1000
             DEFAULT 0
             ENDDEFINE
@@ -93,20 +81,17 @@ namespace IPFees.Calculator.Tests
             var _ = p.Parse(text);
             var result = (DslInputNumber?)p.GetInputs().SingleOrDefault();
             Assert.NotNull(result);
-            Assert.Equal("ClaimCount", result.Name);
-            Assert.Equal("Number of claims", result.Text);
-            Assert.Equal(0, result.MinValue);
-            Assert.Equal(1000, result.MaxValue);
-            Assert.Equal(0, result.DefaultValue);
+            Assert.Equal("G4", result.Group);            
         }
 
         [Fact]
-        public void TestVariableBoolean()
+        public void TestGroupBoolean()
         {
             string text =
             """
             # Define a boolean variable
             DEFINE BOOLEAN ContainsDependentClaims AS 'Contains dependent claims'
+            GROUP G5
             DEFAULT TRUE
             ENDDEFINE
             """;
@@ -114,18 +99,17 @@ namespace IPFees.Calculator.Tests
             var _ = p.Parse(text);
             var result = (DslInputBoolean?)p.GetInputs().SingleOrDefault();
             Assert.NotNull(result);
-            Assert.Equal("ContainsDependentClaims", result.Name);
-            Assert.Equal("Contains dependent claims", result.Text);
-            Assert.True(result.DefaultValue);
+            Assert.Equal("G5", result.Group);            
         }
 
         [Fact]
-        public void TestVariableDate()
+        public void TestGroupDate()
         {
             string text =
             """
             # Define a date variable
             DEFINE DATE ApplicationDate AS 'Application date'
+            GROUP G6
             BETWEEN 01.01.2023 AND TODAY
             DEFAULT 01.03.2023
             ENDDEFINE
@@ -134,11 +118,25 @@ namespace IPFees.Calculator.Tests
             var _ = p.Parse(text);
             var result = (DslInputDate?)p.GetInputs().SingleOrDefault();
             Assert.NotNull(result);
-            Assert.Equal("ApplicationDate", result.Name);
-            Assert.Equal("Application date", result.Text);
-            Assert.Equal(DateOnly.ParseExact("01.03.2023", "dd.MM.yyyy", null, System.Globalization.DateTimeStyles.None), result.DefaultValue);
-            Assert.Equal(DateOnly.ParseExact("01.01.2023", "dd.MM.yyyy", null, System.Globalization.DateTimeStyles.None), result.MinValue);
-            Assert.Equal(DateOnly.FromDateTime(DateTime.Now), result.MaxValue);
+            Assert.Equal("G6", result.Group);            
+        }
+
+        [Fact]
+        public void TestMissingGroupDate()
+        {
+            string text =
+            """
+            # Define a date variable
+            DEFINE DATE ApplicationDate AS 'Application date'            
+            BETWEEN 01.01.2023 AND TODAY
+            DEFAULT 01.03.2023
+            ENDDEFINE
+            """;
+            var p = new DslParser();
+            var _ = p.Parse(text);
+            var result = (DslInputDate?)p.GetInputs().SingleOrDefault();
+            Assert.NotNull(result);
+            Assert.Equal(string.Empty, result.Group);
         }
     }
 }
