@@ -40,7 +40,15 @@ namespace IPFees.Core
                 var mod = GetModuleById(rm) ?? throw new NotSupportedException($"Module '{rm}' does not exist.");
                 Calculator.Parse(mod.SourceCode);
             }
-            // Step 2: Parse the source code of the current fee
+            // Step 2: Parse autorun modules
+            var AutoRunModules = Modules.Where(w => w.AutoRun);
+            foreach (var arm in AutoRunModules)
+            {
+                // Retrieve the autorun module
+                var mod = GetModuleById(arm.Id) ?? throw new NotSupportedException($"Module '{arm}' does not exist.");
+                Calculator.Parse(mod.SourceCode);
+            }
+            // Step 3: Parse the source code of the current fee
             var res = Calculator.Parse(jur.SourceCode);
             if (!res)
             {
@@ -77,7 +85,15 @@ namespace IPFees.Core
                 var mod = GetModuleById(rm) ?? throw new NotSupportedException($"Module '{rm}' does not exist.");
                 Calculator.Parse(mod.SourceCode);
             }
-            // Step 2: Parse the source code of the current fee
+            // Step 2: Parse autorun modules
+            var AutoRunModules = Modules.Where(w => w.AutoRun);
+            foreach (var arm in AutoRunModules)
+            {
+                // Retrieve the autorun module
+                var mod = GetModuleById(arm.Id) ?? throw new NotSupportedException($"Module '{arm}' does not exist.");
+                Calculator.Parse(mod.SourceCode);
+            }
+            // Step 3: Parse the source code of the current fee
             var res = Calculator.Parse(jur.SourceCode);
             if (!res)
             {
@@ -87,7 +103,8 @@ namespace IPFees.Core
             else
             {
                 var Inputs = Calculator.GetInputs();
-                return new FeeResultParse(jur.Name, jur.Description, Inputs);
+                var Groups = Calculator.GetGroups();
+                return new FeeResultParse(jur.Name, jur.Description, Inputs, Groups);
             }
         }        
     }
@@ -95,5 +112,5 @@ namespace IPFees.Core
     public abstract record FeeResult();
     public record FeeResultFail(string FeeName, string FeeDescription, IEnumerable<string> Errors) : FeeResult();
     public record FeeResultCalculation(string FeeName, string FeeDescription, double TotalMandatoryAmount, double TotalOptionalAmount, IEnumerable<string> CalculationSteps, IEnumerable<(string, string)> Returns) : FeeResult();
-    public record FeeResultParse(string FeeName, string FeeDescription, IEnumerable<DslInput> FeeInputs) : FeeResult();
+    public record FeeResultParse(string FeeName, string FeeDescription, IEnumerable<DslInput> FeeInputs, IEnumerable<DslGroup> FeeGroups) : FeeResult();
 }
