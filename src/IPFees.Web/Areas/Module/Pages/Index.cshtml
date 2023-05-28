@@ -14,7 +14,8 @@
             <table class="table table-hover">
                 <thead>
                     <tr>
-                        <th scope="col">Module</th>
+                        <th scope="col">Module</th>                        
+                        <th scope="col">AutoRun</th>
                         <th scope="col">Description</th>
                         <th scope="col">References</th>
                         <th scope="col"></th>
@@ -27,6 +28,12 @@
                         <tr>
                             <td>
                                 <button class="btn btn-light btn-sm" aria-disabled="true" data-bs-toggle="tooltip" data-bs-placement="right" title="Last updated: @mi.Mod.LastUpdatedOn">@mi.Mod.Name</button>
+                            </td>                            
+                            <td>
+                                @if (mi.AutoRun)
+                                {
+                                    <i class="bi bi-play-fill"></i>
+                                }
                             </td>
                             <td>@mi.Mod.Description</td>
                             <td>@mi.Count</td>

@@ -22,7 +22,7 @@ namespace IPFees.Web.Areas.Module.Pages
         public async Task<IActionResult> OnGetAsync()
         {
             // Retrieve modules from the database
-            var DbMod = (await moduleRepository.GetModules()).OrderBy(o => o.Name).ThenBy(t=>t.LastUpdatedOn);
+            var DbMod = (await moduleRepository.GetModules()).OrderBy(o => o.Name).ThenBy(t => t.LastUpdatedOn);
             // Compute the number of fees that reference each module
             var DbJur = await feeRepository.GetFees();
             Modules = from m in DbMod
@@ -30,11 +30,12 @@ namespace IPFees.Web.Areas.Module.Pages
                       (m,
                           (from j in DbJur
                            where j.ReferencedModules.Contains(m.Id)
-                           select j).Count()
+                           select j).Count(),
+                          m.AutoRun
                       );
             return Page();
         }
     }
 
-    public record ModuleViewModel(ModuleInfo Mod, int Count);
+    public record ModuleViewModel(ModuleInfo Mod, int Count, bool AutoRun);
 }

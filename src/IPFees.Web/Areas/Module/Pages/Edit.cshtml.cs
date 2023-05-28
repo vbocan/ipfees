@@ -7,7 +7,8 @@ namespace IPFees.Web.Areas.Module.Pages
     public class EditModel : PageModel
     {
         [BindProperty] public string Name { get; set; }
-        [BindProperty] public string Description { get; set; }        
+        [BindProperty] public string Description { get; set; }
+        [BindProperty] public bool AutoRun { get; set; }
         [BindProperty] public string SourceCode { get; set; }
         [BindProperty] public IList<string> ErrorMessages { get; set; }
 
@@ -24,7 +25,8 @@ namespace IPFees.Web.Areas.Module.Pages
             var info = await moduleRepository.GetModuleById(Id);
             Name = info.Name;
             Description = info.Description;
-            SourceCode = info.SourceCode;            
+            AutoRun = info.AutoRun;
+            SourceCode = info.SourceCode;
             return Page();
         }
 
@@ -44,8 +46,13 @@ namespace IPFees.Web.Areas.Module.Pages
             if (!res.Success)
             {
                 ErrorMessages.Add($"Error setting source code: {res.Reason}");
-            }            
-            
+            }
+            res = await moduleRepository.SetModuleAutoRunStatusAsync(Id, AutoRun);
+            if (!res.Success)
+            {
+                ErrorMessages.Add($"Error setting autorun status: {res.Reason}");
+            }
+
             if (ErrorMessages.Any()) return Page();
             else return RedirectToPage("Index");
         }

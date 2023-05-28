@@ -11,7 +11,8 @@ namespace IPFees.Core.Model
         {
             Name = string.Empty;
             Description = string.Empty;
-            SourceCode = string.Empty;            
+            SourceCode = string.Empty;
+            AutoRun = false;
             LastUpdatedOn = DateTime.MinValue;
         }
 
@@ -20,6 +21,7 @@ namespace IPFees.Core.Model
         public string Name { get; set; }
         public string Description { get; set; }        
         public string SourceCode { get; set; }
+        public bool AutoRun { get; set; }
         [BsonDateTimeOptions(Kind = DateTimeKind.Local)]
         public DateTime LastUpdatedOn { get; set; }
     }
