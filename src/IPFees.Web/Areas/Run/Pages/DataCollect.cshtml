@@ -17,11 +17,20 @@
                 @foreach (var g in Model.Groups)
                 {
                     <div class="card mb-3">
-                        <h5 class="card-header">@g.Name</h5>
+                        <h5 class="card-header bg-black text-white">@g.Name</h5>
                         <div class="card-body">
                             <h5 class="card-title">@g.Text</h5>
-                            <p class="card-text">Text...</p>
                             <vc:data-collect inputs="@g.Inputs" html-class="border"></vc:data-collect>
+                        </div>
+                    </div>
+                }
+
+                @if(Model.UncategorizedInputs.Count() > 0)
+                {
+                    <div class="card mb-3">
+                        <h5 class="card-header bg-danger text-white">Other Inputs</h5>
+                        <div class="card-body">
+                            <vc:data-collect inputs="@Model.UncategorizedInputs" html-class="border"></vc:data-collect>
                         </div>
                     </div>
                 }
