@@ -17,9 +17,8 @@
                 @foreach (var g in Model.Groups)
                 {
                     <div class="card mb-3">
-                        <h5 class="card-header bg-black text-white">@g.Name</h5>
+                        <h5 class="card-header bg-primary text-white"><strong>@g.Text</strong></h5>
                         <div class="card-body">
-                            <h5 class="card-title">@g.Text</h5>
                             <vc:data-collect inputs="@g.Inputs" html-class="border"></vc:data-collect>
                         </div>
                     </div>
