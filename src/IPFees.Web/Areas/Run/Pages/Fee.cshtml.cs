@@ -1,12 +1,8 @@
-using IPFees.Calculator;
 using IPFees.Core;
 using IPFees.Evaluator;
 using IPFees.Parser;
-using IPFees.Core;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using System.Diagnostics.Eventing.Reader;
-using static IPFees.Core.FeeCalculator;
 
 namespace IPFees.Web.Areas.Run.Pages
 {
@@ -44,7 +40,7 @@ namespace IPFees.Web.Areas.Run.Pages
                 TempData["Errors"] = (res as FeeResultFail).Errors.ToArray();
                 return RedirectToPage("Error");
             }
-            Inputs = (res as FeeResultParse).FeeInputs.Select(pv => new InputViewModel(pv.Name, pv.GetType().ToString(), pv, string.Empty, Array.Empty<string>(), 0, false, DateOnly.MinValue)).ToList();
+            Inputs = (res as FeeResultParse).FeeInputs.Select(pv => new InputViewModel(pv.Group, pv.Name, pv.GetType().ToString(), pv, string.Empty, Array.Empty<string>(), 0, false, DateOnly.MinValue)).ToList();
             return Page();
         }
 
@@ -109,7 +105,7 @@ namespace IPFees.Web.Areas.Run.Pages
         }
     }
 
-    public record InputViewModel(string Name, string Type, DslInput Var, string StrValue, string[] ListValue, double DoubleValue, bool BoolValue, DateOnly DateValue);    
+    public record InputViewModel(string Group, string Name, string Type, DslInput Var, string StrValue, string[] ListValue, double DoubleValue, bool BoolValue, DateOnly DateValue);    
     public record FailedFeeViewModel(string FeeName, string FeeDescription);
 
 }

@@ -8,17 +8,18 @@
     <div class="col-8">
         <h1>Input Parameters</h1>
         <strong>TODO: Display categorized inputs and ordered by weight!</strong>
-        @foreach(var g in Model.Groups)
-        {
-            <p>@g.Name @g.Text @g.Weight</p>
-        }
+
         <form asp-page="Result" asp-area="Run" method="post">
             @for (int i = 0; i < Model.SelectedJurisdictions.Count(); i++)
             {
                 <input type="hidden" asp-for="@Model.SelectedJurisdictions[i]" />
             }
             <div class="col-md-9">
-                <vc:data-collect inputs="@Model.Inputs" html-class="border"></vc:data-collect>
+                @foreach (var g in Model.Groups)
+                {
+                    <h2>@g.Name @g.Text @g.Weight</h2>
+                    <vc:data-collect inputs="@g.Inputs" html-class="border"></vc:data-collect>
+                }
                 <button type="submit" class="btn btn-primary">Submit</button>
             </div>
         </form>
@@ -35,7 +36,7 @@
                 {
                     <li>@e</li>
                 }
-            </ul>            
+            </ul>
         }
     </div>
 </div>
