@@ -1,24 +1,29 @@
 ﻿@page
 @model DataCollectModel
 @{
-    ViewData["Title"] = "Input Parameters";
+    ViewData["Title"] = "Select Your Choices";
 }
 
 <div class="row">
     <div class="col-8">
-        <h1>Input Parameters</h1>
-        <strong>TODO: Display categorized inputs and ordered by weight!</strong>
+        <h1>Select Your Choices</h1>
 
         <form asp-page="Result" asp-area="Run" method="post">
             @for (int i = 0; i < Model.SelectedJurisdictions.Count(); i++)
             {
                 <input type="hidden" asp-for="@Model.SelectedJurisdictions[i]" />
             }
-            <div class="col-md-9">
+            <div class="col-md-12">
                 @foreach (var g in Model.Groups)
                 {
-                    <h2>@g.Name @g.Text @g.Weight</h2>
-                    <vc:data-collect inputs="@g.Inputs" html-class="border"></vc:data-collect>
+                    <div class="card mb-3">
+                        <h5 class="card-header">@g.Name</h5>
+                        <div class="card-body">
+                            <h5 class="card-title">@g.Text</h5>
+                            <p class="card-text">Text...</p>
+                            <vc:data-collect inputs="@g.Inputs" html-class="border"></vc:data-collect>
+                        </div>
+                    </div>
                 }
                 <button type="submit" class="btn btn-primary">Submit</button>
             </div>
