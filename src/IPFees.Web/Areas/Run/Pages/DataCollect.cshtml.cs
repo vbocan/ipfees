@@ -7,8 +7,9 @@ namespace IPFees.Web.Areas.Run.Pages
     public class DataCollectModel : PageModel
     {
         [BindProperty] public string[] SelectedJurisdictions { get; set; }
-        [BindProperty] public IEnumerable<GroupViewModel> Groups { get; set; }
-        [BindProperty] public IEnumerable<string> Errors { get; set; }
+        public IEnumerable<GroupViewModel> Groups { get; set; }
+        public IList<InputViewModel> UncategorizedInputs { get; set; }
+        public IEnumerable<string> Errors { get; set; }
 
         private readonly IJurisdictionFeeManager jurisdictionFeeManager;
         private readonly ILogger<DataCollectModel> _logger;
@@ -32,6 +33,7 @@ namespace IPFees.Web.Areas.Run.Pages
                 .OrderBy(o => o.Weight)
                 .ThenBy(p => p.Name)
                 .Select(pv => new GroupViewModel(pv.Name, pv.Text, pv.Weight, Inputs.Where(s => s.Group.Equals(pv.Name)).ToList()));
+            UncategorizedInputs = Inputs.Where(w => w.Group.Equals(string.Empty)).ToList();
             Errors = errs.Select(s => $"[{s.FeeName}] - {s.FeeName} (Internal Error)");
             return Page();
         }
