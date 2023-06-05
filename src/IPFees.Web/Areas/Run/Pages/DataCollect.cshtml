@@ -27,7 +27,7 @@
                 @if(Model.UncategorizedInputs.Count() > 0)
                 {
                     <div class="card mb-3">
-                        <h5 class="card-header bg-danger text-white">Other Inputs</h5>
+                        <h5 class="card-header bg-danger text-white">Other Inputs - not associated to a group</h5>
                         <div class="card-body">
                             <vc:data-collect inputs="@Model.Inputs" indexes="@Model.UncategorizedInputs" html-class="border"></vc:data-collect>
                         </div>
