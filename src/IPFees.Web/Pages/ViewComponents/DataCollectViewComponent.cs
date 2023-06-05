@@ -15,12 +15,12 @@ namespace IPFees.Web.ViewComponents
         /// <param name="Inputs">Input controls</param>
         /// <param name="HtmlClass">Class attributes that will be transferred over to the image</param>
         /// <returns></returns>
-        public async Task<IViewComponentResult> InvokeAsync(IList<InputViewModel> Inputs, string HtmlClass)
+        public async Task<IViewComponentResult> InvokeAsync(IList<InputViewModel> Inputs, int[] Indexes, string HtmlClass)
         {
-            var model = new DataCollectViewModel(Inputs, HtmlClass);
+            var model = new DataCollectViewModel(Inputs, Indexes, HtmlClass);
             return View(model);
         }
     }
 
-    public record DataCollectViewModel(IList<InputViewModel> Inputs, string HtmlClass);
+    public record DataCollectViewModel(IList<InputViewModel> Inputs, int[] Indexes, string HtmlClass);
 }

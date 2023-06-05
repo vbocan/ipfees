@@ -19,7 +19,7 @@
                     <div class="card mb-3">
                         <h5 class="card-header bg-primary text-white"><strong>@g.Text</strong></h5>
                         <div class="card-body">
-                            <vc:data-collect inputs="@g.Inputs" html-class="border"></vc:data-collect>
+                            <vc:data-collect inputs="@Model.Inputs" indexes="@g.InputIndexes" html-class="border"></vc:data-collect>
                         </div>
                     </div>
                 }
@@ -29,7 +29,7 @@
                     <div class="card mb-3">
                         <h5 class="card-header bg-danger text-white">Other Inputs</h5>
                         <div class="card-body">
-                            <vc:data-collect inputs="@Model.UncategorizedInputs" html-class="border"></vc:data-collect>
+                            <vc:data-collect inputs="@Model.Inputs" indexes="@Model.UncategorizedInputs" html-class="border"></vc:data-collect>
                         </div>
                     </div>
                 }

@@ -1,6 +1,6 @@
 ﻿@model DataCollectViewModel
 
-@for (int i = 0; i < Model.Inputs.Count; i++)
+@foreach (var i in Model.Indexes)
 {
     <input type="hidden" asp-for="@Model.Inputs[i].Name" />
     <input type="hidden" asp-for="@Model.Inputs[i].Type" />
