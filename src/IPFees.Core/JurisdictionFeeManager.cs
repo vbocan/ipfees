@@ -104,7 +104,7 @@ namespace IPFees.Core
                                 OfficialFees.Add(new FeeAmount(
                                     frc.TotalMandatoryAmount,
                                     frc.TotalOptionalAmount,
-                                    frc.Returns.Where(w => w.Item1.Equals("Currency", StringComparison.InvariantCultureIgnoreCase)).Select(s => s.Item2 ?? string.Empty).Single(),
+                                    frc.Returns.Where(w => w.Item1.Equals("Currency", StringComparison.InvariantCultureIgnoreCase)).Select(s => s.Item2 ?? string.Empty).SingleOrDefault(string.Empty),
                                     $"Official fee for jurisdiction '{jur.Name}'"
                                     ));
                                 break;
@@ -112,7 +112,7 @@ namespace IPFees.Core
                                 PartnerFees.Add(new FeeAmount(
                                     frc.TotalMandatoryAmount,
                                     frc.TotalOptionalAmount,
-                                    frc.Returns.Where(w => w.Item1.Equals("Currency", StringComparison.InvariantCultureIgnoreCase)).Select(s => s.Item2 ?? string.Empty).Single(),
+                                    frc.Returns.Where(w => w.Item1.Equals("Currency", StringComparison.InvariantCultureIgnoreCase)).Select(s => s.Item2 ?? string.Empty).SingleOrDefault(string.Empty),
                                     $"Partner fee for jurisdiction '{jur.Name}'"
                                     ));
                                 break;
