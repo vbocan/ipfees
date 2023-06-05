@@ -8,7 +8,6 @@
     {
         case DslInputDate:
             var v0 = (DslInputDate)Model.Inputs[i].Var;
-            <span>Group: @v0.Group</span>
             <div class="mb-3 col-md-6">
                 <label class="form-label" for="@v0.Name">@v0.Text</label>
                 <input class="form-control" type="date" asp-for="@Model.Inputs[i].DateValue" value="@v0.DefaultValue.ToString("yyyy-MM-dd")" min="@v0.MinValue.ToString("yyyy-MM-dd")" max="@v0.MaxValue.ToString("yyyy-MM-dd")">
