@@ -36,9 +36,13 @@
         <h3>Errors</h3>
         @foreach (var er in @Model.FeeResults.Errors)
         {
-            <text>Error at fee @er.FeeName</text>
-
-            <br />
+            <h4>@($"There are {er.Errors.Count()} errors at fee {er.FeeName}")</h4>
+            <ul>
+            @foreach(var e in er.Errors)
+            {
+                <li>@e</li>
+            }
+            </ul>
         }
     </div>
 </div>
