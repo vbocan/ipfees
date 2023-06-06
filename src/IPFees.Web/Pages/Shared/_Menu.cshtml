@@ -1,21 +1,22 @@
 ﻿<li class="nav-item">
+    <a class="nav-link text-dark" asp-area="Run" asp-page="/Index">Compute</a>
+</li>
+
+<li class="nav-item">
     <a class="nav-link text-dark" asp-area="" asp-page="/SplitScreen">Split Screen</a>
 </li>
-<li class="nav-item">
-    <a class="nav-link text-dark" asp-area="Fee" asp-page="/Index">Fees</a>
+
+<li class="nav-item dropdown">
+    <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Admin</a>
+    <div class="dropdown-menu">
+        <a class="dropdown-item" asp-area="Fee" asp-page="/Index">Fees</a>
+        <a class="dropdown-item" asp-area="Module" asp-page="/Index">Modules</a>
+        <a class="dropdown-item" asp-area="Jurisdiction" asp-page="/Index">Jurisdictions</a>
+        <div class="dropdown-divider"></div>        
+        <a class="dropdown-item" asp-area="Settings" asp-page="/Index">Settings</a>
+    </div>
 </li>
-<li class="nav-item">
-    <a class="nav-link text-dark" asp-area="Module" asp-page="/Index">Modules</a>
-</li>
-<li class="nav-item">
-    <a class="nav-link text-dark" asp-area="Jurisdiction" asp-page="/Index">Jurisdictions</a>
-</li>
-<li class="nav-item">
-    <a class="nav-link text-dark" asp-area="Run" asp-page="/Index">User View</a>
-</li>
-<li class="nav-item">
-    <a class="nav-link text-dark" asp-area="Settings" asp-page="/Index">Settings</a>
-</li>
+
 <li class="nav-item">
     <a class="nav-link text-dark" asp-area="" asp-page="/Reference">Reference</a>
 </li>
