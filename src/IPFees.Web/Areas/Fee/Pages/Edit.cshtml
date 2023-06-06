@@ -23,6 +23,14 @@
             </div>
         }
         <form method="post">
+            <div class="mb-3">
+                <label for="@Model.Name" class="form-label">Name</label>
+                <input asp-for="Name" value="@Model.Name" class="form-control" required />
+            </div>
+            <div class="mb-3">
+                <label for="@Model.Description" class="form-label">Description</label>
+                <input asp-for="@Model.Description" class="form-control" />
+            </div>
             <div class="mb-3 col-md-4">
                 <label for="@Model.Category" class="form-label">Category</label>
                 <select class="form-select form-select-lg mb-3" asp-for="@Model.Category" asp-items="Model.CategoryItems" required>
@@ -34,15 +42,7 @@
                 <select class="form-select form-select-lg mb-3" asp-for="@Model.JurisdictionName" asp-items="Model.JurisdictionNameItems" required>
                     <option value="">Select jurisdiction...</option>
                 </select>
-            </div>
-            <div class="mb-3">
-                <label for="@Model.Name" class="form-label">Name</label>
-                <input asp-for="Name" value="@Model.Name" class="form-control" required />
-            </div>
-            <div class="mb-3">
-                <label for="@Model.Description" class="form-label">Description</label>
-                <input asp-for="@Model.Description" class="form-control" />
-            </div>
+            </div>            
             <div class="mb-3">
                 <label for="@Model.ReferencedModules" class="form-label">Referenced Modules</label>
                 @for (var i = 0; i < Model.ReferencedModules.Count(); i++)
