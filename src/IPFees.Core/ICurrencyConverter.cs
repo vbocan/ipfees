@@ -2,6 +2,7 @@
 {
     public interface ICurrencyConverter
     {
-        Task<decimal> ConvertCurrency(decimal amount, string baseCurrency, string targetCurrency);
+        Task<decimal> ConvertCurrency(decimal Amount, string BaseCurrencySymbol, string TargetCurrencySymbol);
+        IEnumerable<(string, string)> GetCurrencies();
     }
 }
