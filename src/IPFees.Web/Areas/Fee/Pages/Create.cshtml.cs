@@ -35,7 +35,7 @@ namespace IPFees.Web.Areas.Fee.Pages
         public async Task<IActionResult> OnGetAsync()
         {
             var Mods = await moduleRepository.GetModules();
-            ReferencedModules = Mods.Select(s => new ModuleViewModel(s.Id, s.Name, s.Description, s.LastUpdatedOn, false)).ToList();
+            ReferencedModules = Mods.Where(w=>!w.AutoRun).Select(s => new ModuleViewModel(s.Id, s.Name, s.Description, s.LastUpdatedOn, false)).ToList();
             return Page();
         }
 

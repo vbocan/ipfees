@@ -43,7 +43,7 @@ namespace IPFees.Web.Areas.Fee.Pages
             Category = jur.Category.ToString();            
             // Prepare view model for referenced modules
             var Mods = await moduleRepository.GetModules();
-            ReferencedModules = Mods.Select(s => new ModuleViewModel(s.Id, s.Name, s.Description, s.LastUpdatedOn, jur.ReferencedModules.Contains(s.Id))).ToList();
+            ReferencedModules = Mods.Where(w => !w.AutoRun).Select(s => new ModuleViewModel(s.Id, s.Name, s.Description, s.LastUpdatedOn, jur.ReferencedModules.Contains(s.Id))).ToList();
             return Page();
         }
 
