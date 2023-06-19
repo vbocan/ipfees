@@ -1,21 +1,28 @@
+using IPFees.Core;
+using IPFees.Core.Enum;
 using IPFees.Core.Model;
 using IPFees.Core.Repository;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace IPFees.Web.Areas.Run.Pages
 {
     public class IndexModel : PageModel
     {
+        [BindProperty] public string TargetCurrency { get; set; }
         [BindProperty] public IEnumerable<JurisdictionInfo> Jurisdictions { get; set; }
         [BindProperty] public IList<JurisdictionViewModel> SelectedJurisdictions { get; set; }
 
-        private readonly IJurisdictionRepository jurisdictionRepository;        
+        public IEnumerable<SelectListItem> CurrencyItems { get; set; }
+        private readonly IJurisdictionRepository jurisdictionRepository;
+        private readonly ICurrencyConverter currencyConverter;
         private readonly ILogger<IndexModel> _logger;
 
-        public IndexModel(IJurisdictionRepository jurisdictionRepository, ILogger<IndexModel> logger)
+        public IndexModel(IJurisdictionRepository jurisdictionRepository, ICurrencyConverter currencyConverter, ILogger<IndexModel> logger)
         {
-            this.jurisdictionRepository = jurisdictionRepository;            
+            this.jurisdictionRepository = jurisdictionRepository;
+            this.currencyConverter = currencyConverter;
             _logger = logger;
         }
 
@@ -23,13 +30,14 @@ namespace IPFees.Web.Areas.Run.Pages
         {
             Jurisdictions = await jurisdictionRepository.GetJurisdictions();
             SelectedJurisdictions = Jurisdictions.OrderBy(o => o.Name).Select(s => new JurisdictionViewModel(s.Id, s.Name, s.Description, true)).ToList();
+            CurrencyItems = currencyConverter.GetCurrencies().Select(s => new SelectListItem($"{s.Item1} - {s.Item2}", s.Item1));
             return Page();
         }
 
         public async Task<IActionResult> OnPostAsync()
         {
             var SelJur = await SelectedJurisdictions.ToAsyncEnumerable().Where(w => w.Checked).Select(s => s.Name).ToListAsync();
-            return RedirectToPage("DataCollect", new { area = "Run", Id = SelJur });
+            return RedirectToPage("DataCollect", new { area = "Run", Id = SelJur, TargetCurrency });
         }
     }
 

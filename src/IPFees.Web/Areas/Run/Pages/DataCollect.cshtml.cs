@@ -7,6 +7,7 @@ namespace IPFees.Web.Areas.Run.Pages
     public class DataCollectModel : PageModel
     {
         [BindProperty] public string[] SelectedJurisdictions { get; set; }
+        [BindProperty] public string TargetCurrency { get; set; }
         public IList<InputViewModel> Inputs { get; set; }
         public IEnumerable<GroupViewModel> Groups { get; set; }
         public int[] UncategorizedInputs { get; set; }
@@ -22,12 +23,13 @@ namespace IPFees.Web.Areas.Run.Pages
             _logger = logger;
         }
 
-        public async Task<IActionResult> OnGetAsync(string[] Id)
+        public async Task<IActionResult> OnGetAsync(string[] Id, string TargetCurrency)
         {
             SelectedJurisdictions = Id;
+            this.TargetCurrency = TargetCurrency;
 
             // For each jurisdiction, get the inputs that need to be displayed to the user
-            var (inputs, groups, errs) = jurisdictionFeeManager.GetConsolidatedInputs(Id);
+            var (inputs, groups, errs) = jurisdictionFeeManager.GetConsolidatedInputs(SelectedJurisdictions);
 
             Inputs = inputs.Select(pv => new InputViewModel(pv.Group, pv.Name, pv.GetType().ToString(), pv, string.Empty, Array.Empty<string>(), 0, false, DateOnly.MinValue)).ToList();
             Groups = groups

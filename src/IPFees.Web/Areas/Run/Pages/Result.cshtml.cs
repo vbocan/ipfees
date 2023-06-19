@@ -12,6 +12,7 @@ namespace IPFees.Web.Areas.Run.Pages
         [BindProperty] public List<IPFValue> CollectedValues { get; set; }
         [BindProperty] public IList<InputViewModel> Inputs { get; set; }
         [BindProperty] public string[] SelectedJurisdictions { get; set; }
+        [BindProperty] public string TargetCurrency { get; set; }
         [BindProperty] public TotalFeeInfo FeeResults { get; set; }
         private readonly IJurisdictionFeeManager jurisdictionFeeManager;
         private readonly ILogger<ResultModel> _logger;
@@ -22,9 +23,8 @@ namespace IPFees.Web.Areas.Run.Pages
             _logger = logger;
         }
 
-        public async Task<IActionResult> OnGetAsync(string[] Id)
-        {
-            SelectedJurisdictions = Id;
+        public async Task<IActionResult> OnGetAsync()
+        {            
             return Page();
         }
 
