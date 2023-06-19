@@ -16,6 +16,7 @@
             <div class="col-md-12">
                 @foreach (var g in Model.Groups)
                 {
+                    @if (g.InputIndexes.Length == 0) continue;
                     <div class="card mb-3">
                         <h5 class="card-header bg-primary text-white"><strong>@g.Text</strong></h5>
                         <div class="card-body">
