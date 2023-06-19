@@ -220,6 +220,8 @@ namespace IPFees.Core
             return 0m;
         }
 
+        public IEnumerable<(string, string)> GetCurrencies() => Currencies.OrderBy(o => o.Symbol).Select(s => (s.Symbol, s.Name));
+
         private string GetAPIKey(string BaseCurrency) => APIURL.Replace("[APIKEY]", APIKey).Replace("[BASECURRENCY]", BaseCurrency);
     }
 
