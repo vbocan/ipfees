@@ -9,44 +9,70 @@
     <p>Modern intellectual property fees calculation</p>
 </div>
 
-<form method="post">
-    <div class="mb-3">
-        <label for="@Model.ReferencedModules" class="form-label">Referenced Modules</label>
-        @for (var i = 0; i < Model.ReferencedModules.Count(); i++)
-        {
-            <div class="form-check form-switch">
-                <label class="form-check-label" for="@Model.ReferencedModules[i].Name">@Model.ReferencedModules[i].Description</label>
-                <input class="form-check-input" type="checkbox" asp-for="@Model.ReferencedModules[i].Checked">
-                <input type="hidden" asp-for="@Model.ReferencedModules[i].Checked" value="false">
-                <input type="hidden" asp-for="@Model.ReferencedModules[i].Name">
-                <input type="hidden" asp-for="@Model.ReferencedModules[i].Id">
+<div class="row row-cols-1 row-cols-md-4 g-4">
+    <div class="col">
+        <div class="card h-100" style="width: 18rem;">
+            <img src="~/images/compute.jpg" class="card-img-top" alt="Compute">
+            <div class="card-body">
+                <h5 class="card-title">Fee Calculation</h5>
+                <p class="card-text">Intellectual property fees are difficult to calculate. Here comes IPFees.</p>
+                <a asp-area="Run" asp-page="Index" class="btn btn-primary">Calculate Your Fees</a>
             </div>
-        }
-        <div id="ReferencedModulesHelp" class="form-text">Source code associated to referenced modules is parsed along with the fee source code.</div>
+        </div>
     </div>
-    <div class="my-3">
-        <textarea asp-for="Code" class="form-control" rows="20"></textarea>
+
+    <div class="col">
+        <div class="card h-100" style="width: 18rem;">
+            <img src="~/images/flags.jpg" class="card-img-top" alt="Flags">
+            <div class="card-body">
+                <h5 class="card-title">Jurisdictions</h5>
+                <p class="card-text">The system is able to process fees for the @Model.JurisdictionCount jurisdictions registered with the system.</p>
+                <a asp-area="Jurisdiction" asp-page="Index" class="btn btn-outline-secondary">See Jurisdictions</a>
+            </div>
+        </div>
     </div>
-    <button type="submit" class="btn btn-primary">Execute Code</button>
-</form>
 
+    <div class="col">
+        <div class="card h-100" style="width: 18rem;">
+            <img src="~/images/money.jpg" class="card-img-top" alt="Money">
+            <div class="card-body">
+                <h5 class="card-title">Intellectual Property Fees</h5>
+                <p class="card-text">There are @Model.FeeCount intellectual property related fees registered with the system.</p>
+                <a asp-area="Fee" asp-page="Index" class="btn btn-outline-secondary">See Fees</a>
+            </div>
+        </div>
+    </div>
 
+    <div class="col">
+        <div class="card h-100" style="width: 18rem;">
+            <img src="~/images/attorneys.jpg" class="card-img-top" alt="Attorneys">
+            <div class="card-body">
+                <h5 class="card-title">Attorney Fees</h5>
+                <p class="card-text">Attorney fees depend on the complexity of the jurisction.</p>
+                <a asp-area="Settings" asp-page="Index" class="btn btn-outline-secondary">See Attorney Fees</a>
+            </div>
+        </div>
+    </div>
 
-@if (Model.ParseErrors != null)
-{
-    <table class="table">
-        <thead>
-            <tr>
-                <th scope="col">Errors</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var e in Model.ParseErrors)
-            {
-                <tr>
-                    <td>@e</td>
-                </tr>
-            }
-        </tbody>
-    </table>
-}
+    <div class="col">
+        <div class="card h-100" style="width: 18rem;">
+            <img src="~/images/programming.jpg" class="card-img-top" alt="Programming">
+            <div class="card-body">
+                <h5 class="card-title">Modularized Inputs</h5>
+                <p class="card-text">To reduce the complexity of fee computation, data inputs are currently stored in @Model.ModuleCount separate modules.</p>
+                <a asp-area="Module" asp-page="Index" class="btn btn-outline-secondary">See Modules</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="col">
+        <div class="card h-100" style="width: 18rem;">
+            <img src="~/images/reference.jpg" class="card-img-top" alt="Reference">
+            <div class="card-body">
+                <h5 class="card-title">IPFees Reference</h5>
+                <p class="card-text">Fees are computed using a domain-specific programming language.</p>
+                <a asp-page="Reference" class="btn btn-outline-secondary">See Reference</a>
+            </div>
+        </div>
+    </div>
+</div>

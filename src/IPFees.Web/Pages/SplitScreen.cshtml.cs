@@ -22,7 +22,7 @@ namespace IPFees.Web.Pages
         [BindProperty] public double TotalMandatoryAmount { get; set; }
         [BindProperty] public double TotalOptionalAmount { get; set; }
         [BindProperty] public IEnumerable<string> CalculationSteps { get; set; }
-        [BindProperty] public IEnumerable<(string,string)> Returns { get; set; }
+        [BindProperty] public IEnumerable<(string, string)> Returns { get; set; }
         [BindProperty] public string ComputationError { get; set; }
         [BindProperty] public List<IPFValue> CollectedValues { get; set; }
 
@@ -42,7 +42,7 @@ namespace IPFees.Web.Pages
             // Prepare view model for referenced modules
             var Mods = await moduleRepository.GetModules();
             var RefMod = (IEnumerable<string>)TempData.Peek("modules") ?? Enumerable.Empty<string>();
-            ReferencedModules = Mods.Select(s => new ModuleViewModel(s.Id, s.Name, s.Description, s.LastUpdatedOn, RefMod.Contains(s.Id.ToString()))).ToList();
+            ReferencedModules = Mods.Where(w => !w.AutoRun).Select(s => new ModuleViewModel(s.Id, s.Name, s.Description, s.LastUpdatedOn, RefMod.Contains(s.Id.ToString()))).ToList();
 
             if (Request.Cookies["code"] != null)
             {
