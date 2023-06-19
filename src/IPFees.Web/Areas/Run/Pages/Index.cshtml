@@ -1,7 +1,7 @@
 ﻿@page
 @model IndexModel
 @{
-    ViewData["Title"] = "Select Jurisdictions";
+    ViewData["Title"] = "Fee Calculation";
 }
 
 <h1>Select <small class="text-muted">Jurisdictions</small></h1>
@@ -9,8 +9,8 @@
 <div class="row">
     <div class="col-lg-12">
         <div class="form-check form-switch mb-2">
-            <label for="selectAll">
-                <input type="checkbox" id="selectAll" class="form-check-input" checked /> Select / Unselect All
+            <label for="selectAll">                
+                <input type="checkbox" id="selectAll" class="form-check-input" checked /> Select all @Model.Jurisdictions.Count() items / Unselect all
             </label>
         </div>
         @if (Model.Jurisdictions.Any())
@@ -21,7 +21,7 @@
                     {
                         <div class="col-md-1 shadow py-2 mb-1 mx-1 bg-white rounded">
                             <div class="form-check form-switch">
-                                <label class="form-check-label" for="@Model.SelectedJurisdictions[i].Name" title="@Model.SelectedJurisdictions[i].Description">@Model.SelectedJurisdictions[i].Name</label>                                
+                                <label class="form-check-label" for="@Model.SelectedJurisdictions[i].Name" title="@Model.SelectedJurisdictions[i].Description">@Model.SelectedJurisdictions[i].Name</label>
                                 <input class="form-check-input" type="checkbox" asp-for="@Model.SelectedJurisdictions[i].Checked" title="@Model.SelectedJurisdictions[i].Description">
                                 <input type="hidden" asp-for="@Model.SelectedJurisdictions[i].Checked" value="false">
                                 <input type="hidden" asp-for="@Model.SelectedJurisdictions[i].Name">
@@ -29,14 +29,22 @@
                             </div>
                         </div>
                     }
+                </div>                
+                <div class="row mt-2">
+                    <div class="col-12">
+                        <div class="mb-3 col-md-4">                            
+                            <select class="form-select form-select-lg mb-3" asp-for="@Model.TargetCurrency" asp-items="Model.CurrencyItems" required>
+                                <option value="">Select target currency...</option>
+                            </select>
+                        </div>
+                    </div>
                 </div>
-                <h6>@Model.Jurisdictions.Count() items.</h6>
                 <div class="row mt-2">
                     <div class="col-12">
                         <button type="submit" class="btn btn-primary">Calculate Fees</button>
                     </div>
                 </div>
-            </form>            
+            </form>
         }
         else
         {
