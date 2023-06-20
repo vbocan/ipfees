@@ -1,4 +1,6 @@
-﻿using System.Text.Json;
+﻿using MongoDB.Bson.IO;
+using System.Text.Json;
+using ThirdParty.Json.LitJson;
 
 namespace IPFees.Core
 {
@@ -203,7 +205,12 @@ namespace IPFees.Core
                 string responseBody = await response.Content.ReadAsStringAsync();
 
                 JsonDocument jsonDocument = JsonDocument.Parse(responseBody);
-                decimal conversionRate = jsonDocument.RootElement.GetProperty("conversion_rates").GetProperty(TargetCurrencySymbol).GetDecimal();
+                //decimal conversionRate = jsonDocument.RootElement.GetProperty("conversion_rates").GetProperty(TargetCurrencySymbol).GetDecimal();
+
+                var jsonConversionRates = jsonDocument.RootElement.GetProperty("conversion_rates");
+                ConversionRates conversionRates = JsonSerializer.Deserialize<ConversionRates>(jsonConversionRates);
+
+
                 decimal convertedAmount = Amount * conversionRate;
 
                 return convertedAmount;
@@ -226,4 +233,14 @@ namespace IPFees.Core
     }
 
     public record Currency(string Symbol, string Name);
+
+    public class ConversionRates
+    {
+        public Dictionary<string, decimal> conversion_rates { get; set; }
+
+        public KeyValuePair<string, decimal>[] Rates
+        {
+            get { return conversion_rates.ToArray(); }
+        }
+    }
 }
