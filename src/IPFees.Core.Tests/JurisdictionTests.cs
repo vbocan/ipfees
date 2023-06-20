@@ -18,7 +18,7 @@ namespace IPFees.Core.Tests
         [Fact]
         public async void AddJurisdictionTest()
         {
-            var jur = new JurisdictionRepository(fixture.DbContext);
+            var jur = fixture.JurisdictionRepository;
             var res1 = await jur.AddJurisdictionAsync("Jurisdiction-Add");
             Assert.True(res1.Success);
             var res2 = await jur.GetJurisdictionById(res1.Id);
@@ -28,7 +28,7 @@ namespace IPFees.Core.Tests
         [Fact]
         public async void AddDuplicateJurisdictionTest()
         {
-            var jur = new JurisdictionRepository(fixture.DbContext);
+            var jur = fixture.JurisdictionRepository;
             var res1 = await jur.AddJurisdictionAsync("Jurisdiction-DuP");
             var res2 = await jur.AddJurisdictionAsync("Jurisdiction-DuP");
             Assert.True(res1.Success);
@@ -38,7 +38,7 @@ namespace IPFees.Core.Tests
         [Fact]
         public async void SetJurisdictionNameTest()
         {
-            var jur = new JurisdictionRepository(fixture.DbContext);
+            var jur = fixture.JurisdictionRepository;
             var res1 = await jur.AddJurisdictionAsync("Jurisdiction-Set-Name");
             Assert.True(res1.Success);
             var res2 = await jur.SetJurisdictionNameAsync(res1.Id, "Jurisdiction Name");
@@ -50,7 +50,7 @@ namespace IPFees.Core.Tests
         [Fact]
         public async void SetJurisdictionDescriptionTest()
         {
-            var jur = new JurisdictionRepository(fixture.DbContext);
+            var jur = fixture.JurisdictionRepository;
             var res1 = await jur.AddJurisdictionAsync("Jurisdiction-Set-Description");
             Assert.True(res1.Success);
             var res2 = await jur.SetJurisdictionDescriptionAsync(res1.Id, "Jurisdiction Description");
@@ -62,7 +62,7 @@ namespace IPFees.Core.Tests
         [Fact]
         public async void RemoveJurisdictionsTest()
         {
-            var jur = new JurisdictionRepository(fixture.DbContext);
+            var jur = fixture.JurisdictionRepository;
             var res1 = await jur.AddJurisdictionAsync("Jurisdiction-Del");
             var res2 = await jur.RemoveJurisdictionAsync(res1.Id);
             Assert.True(res1.Success);

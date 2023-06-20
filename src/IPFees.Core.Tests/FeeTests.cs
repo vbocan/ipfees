@@ -16,7 +16,7 @@ namespace IPFees.Core.Tests
         [Fact]
         public async void AddFeeTest()
         {
-            var jur = new FeeRepository(fixture.DbContext);
+            var jur = fixture.FeeRepository;
             var res1 = await jur.AddFeeAsync("Fee-Add");
             Assert.True(res1.Success);
             var res2 = await jur.GetFeeById(res1.Id);
@@ -26,7 +26,7 @@ namespace IPFees.Core.Tests
         [Fact]
         public async void AddDuplicateFeeTest()
         {
-            var jur = new FeeRepository(fixture.DbContext);
+            var jur = fixture.FeeRepository;
             var res1 = await jur.AddFeeAsync("Fee-DuP");
             var res2 = await jur.AddFeeAsync("Fee-DuP");
             Assert.True(res1.Success);
@@ -36,7 +36,7 @@ namespace IPFees.Core.Tests
         [Fact]
         public async void SetFeeNameTest()
         {
-            var jur = new FeeRepository(fixture.DbContext);
+            var jur = fixture.FeeRepository;
             var res1 = await jur.AddFeeAsync("Fee-Set-Name");
             Assert.True(res1.Success);
             var res2 = await jur.SetFeeNameAsync(res1.Id, "Fee Name");
@@ -48,7 +48,7 @@ namespace IPFees.Core.Tests
         [Fact]
         public async void SetFeeJurisdictionNameTest()
         {
-            var jur = new FeeRepository(fixture.DbContext);
+            var jur = fixture.FeeRepository;
             var res1 = await jur.AddFeeAsync("Fee-Set-JurisdictionName");
             Assert.True(res1.Success);
             var res2 = await jur.SetFeeJurisdictionNameAsync(res1.Id, "Jurisdiction Name");
@@ -60,7 +60,7 @@ namespace IPFees.Core.Tests
         [Fact]
         public async void SetFeeCategoryTest()
         {
-            var jur = new FeeRepository(fixture.DbContext);
+            var jur = fixture.FeeRepository;
             var res1 = await jur.AddFeeAsync("Fee-Set-Category");
             Assert.True(res1.Success);
             var res2 = await jur.SetFeeCategoryAsync(res1.Id, FeeCategory.OfficialFees);
@@ -72,7 +72,7 @@ namespace IPFees.Core.Tests
         [Fact]
         public async void SetFeeDescriptionTest()
         {
-            var jur = new FeeRepository(fixture.DbContext);
+            var jur = fixture.FeeRepository;
             var res1 = await jur.AddFeeAsync("Fee-Set-Description");
             Assert.True(res1.Success);
             var res2 = await jur.SetFeeDescriptionAsync(res1.Id, "Fee Description");
@@ -84,7 +84,7 @@ namespace IPFees.Core.Tests
         [Fact]
         public async void SetFeeSourceCodeTest()
         {
-            var jur = new FeeRepository(fixture.DbContext);
+            var jur = fixture.FeeRepository;
             var res1 = await jur.AddFeeAsync("Fee-Set-SourceCode");
             Assert.True(res1.Success);
             var res2 = await jur.SetFeeSourceCodeAsync(res1.Id, "Source Code");
@@ -96,7 +96,7 @@ namespace IPFees.Core.Tests
         [Fact]
         public async void RemoveFeesTest()
         {
-            var jur = new FeeRepository(fixture.DbContext);
+            var jur = fixture.FeeRepository;
             var res1 = await jur.AddFeeAsync("Fee-Del");
             var res2 = await jur.RemoveFeeAsync(res1.Id);
             Assert.True(res1.Success);
@@ -106,7 +106,7 @@ namespace IPFees.Core.Tests
         [Fact]
         public async void SetFeeReferencedModulesTest()
         {
-            var jur = new FeeRepository(fixture.DbContext);
+            var jur = fixture.FeeRepository;
             var res1 = await jur.AddFeeAsync("Fee-Set-RefMods");
             Assert.True(res1.Success);
             var res2 = await jur.SetReferencedModules(res1.Id, new Guid[] { Guid.NewGuid(), Guid.NewGuid() });
