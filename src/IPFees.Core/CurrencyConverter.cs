@@ -1,6 +1,5 @@
 ﻿using MongoDB.Bson.IO;
 using System.Text.Json;
-using ThirdParty.Json.LitJson;
 
 namespace IPFees.Core
 {
@@ -10,6 +9,7 @@ namespace IPFees.Core
     public class CurrencyConverter : ICurrencyConverter
     {
         private string APIKey { get; set; }
+        private string APIBaseCurrency { get; set; }
         private readonly string APIURL = "https://v6.exchangerate-api.com/v6/[APIKEY]/latest/[BASECURRENCY]";
         private readonly Currency[] Currencies = {
             new Currency("AED","UAE Dirham"),
@@ -174,10 +174,29 @@ namespace IPFees.Core
             new Currency("ZMW","Zambian Kwacha"),
             new Currency("ZWL","Zimbabwean Dollar"),
             };
-        public CurrencyConverter(string APIKey)
+        public CurrencyConverter(string APIKey, string APIBaseCurrency)
         {
             this.APIKey = APIKey;
+            this.APIBaseCurrency = APIBaseCurrency;
         }
+
+        public Dictionary<string, decimal> ParseExchangeRates(string jsonString)
+        {
+            Dictionary<string, decimal> exchangeRates = new Dictionary<string, decimal>();
+
+            JsonDocument jsonDocument = JsonDocument.Parse(jsonString);
+
+            foreach (JsonProperty property in jsonDocument.RootElement.EnumerateObject())
+            {
+                string currencyCode = property.Name;
+                decimal exchangeRate = property.Value.GetDecimal();
+
+                exchangeRates.Add(currencyCode, exchangeRate);
+            }
+
+            return exchangeRates;
+        }
+
         /// <summary>
         /// Convert a monetary amount from a currency to another
         /// </summary>
@@ -192,9 +211,9 @@ namespace IPFees.Core
         /// Console.WriteLine($"{amount} {baseCurrency} is equivalent to {convertedAmount} {targetCurrency}");
         /// </example>
         /// <returns>The amount converted to target currency</returns>
-        public async Task<decimal> ConvertCurrency(decimal Amount, string BaseCurrencySymbol, string TargetCurrencySymbol)
+        public async Task<ExchangeResponse> QueryExchange()
         {
-            string url = GetAPIKey(BaseCurrencySymbol);
+            string url = GetApiUrl();
 
             using HttpClient client = new();
             try
@@ -203,44 +222,31 @@ namespace IPFees.Core
                 response.EnsureSuccessStatusCode();
 
                 string responseBody = await response.Content.ReadAsStringAsync();
-
                 JsonDocument jsonDocument = JsonDocument.Parse(responseBody);
-                //decimal conversionRate = jsonDocument.RootElement.GetProperty("conversion_rates").GetProperty(TargetCurrencySymbol).GetDecimal();
 
-                var jsonConversionRates = jsonDocument.RootElement.GetProperty("conversion_rates");
-                ConversionRates conversionRates = JsonSerializer.Deserialize<ConversionRates>(jsonConversionRates);
-
-
-                decimal convertedAmount = Amount * conversionRate;
-
-                return convertedAmount;
-            }
-            catch (HttpRequestException ex)
-            {
-                Console.WriteLine("Failed to retrieve exchange rates: " + ex.Message);
+                // Check whether the result from the exchange is valid
+                var IsSuccessfull = jsonDocument.RootElement.GetProperty("result").GetString().Equals("success", StringComparison.InvariantCultureIgnoreCase);
+                // Determine the timestamp of the last data update
+                var unixLastUpdate = jsonDocument.RootElement.GetProperty("time_last_update_unix").GetDouble();
+                var LastUpdatedOn = new DateTime(1970, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc).AddSeconds(unixLastUpdate).ToLocalTime();
+                // Determine exchange rates
+                var jsonRates = jsonDocument.RootElement.GetProperty("conversion_rates").GetRawText();
+                var ExchangeRates = ParseExchangeRates(jsonRates);
+                return new ExchangeResponse(IsSuccessfull, ExchangeRates, LastUpdatedOn);
             }
             catch (Exception ex)
             {
-                Console.WriteLine("An error occurred: " + ex.Message);
+                
             }
-
-            return 0m;
         }
 
         public IEnumerable<(string, string)> GetCurrencies() => Currencies.OrderBy(o => o.Symbol).Select(s => (s.Symbol, s.Name));
 
-        private string GetAPIKey(string BaseCurrency) => APIURL.Replace("[APIKEY]", APIKey).Replace("[BASECURRENCY]", BaseCurrency);
+        private string GetApiUrl() => APIURL.Replace("[APIKEY]", APIKey).Replace("[BASECURRENCY]", APIBaseCurrency);
     }
 
     public record Currency(string Symbol, string Name);
 
-    public class ConversionRates
-    {
-        public Dictionary<string, decimal> conversion_rates { get; set; }
-
-        public KeyValuePair<string, decimal>[] Rates
-        {
-            get { return conversion_rates.ToArray(); }
-        }
+    public record ExchangeResponse(bool IsSuccessfull, Dictionary<string, decimal> ExchangeRates, DateTime LastUpdatedOn);
     }
 }
