@@ -1,8 +1,10 @@
-﻿namespace IPFees.Core
+﻿using static IPFees.Core.CurrencyConverter;
+
+namespace IPFees.Core
 {
     public interface ICurrencyConverter
     {
-        Task<decimal> ConvertCurrency(decimal Amount, string BaseCurrencySymbol, string TargetCurrencySymbol);
+        Task<ExchangeResponse> FetchCurrencyExchangeData();
         IEnumerable<(string, string)> GetCurrencies();
     }
 }
