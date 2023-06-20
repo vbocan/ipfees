@@ -180,7 +180,51 @@ namespace IPFees.Core
             this.APIBaseCurrency = APIBaseCurrency;
         }
 
-        public Dictionary<string, decimal> ParseExchangeRates(string jsonString)
+        /// <summary>
+        /// Fetch and deserialize exchange data
+        /// </summary>
+        /// <returns>An ExchangeResponse record containing exchange rates and the timestamp of the last update</returns>
+        /// <exception cref="Exception">Raise exception if an error occurs</exception>
+        public async Task<ExchangeResponse> FetchCurrencyExchangeData()
+        {
+            string url = APIURL.Replace("[APIKEY]", APIKey).Replace("[BASECURRENCY]", APIBaseCurrency);
+
+            using HttpClient client = new();
+            try
+            {
+                HttpResponseMessage response = await client.GetAsync(url);
+                response.EnsureSuccessStatusCode();
+
+                string responseBody = await response.Content.ReadAsStringAsync();
+                JsonDocument jsonDocument = JsonDocument.Parse(responseBody);
+
+                // Check whether the result from the exchange is valid
+                var IsSuccessfull = jsonDocument.RootElement.GetProperty("result").GetString()?.Equals("success", StringComparison.InvariantCultureIgnoreCase);
+                if (!IsSuccessfull.HasValue || !IsSuccessfull.Value)
+                {
+                    throw new Exception("Invalid response from the exchange service");
+                }
+                // Determine the timestamp of the last data update
+                var unixLastUpdate = jsonDocument.RootElement.GetProperty("time_last_update_unix").GetDouble();
+                var LastUpdatedOn = new DateTime(1970, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc).AddSeconds(unixLastUpdate).ToLocalTime();
+                // Determine exchange rates
+                var jsonRates = jsonDocument.RootElement.GetProperty("conversion_rates").GetRawText();
+                var ExchangeRates = ParseExchangeRates(jsonRates);
+                return new ExchangeResponse(ExchangeRates, LastUpdatedOn);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Unable to fetch exchange data", ex);
+            }
+        }
+
+        /// <summary>
+        /// Get an enumeration of currency symbols and their names
+        /// </summary>
+        /// <returns>An enumeration of tuples of symbol and name</returns>
+        public IEnumerable<(string, string)> GetCurrencies() => Currencies.OrderBy(o => o.Symbol).Select(s => (s.Symbol, s.Name));
+
+        private Dictionary<string, decimal> ParseExchangeRates(string jsonString)
         {
             Dictionary<string, decimal> exchangeRates = new Dictionary<string, decimal>();
 
@@ -197,56 +241,7 @@ namespace IPFees.Core
             return exchangeRates;
         }
 
-        /// <summary>
-        /// Convert a monetary amount from a currency to another
-        /// </summary>
-        /// <param name="Amount">Amount to convert</param>
-        /// <param name="BaseCurrencySymbol">Source currency</param>
-        /// <param name="TargetCurrencySymbol">Target currency</param>
-        /// <example>
-        /// decimal amount = 1;
-        /// string baseCurrency = "EUR";
-        /// string targetCurrency = "RON";
-        /// decimal convertedAmount = await ConvertCurrency(amount, baseCurrency, targetCurrency);
-        /// Console.WriteLine($"{amount} {baseCurrency} is equivalent to {convertedAmount} {targetCurrency}");
-        /// </example>
-        /// <returns>The amount converted to target currency</returns>
-        public async Task<ExchangeResponse> QueryExchange()
-        {
-            string url = GetApiUrl();
-
-            using HttpClient client = new();
-            try
-            {
-                HttpResponseMessage response = await client.GetAsync(url);
-                response.EnsureSuccessStatusCode();
-
-                string responseBody = await response.Content.ReadAsStringAsync();
-                JsonDocument jsonDocument = JsonDocument.Parse(responseBody);
-
-                // Check whether the result from the exchange is valid
-                var IsSuccessfull = jsonDocument.RootElement.GetProperty("result").GetString().Equals("success", StringComparison.InvariantCultureIgnoreCase);
-                // Determine the timestamp of the last data update
-                var unixLastUpdate = jsonDocument.RootElement.GetProperty("time_last_update_unix").GetDouble();
-                var LastUpdatedOn = new DateTime(1970, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc).AddSeconds(unixLastUpdate).ToLocalTime();
-                // Determine exchange rates
-                var jsonRates = jsonDocument.RootElement.GetProperty("conversion_rates").GetRawText();
-                var ExchangeRates = ParseExchangeRates(jsonRates);
-                return new ExchangeResponse(IsSuccessfull, ExchangeRates, LastUpdatedOn);
-            }
-            catch (Exception ex)
-            {
-                
-            }
-        }
-
-        public IEnumerable<(string, string)> GetCurrencies() => Currencies.OrderBy(o => o.Symbol).Select(s => (s.Symbol, s.Name));
-
-        private string GetApiUrl() => APIURL.Replace("[APIKEY]", APIKey).Replace("[BASECURRENCY]", APIBaseCurrency);
-    }
-
-    public record Currency(string Symbol, string Name);
-
-    public record ExchangeResponse(bool IsSuccessfull, Dictionary<string, decimal> ExchangeRates, DateTime LastUpdatedOn);
+        public record Currency(string Symbol, string Name);
+        public record ExchangeResponse(Dictionary<string, decimal> ExchangeRates, DateTime LastUpdatedOn);
     }
 }
