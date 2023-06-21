@@ -18,7 +18,7 @@ namespace IPFees.Core.Tests
         [Fact]
         public async void SetGetAttorneyFeeTest()
         {
-            var sr = new SettingsRepository(fixture.DbContext);
+            var sr = fixture.SettingsRepository;
             var res1 = await sr.SetAttorneyFeeAsync(AttorneyFeeLevel.Level1, 150, "USD");
             Assert.True(res1.Success);
             var res2 = await sr.GetAttorneyFeeAsync(AttorneyFeeLevel.Level1);
@@ -29,7 +29,7 @@ namespace IPFees.Core.Tests
         [Fact]
         public async void SetGetAttorneyFeeConsecutiveTest()
         {
-            var sr = new SettingsRepository(fixture.DbContext);
+            var sr = fixture.SettingsRepository;
             var res1 = await sr.SetAttorneyFeeAsync(AttorneyFeeLevel.Level2, 150, "USD");
             Assert.True(res1.Success);
             var res2 = await sr.SetAttorneyFeeAsync(AttorneyFeeLevel.Level2, 200, "EUR");
@@ -42,7 +42,7 @@ namespace IPFees.Core.Tests
         [Fact]
         public async void SetGetAttorneyFeeInvalidTest()
         {
-            var sr = new SettingsRepository(fixture.DbContext);
+            var sr = fixture.SettingsRepository;
             var res1 = await sr.GetAttorneyFeeAsync(AttorneyFeeLevel.Level3);
             Assert.Equal(0, res1.Amount);
             Assert.Equal(string.Empty, res1.Currency);
