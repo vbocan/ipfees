@@ -61,22 +61,22 @@ namespace IPFees.Core
             /// There are three types of fees that are calculated for each jurisdiction:
             /// - Official fee - the amount paid to the government receiving the application
             /// - Partner fee - the amount paid to a partner in the respective jurisdiction, which does the translation and the actual application fileing work
-            /// - Attorney fee - the amount paid to the attorney which orchestrates the fileing of the aplication, i.e. collaborates with the client and the partner, for each individual jurisdiction
+            /// - Service fee - the amount paid to the partner which orchestrates the filing of the aplication, i.e. collaborates with the client for each individual jurisdiction
             /// Note: Each individual fee has its associated currency. At a later stage, the user shall convert the source currencies into whatever final target currency may be (usually EUR or USD).
             var OfficialFees = new List<FeeAmount>();
             var PartnerFees = new List<FeeAmount>();
-            var AttorneyFees = new List<FeeAmount>();
+            var ServiceFees = new List<FeeAmount>();
             var Errors = new List<FeeResultFail>();
 
             // Cycle through each required jurisdiction            
             foreach (var jn in JurisdictionNames)
             {
-                // Calculate the associated attorney fee (the simplest of all fees)
-                // Each jurisdiction has an associated attorney fee level (e.g. Level 1, 2, a.s.o.) and each level has an associated monetary value and currency
-                #region Attorney Fee
+                // Calculate the associated service fee (the simplest of all fees)
+                // Each jurisdiction has an associated service fee level (e.g. Level 1, 2, a.s.o.) and each level has an associated monetary value and currency
+                #region Service Fee
                 var jur = await jurisdictionRepository.GetJurisdictionByName(jn);
-                var AttorneyFee = await settingsRepository.GetAttorneyFeeAsync(jur.AttorneyFeeLevel);
-                AttorneyFees.Add(new FeeAmount(AttorneyFee.Amount, 0, AttorneyFee.Currency, $"Attorney fee for jurisdiction '{jur.Name}'"));
+                var ServiceFee = await settingsRepository.GetServiceFeeAsync(jur.ServiceFeeLevel);
+                ServiceFees.Add(new FeeAmount(ServiceFee.Amount, 0, ServiceFee.Currency, $"Service fee for jurisdiction '{jur.Name}'"));
                 #endregion
 
                 // Calculate the official and partner fees
@@ -121,7 +121,7 @@ namespace IPFees.Core
                 }
                 #endregion
             }                        
-            return new TotalFeeInfo { OfficialFees = OfficialFees, PartnerFees = PartnerFees, AttorneyFees = AttorneyFees, Errors = Errors };
+            return new TotalFeeInfo { OfficialFees = OfficialFees, PartnerFees = PartnerFees, ServiceFees = ServiceFees, Errors = Errors };
         }
 
         private IEnumerable<FeeInfo> GetFeeDefinitionForJurisdiction(string JurisdictionName) => feeRepository.GetFees().Result.Where(w => w.JurisdictionName.Equals(JurisdictionName));
@@ -132,7 +132,7 @@ namespace IPFees.Core
     {
         public IList<FeeAmount> OfficialFees { get;set; }
         public IList<FeeAmount> PartnerFees { get; set; }
-        public IList<FeeAmount> AttorneyFees { get; set; }
+        public IList<FeeAmount> ServiceFees { get; set; }
         public IList<FeeResultFail> Errors { get; set; }
     }
 }

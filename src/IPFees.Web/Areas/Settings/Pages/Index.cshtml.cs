@@ -9,7 +9,7 @@ namespace IPFees.Web.Areas.Settings.Pages
 {
     public class IndexModel : PageModel
     {        
-        [BindProperty] public IEnumerable<AttorneyFeeInfo> AttorneyFees { get; set; }
+        [BindProperty] public IEnumerable<ServiceFeeInfo> ServiceFees { get; set; }
 
         private readonly ISettingsRepository settingsRepository;
         private readonly IModuleRepository moduleRepository;
@@ -21,11 +21,11 @@ namespace IPFees.Web.Areas.Settings.Pages
         }
         public async Task<IActionResult> OnGetAsync()
         {
-            // Retrieve the list of attorney fee levels
-            var afs = from s in Enum.GetValues(typeof(AttorneyFeeLevel)).Cast<AttorneyFeeLevel>()
-                     let af = settingsRepository.GetAttorneyFeeAsync(s).Result
-                     select new AttorneyFeeInfo(s, af.Amount, af.Currency ?? string.Empty);
-            AttorneyFees = afs.ToList();
+            // Retrieve the list of service fee levels
+            var afs = from s in Enum.GetValues(typeof(ServiceFeeLevel)).Cast<ServiceFeeLevel>()
+                     let af = settingsRepository.GetServiceFeeAsync(s).Result
+                     select new ServiceFeeInfo(s, af.Amount, af.Currency ?? string.Empty);
+            ServiceFees = afs.ToList();
             return Page();
         }
     }

@@ -10,17 +10,17 @@ namespace IPFees.Web.Areas.Jurisdiction.Pages
     {
         [BindProperty] public string Name { get; set; }
         [BindProperty] public string Description { get; set; }
-        [BindProperty] public string AttorneyFeeLevel { get; set; }
+        [BindProperty] public string ServiceFeeLevel { get; set; }
         [BindProperty] public IList<string> ErrorMessages { get; set; }
 
-        public IEnumerable<SelectListItem> AttorneyFeeLevelItems { get; set; }
+        public IEnumerable<SelectListItem> ServiceFeeLevelItems { get; set; }
 
         private readonly IJurisdictionRepository jurisdictionRepository;
 
         public CreateModel(IJurisdictionRepository jurisdictionRepository)
         {
             this.jurisdictionRepository = jurisdictionRepository;
-            AttorneyFeeLevelItems = Enum.GetValues<AttorneyFeeLevel>().AsEnumerable().Select(s => new SelectListItem(s.ValueAsString(), s.ToString()));
+            ServiceFeeLevelItems = Enum.GetValues<ServiceFeeLevel>().AsEnumerable().Select(s => new SelectListItem(s.ValueAsString(), s.ToString()));
             ErrorMessages = new List<string>();
         }
 
@@ -40,8 +40,8 @@ namespace IPFees.Web.Areas.Jurisdiction.Pages
             {
                 ErrorMessages.Add($"Error setting description: {res2.Reason}");
             }
-            var parsedAttorneyFeeLevel = (AttorneyFeeLevel)Enum.Parse(typeof(AttorneyFeeLevel), AttorneyFeeLevel);
-            var res3 = await jurisdictionRepository.SetJurisdictionAttorneyFeeLevelAsync(res1.Id, parsedAttorneyFeeLevel);
+            var parsedServiceFeeLevel = (ServiceFeeLevel)Enum.Parse(typeof(ServiceFeeLevel), ServiceFeeLevel);
+            var res3 = await jurisdictionRepository.SetJurisdictionServiceFeeLevelAsync(res1.Id, parsedServiceFeeLevel);
             if (!res3.Success)
             {
                 ErrorMessages.Add($"Error setting source code: {res3.Reason}");

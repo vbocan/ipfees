@@ -9,7 +9,7 @@ namespace IPFees.Core.Repository
         Task<DbResult> AddJurisdictionAsync(string Name);
         Task<DbResult> SetJurisdictionNameAsync(Guid Id, string Name);
         Task<DbResult> SetJurisdictionDescriptionAsync(Guid Id, string Description);
-        Task<DbResult> SetJurisdictionAttorneyFeeLevelAsync(Guid Id, AttorneyFeeLevel FeeLevel);
+        Task<DbResult> SetJurisdictionServiceFeeLevelAsync(Guid Id, ServiceFeeLevel FeeLevel);
         Task<DbResult> RemoveJurisdictionAsync(Guid Id);
         Task<IEnumerable<JurisdictionInfo>> GetJurisdictions();
         Task<JurisdictionInfo> GetJurisdictionById(Guid Id);

@@ -5,9 +5,9 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace IPFees.Web.Areas.Settings.Pages
 {
-    public class EditAttorneyFeeModel : PageModel
+    public class EditServiceFeeModel : PageModel
     {
-        [BindProperty] public string AttorneyFeeLevel { get; set; }
+        [BindProperty] public string ServiceFeeLevel { get; set; }
         [BindProperty] public double Amount { get; set; }
         [BindProperty] public string Currency { get; set; }
 
@@ -15,7 +15,7 @@ namespace IPFees.Web.Areas.Settings.Pages
 
         private readonly ISettingsRepository settingRepository;
 
-        public EditAttorneyFeeModel(ISettingsRepository settingRepository)
+        public EditServiceFeeModel(ISettingsRepository settingRepository)
         {
             this.settingRepository = settingRepository;
             ErrorMessages = new List<string>();
@@ -23,8 +23,8 @@ namespace IPFees.Web.Areas.Settings.Pages
 
         public async Task<IActionResult> OnGetAsync(string Id)
         {
-            AttorneyFeeLevel = Id;
-            var afi = await settingRepository.GetAttorneyFeeAsync(Enum.Parse<AttorneyFeeLevel>(Id));
+            ServiceFeeLevel = Id;
+            var afi = await settingRepository.GetServiceFeeAsync(Enum.Parse<ServiceFeeLevel>(Id));
             Amount = afi.Amount;
             Currency = afi.Currency;
             return Page();
@@ -32,10 +32,10 @@ namespace IPFees.Web.Areas.Settings.Pages
 
         public async Task<IActionResult> OnPostAsync(string Id)
         {
-            var res = await settingRepository.SetAttorneyFeeAsync(Enum.Parse<AttorneyFeeLevel>(Id), Amount, Currency);
+            var res = await settingRepository.SetServiceFeeAsync(Enum.Parse<ServiceFeeLevel>(Id), Amount, Currency);
             if (!res.Success)
             {
-                ErrorMessages.Add($"Error setting attorney fee: {res.Reason}");
+                ErrorMessages.Add($"Error setting service fee: {res.Reason}");
             }
 
             if (ErrorMessages.Any()) return Page();

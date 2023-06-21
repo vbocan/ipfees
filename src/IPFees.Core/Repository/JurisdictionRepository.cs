@@ -84,15 +84,15 @@ namespace IPFees.Core.Repository
         /// Set the jurisdiction fee level
         /// </summary>
         /// <param name="Id">Jurisdiction id</param>
-        /// <param name="FeeLevel">Attorney fee level for jurisdiction</param>        
+        /// <param name="FeeLevel">Service fee level for jurisdiction</param>        
         /// <returns>A DbResult structure containing the result of the database operation</returns>
-        public async Task<DbResult> SetJurisdictionAttorneyFeeLevelAsync(Guid Id, AttorneyFeeLevel FeeLevel)
+        public async Task<DbResult> SetJurisdictionServiceFeeLevelAsync(Guid Id, ServiceFeeLevel FeeLevel)
         {
             var res = await context.JurisdictionCollection.UpdateOneAsync(r => r.Id.Equals(Id),
                 Builders<JurisdictionDoc>
                 .Update
                 .Set(r => r.LastUpdatedOn, DateTime.UtcNow.ToLocalTime())
-                .Set(r => r.AttorneyFeeLevel, FeeLevel));
+                .Set(r => r.ServiceFeeLevel, FeeLevel));
             return res.IsAcknowledged ? DbResult.Succeed() : DbResult.Fail();
         }
 

@@ -13,7 +13,7 @@ namespace IPFees.Core.Model
         {
             Name = string.Empty;
             Description = string.Empty;
-            AttorneyFeeLevel = AttorneyFeeLevel.Level1;
+            ServiceFeeLevel = ServiceFeeLevel.Level1;
             LastUpdatedOn = DateTime.MinValue;
         }
 
@@ -22,7 +22,7 @@ namespace IPFees.Core.Model
         public string Name { get; set; }
         public string Description { get; set; }
         [BsonRepresentation(BsonType.String)]
-        public AttorneyFeeLevel AttorneyFeeLevel { get; set; }
+        public ServiceFeeLevel ServiceFeeLevel { get; set; }
         [BsonDateTimeOptions(Kind = DateTimeKind.Local)]
         public DateTime LastUpdatedOn { get; set; }
     }

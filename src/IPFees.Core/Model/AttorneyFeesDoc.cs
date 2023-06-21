@@ -5,12 +5,12 @@ using MongoDB.Bson.Serialization.Attributes;
 namespace IPFees.Core.Model
 {
     [BsonIgnoreExtraElements]
-    public class AttorneyFeesDoc
+    public class ServiceFeesDoc
     {
-        public const string CollectionName = "AttorneyFees";
+        public const string CollectionName = "ServiceFees";
 
-        public AttorneyFeesDoc() {
-            FeeLevel = AttorneyFeeLevel.Level1;
+        public ServiceFeesDoc() {
+            FeeLevel = ServiceFeeLevel.Level1;
             Amount = 0;
             Currency = string.Empty;
         }
@@ -18,7 +18,7 @@ namespace IPFees.Core.Model
         [BsonId]
         public ObjectId Id { get; set; }
         [BsonRepresentation(BsonType.String)]
-        public AttorneyFeeLevel FeeLevel { get; set; }
+        public ServiceFeeLevel FeeLevel { get; set; }
         public double Amount { get; set; }
         public string Currency { get; set; }
     }

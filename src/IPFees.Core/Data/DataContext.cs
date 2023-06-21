@@ -15,7 +15,7 @@ namespace IPFees.Core.Data
         public IMongoCollection<ModuleDoc> ModuleCollection { get; set; }
         public IMongoCollection<JurisdictionDoc> JurisdictionCollection { get; set; }
         public IMongoCollection<FeeDoc> FeeCollection { get; set; }        
-        public IMongoCollection<AttorneyFeesDoc> AttorneyFeesCollection { get; set; }
+        public IMongoCollection<ServiceFeesDoc> ServiceFeesCollection { get; set; }
 
         private string ConnectionString { get; set; }
         private string DatabaseName { get; set; }
@@ -31,7 +31,7 @@ namespace IPFees.Core.Data
             ModuleCollection = Context.GetCollection<ModuleDoc>(ModuleDoc.CollectionName);
             FeeCollection = Context.GetCollection<FeeDoc>(FeeDoc.CollectionName);
             JurisdictionCollection = Context.GetCollection<JurisdictionDoc>(JurisdictionDoc.CollectionName);
-            AttorneyFeesCollection = Context.GetCollection<AttorneyFeesDoc>(AttorneyFeesDoc.CollectionName);
+            ServiceFeesCollection = Context.GetCollection<ServiceFeesDoc>(ServiceFeesDoc.CollectionName);
             // Ensure indexes are in place
             /*
             var actionLogBuilder = Builders<ActionLogDoc>.IndexKeys;

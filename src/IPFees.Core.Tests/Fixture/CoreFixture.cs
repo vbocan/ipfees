@@ -22,7 +22,7 @@ namespace IPFees.Core.Tests.Fixture
             DbContext.ModuleCollection.DeleteMany(new BsonDocument());
             DbContext.FeeCollection.DeleteMany(new BsonDocument());
             DbContext.JurisdictionCollection.DeleteMany(new BsonDocument());
-            DbContext.AttorneyFeesCollection.DeleteMany(new BsonDocument());
+            DbContext.ServiceFeesCollection.DeleteMany(new BsonDocument());
 
             CurrencyConverter = new CurrencyConverter(ExchangeApiKey);
             FeeRepository = new FeeRepository(DbContext);

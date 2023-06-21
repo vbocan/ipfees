@@ -1,10 +1,10 @@
 ﻿@page "{id}"
-@model EditAttorneyFeeModel
+@model EditServiceFeeModel
 @{
-    ViewData["Title"] = "Attorney Fee";
+    ViewData["Title"] = "Service Fee";
 }
 
-<h1>Attorney Fees <small class="text-muted">@Model.AttorneyFeeLevel</small></h1>
+<h1>Service Fee <small class="text-muted">@Model.ServiceFeeLevel</small></h1>
 
 <div class="row">
     <div class="col-lg-4">
@@ -22,8 +22,8 @@
         }
         <form method="post">            
             <div class="mb-3">
-                <label for="@Model.AttorneyFeeLevel" class="form-label">Attorney Fee Level</label>
-                <input asp-for="AttorneyFeeLevel" class="form-control" disabled />
+                <label for="@Model.ServiceFeeLevel" class="form-label">Service Fee Level</label>
+                <input asp-for="ServiceFeeLevel" class="form-control" disabled />
             </div>
             <div class="mb-3">
                 <label for="@Model.Amount" class="form-label">Amount</label>

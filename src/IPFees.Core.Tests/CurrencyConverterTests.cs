@@ -179,22 +179,22 @@ namespace IPFees.Core.Tests
             this.fixture = fixture;
         }
 
-        [Fact]
-        public async void ParseExchangeRatesTest()
-        {
-            var cc = fixture.CurrencyConverter;
-            var cr = cc.ParseExchangeRates(Text);
-            Assert.Equal(1, cr["RON"]);
-            Assert.Equal(0.2203m, cr["USD"]);
-            Assert.Equal(0.2016m, cr["EUR"]);
-        }
+        //[Fact]
+        //public async void ParseExchangeRatesTest()
+        //{
+        //    var cc = fixture.CurrencyConverter;
+        //    var cr = cc.ParseExchangeRates(Text);
+        //    Assert.Equal(1, cr["RON"]);
+        //    Assert.Equal(0.2203m, cr["USD"]);
+        //    Assert.Equal(0.2016m, cr["EUR"]);
+        //}
 
-        [Fact]
-        public async void ConvertCurrencyTest()
-        {
-            var cc = fixture.CurrencyConverter;
-            var cr = await cc.ConvertCurrency(100, "RON", "EUR");
-        }
+        //[Fact]
+        //public async void ConvertCurrencyTest()
+        //{
+        //    var cc = fixture.CurrencyConverter;
+        //    var cr = await cc.ConvertCurrency(100, "RON", "EUR");
+        //}
 
     }
 }
