@@ -1,0 +1,200 @@
+using IPFees.Core.Enum;
+using IPFees.Core.Repository;
+using IPFees.Core.Tests.Fixture;
+
+namespace IPFees.Core.Tests
+{
+    public class CurrencyConverterTests : IClassFixture<CoreFixture>
+    {
+        private readonly CoreFixture fixture;
+        private const string Text = /*lang=json,strict*/ """
+            {
+              "RON":1,
+              "AED":0.8087,
+              "AFN":18.9277,
+              "ALL":21.7598,
+              "AMD":85.0874,
+              "ANG":0.3942,
+              "AOA":156.3187,
+              "ARS":54.9235,
+              "AUD":0.3217,
+              "AWG":0.3942,
+              "AZN":0.3742,
+              "BAM":0.3943,
+              "BBD":0.4404,
+              "BDT":23.8521,
+              "BGN":0.3944,
+              "BHD":0.08280,
+              "BIF":620.9725,
+              "BMD":0.2202,
+              "BND":0.2953,
+              "BOB":1.5248,
+              "BRL":1.0615,
+              "BSD":0.2202,
+              "BTN":18.0446,
+              "BWP":2.9231,
+              "BYN":0.5526,
+              "BZD":0.4404,
+              "CAD":0.2907,
+              "CDF":520.6615,
+              "CHF":0.1972,
+              "CLP":175.0622,
+              "CNY":1.5767,
+              "COP":915.8478,
+              "CRC":119.1560,
+              "CUP":5.2848,
+              "CVE":22.2324,
+              "CZK":4.7915,
+              "DJF":39.1342,
+              "DKK":1.5042,
+              "DOP":12.1016,
+              "DZD":29.8889,
+              "EGP":6.8008,
+              "ERN":3.3030,
+              "ETB":12.1192,
+              "EUR":0.2016,
+              "FJD":0.4855,
+              "FKP":0.1720,
+              "FOK":1.5042,
+              "GBP":0.1720,
+              "GEL":0.5716,
+              "GGP":0.1720,
+              "GHS":2.5521,
+              "GIP":0.1720,
+              "GMD":13.8078,
+              "GNF":1880.1667,
+              "GTQ":1.7261,
+              "GYD":46.6478,
+              "HKD":1.7221,
+              "HNL":5.4234,
+              "HRK":1.5192,
+              "HTG":30.7664,
+              "HUF":75.3448,
+              "IDR":3303.8322,
+              "ILS":0.7946,
+              "IMP":0.1720,
+              "INR":18.0446,
+              "IQD":289.2564,
+              "IRR":9428.9074,
+              "ISK":30.0881,
+              "JEP":0.1720,
+              "JMD":34.0176,
+              "JOD":0.1561,
+              "JPY":31.2444,
+              "KES":30.9727,
+              "KGS":19.2904,
+              "KHR":914.6757,
+              "KID":0.3217,
+              "KMF":99.1942,
+              "KRW":282.4021,
+              "KWD":0.06761,
+              "KYD":0.1835,
+              "KZT":98.6836,
+              "LAK":4018.3502,
+              "LBP":3303.0051,
+              "LKR":67.2969,
+              "LRD":38.9554,
+              "LSL":4.0051,
+              "LYD":1.0617,
+              "MAD":2.2005,
+              "MDL":3.9452,
+              "MGA":995.3824,
+              "MKD":12.4009,
+              "MMK":462.8167,
+              "MNT":769.1591,
+              "MOP":1.7730,
+              "MRU":7.6232,
+              "MUR":10.0213,
+              "MVR":3.4008,
+              "MWK":226.9906,
+              "MXN":3.7653,
+              "MYR":1.0193,
+              "MZN":14.1053,
+              "NAD":4.0051,
+              "NGN":144.7561,
+              "NIO":8.0587,
+              "NOK":2.3471,
+              "NPR":28.8714,
+              "NZD":0.3551,
+              "OMR":0.08467,
+              "PAB":0.2202,
+              "PEN":0.7972,
+              "PGK":0.7897,
+              "PHP":12.2787,
+              "PKR":63.2823,
+              "PLN":0.8970,
+              "PYG":1602.7417,
+              "QAR":0.8015,
+              "RSD":23.6413,
+              "RUB":18.5128,
+              "RWF":260.7003,
+              "SAR":0.8258,
+              "SBD":1.8571,
+              "SCR":3.0238,
+              "SDG":98.6676,
+              "SEK":2.3596,
+              "SGD":0.2953,
+              "SHP":0.1720,
+              "SLE":4.9935,
+              "SLL":4990.5479,
+              "SOS":125.3444,
+              "SRD":8.3367,
+              "SSP":216.8271,
+              "STN":4.9399,
+              "SYP":553.8661,
+              "SZL":4.0051,
+              "THB":7.6624,
+              "TJS":2.3953,
+              "TMT":0.7704,
+              "TND":0.6781,
+              "TOP":0.5156,
+              "TRY":5.2075,
+              "TTD":1.4925,
+              "TVD":0.3217,
+              "TWD":6.7861,
+              "TZS":527.8823,
+              "UAH":8.1336,
+              "UGX":814.8962,
+              "USD":0.2203,
+              "UYU":8.4226,
+              "UZS":2516.2237,
+              "VES":6.0101,
+              "VND":5193.9595,
+              "VUV":25.8416,
+              "WST":0.5959,
+              "XAF":132.2589,
+              "XCD":0.5945,
+              "XDR":0.1649,
+              "XOF":132.2589,
+              "XPF":24.0606,
+              "YER":55.1455,
+              "ZAR":4.0066,
+              "ZMW":4.2777,
+              "ZWL":1477.3754
+             }           
+            """;
+
+        public CurrencyConverterTests(CoreFixture fixture)
+        {
+            this.fixture = fixture;
+        }
+
+        [Fact]
+        public async void ParseExchangeRatesTest()
+        {
+            var cc = fixture.CurrencyConverter;
+            var cr = cc.ParseExchangeRates(Text);
+            Assert.Equal(1, cr["RON"]);
+            Assert.Equal(0.2203m, cr["USD"]);
+            Assert.Equal(0.2016m, cr["EUR"]);
+        }
+
+        [Fact]
+        public async void ConvertCurrencyTest()
+        {
+            var cc = fixture.CurrencyConverter;
+            var cr = await cc.ConvertCurrency(100, "RON", "EUR");
+        }
+
+    }
+}

@@ -17,7 +17,7 @@ namespace IPFees.Core.Tests
         [Fact]
         public async void AddModuleTest()
         {
-            var mod = new ModuleRepository(fixture.DbContext);
+            var mod = fixture.ModuleRepository;
             var res1 = await mod.AddModuleAsync("Module-Add");
             Assert.True(res1.Success);
             var res2 = await mod.GetModuleById(res1.Id);
@@ -27,7 +27,7 @@ namespace IPFees.Core.Tests
         [Fact]
         public async void AddDuplicateModuleTest()
         {
-            var mod = new ModuleRepository(fixture.DbContext);
+            var mod = fixture.ModuleRepository;
             var res1 = await mod.AddModuleAsync("Module-DuP");
             var res2 = await mod.AddModuleAsync("Module-DuP");
             Assert.True(res1.Success);
@@ -37,7 +37,7 @@ namespace IPFees.Core.Tests
         [Fact]
         public async void SetModuleNameTest()
         {
-            var mod = new ModuleRepository(fixture.DbContext);
+            var mod = fixture.ModuleRepository;
             var res1 = await mod.AddModuleAsync("Module-Set-Name");
             Assert.True(res1.Success);
             var res2 = await mod.SetModuleNameAsync(res1.Id, "Module Name");
@@ -49,7 +49,7 @@ namespace IPFees.Core.Tests
         [Fact]
         public async void SetModuleDescriptionTest()
         {
-            var mod = new ModuleRepository(fixture.DbContext);
+            var mod = fixture.ModuleRepository;
             var res1 = await mod.AddModuleAsync("Module-Set-Description");
             Assert.True(res1.Success);
             var res2 = await mod.SetModuleDescriptionAsync(res1.Id, "Module Description");
@@ -61,7 +61,7 @@ namespace IPFees.Core.Tests
         [Fact]
         public async void SetModuleAutoRunStatusTest()
         {
-            var mod = new ModuleRepository(fixture.DbContext);
+            var mod = fixture.ModuleRepository;
             var res1 = await mod.AddModuleAsync("Module-Set-AutoRun");
             Assert.True(res1.Success);
             var res2 = await mod.SetModuleAutoRunStatusAsync(res1.Id, true);
@@ -73,7 +73,7 @@ namespace IPFees.Core.Tests
         [Fact]
         public async void SetModuleSourceCodeTest()
         {
-            var mod = new ModuleRepository(fixture.DbContext);
+            var mod = fixture.ModuleRepository;
             var res1 = await mod.AddModuleAsync("Module-Set-SourceCode");
             Assert.True(res1.Success);
             var res2 = await mod.SetModuleSourceCodeAsync(res1.Id, "Source Code");
@@ -85,7 +85,7 @@ namespace IPFees.Core.Tests
         [Fact]
         public async void RemoveModulesTest()
         {
-            var mod = new ModuleRepository(fixture.DbContext);
+            var mod = fixture.ModuleRepository;
             var res1 = await mod.AddModuleAsync("Module-Del");
             var res2 = await mod.RemoveModuleAsync(res1.Id);
             Assert.True(res1.Success);
