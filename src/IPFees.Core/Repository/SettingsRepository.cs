@@ -15,11 +15,11 @@ namespace IPFees.Core.Repository
             this.context = context;
         }        
 
-        #region Attorney Fees Level Settings
-        public async Task<DbResult> SetAttorneyFeeAsync(AttorneyFeeLevel FeeLevel, double Amount, string Currency)
+        #region Service Fees Level Settings
+        public async Task<DbResult> SetServiceFeeAsync(ServiceFeeLevel FeeLevel, double Amount, string Currency)
         {
-            var res = await context.AttorneyFeesCollection.UpdateOneAsync(r => r.FeeLevel.Equals(FeeLevel),
-                Builders<AttorneyFeesDoc>
+            var res = await context.ServiceFeesCollection.UpdateOneAsync(r => r.FeeLevel.Equals(FeeLevel),
+                Builders<ServiceFeesDoc>
                 .Update
                 .Set(r => r.Amount, Amount)
                 .Set(r => r.Currency, Currency),
@@ -28,23 +28,23 @@ namespace IPFees.Core.Repository
             return res.IsAcknowledged ? DbResult.Succeed() : DbResult.Fail();
         }
 
-        public async Task<IEnumerable<AttorneyFeeInfo>> GetAttorneyFeesAsync()
+        public async Task<IEnumerable<ServiceFeeInfo>> GetServiceFeesAsync()
         {
-            var dbObjs = await context.AttorneyFeesCollection.FindAsync(new BsonDocument());
-            return dbObjs.ToList().Adapt<IEnumerable<AttorneyFeeInfo>>();
+            var dbObjs = await context.ServiceFeesCollection.FindAsync(new BsonDocument());
+            return dbObjs.ToList().Adapt<IEnumerable<ServiceFeeInfo>>();
         }
 
-        public async Task<AttorneyFeeInfo> GetAttorneyFeeAsync(AttorneyFeeLevel FeeLevel)
+        public async Task<ServiceFeeInfo> GetServiceFeeAsync(ServiceFeeLevel FeeLevel)
         {
-            var filter = Builders<AttorneyFeesDoc>.Filter.Eq(m => m.FeeLevel, FeeLevel);
-            var dbObjs = (await context.AttorneyFeesCollection.FindAsync(filter)).FirstOrDefaultAsync().Result;
+            var filter = Builders<ServiceFeesDoc>.Filter.Eq(m => m.FeeLevel, FeeLevel);
+            var dbObjs = (await context.ServiceFeesCollection.FindAsync(filter)).FirstOrDefaultAsync().Result;
             if (dbObjs != null)
             {
-                return dbObjs.Adapt<AttorneyFeeInfo>();
+                return dbObjs.Adapt<ServiceFeeInfo>();
             }
             else
             {
-                return new AttorneyFeeInfo(FeeLevel, 0, string.Empty);
+                return new ServiceFeeInfo(FeeLevel, 0, string.Empty);
             }
         }
         #endregion

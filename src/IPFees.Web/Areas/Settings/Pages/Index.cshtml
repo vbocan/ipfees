@@ -8,13 +8,13 @@
 
 <div class="row">
     <div class="col-lg-6">
-        <h2>Attorney Fees</h2>
-        @if (Model.AttorneyFees.Any())
+        <h2>Service Fees</h2>
+        @if (Model.ServiceFees.Any())
         {
             <table class="table table-hover">
                 <thead>
                     <tr>
-                        <th scope="col">Attorney Fee Level</th>
+                        <th scope="col">Service Fee Level</th>
                         <th scope="col">Amount</th>
                         <th scope="col">Currency</th>
                         <th scope="col"></th>
@@ -22,22 +22,22 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach (var mi in Model.AttorneyFees)
+                    @foreach (var mi in Model.ServiceFees)
                     {
                         <tr>
                             <td>@mi.FeeLevel.ValueAsString()</td>
                             <td>@mi.Amount</td>
                             <td>@mi.Currency</td>
-                            <td><a asp-page="EditAttorneyFee" asp-route-id="@mi.FeeLevel"><i class="bi bi-pen"></i></a></td>
+                            <td><a asp-page="EditServiceFee" asp-route-id="@mi.FeeLevel"><i class="bi bi-pen"></i></a></td>
                         </tr>
                     }
                 </tbody>
             </table>
-            <h6>@Model.AttorneyFees.Count() attorney fee levels.</h6>
+            <h6>@Model.ServiceFees.Count() service fee levels.</h6>
         }
         else
         {
-            <h6>Attorney fees appear here.</h6>
+            <h6>Service fees appear here.</h6>
         }
     </div>
 </div>

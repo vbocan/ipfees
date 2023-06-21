@@ -174,7 +174,7 @@ namespace IPFees.Core
             new Currency("ZMW","Zambian Kwacha"),
             new Currency("ZWL","Zimbabwean Dollar"),
             };
-        public CurrencyConverter(string APIKey, string APIBaseCurrency)
+        public CurrencyConverter(string APIKey)
         {
             this.APIKey = APIKey;
             this.APIBaseCurrency = APIBaseCurrency;

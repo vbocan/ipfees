@@ -16,7 +16,7 @@
                     <tr>                        
                         <th scope="col">Jurisdiction</th>
                         <th scope="col">Description</th>
-                        <th scope="col">Attorney Fee</th>
+                        <th scope="col">Service Fee</th>
                         <th scope="col"></th>
 
                     </tr>
@@ -29,7 +29,7 @@
                                 <button class="btn btn-light btn-sm" aria-disabled="true" data-bs-toggle="tooltip" data-bs-placement="right" title="Last updated: @mi.LastUpdatedOn">@mi.Name</button>
                             </td>
                             <td><img src="@($"/flags/{mi.Name.ToLower()}.png")" alt="@mi.Name" class="rounded float-left"/> @mi.Description</td>
-                            <td>@mi.AttorneyFeeLevel.ValueAsString()</td>
+                            <td>@mi.ServiceFeeLevel.ValueAsString()</td>
                             <td><a asp-page="Edit" asp-route-id="@mi.Id"><i class="bi bi-pen"></i></a>  <a asp-page="Delete" asp-route-id="@mi.Id"><i class="bi bi-trash"></i></a></td>
                         </tr>
                     }

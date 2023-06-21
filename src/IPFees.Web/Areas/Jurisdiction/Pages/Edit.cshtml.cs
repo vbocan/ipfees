@@ -10,17 +10,17 @@ namespace IPFees.Web.Areas.Jurisdiction.Pages
     {
         [BindProperty] public string Name { get; set; }
         [BindProperty] public string Description { get; set; }
-        [BindProperty] public string AttorneyFeeLevel { get; set; }
+        [BindProperty] public string ServiceFeeLevel { get; set; }
         [BindProperty] public IList<string> ErrorMessages { get; set; }
 
-        public IEnumerable<SelectListItem> AttorneyFeeLevelItems { get; set; }
+        public IEnumerable<SelectListItem> ServiceFeeLevelItems { get; set; }
 
         private readonly IJurisdictionRepository jurisdictionRepository;
 
         public EditModel(IJurisdictionRepository jurisdictionRepository)
         {
             this.jurisdictionRepository = jurisdictionRepository;
-            AttorneyFeeLevelItems = Enum.GetValues<AttorneyFeeLevel>().AsEnumerable().Select(s => new SelectListItem(s.ValueAsString(), s.ToString()));
+            ServiceFeeLevelItems = Enum.GetValues<ServiceFeeLevel>().AsEnumerable().Select(s => new SelectListItem(s.ValueAsString(), s.ToString()));
             ErrorMessages = new List<string>();
         }
 
@@ -29,7 +29,7 @@ namespace IPFees.Web.Areas.Jurisdiction.Pages
             var info = await jurisdictionRepository.GetJurisdictionById(Id);
             Name = info.Name;
             Description = info.Description;
-            AttorneyFeeLevel = info.AttorneyFeeLevel.ToString();
+            ServiceFeeLevel = info.ServiceFeeLevel.ToString();
             return Page();
         }
 
@@ -45,11 +45,11 @@ namespace IPFees.Web.Areas.Jurisdiction.Pages
             {
                 ErrorMessages.Add($"Error setting description: {res.Reason}");
             }
-            var parsedAttorneyFeeLevel = (AttorneyFeeLevel)Enum.Parse(typeof(AttorneyFeeLevel), AttorneyFeeLevel);
-            res = await jurisdictionRepository.SetJurisdictionAttorneyFeeLevelAsync(Id, parsedAttorneyFeeLevel);
+            var parsedServiceFeeLevel = (ServiceFeeLevel)Enum.Parse(typeof(ServiceFeeLevel), ServiceFeeLevel);
+            res = await jurisdictionRepository.SetJurisdictionServiceFeeLevelAsync(Id, parsedServiceFeeLevel);
             if (!res.Success)
             {
-                ErrorMessages.Add($"Error setting attorney fee level: {res.Reason}");
+                ErrorMessages.Add($"Error setting service fee level: {res.Reason}");
             }            
             
             if (ErrorMessages.Any()) return Page();
