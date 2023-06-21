@@ -1,0 +1,34 @@
+IPFees TO DO List
+
+1. Admin page for allowed currencies -> Not all available currencies need to be shown to the client as target currencies, so we need an admin page in which individual currencies can be enabled/disabled.
+
+2. Admin page for currency markup -> All currency conversions must have a markup (e.g. 1.5%) that gets added as a guard.
+
+3. The fee files that are currently under the "Partner Fees" category, should be split into two:
+    - The translation part (AGT_TranslationFee) and the numberOfWords module should be in its own file of category "Translation Fees", e.g. PCT-AE-TRL
+    - The remaining part, i.e. the filing fee remain in the "Partner Fee" file.
+
+# File name: PCT-AE-AGT
+# File content: Partner fees for PCT national phase: United Arab Emirates
+RETURN Currency AS 'EUR'
+# MODULES: NumberOfWords;
+
+RETURN Language AS 'Arabic, English'
+
+# Partner fee for entering the national phase including payment of all applicable official fees
+COMPUTE FEE AGT_FilingFee
+YIELD 500
+ENDCOMPUTE
+
+# Translation fee into local language per 100 words; source language is English
+COMPUTE FEE AGT_TranslationFee
+YIELD 12 * NumberOfWords / 100
+ENDCOMPUTE
+
+4. The calculation output should be a table with the following columns:
+
+Jurisdiction | Language | Official fee | Agent fee | Service fee | Translation fee | Total fee per jurisdiction
+
+Last line of the table should show the total fees for all selected countries.
+
+— | — | Official fee sum | Agent fee sum| Service fee sum | Translation fee sum | Total fee per jurisdiction
