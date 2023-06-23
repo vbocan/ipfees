@@ -58,14 +58,16 @@ namespace IPFees.Core
         /// <returns></returns>
         public async Task<TotalFeeInfo> Calculate(IEnumerable<string> JurisdictionNames, IList<IPFValue> InputValues)
         {
-            /// There are three types of fees that are calculated for each jurisdiction:
+            /// There are four types of fees that are calculated for each jurisdiction:
             /// - Official fee - the amount paid to the government receiving the application
             /// - Partner fee - the amount paid to a partner in the respective jurisdiction, which does the translation and the actual application fileing work
             /// - Service fee - the amount paid to the partner which orchestrates the filing of the aplication, i.e. collaborates with the client for each individual jurisdiction
+            /// - Translation fee - the amount paid for translation of the documents
             /// Note: Each individual fee has its associated currency. At a later stage, the user shall convert the source currencies into whatever final target currency may be (usually EUR or USD).
             var OfficialFees = new List<FeeAmount>();
             var PartnerFees = new List<FeeAmount>();
             var ServiceFees = new List<FeeAmount>();
+            var TranslationFees = new List<FeeAmount>();
             var Errors = new List<FeeResultFail>();
 
             // Cycle through each required jurisdiction            
@@ -80,7 +82,7 @@ namespace IPFees.Core
                 #endregion
 
                 // Calculate the official and partner fees
-                #region Official and Partner Fees
+                #region Official, Translation, and Partner Fees
                 // For the current jurisdiction, we need the associated fees defined in the system. These fees have different purposes (e.g. OfficialFee and PartnerFee) and we
                 // need to discriminate between those.
                 var FeeDefinitions = GetFeeDefinitionForJurisdiction(jn);
@@ -116,12 +118,20 @@ namespace IPFees.Core
                                     $"Partner fee for jurisdiction '{jur.Name}'"
                                     ));
                                 break;
+                            case FeeCategory.TranslationFees:
+                                TranslationFees.Add(new FeeAmount(
+                                    frc.TotalMandatoryAmount,
+                                    frc.TotalOptionalAmount,
+                                    frc.Returns.Where(w => w.Item1.Equals("Currency", StringComparison.InvariantCultureIgnoreCase)).Select(s => s.Item2 ?? string.Empty).SingleOrDefault(string.Empty),
+                                    $"Translation fee for jurisdiction '{jur.Name}'"
+                                    ));
+                                break;
                         }
                     }                    
                 }
                 #endregion
             }                        
-            return new TotalFeeInfo { OfficialFees = OfficialFees, PartnerFees = PartnerFees, ServiceFees = ServiceFees, Errors = Errors };
+            return new TotalFeeInfo { OfficialFees = OfficialFees, PartnerFees = PartnerFees, TranslationFees = TranslationFees, ServiceFees = ServiceFees, Errors = Errors };
         }
 
         private IEnumerable<FeeInfo> GetFeeDefinitionForJurisdiction(string JurisdictionName) => feeRepository.GetFees().Result.Where(w => w.JurisdictionName.Equals(JurisdictionName));
@@ -132,6 +142,7 @@ namespace IPFees.Core
     {
         public IList<FeeAmount> OfficialFees { get;set; }
         public IList<FeeAmount> PartnerFees { get; set; }
+        public IList<FeeAmount> TranslationFees { get; set; }
         public IList<FeeAmount> ServiceFees { get; set; }
         public IList<FeeResultFail> Errors { get; set; }
     }
