@@ -9,9 +9,11 @@
 <h1>Calculation Results</h1>
 
 <div class="row">
+    <div class="alert alert-danger" role="alert">
+        <strong>TODO:</strong> Convert currencies into @Model.TargetCurrency!
+    </div>    
     <div class="col-lg-12">
-        <h3>Official Fees</h3>
-        <h3>TODO: Convert currencies into @Model.TargetCurrency!</h3>
+        <h3>Official Fees</h3>        
         @foreach (var of in @Model.FeeResults.OfficialFees)
         {
             <text>Mandatory: @of.MandatoryAmount</text> <text>Optional: @of.OptionalAmount</text> <text>Currency: @of.Currency</text>
@@ -20,6 +22,13 @@
         }
         <h3>Partner Fees</h3>
         @foreach (var of in @Model.FeeResults.PartnerFees)
+        {
+            <text>Mandatory: @of.MandatoryAmount</text> <text>Optional: @of.OptionalAmount</text> <text>Currency: @of.Currency</text>
+            <text>(@of.Description)</text>
+            <br />
+        }
+        <h3>Translation Fees</h3>
+        @foreach (var of in @Model.FeeResults.TranslationFees)
         {
             <text>Mandatory: @of.MandatoryAmount</text> <text>Optional: @of.OptionalAmount</text> <text>Currency: @of.Currency</text>
             <text>(@of.Description)</text>
