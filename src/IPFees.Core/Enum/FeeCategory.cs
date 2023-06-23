@@ -3,7 +3,8 @@
     public enum FeeCategory
     {
         OfficialFees,
-        PartnerFees,        
+        PartnerFees,
+        TranslationFees,
     }
 
     public static class ExtensionMethods1
@@ -13,7 +14,8 @@
             return e switch
             {
                 FeeCategory.OfficialFees => "Official Fees",
-                FeeCategory.PartnerFees => "Partner Fees",                
+                FeeCategory.PartnerFees => "Partner Fees",
+                FeeCategory.TranslationFees => "Translation Fees",
                 _ => "N/A",
             };
         }
