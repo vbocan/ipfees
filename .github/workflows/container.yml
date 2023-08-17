@@ -1,0 +1,28 @@
+name: Docker Image CI
+
+on:
+  push:
+    branches: [ "master" ]
+  pull_request:
+    branches: [ "master" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Login to GitHub Container Registry
+      uses: docker/login-action@v2
+      with:
+        registry: ghcr.io
+        username: ${{ github.actor }}
+        password: ${{ secrets.GITHUB_TOKEN }}
+
+    - name: Build the Docker image
+      id: docker_build
+      env:
+        IMAGE_NAME: ghcr.io/${{ github.repository_owner }}/${{ github.repository }}/ipfeesweb
+      run: |
+        docker build src --file src/IPFees.Web/Dockerfile --tag $IMAGE_NAME:latest
+        docker push $IMAGE_NAME:latest
