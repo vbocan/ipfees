@@ -11,3 +11,5 @@ Jurisdiction | Language | Official fee | Agent fee | Service fee | Translation f
 Last line of the table should show the total fees for all selected countries.
 
 — | — | Official fee sum | Agent fee sum| Service fee sum | Translation fee sum | Total fee per jurisdiction
+
+4. Instead of radio buttons, the user will select a dropdown.
