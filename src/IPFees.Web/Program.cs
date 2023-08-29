@@ -27,6 +27,8 @@ builder.Services.Configure<ConnectionStrings>(builder.Configuration.GetSection(C
 builder.Services.AddSingleton(s => s.GetRequiredService<IOptions<ConnectionStrings>>().Value);
 builder.Services.Configure<ServiceKeys>(builder.Configuration.GetSection(ServiceKeys.SectionName));
 builder.Services.AddSingleton(s => s.GetRequiredService<IOptions<ServiceKeys>>().Value);
+builder.Services.Configure<CurrencySettings>(builder.Configuration.GetSection(CurrencySettings.SectionName));
+builder.Services.AddSingleton(s => s.GetRequiredService<IOptions<CurrencySettings>>().Value);
 
 // Register work database context (MongoDB)
 // The MongoDB client has a pool of connections that are reused automatically and a single MongoDB client instance is enough even in multithreaded scenarios
