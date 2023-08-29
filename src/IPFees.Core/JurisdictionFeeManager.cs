@@ -21,7 +21,7 @@ namespace IPFees.Core
             this.jurisdictionRepository = jurisdictionRepository;
             this.settingsRepository = settingsRepository;
         }
-        
+
         public (IEnumerable<DslInput>, IEnumerable<DslGroup>, IEnumerable<FeeResultFail>) GetConsolidatedInputs(IEnumerable<string> JurisdictionNames)
         {
             var Inputs = new List<DslInput>();
@@ -78,7 +78,7 @@ namespace IPFees.Core
                 #region Service Fee
                 var jur = await jurisdictionRepository.GetJurisdictionByName(jn);
                 var ServiceFee = await settingsRepository.GetServiceFeeAsync(jur.ServiceFeeLevel);
-                ServiceFees.Add(new FeeAmount(ServiceFee.Amount, 0, ServiceFee.Currency, $"Service fee for jurisdiction '{jur.Name}'"));
+                ServiceFees.Add(new FeeAmount(jur.Name, ServiceFee.Amount, 0, ServiceFee.Currency));
                 #endregion
 
                 // Calculate the official and partner fees
@@ -104,43 +104,43 @@ namespace IPFees.Core
                         {
                             case FeeCategory.OfficialFees:
                                 OfficialFees.Add(new FeeAmount(
+                                    jur.Name,
                                     frc.TotalMandatoryAmount,
                                     frc.TotalOptionalAmount,
-                                    frc.Returns.Where(w => w.Item1.Equals("Currency", StringComparison.InvariantCultureIgnoreCase)).Select(s => s.Item2 ?? string.Empty).SingleOrDefault(string.Empty),
-                                    $"Official fee for jurisdiction '{jur.Name}'"
+                                    frc.Returns.Where(w => w.Item1.Equals("Currency", StringComparison.InvariantCultureIgnoreCase)).Select(s => s.Item2 ?? string.Empty).SingleOrDefault(string.Empty)
                                     ));
                                 break;
                             case FeeCategory.PartnerFees:
                                 PartnerFees.Add(new FeeAmount(
+                                    jur.Name,
                                     frc.TotalMandatoryAmount,
                                     frc.TotalOptionalAmount,
-                                    frc.Returns.Where(w => w.Item1.Equals("Currency", StringComparison.InvariantCultureIgnoreCase)).Select(s => s.Item2 ?? string.Empty).SingleOrDefault(string.Empty),
-                                    $"Partner fee for jurisdiction '{jur.Name}'"
+                                    frc.Returns.Where(w => w.Item1.Equals("Currency", StringComparison.InvariantCultureIgnoreCase)).Select(s => s.Item2 ?? string.Empty).SingleOrDefault(string.Empty)
                                     ));
                                 break;
                             case FeeCategory.TranslationFees:
                                 TranslationFees.Add(new FeeAmount(
+                                    jur.Name,
                                     frc.TotalMandatoryAmount,
                                     frc.TotalOptionalAmount,
-                                    frc.Returns.Where(w => w.Item1.Equals("Currency", StringComparison.InvariantCultureIgnoreCase)).Select(s => s.Item2 ?? string.Empty).SingleOrDefault(string.Empty),
-                                    $"Translation fee for jurisdiction '{jur.Name}'"
+                                    frc.Returns.Where(w => w.Item1.Equals("Currency", StringComparison.InvariantCultureIgnoreCase)).Select(s => s.Item2 ?? string.Empty).SingleOrDefault(string.Empty)
                                     ));
                                 break;
                         }
-                    }                    
+                    }
                 }
                 #endregion
-            }                        
+            }
             return new TotalFeeInfo { OfficialFees = OfficialFees, PartnerFees = PartnerFees, TranslationFees = TranslationFees, ServiceFees = ServiceFees, Errors = Errors };
         }
 
         private IEnumerable<FeeInfo> GetFeeDefinitionForJurisdiction(string JurisdictionName) => feeRepository.GetFees().Result.Where(w => w.JurisdictionName.Equals(JurisdictionName));
     }
 
-    public record FeeAmount(double MandatoryAmount, double OptionalAmount, string Currency, string Description);
+    public record FeeAmount(string Jurisdiction, double MandatoryAmount, double OptionalAmount, string Currency);
     public class TotalFeeInfo
     {
-        public IList<FeeAmount> OfficialFees { get;set; }
+        public IList<FeeAmount> OfficialFees { get; set; }
         public IList<FeeAmount> PartnerFees { get; set; }
         public IList<FeeAmount> TranslationFees { get; set; }
         public IList<FeeAmount> ServiceFees { get; set; }

@@ -16,29 +16,25 @@
         <h3>Official Fees</h3>        
         @foreach (var of in @Model.FeeResults.OfficialFees)
         {
-            <text>Mandatory: @of.MandatoryAmount</text> <text>Optional: @of.OptionalAmount</text> <text>Currency: @of.Currency</text>
-            <text>(@of.Description)</text>
+            <text>[@(of.Jurisdiction)] Mandatory: @of.MandatoryAmount</text> <text>Optional: @of.OptionalAmount</text> <text>Currency: @of.Currency</text>
             <br />
         }
         <h3>Partner Fees</h3>
         @foreach (var of in @Model.FeeResults.PartnerFees)
         {
-            <text>Mandatory: @of.MandatoryAmount</text> <text>Optional: @of.OptionalAmount</text> <text>Currency: @of.Currency</text>
-            <text>(@of.Description)</text>
+            <text>[@(of.Jurisdiction)] Mandatory: @of.MandatoryAmount</text> <text>Optional: @of.OptionalAmount</text> <text>Currency: @of.Currency</text>
             <br />
         }
         <h3>Translation Fees</h3>
         @foreach (var of in @Model.FeeResults.TranslationFees)
         {
-            <text>Mandatory: @of.MandatoryAmount</text> <text>Optional: @of.OptionalAmount</text> <text>Currency: @of.Currency</text>
-            <text>(@of.Description)</text>
+            <text>[@(of.Jurisdiction)] Mandatory: @of.MandatoryAmount</text> <text>Optional: @of.OptionalAmount</text> <text>Currency: @of.Currency</text>
             <br />
         }
         <h3>Service Fees</h3>
         @foreach (var of in @Model.FeeResults.ServiceFees)
         {
-            <text>Mandatory: @of.MandatoryAmount</text> <text>Optional: @of.OptionalAmount</text> <text>Currency: @of.Currency</text>
-            <text>(@of.Description)</text>
+            <text>[@(of.Jurisdiction)] Mandatory: @of.MandatoryAmount</text> <text>Optional: @of.OptionalAmount</text> <text>Currency: @of.Currency</text>
             <br />
         }
     </div>
