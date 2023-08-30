@@ -13,13 +13,15 @@ namespace IPFees.Core
         private readonly IFeeRepository feeRepository;
         private readonly ISettingsRepository settingsRepository;
         private readonly IJurisdictionRepository jurisdictionRepository;
+        private readonly ICurrencyConverter currencyConverter;
 
-        public JurisdictionFeeManager(IFeeCalculator feeCalculator, IFeeRepository feeRepository, IJurisdictionRepository jurisdictionRepository, ISettingsRepository settingsRepository)
+        public JurisdictionFeeManager(IFeeCalculator feeCalculator, IFeeRepository feeRepository, IJurisdictionRepository jurisdictionRepository, ICurrencyConverter currencyConverter, ISettingsRepository settingsRepository)
         {
             this.feeCalculator = feeCalculator;
             this.feeRepository = feeRepository;
             this.jurisdictionRepository = jurisdictionRepository;
             this.settingsRepository = settingsRepository;
+            this.currencyConverter = currencyConverter;
         }
 
         public (IEnumerable<DslInput>, IEnumerable<DslGroup>, IEnumerable<FeeResultFail>) GetConsolidatedInputs(IEnumerable<string> JurisdictionNames)
@@ -55,8 +57,9 @@ namespace IPFees.Core
         /// </summary>
         /// <param name="JurisdictionNames">An enumeration of jurisdictions for which to perform the calculation</param>
         /// <param name="InputValues">Inputs needed by the calculation process. Obtain these inputs with a call to GetConsolidatedInputs.</param>
-        /// <returns></returns>
-        public async Task<TotalFeeInfo> Calculate(IEnumerable<string> JurisdictionNames, IList<IPFValue> InputValues)
+        /// <param name="TargetCurrency">Currency to which all amounts will eventually be converted to</param>
+        /// <returns>A struct containing the fees for all jurisdictions as well as totals</returns>
+        public async Task<TotalFeeInfo> Calculate(IEnumerable<string> JurisdictionNames, IList<IPFValue> InputValues, string TargetCurrency)
         {
             /// There are four types of fees that are calculated for each jurisdiction:
             /// - Official fee - the amount paid to the government receiving the application
@@ -64,21 +67,19 @@ namespace IPFees.Core
             /// - Service fee - the amount paid to the partner which orchestrates the filing of the aplication, i.e. collaborates with the client for each individual jurisdiction
             /// - Translation fee - the amount paid for translation of the documents
             /// Note: Each individual fee has its associated currency. At a later stage, the user shall convert the source currencies into whatever final target currency may be (usually EUR or USD).
-            var OfficialFees = new List<FeeAmount>();
-            var PartnerFees = new List<FeeAmount>();
-            var ServiceFees = new List<FeeAmount>();
-            var TranslationFees = new List<FeeAmount>();
             var Errors = new List<FeeResultFail>();
+            var JurisdictionFees = new List<JurisdictionFeesAmount>();
 
             // Cycle through each required jurisdiction            
             foreach (var jn in JurisdictionNames)
             {
+                var CurrentJurisdictionFees = new JurisdictionFeesAmount(jn, new FeeAmount(0, 0, string.Empty), new FeeAmount(0, 0, string.Empty), new FeeAmount(0, 0, string.Empty), new FeeAmount(0, 0, string.Empty), new FeeAmount(0, 0, string.Empty));
                 // Calculate the associated service fee (the simplest of all fees)
                 // Each jurisdiction has an associated service fee level (e.g. Level 1, 2, a.s.o.) and each level has an associated monetary value and currency
                 #region Service Fee
                 var jur = await jurisdictionRepository.GetJurisdictionByName(jn);
                 var ServiceFee = await settingsRepository.GetServiceFeeAsync(jur.ServiceFeeLevel);
-                ServiceFees.Add(new FeeAmount(jur.Name, ServiceFee.Amount, 0, ServiceFee.Currency));
+                CurrentJurisdictionFees = CurrentJurisdictionFees with { ServiceFee = new FeeAmount(ServiceFee.Amount, 0, ServiceFee.Currency) };
                 #endregion
 
                 // Calculate the official and partner fees
@@ -103,47 +104,112 @@ namespace IPFees.Core
                         switch (fd.Category)
                         {
                             case FeeCategory.OfficialFees:
-                                OfficialFees.Add(new FeeAmount(
-                                    jur.Name,
+                                var f1 = new FeeAmount(
                                     frc.TotalMandatoryAmount,
                                     frc.TotalOptionalAmount,
                                     frc.Returns.Where(w => w.Item1.Equals("Currency", StringComparison.InvariantCultureIgnoreCase)).Select(s => s.Item2 ?? string.Empty).SingleOrDefault(string.Empty)
-                                    ));
+                                    );
+                                CurrentJurisdictionFees = CurrentJurisdictionFees with { OfficialFee = f1 };
                                 break;
                             case FeeCategory.PartnerFees:
-                                PartnerFees.Add(new FeeAmount(
-                                    jur.Name,
+                                var f2 = new FeeAmount(
                                     frc.TotalMandatoryAmount,
                                     frc.TotalOptionalAmount,
                                     frc.Returns.Where(w => w.Item1.Equals("Currency", StringComparison.InvariantCultureIgnoreCase)).Select(s => s.Item2 ?? string.Empty).SingleOrDefault(string.Empty)
-                                    ));
+                                    );
+                                CurrentJurisdictionFees = CurrentJurisdictionFees with { PartnerFee = f2 };
                                 break;
                             case FeeCategory.TranslationFees:
-                                TranslationFees.Add(new FeeAmount(
-                                    jur.Name,
+                                var f3 = new FeeAmount(
                                     frc.TotalMandatoryAmount,
                                     frc.TotalOptionalAmount,
                                     frc.Returns.Where(w => w.Item1.Equals("Currency", StringComparison.InvariantCultureIgnoreCase)).Select(s => s.Item2 ?? string.Empty).SingleOrDefault(string.Empty)
-                                    ));
+                                    );
+                                CurrentJurisdictionFees = CurrentJurisdictionFees with { TranslationFee = f3 };
                                 break;
                         }
                     }
                 }
                 #endregion
+                // Compute total for the current jurisdiction
+                var TotalFee = FeeAmount.Add(CurrentJurisdictionFees.OfficialFee, CurrentJurisdictionFees.PartnerFee);
+                TotalFee = FeeAmount.Add(TotalFee, CurrentJurisdictionFees.TranslationFee);
+                TotalFee = FeeAmount.Add(TotalFee, CurrentJurisdictionFees.ServiceFee);
+                CurrentJurisdictionFees = CurrentJurisdictionFees with { TotalFee = TotalFee };
+                // TODO: Convert fees to target currency
+
+                // Store fees for the current jurisdiction
+                JurisdictionFees.Add(CurrentJurisdictionFees);
             }
-            return new TotalFeeInfo { OfficialFees = OfficialFees, PartnerFees = PartnerFees, TranslationFees = TranslationFees, ServiceFees = ServiceFees, Errors = Errors };
+            // Compute totals
+            var TotalOfficialFee = new FeeAmount(JurisdictionFees.Sum(s1 => s1.OfficialFee.MandatoryAmount), JurisdictionFees.Sum(s2 => s2.OfficialFee.OptionalAmount), TargetCurrency);
+            var TotalPartnerFee = new FeeAmount(JurisdictionFees.Sum(s1 => s1.PartnerFee.MandatoryAmount), JurisdictionFees.Sum(s2 => s2.PartnerFee.OptionalAmount), TargetCurrency);
+            var TotalTranslationFee = new FeeAmount(JurisdictionFees.Sum(s1 => s1.TranslationFee.MandatoryAmount), JurisdictionFees.Sum(s2 => s2.TranslationFee.OptionalAmount), TargetCurrency);
+            var TotalServiceFee = new FeeAmount(JurisdictionFees.Sum(s1 => s1.ServiceFee.MandatoryAmount), JurisdictionFees.Sum(s2 => s2.ServiceFee.OptionalAmount), TargetCurrency);
+
+            var GrandTotalFee = FeeAmount.Add(TotalOfficialFee, TotalPartnerFee);
+            GrandTotalFee = FeeAmount.Add(GrandTotalFee, TotalTranslationFee);
+            GrandTotalFee = FeeAmount.Add(GrandTotalFee, TotalServiceFee);
+
+            return new TotalFeeInfo
+            {
+                JurisdictionFees = JurisdictionFees,
+                TotalOfficialFee = TotalOfficialFee,
+                TotalPartnerFee = TotalPartnerFee,
+                TotalTranslationFee = TotalTranslationFee,
+                TotalServiceFee = TotalServiceFee,
+                GrandTotalFee = GrandTotalFee,
+                Errors = Errors
+            };
         }
 
         private IEnumerable<FeeInfo> GetFeeDefinitionForJurisdiction(string JurisdictionName) => feeRepository.GetFees().Result.Where(w => w.JurisdictionName.Equals(JurisdictionName));
     }
 
-    public record FeeAmount(string Jurisdiction, double MandatoryAmount, double OptionalAmount, string Currency);
+    public record JurisdictionFeesAmount(string Jurisdiction, FeeAmount OfficialFee, FeeAmount PartnerFee, FeeAmount TranslationFee, FeeAmount ServiceFee, FeeAmount TotalFee);
+
+    public class FeeAmount
+    {
+        public double MandatoryAmount { get; set; }
+        public double OptionalAmount { get; set; }
+        public string Currency { get; set; }
+
+        public FeeAmount(double mandatoryAmount, double optionalAmount, string currency)
+        {
+            MandatoryAmount = mandatoryAmount;
+            OptionalAmount = optionalAmount;
+            Currency = currency;
+        }
+
+        public static FeeAmount Add(FeeAmount first, FeeAmount second)
+        {
+            if (first.Currency != second.Currency)
+            {
+                //throw new ArgumentException("Currencies are not the same.");
+            }
+
+            double totalMandatory = first.MandatoryAmount + second.MandatoryAmount;
+            double totalOptional = first.OptionalAmount + second.OptionalAmount;
+
+            return new FeeAmount(totalMandatory, totalOptional, first.Currency);
+        }
+
+        public override string ToString()
+        {
+            return $"Mandatory Amount: {MandatoryAmount} {Currency}\n" +
+                   $"Optional Amount: {OptionalAmount} {Currency}";
+        }
+    }
+
+
     public class TotalFeeInfo
     {
-        public IList<FeeAmount> OfficialFees { get; set; }
-        public IList<FeeAmount> PartnerFees { get; set; }
-        public IList<FeeAmount> TranslationFees { get; set; }
-        public IList<FeeAmount> ServiceFees { get; set; }
+        public List<JurisdictionFeesAmount> JurisdictionFees { get; set; }
+        public FeeAmount TotalOfficialFee { get; set; }
+        public FeeAmount TotalPartnerFee { get; set; }
+        public FeeAmount TotalTranslationFee { get; set; }
+        public FeeAmount TotalServiceFee { get; set; }
+        public FeeAmount GrandTotalFee { get; set; }
         public IList<FeeResultFail> Errors { get; set; }
     }
 }
