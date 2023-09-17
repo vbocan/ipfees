@@ -1,0 +1,43 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Currency List";
+}
+
+<h1>Currency <small class="text-muted">List</small></h1>
+
+Last updated: @Model.ExchangeDataLastUpdatedOn
+
+<div class="row">
+    <div class="col-lg-12">
+        @if (Model.Currencies.Any())
+        {
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th scope="col">Currency</th>
+                        <th scope="col">Description</th>
+                        <th scope="col">Exhange Rate (to EUR)</th>                        
+
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var cr in Model.Currencies)
+                    {
+                        
+                        <tr>                            
+                            <td>@cr.Item1</td>
+                            <td>@cr.Item2</td>
+                            <td></td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+            <h6>@Model.Currencies.Count() items.</h6>
+        }
+        else
+        {
+            <h6>No currencies.</h6>
+        }
+    </div>
+</div>
