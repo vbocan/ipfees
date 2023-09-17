@@ -1,12 +1,11 @@
-﻿using IPFees.Core.CurrencyConversion;
-using IPFees.Core.Data;
+﻿using IPFees.Core.Data;
 using IPFees.Core.Enum;
 using IPFees.Core.FeeCalculation;
 using IPFees.Core.Model;
 using IPFees.Core.Repository;
+using IPFees.Core.SharedDataExchange;
 using IPFees.Evaluator;
 using IPFees.Parser;
-using System;
 
 namespace IPFees.Core.FeeManager
 {
@@ -16,15 +15,15 @@ namespace IPFees.Core.FeeManager
         private readonly IFeeRepository feeRepository;
         private readonly ISettingsRepository settingsRepository;
         private readonly IJurisdictionRepository jurisdictionRepository;
-        private readonly IExchangeRateFetcher currencyConverter;
+        private readonly ISharedExchangeRateData sharedExchangeRateData;
 
-        public JurisdictionFeeManager(IFeeCalculator feeCalculator, IFeeRepository feeRepository, IJurisdictionRepository jurisdictionRepository, IExchangeRateFetcher currencyConverter, ISettingsRepository settingsRepository)
+        public JurisdictionFeeManager(IFeeCalculator feeCalculator, IFeeRepository feeRepository, IJurisdictionRepository jurisdictionRepository, ISettingsRepository settingsRepository, ISharedExchangeRateData sharedExchangeRateData)
         {
             this.feeCalculator = feeCalculator;
             this.feeRepository = feeRepository;
             this.jurisdictionRepository = jurisdictionRepository;
             this.settingsRepository = settingsRepository;
-            this.currencyConverter = currencyConverter;
+            this.sharedExchangeRateData = sharedExchangeRateData;
         }
 
         public (IEnumerable<DslInput>, IEnumerable<DslGroup>, IEnumerable<FeeResultFail>) GetConsolidatedInputs(IEnumerable<string> JurisdictionNames)
