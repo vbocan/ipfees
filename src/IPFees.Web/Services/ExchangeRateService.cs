@@ -6,7 +6,8 @@ namespace IPFees.Web.Services
 {
     public class ExchangeRateService : BackgroundService
     {
-        private readonly TimeSpan ExchangeRateDelay = TimeSpan.FromHours(6);
+        private readonly TimeSpan ExchangeRateDelaySuccess = TimeSpan.FromHours(6);
+        private readonly TimeSpan ExchangeRateDelayFail = TimeSpan.FromSeconds(30);
         private readonly IExchangeRateFetcher currencyConverter;
         private readonly SharedExchangeRateData sharedExchangeRateData;
         private readonly ILogger<ExchangeRateService> logger;
@@ -34,8 +35,9 @@ namespace IPFees.Web.Services
                 }
                 // Store fetched data                
                 sharedExchangeRateData.Response = response;
-                logger.LogInformation($"Exchange rate service going to sleep for {ExchangeRateDelay.ToString(@"hh\:mm\:ss")}");
-                await Task.Delay(ExchangeRateDelay, stoppingToken);
+                var delay = response.ServerResponseValid ? ExchangeRateDelaySuccess : ExchangeRateDelayFail;
+                logger.LogInformation($"Exchange rate service going to sleep for {delay.ToString(@"hh\:mm\:ss")}");
+                await Task.Delay(delay, stoppingToken);
             }
         }
     }
