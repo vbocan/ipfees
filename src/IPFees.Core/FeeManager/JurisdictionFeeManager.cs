@@ -133,13 +133,15 @@ namespace IPFees.Core.FeeManager
                     }
                 }
                 #endregion
-                // Compute total for the current jurisdiction
-                var TotalFee = Fee.Add(CurrentJurisdictionFees.OfficialFee, CurrentJurisdictionFees.PartnerFee);
-                TotalFee = Fee.Add(TotalFee, CurrentJurisdictionFees.TranslationFee);
-                TotalFee = Fee.Add(TotalFee, CurrentJurisdictionFees.ServiceFee);
-                CurrentJurisdictionFees = CurrentJurisdictionFees with { TotalFee = TotalFee };
+
                 // Convert fees to target currency
                 var CurrentJurisdictionFeesInTargetCurrency = ConvertCurrency(CurrentJurisdictionFees, TargetCurrency);
+
+                // Compute total for the current jurisdiction
+                var TotalFee = Fee.Add(CurrentJurisdictionFeesInTargetCurrency.OfficialFee, CurrentJurisdictionFeesInTargetCurrency.PartnerFee);
+                TotalFee = Fee.Add(TotalFee, CurrentJurisdictionFeesInTargetCurrency.TranslationFee);
+                TotalFee = Fee.Add(TotalFee, CurrentJurisdictionFeesInTargetCurrency.ServiceFee);
+                CurrentJurisdictionFeesInTargetCurrency = CurrentJurisdictionFeesInTargetCurrency with { TotalFee = TotalFee };                
                 // Store fees for the current jurisdiction
                 JurisdictionFees.Add(CurrentJurisdictionFeesInTargetCurrency);
             }
@@ -160,7 +162,10 @@ namespace IPFees.Core.FeeManager
 
         private JurisdictionFeesAmount ConvertCurrency(JurisdictionFeesAmount SourceFees, string TargetCurrency)
         {
-
+            // TODO: Convert the Official Fee
+            // TODO: Convert the Partner Fee
+            // TODO: Convert the Translation Fee
+            // TODO: Convert the Service Fee            
         }
     }
 
