@@ -16,9 +16,9 @@ namespace IPFees.Core.FeeManager
         private readonly IFeeRepository feeRepository;
         private readonly ISettingsRepository settingsRepository;
         private readonly IJurisdictionRepository jurisdictionRepository;
-        private readonly ICurrencyConverter currencyConverter;
+        private readonly IExchangeRateFetcher currencyConverter;
 
-        public JurisdictionFeeManager(IFeeCalculator feeCalculator, IFeeRepository feeRepository, IJurisdictionRepository jurisdictionRepository, ICurrencyConverter currencyConverter, ISettingsRepository settingsRepository)
+        public JurisdictionFeeManager(IFeeCalculator feeCalculator, IFeeRepository feeRepository, IJurisdictionRepository jurisdictionRepository, IExchangeRateFetcher currencyConverter, ISettingsRepository settingsRepository)
         {
             this.feeCalculator = feeCalculator;
             this.feeRepository = feeRepository;

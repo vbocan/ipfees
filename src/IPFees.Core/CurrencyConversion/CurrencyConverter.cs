@@ -2,15 +2,9 @@
 
 namespace IPFees.Core.CurrencyConversion
 {
-    /// <summary>
-    /// Uses https://exchangerate-api.com
-    /// </summary>
-    public class CurrencyConverter : ICurrencyConverter
+    public class CurrencyConverter
     {
-        private const string BASECURRENCY = "EUR";
-        private string APIKey { get; set; }
-        private readonly string APIURL = "https://v6.exchangerate-api.com/v6/[APIKEY]/latest/[BASECURRENCY]";
-        private readonly Currency[] Currencies = {
+        private static readonly Currency[] Currencies = {
             new Currency("AED","UAE Dirham"),
             new Currency("AFN","Afghan Afghani"),
             new Currency("ALL","Albanian Lek"),
@@ -174,71 +168,26 @@ namespace IPFees.Core.CurrencyConversion
             new Currency("ZWL","Zimbabwean Dollar"),
             };
 
-        public bool ExchangeRatesAvailable { get; set; } = false;
-        public string ExchangeRatesReason { get; set; } = string.Empty;
-        private Dictionary<string, decimal> ExchangeRates { get; set; }
-        private DateTime ExchangeRatesLastUpdateOn { get; set; }
-
-        public CurrencyConverter(string APIKey)
-        {
-            this.APIKey = APIKey;
-        }
-
-        /// <summary>
-        /// Fetch and deserialize exchange data
-        /// </summary>        
-        /// <exception cref="Exception">Raise exception if an error occurs</exception>
-        public async Task FetchCurrencyExchangeData()
-        {
-            string url = APIURL.Replace("[APIKEY]", APIKey).Replace("[BASECURRENCY]", BASECURRENCY);
-
-            using HttpClient client = new();
-            try
-            {
-                HttpResponseMessage response = await client.GetAsync(url);
-                response.EnsureSuccessStatusCode();
-
-                string responseBody = await response.Content.ReadAsStringAsync();
-                JsonDocument jsonDocument = JsonDocument.Parse(responseBody);
-
-                // Check whether the result from the exchange is valid
-                var IsSuccessfull = jsonDocument.RootElement.GetProperty("result").GetString()?.Equals("success", StringComparison.InvariantCultureIgnoreCase);
-                if (!IsSuccessfull.HasValue || !IsSuccessfull.Value)
-                {
-                    ExchangeRatesReason = "Invalid response from the exchange service";
-                }
-                // Determine the timestamp of the last data update
-                var unixLastUpdate = jsonDocument.RootElement.GetProperty("time_last_update_unix").GetDouble();
-                ExchangeRatesLastUpdateOn = new DateTime(1970, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc).AddSeconds(unixLastUpdate).ToLocalTime();
-                // Determine exchange rates
-                var jsonRates = jsonDocument.RootElement.GetProperty("conversion_rates").GetRawText();
-                ExchangeRates = ParseExchangeRates(jsonRates);
-                ExchangeRatesAvailable = true;
-            }
-            catch (Exception ex)
-            {
-                ExchangeRatesReason = $"Unable to fetch exchange data: {ex}";
-            }
-        }
-
         /// <summary>
         /// Perform currency conversion
         /// </summary>
+        /// <param name="exchangeResponse">Information retrieved from the exchange server (see ExchangeRateFetcher)</param>
         /// <param name="Amount">Amount in source currency</param>
         /// <param name="SourceCurrency">Source currency (e.g. USD)</param>
         /// <param name="TargetCurrency">Target currency (e.g. RON)</param>
         /// <returns>Amount expressed in the target currency</returns>
+        /// <exception cref="Exception">If the exhange data is not valid, an exception will be thrown</exception>
         /// <exception cref="ArgumentException">If the currencies are not known, an exception will be thrown</exception>
-        public decimal ConvertCurrency(decimal Amount, string SourceCurrency, string TargetCurrency)
+        public static decimal ConvertCurrency(ExchangeResponse exchangeResponse, decimal Amount, string SourceCurrency, string TargetCurrency)
         {
             // Check whether we've fetched the currency exchange rates
-            if (!ExchangeRatesAvailable) throw new Exception("No currency information available");
+            if (!exchangeResponse.ServerResponseValid) throw new Exception("No currency information available");
             // Check whether the source and target currencies are actually in the exchange rate data
-            if (!ExchangeRates.ContainsKey(SourceCurrency)) throw new ArgumentException($"Currency {SourceCurrency} does not exist", nameof(SourceCurrency));
-            if (!ExchangeRates.ContainsKey(TargetCurrency)) throw new ArgumentException($"Currency {TargetCurrency} does not exist", nameof(TargetCurrency));
+            if (!exchangeResponse.ExchangeRates.ContainsKey(SourceCurrency)) throw new ArgumentException($"Currency {SourceCurrency} does not exist", nameof(SourceCurrency));
+            if (!exchangeResponse.ExchangeRates.ContainsKey(TargetCurrency)) throw new ArgumentException($"Currency {TargetCurrency} does not exist", nameof(TargetCurrency));
             // Compute currency exhange rate
-            decimal SourceExchangeRate = ExchangeRates[SourceCurrency];
-            decimal TargetExchangeRate = ExchangeRates[TargetCurrency];
+            decimal SourceExchangeRate = exchangeResponse.ExchangeRates[SourceCurrency];
+            decimal TargetExchangeRate = exchangeResponse.ExchangeRates[TargetCurrency];
             var AmountInTargetCurrency = (Amount / SourceExchangeRate) * TargetExchangeRate;
             return AmountInTargetCurrency;
         }
@@ -247,25 +196,8 @@ namespace IPFees.Core.CurrencyConversion
         /// Get an enumeration of currency symbols and their names
         /// </summary>
         /// <returns>An enumeration of tuples of symbol and name</returns>
-        public IEnumerable<(string, string)> GetCurrencies() => Currencies.OrderBy(o => o.Symbol).Select(s => (s.Symbol, s.Name));
+        public static IEnumerable<(string, string)> GetCurrencies() => Currencies.OrderBy(o => o.Symbol).Select(s => (s.Symbol, s.Name));
 
-        private Dictionary<string, decimal> ParseExchangeRates(string jsonString)
-        {
-            Dictionary<string, decimal> exchangeRates = new Dictionary<string, decimal>();
-
-            JsonDocument jsonDocument = JsonDocument.Parse(jsonString);
-
-            foreach (JsonProperty property in jsonDocument.RootElement.EnumerateObject())
-            {
-                string currencyCode = property.Name;
-                decimal exchangeRate = property.Value.GetDecimal();
-
-                exchangeRates.Add(currencyCode, exchangeRate);
-            }
-
-            return exchangeRates;
-        }
-
-        public record Currency(string Symbol, string Name);
+        private record Currency(string Symbol, string Name);
     }
 }

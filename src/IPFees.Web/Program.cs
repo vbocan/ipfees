@@ -9,6 +9,8 @@ using IPFees.Core.Repository;
 using IPFees.Core.CurrencyConversion;
 using IPFees.Core.FeeCalculation;
 using IPFees.Core.FeeManager;
+using Microsoft.Extensions.Hosting;
+using IPFees.Web.Services;
 
 // Set Serilog settings
 var logger = new LoggerConfiguration()
@@ -46,7 +48,11 @@ builder.Services.AddTransient<IJurisdictionRepository, JurisdictionRepository>()
 builder.Services.AddTransient<ISettingsRepository, SettingsRepository>();
 builder.Services.AddTransient<IFeeCalculator, FeeCalculator>();
 builder.Services.AddTransient<IJurisdictionFeeManager, JurisdictionFeeManager>();
-builder.Services.AddScoped<ICurrencyConverter>(x => new CurrencyConverter(x.GetService<IOptions<ServiceKeys>>().Value.ExchangeRateApiKey));
+builder.Services.AddTransient<IExchangeRateFetcher>(x => new ExchangeRateFetcher(x.GetService<IOptions<ServiceKeys>>().Value.ExchangeRateApiKey));
+
+// Add exhange rate service
+builder.Services.AddHostedService<ExchangeRateService>();
+builder.Services.AddSingleton<SharedExchangeRateData>();
 
 // Add logger
 builder.Logging.AddSerilog(logger);
