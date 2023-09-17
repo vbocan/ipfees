@@ -1,6 +1,4 @@
 ﻿using IPFees.Core.CurrencyConversion;
-using IPFees.Web.Data;
-using SharpCompress.Readers;
 
 namespace IPFees.Web.Services
 {
