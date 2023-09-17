@@ -3,6 +3,8 @@ using IPFees.Web.Areas.Fee.Pages;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using IPFees.Core.Repository;
+using IPFees.Core.CurrencyConversion;
+using IPFees.Web.Data;
 
 namespace IPFees.Web.Pages
 {
@@ -14,11 +16,11 @@ namespace IPFees.Web.Pages
 
         private readonly IJurisdictionRepository jurisdictionRepository;
         private readonly IModuleRepository moduleRepository;
-        private readonly IFeeRepository feeRepository;
+        private readonly IFeeRepository feeRepository;        
         private readonly ILogger<IndexModel> _logger;
 
         public IndexModel(IJurisdictionRepository jurisdictionRepository, IModuleRepository moduleRepository, IFeeRepository feeRepository, ILogger<IndexModel> logger)
-        {
+        {            
             this.jurisdictionRepository = jurisdictionRepository;
             this.moduleRepository = moduleRepository;
             this.feeRepository = feeRepository;
@@ -29,7 +31,7 @@ namespace IPFees.Web.Pages
         {
             JurisdictionCount = (await jurisdictionRepository.GetJurisdictions()).Count();
             FeeCount = (await feeRepository.GetFees()).Count();
-            ModuleCount = (await moduleRepository.GetModules()).Count();
+            ModuleCount = (await moduleRepository.GetModules()).Count();            
             return Page();
         }
     }
