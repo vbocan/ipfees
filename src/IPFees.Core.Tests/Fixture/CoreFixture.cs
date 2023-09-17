@@ -7,7 +7,7 @@ namespace IPFees.Core.Tests.Fixture
 {
     public class CoreFixture : IDisposable
     {
-        public CurrencyConverter CurrencyConverter { get; set; }
+        public ExchangeRateFetcher CurrencyConverter { get; set; }
         public FeeRepository FeeRepository { get; set; }
         public JurisdictionRepository JurisdictionRepository { get; set; }
         public ModuleRepository ModuleRepository { get; set; }
@@ -25,7 +25,7 @@ namespace IPFees.Core.Tests.Fixture
             DbContext.JurisdictionCollection.DeleteMany(new BsonDocument());
             DbContext.ServiceFeesCollection.DeleteMany(new BsonDocument());
 
-            CurrencyConverter = new CurrencyConverter(ExchangeApiKey);
+            CurrencyConverter = new ExchangeRateFetcher(ExchangeApiKey);
             FeeRepository = new FeeRepository(DbContext);
             JurisdictionRepository = new JurisdictionRepository(DbContext);
             ModuleRepository = new ModuleRepository(DbContext);
