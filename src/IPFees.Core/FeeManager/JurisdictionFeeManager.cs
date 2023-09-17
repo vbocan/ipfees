@@ -138,10 +138,10 @@ namespace IPFees.Core.FeeManager
                 TotalFee = Fee.Add(TotalFee, CurrentJurisdictionFees.TranslationFee);
                 TotalFee = Fee.Add(TotalFee, CurrentJurisdictionFees.ServiceFee);
                 CurrentJurisdictionFees = CurrentJurisdictionFees with { TotalFee = TotalFee };
-                // TODO: Convert fees to target currency
-
+                // Convert fees to target currency
+                var CurrentJurisdictionFeesInTargetCurrency = ConvertCurrency(CurrentJurisdictionFees, TargetCurrency);
                 // Store fees for the current jurisdiction
-                JurisdictionFees.Add(CurrentJurisdictionFees);
+                JurisdictionFees.Add(CurrentJurisdictionFeesInTargetCurrency);
             }
             // Compute totals
             var TotalOfficialFee = new Fee(JurisdictionFees.Sum(s1 => s1.OfficialFee.MandatoryAmount), JurisdictionFees.Sum(s2 => s2.OfficialFee.OptionalAmount), TargetCurrency);
@@ -157,6 +157,11 @@ namespace IPFees.Core.FeeManager
         }
 
         private IEnumerable<FeeInfo> GetFeeDefinitionForJurisdiction(string JurisdictionName) => feeRepository.GetFees().Result.Where(w => w.JurisdictionName.Equals(JurisdictionName));
+
+        private JurisdictionFeesAmount ConvertCurrency(JurisdictionFeesAmount SourceFees, string TargetCurrency)
+        {
+
+        }
     }
 
     public record JurisdictionFeesAmount(string Jurisdiction, Fee OfficialFee, Fee PartnerFee, Fee TranslationFee, Fee ServiceFee, Fee TotalFee);
