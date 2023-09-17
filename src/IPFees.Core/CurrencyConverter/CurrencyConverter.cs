@@ -1,7 +1,6 @@
-﻿using MongoDB.Bson.IO;
-using System.Text.Json;
+﻿using System.Text.Json;
 
-namespace IPFees.Core
+namespace IPFees.Core.CurrencyConversion
 {
     /// <summary>
     /// Uses https://exchangerate-api.com
@@ -177,7 +176,7 @@ namespace IPFees.Core
         public CurrencyConverter(string APIKey)
         {
             this.APIKey = APIKey;
-            this.APIBaseCurrency = APIBaseCurrency;
+            APIBaseCurrency = APIBaseCurrency;
         }
 
         /// <summary>

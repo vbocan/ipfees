@@ -1,12 +1,14 @@
-﻿using IPFees.Core.Data;
+﻿using IPFees.Core.CurrencyConversion;
+using IPFees.Core.Data;
 using IPFees.Core.Enum;
+using IPFees.Core.FeeCalculation;
 using IPFees.Core.Model;
 using IPFees.Core.Repository;
 using IPFees.Evaluator;
 using IPFees.Parser;
 using System;
 
-namespace IPFees.Core
+namespace IPFees.Core.FeeManager
 {
     public class JurisdictionFeeManager : IJurisdictionFeeManager
     {

@@ -2,9 +2,9 @@ using IPFees.Calculator;
 using IPFees.Core.Tests.Fixture;
 using IPFees.Evaluator;
 using IPFees.Parser;
-using IPFees.Core;
 using IPFees.Core.Data;
-using static IPFees.Core.FeeCalculator;
+using static IPFees.Core.FeeCalculation.FeeCalculator;
+using IPFees.Core.FeeCalculation;
 
 namespace IPFees.Core.Tests
 {

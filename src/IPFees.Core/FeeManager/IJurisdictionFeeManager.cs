@@ -1,7 +1,8 @@
-﻿using IPFees.Evaluator;
+﻿using IPFees.Core.FeeCalculation;
+using IPFees.Evaluator;
 using IPFees.Parser;
 
-namespace IPFees.Core
+namespace IPFees.Core.FeeManager
 {
     public interface IJurisdictionFeeManager
     {

@@ -4,7 +4,7 @@ using IPFees.Core.Repository;
 using IPFees.Evaluator;
 using IPFees.Parser;
 
-namespace IPFees.Core
+namespace IPFees.Core.FeeCalculation
 {
     public class FeeCalculator : IFeeCalculator
     {
@@ -106,7 +106,7 @@ namespace IPFees.Core
                 var Groups = Calculator.GetGroups();
                 return new FeeResultParse(jur.Name, jur.Description, Inputs, Groups);
             }
-        }        
+        }
     }
 
     public abstract record FeeResult();
