@@ -1,8 +1,8 @@
 ﻿using IPFees.Core.CurrencyConversion;
 
-namespace IPFees.Web.Data
+namespace IPFees.Core.SharedDataExchange
 {
-    public class SharedExchangeRateData
+    public class SharedExchangeRateData : ISharedExchangeRateData
     {
         public ExchangeResponse Response { get; set; }
 

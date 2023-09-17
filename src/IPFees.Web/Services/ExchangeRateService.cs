@@ -1,4 +1,5 @@
 ﻿using IPFees.Core.CurrencyConversion;
+using IPFees.Core.SharedDataExchange;
 using IPFees.Web.Data;
 using SharpCompress.Readers;
 
@@ -9,10 +10,10 @@ namespace IPFees.Web.Services
         private readonly TimeSpan ExchangeRateDelaySuccess = TimeSpan.FromHours(6);
         private readonly TimeSpan ExchangeRateDelayFail = TimeSpan.FromSeconds(30);
         private readonly IExchangeRateFetcher currencyConverter;
-        private readonly SharedExchangeRateData sharedExchangeRateData;
+        private readonly ISharedExchangeRateData sharedExchangeRateData;
         private readonly ILogger<ExchangeRateService> logger;
 
-        public ExchangeRateService(IExchangeRateFetcher currencyConverter, SharedExchangeRateData sharedExchangeRateData, ILogger<ExchangeRateService> logger)
+        public ExchangeRateService(IExchangeRateFetcher currencyConverter, ISharedExchangeRateData sharedExchangeRateData, ILogger<ExchangeRateService> logger)
         {
             this.sharedExchangeRateData = sharedExchangeRateData;
             this.currencyConverter = currencyConverter;

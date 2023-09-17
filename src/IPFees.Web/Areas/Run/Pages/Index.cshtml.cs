@@ -1,7 +1,6 @@
-using IPFees.Core.CurrencyConversion;
-using IPFees.Core.Enum;
 using IPFees.Core.Model;
 using IPFees.Core.Repository;
+using IPFees.Core.SharedDataExchange;
 using IPFees.Web.Data;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -19,12 +18,12 @@ namespace IPFees.Web.Areas.Run.Pages
         public IEnumerable<SelectListItem> CurrencyItems { get; set; }
         public bool CurrencyExchangeRatesAvailable { get; set; }
         private readonly IJurisdictionRepository jurisdictionRepository;
-        private readonly SharedExchangeRateData serd;
+        private readonly ISharedExchangeRateData serd;
         private readonly ILogger<IndexModel> _logger;
 
         private readonly CurrencySettings currencySettings;
 
-        public IndexModel(IJurisdictionRepository jurisdictionRepository, SharedExchangeRateData serd, IOptions<CurrencySettings> currencySettings, ILogger<IndexModel> logger)
+        public IndexModel(IJurisdictionRepository jurisdictionRepository, ISharedExchangeRateData serd, IOptions<CurrencySettings> currencySettings, ILogger<IndexModel> logger)
         {
             this.jurisdictionRepository = jurisdictionRepository;
             this.serd = serd;

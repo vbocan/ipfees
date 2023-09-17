@@ -7,16 +7,17 @@ using IPFees.Core.Repository;
 using IPFees.Core.Model;
 using IPFees.Core.Enum;
 using System.Linq;
+using IPFees.Core.SharedDataExchange;
 
 namespace IPFees.Web.Areas.Currency.Pages
 {
     public class IndexModel : PageModel
     {
-        private readonly SharedExchangeRateData serd;
+        private readonly ISharedExchangeRateData serd;
         public IEnumerable<(string, string, decimal?)> Currencies { get; set; }
         public DateTime ExchangeDataLastUpdatedOn { get; set; }
 
-        public IndexModel(SharedExchangeRateData serd)
+        public IndexModel(ISharedExchangeRateData serd)
         {
             this.serd = serd;
         }
