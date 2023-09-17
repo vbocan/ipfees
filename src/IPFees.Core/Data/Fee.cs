@@ -16,9 +16,8 @@
         public static Fee Add(Fee first, Fee second)
         {
             if (first.Currency != second.Currency)
-            {
-                // TODO: Uncomment this in production
-                //throw new ArgumentException("Currencies are not the same.");
+            {                
+                throw new ArgumentException($"Cannot add different currencies ({first.Currency} and {second.Currency}).");
             }
 
             double totalMandatory = first.MandatoryAmount + second.MandatoryAmount;
