@@ -17,6 +17,7 @@ namespace IPFees.Web.Areas.Run.Pages
         [BindProperty] public IList<JurisdictionViewModel> SelectedJurisdictions { get; set; }
 
         public IEnumerable<SelectListItem> CurrencyItems { get; set; }
+        public bool CurrencyExchangeRatesAvailable { get; set; }
         private readonly IJurisdictionRepository jurisdictionRepository;
         private readonly SharedExchangeRateData serd;
         private readonly ILogger<IndexModel> _logger;
@@ -42,6 +43,7 @@ namespace IPFees.Web.Areas.Run.Pages
                 .GetCurrencies()
                 .Where(w => currencySettings.AllowedCurrencies.Contains(w.Item1))
                 .Select(s => new SelectListItem($"{s.Item1} - {s.Item2}", s.Item1));
+            CurrencyExchangeRatesAvailable = serd.Response.ServerResponseValid;
             return Page();
         }
 
