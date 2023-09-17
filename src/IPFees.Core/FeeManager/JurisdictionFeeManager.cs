@@ -1,9 +1,9 @@
-﻿using IPFees.Core.Data;
+﻿using IPFees.Core.CurrencyConversion;
+using IPFees.Core.Data;
 using IPFees.Core.Enum;
 using IPFees.Core.FeeCalculation;
 using IPFees.Core.Model;
 using IPFees.Core.Repository;
-using IPFees.Core.SharedDataExchange;
 using IPFees.Evaluator;
 using IPFees.Parser;
 
@@ -15,9 +15,9 @@ namespace IPFees.Core.FeeManager
         private readonly IFeeRepository feeRepository;
         private readonly ISettingsRepository settingsRepository;
         private readonly IJurisdictionRepository jurisdictionRepository;
-        private readonly ISharedExchangeRateData sharedExchangeRateData;
+        private readonly ICurrencyConverter sharedExchangeRateData;
 
-        public JurisdictionFeeManager(IFeeCalculator feeCalculator, IFeeRepository feeRepository, IJurisdictionRepository jurisdictionRepository, ISettingsRepository settingsRepository, ISharedExchangeRateData sharedExchangeRateData)
+        public JurisdictionFeeManager(IFeeCalculator feeCalculator, IFeeRepository feeRepository, IJurisdictionRepository jurisdictionRepository, ISettingsRepository settingsRepository, ICurrencyConverter sharedExchangeRateData)
         {
             this.feeCalculator = feeCalculator;
             this.feeRepository = feeRepository;
