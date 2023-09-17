@@ -11,6 +11,7 @@ using IPFees.Core.FeeCalculation;
 using IPFees.Core.FeeManager;
 using Microsoft.Extensions.Hosting;
 using IPFees.Web.Services;
+using IPFees.Core.SharedDataExchange;
 
 // Set Serilog settings
 var logger = new LoggerConfiguration()
@@ -52,7 +53,7 @@ builder.Services.AddTransient<IExchangeRateFetcher>(x => new ExchangeRateFetcher
 
 // Add exhange rate service
 builder.Services.AddHostedService<ExchangeRateService>();
-builder.Services.AddSingleton<SharedExchangeRateData>();
+builder.Services.AddSingleton<ISharedExchangeRateData, SharedExchangeRateData>();
 
 // Add logger
 builder.Logging.AddSerilog(logger);
