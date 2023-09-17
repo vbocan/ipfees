@@ -1,10 +1,11 @@
-﻿using System.Text.Json;
-
-namespace IPFees.Core.CurrencyConversion
+﻿namespace IPFees.Core.CurrencyConversion
 {
-    public class CurrencyConverter
+    public class CurrencyConverter : ICurrencyConverter
     {
-        private static readonly Currency[] Currencies = {
+        public ExchangeRateResponse Response { get; set; }
+
+        #region Static currency managment
+        private readonly Currency[] Currencies = {
             new Currency("AED","UAE Dirham"),
             new Currency("AFN","Afghan Afghani"),
             new Currency("ALL","Albanian Lek"),
@@ -167,37 +168,35 @@ namespace IPFees.Core.CurrencyConversion
             new Currency("ZMW","Zambian Kwacha"),
             new Currency("ZWL","Zimbabwean Dollar"),
             };
+        /// <summary>
+        /// Get an enumeration of currency symbols and their names
+        /// </summary>
+        /// <returns>An enumeration of tuples of symbol and name</returns>
+        public IEnumerable<(string, string)> GetCurrencies() => Currencies.OrderBy(o => o.Symbol).Select(s => (s.Symbol, s.Name));        
+        private record Currency(string Symbol, string Name);
+        #endregion        
 
         /// <summary>
         /// Perform currency conversion
-        /// </summary>
-        /// <param name="exchangeResponse">Information retrieved from the exchange server (see ExchangeRateFetcher)</param>
+        /// </summary>        
         /// <param name="Amount">Amount in source currency</param>
         /// <param name="SourceCurrency">Source currency (e.g. USD)</param>
         /// <param name="TargetCurrency">Target currency (e.g. RON)</param>
         /// <returns>Amount expressed in the target currency</returns>
         /// <exception cref="Exception">If the exhange data is not valid, an exception will be thrown</exception>
         /// <exception cref="ArgumentException">If the currencies are not known, an exception will be thrown</exception>
-        public static decimal ConvertCurrency(ExchangeResponse exchangeResponse, decimal Amount, string SourceCurrency, string TargetCurrency)
+        public decimal ConvertCurrency(decimal Amount, string SourceCurrency, string TargetCurrency)
         {
             // Check whether we've fetched the currency exchange rates
-            if (!exchangeResponse.ServerResponseValid) throw new Exception("No currency information available");
+            if (!Response.ResponseValid) throw new Exception("No currency information available");
             // Check whether the source and target currencies are actually in the exchange rate data
-            if (!exchangeResponse.ExchangeRates.ContainsKey(SourceCurrency)) throw new ArgumentException($"Currency {SourceCurrency} does not exist", nameof(SourceCurrency));
-            if (!exchangeResponse.ExchangeRates.ContainsKey(TargetCurrency)) throw new ArgumentException($"Currency {TargetCurrency} does not exist", nameof(TargetCurrency));
+            if (!Response.ExchangeRates.ContainsKey(SourceCurrency)) throw new ArgumentException($"Currency {SourceCurrency} does not exist", nameof(SourceCurrency));
+            if (!Response.ExchangeRates.ContainsKey(TargetCurrency)) throw new ArgumentException($"Currency {TargetCurrency} does not exist", nameof(TargetCurrency));
             // Compute currency exhange rate
-            decimal SourceExchangeRate = exchangeResponse.ExchangeRates[SourceCurrency];
-            decimal TargetExchangeRate = exchangeResponse.ExchangeRates[TargetCurrency];
-            var AmountInTargetCurrency = (Amount / SourceExchangeRate) * TargetExchangeRate;
+            decimal SourceExchangeRate = Response.ExchangeRates[SourceCurrency];
+            decimal TargetExchangeRate = Response.ExchangeRates[TargetCurrency];
+            var AmountInTargetCurrency = Amount / SourceExchangeRate * TargetExchangeRate;
             return AmountInTargetCurrency;
-        }
-
-        /// <summary>
-        /// Get an enumeration of currency symbols and their names
-        /// </summary>
-        /// <returns>An enumeration of tuples of symbol and name</returns>
-        public static IEnumerable<(string, string)> GetCurrencies() => Currencies.OrderBy(o => o.Symbol).Select(s => (s.Symbol, s.Name));
-
-        private record Currency(string Symbol, string Name);
+        }        
     }
 }

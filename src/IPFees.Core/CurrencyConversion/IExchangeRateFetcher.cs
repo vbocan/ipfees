@@ -2,6 +2,6 @@
 {
     public interface IExchangeRateFetcher
     {
-        Task<ExchangeResponse> FetchCurrencyExchangeData();        
+        Task<ExchangeRateResponse> FetchCurrencyExchangeData();        
     }
 }

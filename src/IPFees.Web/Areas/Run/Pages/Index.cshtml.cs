@@ -1,6 +1,6 @@
+using IPFees.Core.CurrencyConversion;
 using IPFees.Core.Model;
 using IPFees.Core.Repository;
-using IPFees.Core.SharedDataExchange;
 using IPFees.Web.Data;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -18,12 +18,12 @@ namespace IPFees.Web.Areas.Run.Pages
         public IEnumerable<SelectListItem> CurrencyItems { get; set; }
         public bool CurrencyExchangeRatesAvailable { get; set; }
         private readonly IJurisdictionRepository jurisdictionRepository;
-        private readonly ISharedExchangeRateData serd;
+        private readonly ICurrencyConverter serd;
         private readonly ILogger<IndexModel> _logger;
 
         private readonly CurrencySettings currencySettings;
 
-        public IndexModel(IJurisdictionRepository jurisdictionRepository, ISharedExchangeRateData serd, IOptions<CurrencySettings> currencySettings, ILogger<IndexModel> logger)
+        public IndexModel(IJurisdictionRepository jurisdictionRepository, ICurrencyConverter serd, IOptions<CurrencySettings> currencySettings, ILogger<IndexModel> logger)
         {
             this.jurisdictionRepository = jurisdictionRepository;
             this.serd = serd;
@@ -42,7 +42,7 @@ namespace IPFees.Web.Areas.Run.Pages
                 .GetCurrencies()
                 .Where(w => currencySettings.AllowedCurrencies.Contains(w.Item1))
                 .Select(s => new SelectListItem($"{s.Item1} - {s.Item2}", s.Item1));
-            CurrencyExchangeRatesAvailable = serd.Response.ServerResponseValid;
+            CurrencyExchangeRatesAvailable = serd.Response.ResponseValid;
             return Page();
         }
 
