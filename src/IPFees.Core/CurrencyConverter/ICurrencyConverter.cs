@@ -1,6 +1,6 @@
-﻿using static IPFees.Core.CurrencyConverter;
+﻿using static IPFees.Core.CurrencyConversion.CurrencyConverter;
 
-namespace IPFees.Core
+namespace IPFees.Core.CurrencyConversion
 {
     public interface ICurrencyConverter
     {

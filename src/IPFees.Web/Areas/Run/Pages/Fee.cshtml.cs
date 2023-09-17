@@ -1,4 +1,4 @@
-using IPFees.Core;
+using IPFees.Core.FeeCalculation;
 using IPFees.Evaluator;
 using IPFees.Parser;
 using Microsoft.AspNetCore.Mvc;

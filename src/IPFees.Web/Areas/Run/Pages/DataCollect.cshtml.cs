@@ -1,4 +1,4 @@
-using IPFees.Core;
+using IPFees.Core.FeeManager;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 

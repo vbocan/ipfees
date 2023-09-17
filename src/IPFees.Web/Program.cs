@@ -1,5 +1,4 @@
 using IPFees.Calculator;
-using IPFees.Core;
 using IPFees.Parser;
 using IPFees.Web.Data;
 using IPFees.Core.Data;
@@ -7,6 +6,9 @@ using Microsoft.Extensions.Options;
 using Serilog;
 using Serilog.Formatting.Compact;
 using IPFees.Core.Repository;
+using IPFees.Core.CurrencyConversion;
+using IPFees.Core.FeeCalculation;
+using IPFees.Core.FeeManager;
 
 // Set Serilog settings
 var logger = new LoggerConfiguration()

@@ -1,4 +1,4 @@
-using IPFees.Core;
+using IPFees.Core.CurrencyConversion;
 using IPFees.Core.Enum;
 using IPFees.Core.Model;
 using IPFees.Core.Repository;
