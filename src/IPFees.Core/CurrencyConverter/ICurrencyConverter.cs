@@ -4,7 +4,8 @@ namespace IPFees.Core.CurrencyConversion
 {
     public interface ICurrencyConverter
     {
-        Task<ExchangeResponse> FetchCurrencyExchangeData();
+        Task FetchCurrencyExchangeData();
         IEnumerable<(string, string)> GetCurrencies();
+        decimal ConvertCurrency(decimal Amount, string SourceCurrency, string TargetCurrency);
     }
 }
