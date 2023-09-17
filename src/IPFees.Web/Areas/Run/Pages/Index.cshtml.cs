@@ -18,15 +18,15 @@ namespace IPFees.Web.Areas.Run.Pages
 
         public IEnumerable<SelectListItem> CurrencyItems { get; set; }
         private readonly IJurisdictionRepository jurisdictionRepository;
-        private readonly ICurrencyConverter currencyConverter;
+        private readonly SharedExchangeRateData serd;
         private readonly ILogger<IndexModel> _logger;
 
         private readonly CurrencySettings currencySettings;
 
-        public IndexModel(IJurisdictionRepository jurisdictionRepository, ICurrencyConverter currencyConverter, IOptions<CurrencySettings> currencySettings, ILogger<IndexModel> logger)
+        public IndexModel(IJurisdictionRepository jurisdictionRepository, SharedExchangeRateData serd, IOptions<CurrencySettings> currencySettings, ILogger<IndexModel> logger)
         {
             this.jurisdictionRepository = jurisdictionRepository;
-            this.currencyConverter = currencyConverter;
+            this.serd = serd;
             this.currencySettings = currencySettings.Value;
             _logger = logger;
         }
@@ -38,7 +38,7 @@ namespace IPFees.Web.Areas.Run.Pages
                 .OrderBy(o => o.Name)
                 .Select(s => new JurisdictionViewModel(s.Id, s.Name, s.Description, true))
                 .ToList();
-            CurrencyItems = currencyConverter
+            CurrencyItems = serd
                 .GetCurrencies()
                 .Where(w => currencySettings.AllowedCurrencies.Contains(w.Item1))
                 .Select(s => new SelectListItem($"{s.Item1} - {s.Item2}", s.Item1));
