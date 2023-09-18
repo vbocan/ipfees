@@ -92,8 +92,11 @@ namespace IPFees.Core.FeeManager
                 var FeeDefinitions = GetFeeDefinitionForJurisdiction(jn);
                 // Let's tackle one fee definition at a time
                 var OfficialFee = new Fee(0.0M, 0.0M, string.Empty);
+                var OfficialFeeDefined = false;
                 var PartnerFee = new Fee(0.0M, 0.0M, string.Empty);
+                var PartnerFeeDefined = false;
                 var TranslationFee = new Fee(0.0M, 0.0M, string.Empty);
+                var TranslationFeeDefined = false;
                 foreach (var fd in FeeDefinitions)
                 {
                     // Perform the calculation on the current fee definition
@@ -110,6 +113,7 @@ namespace IPFees.Core.FeeManager
                         switch (fd.Category)
                         {
                             case FeeCategory.OfficialFees:
+                                OfficialFeeDefined = true;
                                 OfficialFee = new Fee(
                                     frc.TotalMandatoryAmount,
                                     frc.TotalOptionalAmount,
@@ -117,6 +121,7 @@ namespace IPFees.Core.FeeManager
                                     );
                                 break;
                             case FeeCategory.PartnerFees:
+                                PartnerFeeDefined = true;
                                 PartnerFee = new Fee(
                                     frc.TotalMandatoryAmount,
                                     frc.TotalOptionalAmount,
@@ -124,6 +129,7 @@ namespace IPFees.Core.FeeManager
                                     );
                                 break;
                             case FeeCategory.TranslationFees:
+                                TranslationFeeDefined = true;
                                 TranslationFee = new Fee(
                                     frc.TotalMandatoryAmount,
                                     frc.TotalOptionalAmount,
@@ -134,39 +140,66 @@ namespace IPFees.Core.FeeManager
                     }
                 }
                 #endregion
+                #region Fee definition sanity checks
                 // Check whether the current jurisdiction has all fees defined, otherwise signal error
-                if(string.IsNullOrEmpty(OfficialFee.Currency))
+                if (!OfficialFeeDefined)
                 {
                     Errors.Add(new FeeResultFail(jur.Name, jur.Description, new string[] { "[Official Fee] definition is missing" }));
                     continue;
                 }
-                if (string.IsNullOrEmpty(PartnerFee.Currency))
+                if (!PartnerFeeDefined)
                 {
                     Errors.Add(new FeeResultFail(jur.Name, jur.Description, new string[] { "[Partner Fee] definition is missing" }));
                     continue;
                 }
-                if (string.IsNullOrEmpty(TranslationFee.Currency))
+                if (!TranslationFeeDefined)
                 {
                     Errors.Add(new FeeResultFail(jur.Name, jur.Description, new string[] { "[Translation Fee] definition is missing" }));
                     continue;
                 }
-                // Convert the Official Fee
-                var ConvertedOfficialFee = ConvertCurrency(OfficialFee, TargetCurrency, CurrencyMarkup);
-                // Convert the Partner Fee
-                var ConvertedPartnerFee = ConvertCurrency(PartnerFee, TargetCurrency, CurrencyMarkup);
-                // Convert the Translation Fee
-                var ConvertedTranslationFee = ConvertCurrency(TranslationFee, TargetCurrency, CurrencyMarkup);
-                // Convert the Service Fee
-                var ConvertedServiceFee = ConvertCurrency(ServiceFee, TargetCurrency, CurrencyMarkup);
+                #endregion
+                #region Currency sanity checks
+                // Check whether the current jurisdiction has the currencies defined for all fee types
+                if (string.IsNullOrEmpty(OfficialFee.Currency))
+                {
+                    Errors.Add(new FeeResultFail(jur.Name, jur.Description, new string[] { "[Official Fee] does not define a currency" }));
+                    continue;
+                }
+                if (string.IsNullOrEmpty(PartnerFee.Currency))
+                {
+                    Errors.Add(new FeeResultFail(jur.Name, jur.Description, new string[] { "[Partner Fee] does not define a currency" }));
+                    continue;
+                }
+                if (string.IsNullOrEmpty(TranslationFee.Currency))
+                {
+                    Errors.Add(new FeeResultFail(jur.Name, jur.Description, new string[] { "[Translation Fee] does not define a currency" }));
+                    continue;
+                }
+                #endregion
+                try
+                {
+                    // Convert the Official Fee
+                    var ConvertedOfficialFee = ConvertCurrency(OfficialFee, TargetCurrency, CurrencyMarkup);
+                    // Convert the Partner Fee
+                    var ConvertedPartnerFee = ConvertCurrency(PartnerFee, TargetCurrency, CurrencyMarkup);
+                    // Convert the Translation Fee
+                    var ConvertedTranslationFee = ConvertCurrency(TranslationFee, TargetCurrency, CurrencyMarkup);
+                    // Convert the Service Fee
+                    var ConvertedServiceFee = ConvertCurrency(ServiceFee, TargetCurrency, CurrencyMarkup);
 
-                // Compute total for the current jurisdiction
-                var ConvertedTotalFee = Fee.Add(ConvertedOfficialFee, ConvertedPartnerFee);
-                ConvertedTotalFee = Fee.Add(ConvertedTotalFee, ConvertedTranslationFee);
-                ConvertedTotalFee = Fee.Add(ConvertedTotalFee, ConvertedServiceFee);
+                    // Compute total for the current jurisdiction
+                    var ConvertedTotalFee = Fee.Add(ConvertedOfficialFee, ConvertedPartnerFee);
+                    ConvertedTotalFee = Fee.Add(ConvertedTotalFee, ConvertedTranslationFee);
+                    ConvertedTotalFee = Fee.Add(ConvertedTotalFee, ConvertedServiceFee);
 
-                var CurrentJurisdictionFees = new JurisdictionFeesAmount(jn, "N/A", ConvertedOfficialFee, ConvertedPartnerFee, ConvertedTranslationFee, ConvertedServiceFee, ConvertedTotalFee);
-                // Store fees for the current jurisdiction
-                JurisdictionFees.Add(CurrentJurisdictionFees);
+                    var CurrentJurisdictionFees = new JurisdictionFeesAmount(jn, "N/A", ConvertedOfficialFee, ConvertedPartnerFee, ConvertedTranslationFee, ConvertedServiceFee, ConvertedTotalFee);
+                    // Store fees for the current jurisdiction
+                    JurisdictionFees.Add(CurrentJurisdictionFees);
+                }
+                catch (Exception ex)
+                {
+                    Errors.Add(new FeeResultFail(jur.Name, jur.Description, new string[] { ex.Message }));
+                }
             }
             // Compute totals
             var TotalOfficialFee = new Fee(JurisdictionFees.Sum(s1 => s1.OfficialFee.MandatoryAmount), JurisdictionFees.Sum(s2 => s2.OfficialFee.OptionalAmount), TargetCurrency);
