@@ -166,9 +166,17 @@ namespace IPFees.Core.FeeManager
 
         private IEnumerable<FeeInfo> GetFeeDefinitionForJurisdiction(string JurisdictionName) => feeRepository.GetFees().Result.Where(w => w.JurisdictionName.Equals(JurisdictionName));
 
+        /// <summary>
+        /// Convert a Fee from the original currency to a specified target currency
+        /// </summary>
+        /// <param name="SourceFee">Fee to convert</param>
+        /// <param name="TargetCurrency">Target currency for the converted fee</param>
+        /// <returns>The converted fee</returns>
         private Fee ConvertCurrency(Fee SourceFee, string TargetCurrency)
         {
-             
+            var ma = currencyConverter.ConvertCurrency(SourceFee.MandatoryAmount, SourceFee.Currency, TargetCurrency);
+            var oa = currencyConverter.ConvertCurrency(SourceFee.OptionalAmount, SourceFee.Currency, TargetCurrency);
+            return new Fee(ma, oa, TargetCurrency);
         }
     }
 
