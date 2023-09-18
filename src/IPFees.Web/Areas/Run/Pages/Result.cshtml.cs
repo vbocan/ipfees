@@ -48,7 +48,7 @@ namespace IPFees.Web.Areas.Run.Pages
                 else if (item.Type == typeof(DslInputNumber).ToString())
                 {
                     // A number input returns a double
-                    CollectedValues.Add(new IPFValueNumber(item.Name, item.DoubleValue));
+                    CollectedValues.Add(new IPFValueNumber(item.Name, item.DecimalValue));
                 }
                 else if (item.Type == typeof(DslInputBoolean).ToString())
                 {

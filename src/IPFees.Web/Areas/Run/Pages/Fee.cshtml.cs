@@ -15,8 +15,8 @@ namespace IPFees.Web.Areas.Run.Pages
         [BindProperty] public IList<IPFValue> CollectedValues { get; set; }
 
         // Calculation results
-        [BindProperty] public double TotalMandatoryAmount { get; set; }
-        [BindProperty] public double TotalOptionalAmount { get; set; }
+        [BindProperty] public decimal TotalMandatoryAmount { get; set; }
+        [BindProperty] public decimal TotalOptionalAmount { get; set; }
         // Calculation steps
         [BindProperty] public IEnumerable<string> CalculationSteps { get; set; }
         // Returns
@@ -64,7 +64,7 @@ namespace IPFees.Web.Areas.Run.Pages
                 else if (item.Type == typeof(DslInputNumber).ToString())
                 {
                     // A number input returns a double
-                    CollectedValues.Add(new IPFValueNumber(item.Name, item.DoubleValue));
+                    CollectedValues.Add(new IPFValueNumber(item.Name, item.DecimalValue));
                 }
                 else if (item.Type == typeof(DslInputBoolean).ToString())
                 {
@@ -105,7 +105,7 @@ namespace IPFees.Web.Areas.Run.Pages
         }
     }
 
-    public record InputViewModel(string Group, string Name, string Type, DslInput Var, string StrValue, string[] ListValue, double DoubleValue, bool BoolValue, DateOnly DateValue);    
+    public record InputViewModel(string Group, string Name, string Type, DslInput Var, string StrValue, string[] ListValue, decimal DecimalValue, bool BoolValue, DateOnly DateValue);    
     public record FailedFeeViewModel(string FeeName, string FeeDescription);
 
 }

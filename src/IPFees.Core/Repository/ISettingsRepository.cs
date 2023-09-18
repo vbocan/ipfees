@@ -6,7 +6,7 @@ namespace IPFees.Core.Repository
 {
     public interface ISettingsRepository
     {
-        Task<DbResult> SetServiceFeeAsync(ServiceFeeLevel FeeLevel, double Amount, string Currency);
+        Task<DbResult> SetServiceFeeAsync(ServiceFeeLevel FeeLevel, decimal Amount, string Currency);
         Task<IEnumerable<ServiceFeeInfo>> GetServiceFeesAsync();
         Task<ServiceFeeInfo> GetServiceFeeAsync(ServiceFeeLevel FeeLevel);
     }

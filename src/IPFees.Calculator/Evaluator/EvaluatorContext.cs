@@ -13,7 +13,7 @@ namespace IPFees.Evaluator
             this.FeeName = FeeName;
         }
 
-        public double ResolveVariable(string name)
+        public decimal ResolveVariable(string name)
         {
             var TokenValue = ProcessTokenAsVariableOrProperty(name);
             if (TokenValue is null)
@@ -27,7 +27,7 @@ namespace IPFees.Evaluator
             return (TokenValue as IPFValueNumber).Value;
         }
 
-        public double CallFunction(string name, double[] arguments)
+        public decimal CallFunction(string name, decimal[] arguments)
         {
             return name switch
             {
@@ -80,7 +80,7 @@ namespace IPFees.Evaluator
                 {
                     // Push the difference between dates as years
                     TimeSpan difference = DateTime.Now.Subtract((Date as IPFValueDate).Value.ToDateTime(TimeOnly.MinValue));
-                    return new IPFValueNumber(string.Empty, difference.TotalDays / 365.25);
+                    return new IPFValueNumber(string.Empty, (decimal)(difference.TotalDays / 365.25));
                 }
             }
             #endregion
@@ -95,7 +95,7 @@ namespace IPFees.Evaluator
                 {
                     // Push the difference between dates as months
                     TimeSpan difference = DateTime.Now.Subtract((Date as IPFValueDate).Value.ToDateTime(TimeOnly.MinValue));
-                    return new IPFValueNumber(string.Empty, difference.TotalDays / (365.25 / 12));
+                    return new IPFValueNumber(string.Empty, (decimal)(difference.TotalDays / (365.25 / 12)));
                 }
             }
             #endregion
@@ -110,7 +110,7 @@ namespace IPFees.Evaluator
                 {
                     // Push the difference between dates as days
                     TimeSpan difference = DateTime.Now.Subtract((Date as IPFValueDate).Value.ToDateTime(TimeOnly.MinValue));
-                    return new IPFValueNumber(string.Empty, difference.TotalDays);
+                    return new IPFValueNumber(string.Empty, (decimal)difference.TotalDays);
                 }
             }
             #endregion
@@ -128,7 +128,7 @@ namespace IPFees.Evaluator
                     DateOnly endOfMonth = new DateOnly(givenDate.Year, givenDate.Month, daysInMonth);
                     // Push the difference between dates as months
                     TimeSpan difference = DateTime.Now.Subtract(endOfMonth.ToDateTime(TimeOnly.MinValue));
-                    return new IPFValueNumber(string.Empty, difference.TotalDays / (365.25 / 12));
+                    return new IPFValueNumber(string.Empty, (decimal)(difference.TotalDays / (365.25 / 12)));
                 }
             }
             #endregion

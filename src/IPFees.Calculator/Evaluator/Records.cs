@@ -21,7 +21,7 @@ namespace IPFees.Evaluator
             return string.Format("[string list: {0} = {1}]", Name, string.Join('|', Value));
         }
     }
-    public record IPFValueNumber(string Name, double Value) : IPFValue(Name)
+    public record IPFValueNumber(string Name, decimal Value) : IPFValue(Name)
     {
         public override string ToString()
         {

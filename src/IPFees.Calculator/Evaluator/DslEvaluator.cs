@@ -18,8 +18,8 @@ namespace IPFees.Evaluator
 
         private static readonly Dictionary<string, int> Operators = new() { { "LT", 4 }, { "LTE", 4 }, { "GT", 4 }, { "GTE", 4 }, { "EQ", 3 }, { "NEQ", 3 }, { "IN", 3 }, { "NIN", 3 }, { "AND", 2 }, { "OR", 1 } };
 
-        public static double EvaluateExpression(string[] Tokens, IEnumerable<IPFValue> Vars) => EvaluateExpression(Tokens, Vars, string.Empty);
-        public static double EvaluateExpression(string[] Tokens, IEnumerable<IPFValue> Vars, string FeeName)
+        public static decimal EvaluateExpression(string[] Tokens, IEnumerable<IPFValue> Vars) => EvaluateExpression(Tokens, Vars, string.Empty);
+        public static decimal EvaluateExpression(string[] Tokens, IEnumerable<IPFValue> Vars, string FeeName)
         {
             return Parser.Parse(string.Join(" ", Tokens)).Eval(new EvaluatorContext(Vars, FeeName));
         }
@@ -75,7 +75,7 @@ namespace IPFees.Evaluator
                     ops.Push(Tokens[i]);
                 }
                 // Current token is a number
-                else if (double.TryParse(Tokens[i], NumberStyles.AllowDecimalPoint, CultureInfo.InvariantCulture, out double Number))
+                else if (decimal.TryParse(Tokens[i], NumberStyles.AllowDecimalPoint, CultureInfo.InvariantCulture, out decimal Number))
                 {
                     values.Push(new IPFValueNumber(string.Empty, Number));
                 }

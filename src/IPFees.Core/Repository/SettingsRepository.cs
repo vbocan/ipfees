@@ -16,7 +16,7 @@ namespace IPFees.Core.Repository
         }        
 
         #region Service Fees Level Settings
-        public async Task<DbResult> SetServiceFeeAsync(ServiceFeeLevel FeeLevel, double Amount, string Currency)
+        public async Task<DbResult> SetServiceFeeAsync(ServiceFeeLevel FeeLevel, decimal Amount, string Currency)
         {
             var res = await context.ServiceFeesCollection.UpdateOneAsync(r => r.FeeLevel.Equals(FeeLevel),
                 Builders<ServiceFeesDoc>
