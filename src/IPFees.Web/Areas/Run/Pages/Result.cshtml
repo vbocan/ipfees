@@ -104,10 +104,10 @@
     <div class="col-12 mt-4 text-danger">
         @if (Model.FeeResults.Errors.Count() > 0)
         {
-            <h3>Errors have occured!</h3>
+            <h3>Errors have occurred!</h3>
             @foreach (var er in @Model.FeeResults.Errors)
             {
-                <h4>@($"There are {er.Errors.Count()} errors at fee {er.FeeName}")</h4>
+                <h4>@($"There are {er.Errors.Count()} errors at {er.FeeName}")</h4>
                 <ul>
                     @foreach (var e in er.Errors)
                     {
