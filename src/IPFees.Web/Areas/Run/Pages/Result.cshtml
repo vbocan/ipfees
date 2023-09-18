@@ -6,16 +6,18 @@
     ViewData["Title"] = "Calculation Result";
 }
 
-<h1>Calculation Results</h1>
+<h1>Calculation Results <small class="text-muted">(@Model.TargetCurrency)</small></h1>
 
 <div class="row">
-    <div class="alert alert-danger" role="alert">
-        <strong>TODO:</strong> Convert currencies into @Model.TargetCurrency!
-    </div>
     <div class="col-lg-12">
-        Amounts expressed in @Model.TargetCurrency
-        <h3>Jurisdiction Fees</h3>
-        <table class="table table-hover">
+        <h3>
+            Jurisdiction Fees
+        </h3>
+        <small>
+            (<i class="bi bi-cash text-success px-1"></i> Mandatory |
+            <i class="bi bi-calendar text-warning px-1"></i> Optional)
+        </small>
+        <table class="table">
             <thead>
                 <tr>
                     <th scope="col">Jurisdiction</th>
@@ -33,48 +35,93 @@
                     <tr>
                         <th scope="row">@f.Jurisdiction</th>
                         <td>[LANG]</td>
-                        <td>@f.OfficialFee</td>
-                        <td>@f.PartnerFee</td>
-                        <td>@f.ServiceFee</td>
-                        <td>@f.TranslationFee</td>
-                        <td>@f.TotalFee</td>
+                        <td>
+                            <i class="bi bi-cash text-success px-1"></i> @($"{f.OfficialFee.MandatoryAmount} {@f.OfficialFee.Currency}")
+                            <br />
+                            <i class="bi bi-calendar text-warning px-1"></i> @($"{f.OfficialFee.OptionalAmount} {@f.OfficialFee.Currency}")
+                        </td>
+                        <td>
+                            <i class="bi bi-cash text-success px-1"></i> @($"{f.PartnerFee.MandatoryAmount} {@f.PartnerFee.Currency}")
+                            <br />
+                            <i class="bi bi-calendar text-warning px-1"></i> @($"{f.PartnerFee.OptionalAmount} {@f.PartnerFee.Currency}")
+                        </td>
+                        <td>
+                            <i class="bi bi-cash text-success px-1"></i> @($"{f.ServiceFee.MandatoryAmount} {@f.ServiceFee.Currency}")
+                            <br />
+                            <i class="bi bi-calendar text-warning px-1"></i> @($"{f.ServiceFee.OptionalAmount} {@f.ServiceFee.Currency}")
+                        </td>
+                        <td>
+                            <i class="bi bi-cash text-success px-1"></i> @($"{f.TranslationFee.MandatoryAmount} {@f.TranslationFee.Currency}")
+                            <br />
+                            <i class="bi bi-calendar text-warning px-1"></i> @($"{f.TranslationFee.OptionalAmount} {@f.TranslationFee.Currency}")
+                        </td>
+                        <td>
+                            <i class="bi bi-cash text-success px-1"></i> @($"{f.TotalFee.MandatoryAmount} {@f.TotalFee.Currency}")
+                            <br />
+                            <i class="bi bi-calendar text-warning px-1"></i> @($"{f.TotalFee.OptionalAmount} {@f.TotalFee.Currency}")
+                        </td>
                     </tr>
                 }
             </tbody>
         </table>
         <h3>Totals</h3>
-        <table class="table table-hover">
+        <table class="table">
             <thead>
                 <tr>
                     <th scope="col">Total Official Fees</th>
                     <th scope="col">Total Partner Fees</th>
                     <th scope="col">Total Service Fees</th>
                     <th scope="col">Total Translation Fees</th>
-                    <th scope="col">GRAND TOTAL</th>
+                    <th scope="col"><strong>GRAND TOTAL</strong></th>
                 </tr>
             </thead>
             <tbody>
                 <tr>
-                    <td>@Model.FeeResults.TotalOfficialFee</td>
-                    <td>@Model.FeeResults.TotalPartnerFee</td>
-                    <td>@Model.FeeResults.TotalServiceFee</td>
-                    <td>@Model.FeeResults.TotalTranslationFee</td>
-                    <td>@Model.FeeResults.GrandTotalFee</td>
+                    <td>
+                        <i class="bi bi-cash text-success px-1"></i> @($"{Model.FeeResults.TotalOfficialFee.MandatoryAmount} {@Model.FeeResults.TotalOfficialFee.Currency}")
+                        <br />
+                        <i class="bi bi-calendar text-warning px-1"></i> @($"{Model.FeeResults.TotalOfficialFee.OptionalAmount} {@Model.FeeResults.TotalOfficialFee.Currency}")
+                    </td>
+                    <td>
+                        <i class="bi bi-cash text-success px-1"></i> @($"{Model.FeeResults.TotalPartnerFee.MandatoryAmount} {@Model.FeeResults.TotalPartnerFee.Currency}")
+                        <br />
+                        <i class="bi bi-calendar text-warning px-1"></i> @($"{Model.FeeResults.TotalPartnerFee.OptionalAmount} {@Model.FeeResults.TotalPartnerFee.Currency}")
+                    </td>
+                    <td>
+                        <i class="bi bi-cash text-success px-1"></i> @($"{Model.FeeResults.TotalServiceFee.MandatoryAmount} {@Model.FeeResults.TotalServiceFee.Currency}")
+                        <br />
+                        <i class="bi bi-calendar text-warning px-1"></i> @($"{Model.FeeResults.TotalServiceFee.OptionalAmount} {@Model.FeeResults.TotalServiceFee.Currency}")
+                    </td>
+                    <td>
+                        <i class="bi bi-cash text-success px-1"></i> @($"{Model.FeeResults.TotalTranslationFee.MandatoryAmount} {@Model.FeeResults.TotalTranslationFee.Currency}")
+                        <br />
+                        <i class="bi bi-calendar text-warning px-1"></i> @($"{Model.FeeResults.TotalTranslationFee.OptionalAmount} {@Model.FeeResults.TotalTranslationFee.Currency}")
+                    </td>
+                    <td>
+                        <strong>
+                            <i class="bi bi-cash text-success px-1"></i> @($"{Model.FeeResults.GrandTotalFee.MandatoryAmount} {@Model.FeeResults.GrandTotalFee.Currency}")
+                            <br />
+                            <i class="bi bi-calendar text-warning px-1"></i> @($"{Model.FeeResults.GrandTotalFee.OptionalAmount} {@Model.FeeResults.GrandTotalFee.Currency}")
+                        </strong>
+                    </td>
                 </tr>
             </tbody>
         </table>
     </div>
     <div class="col-lg-12">
-        <h3>Errors</h3>
-        @foreach (var er in @Model.FeeResults.Errors)
+        @if (Model.FeeResults.Errors.Count() > 0)
         {
-            <h4>@($"There are {er.Errors.Count()} errors at fee {er.FeeName}")</h4>
-            <ul>
-                @foreach (var e in er.Errors)
-                {
-                    <li>@e</li>
-                }
-            </ul>
+            <h3>Errors</h3>
+            @foreach (var er in @Model.FeeResults.Errors)
+            {
+                <h4>@($"There are {er.Errors.Count()} errors at fee {er.FeeName}")</h4>
+                <ul>
+                    @foreach (var e in er.Errors)
+                    {
+                        <li>@e</li>
+                    }
+                </ul>
+            }
         }
     </div>
 </div>
