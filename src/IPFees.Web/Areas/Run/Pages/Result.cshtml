@@ -37,7 +37,7 @@
                 {
                     <tr>
                         <th scope="row">@f.Jurisdiction</th>
-                        <td>[LANG]</td>
+                        <td>@f.Language</td>
                         <td>
                             <i class="bi bi-cash text-primary px-1"></i> @($"{f.OfficialFee.MandatoryAmount} {@f.OfficialFee.Currency}")
                             <br />
@@ -101,10 +101,10 @@
             Legend: <i class="bi bi-cash text-primary px-1"></i> Mandatory <i class="bi bi-calendar text-danger px-1"></i> Optional
         </small>
     </div>
-    <div class="col-lg-12">
+    <div class="col-12 mt-4 text-danger">
         @if (Model.FeeResults.Errors.Count() > 0)
         {
-            <h3>Errors</h3>
+            <h3>Errors have occured!</h3>
             @foreach (var er in @Model.FeeResults.Errors)
             {
                 <h4>@($"There are {er.Errors.Count()} errors at fee {er.FeeName}")</h4>
