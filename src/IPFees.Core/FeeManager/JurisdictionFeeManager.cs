@@ -15,15 +15,15 @@ namespace IPFees.Core.FeeManager
         private readonly IFeeRepository feeRepository;
         private readonly ISettingsRepository settingsRepository;
         private readonly IJurisdictionRepository jurisdictionRepository;
-        private readonly ICurrencyConverter sharedExchangeRateData;
+        private readonly ICurrencyConverter currencyConverter;
 
-        public JurisdictionFeeManager(IFeeCalculator feeCalculator, IFeeRepository feeRepository, IJurisdictionRepository jurisdictionRepository, ISettingsRepository settingsRepository, ICurrencyConverter sharedExchangeRateData)
+        public JurisdictionFeeManager(IFeeCalculator feeCalculator, IFeeRepository feeRepository, IJurisdictionRepository jurisdictionRepository, ISettingsRepository settingsRepository, ICurrencyConverter currencyConverter)
         {
             this.feeCalculator = feeCalculator;
             this.feeRepository = feeRepository;
             this.jurisdictionRepository = jurisdictionRepository;
             this.settingsRepository = settingsRepository;
-            this.sharedExchangeRateData = sharedExchangeRateData;
+            this.currencyConverter = currencyConverter;
         }
 
         public (IEnumerable<DslInput>, IEnumerable<DslGroup>, IEnumerable<FeeResultFail>) GetConsolidatedInputs(IEnumerable<string> JurisdictionNames)
@@ -168,7 +168,7 @@ namespace IPFees.Core.FeeManager
 
         private Fee ConvertCurrency(Fee SourceFee, string TargetCurrency)
         {
-            // TODO: Convert SourceFee into TargetCurrency
+             
         }
     }
 

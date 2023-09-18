@@ -6,14 +6,14 @@ namespace IPFees.Web.Services
     {
         private readonly TimeSpan ExchangeRateDelaySuccess = TimeSpan.FromHours(6);
         private readonly TimeSpan ExchangeRateDelayFail = TimeSpan.FromSeconds(30);
-        private readonly IExchangeRateFetcher currencyConverter;
-        private readonly ICurrencyConverter sharedExchangeRateData;
+        private readonly IExchangeRateFetcher exchangeRateFetcher;
+        private readonly ICurrencyConverter currencyConverter;
         private readonly ILogger<ExchangeRateService> logger;
 
-        public ExchangeRateService(IExchangeRateFetcher currencyConverter, ICurrencyConverter sharedExchangeRateData, ILogger<ExchangeRateService> logger)
+        public ExchangeRateService(IExchangeRateFetcher exchangeRateFetcher, ICurrencyConverter currencyConverter, ILogger<ExchangeRateService> logger)
         {
-            this.sharedExchangeRateData = sharedExchangeRateData;
             this.currencyConverter = currencyConverter;
+            this.exchangeRateFetcher = exchangeRateFetcher;
             this.logger = logger;
         }
 
@@ -22,7 +22,7 @@ namespace IPFees.Web.Services
             while (!stoppingToken.IsCancellationRequested)
             {
                 logger.LogInformation($"Fetching exchange rates");
-                var response = await currencyConverter.FetchCurrencyExchangeData();
+                var response = await exchangeRateFetcher.FetchCurrencyExchangeData();
                 if (response.ResponseValid)
                 {
                     logger.LogInformation($"Fetched {response.ExchangeRates.Count} exchange rates");
@@ -32,7 +32,7 @@ namespace IPFees.Web.Services
                     logger.LogError($"Failed to fetch exchange rates: {response.Reason}");
                 }
                 // Store fetched data                
-                sharedExchangeRateData.Response = response;
+                currencyConverter.Response = response;
                 var delay = response.ResponseValid ? ExchangeRateDelaySuccess : ExchangeRateDelayFail;
                 logger.LogInformation($"Exchange rate service going to sleep for {delay.ToString(@"hh\:mm\:ss")}");
                 await Task.Delay(delay, stoppingToken);
