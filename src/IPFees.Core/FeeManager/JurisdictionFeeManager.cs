@@ -176,7 +176,7 @@ namespace IPFees.Core.FeeManager
         {
             var ma = currencyConverter.ConvertCurrency(SourceFee.MandatoryAmount, SourceFee.Currency, TargetCurrency);
             var oa = currencyConverter.ConvertCurrency(SourceFee.OptionalAmount, SourceFee.Currency, TargetCurrency);
-            return new Fee(ma, oa, TargetCurrency);
+            return new Fee(Math.Round(ma), Math.Round(oa), TargetCurrency);
         }
     }
 
