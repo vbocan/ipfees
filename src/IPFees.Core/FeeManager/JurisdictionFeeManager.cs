@@ -134,7 +134,22 @@ namespace IPFees.Core.FeeManager
                     }
                 }
                 #endregion
-
+                // Check whether the current jurisdiction has all fees defined, otherwise signal error
+                if(string.IsNullOrEmpty(OfficialFee.Currency))
+                {
+                    Errors.Add(new FeeResultFail(jur.Name, jur.Description, new string[] { "[Official Fee] definition is missing" }));
+                    continue;
+                }
+                if (string.IsNullOrEmpty(PartnerFee.Currency))
+                {
+                    Errors.Add(new FeeResultFail(jur.Name, jur.Description, new string[] { "[Partner Fee] definition is missing" }));
+                    continue;
+                }
+                if (string.IsNullOrEmpty(TranslationFee.Currency))
+                {
+                    Errors.Add(new FeeResultFail(jur.Name, jur.Description, new string[] { "[Translation Fee] definition is missing" }));
+                    continue;
+                }
                 // Convert the Official Fee
                 var ConvertedOfficialFee = ConvertCurrency(OfficialFee, TargetCurrency, CurrencyMarkup);
                 // Convert the Partner Fee
@@ -149,7 +164,7 @@ namespace IPFees.Core.FeeManager
                 ConvertedTotalFee = Fee.Add(ConvertedTotalFee, ConvertedTranslationFee);
                 ConvertedTotalFee = Fee.Add(ConvertedTotalFee, ConvertedServiceFee);
 
-                var CurrentJurisdictionFees = new JurisdictionFeesAmount(jn, ConvertedOfficialFee, ConvertedPartnerFee, ConvertedTranslationFee, ConvertedServiceFee, ConvertedTotalFee);
+                var CurrentJurisdictionFees = new JurisdictionFeesAmount(jn, "N/A", ConvertedOfficialFee, ConvertedPartnerFee, ConvertedTranslationFee, ConvertedServiceFee, ConvertedTotalFee);
                 // Store fees for the current jurisdiction
                 JurisdictionFees.Add(CurrentJurisdictionFees);
             }
@@ -187,7 +202,7 @@ namespace IPFees.Core.FeeManager
         }
     }
 
-    public record JurisdictionFeesAmount(string Jurisdiction, Fee OfficialFee, Fee PartnerFee, Fee TranslationFee, Fee ServiceFee, Fee TotalFee);
+    public record JurisdictionFeesAmount(string Jurisdiction, string Language, Fee OfficialFee, Fee PartnerFee, Fee TranslationFee, Fee ServiceFee, Fee TotalFee);
 
     public record TotalFeeInfo(List<JurisdictionFeesAmount> JurisdictionFees, Fee TotalOfficialFee, Fee TotalPartnerFee, Fee TotalTranslationFee, Fee TotalServiceFee, Fee GrandTotalFee, IList<FeeResultFail> Errors);
 }
