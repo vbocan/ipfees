@@ -97,6 +97,7 @@ namespace IPFees.Core.FeeManager
                 var PartnerFeeDefined = false;
                 var TranslationFee = new Fee(0.0M, 0.0M, string.Empty);
                 var TranslationFeeDefined = false;
+                var JurisdictionLanguage = "N/A";
                 foreach (var fd in FeeDefinitions)
                 {
                     // Perform the calculation on the current fee definition
@@ -129,6 +130,7 @@ namespace IPFees.Core.FeeManager
                                     );
                                 break;
                             case FeeCategory.TranslationFees:
+                                JurisdictionLanguage = frc.Returns.Where(w => w.Item1.Equals("Language", StringComparison.InvariantCultureIgnoreCase)).Select(s => s.Item2 ?? "N/A").SingleOrDefault(string.Empty);
                                 TranslationFeeDefined = true;
                                 TranslationFee = new Fee(
                                     frc.TotalMandatoryAmount,
@@ -192,7 +194,7 @@ namespace IPFees.Core.FeeManager
                     ConvertedTotalFee = Fee.Add(ConvertedTotalFee, ConvertedTranslationFee);
                     ConvertedTotalFee = Fee.Add(ConvertedTotalFee, ConvertedServiceFee);
 
-                    var CurrentJurisdictionFees = new JurisdictionFeesAmount(jn, "N/A", ConvertedOfficialFee, ConvertedPartnerFee, ConvertedTranslationFee, ConvertedServiceFee, ConvertedTotalFee);
+                    var CurrentJurisdictionFees = new JurisdictionFeesAmount(jn, JurisdictionLanguage, ConvertedOfficialFee, ConvertedPartnerFee, ConvertedTranslationFee, ConvertedServiceFee, ConvertedTotalFee);
                     // Store fees for the current jurisdiction
                     JurisdictionFees.Add(CurrentJurisdictionFees);
                 }
