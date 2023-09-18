@@ -6,6 +6,7 @@ using IPFees.Core.Model;
 using IPFees.Core.Repository;
 using IPFees.Evaluator;
 using IPFees.Parser;
+using MongoDB.Driver;
 
 namespace IPFees.Core.FeeManager
 {
@@ -60,8 +61,9 @@ namespace IPFees.Core.FeeManager
         /// <param name="JurisdictionNames">An enumeration of jurisdictions for which to perform the calculation</param>
         /// <param name="InputValues">Inputs needed by the calculation process. Obtain these inputs with a call to GetConsolidatedInputs.</param>
         /// <param name="TargetCurrency">Currency to which all amounts will eventually be converted to</param>
+        /// <param name="CurrencyMarkup">Percent to be added to monetary conversions to offset the exchange rate risk</param>
         /// <returns>A struct containing the fees for all jurisdictions as well as totals</returns>
-        public async Task<TotalFeeInfo> Calculate(IEnumerable<string> JurisdictionNames, IList<IPFValue> InputValues, string TargetCurrency)
+        public async Task<TotalFeeInfo> Calculate(IEnumerable<string> JurisdictionNames, IList<IPFValue> InputValues, string TargetCurrency, decimal CurrencyMarkup)
         {
             /// There are four types of fees that are calculated for each jurisdiction:
             /// - Official fee - the amount paid to the government receiving the application
@@ -132,15 +134,15 @@ namespace IPFees.Core.FeeManager
                     }
                 }
                 #endregion
-                
+
                 // Convert the Official Fee
-                var ConvertedOfficialFee = ConvertCurrency(OfficialFee, TargetCurrency);
+                var ConvertedOfficialFee = ConvertCurrency(OfficialFee, TargetCurrency, CurrencyMarkup);
                 // Convert the Partner Fee
-                var ConvertedPartnerFee = ConvertCurrency(PartnerFee, TargetCurrency);
+                var ConvertedPartnerFee = ConvertCurrency(PartnerFee, TargetCurrency, CurrencyMarkup);
                 // Convert the Translation Fee
-                var ConvertedTranslationFee = ConvertCurrency(TranslationFee, TargetCurrency);
+                var ConvertedTranslationFee = ConvertCurrency(TranslationFee, TargetCurrency, CurrencyMarkup);
                 // Convert the Service Fee
-                var ConvertedServiceFee = ConvertCurrency(ServiceFee, TargetCurrency);
+                var ConvertedServiceFee = ConvertCurrency(ServiceFee, TargetCurrency, CurrencyMarkup);
 
                 // Compute total for the current jurisdiction
                 var ConvertedTotalFee = Fee.Add(ConvertedOfficialFee, ConvertedPartnerFee);
@@ -171,12 +173,17 @@ namespace IPFees.Core.FeeManager
         /// </summary>
         /// <param name="SourceFee">Fee to convert</param>
         /// <param name="TargetCurrency">Target currency for the converted fee</param>
+        /// <param name="CurrencyMarkup">Percent to be added to monetary conversions to offset the exchange rate risk</param>
         /// <returns>The converted fee</returns>
-        private Fee ConvertCurrency(Fee SourceFee, string TargetCurrency)
+        private Fee ConvertCurrency(Fee SourceFee, string TargetCurrency, decimal CurrencyMarkup)
         {
+            // Compute the monetary value in the TargetCurrency
             var ma = currencyConverter.ConvertCurrency(SourceFee.MandatoryAmount, SourceFee.Currency, TargetCurrency);
             var oa = currencyConverter.ConvertCurrency(SourceFee.OptionalAmount, SourceFee.Currency, TargetCurrency);
-            return new Fee(Math.Round(ma), Math.Round(oa), TargetCurrency);
+            // Add the specified currency markup
+            var mam = ma + (ma * CurrencyMarkup / 100M);
+            var oam = oa + (oa * CurrencyMarkup / 100M);
+            return new Fee(Math.Round(mam), Math.Round(oam), TargetCurrency);
         }
     }
 

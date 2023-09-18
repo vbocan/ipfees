@@ -1,8 +1,10 @@
 using IPFees.Core.FeeManager;
 using IPFees.Evaluator;
 using IPFees.Parser;
+using IPFees.Web.Data;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.Extensions.Options;
 
 namespace IPFees.Web.Areas.Run.Pages
 {
@@ -14,12 +16,14 @@ namespace IPFees.Web.Areas.Run.Pages
         [BindProperty] public string[] SelectedJurisdictions { get; set; }
         [BindProperty] public string TargetCurrency { get; set; }
         [BindProperty] public TotalFeeInfo FeeResults { get; set; }
+        private readonly CurrencySettings currencySettings;
         private readonly IJurisdictionFeeManager jurisdictionFeeManager;
         private readonly ILogger<ResultModel> _logger;
 
-        public ResultModel(IJurisdictionFeeManager jurisdictionFeeManager, ILogger<ResultModel> logger)
+        public ResultModel(IJurisdictionFeeManager jurisdictionFeeManager, IOptions<CurrencySettings> currencySettings, ILogger<ResultModel> logger)
         {
             this.jurisdictionFeeManager = jurisdictionFeeManager;
+            this.currencySettings = currencySettings.Value;
             _logger = logger;
         }
 
@@ -62,7 +66,7 @@ namespace IPFees.Web.Areas.Run.Pages
                 }
             }
 
-            FeeResults = await jurisdictionFeeManager.Calculate(SelectedJurisdictions.AsEnumerable(), CollectedValues, TargetCurrency);
+            FeeResults = await jurisdictionFeeManager.Calculate(SelectedJurisdictions.AsEnumerable(), CollectedValues, TargetCurrency, currencySettings.CurrencyMarkup);
             return Page();
         }
     }

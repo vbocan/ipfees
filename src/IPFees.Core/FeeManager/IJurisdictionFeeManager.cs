@@ -7,6 +7,6 @@ namespace IPFees.Core.FeeManager
     public interface IJurisdictionFeeManager
     {
         (IEnumerable<DslInput>, IEnumerable<DslGroup>, IEnumerable<FeeResultFail>) GetConsolidatedInputs(IEnumerable<string> JurisdictionNames);
-        Task<TotalFeeInfo> Calculate(IEnumerable<string> JurisdictionNames, IList<IPFValue> InputValues, string TargetCurrency);
+        Task<TotalFeeInfo> Calculate(IEnumerable<string> JurisdictionNames, IList<IPFValue> InputValues, string TargetCurrency, decimal CurrencyMarkup);
     }
 }
