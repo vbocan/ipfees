@@ -4,6 +4,6 @@
     {
         public const string SectionName = nameof(CurrencySettings);
         public string[] AllowedCurrencies { get; set; }
-        public double CurrencyMarkup { get; set; }
+        public decimal CurrencyMarkup { get; set; }
     }
 }
