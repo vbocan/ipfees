@@ -61,7 +61,7 @@
                             var v3 = (DslInputNumber)Model.Inputs[i].Var;
                             <div class="mb-3 col-md-6">
                                 <label class="form-label" for="@v3.Name">@v3.Text</label>
-                                <input class="form-control" type="number" asp-for="@Model.Inputs[i].DoubleValue" value="@v3.DefaultValue" min="@v3.MinValue" max="@v3.MaxValue">
+                                <input class="form-control" type="number" asp-for="@Model.Inputs[i].DecimalValue" value="@v3.DefaultValue" min="@v3.MinValue" max="@v3.MaxValue">
                             </div>
                             break;
                         case DslInputBoolean:

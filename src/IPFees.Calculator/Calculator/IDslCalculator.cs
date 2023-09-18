@@ -7,7 +7,7 @@ namespace IPFees.Calculator
     {
         void Reset();
         bool Parse(string text);
-        (double, double, IEnumerable<string>, IEnumerable<(string, string)>) Compute(IEnumerable<IPFValue> InputValues);
+        (decimal, decimal, IEnumerable<string>, IEnumerable<(string, string)>) Compute(IEnumerable<IPFValue> InputValues);
         IEnumerable<string> GetErrors();
         IEnumerable<DslFee> GetFees();
         IEnumerable<DslInput> GetInputs();

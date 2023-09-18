@@ -34,7 +34,7 @@ namespace IPFees.Calculator.Tests
         public void TestFunctionFloor()
         {
             List<IPFValue> vars = new() {
-                new IPFValueNumber("A", 40.7),
+                new IPFValueNumber("A", 40.7M),
             };
             var tokens = "FLOOR ( A )".Split(new char[] { ' ' }, StringSplitOptions.None);
             var ev = DslEvaluator.EvaluateExpression(tokens, vars);
@@ -45,8 +45,8 @@ namespace IPFees.Calculator.Tests
         public void TestFunctionRound()
         {
             List<IPFValue> vars = new() {
-                new IPFValueNumber("A", 40.3),
-                new IPFValueNumber("B", 40.7),
+                new IPFValueNumber("A", 40.3M),
+                new IPFValueNumber("B", 40.7M),
             };
             var tokens1 = "ROUND ( A )".Split(new char[] { ' ' }, StringSplitOptions.None);
             var ev1 = DslEvaluator.EvaluateExpression(tokens1, vars);
@@ -61,7 +61,7 @@ namespace IPFees.Calculator.Tests
         public void TestFunctionCeil()
         {
             List<IPFValue> vars = new() {
-                new IPFValueNumber("A", 40.3),
+                new IPFValueNumber("A", 40.3M),
             };
             var tokens = "CEIL ( A )".Split(new char[] { ' ' }, StringSplitOptions.None);
             var ev = DslEvaluator.EvaluateExpression(tokens, vars);
@@ -73,7 +73,7 @@ namespace IPFees.Calculator.Tests
         {
             List<IPFValue> vars = new() {
                 new IPFValueStringList("A", new[] {"str1", "str2" }.ToList()),
-                new IPFValueNumber("N", 10.0),
+                new IPFValueNumber("N", 10.0M),
             };
             var tokens = "A!COUNT".Split(new char[] { ' ' }, StringSplitOptions.None);
             var ev = DslEvaluator.EvaluateExpression(tokens, vars);

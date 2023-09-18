@@ -2,11 +2,11 @@
 {
     public class Fee
     {
-        public double MandatoryAmount { get; set; }
-        public double OptionalAmount { get; set; }
+        public decimal MandatoryAmount { get; set; }
+        public decimal OptionalAmount { get; set; }
         public string Currency { get; set; }
 
-        public Fee(double mandatoryAmount, double optionalAmount, string currency)
+        public Fee(decimal mandatoryAmount, decimal optionalAmount, string currency)
         {
             MandatoryAmount = mandatoryAmount;
             OptionalAmount = optionalAmount;
@@ -20,8 +20,8 @@
                 throw new ArgumentException($"Cannot add different currencies ({first.Currency} and {second.Currency}).");
             }
 
-            double totalMandatory = first.MandatoryAmount + second.MandatoryAmount;
-            double totalOptional = first.OptionalAmount + second.OptionalAmount;
+            decimal totalMandatory = first.MandatoryAmount + second.MandatoryAmount;
+            decimal totalOptional = first.OptionalAmount + second.OptionalAmount;
 
             return new Fee(totalMandatory, totalOptional, first.Currency);
         }

@@ -8,7 +8,7 @@ namespace IPFees.Web.Areas.Settings.Pages
     public class EditServiceFeeModel : PageModel
     {
         [BindProperty] public string ServiceFeeLevel { get; set; }
-        [BindProperty] public double Amount { get; set; }
+        [BindProperty] public decimal Amount { get; set; }
         [BindProperty] public string Currency { get; set; }
 
         [BindProperty] public IList<string> ErrorMessages { get; set; }

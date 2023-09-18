@@ -89,9 +89,9 @@ namespace IPFees.Core.FeeManager
                 // need to discriminate between those.
                 var FeeDefinitions = GetFeeDefinitionForJurisdiction(jn);
                 // Let's tackle one fee definition at a time
-                var OfficialFee = new Fee(0.0, 0.0, string.Empty);
-                var PartnerFee = new Fee(0.0, 0.0, string.Empty);
-                var TranslationFee = new Fee(0.0, 0.0, string.Empty);
+                var OfficialFee = new Fee(0.0M, 0.0M, string.Empty);
+                var PartnerFee = new Fee(0.0M, 0.0M, string.Empty);
+                var TranslationFee = new Fee(0.0M, 0.0M, string.Empty);
                 foreach (var fd in FeeDefinitions)
                 {
                     // Perform the calculation on the current fee definition

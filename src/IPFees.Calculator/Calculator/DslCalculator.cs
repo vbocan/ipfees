@@ -23,10 +23,10 @@ namespace IPFees.Calculator
         public IEnumerable<DslReturn> GetReturns() => Parser.GetReturns();
         public IEnumerable<DslGroup> GetGroups() => Parser.GetGroups();
 
-        public (double, double, IEnumerable<string>, IEnumerable<(string, string)>) Compute(IEnumerable<IPFValue> InputValues)
+        public (decimal, decimal, IEnumerable<string>, IEnumerable<(string, string)>) Compute(IEnumerable<IPFValue> InputValues)
         {
-            double TotalMandatoryAmount = 0;
-            double TotalOptionalAmount = 0;
+            decimal TotalMandatoryAmount = 0;
+            decimal TotalOptionalAmount = 0;
             var ComputeSteps = new List<string>();            
 
             foreach (var fee in Parser.GetFees())
@@ -49,7 +49,7 @@ namespace IPFees.Calculator
                     AllVars.Add(fee_val);
                 }
                 // Proceed with computation
-                double CurrentAmount = 0;
+                decimal CurrentAmount = 0;
                 ComputeSteps.Add(string.Format("Amount is initially {0}", CurrentAmount));
                 foreach (DslFeeCase fc in fee.Cases.Cast<DslFeeCase>())
                 {

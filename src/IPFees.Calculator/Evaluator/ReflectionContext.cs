@@ -16,7 +16,7 @@ namespace IPFees.Evaluator
 
         object _targetObject;
 
-        public double ResolveVariable(string name)
+        public decimal ResolveVariable(string name)
         {
             // Find property
             var pi = _targetObject.GetType().GetProperty(name);
@@ -24,21 +24,21 @@ namespace IPFees.Evaluator
                 throw new InvalidDataException($"Unknown variable: '{name}'");
 
             // Call the property
-            return (double)pi.GetValue(_targetObject);
+            return (decimal)pi.GetValue(_targetObject);
         }
 
-        public double CallFunction(string name, double[] arguments)
+        public decimal CallFunction(string name, decimal[] arguments)
         {
             // Find method
             var mi = _targetObject.GetType().GetMethod(name);
             if (mi == null)
                 throw new InvalidDataException($"Unknown function: '{name}'");
 
-            // Convert double array to object array
+            // Convert decimal array to object array
             var argObjs = arguments.Select(x => (object)x).ToArray();
 
             // Call the method
-            return (double)mi.Invoke(_targetObject, argObjs);
+            return (decimal)mi.Invoke(_targetObject, argObjs);
         }
     }
 }

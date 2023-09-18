@@ -19,7 +19,7 @@ namespace IPFees.Core.Model
         public ObjectId Id { get; set; }
         [BsonRepresentation(BsonType.String)]
         public ServiceFeeLevel FeeLevel { get; set; }
-        public double Amount { get; set; }
+        public decimal Amount { get; set; }
         public string Currency { get; set; }
     }
 }

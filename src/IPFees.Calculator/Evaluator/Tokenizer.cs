@@ -16,7 +16,7 @@ namespace IPFees.Evaluator
         TextReader _reader;
         char _currentChar;
         Token _currentToken;
-        double _number;
+        decimal _number;
         string _identifier;
 
         public Token Token
@@ -24,7 +24,7 @@ namespace IPFees.Evaluator
             get { return _currentToken; }
         }
 
-        public double Number
+        public decimal Number
         {
             get { return _number; }
         }
@@ -108,7 +108,7 @@ namespace IPFees.Evaluator
                 }
 
                 // Parse it
-                _number = double.Parse(sb.ToString(), CultureInfo.InvariantCulture);
+                _number = decimal.Parse(sb.ToString(), CultureInfo.InvariantCulture);
                 _currentToken = Token.Number;
                 return;
             }

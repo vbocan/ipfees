@@ -2,5 +2,5 @@
 
 namespace IPFees.Core.Model
 {
-    public record ServiceFeeInfo(ServiceFeeLevel FeeLevel, double Amount, string Currency);
+    public record ServiceFeeInfo(ServiceFeeLevel FeeLevel, decimal Amount, string Currency);
 }
