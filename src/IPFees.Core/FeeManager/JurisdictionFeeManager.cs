@@ -225,6 +225,8 @@ namespace IPFees.Core.FeeManager
         /// <returns>The converted fee</returns>
         private Fee ConvertCurrency(Fee SourceFee, string TargetCurrency, decimal CurrencyMarkup)
         {
+            // Avoid converting the same currency (markup would be applied needlessly)
+            if (SourceFee.Currency.Equals(TargetCurrency)) return SourceFee;
             // Compute the monetary value in the TargetCurrency
             var ma = currencyConverter.ConvertCurrency(SourceFee.MandatoryAmount, SourceFee.Currency, TargetCurrency);
             var oa = currencyConverter.ConvertCurrency(SourceFee.OptionalAmount, SourceFee.Currency, TargetCurrency);
