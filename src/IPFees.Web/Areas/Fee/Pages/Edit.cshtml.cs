@@ -28,7 +28,7 @@ namespace IPFees.Web.Areas.Fee.Pages
             this.feeRepository = feeRepository;
             this.moduleRepository = moduleRepository;
             CategoryItems = Enum.GetValues<FeeCategory>().AsEnumerable().Select(s => new SelectListItem(s.ValueAsString(), s.ToString()));
-            JurisdictionNameItems = jurisdictionRepository.GetJurisdictions().Result.Select(s => new SelectListItem($"{s.Name} - {s.Description}", s.Name));
+            JurisdictionNameItems = jurisdictionRepository.GetJurisdictions().Result.OrderBy(o=>o.Name).ThenBy(t=>t.Description).Select(s => new SelectListItem($"{s.Name} - {s.Description}", s.Name));
             ErrorMessages = new List<string>();
         }
 
