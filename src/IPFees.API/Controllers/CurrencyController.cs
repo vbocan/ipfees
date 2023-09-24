@@ -5,7 +5,7 @@ namespace IPFees.API.Controllers
 {
     [ApiController]
     [Route("api/v{version:apiVersion}/[controller]")]
-    [ApiVersion("1.0")]    
+    [ApiVersion("1")]    
     public class CurrencyController : ControllerBase
     {
         private readonly ICurrencyConverter serd;
@@ -17,13 +17,12 @@ namespace IPFees.API.Controllers
             this.logger = logger;
         }
 
-        [HttpGet(Name = "GetCurrencies"), MapToApiVersion("1.0")]
+        [HttpGet(Name = "GetCurrencies"), MapToApiVersion("1")]
         [ProducesResponseType(typeof(IEnumerable<CurrencyItem>), 200)]
         public IActionResult GetCurrencies()
         {
-            logger.LogInformation("Currency information requested by the client");
-            var Currencies = serd.GetCurrencies().Select(s=>new CurrencyItem(s.Item1, s.Item2));
-            logger.LogInformation($"Information about {Currencies.Count()} currencies have been delivered.");
+            logger.LogInformation("[REQUEST] Currency information requested by the client");
+            var Currencies = serd.GetCurrencies().Select(s=>new CurrencyItem(s.Item1, s.Item2));            
             return Ok(Currencies);
         }        
     }

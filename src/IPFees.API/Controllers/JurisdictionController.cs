@@ -6,7 +6,7 @@ namespace IPFees.API.Controllers
 {
     [ApiController]
     [Route("api/v{version:apiVersion}/[controller]")]
-    [ApiVersion("1.0")]
+    [ApiVersion("1")]
     public class JurisdictionController : ControllerBase
     {
         private readonly IJurisdictionRepository jurisdictionRepository;
@@ -18,14 +18,13 @@ namespace IPFees.API.Controllers
             this.logger = logger;            
         }
 
-        [HttpGet(Name = "GetJurisdictions"), MapToApiVersion("1.0")]
+        [HttpGet(Name = "GetJurisdictions"), MapToApiVersion("1")]
         [ProducesResponseType(typeof(IEnumerable<JurisdictionItem>), 200)]
         public async Task<IActionResult> GetJurisdictions()
         {
-            logger.LogInformation("Currency information requested by the client");
+            logger.LogInformation("[REQUEST] Jurisdiction information requested by the client");
             var Jurisdictions = await jurisdictionRepository.GetJurisdictions();
-            var JurisdictionList = Jurisdictions.Select(s => new JurisdictionItem(s.Name, s.Description));
-            logger.LogInformation($"Information about {Jurisdictions.Count()} jurisdictions have been delivered.");
+            var JurisdictionList = Jurisdictions.Select(s => new JurisdictionItem(s.Name, s.Description));            
             return Ok(JurisdictionList);
         }        
     }

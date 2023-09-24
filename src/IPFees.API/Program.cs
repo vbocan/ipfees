@@ -48,7 +48,7 @@ builder.Services.AddSwaggerGen(c =>
     c.SwaggerDoc("v1", new OpenApiInfo
     {
         Title = "IPFees API",
-        Version = "1.0"
+        Version = "1"
     });
     c.OperationFilter<RemoveVersionFromParameter>();
     c.DocumentFilter<ReplaceVersionWithExactValueInPath>();
