@@ -15,13 +15,11 @@ namespace IPFees.API.Controllers
         public JurisdictionController(IJurisdictionRepository jurisdictionRepository, ILogger<JurisdictionController> logger)
         {
             this.jurisdictionRepository = jurisdictionRepository;
-            this.logger = logger;
-            // https://dotnetthoughts.net/openapi-and-versioning-asp-net-core/
-            -
+            this.logger = logger;            
         }
 
         [HttpGet(Name = "GetJurisdictions"), MapToApiVersion("1.0")]
-        [ProducesResponseType(typeof(IEnumerable<CurrencyItem>), 200)]
+        [ProducesResponseType(typeof(IEnumerable<JurisdictionItem>), 200)]
         public async Task<IActionResult> GetJurisdictions()
         {
             logger.LogInformation("Currency information requested by the client");
