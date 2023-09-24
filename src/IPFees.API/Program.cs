@@ -1,6 +1,12 @@
 using IPFees.API.Data;
 using IPFees.API.Services;
+using IPFees.Calculator;
 using IPFees.Core.CurrencyConversion;
+using IPFees.Core.Data;
+using IPFees.Core.FeeCalculation;
+using IPFees.Core.FeeManager;
+using IPFees.Core.Repository;
+using IPFees.Parser;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Versioning;
 using Microsoft.Extensions.Options;
@@ -30,6 +36,8 @@ builder.Services.AddApiVersioning(options =>
 });
 
 // Configure settings
+builder.Services.Configure<ConnectionStrings>(builder.Configuration.GetSection(ConnectionStrings.SectionName));
+builder.Services.AddSingleton(s => s.GetRequiredService<IOptions<ConnectionStrings>>().Value);
 builder.Services.Configure<ServiceKeys>(builder.Configuration.GetSection(ServiceKeys.SectionName));
 builder.Services.AddSingleton(s => s.GetRequiredService<IOptions<ServiceKeys>>().Value);
 
@@ -37,6 +45,23 @@ builder.Services.AddSingleton(s => s.GetRequiredService<IOptions<ServiceKeys>>()
 builder.Services.AddHostedService<ExchangeRateService>();
 builder.Services.AddSingleton<ICurrencyConverter, CurrencyConverter>();
 builder.Services.AddTransient<IExchangeRateFetcher>(x => new ExchangeRateFetcher(x.GetService<IOptions<ServiceKeys>>().Value.ExchangeRateApiKey));
+
+// Register work database context (MongoDB)
+// The MongoDB client has a pool of connections that are reused automatically and a single MongoDB client instance is enough even in multithreaded scenarios
+// See http://mongodb.github.io/mongo-csharp-driver/2.7/getting_started/quick_tour/ (Mongo Client section)
+builder.Services.AddSingleton<DataContext>(x => new DataContext(x.GetService<IOptions<ConnectionStrings>>().Value.MongoDbConnection));
+
+// Add services
+builder.Services.AddTransient<IDslParser, DslParser>();
+builder.Services.AddTransient<IDslCalculator, DslCalculator>();
+builder.Services.AddTransient<IFeeRepository, FeeRepository>();
+builder.Services.AddTransient<IModuleRepository, ModuleRepository>();
+builder.Services.AddTransient<IJurisdictionRepository, JurisdictionRepository>();
+builder.Services.AddTransient<ISettingsRepository, SettingsRepository>();
+builder.Services.AddTransient<IFeeCalculator, FeeCalculator>();
+builder.Services.AddTransient<IJurisdictionFeeManager, JurisdictionFeeManager>();
+builder.Services.AddTransient<IExchangeRateFetcher>(x => new ExchangeRateFetcher(x.GetService<IOptions<ServiceKeys>>().Value.ExchangeRateApiKey));
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
