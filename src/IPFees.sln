@@ -13,6 +13,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IPFees.Core", "IPFees.Core\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IPFees.Core.Tests", "IPFees.Core.Tests\IPFees.Core.Tests.csproj", "{89163285-1936-4769-83E0-BF414E776BDA}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IPFees.API", "IPFees.API\IPFees.API.csproj", "{4610FAE7-E9C2-4148-9C97-459B53F1EC45}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{89163285-1936-4769-83E0-BF414E776BDA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{89163285-1936-4769-83E0-BF414E776BDA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{89163285-1936-4769-83E0-BF414E776BDA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4610FAE7-E9C2-4148-9C97-459B53F1EC45}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4610FAE7-E9C2-4148-9C97-459B53F1EC45}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4610FAE7-E9C2-4148-9C97-459B53F1EC45}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4610FAE7-E9C2-4148-9C97-459B53F1EC45}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
