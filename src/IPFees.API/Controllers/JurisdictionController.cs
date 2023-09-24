@@ -6,7 +6,7 @@ namespace IPFees.API.Controllers
 {
     [ApiController]
     [Route("api/v{version:apiVersion}/[controller]")]
-    [ApiVersion("1.0")]    
+    [ApiVersion("1.0")]
     public class JurisdictionController : ControllerBase
     {
         private readonly IJurisdictionRepository jurisdictionRepository;
@@ -16,6 +16,8 @@ namespace IPFees.API.Controllers
         {
             this.jurisdictionRepository = jurisdictionRepository;
             this.logger = logger;
+            // https://dotnetthoughts.net/openapi-and-versioning-asp-net-core/
+            -
         }
 
         [HttpGet(Name = "GetJurisdictions"), MapToApiVersion("1.0")]
