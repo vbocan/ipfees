@@ -1,3 +1,8 @@
+using IPFees.API.Data;
+using IPFees.API.Services;
+using IPFees.Core.CurrencyConversion;
+using Microsoft.Extensions.Options;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -7,6 +12,14 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+// Configure settings
+builder.Services.Configure<ServiceKeys>(builder.Configuration.GetSection(ServiceKeys.SectionName));
+builder.Services.AddSingleton(s => s.GetRequiredService<IOptions<ServiceKeys>>().Value);
+
+// Add exhange rate service
+builder.Services.AddHostedService<ExchangeRateService>();
+builder.Services.AddSingleton<ICurrencyConverter, CurrencyConverter>();
+builder.Services.AddTransient<IExchangeRateFetcher>(x => new ExchangeRateFetcher(x.GetService<IOptions<ServiceKeys>>().Value.ExchangeRateApiKey));
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
