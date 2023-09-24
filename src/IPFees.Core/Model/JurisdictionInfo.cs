@@ -2,5 +2,5 @@
 
 namespace IPFees.Core.Model
 {
-    public record JurisdictionInfo(Guid Id, string Name, string Description, string JurisdictionName, ServiceFeeLevel ServiceFeeLevel, DateTime LastUpdatedOn);
+    public record JurisdictionInfo(Guid Id, string Name, string Description, ServiceFeeLevel ServiceFeeLevel, DateTime LastUpdatedOn);
 }
