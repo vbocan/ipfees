@@ -4,7 +4,8 @@ using Microsoft.AspNetCore.Mvc;
 namespace IPFees.API.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route("api/v{version:apiVersion}/[controller]")]
+    [ApiVersion("1.0")]    
     public class CurrencyController : ControllerBase
     {
         private readonly ICurrencyConverter serd;
@@ -16,9 +17,9 @@ namespace IPFees.API.Controllers
             this.logger = logger;
         }
 
-        [HttpGet(Name = "GetCurrencies")]
+        [HttpGet(Name = "GetCurrencies"), MapToApiVersion("1.0")]
         [ProducesResponseType(typeof(IEnumerable<CurrencyItem>), 200)]
-        public IActionResult Get()
+        public IActionResult GetCurrencies()
         {
             logger.LogInformation("Currency information requested by the client");
             var Currencies = serd.GetCurrencies().Select(s=>new CurrencyItem(s.Item1, s.Item2));
