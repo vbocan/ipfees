@@ -1,4 +1,5 @@
 using IPFees.API.Data;
+using IPFees.API.Filters;
 using IPFees.API.Services;
 using IPFees.Calculator;
 using IPFees.Core.CurrencyConversion;
@@ -10,6 +11,7 @@ using IPFees.Parser;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Versioning;
 using Microsoft.Extensions.Options;
+using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -33,6 +35,23 @@ builder.Services.AddApiVersioning(options =>
         new QueryStringApiVersionReader("api-version"),
         new HeaderApiVersionReader("X-Version"),
         new MediaTypeApiVersionReader("ver"));
+});
+
+builder.Services.AddSwaggerGen(c =>
+{
+    //Following code to avoid swagger generation error due to same method name in different versions.
+    c.ResolveConflictingActions(descriptions =>
+    {
+        return descriptions.First();
+    });
+
+    c.SwaggerDoc("v1", new OpenApiInfo
+    {
+        Title = "IPFees API",
+        Version = "1.0"
+    });
+    c.OperationFilter<RemoveVersionFromParameter>();
+    c.DocumentFilter<ReplaceVersionWithExactValueInPath>();
 });
 
 // Configure settings
