@@ -1,6 +1,7 @@
 using IPFees.Core.CurrencyConversion;
 using IPFees.Core.FeeCalculation;
 using IPFees.Core.FeeManager;
+using IPFees.Evaluator;
 using IPFees.Parser;
 using Mapster.Adapters;
 using Microsoft.AspNetCore.Mvc;
@@ -24,9 +25,9 @@ namespace IPFees.API.Controllers
         }
 
 
-        [HttpGet("GetParameters/{Jurisdictions}"), MapToApiVersion("1")]
+        [HttpGet("GetFeeParameters/{Jurisdictions}"), MapToApiVersion("1")]
         [ProducesResponseType(typeof(ComputeParams), 200)]
-        public IActionResult GetParameters(string Jurisdictions)
+        public IActionResult GetFeeParameters(string Jurisdictions)
         {
             logger.LogInformation($"[REQUEST] Get input parameters for jurisdictions {Jurisdictions}.");
             var JurArray = Jurisdictions.Split(",", StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries);
@@ -42,11 +43,18 @@ namespace IPFees.API.Controllers
                 {
                     var serobj = new
                     {
-                        Type = "Boolean",
-                        Name = obj1.Name,
-                        Text = obj1.Text,
-                        Group = obj1.Group,
-                        DefaultValue = obj1.DefaultValue
+                        Display = new
+                        {
+                            Type = "Boolean",
+                            Name = obj1.Name,
+                            Text = obj1.Text,
+                            Group = obj1.Group,
+                            DefaultValue = obj1.DefaultValue
+                        },
+                        ExpectedInput = new
+                        {
+                            Type = "Boolean",
+                        }
                     };
                     ExpandedInputs.Add(JsonSerializer.Serialize(serobj));
                 }
@@ -109,6 +117,46 @@ namespace IPFees.API.Controllers
 
             var response = new ComputeParams(ExpandedInputs, Groups);
             return Ok(response);
+        }
+
+        [HttpGet("ComputeFees/{Jurisdictions}/{TargetCurrency}"), MapToApiVersion("1")]
+        //[ProducesResponseType(typeof(ComputeParams), 200)]
+        public IActionResult ComputeFees(string Jurisdictions, string TargetCurrency)
+        {
+            //var CollectedValues = new List<IPFValue>();
+
+            //// Cycle through all form fields to build the collected values list
+            //foreach (var item in Inputs)
+            //{
+            //    if (item.Type == typeof(DslInputList).ToString())
+            //    {
+            //        // A single-selection list return a string
+            //        CollectedValues.Add(new IPFValueString(item.Name, item.StrValue));
+            //    }
+            //    else if (item.Type == typeof(DslInputListMultiple).ToString())
+            //    {
+            //        // A multiple-selection list return a string list
+            //        CollectedValues.Add(new IPFValueStringList(item.Name, item.ListValue));
+            //    }
+            //    else if (item.Type == typeof(DslInputNumber).ToString())
+            //    {
+            //        // A number input returns a double
+            //        CollectedValues.Add(new IPFValueNumber(item.Name, item.DecimalValue));
+            //    }
+            //    else if (item.Type == typeof(DslInputBoolean).ToString())
+            //    {
+            //        // A boolean input returns a boolean
+            //        CollectedValues.Add(new IPFValueBoolean(item.Name, item.BoolValue));
+            //    }
+            //    else if (item.Type == typeof(DslInputDate).ToString())
+            //    {
+            //        // A date input returns a date
+            //        CollectedValues.Add(new IPFValueDate(item.Name, item.DateValue));
+            //    }
+            //}
+
+            //FeeResults = await jurisdictionFeeManager.Calculate(SelectedJurisdictions.AsEnumerable(), CollectedValues, TargetCurrency, currencySettings.CurrencyMarkup);
+            return Ok();
         }
     }
 
