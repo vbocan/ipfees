@@ -1,16 +1,16 @@
 using IPFees.Calculator;
+using IPFees.Core.CurrencyConversion;
+using IPFees.Core.Data;
+using IPFees.Core.FeeCalculation;
+using IPFees.Core.FeeManager;
+using IPFees.Core.Repository;
 using IPFees.Parser;
 using IPFees.Web.Data;
-using IPFees.Core.Data;
+using IPFees.Web.Services;
+using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.Extensions.Options;
 using Serilog;
 using Serilog.Formatting.Compact;
-using IPFees.Core.Repository;
-using IPFees.Core.CurrencyConversion;
-using IPFees.Core.FeeCalculation;
-using IPFees.Core.FeeManager;
-using Microsoft.Extensions.Hosting;
-using IPFees.Web.Services;
 
 // Set Serilog settings
 var logger = new LoggerConfiguration()
@@ -22,6 +22,17 @@ var logger = new LoggerConfiguration()
 
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.Configure<ForwardedHeadersOptions>(options =>
+{
+    options.ForwardedHeaders =
+                   ForwardedHeaders.XForwardedHost |     //Not included in the defaults using ASPNETCORE_FORWARDEDHEADERS_ENABLED
+                   ForwardedHeaders.XForwardedFor |
+                   ForwardedHeaders.XForwardedProto;
+    options.ForwardLimit = 2;
+    options.KnownNetworks.Clear();
+    options.KnownProxies.Clear();
+});
 
 // Add services to the container.
 builder.Services.AddRazorPages();
@@ -59,7 +70,7 @@ builder.Logging.AddSerilog(logger);
 builder.Host.UseSerilog((ctx, lc) => lc.ReadFrom.Configuration(ctx.Configuration));
 
 var app = builder.Build();
-
+app.UseForwardedHeaders();
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {
