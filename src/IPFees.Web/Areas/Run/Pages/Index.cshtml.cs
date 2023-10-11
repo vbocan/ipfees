@@ -12,11 +12,14 @@ namespace IPFees.Web.Areas.Run.Pages
     public class IndexModel : PageModel
     {
         [BindProperty] public string TargetCurrency { get; set; }
-        [BindProperty] public IEnumerable<JurisdictionInfo> Jurisdictions { get; set; }
-        [BindProperty] public IList<JurisdictionViewModel> SelectedJurisdictions { get; set; }
+        [BindProperty] public string[] SelectedJurisdictions { get; set; }
 
+        public IEnumerable<JurisdictionInfo> Jurisdictions { get; set; }
         public IEnumerable<SelectListItem> CurrencyItems { get; set; }
+        public IEnumerable<SelectListItem> SelectedJurisdictionItems { get; set; }
         public bool CurrencyExchangeRatesAvailable { get; set; }
+        
+        private const string DefaultCurrency = "EUR";
         private readonly IJurisdictionRepository jurisdictionRepository;
         private readonly ICurrencyConverter serd;
         private readonly ILogger<IndexModel> _logger;
@@ -34,22 +37,24 @@ namespace IPFees.Web.Areas.Run.Pages
         public async Task<IActionResult> OnGetAsync()
         {
             Jurisdictions = await jurisdictionRepository.GetJurisdictions();
-            SelectedJurisdictions = Jurisdictions
+
+            SelectedJurisdictionItems = Jurisdictions
                 .OrderBy(o => o.Name)
-                .Select(s => new JurisdictionViewModel(s.Id, s.Name, s.Description, true))
+                .Select(s => new SelectListItem($"[{s.Name}] {s.Description}", s.Name, false))
                 .ToList();
+
             CurrencyItems = serd
                 .GetCurrencies()
                 .Where(w => currencySettings.AllowedCurrencies.Contains(w.Item1))
-                .Select(s => new SelectListItem($"{s.Item1} - {s.Item2}", s.Item1));
+                .Select(s => new SelectListItem($"[{s.Item1}] {s.Item2}", s.Item1, s.Item1.Equals(DefaultCurrency)));
+
             CurrencyExchangeRatesAvailable = serd.Response.ResponseValid;
             return Page();
         }
 
         public async Task<IActionResult> OnPostAsync()
         {
-            var SelJur = await SelectedJurisdictions.ToAsyncEnumerable().Where(w => w.Checked).Select(s => s.Name).ToListAsync();
-            return RedirectToPage("DataCollect", new { area = "Run", Id = SelJur, TargetCurrency });
+            return RedirectToPage("DataCollect", new { area = "Run", Id = SelectedJurisdictions, TargetCurrency });
         }
     }
 
