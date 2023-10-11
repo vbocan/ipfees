@@ -1,12 +1,13 @@
 ﻿@page
 @model DataCollectModel
 @{
-    ViewData["Title"] = "Select Your Choices";
+    ViewData["Title"] = "Select Calculation Parameter";
 }
 
-<div class="row">
-    <div class="col-8">
-        <h1>Select Your Choices</h1>
+<div class="row mt-5">
+    <!-- Column 1 -->
+    <div class="col-7">
+        <h2>Select <small class="text-muted">Calculation Parameters</small></h2>
 
         <form asp-page="Result" asp-area="Run" method="post">
             <input type="hidden" asp-for="@Model.TargetCurrency" />
@@ -35,9 +36,13 @@
                         </div>
                     </div>
                 }
-                <button type="submit" class="btn btn-primary">Submit</button>
+                <button type="submit" class="btn btn-primary">Final Step - Calculate Fees</button>
             </div>
         </form>
+    </div>
+    <!-- Column #2 -->
+    <div class="col-5">
+        <img src="~/images/businesspeople.jpg" class="img-fluid" />
     </div>
 </div>
 

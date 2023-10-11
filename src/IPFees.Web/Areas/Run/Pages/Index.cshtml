@@ -1,41 +1,37 @@
 ﻿@page
 @model IndexModel
 @{
-    ViewData["Title"] = "Fee Calculation";
+    ViewData["Title"] = "Calculate Your IP Fees";
 }
 
-<h1>Select <small class="text-muted">Jurisdictions</small></h1>
+<h1 class="display-4">Calculate Your IP Fees</h1>
 
-<div class="row">
-    <div class="col-lg-12">
-        <div class="form-check form-switch mb-2">
-            <label for="selectAll">
-                <input type="checkbox" id="selectAll" class="form-check-input" checked /> Select all @Model.Jurisdictions.Count() items / Unselect all
-            </label>
-        </div>
+<div class="row mt-5">
+    <!-- Column #1 -->
+    <div class="col-7">
         @if (Model.Jurisdictions.Any())
         {
             <form method="post">
                 <div class="row mb-4">
-                    @for (var i = 0; i < Model.SelectedJurisdictions.Count(); i++)
-                    {
-                        <div class="col-md-1 shadow py-2 mb-1 mx-1 bg-white rounded">
-                            <div class="form-check form-switch">
-                                <label class="form-check-label" for="@Model.SelectedJurisdictions[i].Name" title="@Model.SelectedJurisdictions[i].Description">@Model.SelectedJurisdictions[i].Name</label>
-                                <input class="form-check-input" type="checkbox" asp-for="@Model.SelectedJurisdictions[i].Checked" title="@Model.SelectedJurisdictions[i].Description">
-                                <input type="hidden" asp-for="@Model.SelectedJurisdictions[i].Checked" value="false">
-                                <input type="hidden" asp-for="@Model.SelectedJurisdictions[i].Name">
-                                <input type="hidden" asp-for="@Model.SelectedJurisdictions[i].Id">
-                            </div>
-                        </div>
-                    }
+                    <h2>Select <small class="text-muted">Jurisdictions</small></h2>
+                    <!-- Jurisdictions -->
+                    <div class="mb-3 col-12">
+                        <label for="@Model.SelectedJurisdictions" class="form-label">Select one or more jurisdictions to calculate fees for.</label>
+                        <select size="10" multiple class="form-select form-select-lg mb-3" asp-for="@Model.SelectedJurisdictions" asp-items="Model.SelectedJurisdictionItems" required>
+                        </select>
+                        <div class="text-muted">@Model.Jurisdictions.Count() items.</div>
+                    </div>
                 </div>
+                <h2>Select <small class="text-muted">currency</small></h2>
+                <!-- Currency -->
                 <div class="row mt-2">
                     <div class="col-12">
-                        <div class="mb-3 col-md-4">
+                        <div class="col-6">
                             <select class="form-select form-select-lg mb-3" asp-for="@Model.TargetCurrency" asp-items="Model.CurrencyItems" required>
-                                <option value="">Select target currency...</option>
-                            </select>
+                            </select>                            
+                        </div>
+                        <div class="mb-3 col-12">
+                            <div class="text-muted">The calculated fees will be displayed in the currency selected here.</div>
                         </div>
                     </div>
                 </div>
@@ -46,7 +42,8 @@
                             <button type="submit" class="btn btn-primary">Calculate Fees</button>
                         </div>
                     </div>
-                } else
+                }
+                else
                 {
                     <div class="row mt-2">
                         <div class="col-12">
@@ -63,14 +60,8 @@
             <h6>There are no jurisdictions defined in the system. Please contact the administrator.</h6>
         }
     </div>
+    <!-- Column #2 -->
+    <div class="col-5">
+        <img src="~/images/businesswoman.jpg" class="img-fluid" />
+    </div>
 </div>
-
-@section Scripts {
-    <script>
-        $(document).ready(function () {
-            $('#selectAll').click(function () {
-                $('.form-check-input').prop('checked', this.checked);
-            });
-        });
-    </script>
-                }
