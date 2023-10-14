@@ -61,6 +61,8 @@ builder.Services.AddTransient<IFeeCalculator, FeeCalculator>();
 builder.Services.AddTransient<IJurisdictionFeeManager, JurisdictionFeeManager>();
 builder.Services.AddTransient<IExchangeRateFetcher>(x => new ExchangeRateFetcher(x.GetService<IOptions<ServiceKeys>>().Value.ExchangeRateApiKey));
 
+builder.Services.AddHttpContextAccessor();
+
 // Add exhange rate service
 builder.Services.AddHostedService<ExchangeRateService>();
 builder.Services.AddSingleton<ICurrencyConverter, CurrencyConverter>();
