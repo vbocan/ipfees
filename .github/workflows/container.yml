@@ -19,10 +19,18 @@ jobs:
         username: ${{ github.actor }}
         password: ${{ secrets.GITHUB_TOKEN }}
 
-    - name: Build the Docker image
-      id: docker_build
+    - name: Build IPFees.Web Docker image
+      id: docker_build1
       env:
         IMAGE_NAME: ghcr.io/${{ github.repository_owner }}/${{ github.repository }}/ipfeesweb
       run: |
         docker build src --file src/IPFees.Web/Dockerfile --tag $IMAGE_NAME:latest
+        docker push $IMAGE_NAME:latest
+
+    - name: Build IPFees.API Docker image
+      id: docker_build2
+      env:
+        IMAGE_NAME: ghcr.io/${{ github.repository_owner }}/${{ github.repository }}/ipfeesapi
+      run: |
+        docker build src --file src/IPFees.API/Dockerfile --tag $IMAGE_NAME:latest
         docker push $IMAGE_NAME:latest
