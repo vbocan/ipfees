@@ -37,7 +37,7 @@ namespace IPFees.Web.Pages
         private string GenerateSitemapXml(List<SitemapItem> items)
         {
             var xml = new System.Xml.XmlDocument();
-            var root = xml.CreateElement("urlset");
+            var root = xml.CreateElement("urlset", "http://www.sitemaps.org/schemas/sitemap/0.9");
 
             foreach (var item in items)
             {
@@ -71,7 +71,7 @@ namespace IPFees.Web.Pages
             if (Request != null)
             {
                 var Protocol = Request.IsHttps ? "https://" : "http://";
-                var Host = Request.Host.ToString();                
+                var Host = Request.Host.ToString();
                 return $"{Protocol}{Host}";
             }
             else
@@ -94,7 +94,7 @@ namespace IPFees.Web.Pages
             LastModified = lastModified == default ? DateTime.UtcNow : lastModified;
             ChangeFrequency = changefreq;
             Priority = priority;
-        }        
+        }
     }
 
     public enum SitemapChangeFrequency
