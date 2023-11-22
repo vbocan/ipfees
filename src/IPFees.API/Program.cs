@@ -1,3 +1,4 @@
+using Asp.Versioning;
 using IPFees.API.Data;
 using IPFees.API.Filters;
 using IPFees.API.Services;
@@ -8,8 +9,6 @@ using IPFees.Core.FeeCalculation;
 using IPFees.Core.FeeManager;
 using IPFees.Core.Repository;
 using IPFees.Parser;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Versioning;
 using Microsoft.Extensions.Options;
 using Microsoft.OpenApi.Models;
 
