@@ -24,7 +24,7 @@ jobs:
       env:
         IMAGE_NAME: ghcr.io/${{ github.repository_owner }}/${{ github.repository }}/ipfeesweb
       run: |
-        docker build src --file src/IPFees.Web/Dockerfile --tag $IMAGE_NAME:latest
+        docker build src --file src/Dockerfile1 --tag $IMAGE_NAME:latest
         docker push $IMAGE_NAME:latest
 
     - name: Build IPFees.API Docker image
@@ -32,5 +32,5 @@ jobs:
       env:
         IMAGE_NAME: ghcr.io/${{ github.repository_owner }}/${{ github.repository }}/ipfeesapi
       run: |
-        docker build src --file src/IPFees.API/Dockerfile --tag $IMAGE_NAME:latest
+        docker build src --file src/Dockerfile --tag $IMAGE_NAME:latest
         docker push $IMAGE_NAME:latest
