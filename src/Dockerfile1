@@ -12,14 +12,14 @@ WORKDIR /src
 COPY ["IPFees.Web/IPFees.Web.csproj", "IPFees.Web/"]
 COPY ["IPFees.Calculator/IPFees.Calculator.csproj", "IPFees.Calculator/"]
 COPY ["IPFees.Core/IPFees.Core.csproj", "IPFees.Core/"]
-RUN dotnet restore "./IPFees.Web/./IPFees.Web.csproj"
+RUN dotnet restore "IPFees.Web/./IPFees.Web.csproj"
 COPY . .
 WORKDIR "/src/IPFees.Web"
-RUN dotnet build "./IPFees.Web.csproj" -c $BUILD_CONFIGURATION -o /app/build
+RUN dotnet build "IPFees.Web.csproj" -c $BUILD_CONFIGURATION -o /app/build
 
 FROM build AS publish
 ARG BUILD_CONFIGURATION=Release
-RUN dotnet publish "./IPFees.Web.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
+RUN dotnet publish "IPFees.Web.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
 
 FROM base AS final
 WORKDIR /app
