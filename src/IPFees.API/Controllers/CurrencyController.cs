@@ -1,3 +1,4 @@
+using Asp.Versioning;
 using IPFees.Core.CurrencyConversion;
 using Microsoft.AspNetCore.Mvc;
 
