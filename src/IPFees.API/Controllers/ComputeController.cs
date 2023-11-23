@@ -21,11 +21,11 @@ namespace IPFees.API.Controllers
         }
 
 
-        [HttpGet("GetFeeParameters/{Jurisdictions}"), MapToApiVersion("1")]
+        [HttpGet("GetCalculationParameters/{Jurisdictions}"), MapToApiVersion("1")]
         [ProducesResponseType(typeof(ComputeParams), 200)]
-        public IActionResult GetFeeParameters(string Jurisdictions)
+        public IActionResult GetCalculationParameters(string Jurisdictions)
         {
-            logger.LogInformation($"[REQUEST] Get input parameters for jurisdictions {Jurisdictions}.");
+            logger.LogInformation($"[REQUEST] Get calculation parameters for jurisdictions {Jurisdictions}.");
             var JurArray = Jurisdictions.Split(",", StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries);
             var (Inputs, Groups, Errors) = jurisdictionFeeManager.GetConsolidatedInputs(JurArray);
 
@@ -88,9 +88,9 @@ namespace IPFees.API.Controllers
             return Ok(new ComputeParams(response));
         }
 
-        [HttpGet("ComputeFees/{Jurisdictions}/{TargetCurrency}"), MapToApiVersion("1")]
+        [HttpGet("CalculateFees/{Jurisdictions}/{TargetCurrency}"), MapToApiVersion("1")]
         //[ProducesResponseType(typeof(ComputeParams), 200)]
-        public IActionResult ComputeFees(string Jurisdictions, string TargetCurrency)
+        public IActionResult CalculateFees(string Jurisdictions, string TargetCurrency)
         {
             //var CollectedValues = new List<IPFValue>();
 
