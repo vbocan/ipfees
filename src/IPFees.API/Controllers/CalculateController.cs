@@ -1,7 +1,10 @@
 using Asp.Versioning;
 using IPFees.Core.FeeManager;
+using IPFees.Evaluator;
 using IPFees.Parser;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Globalization;
 using System.Text.Json;
 
 namespace IPFees.API.Controllers
@@ -88,45 +91,60 @@ namespace IPFees.API.Controllers
             return Ok(new CalculationParams(response));
         }
 
-        [HttpGet("CalculateFees/{Jurisdictions}/{TargetCurrency}"), MapToApiVersion("1")]
-        //[ProducesResponseType(typeof(CalculationParams), 200)]
-        public IActionResult CalculateFees(string Jurisdictions, string TargetCurrency)
+        [HttpGet("CalculateFees/{Jurisdictions}/{TargetCurrency}/{CurrencyMarkup}/{Parameters}"), MapToApiVersion("1")]
+        [ProducesResponseType(typeof(TotalFeeInfo), 200)]
+        public async Task<IActionResult> CalculateFees(string Jurisdictions, string TargetCurrency, decimal CurrencyMarkup, string Parameters)
         {
-            //var CollectedValues = new List<IPFValue>();
+            // Split jurisdictions at comma
+            var JurisdictionList = Jurisdictions.Split(',', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries);
+            // Decode calculation parameters
+            var ParameterList = JsonSerializer.Deserialize<IEnumerable<CalculationValue>>(Parameters);
 
-            //// Cycle through all form fields to build the collected values list
-            //foreach (var item in Inputs)
-            //{
-            //    if (item.Type == typeof(DslInputList).ToString())
-            //    {
-            //        // A single-selection list return a string
-            //        CollectedValues.Add(new IPFValueString(item.Name, item.StrValue));
-            //    }
-            //    else if (item.Type == typeof(DslInputListMultiple).ToString())
-            //    {
-            //        // A multiple-selection list return a string list
-            //        CollectedValues.Add(new IPFValueStringList(item.Name, item.ListValue));
-            //    }
-            //    else if (item.Type == typeof(DslInputNumber).ToString())
-            //    {
-            //        // A number input returns a double
-            //        CollectedValues.Add(new IPFValueNumber(item.Name, item.DecimalValue));
-            //    }
-            //    else if (item.Type == typeof(DslInputBoolean).ToString())
-            //    {
-            //        // A boolean input returns a boolean
-            //        CollectedValues.Add(new IPFValueBoolean(item.Name, item.BoolValue));
-            //    }
-            //    else if (item.Type == typeof(DslInputDate).ToString())
-            //    {
-            //        // A date input returns a date
-            //        CollectedValues.Add(new IPFValueDate(item.Name, item.DateValue));
-            //    }
-            //}
+            var CollectedValues = new List<IPFValue>();
+            foreach (var par in ParameterList)
+            {
+                // Input parameter is a boolean
+                if (par.Type.Equals("Boolean", StringComparison.InvariantCultureIgnoreCase))
+                {
+                    var Name = par.Name;
+                    var Value = bool.Parse(par.Value);
+                    CollectedValues.Add(new IPFValueBoolean(Name, Value));
+                }
+                // Input parameter is a string
+                else if (par.Type.Equals("String", StringComparison.InvariantCultureIgnoreCase))
+                {
+                    var Name = par.Name;
+                    var Value = par.Value;
+                    CollectedValues.Add(new IPFValueString(Name, Value));
+                }
+                // Input parameter is a list of comma-separated strings
+                else if (par.Type.Equals("MultipleStrings", StringComparison.InvariantCultureIgnoreCase))
+                {
+                    var Name = par.Name;
+                    var Value = par.Value.Split(',', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries);
+                    CollectedValues.Add(new IPFValueStringList(Name, Value));
+                }
+                // Input parameter is a number
+                else if (par.Type.Equals("Number", StringComparison.InvariantCultureIgnoreCase))
+                {
+                    var Name = par.Name;
+                    var Value = decimal.Parse(par.Value);
+                    CollectedValues.Add(new IPFValueNumber(Name, Value));
+                }
+                // Input parameter is a date in the format yyyy-mm-dd
+                else if (par.Type.Equals("Date", StringComparison.InvariantCultureIgnoreCase))
+                {
+                    var Name = par.Name;
+                    var Value = DateOnly.FromDateTime(DateTime.ParseExact(par.Value, "yyyy-MM-dd", CultureInfo.InvariantCulture));
+                    CollectedValues.Add(new IPFValueDate(Name, Value));
+                }
+            }            
 
-            //FeeResults = await jurisdictionFeeManager.Calculate(SelectedJurisdictions.AsEnumerable(), CollectedValues, TargetCurrency, currencySettings.CurrencyMarkup);
-            return Ok();
+            var FeeResults = await jurisdictionFeeManager.Calculate(JurisdictionList, CollectedValues, TargetCurrency, CurrencyMarkup);
+            return Ok(FeeResults);
         }
     }
     public record CalculationParams(IEnumerable<object> Inputs);
+
+    public record CalculationValue(string Type, string Name, string Value);
 }
