@@ -9,12 +9,12 @@ namespace IPFees.API.Controllers
     [ApiController]
     [Route("api/v{version:apiVersion}/[controller]")]
     [ApiVersion("1")]
-    public class ComputeController : ControllerBase
+    public class CalculateController : ControllerBase
     {
         private readonly IJurisdictionFeeManager jurisdictionFeeManager;
-        private readonly ILogger<ComputeController> logger;
+        private readonly ILogger<CalculateController> logger;
 
-        public ComputeController(IJurisdictionFeeManager jurisdictionFeeManager, ILogger<ComputeController> logger)
+        public CalculateController(IJurisdictionFeeManager jurisdictionFeeManager, ILogger<CalculateController> logger)
         {
             this.jurisdictionFeeManager = jurisdictionFeeManager;
             this.logger = logger;
@@ -22,7 +22,7 @@ namespace IPFees.API.Controllers
 
 
         [HttpGet("GetCalculationParameters/{Jurisdictions}"), MapToApiVersion("1")]
-        [ProducesResponseType(typeof(ComputeParams), 200)]
+        [ProducesResponseType(typeof(CalculationParams), 200)]
         public IActionResult GetCalculationParameters(string Jurisdictions)
         {
             logger.LogInformation($"[REQUEST] Get calculation parameters for jurisdictions {Jurisdictions}.");
@@ -85,11 +85,11 @@ namespace IPFees.API.Controllers
                     response.Add(JsonSerializer.Serialize(serobj));
                 }
             }
-            return Ok(new ComputeParams(response));
+            return Ok(new CalculationParams(response));
         }
 
         [HttpGet("CalculateFees/{Jurisdictions}/{TargetCurrency}"), MapToApiVersion("1")]
-        //[ProducesResponseType(typeof(ComputeParams), 200)]
+        //[ProducesResponseType(typeof(CalculationParams), 200)]
         public IActionResult CalculateFees(string Jurisdictions, string TargetCurrency)
         {
             //var CollectedValues = new List<IPFValue>();
@@ -128,5 +128,5 @@ namespace IPFees.API.Controllers
             return Ok();
         }
     }
-    public record ComputeParams(IEnumerable<object> Inputs);
+    public record CalculationParams(IEnumerable<object> Inputs);
 }
