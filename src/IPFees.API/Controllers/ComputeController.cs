@@ -31,7 +31,7 @@ namespace IPFees.API.Controllers
 
             if (Errors.Any()) return StatusCode(500);
 
-            var ExpandedInputs = new List<object>();
+            var response = new List<object>();
 
             foreach (var inp in Inputs)
             {
@@ -39,46 +39,31 @@ namespace IPFees.API.Controllers
                 {
                     var serobj = new
                     {
-                        Display = new
-                        {
-                            Type = "Boolean",
-                            Name = obj1.Name,
-                            Text = obj1.Text,
-                            Group = obj1.Group,
-                            DefaultValue = obj1.DefaultValue
-                        },
-                        ExpectedInput = new
-                        {
-                            Type = "Boolean",
-                        }
+                        Type = "Boolean",
+                        Name = obj1.Name,
+                        ExpectedValues = new bool[] { true, false }
                     };
-                    ExpandedInputs.Add(JsonSerializer.Serialize(serobj));
+                    response.Add(JsonSerializer.Serialize(serobj));
                 }
                 else if (inp is DslInputList obj2)
                 {
                     var serobj = new
                     {
-                        Type = "List",
+                        Type = "String",
                         Name = obj2.Name,
-                        Text = obj2.Text,
-                        Group = obj2.Group,
-                        DefaultSymbol = obj2.DefaultSymbol,
-                        Items = obj2.Items.Select(s => new { Symbol = s.Symbol, Value = s.Value })
+                        ExpectedValues = obj2.Items.Select(s => s.Symbol)
                     };
-                    ExpandedInputs.Add(JsonSerializer.Serialize(serobj));
+                    response.Add(JsonSerializer.Serialize(serobj));
                 }
                 else if (inp is DslInputListMultiple obj3)
                 {
                     var serobj = new
                     {
-                        Type = "ListMultiple",
+                        Type = "MultipleStrings",
                         Name = obj3.Name,
-                        Text = obj3.Text,
-                        Group = obj3.Group,
-                        DefaultSymbols = obj3.DefaultSymbols.ToArray(),
-                        Items = obj3.Items.Select(s => new { Symbol = s.Symbol, Value = s.Value })
+                        ExpectedValues = obj3.Items.Select(s => s.Value)
                     };
-                    ExpandedInputs.Add(JsonSerializer.Serialize(serobj));
+                    response.Add(JsonSerializer.Serialize(serobj));
                 }
                 else if (inp is DslInputNumber obj4)
                 {
@@ -86,33 +71,21 @@ namespace IPFees.API.Controllers
                     {
                         Type = "Number",
                         Name = obj4.Name,
-                        Text = obj4.Text,
-                        Group = obj4.Group,
-                        MinValue = obj4.MinValue,
-                        MaxValue = obj4.MaxValue,
-                        DefaultValue = obj4.DefaultValue
                     };
-                    ExpandedInputs.Add(JsonSerializer.Serialize(serobj));
+                    response.Add(JsonSerializer.Serialize(serobj));
                 }
                 else if (inp is DslInputDate obj5)
                 {
                     var serobj = new
                     {
                         Type = "Date",
-                        Format = "yyyy-mm-dd",
                         Name = obj5.Name,
-                        Text = obj5.Text,
-                        Group = obj5.Group,
-                        MinValue = obj5.MinValue.ToString("yyyy-MM-dd"),
-                        MaxValue = obj5.MaxValue.ToString("yyyy-MM-dd"),
-                        DefaultValue = obj5.DefaultValue.ToString("yyyy-MM-dd")
+                        Format = "yyyy-mm-dd",
                     };
-                    ExpandedInputs.Add(JsonSerializer.Serialize(serobj));
+                    response.Add(JsonSerializer.Serialize(serobj));
                 }
             }
-
-            var response = new ComputeParams(ExpandedInputs, Groups);
-            return Ok(response);
+            return Ok(new ComputeParams(response));
         }
 
         [HttpGet("ComputeFees/{Jurisdictions}/{TargetCurrency}"), MapToApiVersion("1")]
@@ -155,6 +128,5 @@ namespace IPFees.API.Controllers
             return Ok();
         }
     }
-
-    public record ComputeParams(IEnumerable<object> ExpectedInputs, IEnumerable<DslGroup> Groups);
+    public record ComputeParams(IEnumerable<object> Inputs);
 }
