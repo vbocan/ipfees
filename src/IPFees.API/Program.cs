@@ -9,12 +9,23 @@ using IPFees.Core.FeeCalculation;
 using IPFees.Core.FeeManager;
 using IPFees.Core.Repository;
 using IPFees.Parser;
+using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.Extensions.Options;
 using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+builder.Services.Configure<ForwardedHeadersOptions>(options =>
+{
+    options.ForwardedHeaders =
+                   ForwardedHeaders.XForwardedHost |     //Not included in the defaults using ASPNETCORE_FORWARDEDHEADERS_ENABLED
+                   ForwardedHeaders.XForwardedFor |
+                   ForwardedHeaders.XForwardedProto;
+    options.ForwardLimit = 2;
+    options.KnownNetworks.Clear();
+    options.KnownProxies.Clear();
+});
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
