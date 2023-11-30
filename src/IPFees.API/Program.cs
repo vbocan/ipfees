@@ -9,12 +9,32 @@ using IPFees.Core.FeeCalculation;
 using IPFees.Core.FeeManager;
 using IPFees.Core.Repository;
 using IPFees.Parser;
+using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.Extensions.Options;
 using Microsoft.OpenApi.Models;
+using Serilog;
+
+// Set Serilog settings
+var logger = new LoggerConfiguration()
+    .Enrich.FromLogContext()
+    .WriteTo.Console()
+    .WriteTo.Debug(outputTemplate: DateTime.Now.ToString())
+    .MinimumLevel.Debug()
+    .CreateLogger();
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+builder.Services.Configure<ForwardedHeadersOptions>(options =>
+{
+    options.ForwardedHeaders =
+                   ForwardedHeaders.XForwardedHost |     //Not included in the defaults using ASPNETCORE_FORWARDEDHEADERS_ENABLED
+                   ForwardedHeaders.XForwardedFor |
+                   ForwardedHeaders.XForwardedProto;
+    options.ForwardLimit = 2;
+    options.KnownNetworks.Clear();
+    options.KnownProxies.Clear();
+});
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -47,7 +67,13 @@ builder.Services.AddSwaggerGen(c =>
     c.SwaggerDoc("v1", new OpenApiInfo
     {
         Title = "IPFees API",
-        Version = "1"
+        Version = "v1",
+        Description = "A simple API to compute the IP fees for supported jurisdictions and currencies.",
+        Contact = new OpenApiContact
+        {
+            Name = "Valer Bocan, PhD, CSSLP",
+            Email = "valer.bocan@storya.ro",
+        },
     });
     c.OperationFilter<RemoveVersionFromParameter>();
     c.DocumentFilter<ReplaceVersionWithExactValueInPath>();
@@ -80,19 +106,28 @@ builder.Services.AddTransient<IFeeCalculator, FeeCalculator>();
 builder.Services.AddTransient<IJurisdictionFeeManager, JurisdictionFeeManager>();
 builder.Services.AddTransient<IExchangeRateFetcher>(x => new ExchangeRateFetcher(x.GetService<IOptions<ServiceKeys>>().Value.ExchangeRateApiKey));
 
-var app = builder.Build();
+// Add logger
+builder.Logging.AddSerilog(logger);
+builder.Host.UseSerilog((context, services, configuration) => configuration
+    .ReadFrom.Configuration(context.Configuration)
+    .ReadFrom.Services(services)
+    .Enrich.FromLogContext()
+    .WriteTo.Console());
 
+var app = builder.Build();
+app.UseForwardedHeaders();
 // Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
+// TODO: Disable Swagger UI in production!
+// if (app.Environment.IsDevelopment())
+// {
     app.UseSwagger();
     app.UseSwaggerUI(options =>
     {
         options.DefaultModelsExpandDepth(-1);
     });
-}
-
+// }
 app.UseHttpsRedirection();
+app.UseSerilogRequestLogging();
 
 app.UseAuthorization();
 
