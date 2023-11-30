@@ -58,7 +58,13 @@ builder.Services.AddSwaggerGen(c =>
     c.SwaggerDoc("v1", new OpenApiInfo
     {
         Title = "IPFees API",
-        Version = "1"
+        Version = "v1",
+        Description = "A simple API to compute the IP fees for supported jurisdictions and currencies.",
+        Contact = new OpenApiContact
+        {
+            Name = "Valer Bocan, PhD, CSSLP",
+            Email = "valer.bocan@storya.ro",
+        },
     });
     c.OperationFilter<RemoveVersionFromParameter>();
     c.DocumentFilter<ReplaceVersionWithExactValueInPath>();
@@ -92,17 +98,17 @@ builder.Services.AddTransient<IJurisdictionFeeManager, JurisdictionFeeManager>()
 builder.Services.AddTransient<IExchangeRateFetcher>(x => new ExchangeRateFetcher(x.GetService<IOptions<ServiceKeys>>().Value.ExchangeRateApiKey));
 
 var app = builder.Build();
-
+app.UseForwardedHeaders();
 // Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
+// TODO: Disable Swagger UI in production!
+// if (app.Environment.IsDevelopment())
+// {
     app.UseSwagger();
     app.UseSwaggerUI(options =>
     {
         options.DefaultModelsExpandDepth(-1);
     });
-}
-
+// }
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
