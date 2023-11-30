@@ -15,11 +15,10 @@ using Serilog.Formatting.Compact;
 // Set Serilog settings
 var logger = new LoggerConfiguration()
     .Enrich.FromLogContext()
-    .WriteTo.Console(new RenderedCompactJsonFormatter())
+    .WriteTo.Console()
     .WriteTo.Debug(outputTemplate: DateTime.Now.ToString())
     .MinimumLevel.Debug()
     .CreateLogger();
-
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -69,7 +68,11 @@ builder.Services.AddSingleton<ICurrencyConverter, CurrencyConverter>();
 
 // Add logger
 builder.Logging.AddSerilog(logger);
-builder.Host.UseSerilog((ctx, lc) => lc.ReadFrom.Configuration(ctx.Configuration));
+builder.Host.UseSerilog((context, services, configuration) => configuration
+    .ReadFrom.Configuration(context.Configuration)
+    .ReadFrom.Services(services)
+    .Enrich.FromLogContext()
+    .WriteTo.Console());
 
 var app = builder.Build();
 app.UseForwardedHeaders();
