@@ -12,6 +12,15 @@ using IPFees.Parser;
 using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.Extensions.Options;
 using Microsoft.OpenApi.Models;
+using Serilog;
+
+// Set Serilog settings
+var logger = new LoggerConfiguration()
+    .Enrich.FromLogContext()
+    .WriteTo.Console()
+    .WriteTo.Debug(outputTemplate: DateTime.Now.ToString())
+    .MinimumLevel.Debug()
+    .CreateLogger();
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -97,6 +106,14 @@ builder.Services.AddTransient<IFeeCalculator, FeeCalculator>();
 builder.Services.AddTransient<IJurisdictionFeeManager, JurisdictionFeeManager>();
 builder.Services.AddTransient<IExchangeRateFetcher>(x => new ExchangeRateFetcher(x.GetService<IOptions<ServiceKeys>>().Value.ExchangeRateApiKey));
 
+// Add logger
+builder.Logging.AddSerilog(logger);
+builder.Host.UseSerilog((context, services, configuration) => configuration
+    .ReadFrom.Configuration(context.Configuration)
+    .ReadFrom.Services(services)
+    .Enrich.FromLogContext()
+    .WriteTo.Console());
+
 var app = builder.Build();
 app.UseForwardedHeaders();
 // Configure the HTTP request pipeline.
@@ -110,6 +127,7 @@ app.UseForwardedHeaders();
     });
 // }
 app.UseHttpsRedirection();
+app.UseSerilogRequestLogging();
 
 app.UseAuthorization();
 
