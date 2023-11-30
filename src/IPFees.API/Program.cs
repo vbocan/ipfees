@@ -67,7 +67,7 @@ builder.Services.AddSwaggerGen(c =>
     c.SwaggerDoc("v1", new OpenApiInfo
     {
         Title = "IPFees API",
-        Version = "v1",
+        Version = "1",
         Description = "A simple API to compute the IP fees for supported jurisdictions and currencies.",
         Contact = new OpenApiContact
         {
