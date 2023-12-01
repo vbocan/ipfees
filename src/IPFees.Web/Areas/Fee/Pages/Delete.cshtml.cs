@@ -1,9 +1,11 @@
 using IPFees.Core.Repository;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace IPFees.Web.Areas.Fee.Pages
 {
+    [Authorize(Roles = "Admin")]
     public class DeleteModel : PageModel
     {
         [BindProperty] public string Name { get; set; }

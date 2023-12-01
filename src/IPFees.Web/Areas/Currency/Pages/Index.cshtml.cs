@@ -1,16 +1,11 @@
-using IPFees.Evaluator;
-using IPFees.Web.Data;
+using IPFees.Core.CurrencyConversion;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.Extensions.Options;
-using IPFees.Core.Repository;
-using IPFees.Core.Model;
-using IPFees.Core.Enum;
-using System.Linq;
-using IPFees.Core.CurrencyConversion;
 
 namespace IPFees.Web.Areas.Currency.Pages
 {
+    [Authorize(Roles = "Admin")]
     public class IndexModel : PageModel
     {
         private readonly ICurrencyConverter serd;

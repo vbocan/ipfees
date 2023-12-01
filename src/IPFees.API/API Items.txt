@@ -1,8 +1,0 @@
-﻿1. Calculate Fees
-Inputs:
-	- Jurisdiction, Input values, target currency
-Output
-	- Calculated fees
-2. Get the needed inputs for computing fees
-3. Get available jurisdictions
-4. Get available currencies
