@@ -2,6 +2,7 @@ using Asp.Versioning;
 using IPFees.API.Data;
 using IPFees.API.Filters;
 using IPFees.API.Services;
+using IPFees.API.Validator;
 using IPFees.Calculator;
 using IPFees.Core.CurrencyConversion;
 using IPFees.Core.Data;
@@ -105,6 +106,8 @@ builder.Services.AddTransient<ISettingsRepository, SettingsRepository>();
 builder.Services.AddTransient<IFeeCalculator, FeeCalculator>();
 builder.Services.AddTransient<IJurisdictionFeeManager, JurisdictionFeeManager>();
 builder.Services.AddTransient<IExchangeRateFetcher>(x => new ExchangeRateFetcher(x.GetService<IOptions<ServiceKeys>>().Value.ExchangeRateApiKey));
+builder.Services.AddSingleton<ApiKeyAuthorizationFilter>();
+builder.Services.AddSingleton<IApiKeyValidator, ApiKeyValidator>();
 
 // Add logger
 builder.Logging.AddSerilog(logger);
