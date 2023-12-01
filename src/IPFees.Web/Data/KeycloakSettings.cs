@@ -1,4 +1,4 @@
-﻿namespace IPFees.API.Data
+﻿namespace IPFees.Web.Data
 {
     public class KeycloakSettings
     {
