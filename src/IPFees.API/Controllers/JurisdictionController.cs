@@ -1,4 +1,5 @@
 using Asp.Versioning;
+using IPFees.API.Attributes;
 using IPFees.Core.Repository;
 using Microsoft.AspNetCore.Mvc;
 
@@ -7,6 +8,7 @@ namespace IPFees.API.Controllers
     [ApiController]
     [Route("api/v{version:apiVersion}/[controller]")]
     [ApiVersion("1")]
+    [ApiKey]
     public class JurisdictionController : ControllerBase
     {
         private readonly IJurisdictionRepository jurisdictionRepository;
