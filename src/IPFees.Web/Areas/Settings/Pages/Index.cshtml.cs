@@ -1,12 +1,13 @@
+using IPFees.Core.Enum;
+using IPFees.Core.Model;
+using IPFees.Core.Repository;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using IPFees.Core.Repository;
-using IPFees.Core.Model;
-using IPFees.Core.Enum;
-using System.Xml.Linq;
 
 namespace IPFees.Web.Areas.Settings.Pages
 {
+    [Authorize(Roles = "Admin")]
     public class IndexModel : PageModel
     {        
         [BindProperty] public IEnumerable<ServiceFeeInfo> ServiceFees { get; set; }
