@@ -1,12 +1,13 @@
-using IPFees.Core;
 using IPFees.Core.Enum;
 using IPFees.Core.Repository;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace IPFees.Web.Areas.Fee.Pages
 {
+    [Authorize(Roles = "Admin")]
     public class EditModel : PageModel
     {
         [BindProperty] public string Category { get; set; }        
