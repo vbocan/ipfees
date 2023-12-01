@@ -1,14 +1,12 @@
-using IPFees.Evaluator;
-using IPFees.Web.Data;
+using IPFees.Core.Model;
+using IPFees.Core.Repository;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.Extensions.Options;
-using IPFees.Core.Repository;
-using IPFees.Core.Model;
-using IPFees.Core.Enum;
 
 namespace IPFees.Web.Areas.Jurisdiction.Pages
 {
+    [Authorize(Roles = "Admin")]
     public class IndexModel : PageModel
     {
         [BindProperty] public IEnumerable<JurisdictionInfo> Jurisdictions { get; set; }

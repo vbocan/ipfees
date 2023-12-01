@@ -1,10 +1,12 @@
 using IPFees.Core.Enum;
 using IPFees.Core.Repository;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace IPFees.Web.Areas.Settings.Pages
 {
+    [Authorize(Roles = "Admin")]
     public class EditServiceFeeModel : PageModel
     {
         [BindProperty] public string ServiceFeeLevel { get; set; }
