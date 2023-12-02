@@ -50,6 +50,9 @@ builder.Services.AddCors(options =>
     });
 });
 
+// Allow IFrames
+builder.Services.AddAntiforgery(options => options.SuppressXFrameOptionsHeader = true);
+
 
 // Add services to the container.
 builder.Services.AddRazorPages();
