@@ -43,7 +43,8 @@ builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowSpecificOrigin", builder =>
     {
-        builder.WithOrigins("https://www.jet-ip.legal");
+        //builder.WithOrigins("https://www.jet-ip.legal");
+        builder.WithOrigins("*");
         builder.AllowAnyHeader();
         builder.AllowAnyMethod();
     });
