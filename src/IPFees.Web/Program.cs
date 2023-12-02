@@ -19,7 +19,7 @@ using Serilog.Formatting.Compact;
 
 // Set Serilog settings
 var logger = new LoggerConfiguration()
-    .Enrich.FromLogContext()    
+    .Enrich.FromLogContext()
     .WriteTo.Console()
     .WriteTo.Debug(outputTemplate: DateTime.Now.ToString())
     .MinimumLevel.Debug()
@@ -37,6 +37,18 @@ builder.Services.Configure<ForwardedHeadersOptions>(options =>
     options.KnownNetworks.Clear();
     options.KnownProxies.Clear();
 });
+
+// Configure CORS policy
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowSpecificOrigin", builder =>
+    {
+        builder.WithOrigins("https://www.jet-ip.legal");
+        builder.AllowAnyHeader();
+        builder.AllowAnyMethod();
+    });
+});
+
 
 // Add services to the container.
 builder.Services.AddRazorPages();
