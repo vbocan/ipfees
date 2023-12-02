@@ -39,16 +39,16 @@ builder.Services.Configure<ForwardedHeadersOptions>(options =>
 });
 
 // Configure CORS policy
-builder.Services.AddCors(options =>
-{
-    options.AddPolicy("AllowSpecificOrigin", builder =>
-    {
-        //builder.WithOrigins("https://www.jet-ip.legal");
-        builder.WithOrigins("*");
-        builder.AllowAnyHeader();
-        builder.AllowAnyMethod();
-    });
-});
+//builder.Services.AddCors(options =>
+//{
+//    options.AddPolicy("AllowSpecificOrigin", builder =>
+//    {
+//        builder.WithOrigins("https://www.jet-ip.legal");
+//        builder.WithOrigins("*");
+//        builder.AllowAnyHeader();
+//        builder.AllowAnyMethod();
+//    });
+//});
 
 // Allow IFrames
 builder.Services.AddAntiforgery(options => options.SuppressXFrameOptionsHeader = true);
