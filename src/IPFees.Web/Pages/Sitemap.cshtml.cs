@@ -37,11 +37,13 @@ namespace IPFees.Web.Pages
         private string GenerateSitemapXml(List<SitemapItem> items)
         {
             var xml = new System.Xml.XmlDocument();
-            var root = xml.CreateElement("urlset", "http://www.sitemaps.org/schemas/sitemap/0.9");
+            var root = xml.CreateElement("urlset");
+            root.SetAttribute("xmlns", "http://www.sitemaps.org/schemas/sitemap/0.9");
+            root.SetAttribute("xmlns:xhtml", "http://www.w3.org/1999/xhtml");
 
             foreach (var item in items)
             {
-                var url = xml.CreateElement("url");
+                var url = xml.CreateElement("url", string.Empty);
                 var loc = xml.CreateElement("loc");
                 loc.InnerText = RootURL + item.Location;
                 url.AppendChild(loc);
