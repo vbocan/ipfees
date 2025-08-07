@@ -7,15 +7,15 @@ using IPFees.Core.Repository;
 using IPFees.Parser;
 using IPFees.Web.Data;
 using IPFees.Web.Services;
-using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Authentication.Cookies;
-using Microsoft.AspNetCore.Authentication.OpenIdConnect;
 using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.Extensions.Options;
-using Microsoft.IdentityModel.Protocols.OpenIdConnect;
-using Microsoft.IdentityModel.Tokens;
+using MongoDB.Bson;
+using MongoDB.Bson.Serialization;
+using MongoDB.Bson.Serialization.Serializers;
 using Serilog;
-using Serilog.Formatting.Compact;
+
+// Configure GuidRepresentation globally
+BsonSerializer.RegisterSerializer(new GuidSerializer(GuidRepresentation.CSharpLegacy));
 
 // Set Serilog settings
 var logger = new LoggerConfiguration()
@@ -37,22 +37,6 @@ builder.Services.Configure<ForwardedHeadersOptions>(options =>
     options.KnownNetworks.Clear();
     options.KnownProxies.Clear();
 });
-
-// Configure CORS policy
-//builder.Services.AddCors(options =>
-//{
-//    options.AddPolicy("AllowSpecificOrigin", builder =>
-//    {
-//        builder.WithOrigins("https://www.jet-ip.legal");
-//        builder.WithOrigins("*");
-//        builder.AllowAnyHeader();
-//        builder.AllowAnyMethod();
-//    });
-//});
-
-// Allow IFrames
-builder.Services.AddAntiforgery(options => options.SuppressXFrameOptionsHeader = true);
-
 
 // Add services to the container.
 builder.Services.AddRazorPages();
@@ -94,63 +78,6 @@ builder.Host.UseSerilog((context, services, configuration) => configuration
     .ReadFrom.Services(services)
     .Enrich.FromLogContext()
     .WriteTo.Console());
-
-// Add authentication
-var KeycloakSection = builder.Configuration.GetSection(KeycloakSettings.SectionName);
-var KeycloakServer = KeycloakSection.GetValue<string>("Server");
-var KeycloakRealm = KeycloakSection.GetValue<string>("Realm");
-var KeycloakClientID = KeycloakSection.GetValue<string>("ClientID");
-var KeycloakClientSecret = KeycloakSection.GetValue<string>("ClientSecret");
-builder.Services.AddAuthentication(options =>
-{
-    options.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
-    options.DefaultChallengeScheme = OpenIdConnectDefaults.AuthenticationScheme;
-    options.DefaultAuthenticateScheme = CookieAuthenticationDefaults.AuthenticationScheme;
-    options.DefaultSignInScheme = CookieAuthenticationDefaults.AuthenticationScheme;
-})
-.AddCookie()
-.AddOpenIdConnect(options =>
-{
-    options.SignInScheme = CookieAuthenticationDefaults.AuthenticationScheme;
-    options.Authority = $"{KeycloakServer}/auth/realms/{KeycloakRealm}";
-    options.ClientId = $"{KeycloakClientID}";
-    options.ClientSecret = $"{KeycloakClientSecret}";
-    options.MetadataAddress = $"{KeycloakServer}/realms/{KeycloakRealm}/.well-known/openid-configuration";
-    options.RequireHttpsMetadata = false;
-    options.SaveTokens = true;
-    options.ResponseType = OpenIdConnectResponseType.Code;
-    options.Scope.Add("openid");
-    options.Scope.Add("profile");
-    options.Scope.Add("email");
-    options.Scope.Add("roles"); // Request Keycloak roles
-    options.ClaimActions.MapUniqueJsonKey("role", "role"); // Map the "role" claim to the role in the token        
-    options.NonceCookie.SameSite = SameSiteMode.Unspecified;
-    options.CorrelationCookie.SameSite = SameSiteMode.Unspecified;
-    options.TokenValidationParameters = new TokenValidationParameters
-    {
-        ValidateAudience = true,
-        ValidAudience = $"{KeycloakClientID}",
-        ValidateIssuer = true,
-        //NameClaimType = "name",
-        //RoleClaimType = ClaimTypes.Role,
-        ValidIssuer = $"{KeycloakServer}/auth/realms/{KeycloakRealm}",
-    };
-    options.Events = new OpenIdConnectEvents
-    {
-        OnTokenValidated = context =>
-        {
-            // Inspect the claims in the token
-            var claims = context.Principal.Claims.ToList();
-            // Log or debug print the claims to ensure the "role" claim is present
-
-            // You can customize role handling here if needed.
-            return Task.CompletedTask;
-        }
-    };
-});
-
-// Add authorization
-builder.Services.AddAuthorization();
 
 var app = builder.Build();
 app.UseForwardedHeaders();
