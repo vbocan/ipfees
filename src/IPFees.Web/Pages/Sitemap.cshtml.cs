@@ -1,10 +1,6 @@
-using Amazon.Runtime.Internal.Endpoints.StandardLibrary;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using MongoDB.Bson;
 using System.Globalization;
-using System.Text;
 
 namespace IPFees.Web.Pages
 {
