@@ -6,8 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace IPFees.Web.Areas.Settings.Pages
-{
-    [Authorize(Roles = "Admin")]
+{    
     public class IndexModel : PageModel
     {        
         [BindProperty] public IEnumerable<ServiceFeeInfo> ServiceFees { get; set; }
