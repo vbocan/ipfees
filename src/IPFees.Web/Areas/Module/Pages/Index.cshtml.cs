@@ -8,8 +8,7 @@ using IPFees.Core.Model;
 using Microsoft.AspNetCore.Authorization;
 
 namespace IPFees.Web.Areas.Module.Pages
-{
-    [Authorize(Roles = "Admin")]
+{    
     public class IndexModel : PageModel
     {
         [BindProperty] public IEnumerable<ModuleViewModel> Modules { get; set; }
