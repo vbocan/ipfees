@@ -8,7 +8,14 @@ namespace IPFees.Web.Pages
     {
         private readonly List<SitemapItem> _sitemapItems = new List<SitemapItem>
         {
-            new SitemapItem("/Run", changefreq: SitemapChangeFrequency.Monthly, priority: 1.0),            
+            new SitemapItem("/Run", changefreq: SitemapChangeFrequency.Monthly, priority: 1.0),
+            new SitemapItem("/Jurisdiction", changefreq: SitemapChangeFrequency.Monthly, priority: 1.0),
+            new SitemapItem("/Fee", changefreq: SitemapChangeFrequency.Monthly, priority: 1.0),
+            new SitemapItem("/Settings", changefreq: SitemapChangeFrequency.Monthly, priority: 1.0),
+            new SitemapItem("/Currency", changefreq: SitemapChangeFrequency.Monthly, priority: 1.0),
+            new SitemapItem("/Reference", changefreq: SitemapChangeFrequency.Monthly, priority: 1.0),
+            new SitemapItem("/Grammar", changefreq: SitemapChangeFrequency.Monthly, priority: 1.0),
+
             // TODO: Add more sitemap items
         };
         private readonly IHttpContextAccessor httpContextAccessor;
