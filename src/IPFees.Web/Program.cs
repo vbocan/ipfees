@@ -12,6 +12,7 @@ using Microsoft.Extensions.Options;
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization;
 using MongoDB.Bson.Serialization.Serializers;
+using MongoDB.Driver;
 using Serilog;
 
 // Configure GuidRepresentation globally
@@ -70,6 +71,12 @@ builder.Services.AddHttpContextAccessor();
 // Add exhange rate service
 builder.Services.AddHostedService<ExchangeRateService>();
 builder.Services.AddSingleton<ICurrencyConverter, CurrencyConverter>();
+
+// Add database reset service
+builder.Services.AddHostedService<DatabaseResetService>();
+builder.Services.AddSingleton<IMongoClient>(new MongoClient("mongodb://localhost:27017"));
+// Replace the line that registers IMongoClient with the following:
+builder.Services.AddSingleton<IMongoClient>(sp => new MongoClient(sp.GetRequiredService<IOptions<ConnectionStrings>>().Value.MongoDbConnection));
 
 // Add logger
 builder.Logging.AddSerilog(logger);
