@@ -73,7 +73,7 @@ builder.Services.AddSwaggerGen(c =>
         Contact = new OpenApiContact
         {
             Name = "Valer Bocan, PhD, CSSLP",
-            Email = "valer.bocan@storya.ro",
+            Email = "valer@bocan.ro",
         },
     });
     c.OperationFilter<RemoveVersionFromParameter>();
