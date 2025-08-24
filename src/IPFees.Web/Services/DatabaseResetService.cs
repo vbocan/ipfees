@@ -28,8 +28,8 @@ namespace IPFees.Web.Services
 
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
-            // Run every hour
-            var timer = new PeriodicTimer(TimeSpan.FromHours(1));
+            // Run every 6 hour
+            var timer = new PeriodicTimer(TimeSpan.FromHours(6));
 
             while (await timer.WaitForNextTickAsync(stoppingToken))
             {
