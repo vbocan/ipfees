@@ -1,5 +1,4 @@
-﻿using Microsoft.Extensions.Configuration;
-using MongoDB.Bson;
+﻿using MongoDB.Bson;
 using MongoDB.Driver;
 using System.Text.Json;
 
@@ -10,20 +9,21 @@ namespace IPFees.Web.Services
         private readonly IMongoDatabase database;
         private readonly ILogger<DatabaseResetService> logger;
         private readonly string dataFolder;
-        private readonly (int Index, string FileName, string CollectionName)[] _fileMappings = new[]
-        {
+        private readonly (int Index, string FileName, string CollectionName)[] fileMappings =
+        [
             (0, "servicefees.json", "ServiceFees"),
             (1, "jurisdictions.json", "Jurisdictions"),
             (2, "modules.json", "Modules"),
             (3, "fees.json", "Fees")
-        };        
+        ];
 
         public DatabaseResetService(IMongoClient mongoClient, IConfiguration configuration, ILogger<DatabaseResetService> logger)
         {
-            var mongoUrl = new MongoUrl(configuration.GetValue<string>("MongoDb:ConnectionString"));
+            var mongoUrl = new MongoUrl(configuration.GetValue<string>("ConnectionStrings:MongoDbConnection"));
             database = mongoClient.GetDatabase(mongoUrl.DatabaseName);
             this.logger = logger;
-            dataFolder = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "data");
+            var configDataFolder = configuration.GetValue<string>("DatabaseReset:DataFolder");
+            dataFolder = Path.Combine(Directory.GetCurrentDirectory(), configDataFolder ?? "wwwroot/data");
         }
 
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
@@ -37,7 +37,7 @@ namespace IPFees.Web.Services
                 {
                     logger.LogInformation("Starting database reset at {Time}", DateTime.Now);
 
-                    foreach (var item in _fileMappings)
+                    foreach (var item in fileMappings)
                     {
                         string collectionName = item.CollectionName;
                         string filePath = Path.Combine(dataFolder, item.FileName);
@@ -99,8 +99,8 @@ namespace IPFees.Web.Services
                     }
 
                     // Verify collection counts
-                    foreach (var item in _fileMappings)
-                    {                        
+                    foreach (var item in fileMappings)
+                    {
                         var collection = database.GetCollection<BsonDocument>(item.CollectionName);
                         var count = await collection.CountDocumentsAsync(FilterDefinition<BsonDocument>.Empty, null, stoppingToken);
                         logger.LogInformation("{Collection} has {Count} documents after reset.", item.CollectionName, count);
