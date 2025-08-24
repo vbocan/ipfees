@@ -1,0 +1,32 @@
+services:
+  ipfees.web:
+    image: ${DOCKER_REGISTRY-}ipfeesweb
+    container_name: ipfees-web
+    build:
+      context: .
+      dockerfile: IPFees.Web/Dockerfile
+    depends_on:
+      - "mongodb"
+
+  ipfees.api:
+    image: ${DOCKER_REGISTRY-}ipfeesapi
+    container_name: ipfees-api
+    build:
+      context: .
+      dockerfile: IPFees.Api/Dockerfile    
+    depends_on:
+      - "mongodb"
+
+  mongodb:
+    image: mongo:latest
+    container_name: ipfees-mongodb
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongodb_data:/data/db
+      - mongodb_log:/var/log/mongodb/
+    restart: unless-stopped
+
+volumes:
+  mongodb_data:
+  mongodb_log:
