@@ -4,8 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace IPFees.Web.Areas.Module.Pages
-{
-    [Authorize(Roles = "Admin")]
+{    
     public class DeleteModel : PageModel
     {
         [BindProperty] public string Name { get; set; }

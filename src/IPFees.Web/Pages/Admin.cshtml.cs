@@ -4,8 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace IPFees.Web.Pages
-{
-    [Authorize(Roles = "Admin")]
+{    
     public class AdminModel : PageModel
     {
         public int JurisdictionCount { get; set; }
