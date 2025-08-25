@@ -1,32 +1,62 @@
 services:
-  ipfees.web:
-    image: ${DOCKER_REGISTRY-}ipfeesweb
+  ipfees.web:    
+    image: registry.gitlab.com/vbocan/ipfeesweb:latest
     container_name: ipfees-web
     build:
       context: .
       dockerfile: IPFees.Web/Dockerfile
     depends_on:
       - "mongodb"
+    env_file:
+      - .env
+    restart: unless-stopped
+    labels:
+      # Expose container to Traefik
+      - traefik.enable=true
+      # Create the RedirectScheme middleware
+      - traefik.http.middlewares.salescoach-redirect-websecure.redirectscheme.scheme=https
+      - traefik.http.middlewares.salescoach-redirect-websecure.redirectscheme.permanent=true
+      - traefik.http.middlewares.salescoach-redirect-websecure.redirectscheme.port=443
+      # Create router for HTTP and apply the redirect middleware
+      - traefik.http.routers.salescoach-http.rule=Host(`ipfees.dataman.ro`)
+      - traefik.http.routers.salescoach-http.middlewares=salescoach-redirect-websecure
+      # Create router for HTTPS
+      - traefik.http.routers.salescoach-https.rule=Host(`ipfees.dataman.ro`)
+      - traefik.http.routers.salescoach-https.entrypoints=websecure
+      - traefik.http.routers.salescoach-https.tls=true
+      - traefik.http.routers.salescoach-https.tls.certresolver=le
+    networks:
+      - webhost
 
   ipfees.api:
-    image: ${DOCKER_REGISTRY-}ipfeesapi
+    image: registry.gitlab.com/vbocan/ipfeesapi:latest
     container_name: ipfees-api
     build:
       context: .
       dockerfile: IPFees.Api/Dockerfile    
     depends_on:
       - "mongodb"
-
-  mongodb:
-    image: mongo:latest
-    container_name: ipfees-mongodb
-    ports:
-      - "27017:27017"
-    volumes:
-      - mongodb_data:/data/db
-      - mongodb_log:/var/log/mongodb/
+    env_file:
+      - .env
     restart: unless-stopped
-
-volumes:
-  mongodb_data:
-  mongodb_log:
+    labels:
+      # Expose container to Traefik
+      - traefik.enable=true
+      # Create the RedirectScheme middleware
+      - traefik.http.middlewares.salescoach-redirect-websecure.redirectscheme.scheme=https
+      - traefik.http.middlewares.salescoach-redirect-websecure.redirectscheme.permanent=true
+      - traefik.http.middlewares.salescoach-redirect-websecure.redirectscheme.port=443
+      # Create router for HTTP and apply the redirect middleware
+      - traefik.http.routers.salescoach-http.rule=Host(`ipfeesapi.dataman.ro`)
+      - traefik.http.routers.salescoach-http.middlewares=salescoach-redirect-websecure
+      # Create router for HTTPS
+      - traefik.http.routers.salescoach-https.rule=Host(`ipfeesapi.dataman.ro`)
+      - traefik.http.routers.salescoach-https.entrypoints=websecure
+      - traefik.http.routers.salescoach-https.tls=true
+      - traefik.http.routers.salescoach-https.tls.certresolver=le
+    networks:
+      - webhost
+  
+networks:
+  webhost:
+    name: "webhost"
