@@ -6,7 +6,6 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace IPFees.Web.Areas.Jurisdiction.Pages
 {
-    [Authorize(Roles = "Admin")]
     public class IndexModel : PageModel
     {
         [BindProperty] public IEnumerable<JurisdictionInfo> Jurisdictions { get; set; }

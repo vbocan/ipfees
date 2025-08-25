@@ -13,7 +13,7 @@ namespace IPFees.Core.Tests.Fixture
         public ModuleRepository ModuleRepository { get; set; }
         public SettingsRepository SettingsRepository { get; set; }
         public DataContext DbContext { get; private set; }        
-        private readonly string connectionString = "mongodb+srv://abdroot:Test123@cluster0.dusbo.mongodb.net/IPFeesTest?retryWrites=true&w=majority";
+        private readonly string connectionString = "mongodb://admin:15rRDQ4xw1RLVtz@db.dataman.ro:27017/IPFeesTest?authSource=admin&retryWrites=true";
         private readonly string ExchangeApiKey = "2e0b92d2e214bd2d6b1cd895";
 
         public CoreFixture()
