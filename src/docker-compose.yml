@@ -1,6 +1,6 @@
 services:
   ipfees.web:    
-    image: registry.gitlab.com/vbocan/ipfeesweb:latest
+    image: registry.gitlab.com/vbocan/ipfees:web
     container_name: ipfees-web
     build:
       context: .
@@ -27,7 +27,7 @@ services:
       - webhost
 
   ipfees.api:
-    image: registry.gitlab.com/vbocan/ipfeesapi:latest
+    image: registry.gitlab.com/vbocan/ipfees:api
     container_name: ipfees-api
     build:
       context: .
