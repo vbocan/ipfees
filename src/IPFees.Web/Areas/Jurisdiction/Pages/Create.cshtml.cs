@@ -6,8 +6,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace IPFees.Web.Areas.Jurisdiction.Pages
-{
-    [Authorize(Roles = "Admin")]
+{    
     public class CreateModel : PageModel
     {
         [BindProperty] public string Name { get; set; }

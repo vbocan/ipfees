@@ -1,0 +1,22 @@
+image: docker:stable
+services:
+  - docker:dind
+
+before_script:
+  - docker info
+
+build:
+  only:
+    - master
+  before_script:
+    - docker login registry.gitlab.com -u ${CI_REGISTRY_USER} -p ${CI_REGISTRY_PASSWORD}
+  script:
+    - docker build --file src/IPFees.API/Dockerfile -t registry.gitlab.com/vbocan/ipfeesapi src/
+    - docker push registry.gitlab.com/vbocan/ipfees
+    - docker build --file src/IPFees.Web/Dockerfile -t registry.gitlab.com/vbocan/ipfeesweb src/
+    - docker push registry.gitlab.com/vbocan/ipfeesweb
+  after_script:
+    - docker logout ${CI_REGISTRY}
+  stage: build
+  tags: 
+    - docker

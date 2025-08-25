@@ -1,0 +1,271 @@
+[{
+	"_id": {
+		"$binary": {
+			"base64": "P80vSkMGs06aNvKSzHRSpQ==",
+			"subType": "03"
+		}
+	},
+	"Name": "EntitySize",
+	"Description": "Define EntitySize as LIST w/ DEF=Entity_Large",
+	"SourceCode": "DEFINE LIST EntitySize AS 'Entity size of applicant?'\r\nGROUP G_APL\r\nCHOICE Entity_Person AS 'Natural person'\r\nCHOICE Entity_Less25 AS 'Less than 25 employees'\r\nCHOICE Entity_Less100 AS 'Less than 100, more than 25 employees'\r\nCHOICE Entity_Large AS 'Large entity (default)'\r\nCHOICE Entity_Small AS 'Small entity'\r\nCHOICE Entity_Micro AS 'Micro entity'\r\nDEFAULT Entity_Large\r\nENDDEFINE",
+	"LastUpdatedOn": {
+		"$date": "2023-06-19T06:12:03.815Z"
+	},
+	"AutoRun": false
+},
+{
+	"_id": {
+		"$binary": {
+			"base64": "w8nNogLgFk6LaXxGQ42hYA==",
+			"subType": "03"
+		}
+	},
+	"Name": "ClaimCount",
+	"Description": "Define ClaimCount as NUMBER w/ DEF=1",
+	"SourceCode": "DEFINE NUMBER ClaimCount AS 'Number of claims?'\r\nGROUP G_APP\r\nBETWEEN 1 AND 1000\r\nDEFAULT 1\r\nENDDEFINE",
+	"LastUpdatedOn": {
+		"$date": "2023-06-09T05:45:21.56Z"
+	},
+	"AutoRun": false
+},
+{
+	"_id": {
+		"$binary": {
+			"base64": "+uB2O4bRM0eob23VD8bkgw==",
+			"subType": "03"
+		}
+	},
+	"Name": "RO_NP",
+	"Description": "Define RO_NP as BOOLEAN; if PCT RO = national entry jurisdiction w/ DEF=FALSE",
+	"SourceCode": "#asks user if RO of PCT application is the same as the jurisdiction in which national phase entry is requested (RO_NP)\r\nDEFINE BOOLEAN RO_NP AS 'Is requested jurisdiction same as PCT/RO?'\r\nGROUP G_PCT\r\nDEFAULT FALSE\r\nENDDEFINE",
+	"LastUpdatedOn": {
+		"$date": "2023-06-19T08:35:52.873Z"
+	},
+	"AutoRun": false
+},
+{
+	"_id": {
+		"$binary": {
+			"base64": "4Ct/kCiA+E2ipjmulxpEoA==",
+			"subType": "03"
+		}
+	},
+	"Name": "NumberOfWords",
+	"Description": "Define NumberOfWords as NUMBER w/ DEF=1",
+	"SourceCode": "#asks user the number of words of the patent application\r\n\r\nDEFINE NUMBER NumberOfWords AS 'Number of words?'\r\nGROUP G_APP\r\nBETWEEN 1 AND 10000000\r\nDEFAULT 1\r\nENDDEFINE\r\n",
+	"LastUpdatedOn": {
+		"$date": "2023-06-09T05:46:04.614Z"
+	},
+	"AutoRun": false
+},
+{
+	"_id": {
+		"$binary": {
+			"base64": "En2jW1pOV0mKKoxXzuV5xw==",
+			"subType": "03"
+		}
+	},
+	"Name": "MultipleDependentClaimCount",
+	"Description": "Define MultipleDependentClaimCount as NUMBER w/ DEF=0",
+	"SourceCode": "DEFINE NUMBER MultipleDependentClaimCount AS 'Number of multiple dependent claims?'\r\nGROUP G_APP\r\nBETWEEN 0 AND 100\r\nDEFAULT 0\r\nENDDEFINE",
+	"LastUpdatedOn": {
+		"$date": "2023-06-09T05:45:54.031Z"
+	},
+	"AutoRun": false
+},
+{
+	"_id": {
+		"$binary": {
+			"base64": "ToC5VXUsjUOmzyP5ljoeeQ==",
+			"subType": "03"
+		}
+	},
+	"Name": "ISR_AVAILABLE",
+	"Description": "Define ISR_AVAILABLE (International Search Report) as BOOLEAN w/ DEF=TRUE",
+	"SourceCode": "DEFINE BOOLEAN ISR_AVAILABLE AS 'Is ISR available?'\r\nGROUP G_PCT\r\nDEFAULT TRUE\r\nENDDEFINE",
+	"LastUpdatedOn": {
+		"$date": "2023-06-19T08:35:05.699Z"
+	},
+	"AutoRun": false
+},
+{
+	"_id": {
+		"$binary": {
+			"base64": "yJkZPzopiES33gyACEIelQ==",
+			"subType": "03"
+		}
+	},
+	"Name": "ISA",
+	"Description": "Define ISA as LIST w/ DEF=ISA_NONE",
+	"SourceCode": "# International Search Authority\r\nDEFINE LIST ISA AS 'Which ISA searched the PCT application?'\r\nGROUP G_PCT\r\nCHOICE ISA_NONE AS 'NONE OF THE LIST'\r\nCHOICE ISA_AT AS 'AT - ATPO'\r\nCHOICE ISA_CA AS 'CA - CIPO'\r\nCHOICE ISA_EPO AS 'EP - EPO'\r\nCHOICE ISA_ES AS 'ES - OEPM'\r\nCHOICE ISA_FI AS 'FI - PRH'\r\nCHOICE ISA_JP AS 'JP - JPO'\r\nCHOICE ISA_RU AS 'RU - ROSPAT'\r\nCHOICE ISA_SE AS 'SE - PRV' \r\nCHOICE ISA_TR AS 'TR - Turkpatent'\r\nCHOICE ISA_US AS 'US - USPTO'\r\nCHOICE ISA_NPI AS 'XN - NPI'\r\nCHOICE ISA_VI AS 'XV - Visegrad Patent Institute'\r\nDEFAULT ISA_NONE\r\nENDDEFINE",
+	"LastUpdatedOn": {
+		"$date": "2023-06-19T08:34:55.932Z"
+	},
+	"AutoRun": false
+},
+{
+	"_id": {
+		"$binary": {
+			"base64": "vzzHPCpJGEez9mMLShJdHg==",
+			"subType": "03"
+		}
+	},
+	"Name": "EP_VAL_CTY",
+	"Description": "Define VAL_CTY as MULTILIST w/ DEF=VAL_NONE",
+	"SourceCode": "DEFINE MULTILIST VAL_CTY AS 'EP: Select validation countries'\r\nGROUP G_EPO\r\nCHOICE VAL_NONE AS 'NONE'\r\nCHOICE VAL_CD AS 'Cambodia'\r\nCHOICE VAL_MA AS 'Morocco'\r\nCHOICE VAL_MD AS 'Republic of Moldova'\r\nCHOICE VAL_TN AS 'Tunisia'\r\nDEFAULT VAL_NONE\r\nENDDEFINE",
+	"LastUpdatedOn": {
+		"$date": "2023-06-19T08:38:32.075Z"
+	},
+	"AutoRun": false
+},
+{
+	"_id": {
+		"$binary": {
+			"base64": "nC+R8kTojEaCnQiolyLDBw==",
+			"subType": "03"
+		}
+	},
+	"Name": "EP_Extension",
+	"Description": "Define Extension as BOOLEAN w/ DEF=FALSE",
+	"SourceCode": "DEFINE BOOLEAN Extension AS 'EP: Designate Bosnia and Herzegovina?'\r\nGROUP G_EPO\r\nDEFAULT FALSE\r\nENDDEFINE",
+	"LastUpdatedOn": {
+		"$date": "2023-06-19T08:34:29.564Z"
+	},
+	"AutoRun": false
+},
+{
+	"_id": {
+		"$binary": {
+			"base64": "yxnJYQGw1Uet6rD5tKgl3w==",
+			"subType": "03"
+		}
+	},
+	"Name": "AP_Designations",
+	"Description": "Define CountryCount as NUMBER w/ DEF=22",
+	"SourceCode": "DEFINE NUMBER CountryCount AS 'Number of designations?'\r\nGROUP G_ARIPO\r\nBETWEEN 1 AND 22\r\nDEFAULT 22  # number of ARIPO member states\r\n# Botswana, Eswatini, Gambia, Ghana, Kenya, Lesotho, Liberia, Malawi, Mozambique, Namibia, Rwanda, Sao Tome and Principe, Sierra Leone, Somalia (not member of the Harare Protocol), the Sudan, the United Republic of Tanzania, Uganda, Zambia and Zimbabwe\r\nENDDEFINE",
+	"LastUpdatedOn": {
+		"$date": "2023-06-19T08:33:48.38Z"
+	},
+	"AutoRun": false
+},
+{
+	"_id": {
+		"$binary": {
+			"base64": "Z0Bw3IlSG0OzyXWKEsF3nw==",
+			"subType": "03"
+		}
+	},
+	"Name": "DependentClaimCount",
+	"Description": "Define DependentClaimCount as NUMBER w/ DEF=0",
+	"SourceCode": "DEFINE NUMBER DependentClaimCount AS 'Number of dependent claims?'\r\nGROUP G_APP\r\nBETWEEN 0 AND 100\r\nDEFAULT 0\r\nENDDEFINE",
+	"LastUpdatedOn": {
+		"$date": "2023-06-09T05:45:29.597Z"
+	},
+	"AutoRun": false
+},
+{
+	"_id": {
+		"$binary": {
+			"base64": "l7y1RREJeUOT+fWhfHP84g==",
+			"subType": "03"
+		}
+	},
+	"Name": "OfficeElected",
+	"Description": "Define OfficeElected as BOOLEAN w/ DEF=FALSE",
+	"SourceCode": "#asks user if designated office is also elected office\r\nDEFINE BOOLEAN OfficeElected AS 'Is designated office elected office?'\r\nGROUP G_PCT\r\nDEFAULT FALSE\r\nENDDEFINE",
+	"LastUpdatedOn": {
+		"$date": "2023-06-19T08:35:34.096Z"
+	},
+	"AutoRun": false
+},
+{
+	"_id": {
+		"$binary": {
+			"base64": "y8ws32h6906ToqSk1RY2tA==",
+			"subType": "03"
+		}
+	},
+	"Name": "ApplicationDate",
+	"Description": "Define ApplicationDate as DATE w/ DEF=TODAY",
+	"SourceCode": "DEFINE DATE ApplicationDate AS 'Application date'\r\nGROUP G_APP\r\nBETWEEN 01.01.1900 AND TODAY\r\nDEFAULT TODAY\r\nENDDEFINE",
+	"LastUpdatedOn": {
+		"$date": "2023-06-09T05:44:37.561Z"
+	},
+	"AutoRun": false
+},
+{
+	"_id": {
+		"$binary": {
+			"base64": "2dPsleatHEyJ3m6za69vCA==",
+			"subType": "03"
+		}
+	},
+	"Name": "IPRP (IPER)",
+	"Description": "Define IPRP as LIST w/ DEF=IPRP_NONE",
+	"SourceCode": "# International preliminary report on patentability (Chapter II of the PCT; IPER)\r\nDEFINE LIST IPRP AS 'Which office provided an IPRP (Chapter II)/IPER?'\r\nGROUP G_PCT\r\nCHOICE IPRP_NONE AS 'NONE'\r\nCHOICE IPRP_AT AS 'AT - Austrian Patent Office'\r\nCHOICE IPRP_AU AS 'AU - IP Australia'\r\nCHOICE IPRP_BR AS 'BR - National Institute of Industrial Property (Brazil)'\r\nCHOICE IPRP_CA AS 'CA - Canadian Intellectual Property Office'\r\nCHOICE IPRP_CL AS 'CL - National Institute of Industrial Property of Chile'\r\nCHOICE IPRP_CN AS 'CN - China National Intellectual Property Administration (CNIPA)'\r\nCHOICE IPRP_EG AS 'EG - Egyptian Patent Office'\r\nCHOICE IPRP_EPO AS 'EP - European Patent Office (EPO)'\r\nCHOICE IPRP_ES AS 'ES - Spanish Patent and Trademark Office'\r\nCHOICE IPRP_FI AS 'FI - Finnish Patent and Registration Office (PRH)'\r\nCHOICE IPRP_IL AS 'IL - Israel Patent Office'\r\nCHOICE IPRP_IN AS 'IN - Indian Patent Office'\r\nCHOICE IPRP_JP AS 'JP - Japan Patent Office'\r\nCHOICE IPRP_KR AS 'KR - Korean Intellectual Property Office'\r\nCHOICE IPRP_PH AS 'PH - Intellectual Property Office of the Philippines'\r\nCHOICE IPRP_RU AS 'RU - Federal Service for Intellectual Property, Patents and Trademarks (Russian Federation)'\r\nCHOICE IPRP_SE AS 'SE - Swedish Intellectual Property Office (PRV)'\r\nCHOICE IPRP_SG AS 'SG - Intellectual Property Office of Singapore'\r\nCHOICE IPRP_TR AS 'TR - Turkish Patent and Trademark Office'\r\nCHOICE IPRP_UA AS 'UA - Ministry for Development of Economy, Trade and Agriculture of Ukraine, Department for Development of Intellectual Property'\r\nCHOICE IPRP_USPTO AS 'US - United States Patent and Trademark Office (USPTO)'\r\nCHOICE IPRP_XN AS 'XN - Nordic Patent Institute'\r\nCHOICE IPRP_XV AS 'XV - Visegrad Patent Institute'\r\nDEFAULT IPRP_NONE\r\nENDDEFINE",
+	"LastUpdatedOn": {
+		"$date": "2023-06-19T08:34:46.571Z"
+	},
+	"AutoRun": false
+},
+{
+	"_id": {
+		"$binary": {
+			"base64": "/T11zrraJEahVNTF5+09mA==",
+			"subType": "03"
+		}
+	},
+	"Name": "PriorityCount",
+	"Description": "Define PriorityCount as NUMBER w/ DEF=0",
+	"SourceCode": "DEFINE NUMBER PriorityCount AS 'Number of priorities?'\r\nGROUP G_APP\r\nBETWEEN 0 AND 100\r\nDEFAULT 0\r\nENDDEFINE\r\n",
+	"LastUpdatedOn": {
+		"$date": "2023-06-09T05:46:15.615Z"
+	},
+	"AutoRun": false
+},
+{
+	"_id": {
+		"$binary": {
+			"base64": "81Z/aOqIAUy+TOp5VhmYbw==",
+			"subType": "03"
+		}
+	},
+	"Name": "IndependentClaimCount",
+	"Description": "Define IndependentClaimCount as NUMBER w/ DEF=1",
+	"SourceCode": "DEFINE NUMBER IndependentClaimCount AS 'Number of independent claims?'\r\nGROUP G_APP\r\nBETWEEN 1 AND 100\r\nDEFAULT 1\r\nENDDEFINE",
+	"LastUpdatedOn": {
+		"$date": "2023-06-09T05:45:39.79Z"
+	},
+	"AutoRun": false
+},
+{
+	"_id": {
+		"$binary": {
+			"base64": "jnRwU6aeIkKFmvEWk4hhjQ==",
+			"subType": "03"
+		}
+	},
+	"Name": "SheetCount",
+	"Description": "Define SheetCount as NUMBER w/ DEF=10",
+	"SourceCode": "DEFINE NUMBER SheetCount AS 'Number of sheets?'\r\nGROUP G_APP\r\nBETWEEN 1 AND 10000\r\nDEFAULT 10\r\nENDDEFINE",
+	"LastUpdatedOn": {
+		"$date": "2023-06-09T05:46:23.267Z"
+	},
+	"AutoRun": false
+},
+{
+	"_id": {
+		"$binary": {
+			"base64": "Ma8OYkem2kKVwD/v9DH+Bg==",
+			"subType": "03"
+		}
+	},
+	"Name": "AutoRun",
+	"Description": "Autorun Module with GROUP definitions",
+	"SourceCode": "# Description texts for groups and their weights\r\n\r\nDEFINE GROUP G_APP AS 'Application Details' WITH WEIGHT 10\r\nDEFINE GROUP G_PCT AS 'PCT Details' WITH WEIGHT 20\r\nDEFINE GROUP G_APL AS 'Applicant Details' WITH WEIGHT 30\r\nDEFINE GROUP G_EPO AS 'EPO Details' WITH WEIGHT 40\r\nDEFINE GROUP G_ARIPO AS 'ARIPO Details' WITH WEIGHT 50\r\n",
+	"AutoRun": true,
+	"LastUpdatedOn": {
+		"$date": "2023-06-09T05:54:49.274Z"
+	}
+}]
+

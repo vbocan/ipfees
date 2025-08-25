@@ -4,8 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace IPFees.Web.Areas.Currency.Pages
-{
-    [Authorize(Roles = "Admin")]
+{    
     public class IndexModel : PageModel
     {
         private readonly ICurrencyConverter serd;
