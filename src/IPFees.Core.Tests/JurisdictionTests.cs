@@ -1,8 +1,4 @@
 using IPFees.Core.Tests.Fixture;
-using IPFees.Core;
-using IPFees.Core.Data;
-using IPFees.Core.Repository;
-using IPFees.Core.Enum;
 
 namespace IPFees.Core.Tests
 {
@@ -16,7 +12,7 @@ namespace IPFees.Core.Tests
         }
 
         [Fact]
-        public async void AddJurisdictionTest()
+        public async Task AddJurisdictionTest()
         {
             var jur = fixture.JurisdictionRepository;
             var res1 = await jur.AddJurisdictionAsync("Jurisdiction-Add");
@@ -26,7 +22,7 @@ namespace IPFees.Core.Tests
         }
 
         [Fact]
-        public async void AddDuplicateJurisdictionTest()
+        public async Task AddDuplicateJurisdictionTest()
         {
             var jur = fixture.JurisdictionRepository;
             var res1 = await jur.AddJurisdictionAsync("Jurisdiction-DuP");
@@ -36,7 +32,7 @@ namespace IPFees.Core.Tests
         }
 
         [Fact]
-        public async void SetJurisdictionNameTest()
+        public async Task SetJurisdictionNameTest()
         {
             var jur = fixture.JurisdictionRepository;
             var res1 = await jur.AddJurisdictionAsync("Jurisdiction-Set-Name");
@@ -48,7 +44,7 @@ namespace IPFees.Core.Tests
         }
 
         [Fact]
-        public async void SetJurisdictionDescriptionTest()
+        public async Task SetJurisdictionDescriptionTest()
         {
             var jur = fixture.JurisdictionRepository;
             var res1 = await jur.AddJurisdictionAsync("Jurisdiction-Set-Description");
@@ -60,7 +56,7 @@ namespace IPFees.Core.Tests
         }        
 
         [Fact]
-        public async void RemoveJurisdictionsTest()
+        public async Task RemoveJurisdictionsTest()
         {
             var jur = fixture.JurisdictionRepository;
             var res1 = await jur.AddJurisdictionAsync("Jurisdiction-Del");

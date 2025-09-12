@@ -20,7 +20,7 @@ namespace IPFees.Calculator.Tests
             var result = p.GetFees().SingleOrDefault();
             Assert.NotNull(result);
             Assert.Equal("BasicNationalFee", result.Name);                        
-            Assert.Equal(1, result.Cases.Count);
+            Assert.Single(result.Cases);
             var FeeCase = result.Cases[0];
             Assert.IsType<DslFeeCase>(FeeCase);
             var FeeCase1 = (DslFeeCase)result.Cases[0];
@@ -64,7 +64,7 @@ namespace IPFees.Calculator.Tests
             Assert.Equal(2, FeeCase2.Yields.Count);
             var FeeCase3 = (DslFeeCase)result.Cases[2];
             Assert.Equal(3, FeeCase3.Condition.Count());
-            Assert.Equal(1, FeeCase3.Yields.Count);
+            Assert.Single(FeeCase3.Yields);
         }
 
         [Fact]

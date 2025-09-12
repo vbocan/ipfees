@@ -1,24 +1,22 @@
 using IPFees.Calculator;
+using IPFees.Core.FeeCalculation;
 using IPFees.Core.Tests.Fixture;
 using IPFees.Evaluator;
 using IPFees.Parser;
-using IPFees.Core.Data;
-using static IPFees.Core.FeeCalculation.FeeCalculator;
-using IPFees.Core.FeeCalculation;
 
 namespace IPFees.Core.Tests
 {
-    public class FeeCalculatorTests : IClassFixture<FeeCalculatorFixture>
+    public class FeeCalculatorTests : IClassFixture<CoreFixture>
     {
-        private readonly FeeCalculatorFixture fixture;
+        private readonly CoreFixture fixture;
 
-        public FeeCalculatorTests(FeeCalculatorFixture fixture)
+        public FeeCalculatorTests(CoreFixture fixture)
         {
             this.fixture = fixture;
         }
 
         [Fact]
-        public async void OfficialFeeSingleCalculationTest()
+        public async Task OfficialFeeSingleCalculationTest()
         {
             // First let's create a module containing some source code that will later be referenced by the fee
             var mod = fixture.ModuleRepository;
