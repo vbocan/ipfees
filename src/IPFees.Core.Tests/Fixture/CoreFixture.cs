@@ -13,8 +13,8 @@ namespace IPFees.Core.Tests.Fixture
         public ModuleRepository ModuleRepository { get; set; }
         public SettingsRepository SettingsRepository { get; set; }
         public DataContext DbContext { get; private set; }        
-        private readonly string connectionString = "mongodb://admin:15rRDQ4xw1RLVtz@db.dataman.ro:27017/IPFeesTest?authSource=admin&retryWrites=true";
-        private readonly string ExchangeApiKey = "2e0b92d2e214bd2d6b1cd895";
+        private readonly string connectionString = "mongodb://root:pA$$w0rd@ipfees-mongodb:27017/IPFees?authSource=admin&retryWrites=true";
+        private readonly string ExchangeApiKey = "1234567890"; // Get an actual API key from https://www.exchangerate-api.com/
 
         public CoreFixture()
         {
