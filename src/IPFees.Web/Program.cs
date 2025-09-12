@@ -9,8 +9,14 @@ using IPFees.Web.Data;
 using IPFees.Web.Services;
 using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.Extensions.Options;
+using MongoDB.Bson;
+using MongoDB.Bson.Serialization;
+using MongoDB.Bson.Serialization.Serializers;
 using MongoDB.Driver;
 using Serilog;
+
+// Configure GuidRepresentation globally
+BsonSerializer.RegisterSerializer(new GuidSerializer(GuidRepresentation.CSharpLegacy));
 
 // Set Serilog settings
 var logger = new LoggerConfiguration()
