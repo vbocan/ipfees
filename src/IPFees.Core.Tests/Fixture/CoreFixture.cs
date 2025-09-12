@@ -5,9 +5,7 @@ using IPFees.Core.Repository;
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization;
 using MongoDB.Bson.Serialization.Serializers;
-using MongoDB.Driver;
 using Testcontainers.MongoDb;
-using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace IPFees.Core.Tests.Fixture
 {
@@ -17,9 +15,9 @@ namespace IPFees.Core.Tests.Fixture
         public FeeRepository FeeRepository { get; set; }
         public JurisdictionRepository JurisdictionRepository { get; set; }
         public ModuleRepository ModuleRepository { get; set; }
-        public SettingsRepository SettingsRepository { get; set; }        
+        public SettingsRepository SettingsRepository { get; set; }
         public DataContext DbContext { get; private set; }
-        private readonly IContainer mongoContainer;        
+        private readonly IContainer mongoContainer;
         private readonly string connectionString = string.Empty;
         private readonly string ExchangeApiKey = "1234567890"; // Get an actual API key from https://www.exchangerate-api.com/
 
@@ -27,12 +25,11 @@ namespace IPFees.Core.Tests.Fixture
         {
             try
             {
-                BsonSerializer.RegisterSerializer(new GuidSerializer(GuidRepresentation.Standard));                
+                BsonSerializer.RegisterSerializer(new GuidSerializer(GuidRepresentation.Standard));
             }
-            catch (Exception ex) when (ex.Message.Contains("already been registered"))
+            catch
             {
-                // Ignore: Already registered
-                Console.WriteLine("Serializer already registered—skipping.");
+                // Guid representations is going to be called several times, ignore any errors
             }
 
             // Start the test MongoDb instance            
