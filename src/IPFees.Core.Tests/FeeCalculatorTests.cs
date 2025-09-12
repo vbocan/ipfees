@@ -6,11 +6,11 @@ using IPFees.Parser;
 
 namespace IPFees.Core.Tests
 {
-    public class FeeCalculatorTests : IClassFixture<FeeCalculatorFixture>
+    public class FeeCalculatorTests : IClassFixture<CoreFixture>
     {
-        private readonly FeeCalculatorFixture fixture;
+        private readonly CoreFixture fixture;
 
-        public FeeCalculatorTests(FeeCalculatorFixture fixture)
+        public FeeCalculatorTests(CoreFixture fixture)
         {
             this.fixture = fixture;
         }
