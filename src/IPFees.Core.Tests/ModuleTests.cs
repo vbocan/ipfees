@@ -15,7 +15,7 @@ namespace IPFees.Core.Tests
         }
 
         [Fact]
-        public async void AddModuleTest()
+        public async Task AddModuleTest()
         {
             var mod = fixture.ModuleRepository;
             var res1 = await mod.AddModuleAsync("Module-Add");
@@ -25,7 +25,7 @@ namespace IPFees.Core.Tests
         }
 
         [Fact]
-        public async void AddDuplicateModuleTest()
+        public async Task AddDuplicateModuleTest()
         {
             var mod = fixture.ModuleRepository;
             var res1 = await mod.AddModuleAsync("Module-DuP");
@@ -35,7 +35,7 @@ namespace IPFees.Core.Tests
         }
 
         [Fact]
-        public async void SetModuleNameTest()
+        public async Task SetModuleNameTest()
         {
             var mod = fixture.ModuleRepository;
             var res1 = await mod.AddModuleAsync("Module-Set-Name");
@@ -47,7 +47,7 @@ namespace IPFees.Core.Tests
         }
 
         [Fact]
-        public async void SetModuleDescriptionTest()
+        public async Task SetModuleDescriptionTest()
         {
             var mod = fixture.ModuleRepository;
             var res1 = await mod.AddModuleAsync("Module-Set-Description");
@@ -59,7 +59,7 @@ namespace IPFees.Core.Tests
         }
 
         [Fact]
-        public async void SetModuleAutoRunStatusTest()
+        public async Task SetModuleAutoRunStatusTest()
         {
             var mod = fixture.ModuleRepository;
             var res1 = await mod.AddModuleAsync("Module-Set-AutoRun");
@@ -71,7 +71,7 @@ namespace IPFees.Core.Tests
         }
 
         [Fact]
-        public async void SetModuleSourceCodeTest()
+        public async Task SetModuleSourceCodeTest()
         {
             var mod = fixture.ModuleRepository;
             var res1 = await mod.AddModuleAsync("Module-Set-SourceCode");
@@ -83,7 +83,7 @@ namespace IPFees.Core.Tests
         }
 
         [Fact]
-        public async void RemoveModulesTest()
+        public async Task RemoveModulesTest()
         {
             var mod = fixture.ModuleRepository;
             var res1 = await mod.AddModuleAsync("Module-Del");

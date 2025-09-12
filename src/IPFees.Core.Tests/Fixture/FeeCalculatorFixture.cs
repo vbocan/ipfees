@@ -11,7 +11,7 @@ namespace IPFees.Core.Tests.Fixture
     {
         public ModuleRepository ModuleRepository { get; set; }
         public FeeRepository FeeRepository { get; set; }
-        private readonly string connectionString = "mongodb+srv://abdroot:Test123@cluster0.dusbo.mongodb.net/IPFeesTest?retryWrites=true&w=majority";
+        private readonly string connectionString = "mongodb://root:pA$$w0rd@ipfees-mongodb:27017/IPFeesTest?authSource=admin&retryWrites=true";
 
         public FeeCalculatorFixture()
         {
