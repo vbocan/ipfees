@@ -8,23 +8,6 @@ services:
     env_file:
       - .env
     restart: unless-stopped
-    labels:
-      # Expose container to Traefik
-      - traefik.enable=true
-      # Create the RedirectScheme middleware
-      - traefik.http.middlewares.salescoach-redirect-websecure.redirectscheme.scheme=https
-      - traefik.http.middlewares.salescoach-redirect-websecure.redirectscheme.permanent=true
-      - traefik.http.middlewares.salescoach-redirect-websecure.redirectscheme.port=443
-      # Create router for HTTP and apply the redirect middleware
-      - traefik.http.routers.salescoach-http.rule=Host(`ipfees.dataman.ro`)
-      - traefik.http.routers.salescoach-http.middlewares=salescoach-redirect-websecure
-      # Create router for HTTPS
-      - traefik.http.routers.salescoach-https.rule=Host(`ipfees.dataman.ro`)
-      - traefik.http.routers.salescoach-https.entrypoints=websecure
-      - traefik.http.routers.salescoach-https.tls=true
-      - traefik.http.routers.salescoach-https.tls.certresolver=le
-    networks:
-      - webhost
 
   ipfees.api:
     image: registry.gitlab.com/vbocan/ipfees:api
@@ -35,24 +18,17 @@ services:
     env_file:
       - .env
     restart: unless-stopped
-    labels:
-      # Expose container to Traefik
-      - traefik.enable=true
-      # Create the RedirectScheme middleware
-      - traefik.http.middlewares.salescoach-redirect-websecure.redirectscheme.scheme=https
-      - traefik.http.middlewares.salescoach-redirect-websecure.redirectscheme.permanent=true
-      - traefik.http.middlewares.salescoach-redirect-websecure.redirectscheme.port=443
-      # Create router for HTTP and apply the redirect middleware
-      - traefik.http.routers.salescoach-http.rule=Host(`ipfeesapi.dataman.ro`)
-      - traefik.http.routers.salescoach-http.middlewares=salescoach-redirect-websecure
-      # Create router for HTTPS
-      - traefik.http.routers.salescoach-https.rule=Host(`ipfeesapi.dataman.ro`)
-      - traefik.http.routers.salescoach-https.entrypoints=websecure
-      - traefik.http.routers.salescoach-https.tls=true
-      - traefik.http.routers.salescoach-https.tls.certresolver=le
-    networks:
-      - webhost
   
-networks:
-  webhost:
-    name: "webhost"
+  mongodb:
+    image: mongo:latest
+    container_name: ipfees-mongodb
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: pA$$w0rd
+    restart: unless-stopped
+    ports:
+      - 27017:27017
+
+volumes:
+  mongodb_data:
+  mongodb_log:    
