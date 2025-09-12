@@ -1,20 +1,35 @@
-﻿using IPFees.Calculator;
+﻿using DotNet.Testcontainers.Containers;
 using IPFees.Core.Data;
-using IPFees.Core.Model;
 using IPFees.Core.Repository;
 using MongoDB.Bson;
-using MongoDB.Driver;
+using Testcontainers.MongoDb;
 
 namespace IPFees.Core.Tests.Fixture
 {
-    public class FeeCalculatorFixture : IDisposable
+    public class FeeCalculatorFixture : IAsyncDisposable
     {
         public ModuleRepository ModuleRepository { get; set; }
         public FeeRepository FeeRepository { get; set; }
-        private readonly string connectionString = "mongodb://root:pA$$w0rd@ipfees-mongodb:27017/IPFeesTest?authSource=admin&retryWrites=true";
+        private readonly IContainer mongoContainer;
+        private readonly string connectionString = string.Empty;
 
         public FeeCalculatorFixture()
         {
+            // Start the test MongoDb instance            
+            mongoContainer = new MongoDbBuilder()
+                .WithImage("mongo:latest")
+                .WithPortBinding(27017, true)
+                .WithEnvironment("MONGO_INITDB_DATABASE", "IPFeesTest")
+                //.WithEnvironment("MONGO_INITDB_ROOT_USERNAME", "root")
+                //.WithEnvironment("MONGO_INITDB_ROOT_PASSWORD", "password")
+                .Build();
+
+            // Start the container
+            mongoContainer.StartAsync().GetAwaiter().GetResult();
+
+            // Use the dynamically assigned host port
+            connectionString = $"mongodb://root:password@localhost:{mongoContainer.GetMappedPublicPort(27017)}/IPFeesTest";
+
             // Build database context based on the connection string
             var DbContext = new DataContext(connectionString);
             DbContext.ModuleCollection.DeleteMany(new BsonDocument());
@@ -23,8 +38,10 @@ namespace IPFees.Core.Tests.Fixture
             FeeRepository = new FeeRepository(DbContext);
         }
 
-        public void Dispose()
+        public async ValueTask DisposeAsync()
         {
+            // Stop and clean up the container
+            await mongoContainer.DisposeAsync();
         }
     }
 }
