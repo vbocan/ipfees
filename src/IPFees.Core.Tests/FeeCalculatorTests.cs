@@ -18,7 +18,7 @@ namespace IPFees.Core.Tests
         }
 
         [Fact]
-        public async void OfficialFeeSingleCalculationTest()
+        public async Task OfficialFeeSingleCalculationTest()
         {
             // First let's create a module containing some source code that will later be referenced by the fee
             var mod = fixture.ModuleRepository;

@@ -1,5 +1,4 @@
 using IPFees.Core.Enum;
-using IPFees.Core.Repository;
 using IPFees.Core.Tests.Fixture;
 
 namespace IPFees.Core.Tests
@@ -14,7 +13,7 @@ namespace IPFees.Core.Tests
         }
 
         [Fact]
-        public async void AddFeeTest()
+        public async Task AddFeeTest()
         {
             var jur = fixture.FeeRepository;
             var res1 = await jur.AddFeeAsync("Fee-Add");
@@ -24,7 +23,7 @@ namespace IPFees.Core.Tests
         }
 
         [Fact]
-        public async void AddDuplicateFeeTest()
+        public async Task AddDuplicateFeeTest()
         {
             var jur = fixture.FeeRepository;
             var res1 = await jur.AddFeeAsync("Fee-DuP");
@@ -34,7 +33,7 @@ namespace IPFees.Core.Tests
         }
 
         [Fact]
-        public async void SetFeeNameTest()
+        public async Task SetFeeNameTest()
         {
             var jur = fixture.FeeRepository;
             var res1 = await jur.AddFeeAsync("Fee-Set-Name");
@@ -46,7 +45,7 @@ namespace IPFees.Core.Tests
         }
 
         [Fact]
-        public async void SetFeeJurisdictionNameTest()
+        public async Task SetFeeJurisdictionNameTest()
         {
             var jur = fixture.FeeRepository;
             var res1 = await jur.AddFeeAsync("Fee-Set-JurisdictionName");
@@ -58,7 +57,7 @@ namespace IPFees.Core.Tests
         }
 
         [Fact]
-        public async void SetFeeCategoryTest()
+        public async Task SetFeeCategoryTest()
         {
             var jur = fixture.FeeRepository;
             var res1 = await jur.AddFeeAsync("Fee-Set-Category");
@@ -70,7 +69,7 @@ namespace IPFees.Core.Tests
         }        
 
         [Fact]
-        public async void SetFeeDescriptionTest()
+        public async Task SetFeeDescriptionTest()
         {
             var jur = fixture.FeeRepository;
             var res1 = await jur.AddFeeAsync("Fee-Set-Description");
@@ -82,7 +81,7 @@ namespace IPFees.Core.Tests
         }
 
         [Fact]
-        public async void SetFeeSourceCodeTest()
+        public async Task SetFeeSourceCodeTest()
         {
             var jur = fixture.FeeRepository;
             var res1 = await jur.AddFeeAsync("Fee-Set-SourceCode");
@@ -94,7 +93,7 @@ namespace IPFees.Core.Tests
         }
 
         [Fact]
-        public async void RemoveFeesTest()
+        public async Task RemoveFeesTest()
         {
             var jur = fixture.FeeRepository;
             var res1 = await jur.AddFeeAsync("Fee-Del");
@@ -104,7 +103,7 @@ namespace IPFees.Core.Tests
         }
 
         [Fact]
-        public async void SetFeeReferencedModulesTest()
+        public async Task SetFeeReferencedModulesTest()
         {
             var jur = fixture.FeeRepository;
             var res1 = await jur.AddFeeAsync("Fee-Set-RefMods");
