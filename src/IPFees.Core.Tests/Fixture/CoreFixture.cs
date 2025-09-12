@@ -1,23 +1,43 @@
-﻿using IPFees.Core.CurrencyConversion;
+﻿using DotNet.Testcontainers.Containers;
+using IPFees.Core.CurrencyConversion;
 using IPFees.Core.Data;
 using IPFees.Core.Repository;
 using MongoDB.Bson;
+using MongoDB.Driver;
+using Testcontainers.MongoDb;
 
 namespace IPFees.Core.Tests.Fixture
 {
-    public class CoreFixture : IDisposable
+    public class CoreFixture : IAsyncDisposable
     {
         public ExchangeRateFetcher CurrencyConverter { get; set; }
         public FeeRepository FeeRepository { get; set; }
         public JurisdictionRepository JurisdictionRepository { get; set; }
         public ModuleRepository ModuleRepository { get; set; }
         public SettingsRepository SettingsRepository { get; set; }
-        public DataContext DbContext { get; private set; }        
-        private readonly string connectionString = "mongodb://root:pA$$w0rd@ipfees-mongodb:27017/IPFees?authSource=admin&retryWrites=true";
+        public DataContext DbContext { get; private set; }
+        private readonly IContainer mongoContainer;
+        //private readonly string connectionString = "mongodb://root:password@localhost:27017/IPFeesTest?authSource=admin";
+        private readonly string connectionString = string.Empty;
         private readonly string ExchangeApiKey = "1234567890"; // Get an actual API key from https://www.exchangerate-api.com/
 
         public CoreFixture()
         {
+            // Start the test MongoDb instance            
+            mongoContainer = new MongoDbBuilder()
+                .WithImage("mongo:latest")
+                .WithPortBinding(27017, true)
+                .WithEnvironment("MONGO_INITDB_DATABASE", "IPFeesTest")
+                //.WithEnvironment("MONGO_INITDB_ROOT_USERNAME", "root")
+                //.WithEnvironment("MONGO_INITDB_ROOT_PASSWORD", "password")
+                .Build();
+
+            // Start the container
+            mongoContainer.StartAsync().GetAwaiter().GetResult();
+
+            // Use the dynamically assigned host port
+            connectionString = $"mongodb://root:password@localhost:{mongoContainer.GetMappedPublicPort(27017)}/IPFeesTest";
+
             // Build database context based on the connection string
             DbContext = new DataContext(connectionString);
             DbContext.ModuleCollection.DeleteMany(new BsonDocument());
@@ -32,8 +52,10 @@ namespace IPFees.Core.Tests.Fixture
             SettingsRepository = new SettingsRepository(DbContext);
         }
 
-        public void Dispose()
+        public async ValueTask DisposeAsync()
         {
+            // Stop and clean up the container
+            await mongoContainer.DisposeAsync();
         }
     }
 }
