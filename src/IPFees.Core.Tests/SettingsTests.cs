@@ -16,7 +16,7 @@ namespace IPFees.Core.Tests
         }
 
         [Fact]
-        public async void SetGetServiceFeeTest()
+        public async Task SetGetServiceFeeTest()
         {
             var sr = fixture.SettingsRepository;
             var res1 = await sr.SetServiceFeeAsync(ServiceFeeLevel.Level1, 150, "USD");
@@ -27,7 +27,7 @@ namespace IPFees.Core.Tests
         }
 
         [Fact]
-        public async void SetGetServiceFeeConsecutiveTest()
+        public async Task SetGetServiceFeeConsecutiveTest()
         {
             var sr = fixture.SettingsRepository;
             var res1 = await sr.SetServiceFeeAsync(ServiceFeeLevel.Level2, 150, "USD");
@@ -40,7 +40,7 @@ namespace IPFees.Core.Tests
         }
 
         [Fact]
-        public async void SetGetServiceFeeInvalidTest()
+        public async Task SetGetServiceFeeInvalidTest()
         {
             var sr = fixture.SettingsRepository;
             var res1 = await sr.GetServiceFeeAsync(ServiceFeeLevel.Level3);
