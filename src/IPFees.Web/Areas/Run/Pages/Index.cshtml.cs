@@ -18,6 +18,7 @@ namespace IPFees.Web.Areas.Run.Pages
         public IEnumerable<SelectListItem> CurrencyItems { get; set; }
         public IEnumerable<SelectListItem> SelectedJurisdictionItems { get; set; }
         public bool CurrencyExchangeRatesAvailable { get; set; }
+        public ResponseStatus CurrencyDataStatus { get; set; }
         
         private const string DefaultCurrency = "EUR";
         private readonly IJurisdictionRepository jurisdictionRepository;
@@ -48,7 +49,8 @@ namespace IPFees.Web.Areas.Run.Pages
                 .Where(w => currencySettings.AllowedCurrencies.Contains(w.Item1))
                 .Select(s => new SelectListItem($"[{s.Item1}] {s.Item2}", s.Item1, s.Item1.Equals(DefaultCurrency)));
 
-            CurrencyExchangeRatesAvailable = serd.Response.ResponseValid;
+            CurrencyDataStatus = serd.Response.Status;
+            CurrencyExchangeRatesAvailable = serd.Response.Status != ResponseStatus.Invalid;
             return Page();
         }
 
