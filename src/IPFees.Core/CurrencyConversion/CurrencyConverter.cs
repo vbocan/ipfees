@@ -188,7 +188,7 @@
         public decimal ConvertCurrency(decimal Amount, string SourceCurrency, string TargetCurrency)
         {
             // Check whether we've fetched the currency exchange rates
-            if (!Response.ResponseValid) throw new Exception("No currency information available");
+            if (Response.Status == ResponseStatus.Invalid) throw new Exception("No currency information available");
             // Check whether the source and target currencies are actually in the exchange rate data
             if (!Response.ExchangeRates.ContainsKey(SourceCurrency)) throw new ArgumentException($"Currency {SourceCurrency} does not exist", nameof(SourceCurrency));
             if (!Response.ExchangeRates.ContainsKey(TargetCurrency)) throw new ArgumentException($"Currency {TargetCurrency} does not exist", nameof(TargetCurrency));

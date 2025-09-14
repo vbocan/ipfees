@@ -22,7 +22,7 @@ namespace IPFees.Web.Services
             var mongoUrl = new MongoUrl(configuration.GetValue<string>("ConnectionStrings:MongoDbConnection"));
             database = mongoClient.GetDatabase(mongoUrl.DatabaseName);
             this.logger = logger;
-            var configDataFolder = configuration.GetValue<string>("DatabaseReset:DataFolder");
+            var configDataFolder = configuration.GetValue<string>("DataFolder");
             dataFolder = Path.Combine(Directory.GetCurrentDirectory(), configDataFolder ?? "wwwroot/data");
         }
 

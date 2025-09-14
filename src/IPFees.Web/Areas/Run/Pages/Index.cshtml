@@ -35,25 +35,30 @@
                         </div>
                     </div>
                 </div>
-                @if (Model.CurrencyExchangeRatesAvailable)
-                {
-                    <div class="row mt-2">
-                        <div class="col-12">
+                <div class="row mt-2">
+                    <div class="col-12">
+                        @if (Model.CurrencyDataStatus == ResponseStatus.ResponseOnline)
+                        {
                             <button type="submit" class="btn btn-primary">Next Step - Select Parameters</button>
-                        </div>
-                    </div>
-                }
-                else
-                {
-                    <div class="row mt-2">
-                        <div class="col-12">
-                            <div class="alert alert-danger" role="alert">
-                                Currency exchange rates are not currently available.<br />
-                                You may need to get an API key from <a href="https://www.exchangerate-api.com" target="_blank">https://www.exchangerate-api.com/</a> and place the key in file appsettings.json.
+                        }
+                        else if (Model.CurrencyDataStatus == ResponseStatus.ResponseStale)
+                        {
+                            <div class="alert alert-warning" role="alert">
+                                <strong>Using backup currency data</strong><br/>
+                                Current exchange rates are not available from the online service, but we're using backup rates from our database. Results may not reflect the most current exchange rates.<br/>
+                                You may need to get an API key from <a href="https://www.exchangerate-api.com" target="_blank">https://www.exchangerate-api.com/</a> and place it in file appsettings.json.
                             </div>
-                        </div>
+                            <button type="submit" class="btn btn-primary">Next Step - Select Parameters</button>
+                        }
+                        else
+                        {
+                            <div class="alert alert-danger" role="alert">
+                                <strong>Currency exchange rates are not available</strong><br />
+                                Neither online nor backup currency data is available. To continue, you need to get an API key from <a href="https://www.exchangerate-api.com" target="_blank">https://www.exchangerate-api.com/</a> and place it in file appsettings.json.
+                            </div>
+                        }
                     </div>
-                }
+                </div>
             </form>
         }
         else
