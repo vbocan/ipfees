@@ -36,7 +36,7 @@ namespace IPFees.Core.CurrencyConversion
                 var IsSuccessfull = jsonDocument.RootElement.GetProperty("result").GetString()?.Equals("success", StringComparison.InvariantCultureIgnoreCase);
                 if (!IsSuccessfull.HasValue || !IsSuccessfull.Value)
                 {
-                    return new ExchangeRateResponse(false, "Invalid response from the exchange service", new Dictionary<string, decimal>(), DateTime.Now);
+                    return new ExchangeRateResponse(ResponseStatus.Invalid, "Invalid response from the exchange service", new Dictionary<string, decimal>(), DateTime.Now);
                 }
                 // Determine the timestamp of the last data update
                 var unixLastUpdate = jsonDocument.RootElement.GetProperty("time_last_update_unix").GetDouble();
@@ -45,11 +45,11 @@ namespace IPFees.Core.CurrencyConversion
                 var jsonRates = jsonDocument.RootElement.GetProperty("conversion_rates").GetRawText();
                 var ExchangeRates = ParseExchangeRates(jsonRates);
 
-                return new ExchangeRateResponse(true, string.Empty, ExchangeRates, LastUpdatedOn);
+                return new ExchangeRateResponse(ResponseStatus.ResponseOnline, string.Empty, ExchangeRates, LastUpdatedOn);
             }
             catch (Exception ex)
             {
-                return new ExchangeRateResponse(false, $"Unable to fetch exchange data: {ex}", new Dictionary<string, decimal>(), DateTime.Now);
+                return new ExchangeRateResponse(ResponseStatus.Invalid, $"Unable to fetch exchange data: {ex}", new Dictionary<string, decimal>(), DateTime.Now);
             }
         }
 
@@ -70,5 +70,13 @@ namespace IPFees.Core.CurrencyConversion
             return exchangeRates;
         }
     }
-    public record ExchangeRateResponse(bool ResponseValid, string Reason, Dictionary<string, decimal> ExchangeRates, DateTime LastUpdatedOn);
+
+    public enum ResponseStatus
+    {
+        ResponseOnline,
+        ResponseStale,
+        Invalid
+    }
+
+    public record ExchangeRateResponse(ResponseStatus Status, string Reason, Dictionary<string, decimal> ExchangeRates, DateTime LastUpdatedOn);
 }

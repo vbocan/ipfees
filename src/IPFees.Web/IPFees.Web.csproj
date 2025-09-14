@@ -20,8 +20,4 @@
     <ProjectReference Include="..\IPFees.Core\IPFees.Core.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="wwwroot\data\" />
-  </ItemGroup>
-
 </Project>
