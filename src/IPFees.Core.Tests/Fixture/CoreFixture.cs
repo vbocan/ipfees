@@ -45,7 +45,7 @@ namespace IPFees.Core.Tests.Fixture
             mongoContainer.StartAsync().GetAwaiter().GetResult();
 
             // Use the dynamically assigned host port
-            connectionString = $"mongodb://root:password@localhost:{mongoContainer.GetMappedPublicPort(27017)}/IPFeesTest?authSource=admin&authMechanism=SCRAM-SHA-1";
+            connectionString = $"mongodb://root:password@localhost:{mongoContainer.GetMappedPublicPort(27017)}/IPFeesTest?authSource=admin";
 
             // Build database context based on the connection string
             DbContext = new DataContext(connectionString);
