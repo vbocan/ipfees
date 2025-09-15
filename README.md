@@ -107,10 +107,6 @@ The web-based interface features a wizard-driven fee calculation process that gu
 
 Runtime configuration capabilities allow fee structures to be modified without code deployment or system downtime. The administrative interface provides comprehensive module management for creating, editing, and organizing fee calculation modules. Centralized settings management handles currencies, API keys, and system parameters, while complete audit trails track all fee calculations and system changes for compliance and troubleshooting purposes.
 
-### Regulatory Compliance and Monitoring
-
-Regulatory compliance management is built into the platform's foundation, with automated monitoring of fee schedule changes across jurisdictions, entity status verification systems that ensure ongoing small entity compliance, and comprehensive audit trails that meet the stringent requirements of USPTO, EPO, and international IP offices. The system maintains compliance with GDPR data privacy requirements, implements end-to-end encryption for financial data, and provides detailed reporting capabilities required for regulatory compliance across multiple jurisdictions.
-
 ## Market Position & Competitive Advantage
 
 ### Target Market Segments
@@ -126,7 +122,7 @@ IPFees addresses four distinct market segments within the rapidly growing IP man
 
 Unlike existing solutions like WIPO's fragmented calculators or commercial platforms with limited fee calculation sophistication, IPFees delivers end-to-end fee lifecycle management:
 
-- **Real-time accuracy**: 99%+ fee calculation precision with automated updates when jurisdictions modify fee schedules
+- **Real-time accuracy**: 99%+ fee calculation precision
 - **Bulk processing capabilities**: Portfolio-level fee estimation and optimization for large IP holdings
 - **Currency hedge options**: Advanced foreign exchange management tools that eliminate timing-based accounting discrepancies
 - **Advanced reporting**: Comprehensive cost analysis and historical tracking across jurisdictions
