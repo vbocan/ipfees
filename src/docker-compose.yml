@@ -6,7 +6,7 @@ services:
       dockerfile: IPFees.Web/Dockerfile
     restart: unless-stopped
     depends_on:
-      - mongodb
+      - ipfees-mongodb
     ports:
       - "8080:8080"
       - "8081:8081"
@@ -18,12 +18,12 @@ services:
       dockerfile: IPFees.Api/Dockerfile
     restart: unless-stopped
     depends_on:
-      - mongodb
+      - ipfees-mongodb
     ports:
       - "8090:8090"
       - "8091:8091"
   
-  mongodb:
+  ipfees-mongodb:
     image: mongo:latest
     container_name: ipfees-mongodb
     environment:
