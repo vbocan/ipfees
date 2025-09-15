@@ -28,88 +28,95 @@ namespace IPFees.Web.Services
 
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
-            // Run every 6 hour
+            // Run immediately on startup, then every 6 hours
+            await PerformDatabaseReset(stoppingToken);
+
             var timer = new PeriodicTimer(TimeSpan.FromHours(6));
 
             while (await timer.WaitForNextTickAsync(stoppingToken))
             {
-                try
+                await PerformDatabaseReset(stoppingToken);
+            }
+        }
+
+        private async Task PerformDatabaseReset(CancellationToken stoppingToken)
+        {
+            try
+            {
+                logger.LogInformation("Starting database reset at {Time}", DateTime.Now);
+
+                foreach (var item in fileMappings)
                 {
-                    logger.LogInformation("Starting database reset at {Time}", DateTime.Now);
+                    string collectionName = item.CollectionName;
+                    string filePath = Path.Combine(dataFolder, item.FileName);
 
-                    foreach (var item in fileMappings)
+                    if (!File.Exists(filePath))
                     {
-                        string collectionName = item.CollectionName;
-                        string filePath = Path.Combine(dataFolder, item.FileName);
+                        logger.LogWarning("File {FileName} not found.", item.FileName);
+                        continue;
+                    }
 
-                        if (!File.Exists(filePath))
+                    // Read JSON file
+                    string jsonContent = await File.ReadAllTextAsync(filePath, stoppingToken);
+
+                    // Validate JSON array using System.Text.Json
+                    JsonDocument jsonDoc;
+                    try
+                    {
+                        jsonDoc = JsonDocument.Parse(jsonContent);
+                        if (!jsonDoc.RootElement.ValueKind.Equals(JsonValueKind.Array))
                         {
-                            logger.LogWarning("File {FileName} not found.", item.FileName);
+                            logger.LogError("File {FileName} is not a JSON array.", item.FileName);
                             continue;
                         }
+                    }
+                    catch (JsonException ex)
+                    {
+                        logger.LogError("Invalid JSON in {FileName}: {Error}", item.FileName, ex.Message);
+                        continue;
+                    }
 
-                        // Read JSON file
-                        string jsonContent = await File.ReadAllTextAsync(filePath, stoppingToken);
-
-                        // Validate JSON array using System.Text.Json
-                        JsonDocument jsonDoc;
+                    // Parse each JSON object into BsonDocument
+                    var documents = new List<BsonDocument>();
+                    foreach (var element in jsonDoc.RootElement.EnumerateArray())
+                    {
                         try
                         {
-                            jsonDoc = JsonDocument.Parse(jsonContent);
-                            if (!jsonDoc.RootElement.ValueKind.Equals(JsonValueKind.Array))
-                            {
-                                logger.LogError("File {FileName} is not a JSON array.", item.FileName);
-                                continue;
-                            }
+                            string jsonString = element.GetRawText();
+                            var bsonDoc = BsonDocument.Parse(jsonString); // Handles $oid, $binary, $date
+                            documents.Add(bsonDoc);
                         }
-                        catch (JsonException ex)
+                        catch (Exception ex)
                         {
-                            logger.LogError("Invalid JSON in {FileName}: {Error}", item.FileName, ex.Message);
-                            continue;
+                            logger.LogWarning("Failed to parse document in {FileName}: {Error}", item.FileName, ex.Message);
                         }
-
-                        // Parse each JSON object into BsonDocument
-                        var documents = new List<BsonDocument>();
-                        foreach (var element in jsonDoc.RootElement.EnumerateArray())
-                        {
-                            try
-                            {
-                                string jsonString = element.GetRawText();
-                                var bsonDoc = BsonDocument.Parse(jsonString); // Handles $oid, $binary, $date
-                                documents.Add(bsonDoc);
-                            }
-                            catch (Exception ex)
-                            {
-                                logger.LogWarning("Failed to parse document in {FileName}: {Error}", item.FileName, ex.Message);
-                            }
-                        }
-
-                        if (documents.Count == 0)
-                        {
-                            logger.LogWarning("No valid documents found in {FileName}.", item.FileName);
-                            continue;
-                        }
-
-                        // Drop and repopulate collection
-                        var collection = database.GetCollection<BsonDocument>(collectionName);
-                        await collection.Database.DropCollectionAsync(collectionName, stoppingToken);
-                        await collection.InsertManyAsync(documents, null, stoppingToken);
-
-                        logger.LogInformation("Inserted {Count} documents into {Collection}.", documents.Count, collectionName);
                     }
 
-                    // Verify collection counts
-                    foreach (var item in fileMappings)
+                    if (documents.Count == 0)
                     {
-                        var collection = database.GetCollection<BsonDocument>(item.CollectionName);
-                        var count = await collection.CountDocumentsAsync(FilterDefinition<BsonDocument>.Empty, null, stoppingToken);
-                        logger.LogInformation("{Collection} has {Count} documents after reset.", item.CollectionName, count);
+                        logger.LogWarning("No valid documents found in {FileName}.", item.FileName);
+                        continue;
                     }
+
+                    // Drop and repopulate collection
+                    var collection = database.GetCollection<BsonDocument>(collectionName);
+                    await collection.Database.DropCollectionAsync(collectionName, stoppingToken);
+                    await collection.InsertManyAsync(documents, null, stoppingToken);
+
+                    logger.LogInformation("Inserted {Count} documents into {Collection}.", documents.Count, collectionName);
                 }
-                catch (Exception ex)
+
+                // Verify collection counts
+                foreach (var item in fileMappings)
                 {
-                    logger.LogError("Database reset failed: {Error}", ex.Message);
+                    var collection = database.GetCollection<BsonDocument>(item.CollectionName);
+                    var count = await collection.CountDocumentsAsync(FilterDefinition<BsonDocument>.Empty, null, stoppingToken);
+                    logger.LogInformation("{Collection} has {Count} documents after reset.", item.CollectionName, count);
                 }
+            }
+            catch (Exception ex)
+            {
+                logger.LogError("Database reset failed: {Error}", ex.Message);
             }
         }
     }
