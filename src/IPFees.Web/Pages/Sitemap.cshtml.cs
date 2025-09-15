@@ -15,6 +15,7 @@ namespace IPFees.Web.Pages
             new SitemapItem("/Currency", changefreq: SitemapChangeFrequency.Monthly, priority: 1.0),
             new SitemapItem("/Reference", changefreq: SitemapChangeFrequency.Monthly, priority: 1.0),
             new SitemapItem("/Grammar", changefreq: SitemapChangeFrequency.Monthly, priority: 1.0),
+            new SitemapItem("/About", changefreq: SitemapChangeFrequency.Monthly, priority: 1.0),
 
             // TODO: Add more sitemap items
         };
