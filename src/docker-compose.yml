@@ -4,10 +4,10 @@ services:
     container_name: ipfees-web
     build:
       context: .
-      dockerfile: IPFees.Web/Dockerfile    
-    env_file:
-      - .env
+      dockerfile: IPFees.Web/Dockerfile
     restart: unless-stopped
+    depends_on:
+      - mongodb
 
   ipfees.api:
     image: registry.gitlab.com/vbocan/ipfees:api
@@ -15,9 +15,9 @@ services:
     build:
       context: .
       dockerfile: IPFees.Api/Dockerfile    
-    env_file:
-      - .env
     restart: unless-stopped
+    depends_on:
+      - mongodb
   
   mongodb:
     image: mongo:latest
@@ -31,4 +31,4 @@ services:
 
 volumes:
   mongodb_data:
-  mongodb_log:    
+  mongodb_log:
