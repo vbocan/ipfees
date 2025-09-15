@@ -1,9 +1,9 @@
 # IPFees - Intelligent Intellectual Property Fee Calculator
 
-[![Build Status](https://img.shields.io/badge/build-passing-brightgreen)](https://github.com/ipfees/ipfees)
-[![Docker](https://img.shields.io/badge/Docker-Supported-blue?logo=docker)](https://docker.com)
 [![.NET](https://img.shields.io/badge/.NET-9.0-purple?logo=dotnet)](https://dotnet.microsoft.com)
+[![Docker](https://img.shields.io/badge/Docker-Supported-blue?logo=docker)](https://docker.com)
 [![MongoDB](https://img.shields.io/badge/Database-MongoDB-green?logo=mongodb)](https://mongodb.com)
+[![Build Status](https://img.shields.io/badge/build-passing-brightgreen)](https://github.com/ipfees/ipfees)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![API](https://img.shields.io/badge/API-REST-orange)](https://localhost:8090/swagger)
 
@@ -44,6 +44,22 @@ dotnet test
 dotnet test IPFees.Core.Tests
 dotnet test IPFees.Calculator.Tests
 ```
+
+## Technical Architecture
+
+IPFees leverages a modular architecture designed specifically for the demands of global IP practice, addressing complex requirements of many distinct regulatory frameworks.
+
+For a detailed technical architecture diagram, see [architecture.md](architecture.md).
+
+### Technology Stack
+
+- **Backend**: .NET 9.0, ASP.NET Core
+- **Frontend**: Razor Pages, Bootstrap 5
+- **Database**: MongoDB with GridFS
+- **Containerization**: Docker & Docker Compose
+- **Background Services**: .NET BackgroundService
+- **Expression Parsing**: Custom DSL interpreter
+- **Testing**: xUnit
 
 ## IPFees: Transforming global IP fee management through intelligent automation
 
@@ -94,41 +110,6 @@ Runtime configuration capabilities allow fee structures to be modified without c
 ### Regulatory Compliance and Monitoring
 
 Regulatory compliance management is built into the platform's foundation, with automated monitoring of fee schedule changes across jurisdictions, entity status verification systems that ensure ongoing small entity compliance, and comprehensive audit trails that meet the stringent requirements of USPTO, EPO, and international IP offices. The system maintains compliance with GDPR data privacy requirements, implements end-to-end encryption for financial data, and provides detailed reporting capabilities required for regulatory compliance across multiple jurisdictions.
-
-## Technical Architecture
-
-IPFees leverages a modular architecture designed specifically for the demands of global IP practice, addressing complex requirements of many distinct regulatory frameworks.
-
-```
-┌─────────────────┐    ┌─────────────────┐    ┌─────────────────┐
-│   IPFees.Web    │    │   IPFees.API    │    │   MongoDB       │
-│  (Web Interface)│◄──►│   (REST API)    │◄──►│ (GridFS/Audit)  │
-└─────────────────┘    └─────────────────┘    └─────────────────┘
-         │                       │                       │
-         ▼                       ▼                       ▼
-┌─────────────────┐    ┌─────────────────┐    ┌─────────────────┐
-│  IPFees.Core    │    │ Exchange Rate   │    │ Reporting &     │
-│ (Business Logic)│    │ Services        │    │ Analytics       │
-│ & DSL Engine    │    │ (Multi-Provider)│    │ Engine          │
-└─────────────────┘    └─────────────────┘    └─────────────────┘
-         │                       │                       │
-         ▼                       ▼                       ▼
-┌─────────────────┐    ┌─────────────────┐    ┌─────────────────┐
-│ Jurisdiction    │    │ Currency Cache  │    │ Compliance      │
-│ Configuration   │    │ & Fallback      │    │ Monitoring      │
-│ Engine          │    │ System          │    │ & Audit Trail   │
-└─────────────────┘    └─────────────────┘    └─────────────────┘
-```
-
-### Technology Stack
-
-- **Backend**: .NET 9.0, ASP.NET Core
-- **Frontend**: Razor Pages, Bootstrap 5
-- **Database**: MongoDB with GridFS
-- **Containerization**: Docker & Docker Compose
-- **Background Services**: .NET BackgroundService
-- **Expression Parsing**: Custom DSL interpreter
-- **Testing**: xUnit
 
 ## Market Position & Competitive Advantage
 
