@@ -6,45 +6,33 @@
 [![MongoDB](https://img.shields.io/badge/Database-MongoDB-green?logo=mongodb)](https://mongodb.com)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![API](https://img.shields.io/badge/API-REST-orange)](https://localhost:8090/swagger)
-[![Uptime](https://img.shields.io/badge/uptime-99.9%25-brightgreen)](https://status.ipfees.com)
+
+![IPFees Application Screenshot](ipfees-screenshot.png)
 
 ## Quick Start with Docker
 
 ### Prerequisites
 
 - [Docker](https://docker.com) and Docker Compose
-- Git
 
-### 1. Clone the Repository
+### Start the Application
 
 ```bash
+# Clone the repository
 git clone <repository-url>
-cd ipfees
-```
+cd ipfees/src
 
-### 2. Configure Environment
-
-```bash
-# Copy and configure environment variables
-cp src/.env.example src/.env
-
-# Edit .env file with your settings:
-# - MongoDB credentials
-# - Exchange rate API key from https://www.exchangerate-api.com/
-```
-
-### 3. Start the Application
-
-```bash
-cd src
+# Start all services
 docker-compose up -d
 ```
 
-### 4. Access the Application
+### Access the Application
 
 - **Web Application**: http://localhost:8080
 - **API Documentation**: http://localhost:8090/swagger
 - **MongoDB**: localhost:27017
+
+That's it! The system includes sample data and will work immediately. For production use, configure your exchange rate API key in the settings.
 
 ### Running Tests
 
@@ -57,47 +45,13 @@ dotnet test IPFees.Core.Tests
 dotnet test IPFees.Calculator.Tests
 ```
 
-## Configuration
-
-### Exchange Rate API Setup
-
-1. Get a free API key from [exchangerate-api.com](https://www.exchangerate-api.com/)
-2. Add to your `.env` file or `appsettings.json`:
-
-```json
-{
-  "ExchangeRateApiKey": "your-api-key-here"
-}
-```
-
-### MongoDB Configuration
-
-```json
-{
-  "ConnectionStrings": {
-    "MongoDbConnection": "mongodb://username:password@host:port/database"
-  }
-}
-```
-
-### Backup Exchange Rates
-
-Place backup CSV files in `IPFees.Web/wwwroot/data/` with format:
-
-```csv
-Currency;Value
-EUR;1
-USD;1.1729
-GBP;0.8652
-```
-
 ## IPFees: Transforming global IP fee management through intelligent automation
 
-A revolutionary, jurisdiction-agnostic intellectual property fee calculation system that transforms complex legal fee structures into automated, accurate, and multi-currency calculations. **IPFees** addresses the **$50,000 annual efficiency drain** faced by IP professionals navigating complex multi-jurisdictional fee structures, delivering the world's first truly comprehensive IP fee calculation platform that scales seamlessly across **160+ global IP jurisdictions**.
+A revolutionary, jurisdiction-agnostic intellectual property fee calculation system that transforms complex legal fee structures into automated, accurate, and multi-currency calculations. IPFees addresses the $50,000 annual efficiency drain faced by IP professionals navigating complex multi-jurisdictional fee structures, delivering the world's first truly comprehensive IP fee calculation platform that scales seamlessly across 160+ global IP jurisdictions.
 
 ## Problem Statement
 
-The intellectual property management sector faces a fundamental operational crisis. Research reveals that IP professionals waste approximately **10 hours per week on repetitive fee calculations**, representing over **$50,000 in lost annual productivity** at current billing rates. This inefficiency stems from:
+The intellectual property management sector faces a fundamental operational crisis. Research reveals that IP professionals waste approximately 10 hours per week on repetitive fee calculations, representing over $50,000 in lost annual productivity at current billing rates. This inefficiency stems from:
 
 - **Fragmented calculation tools**: Government-provided calculators operate in isolation without integration capabilities
 - **Limited commercial solutions**: Existing IP management platforms suffer from restricted APIs and require extensive manual data entry
@@ -105,7 +59,7 @@ The intellectual property management sector faces a fundamental operational cris
 - **Complex entity-based fee calculations**: Varying dramatically across 160+ jurisdictions
 - **Absence of real-time integration**: No seamless connectivity with practice management systems
 
-With **3.55 million patent applications filed worldwide in 2023** and the IP management software market projected to grow from **$12.30 billion in 2024 to $24.82 billion by 2030** (12.9% CAGR), there is an urgent need for intelligent automation in IP fee management.
+With 3.55 million patent applications filed worldwide in 2023 and the IP management software market projected to grow from $12.30 billion in 2024 to $24.82 billion by 2030 (12.9% CAGR), there is an urgent need for intelligent automation in IP fee management.
 
 ## Key Features & Novel Approach
 
@@ -115,15 +69,15 @@ The system implements a novel Domain-Specific Language (DSL) parser that allows 
 
 ### Multi-Jurisdiction Architecture
 
-The **jurisdiction-agnostic fee calculation engine** represents a revolutionary approach to handling international intellectual property fee calculations, processing complex, multi-variable fee structures across major patent offices including **USPTO, EPO, WIPO, and 160+ national offices**. Each jurisdiction implements distinct entity classifications, claim-based pricing models, and temporal fee obligations that traditional systems struggle to manage efficiently.
+The jurisdiction-agnostic fee calculation engine represents a revolutionary approach to handling international intellectual property fee calculations, processing complex, multi-variable fee structures across major patent offices including USPTO, EPO, WIPO, and 160+ national offices. Each jurisdiction implements distinct entity classifications, claim-based pricing models, and temporal fee obligations that traditional systems struggle to manage efficiently.
 
-Unlike systems that hardcode jurisdiction-specific logic, this modular architecture allows new countries or regions to be added through configuration alone. The platform provides **intelligent API integration capabilities** that enable seamless connectivity with major IP management platforms while addressing the integration limitations that currently force manual processes. Independent fee modules can be combined and configured per jurisdiction, enabling unprecedented scalability and maintainability while solving the "no API" problem that hinders current solutions like Memotech and Anaqua.
+Unlike systems that hardcode jurisdiction-specific logic, this modular architecture allows new countries or regions to be added through configuration alone. The platform provides intelligent API integration capabilities that enable seamless connectivity with major IP management platforms while addressing the integration limitations that currently force manual processes. Independent fee modules can be combined and configured per jurisdiction, enabling unprecedented scalability and maintainability while solving the "no API" problem that hinders current solutions like Memotech and Anaqua.
 
 ### Advanced Currency Management
 
-The system provides sophisticated **multi-currency precision management** that represents a core technical differentiator. Unlike existing solutions that struggle with exchange rate timing discrepancies, IPFees implements real-time currency conversion with **sub-second precision**, historical rate tracking for audit compliance, and rate-lock options to eliminate the accounting mismatches that plague current IP practice management. The system integrates with multiple foreign exchange data providers, implements sophisticated caching mechanisms to reduce API dependencies, and maintains **6-8 decimal place precision** required for financial accuracy in high-value patent portfolios.
+The system provides sophisticated multi-currency precision management that represents a core technical differentiator. Unlike existing solutions that struggle with exchange rate timing discrepancies, IPFees implements real-time currency conversion with sub-second precision, historical rate tracking for audit compliance, and rate-lock options to eliminate the accounting mismatches that plague current IP practice management. The system integrates with multiple foreign exchange data providers, implements sophisticated caching mechanisms to reduce API dependencies, and maintains 6-8 decimal place precision required for financial accuracy in high-value patent portfolios.
 
-When online exchange rate services are unavailable, the intelligent three-tier fallback system automatically transitions to backup historic rates, ensuring continuous operation. The status-aware currency handling system provides clear user feedback about data freshness (Online, Stale, or Invalid) and supports automatic conversion between any of the **150+ supported currencies**.
+When online exchange rate services are unavailable, the intelligent three-tier fallback system automatically transitions to backup historic rates, ensuring continuous operation. The status-aware currency handling system provides clear user feedback about data freshness (Online, Stale, or Invalid) and supports automatic conversion between any of the 150+ supported currencies.
 
 ### Resilient Data Management
 
@@ -139,7 +93,7 @@ Runtime configuration capabilities allow fee structures to be modified without c
 
 ### Regulatory Compliance and Monitoring
 
-**Regulatory compliance management** is built into the platform's foundation, with automated monitoring of fee schedule changes across jurisdictions, entity status verification systems that ensure ongoing small entity compliance, and comprehensive audit trails that meet the stringent requirements of USPTO, EPO, and international IP offices. The system maintains compliance with **GDPR data privacy requirements**, implements end-to-end encryption for financial data, and provides detailed reporting capabilities required for regulatory compliance across multiple jurisdictions.
+Regulatory compliance management is built into the platform's foundation, with automated monitoring of fee schedule changes across jurisdictions, entity status verification systems that ensure ongoing small entity compliance, and comprehensive audit trails that meet the stringent requirements of USPTO, EPO, and international IP offices. The system maintains compliance with GDPR data privacy requirements, implements end-to-end encryption for financial data, and provides detailed reporting capabilities required for regulatory compliance across multiple jurisdictions.
 
 ## Technical Architecture
 
@@ -189,7 +143,7 @@ IPFees addresses four distinct market segments within the rapidly growing IP man
 
 ### Key Differentiators
 
-Unlike existing solutions like WIPO's fragmented calculators or commercial platforms with limited fee calculation sophistication, IPFees delivers **end-to-end fee lifecycle management**:
+Unlike existing solutions like WIPO's fragmented calculators or commercial platforms with limited fee calculation sophistication, IPFees delivers end-to-end fee lifecycle management:
 
 - **Real-time accuracy**: 99%+ fee calculation precision with automated updates when jurisdictions modify fee schedules
 - **Bulk processing capabilities**: Portfolio-level fee estimation and optimization for large IP holdings
@@ -200,19 +154,10 @@ Unlike existing solutions like WIPO's fragmented calculators or commercial platf
 ## Performance Metrics
 
 - **Sub-second Calculations**: Complex multi-jurisdiction fee calculations complete in <500ms
-- **99.9% Uptime**: Graceful degradation ensures continuous service with intelligent fallback systems
 - **Multi-currency precision**: Supports 150+ currencies with 6-8 decimal place accuracy
 - **Scalable architecture**: Handles concurrent calculations for multiple users across global jurisdictions
 - **Extensible platform**: Add new jurisdictions without code changes through configuration
 - **API Integration**: Comprehensive REST APIs for seamless connectivity with major IP management platforms
-
-## Strategic Market Positioning
-
-The platform is positioned to capture significant market share within the **$31.89-54.93 billion projected IP management software market by 2030-2037**, particularly as the Asia-Pacific region experiences 18-20% CAGR growth driven by increasing patent activity in China, India, and Southeast Asia.
-
-IPFees addresses the research-identified gap for a **comprehensive, integrated fee calculation system** that operates seamlessly across jurisdictions while providing the real-time currency management, practice management integration, and advanced automation capabilities that current solutions lack. By solving the fundamental operational inefficiencies that cost IP professionals thousands of hours annually, IPFees transforms fee management from a cost center into a strategic advantage for modern IP practice.
-
-The platform's **cloud-native architecture**, mobile accessibility, and comprehensive API ecosystem position it as the definitive solution for IP professionals seeking to eliminate manual fee calculation inefficiencies while gaining sophisticated analytical capabilities that drive better client outcomes and practice profitability.
 
 ## Contributing
 
@@ -234,6 +179,6 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ---
 
-**Made for the Intellectual Property community**
+Made for the Intellectual Property community
 
 _Transforming complex fee calculations into simple, accurate, and reliable automated processes._
