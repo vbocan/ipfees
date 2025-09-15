@@ -30,7 +30,7 @@ services:
     container_name: ipfees-mongodb
     environment:
       MONGO_INITDB_ROOT_USERNAME: root
-      MONGO_INITDB_ROOT_PASSWORD: pA$$w0rd
+      MONGO_INITDB_ROOT_PASSWORD: pA55w0rd
     restart: unless-stopped
     ports:
       - 27017:27017
