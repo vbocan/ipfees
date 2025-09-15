@@ -6,7 +6,7 @@ namespace IPFees.Web.Services
     public class ExchangeRateService : BackgroundService
     {
         private readonly TimeSpan ExchangeRateDelaySuccess = TimeSpan.FromHours(6);
-        private readonly TimeSpan ExchangeRateDelayFail = TimeSpan.FromSeconds(30);
+        private readonly TimeSpan ExchangeRateDelayFail = TimeSpan.FromMinutes(5);
         private readonly IConfiguration configuration;
         private readonly IExchangeRateFetcher exchangeRateFetcher;
         private readonly ICurrencyConverter currencyConverter;
