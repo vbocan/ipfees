@@ -45,7 +45,7 @@ namespace IPFees.API.Services
         {
             try
             {
-                var csvFilePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "..", "IPFees.Web", "wwwroot", "data", "exhange_rates1.csv");
+                var csvFilePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "..", "IPFees.Web", "wwwroot", "data", "exchange_rates.csv");
                 if (!File.Exists(csvFilePath))
                 {
                     logger.LogError($"Default exchange rates CSV file not found at: {csvFilePath}");
