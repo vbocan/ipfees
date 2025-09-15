@@ -1,3 +1,5 @@
+name: ipfees
+
 services:
   ipfees.web:    
     container_name: ipfees-web
