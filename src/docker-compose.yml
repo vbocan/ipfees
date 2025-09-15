@@ -1,6 +1,5 @@
 services:
   ipfees.web:    
-    image: registry.gitlab.com/vbocan/ipfees:web
     container_name: ipfees-web
     build:
       context: .
@@ -8,16 +7,21 @@ services:
     restart: unless-stopped
     depends_on:
       - mongodb
+    ports:
+      - "8080:8080"
+      - "8081:8081"
 
-  ipfees.api:
-    image: registry.gitlab.com/vbocan/ipfees:api
+  ipfees.api:    
     container_name: ipfees-api
     build:
       context: .
-      dockerfile: IPFees.Api/Dockerfile    
+      dockerfile: IPFees.Api/Dockerfile
     restart: unless-stopped
     depends_on:
       - mongodb
+    ports:
+      - "8090:8090"
+      - "8091:8091"
   
   mongodb:
     image: mongo:latest
