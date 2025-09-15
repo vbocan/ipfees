@@ -1,4 +1,0 @@
-mongoexport --uri="mongodb+srv://valerbocan:cxpAkYCALM15zC8j@ipfeescluster.ayqdiey.mongodb.net/IPFees?retryWrites=true&w=majority" --collection=Fees --out=fees.json --type=json --pretty --jsonArray
-mongoexport --uri="mongodb+srv://valerbocan:cxpAkYCALM15zC8j@ipfeescluster.ayqdiey.mongodb.net/IPFees?retryWrites=true&w=majority" --collection=Jurisdictions --out=jurisdictions.json --type=json --pretty --jsonArray
-mongoexport --uri="mongodb+srv://valerbocan:cxpAkYCALM15zC8j@ipfeescluster.ayqdiey.mongodb.net/IPFees?retryWrites=true&w=majority" --collection=Modules --out=modules.json --type=json --pretty --jsonArray
-mongoexport --uri="mongodb+srv://valerbocan:cxpAkYCALM15zC8j@ipfeescluster.ayqdiey.mongodb.net/IPFees?retryWrites=true&w=majority" --collection=ServiceFees --out=servicefees.json --type=json --pretty --jsonArray
