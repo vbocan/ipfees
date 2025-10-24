@@ -11,7 +11,7 @@ namespace IPFees.Web.Areas.Module.Pages
 {    
     public class IndexModel : PageModel
     {
-        [BindProperty] public IEnumerable<ModuleViewModel> Modules { get; set; }
+        [BindProperty] public IEnumerable<ModuleViewModel> Modules { get; set; } = null!;
         private readonly IModuleRepository moduleRepository;
         private readonly IFeeRepository feeRepository;
 

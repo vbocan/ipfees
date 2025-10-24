@@ -183,7 +183,7 @@ namespace IPFees.API.Controllers
                 var CalculationResult = FeeResults.Adapt<CalculationResult>();
                 return Ok(CalculationResult);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 return BadRequest("Could not calculate fees based on the provided data.");
             }

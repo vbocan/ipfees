@@ -6,12 +6,12 @@ namespace IPFees.Web.Areas.Run.Pages
 {
     public class DataCollectModel : PageModel
     {
-        [BindProperty] public string[] SelectedJurisdictions { get; set; }
-        [BindProperty] public string TargetCurrency { get; set; }
-        public IList<InputViewModel> Inputs { get; set; }
-        public IEnumerable<GroupViewModel> Groups { get; set; }
-        public int[] UncategorizedInputs { get; set; }
-        public IEnumerable<string> Errors { get; set; }
+        [BindProperty] public string[] SelectedJurisdictions { get; set; } = null!;
+        [BindProperty] public string TargetCurrency { get; set; } = null!;
+        public IList<InputViewModel> Inputs { get; set; } = null!;
+        public IEnumerable<GroupViewModel> Groups { get; set; } = null!;
+        public int[] UncategorizedInputs { get; set; } = null!;
+        public IEnumerable<string> Errors { get; set; } = null!;
 
         private readonly IJurisdictionFeeManager jurisdictionFeeManager;
         private readonly ILogger<DataCollectModel> _logger;
@@ -23,7 +23,7 @@ namespace IPFees.Web.Areas.Run.Pages
             _logger = logger;
         }
 
-        public async Task<IActionResult> OnGetAsync(string[] Id, string TargetCurrency)
+        public IActionResult OnGet(string[] Id, string TargetCurrency)
         {
             SelectedJurisdictions = Id;
             this.TargetCurrency = TargetCurrency;

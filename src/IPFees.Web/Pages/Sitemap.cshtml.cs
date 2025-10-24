@@ -20,7 +20,7 @@ namespace IPFees.Web.Pages
             // TODO: Add more sitemap items
         };
         private readonly IHttpContextAccessor httpContextAccessor;
-        private string RootURL;
+        private string RootURL = string.Empty;
 
         public SitemapModel(IHttpContextAccessor httpContextAccessor)
         {

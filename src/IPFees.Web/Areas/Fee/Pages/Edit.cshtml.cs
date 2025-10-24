@@ -9,12 +9,12 @@ namespace IPFees.Web.Areas.Fee.Pages
 {    
     public class EditModel : PageModel
     {
-        [BindProperty] public string Category { get; set; }        
-        [BindProperty] public string Name { get; set; }
-        [BindProperty] public string JurisdictionName { get; set; }
-        [BindProperty] public string Description { get; set; }
-        [BindProperty] public string SourceCode { get; set; }
-        [BindProperty] public IList<ModuleViewModel> ReferencedModules { get; set; }
+        [BindProperty] public string Category { get; set; } = null!;
+        [BindProperty] public string Name { get; set; } = null!;
+        [BindProperty] public string JurisdictionName { get; set; } = null!;
+        [BindProperty] public string Description { get; set; } = null!;
+        [BindProperty] public string SourceCode { get; set; } = null!;
+        [BindProperty] public IList<ModuleViewModel> ReferencedModules { get; set; } = null!;
         [BindProperty] public IList<string> ErrorMessages { get; set; }
 
         public IEnumerable<SelectListItem> CategoryItems { get; set; }        

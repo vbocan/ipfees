@@ -10,12 +10,12 @@ namespace IPFees.Web.Areas.Run.Pages
 {
     public class ResultModel : PageModel
     {
-        [BindProperty] public string ComputationError { get; set; }
-        [BindProperty] public List<IPFValue> CollectedValues { get; set; }
-        [BindProperty] public IList<InputViewModel> Inputs { get; set; }
-        [BindProperty] public string[] SelectedJurisdictions { get; set; }
-        [BindProperty] public string TargetCurrency { get; set; }
-        [BindProperty] public TotalFeeInfo FeeResults { get; set; }
+        [BindProperty] public string ComputationError { get; set; } = null!;
+        [BindProperty] public List<IPFValue> CollectedValues { get; set; } = null!;
+        [BindProperty] public IList<InputViewModel> Inputs { get; set; } = null!;
+        [BindProperty] public string[] SelectedJurisdictions { get; set; } = null!;
+        [BindProperty] public string TargetCurrency { get; set; } = null!;
+        [BindProperty] public TotalFeeInfo FeeResults { get; set; } = null!;
         private readonly CurrencySettings currencySettings;
         private readonly IJurisdictionFeeManager jurisdictionFeeManager;
         private readonly ILogger<ResultModel> _logger;
@@ -27,8 +27,8 @@ namespace IPFees.Web.Areas.Run.Pages
             _logger = logger;
         }
 
-        public async Task<IActionResult> OnGetAsync()
-        {            
+        public IActionResult OnGet()
+        {
             return Page();
         }
 

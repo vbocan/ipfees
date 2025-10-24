@@ -17,7 +17,7 @@ namespace IPFees.API.Filters
 
         public void OnAuthorization(AuthorizationFilterContext context)
         {
-            string apiKey = context.HttpContext.Request.Headers[ApiKeyHeaderName];
+            var apiKey = context.HttpContext.Request.Headers[ApiKeyHeaderName].ToString();
 
             if (!_apiKeyValidator.IsValid(apiKey))
             {
