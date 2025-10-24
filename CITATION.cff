@@ -5,12 +5,12 @@ version: 1.0.0
 date-released: 2025-10-24
 abstract: "A jurisdiction-agnostic intellectual property fee calculation system that automates complex legal fee structures with multi-currency support across 160+ global IP jurisdictions using a Domain-Specific Language approach."
 authors:
-  - family-names: "[Your Last Name]"
-    given-names: "[Your First Name]"
-    email: "[your.email@domain.com]"
-    orcid: "https://orcid.org/[YOUR-ORCID-ID]"
-repository-code: "https://github.com/[username]/ipfees"
-url: "https://github.com/[username]/ipfees"
+  - family-names: "BOCAN"
+    given-names: "Valer"
+    email: "valer.bocan@upt.ro"
+    orcid: "https://orcid.org/0009-0006-9084-4064"
+repository-code: "https://github.com/vbocan/ipfees"
+url: "https://github.com/vbocan/ipfees"
 license: MIT
 keywords:
   - intellectual property
