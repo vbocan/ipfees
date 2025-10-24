@@ -20,6 +20,7 @@ namespace IPFees.Core.Repository
 
         public FeeRepository()
         {
+            context = null!;
         }
 
         /// <summary>

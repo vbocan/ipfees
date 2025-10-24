@@ -11,12 +11,12 @@ namespace IPFees.Web.Areas.Run.Pages
 {
     public class IndexModel : PageModel
     {
-        [BindProperty] public string TargetCurrency { get; set; }
-        [BindProperty] public string[] SelectedJurisdictions { get; set; }
+        [BindProperty] public string TargetCurrency { get; set; } = null!;
+        [BindProperty] public string[] SelectedJurisdictions { get; set; } = null!;
 
-        public IEnumerable<JurisdictionInfo> Jurisdictions { get; set; }
-        public IEnumerable<SelectListItem> CurrencyItems { get; set; }
-        public IEnumerable<SelectListItem> SelectedJurisdictionItems { get; set; }
+        public IEnumerable<JurisdictionInfo> Jurisdictions { get; set; } = null!;
+        public IEnumerable<SelectListItem> CurrencyItems { get; set; } = null!;
+        public IEnumerable<SelectListItem> SelectedJurisdictionItems { get; set; } = null!;
         public bool CurrencyExchangeRatesAvailable { get; set; }
         public ResponseStatus CurrencyDataStatus { get; set; }
         
@@ -54,7 +54,7 @@ namespace IPFees.Web.Areas.Run.Pages
             return Page();
         }
 
-        public async Task<IActionResult> OnPostAsync()
+        public IActionResult OnPost()
         {
             return RedirectToPage("DataCollect", new { area = "Run", Id = SelectedJurisdictions, TargetCurrency });
         }

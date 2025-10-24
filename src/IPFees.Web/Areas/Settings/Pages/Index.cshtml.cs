@@ -8,8 +8,8 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 namespace IPFees.Web.Areas.Settings.Pages
 {    
     public class IndexModel : PageModel
-    {        
-        [BindProperty] public IEnumerable<ServiceFeeInfo> ServiceFees { get; set; }
+    {
+        [BindProperty] public IEnumerable<ServiceFeeInfo> ServiceFees { get; set; } = null!;
 
         private readonly ISettingsRepository settingsRepository;
         private readonly IModuleRepository moduleRepository;
@@ -19,7 +19,7 @@ namespace IPFees.Web.Areas.Settings.Pages
             this.settingsRepository = settingsRepository;
             this.moduleRepository = moduleRepository;
         }
-        public async Task<IActionResult> OnGetAsync()
+        public IActionResult OnGet()
         {
             // Retrieve the list of service fee levels
             var afs = from s in Enum.GetValues(typeof(ServiceFeeLevel)).Cast<ServiceFeeLevel>()

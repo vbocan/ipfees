@@ -8,14 +8,14 @@ namespace IPFees.Web.Areas.Currency.Pages
     public class IndexModel : PageModel
     {
         private readonly ICurrencyConverter serd;
-        public IEnumerable<(string, string, decimal?)> Currencies { get; set; }
+        public IEnumerable<(string, string, decimal?)> Currencies { get; set; } = null!;
         public DateTime ExchangeDataLastUpdatedOn { get; set; }
 
         public IndexModel(ICurrencyConverter serd)
         {
             this.serd = serd;
         }
-        public async Task<IActionResult> OnGetAsync()
+        public IActionResult OnGet()
         {
             ExchangeDataLastUpdatedOn = serd.Response.LastUpdatedOn;
             Currencies = GetCurrenciesWithExchangeRate();

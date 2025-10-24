@@ -9,7 +9,7 @@ namespace IPFees.Web.Pages
         {
         }
 
-        public async Task<IActionResult> OnGetAsync()
+        public IActionResult OnGet()
         {
             return RedirectToPage("Index", new { area = "Run" });
         }

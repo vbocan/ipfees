@@ -9,9 +9,9 @@ namespace IPFees.Web.Areas.Jurisdiction.Pages
 {    
     public class CreateModel : PageModel
     {
-        [BindProperty] public string Name { get; set; }
-        [BindProperty] public string Description { get; set; }
-        [BindProperty] public string ServiceFeeLevel { get; set; }
+        [BindProperty] public string Name { get; set; } = null!;
+        [BindProperty] public string Description { get; set; } = null!;
+        [BindProperty] public string ServiceFeeLevel { get; set; } = null!;
         [BindProperty] public IList<string> ErrorMessages { get; set; }
 
         public IEnumerable<SelectListItem> ServiceFeeLevelItems { get; set; }

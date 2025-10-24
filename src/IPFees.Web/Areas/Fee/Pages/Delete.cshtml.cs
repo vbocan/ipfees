@@ -7,7 +7,7 @@ namespace IPFees.Web.Areas.Fee.Pages
 {    
     public class DeleteModel : PageModel
     {
-        [BindProperty] public string Name { get; set; }
+        [BindProperty] public string Name { get; set; } = null!;
         [BindProperty] public IList<string> ErrorMessages { get; set; }
 
         private readonly IFeeRepository feeRepository;

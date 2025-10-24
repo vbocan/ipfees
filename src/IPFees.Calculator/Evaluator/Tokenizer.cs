@@ -17,7 +17,7 @@ namespace IPFees.Evaluator
         char _currentChar;
         Token _currentToken;
         decimal _number;
-        string _identifier;
+        string _identifier = string.Empty;
 
         public Token Token
         {
