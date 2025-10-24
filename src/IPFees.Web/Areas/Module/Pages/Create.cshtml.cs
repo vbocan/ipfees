@@ -7,10 +7,10 @@ namespace IPFees.Web.Areas.Module.Pages
 {    
     public class CreateModel : PageModel
     {
-        [BindProperty] public string Name { get; set; }
-        [BindProperty] public string Description { get; set; }
+        [BindProperty] public string Name { get; set; } = null!;
+        [BindProperty] public string Description { get; set; } = null!;
         [BindProperty] public bool AutoRun { get; set; }
-        [BindProperty] public string SourceCode { get; set; }
+        [BindProperty] public string SourceCode { get; set; } = null!;
         [BindProperty] public IList<string> ErrorMessages { get; set; }
 
         private readonly IModuleRepository moduleRepository;

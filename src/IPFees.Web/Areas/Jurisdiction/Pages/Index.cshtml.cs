@@ -8,7 +8,7 @@ namespace IPFees.Web.Areas.Jurisdiction.Pages
 {
     public class IndexModel : PageModel
     {
-        [BindProperty] public IEnumerable<JurisdictionInfo> Jurisdictions { get; set; }
+        [BindProperty] public IEnumerable<JurisdictionInfo> Jurisdictions { get; set; } = null!;
         private readonly IJurisdictionRepository jurisdictionRepository;        
 
         public IndexModel(IJurisdictionRepository jurisdictionRepository)

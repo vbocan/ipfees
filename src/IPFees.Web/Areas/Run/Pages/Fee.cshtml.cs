@@ -11,16 +11,16 @@ namespace IPFees.Web.Areas.Run.Pages
         [BindProperty] public Guid Id { get; set; }
         [BindProperty] public bool CalculationPending { get; set; } = true;
 
-        [BindProperty] public IList<InputViewModel> Inputs { get; set; }
-        [BindProperty] public IList<IPFValue> CollectedValues { get; set; }
+        [BindProperty] public IList<InputViewModel> Inputs { get; set; } = null!;
+        [BindProperty] public IList<IPFValue> CollectedValues { get; set; } = null!;
 
         // Calculation results
         [BindProperty] public decimal TotalMandatoryAmount { get; set; }
         [BindProperty] public decimal TotalOptionalAmount { get; set; }
         // Calculation steps
-        [BindProperty] public IEnumerable<string> CalculationSteps { get; set; }
+        [BindProperty] public IEnumerable<string> CalculationSteps { get; set; } = null!;
         // Returns
-        [BindProperty] public IEnumerable<(string, string)> Returns { get; set; }
+        [BindProperty] public IEnumerable<(string, string)> Returns { get; set; } = null!;
 
         private readonly IFeeCalculator officialFee;
         private readonly ILogger<FeeModel> _logger;
@@ -31,7 +31,7 @@ namespace IPFees.Web.Areas.Run.Pages
             _logger = logger;
         }
 
-        public async Task<IActionResult> OnGetAsync(Guid id)
+        public IActionResult OnGet(Guid id)
         {
             this.Id = id;
             var res = officialFee.GetInputs(id);
@@ -40,11 +40,11 @@ namespace IPFees.Web.Areas.Run.Pages
                 TempData["Errors"] = (res as FeeResultFail).Errors.ToArray();
                 return RedirectToPage("Error");
             }
-            Inputs = (res as FeeResultParse).FeeInputs.Select(pv => new InputViewModel(pv.Group, pv.Name, pv.GetType().ToString(), pv, string.Empty, Array.Empty<string>(), 0, false, DateOnly.MinValue)).ToList();
+            Inputs = (res as FeeResultParse)!.FeeInputs.Select(pv => new InputViewModel(pv.Group, pv.Name, pv.GetType().ToString(), pv, string.Empty, Array.Empty<string>(), 0, false, DateOnly.MinValue)).ToList();
             return Page();
         }
 
-        public async Task<IActionResult> OnPostResultAsync(Guid id)
+        public IActionResult OnPostResult(Guid id)
         {
             CollectedValues = new List<IPFValue>();
 

@@ -2,7 +2,7 @@
 {
     public class CurrencyConverter : ICurrencyConverter
     {
-        public ExchangeRateResponse Response { get; set; }
+        public ExchangeRateResponse Response { get; set; } = null!;
 
         #region Static currency managment
         private readonly Currency[] Currencies = {

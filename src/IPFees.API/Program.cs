@@ -89,12 +89,12 @@ builder.Services.AddSingleton(s => s.GetRequiredService<IOptions<ServiceKeys>>()
 // Add exhange rate service
 builder.Services.AddHostedService<ExchangeRateService>();
 builder.Services.AddSingleton<ICurrencyConverter, CurrencyConverter>();
-builder.Services.AddTransient<IExchangeRateFetcher>(x => new ExchangeRateFetcher(x.GetService<IOptions<ServiceKeys>>().Value.ExchangeRateApiKey));
+builder.Services.AddTransient<IExchangeRateFetcher>(x => new ExchangeRateFetcher(x.GetRequiredService<IOptions<ServiceKeys>>().Value.ExchangeRateApiKey));
 
 // Register work database context (MongoDB)
 // The MongoDB client has a pool of connections that are reused automatically and a single MongoDB client instance is enough even in multithreaded scenarios
 // See http://mongodb.github.io/mongo-csharp-driver/2.7/getting_started/quick_tour/ (Mongo Client section)
-builder.Services.AddSingleton<DataContext>(x => new DataContext(x.GetService<IOptions<ConnectionStrings>>().Value.MongoDbConnection));
+builder.Services.AddSingleton<DataContext>(x => new DataContext(x.GetRequiredService<IOptions<ConnectionStrings>>().Value.MongoDbConnection));
 
 // Add services
 builder.Services.AddTransient<IDslParser, DslParser>();
@@ -105,7 +105,7 @@ builder.Services.AddTransient<IJurisdictionRepository, JurisdictionRepository>()
 builder.Services.AddTransient<ISettingsRepository, SettingsRepository>();
 builder.Services.AddTransient<IFeeCalculator, FeeCalculator>();
 builder.Services.AddTransient<IJurisdictionFeeManager, JurisdictionFeeManager>();
-builder.Services.AddTransient<IExchangeRateFetcher>(x => new ExchangeRateFetcher(x.GetService<IOptions<ServiceKeys>>().Value.ExchangeRateApiKey));
+builder.Services.AddTransient<IExchangeRateFetcher>(x => new ExchangeRateFetcher(x.GetRequiredService<IOptions<ServiceKeys>>().Value.ExchangeRateApiKey));
 builder.Services.AddSingleton<ApiKeyAuthorizationFilter>();
 builder.Services.AddSingleton<IApiKeyValidator, ApiKeyValidator>();
 
