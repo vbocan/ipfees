@@ -14,7 +14,7 @@
 | Metadata Item | Description |
 |---------------|-------------|
 | **Current code version** | v1.0.0 |
-| **Permanent link to code/repository** | https://github.com/[username]/ipfees |
+| **Permanent link to code/repository** | https://github.com/vbocan/ipfees |
 | **Legal Code License** | MIT License |
 | **Code versioning system used** | Git |
 | **Software code languages, tools, and services used** | C# (.NET 9.0), ASP.NET Core, MongoDB, Docker, Razor Pages, Bootstrap 5, jQuery, xUnit |
@@ -183,10 +183,10 @@ If you use IPFees in your research, please cite:
 ```bibtex
 @software{ipfees2025,
   title = {IPFees: Intellectual Property Fee Calculator},
-  author = {[Author Name]},
+  author = {Valer Bocan, PhD, CSSLP},
   year = {2025},
   version = {1.0.0},
-  url = {https://github.com/[username]/ipfees},
+  url = {https://github.com/vbocan/ipfees},
   license = {MIT}
 }
 ```
@@ -219,10 +219,10 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## Support & Contact
 
-- **Issues**: Report bugs and request features via [GitHub Issues](https://github.com/[username]/ipfees/issues)
-- **Discussions**: Community support via [GitHub Discussions](https://github.com/[username]/ipfees/discussions)
+- **Issues**: Report bugs and request features via [GitHub Issues](https://github.com/vbocan/ipfees/issues)
+- **Discussions**: Community support via [GitHub Discussions](https://github.com/vbocan/ipfees/discussions)
 - **Documentation**: Comprehensive documentation in the `/docs` folder
-- **Email**: [contact email for institutional inquiries]
+- **Email**: valer.bocan@upt.ro
 
 ## Acknowledgments
 
@@ -232,4 +232,4 @@ IPFees addresses documented inefficiencies in IP fee management where profession
 
 **Version**: 1.0.0  
 **Status**: Active Development  
-**Repository**: https://github.com/[username]/ipfees
+**Repository**: https://github.com/vbocan/ipfees
