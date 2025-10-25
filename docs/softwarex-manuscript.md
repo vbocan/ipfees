@@ -464,7 +464,7 @@ The author acknowledges validation and pilot implementation support from Jet IP 
 | **Compilation requirements** | .NET 9.0 SDK, Docker & Docker Compose, MongoDB 8.0+ |
 | **Operating environments** | Windows, Linux, macOS |
 | **Dependencies** | MongoDB.Driver v3.5.0, ASP.NET Core 9.0, Serilog 9.0.0, Swashbuckle.AspNetCore 9.0.6, Mapster 7.4.0, xUnit 2.9.3, Testcontainers.MongoDb 4.8.1 |
-| **Link to developer documentation** | [Developer Guide](https://github.com/vbocan/ipfees/blob/master/docs/DEVELOPER.md) |
+| **Link to developer documentation** | [Developer Guide](https://github.com/vbocan/ipfees/blob/master/docs/developer.md) |
 | **Support email** | valer.bocan@upt.ro |
 
 ---
