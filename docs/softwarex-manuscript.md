@@ -66,7 +66,7 @@ DSL applications in legal domains have matured significantly, yet multi-jurisdic
 
 **Existing Fee Calculators**: Patent offices (USPTO [1], EPO [4], JPO [11], WIPO [3]) provide web calculators with proprietary logic, lacking API access and multi-jurisdiction support. Commercial platforms (CPA Global, Anaqua) hardcode fee calculations in closed codebases requiring vendor patches for updates [2].
 
-**Research Gap**: Systematic search of academic databases (ACM, IEEE, Springer, Web of Science) and GitHub reveals **no DSL framework for multi-jurisdiction regulatory fee calculations with combined temporal logic, multi-currency support, and arithmetic expressiveness**. Open-source alternatives are limited to single-jurisdiction calculators (e.g., InPatent [5] for India only) with minimal functionality. Table 1 demonstrates IPFees' unique positioning in this underserved domain. Comprehensive literature review analyzing 50+ publications available in supplementary materials.
+**Research Gap**: To the best of our knowledge, a systematic search of academic databases (ACM, IEEE, Springer, Web of Science) and GitHub reveals **a gap in DSL frameworks for multi-jurisdiction regulatory fee calculations with combined temporal logic, multi-currency support, and arithmetic expressiveness**. Open-source alternatives are limited to single-jurisdiction calculators (e.g., InPatent [5] for India only) with minimal functionality. Table 1 illustrates the positioning of IPFees in this underserved domain. Comprehensive literature review analyzing 50+ publications available in supplementary materials.
 
 ---
 
@@ -281,7 +281,7 @@ This demonstrates multi-currency capabilities and portfolio-level cost estimatio
 
 ### 4.1 Comparative Analysis
 
-IPFees occupies a unique position among IP fee calculation solutions. Table 1 presents systematic comparison across key dimensions.
+IPFees is positioned to address a gap among IP fee calculation solutions. Table 1 presents systematic comparison across key dimensions.
 
 **Table 1: IPFees vs. Existing Solutions**
 
@@ -298,7 +298,7 @@ IPFees occupies a unique position among IP fee calculation solutions. Table 1 pr
 | **Version Control** | ❌ No | ❌ No | ✅ Git-based DSL |
 | **Response Time (P95)** | <1s | 2-10s | <500ms |
 
-**Key Differentiators**: (1) **Open Source Transparency** – All alternatives implement proprietary logic; IPFees' MIT-licensed DSL enables independent verification by legal professionals and auditors. (2) **API-First Architecture** – Government calculators provide no programmatic access; commercial platforms offer limited vendor-specific APIs [2]. IPFees provides comprehensive REST endpoints with OpenAPI documentation. (3) **DSL-Based Extensibility** – Commercial solutions hardcode fees requiring vendor patches; IPFees enables immediate DSL updates without software deployment. (4) **Multi-Currency Precision** – Three-tier fallback mechanism (real-time API, historical database, manual override) with 6-8 decimal precision ensures reliable calculations during API outages.
+**Key Differentiators**: (1) **Open Source Transparency** – Many alternatives implement proprietary logic; IPFees' MIT-licensed DSL enables independent verification by legal professionals and auditors. (2) **API-First Architecture** – Government calculators provide no programmatic access; commercial platforms offer limited vendor-specific APIs [2]. IPFees provides comprehensive REST endpoints with OpenAPI documentation. (3) **DSL-Based Extensibility** – Commercial solutions hardcode fees requiring vendor patches; IPFees enables immediate DSL updates without software deployment. (4) **Multi-Currency Precision** – Three-tier fallback mechanism (real-time API, historical database, manual override) with 6-8 decimal precision ensures reliable calculations during API outages.
 
 GitHub search reveals limited open-source alternatives: InPatent [5] supports only India (0 stars, inactive since 2022); ipr-management [6] focuses on rights management. No multi-jurisdiction DSL-based calculator exists. Detailed 50+ dimension comparison in supplementary materials (docs/comparison-table.md).
 
@@ -402,11 +402,11 @@ This contribution model democratizes IP fee calculation by distributing the main
 
 ## 7. Conclusions
 
-IPFees demonstrates that Domain-Specific Languages provide a viable approach to encoding complex regulatory logic in legal technology systems. By separating jurisdiction-specific rules from software implementation, the platform enables legal professionals to maintain and extend fee calculation capabilities without programming expertise. Independent validation confirms production-ready accuracy, while performance benchmarks demonstrate suitability for enterprise-scale deployment.
+IPFees suggests that Domain-Specific Languages provide a viable approach to encoding complex regulatory logic in legal technology systems. By separating jurisdiction-specific rules from software implementation, the platform enables legal professionals to maintain and extend fee calculation capabilities without programming expertise. Independent validation confirms production-ready accuracy, while performance benchmarks demonstrate suitability for enterprise-scale deployment.
 
-The open-source nature of IPFees addresses a documented gap in IP practice tools, providing both individual practitioners and research institutions with access to sophisticated fee calculation capabilities. The architecture's cross-domain applicability suggests broader applications in computational law and regulatory automation.
+The open-source nature of IPFees aims to address a documented gap in IP practice tools, providing both individual practitioners and research institutions with access to sophisticated fee calculation capabilities. The architecture's cross-domain applicability suggests broader applications in computational law and regulatory automation.
 
-As patent systems worldwide continue to evolve their fee structures in response to policy objectives and technological change, tools like IPFees that enable rapid adaptation without software redevelopment will become increasingly valuable. The project invites contributions from the global IP community to expand jurisdiction coverage and enhance capabilities, democratizing access to sophisticated IP fee management.
+As patent systems worldwide continue to evolve their fee structures in response to policy objectives and technological change, tools that enable rapid adaptation without software redevelopment could become increasingly valuable. The project invites contributions from the global IP community to expand jurisdiction coverage and enhance capabilities, democratizing access to sophisticated IP fee management.
 
 ---
 

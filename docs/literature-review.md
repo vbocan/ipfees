@@ -6,7 +6,7 @@
 
 ## Abstract
 
-This comprehensive literature review examines the application of Domain-Specific Languages (DSLs) in legal and regulatory computing, with particular emphasis on fee calculation systems. Through systematic analysis of 50+ peer-reviewed publications, government technical reports, and industry analyses, we identify a critical gap: while DSLs have been extensively applied to legal contract formalization (Stipula, Pacta Sunt Servanda) and smart contracts (Solidity, Clarity), their application to computational fee structures in intellectual property and regulatory compliance remains completely unexplored. This review synthesizes research across legal informatics, DSL design principles, computational law frameworks, and regulatory automation to contextualize the contribution of DSL-based fee calculation systems. We conclude that multi-jurisdiction regulatory fee computation represents an underserved application domain for DSL technology, with significant potential for both practical impact and academic research.
+This comprehensive literature review examines the application of Domain-Specific Languages (DSLs) in legal and regulatory computing, with particular emphasis on fee calculation systems. Through systematic analysis of 50+ peer-reviewed publications, government technical reports, and industry analyses, we identify a critical gap: while DSLs have been extensively applied to legal contract formalization (Stipula, Pacta Sunt Servanda) and smart contracts (Solidity, Clarity), their application to computational fee structures in intellectual property and regulatory compliance appears to be an underexplored area. This review synthesizes research across legal informatics, DSL design principles, computational law frameworks, and regulatory automation to contextualize the contribution of DSL-based fee calculation systems. This review suggests that multi-jurisdiction regulatory fee computation is an application domain for DSL technology with potential for both practical impact and academic research.
 
 ## 1. Introduction
 
@@ -78,7 +78,7 @@ More recently, machine learning approaches have been proposed for patent cost pr
 
 ### 5.1 Gap Analysis
 
-Our literature review reveals a critical gap: **no existing DSL framework addresses multi-jurisdiction regulatory fee calculations with temporal complexity and currency management**. Specifically:
+Our literature review suggests a critical gap: to the best of our knowledge, **no existing DSL framework addresses multi-jurisdiction regulatory fee calculations with temporal complexity and currency management**. Specifically:
 
 | Domain | Existing DSL Coverage | Fee Calculation Gap |
 |--------|----------------------|---------------------|
@@ -86,7 +86,7 @@ Our literature review reveals a critical gap: **no existing DSL framework addres
 | Smart Contracts | Extensive (Solidity, Clarity) | Focus on blockchain; unsuitable for traditional legal systems |
 | Regulatory Compliance | Moderate (LegalRuleML, REGOROUS) | Binary compliance checking; no quantitative calculations |
 | Financial Rules | Limited (Basel formalization) | Requires formal methods expertise |
-| **Fee Calculations** | **None identified** | **Complete gap** |
+| **Fee Calculations** | **None identified** | **Apparent gap** |
 
 ### 5.2 Requirements for Fee Calculation DSLs
 
@@ -237,7 +237,7 @@ Developing domain-independent abstractions for regulatory fee calculations while
 
 ## 9. Conclusions
 
-This literature review identifies a significant gap in DSL research: while legal contract languages (Stipula, Pacta Sunt Servanda) and regulatory compliance frameworks (LegalRuleML, REGOROUS) have received substantial attention, DSLs for multi-jurisdiction regulatory fee calculations remain unexplored. This gap has practical significance given widespread inefficiencies in patent fee management documented in industry reports [27].
+This literature review suggests a significant gap in DSL research: while legal contract languages (Stipula, Pacta Sunt Servanda) and regulatory compliance frameworks (LegalRuleML, REGOROUS) have received substantial attention, DSLs for multi-jurisdiction regulatory fee calculations appear to be an underexplored area.
 
 Key findings include:
 
@@ -246,7 +246,7 @@ Key findings include:
 3. **DSL design principles** from software language engineering (domain-specific notation, explicit semantics, error prevention) directly apply to regulatory fee calculations
 4. **Production deployment considerations** (performance, maintainability, integration) significantly influence DSL design choices
 
-IPFLang, the DSL implemented in the IPFees system, represents a first attempt to fill this gap through:
+IPFLang, the DSL implemented in the IPFees system, aims to fill this gap through:
 - Keyword-based syntax accessible to legal professionals
 - Explicit type system for fee calculation inputs
 - Temporal operators for date-dependent fee logic
