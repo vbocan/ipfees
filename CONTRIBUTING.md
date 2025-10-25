@@ -128,7 +128,7 @@ To add support for a new IP jurisdiction:
 4. Create test cases in `IPFees.Calculator.Tests`
 5. Update documentation
 
-See [docs/DEVELOPER.md](docs/DEVELOPER.md) for detailed instructions.
+See [docs/developer.md](docs/developer.md) for detailed instructions.
 
 ## Project Structure
 

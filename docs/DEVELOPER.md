@@ -59,92 +59,372 @@ This guide provides detailed information for developers who want to extend, modi
 
 ## DSL Language Specification
 
-### Grammar Definition
+### IPFLang Overview
 
-The IPFees DSL uses a simple expression-based syntax for defining fee calculations:
+IPFees uses **IPFLang** (Intellectual Property Fees Language), a declarative DSL with keyword-based syntax designed for legal professionals. The language uses structured blocks with explicit keywords rather than expression-based syntax.
+
+### Input Definitions
+
+IPFLang supports five input types:
+
+#### 1. Single-Selection List (LIST)
+```
+DEFINE LIST EntityType AS 'Select the desired entity type'
+GROUP G1
+CHOICE NormalEntity AS 'Normal'
+CHOICE SmallEntity AS 'Small'
+CHOICE MicroEntity AS 'Micro'
+DEFAULT NormalEntity
+ENDDEFINE
+```
+
+#### 2. Multiple-Selection List (MULTILIST)
+```
+DEFINE MULTILIST Countries AS 'Select validation countries'
+GROUP G2
+CHOICE VAL_DE AS 'Germany'
+CHOICE VAL_FR AS 'France'
+CHOICE VAL_GB AS 'United Kingdom'
+DEFAULT VAL_DE,VAL_FR
+ENDDEFINE
+```
+
+#### 3. Number Input (NUMBER)
+```
+DEFINE NUMBER SheetCount AS 'Enter the number of sheets'
+GROUP G3
+BETWEEN 10 AND 1000
+DEFAULT 15
+ENDDEFINE
+```
+
+#### 4. Boolean Input (BOOLEAN)
+```
+DEFINE BOOLEAN ContainsDependentClaims AS 'Does this contain dependent claims?'
+GROUP G4
+DEFAULT TRUE
+ENDDEFINE
+```
+
+#### 5. Date Input (DATE)
+```
+DEFINE DATE ApplicationDate AS 'Application filing date'
+GROUP G5
+BETWEEN 1990-01-01 AND 2025-12-31
+DEFAULT 2024-01-01
+ENDDEFINE
+```
+
+### Fee Computation
+
+Fee calculations use `COMPUTE FEE` blocks with `YIELD` statements:
 
 ```
-Expression := Assignment | Calculation
-Assignment := Identifier '=' Expression
-Calculation := Term (('+' | '-') Term)*
-Term := Factor (('*' | '/') Factor)*
-Factor := Number | Identifier | '(' Expression ')' | Function
-Function := Identifier '(' Arguments ')'
-Conditional := Expression '?' Expression ':' Expression
+COMPUTE FEE BasicNationalFee
+YIELD 320 IF EntityType EQ NormalEntity
+YIELD 128 IF EntityType EQ SmallEntity
+YIELD 64 IF EntityType EQ MicroEntity
+ENDCOMPUTE
 ```
 
 ### Operators
 
 | Operator | Description | Example |
 |----------|-------------|---------|
-| `+` | Addition | `BaseFee + ClaimFee` |
-| `-` | Subtraction | `Total - Discount` |
-| `*` | Multiplication | `Claims * FeePerClaim` |
-| `/` | Division | `Total / ExchangeRate` |
-| `>`, `<`, `>=`, `<=` | Comparison | `Claims > 20` |
-| `==`, `!=` | Equality | `EntitySize == "Small"` |
-| `?:` | Ternary conditional | `Claims > 20 ? Extra : 0` |
+| `EQ` | Equality | `EntityType EQ SmallEntity` |
+| `NEQ` | Not equal | `EntityType NEQ NormalEntity` |
+| `GT` | Greater than | `ClaimCount GT 20` |
+| `LT` | Less than | `SheetCount LT 100` |
+| `GTE` | Greater than or equal | `ClaimCount GTE 15` |
+| `LTE` | Less than or equal | `SheetCount LTE 50` |
+| `AND` | Logical AND | `ClaimCount GT 10 AND EntityType EQ SmallEntity` |
+| `OR` | Logical OR | `EntityType EQ SmallEntity OR EntityType EQ MicroEntity` |
+| `NOT` | Logical NOT | `NOT ContainsDependentClaims` |
+| `IN` | Set membership | `VAL_DE IN Countries` |
+| `NIN` | Not in set | `VAL_FR NIN Countries` |
 
-### Built-in Variables
+### Arithmetic Operations
 
-The following variables are available in fee calculations:
-
-- `Claims` - Total number of claims
-- `IndependentClaims` - Number of independent claims
-- `Pages` - Number of pages in specification
-- `EntitySize` - Entity size ("Micro", "Small", "Large")
-- `FilingDate` - Date of filing
-- `Country` - Jurisdiction country code
+Standard arithmetic operators are supported:
+- Addition: `+`
+- Subtraction: `-`
+- Multiplication: `*`
+- Division: `/`
 
 ### Built-in Functions
 
 | Function | Description | Example |
 |----------|-------------|---------|
-| `Max(a, b)` | Maximum of two values | `Max(Claims - 20, 0)` |
-| `Min(a, b)` | Minimum of two values | `Min(Claims, 100)` |
-| `Round(value, decimals)` | Round to decimal places | `Round(Total, 2)` |
-| `Ceil(value)` | Round up | `Ceil(Pages / 50)` |
-| `Floor(value)` | Round down | `Floor(Total)` |
+| `ROUND(value)` | Round to nearest integer | `ROUND(SheetCount * 1.5)` |
+| `ROUND(value, decimals)` | Round to decimal places | `ROUND(Total, 2)` |
 
-### Example Fee Structures
+### Date Functions
 
-#### USPTO Utility Patent (Simplified)
+Date inputs support temporal calculations:
+
+| Function | Description | Example |
+|----------|-------------|---------|
+| `!MONTHSTONOW` | Months from date to now | `ApplicationDate!MONTHSTONOW` |
+| `!MONTHSTONOW_FROMLASTDAY` | Months from last day of month to now | `ApplicationDate!MONTHSTONOW_FROMLASTDAY` |
+| `!YEARSTONOW` | Years from date to now | `ApplicationDate!YEARSTONOW` |
+
+### List Operations
+
+Multiple-selection lists support count operations:
 
 ```
-// Base filing fees
-BaseFee = EntitySize == "Micro" ? 75 : (EntitySize == "Small" ? 150 : 300)
-SearchFee = EntitySize == "Micro" ? 168 : (EntitySize == "Small" ? 336 : 672)
-ExamFee = EntitySize == "Micro" ? 184 : (EntitySize == "Small" ? 368 : 736)
+DEFINE MULTILIST Countries AS 'Select countries'
+CHOICE VAL_DE AS 'Germany'
+CHOICE VAL_FR AS 'France'
+DEFAULT VAL_DE
+ENDDEFINE
 
-// Excess claim fees
-ExcessClaims = Max(Claims - 20, 0)
-ExcessClaimFee = ExcessClaims * (EntitySize == "Micro" ? 26 : (EntitySize == "Small" ? 52 : 104))
+COMPUTE FEE ValidationFee
+LET CountryCount AS Countries!COUNT
+YIELD CountryCount * 100
+ENDCOMPUTE
+```
 
-ExcessIndependentClaims = Max(IndependentClaims - 3, 0)
-ExcessIndependentClaimFee = ExcessIndependentClaims * (EntitySize == "Micro" ? 105 : (EntitySize == "Small" ? 210 : 420))
+### Variable Assignment
 
-// Total
-TotalFee = BaseFee + SearchFee + ExamFee + ExcessClaimFee + ExcessIndependentClaimFee
+Use `LET` statements for intermediate calculations:
+
+```
+COMPUTE FEE ClaimFee
+LET CF1 AS 265
+LET CF2 AS 660
+YIELD CF1*(ClaimCount-15) IF ClaimCount GT 15 AND ClaimCount LT 51
+YIELD CF2*(ClaimCount-50) + CF1*35 IF ClaimCount GT 50
+ENDCOMPUTE
+```
+
+### Conditional Logic with CASE
+
+Use `CASE` blocks for complex conditional logic:
+
+```
+COMPUTE FEE SearchFee
+CASE SituationType EQ PreparedIPEA AS
+YIELD 0 IF EntityType EQ NormalEntity
+YIELD 0 IF EntityType EQ SmallEntity
+YIELD 0 IF EntityType EQ MicroEntity
+ENDCASE
+CASE SituationType EQ PaidAsISA AS
+YIELD 140 IF EntityType EQ NormalEntity
+YIELD 56 IF EntityType EQ SmallEntity
+YIELD 28 IF EntityType EQ MicroEntity
+ENDCASE
+YIELD 700 IF EntityType EQ NormalEntity
+YIELD 280 IF EntityType EQ SmallEntity
+YIELD 140 IF EntityType EQ MicroEntity
+ENDCOMPUTE
+```
+
+### Optional Fees
+
+Mark fees as optional when they may not apply:
+
+```
+COMPUTE FEE ExaminationFee OPTIONAL
+LET ExFee AS 3000000
+YIELD ExFee
+ENDCOMPUTE
+```
+
+### Return Statements
+
+Specify currency and informational returns:
+
+```
+RETURN Currency AS 'EUR'
+RETURN ClaimLimits AS '10 claims included; additional fee as of 11'
+RETURN ExReqDate AS 'Examination request due within 7 years after filing'
+```
+
+### Complete Example
+
+```
+# EPO PCT Regional Phase Entry
+RETURN Currency AS 'EUR'
+
+DEFINE LIST ISA AS 'International Search Authority'
+CHOICE ISA_EPO AS 'EPO'
+CHOICE ISA_AT AS 'Austria'
+CHOICE ISA_FI AS 'Finland'
+DEFAULT ISA_EPO
+ENDDEFINE
+
+DEFINE LIST IPRP AS 'International Preliminary Report on Patentability'
+CHOICE IPRP_EPO AS 'Prepared by EPO'
+CHOICE IPRP_NONE AS 'None'
+DEFAULT IPRP_NONE
+ENDDEFINE
+
+DEFINE NUMBER SheetCount AS 'Number of sheets'
+BETWEEN 1 AND 1000
+DEFAULT 35
+ENDDEFINE
+
+DEFINE NUMBER ClaimCount AS 'Number of claims'
+BETWEEN 1 AND 100
+DEFAULT 15
+ENDDEFINE
+
+COMPUTE FEE OFF_BasicNationalFee
+YIELD 135
+ENDCOMPUTE
+
+COMPUTE FEE OFF_DesignationFee
+YIELD 660
+ENDCOMPUTE
+
+COMPUTE FEE OFF_SheetFee
+YIELD 17*(SheetCount-35) IF SheetCount GT 35
+ENDCOMPUTE
+
+COMPUTE FEE OFF_ClaimFee
+LET CF1 AS 265
+LET CF2 AS 660
+YIELD CF1*(ClaimCount-15) IF ClaimCount GT 15 AND ClaimCount LT 51
+YIELD CF2*(ClaimCount-50) + CF1*35 IF ClaimCount GT 50
+ENDCOMPUTE
+
+COMPUTE FEE OFF_SearchFee
+LET SF1 AS 1460
+LET SF2 AS 1185
+YIELD 0 IF ISA EQ ISA_EPO
+YIELD SF1-SF2 IF ISA EQ ISA_AT OR ISA EQ ISA_FI
+YIELD SF1 IF ISA NEQ ISA_EPO
+ENDCOMPUTE
+
+COMPUTE FEE OFF_ExaminationFee
+LET ExFee1 AS 2055
+LET ExFee2 AS 1840
+LET Discount AS 0.75
+CASE IPRP EQ IPRP_EPO AS
+YIELD ExFee1*Discount IF ISA EQ ISA_EPO
+YIELD ExFee2*Discount IF ISA NEQ ISA_EPO
+ENDCASE
+YIELD ExFee1 IF ISA EQ ISA_EPO
+YIELD ExFee2 IF ISA NEQ ISA_EPO
+ENDCOMPUTE
 ```
 
 ## Adding New Jurisdictions
 
 ### Step-by-Step Process
 
-1. **Create Jurisdiction Configuration**
+1. **Create IPFLang Fee Structure**
 
-Create a JSON file in `wwwroot/data/jurisdictions/`:
+IPFLang files are stored in MongoDB GridFS, not as separate files. However, you can create them through the web interface or directly in the database.
+
+Example IPFLang structure for Canada:
+
+```
+# File name: PCT-CA-OFF
+# File content: Official fees for PCT national phase: Canada
+# Valid until: n/a
+RETURN Currency AS 'CAD'
+
+DEFINE LIST EntitySize AS 'Entity size'
+CHOICE Entity_Company AS 'Company'
+CHOICE Entity_Person AS 'Individual'
+DEFAULT Entity_Company
+ENDDEFINE
+
+DEFINE NUMBER SheetCount AS 'Number of sheets'
+BETWEEN 1 AND 1000
+DEFAULT 30
+ENDDEFINE
+
+DEFINE NUMBER ClaimCount AS 'Number of claims'
+BETWEEN 1 AND 100
+DEFAULT 10
+ENDDEFINE
+
+COMPUTE FEE OFF_BasicNationalFee
+LET Fee1 AS 400
+LET Fee2 AS 200
+YIELD Fee1 IF EntitySize EQ Entity_Company
+YIELD Fee2 IF EntitySize EQ Entity_Person
+ENDCOMPUTE
+
+COMPUTE FEE OFF_SheetFee
+LET Fee1 AS 10
+YIELD Fee1*(SheetCount-30) IF SheetCount GT 30
+ENDCOMPUTE
+
+COMPUTE FEE OFF_ClaimFee
+LET CF1 AS 50
+YIELD CF1*(ClaimCount-20) IF ClaimCount GT 20
+ENDCOMPUTE
+```
+
+2. **Add Jurisdiction to MongoDB**
+
+Insert jurisdiction document in the `jurisdictions` collection:
 
 ```json
 {
-  "jurisdictionCode": "CA",
-  "name": "Canada (CIPO)",
-  "currency": "CAD",
-  "feeTypes": [
+  "Name": "CA",
+  "Description": "Canada (CIPO)",
+  "AttorneyFeeLevel": "Level1",
+  "LastUpdatedOn": "2025-01-15T00:00:00Z"
+}
+```
+
+3. **Add Fee Structure to MongoDB**
+
+Insert fee structure in the `fees` collection and upload IPFLang code to GridFS:
+
+```json
+{
+  "Name": "PCT-CA-OFF",
+  "Description": "Entry of national phase in Canada",
+  "SourceCode": "<IPFLang code from above>",
+  "ReferencedModules": [],
+  "LastUpdatedOn": "2025-01-15T00:00:00Z",
+  "Category": "OfficialFees",
+  "JurisdictionName": "CA"
+}
+```
+
+4. **Test the Jurisdiction**
+
+Create test cases in `IPFees.Calculator.Tests`:
+
+```csharp
+[Fact]
+public async Task Calculate_CanadaNationalPhase_ReturnsCorrectFee()
+{
+    // Arrange
+    var jurisdictionFeeManager = GetJurisdictionFeeManager();
+    var inputs = new List<IPFValue>
     {
-      "feeTypeCode": "UTILITY_FILING",
-      "name": "Utility Patent Filing",
-      "description": "Filing fee for utility patent application",
+        new IPFValueList("EntitySize", "Entity_Company"),
+        new IPFValueNumber("SheetCount", 35),
+        new IPFValueNumber("ClaimCount", 25)
+    };
+
+    // Act
+    var result = await jurisdictionFeeManager.Calculate(
+        new[] { "CA" }, 
+        inputs, 
+        "CAD", 
+        0);
+
+    // Assert
+    Assert.NotNull(result);
+    Assert.Empty(result.Errors);
+    var caResult = result.Results.First(r => r.Jurisdiction == "CA");
+    
+    // OFF_BasicNationalFee: 400
+    // OFF_SheetFee: 10 * (35-30) = 50
+    // OFF_ClaimFee: 50 * (25-20) = 250
+    // Total: 700
+    Assert.Equal(700, caResult.TotalFee);
+}
+```
       "entitySizes": ["Standard", "Small"],
       "rules": "BaseFee = EntitySize == 'Small' ? 200 : 400\nClaimFee = Claims > 20 ? (Claims - 20) * 50 : 0\nTotalFee = BaseFee + ClaimFee"
     }
@@ -195,120 +475,164 @@ Add jurisdiction to supported list and document any special requirements.
 
 ## API Reference
 
-### Fee Calculation Endpoint
+### Get Calculation Parameters
 
-**POST** `/api/fees/calculate`
+**GET** `/api/v1/Fee/Parameters/{Jurisdictions}`
 
-Calculate fees for a single jurisdiction and fee type.
+Get required input parameters for specified jurisdictions.
+
+**Example Request:**
+```
+GET /api/v1/Fee/Parameters/EP,US,CA
+Headers: X-API-Key: <api-key>
+```
+
+**Example Response:**
+```json
+{
+  "parameters": [
+    {
+      "Type": "String",
+      "Name": "EntitySize",
+      "ExpectedValues": ["Entity_Company", "Entity_Person"]
+    },
+    {
+      "Type": "Number",
+      "Name": "SheetCount",
+      "ExpectedValues": null
+    },
+    {
+      "Type": "Number",
+      "Name": "ClaimCount",
+      "ExpectedValues": null
+    }
+  ]
+}
+```
+
+**Note**: The actual API returns parameters as JSON-encoded strings within an array. The above shows the logical structure for clarity.
+
+### Calculate Fees
+
+**POST** `/api/v1/Fee/Calculate`
+
+Calculate fees for specified jurisdictions.
 
 **Request Body:**
 ```json
 {
-  "jurisdiction": "USPTO",
-  "feeType": "UTILITY_FILING",
-  "entitySize": "Small",
-  "claims": 25,
-  "independentClaims": 4,
-  "pages": 30,
-  "targetCurrency": "USD"
+  "jurisdictions": "EP,CA",
+  "parameters": [
+    {"type": "String", "name": "EntitySize", "value": "Entity_Company"},
+    {"type": "String", "name": "ISA", "value": "ISA_EPO"},
+    {"type": "String", "name": "IPRP", "value": "IPRP_NONE"},
+    {"type": "Number", "name": "SheetCount", "value": 40},
+    {"type": "Number", "name": "ClaimCount", "value": 20}
+  ],
+  "targetCurrency": "EUR"
 }
 ```
 
 **Response:**
 ```json
 {
-  "jurisdiction": "USPTO",
-  "feeType": "UTILITY_FILING",
-  "baseFee": 150.00,
-  "additionalFees": {
-    "searchFee": 336.00,
-    "examFee": 368.00,
-    "excessClaimFee": 260.00,
-    "excessIndependentClaimFee": 210.00
-  },
-  "totalFee": 1324.00,
-  "currency": "USD",
-  "exchangeRate": 1.0,
-  "calculatedAt": "2025-10-24T09:29:35Z"
-}
-```
-
-### Bulk Calculation Endpoint
-
-**POST** `/api/fees/bulk-calculate`
-
-Calculate fees for multiple jurisdictions simultaneously.
-
-**Request Body:**
-```json
-{
-  "requests": [
+  "results": [
     {
-      "jurisdiction": "USPTO",
-      "feeType": "UTILITY_FILING",
-      "entitySize": "Small",
-      "claims": 20
-    },
-    {
-      "jurisdiction": "EPO",
-      "feeType": "FILING",
-      "claims": 20
+      "jurisdiction": "EP",
+      "currency": "EUR",
+      "fees": [
+        {"name": "OFF_BasicNationalFee", "amount": 135},
+        {"name": "OFF_DesignationFee", "amount": 660},
+        {"name": "OFF_SheetFee", "amount": 85},
+        {"name": "OFF_ClaimFee", "amount": 1325},
+        {"name": "OFF_SearchFee", "amount": 0},
+        {"name": "OFF_ExaminationFee", "amount": 2055}
+      ],
+      "totalFee": 4260,
+      "targetCurrency": "EUR",
+      "exchangeRate": 1.0
     }
   ],
-  "targetCurrency": "EUR"
+  "errors": []
 }
 ```
 
-### Currency Conversion Endpoint
+### Get Jurisdictions
 
-**GET** `/api/currency/rates?base=USD&target=EUR`
+**GET** `/api/v1/Jurisdiction`
 
-Get current exchange rates between currencies.
+Get list of available jurisdictions.
+
+**Example Response:**
+```json
+[
+  {"jurisdiction": "EP", "description": "European Patent Organisation"},
+  {"jurisdiction": "US", "description": "United States of America"},
+  {"jurisdiction": "CA", "description": "Canada (CIPO)"}
+]
+```
+
+### Get Currencies
+
+**GET** `/api/v1/Currency`
+
+Get list of supported currencies.
+
+**Example Response:**
+```json
+[
+  {"currency": "USD", "description": "US Dollar"},
+  {"currency": "EUR", "description": "Euro"},
+  {"currency": "GBP", "description": "British Pound"}
+]
+```
 
 ## Extension Points
 
 ### Custom Currency Provider
 
-Implement `ICurrencyProvider` to integrate custom exchange rate sources:
+Implement `ICurrencyConverter` to integrate custom exchange rate sources:
 
 ```csharp
-public interface ICurrencyProvider
+public interface ICurrencyConverter
 {
-    Task<decimal> GetExchangeRateAsync(string fromCurrency, string toCurrency, DateTime? date = null);
-    Task<CurrencyRateStatus> GetRateStatusAsync();
-}
-```
-
-### Custom Fee Calculator
-
-Extend `BaseFeeCalculator` for jurisdiction-specific complex logic:
-
-```csharp
-public class CustomFeeCalculator : BaseFeeCalculator
-{
-    public override FeeCalculationResult Calculate(FeeCalculationRequest request)
-    {
-        // Custom calculation logic
-        return base.Calculate(request);
-    }
-}
-```
-
-### Custom DSL Functions
-
-Add custom functions to the DSL interpreter:
-
-```csharp
-public class CustomDslFunction : IDslFunction
-{
-    public string Name => "CustomFunction";
+    Task<decimal> ConvertAsync(
+        decimal amount, 
+        string fromCurrency, 
+        string toCurrency, 
+        decimal markup);
     
-    public object Evaluate(params object[] args)
-    {
-        // Implementation
-        return result;
-    }
+    IEnumerable<(string, string)> GetCurrencies();
 }
+```
+
+### Adding Custom DSL Functions
+
+The DSL parser is extensible, but core functions are built into the evaluator. To add custom functions, you would need to modify the `IPFees.Evaluator` project. However, most use cases can be handled with the existing operators and `LET` statements for intermediate calculations.
+
+### Custom Modules
+
+Modules are reusable IPFLang code blocks that can be referenced by multiple fee structures. Example:
+
+```
+# Module: ApplicationDate
+DEFINE DATE ApplicationDate AS 'Application filing date'
+BETWEEN 1990-01-01 AND 2030-12-31
+DEFAULT 2024-01-01
+ENDDEFINE
+```
+
+Fee structures reference modules:
+
+```
+# MODULES: ApplicationDate; SheetCount; ClaimCount
+
+COMPUTE FEE OFF_Renewal
+LET RenMonth AS ROUND(ApplicationDate!MONTHSTONOW)
+YIELD 250
+YIELD 300 IF RenMonth GTE 12
+YIELD 350 IF RenMonth GTE 24
+ENDCOMPUTE
 ```
 
 ## Testing Guide
@@ -336,17 +660,31 @@ Tests follow the Arrange-Act-Assert pattern:
 
 ```csharp
 [Fact]
-public void MethodName_Scenario_ExpectedBehavior()
+public async Task Calculate_EPORegionalPhase_ReturnsCorrectFees()
 {
-    // Arrange - Set up test data and dependencies
-    var calculator = new FeeCalculator();
-    var request = CreateTestRequest();
+    // Arrange
+    var jurisdictionFeeManager = GetJurisdictionFeeManager();
+    var inputs = new List<IPFValue>
+    {
+        new IPFValueList("ISA", "ISA_EPO"),
+        new IPFValueList("IPRP", "IPRP_NONE"),
+        new IPFValueNumber("SheetCount", 40),
+        new IPFValueNumber("ClaimCount", 20)
+    };
 
-    // Act - Execute the method being tested
-    var result = calculator.Calculate(request);
+    // Act
+    var result = await jurisdictionFeeManager.Calculate(
+        new[] { "EP" }, 
+        inputs, 
+        "EUR", 
+        0);
 
-    // Assert - Verify the outcome
-    Assert.Equal(expected, result.TotalFee);
+    // Assert
+    Assert.NotNull(result);
+    Assert.Empty(result.Errors);
+    
+    var epResult = result.Results.First(r => r.Jurisdiction == "EP");
+    Assert.Equal(4260, epResult.TotalFee); // 135+660+85+1325+0+2055
 }
 ```
 
