@@ -17,32 +17,32 @@ This guide provides detailed information for developers who want to extend, modi
 
 ```
 ┌─────────────────────────────────────────────────────────┐
-│                    IPFees.Web                            │
-│              (Presentation Layer)                        │
+│                    IPFees.Web                           │
+│              (Presentation Layer)                       │
 │  - Razor Pages                                          │
 │  - REST API Controllers                                 │
 │  - Swagger/OpenAPI                                      │
 └──────────────────┬──────────────────────────────────────┘
                    │
 ┌──────────────────▼──────────────────────────────────────┐
-│                 IPFees.Core                              │
-│              (Business Logic Layer)                      │
+│                 IPFees.Core                             │
+│              (Business Logic Layer)                     │
 │  - Domain Models                                        │
 │  - Service Interfaces                                   │
 │  - Business Logic                                       │
 └──────────────────┬──────────────────────────────────────┘
                    │
 ┌──────────────────▼──────────────────────────────────────┐
-│             IPFees.Calculator                            │
-│           (Calculation Engine)                           │
+│             IPFees.Calculator                           │
+│           (Calculation Engine)                          │
 │  - DSL Parser & Interpreter                             │
 │  - Fee Calculation Logic                                │
 │  - Expression Evaluator                                 │
 └──────────────────┬──────────────────────────────────────┘
                    │
 ┌──────────────────▼──────────────────────────────────────┐
-│                  MongoDB                                 │
-│                (Data Layer)                              │
+│                  MongoDB                                │
+│                (Data Layer)                             │
 │  - Jurisdiction Data                                    │
 │  - Fee Structures                                       │
 │  - Currency Rates                                       │
