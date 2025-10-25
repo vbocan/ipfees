@@ -7,20 +7,22 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![API](https://img.shields.io/badge/API-REST-orange)](https://localhost:8090/swagger)
 
+**🌐 [Live Demo Application](https://ipfees.dataman.ro/)** | **🐳 [Docker Hub](https://hub.docker.com/repository/docker/vbocan/ipfees)** | **📚 [Developer Guide](docs/developer.md)**
+
 ![IPFees Application Screenshot](ipfees-screenshot.png)
 
 ## Code Metadata
 
-| Metadata Item | Description |
-|---------------|-------------|
-| **Current code version** | v1.0.0 |
-| **Permanent link to code/repository** | https://github.com/vbocan/ipfees |
-| **Legal Code License** | MIT License |
-| **Code versioning system used** | Git |
-| **Software code languages, tools, and services used** | C# (.NET 9.0), ASP.NET Core, MongoDB, Docker, Razor Pages, Bootstrap 5, jQuery, xUnit |
+| Metadata Item                                                       | Description                                                                                |
+| ------------------------------------------------------------------- | ------------------------------------------------------------------------------------------ |
+| **Current code version**                                            | v1.0.0                                                                                     |
+| **Permanent link to code/repository**                               | https://github.com/vbocan/ipfees                                                           |
+| **Legal Code License**                                              | MIT License                                                                                |
+| **Code versioning system used**                                     | Git                                                                                        |
+| **Software code languages, tools, and services used**               | C# (.NET 9.0), ASP.NET Core, MongoDB, Docker, Razor Pages, Bootstrap 5, jQuery, xUnit      |
 | **Compilation requirements, operating environments & dependencies** | .NET 9.0 SDK, Docker & Docker Compose, MongoDB 8.0+; Compatible with Windows, Linux, macOS |
-| **Link to developer documentation/manual** | [Developer Guide](docs/DEVELOPER.md) |
-| **Support email for questions** | GitHub Issues or Discussions |
+| **Link to developer documentation/manual**                          | [Developer Guide](docs/developer.md)                                                       |
+| **Support email for questions**                                     | GitHub Issues or Discussions                                                               |
 
 ## Overview
 
@@ -28,26 +30,82 @@ IPFees is a jurisdiction-agnostic intellectual property fee calculation system t
 
 ## Quick Start with Docker
 
-### Prerequisites
+### Option 1: Clone from GitHub (Recommended)
 
-- [Docker](https://docker.com) and Docker Compose
-
-### Start the Application
+The easiest way to get started:
 
 ```bash
 # Clone the repository
-git clone <repository-url>
+git clone https://github.com/vbocan/ipfees
 cd ipfees/src
 
 # Start all services
 docker-compose up -d
 ```
 
+That's it! The system includes sample data and will work immediately.
+
+### Option 2: Pull from Docker Hub
+
+If you prefer to run without cloning the repository:
+
+```bash
+# Pull the images from Docker Hub
+docker pull vbocan/ipfees:web-latest
+docker pull vbocan/ipfees:api-latest
+
+# Create a docker-compose.yml file (see example below)
+# Then start the services
+docker-compose up -d
+```
+
+**Example docker-compose.yml**:
+
+```yaml
+version: "3.8"
+
+services:
+  mongodb:
+    image: mongo:8.0
+    container_name: ipfees-mongodb
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongodb_data:/data/db
+    environment:
+      MONGO_INITDB_DATABASE: ipfees
+
+  ipfees-web:
+    image: vbocan/ipfees:web-latest
+    container_name: ipfees-web
+    ports:
+      - "8080:8080"
+    depends_on:
+      - mongodb
+    environment:
+      - ASPNETCORE_URLS=http://+:8080
+      - ConnectionStrings__MongoDB=mongodb://mongodb:27017/ipfees
+
+  ipfees-api:
+    image: vbocan/ipfees:api-latest
+    container_name: ipfees-api
+    ports:
+      - "8090:8090"
+    depends_on:
+      - mongodb
+    environment:
+      - ASPNETCORE_URLS=http://+:8090
+      - ConnectionStrings__MongoDB=mongodb://mongodb:27017/ipfees
+
+volumes:
+  mongodb_data:
+```
+
 ### Access the Application
 
-- **Web Application**: http://localhost:8080
-- **API Documentation**: http://localhost:8090/swagger
-- **MongoDB**: localhost:27017
+- **Web Application** (local): http://localhost:8080
+- **API Documentation** (local): http://localhost:8090/swagger
+- **MongoDB** (local): localhost:27017
 
 That's it! The system includes sample data and will work immediately. For production use, configure your exchange rate API key in the settings.
 
@@ -66,7 +124,7 @@ dotnet test IPFees.Calculator.Tests
 
 IPFees leverages a modular architecture designed specifically for the demands of global IP practice, addressing complex requirements of many distinct regulatory frameworks.
 
-For a detailed technical architecture diagram, see [architecture.md](architecture.md).
+For a detailed technical architecture diagram, see [architecture.md](docs/architecture.md).
 
 ### Technology Stack
 
@@ -89,67 +147,122 @@ For a detailed technical architecture diagram, see [architecture.md](architectur
 
 ## Illustrative Examples
 
-### Example 1: USPTO Utility Patent Filing Fee
+### Example 1: EPO PCT Regional Phase Entry
 
-Calculate filing fees for a small entity utility patent application:
+Calculate official fees for entering regional phase at the European Patent Office using the Web UI or API:
+
+**Via Web Interface**:
+
+1. Visit https://ipfees.dataman.ro/ or http://localhost:8080
+2. Select "EP" jurisdiction
+3. Enter parameters:
+   - ISA: EPO
+   - IPRP: None
+   - Sheet Count: 40
+   - Claim Count: 20
+4. Click "Calculate"
+
+**Via API**:
 
 ```bash
-# Using the API
-curl -X POST http://localhost:8090/api/fees/calculate \
+curl -X POST http://localhost:8090/api/v1/Fee/Calculate \
   -H "Content-Type: application/json" \
+  -H "X-API-Key: your-api-key" \
   -d '{
-    "jurisdiction": "USPTO",
-    "feeType": "UtilityFiling",
-    "entitySize": "Small",
-    "claims": 25,
-    "independentClaims": 15
+    "jurisdictions": "EP",
+    "parameters": [
+      {"type": "String", "name": "ISA", "value": "ISA_EPO"},
+      {"type": "String", "name": "IPRP", "value": "IPRP_NONE"},
+      {"type": "Number", "name": "SheetCount", "value": 40},
+      {"type": "Number", "name": "ClaimCount", "value": 20}
+    ],
+    "targetCurrency": "EUR"
   }'
 ```
 
-**Result**: System calculates base filing fee, search fee, examination fee, and excess claim fees based on current USPTO fee schedule with multi-currency output.
+**Result**:
 
-### Example 2: EPO Validation Fee Calculation
+- Basic National Fee: €135
+- Designation Fee: €660
+- Sheet Fee: €85
+- Claim Fee: €1,325
+- Search Fee: €0 (EPO as ISA)
+- Examination Fee: €2,055
+- **Total: €4,260**
 
-Calculate validation fees across multiple European countries:
+### Example 2: Multi-Jurisdiction Calculation
+
+Calculate fees for simultaneous national phase entry across multiple jurisdictions:
 
 ```bash
-# Bulk calculation for EP patent validation
-POST /api/fees/bulk-calculate
-{
-  "patents": [
-    {"country": "DE", "claims": 10},
-    {"country": "FR", "claims": 10},
-    {"country": "GB", "claims": 10},
-    {"country": "IT", "claims": 10},
-    {"country": "ES", "claims": 10}
-  ],
-  "targetCurrency": "EUR"
-}
+curl -X POST http://localhost:8090/api/v1/Fee/Calculate \
+  -H "Content-Type: application/json" \
+  -H "X-API-Key: your-api-key" \
+  -d '{
+    "jurisdictions": "EP,JP,CA",
+    "parameters": [
+      {"type": "String", "name": "EntitySize", "value": "Entity_Company"},
+      {"type": "Number", "name": "SheetCount", "value": 35},
+      {"type": "Number", "name": "ClaimCount", "value": 15}
+    ],
+    "targetCurrency": "USD"
+  }'
 ```
 
-**Result**: Aggregated validation costs with currency conversion and jurisdiction-specific requirements.
+**Result**: Aggregated costs across multiple jurisdictions with automatic currency conversion to USD.
 
-### Example 3: Custom DSL Fee Rule
+### Example 3: IPFLang Fee Definition
 
-Define a new fee structure using the DSL:
+Define a new fee structure using IPFLang DSL:
 
 ```
-// Example: Progressive claim-based fee calculation
-BaseFee = 500
-ClaimFee = Claims > 20 ? (Claims - 20) * 100 : 0
-IndependentClaimFee = IndependentClaims > 3 ? (IndependentClaims - 3) * 420 : 0
-TotalFee = BaseFee + ClaimFee + IndependentClaimFee
+# Canadian National Phase Entry
+RETURN Currency AS 'CAD'
+
+DEFINE LIST EntitySize AS 'Entity size'
+CHOICE Entity_Company AS 'Company'
+CHOICE Entity_Person AS 'Individual'
+DEFAULT Entity_Company
+ENDDEFINE
+
+DEFINE NUMBER SheetCount AS 'Number of sheets'
+BETWEEN 1 AND 1000
+DEFAULT 30
+ENDDEFINE
+
+DEFINE NUMBER ClaimCount AS 'Number of claims'
+BETWEEN 1 AND 100
+DEFAULT 10
+ENDDEFINE
+
+COMPUTE FEE OFF_BasicNationalFee
+LET Fee1 AS 400
+LET Fee2 AS 200
+YIELD Fee1 IF EntitySize EQ Entity_Company
+YIELD Fee2 IF EntitySize EQ Entity_Person
+ENDCOMPUTE
+
+COMPUTE FEE OFF_SheetFee
+LET Fee1 AS 10
+YIELD Fee1*(SheetCount-30) IF SheetCount GT 30
+ENDCOMPUTE
+
+COMPUTE FEE OFF_ClaimFee
+LET CF1 AS 50
+YIELD CF1*(ClaimCount-20) IF ClaimCount GT 20
+ENDCOMPUTE
 ```
 
-The DSL parser evaluates rules at runtime, supporting conditional logic and arithmetic operations.
+The IPFLang DSL uses keyword-based syntax (DEFINE, COMPUTE, YIELD) that is readable by legal professionals without programming expertise.
 
 ## Scientific Impact and Reusability
 
 ### Cross-Domain Applicability
 
 While developed for IP fee management, the DSL-based architecture is applicable to other regulatory domains:
+
 - International tax calculations
-- Customs and import duty calculations  
+- Customs and import duty calculations
 - Legal compliance fee structures
 - Multi-jurisdiction regulatory reporting
 
@@ -163,6 +276,7 @@ While developed for IP fee management, the DSL-based architecture is applicable 
 ### Extensibility
 
 The modular architecture enables researchers and practitioners to:
+
 1. Add new jurisdictions through JSON configuration
 2. Implement custom currency providers
 3. Extend the DSL with domain-specific functions
@@ -213,8 +327,8 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 - **User Guide**: See web application's built-in documentation at `/about` and `/reference`
 - **API Documentation**: Interactive Swagger/OpenAPI documentation at `/swagger`
-- **Architecture**: Detailed technical architecture in [architecture.md](architecture.md)
-- **Developer Guide**: Instructions for extending the system in [docs/DEVELOPER.md](docs/DEVELOPER.md)
+- **Architecture**: Detailed technical architecture in [docs/architecture.md](docs/architecture.md)
+- **Developer Guide**: Instructions for extending the system in [docs/developer.md](docs/developer.md)
 - **DSL Grammar**: Fee calculation DSL specification at `/grammar`
 
 ## Support & Contact
