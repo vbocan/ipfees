@@ -28,13 +28,22 @@ jobs:
         username: ${{ github.actor }}
         password: ${{ secrets.GITHUB_TOKEN }}
 
+    - name: Log in to Docker Hub
+      uses: docker/login-action@v3
+      with:
+        username: vbocan
+        password: ${{ secrets.DOCKERHUB_TOKEN }}
+
     - name: Build and push API image
       uses: docker/build-push-action@v5
       with:
         context: src/
         file: src/IPFees.API/Dockerfile
         push: true
-        tags: ghcr.io/${{ github.repository_owner }}/ipfees:api
+        tags: |
+          ghcr.io/${{ github.repository_owner }}/ipfees:api
+          vbocan/ipfees:api
+          vbocan/ipfees:api-latest
 
     - name: Build and push Web image
       uses: docker/build-push-action@v5
@@ -42,4 +51,7 @@ jobs:
         context: src/
         file: src/IPFees.Web/Dockerfile
         push: true
-        tags: ghcr.io/${{ github.repository_owner }}/ipfees:web
+        tags: |
+          ghcr.io/${{ github.repository_owner }}/ipfees:web
+          vbocan/ipfees:web
+          vbocan/ipfees:web-latest
