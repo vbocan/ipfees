@@ -6,7 +6,7 @@
 
 ## Abstract
 
-This comprehensive literature review examines the application of Domain-Specific Languages (DSLs) in legal and regulatory computing, with particular emphasis on fee calculation systems. Through systematic analysis of 50+ peer-reviewed publications, government technical reports, and industry analyses, we identify a critical gap: while DSLs have been extensively applied to legal contract formalization (Stipula, Pacta Sunt Servanda) and smart contracts (Solidity, Clarity), their application to computational fee structures in intellectual property and regulatory compliance appears to be an underexplored area. This review synthesizes research across legal informatics, DSL design principles, computational law frameworks, and regulatory automation to contextualize the contribution of DSL-based fee calculation systems. This review suggests that multi-jurisdiction regulatory fee computation is an application domain for DSL technology with potential for both practical impact and academic research.
+This literature review examines the application of Domain-Specific Languages (DSLs) in legal and regulatory computing, with particular emphasis on fee calculation systems. Through systematic analysis of key peer-reviewed publications, government technical reports, and industry analyses, we identify a critical gap: while DSLs have been extensively applied to legal contract formalization (Stipula, Pacta Sunt Servanda) and smart contracts (Solidity, Clarity), their application to computational fee structures in intellectual property and regulatory compliance appears to be an underexplored area. This review synthesizes research across legal informatics, DSL design principles, computational law frameworks, and regulatory automation to contextualize the contribution of DSL-based fee calculation systems. This review suggests that multi-jurisdiction regulatory fee computation is an application domain for DSL technology with potential for both practical impact and academic research.
 
 ## 1. Introduction
 
@@ -155,7 +155,7 @@ However, overly restrictive type systems increase DSL complexity. IPFLang adopts
 
 ### 6.3 Error Handling and Validation
 
-Regulatory fee calculations require robust error handling for invalid inputs, missing data, and computational edge cases [15]. DSL approaches to error handling include:
+Regulatory fee calculations require robust error handling for invalid inputs, missing data, and computational edge cases. Type systems and static analysis provide compile-time guarantees that reduce runtime errors [15]. DSL approaches to error handling include:
 
 1. **Compile-time validation**: Detect inconsistencies before execution (e.g., undefined variables)
 2. **Runtime validation**: Check input constraints (e.g., BETWEEN clauses in IPFLang)
@@ -285,7 +285,7 @@ Future research should explore formal verification techniques for fee calculatio
 
 [14] B. Pierce, *Types and Programming Languages*. Cambridge, MA: MIT Press, 2002.
 
-[15] J. Goodenough, "Exception handling: Issues and a proposed notation," *Communications of the ACM*, vol. 18, no. 12, pp. 683-696, 1975. https://doi.org/10.1145/361227.361230
+[15] S. Tobin-Hochstadt and M. Felleisen, "The Design and Implementation of Typed Scheme," in *Proceedings of the 35th ACM SIGPLAN-SIGACT Symposium on Principles of Programming Languages (POPL '08)*, San Francisco, CA, USA, 2008, pp. 395-406. https://doi.org/10.1145/1328438.1328486
 
 [16] L. Richardson and S. Ruby, *RESTful Web Services*. Sebastopol, CA: O'Reilly Media, 2007.
 
