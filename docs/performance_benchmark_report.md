@@ -17,8 +17,7 @@
 6. [Validation and Confidence](#validation-and-confidence)
 7. [Comparative Analysis](#comparative-analysis)
 8. [Conclusions](#conclusions)
-9. [Recommendations for Manuscript](#recommendations-for-manuscript)
-10. [Appendices](#appendices)
+9. [Appendices](#appendices)
 
 ---
 
@@ -719,103 +718,6 @@ IPFees achieves competitive performance while maintaining:
 | P95 Latency | 420 ms | <500 ms | ✅ 16% headroom |
 | Memory Efficiency | 8-78 KB/op | N/A | ✅ Minimal |
 | GC Gen2 Collections | 0 | Minimal | ✅ Excellent |
-
----
-
-## Recommendations for Manuscript
-
-### Performance Section
-
-#### Suggested Text for SoftwareX Manuscript
-
-```
-Performance Evaluation
-
-Performance benchmarking was conducted using BenchmarkDotNet v0.14.0, 
-an industry-standard microbenchmarking library for .NET applications. 
-The core calculation engine was tested in isolation, and end-to-end 
-performance was estimated through architectural analysis validated 
-against production deployment.
-
-Benchmark Methodology
-
-Component-level benchmarks measured the Domain-Specific Language (DSL) 
-parser and executor in isolation, using statistical sampling with 10 
-measurement iterations following 3 warmup iterations. Memory allocation 
-and garbage collection behavior were profiled using BenchmarkDotNet's 
-integrated diagnostics. Full system performance was estimated through 
-architectural analysis, combining measured component performance with 
-database overhead estimates based on MongoDB performance characteristics 
-and ASP.NET Core framework benchmarks.
-
-Results
-
-The core DSL engine demonstrates sub-millisecond performance, executing 
-complex fee structures (8 fees with multi-level conditionals) in 23.5μs 
-(±0.4μs, 1.7% standard deviation). Memory efficiency is high, with 
-allocations ranging from 8.68 KB to 77.9 KB per operation and no 
-long-lived object accumulation (zero Generation-2 garbage collections 
-observed). For multi-jurisdiction scenarios, the system achieves 
-estimated latencies of 240-320ms for typical 3-jurisdiction portfolios, 
-well below the 500ms design target with 36-52% performance headroom. 
-Performance scales linearly with jurisdiction count, adding 
-approximately 30-50ms per additional jurisdiction.
-
-Under simulated load, the system maintains P95 latencies below 500ms 
-for up to 25 concurrent users. Comparative analysis shows 6-20× 
-performance improvement over government-provided fee calculators 
-(2-5 seconds typical) and 1.5-6× improvement over commercial IP 
-management tools (500-1500ms typical), while maintaining superior 
-flexibility through the DSL-based architecture.
-
-Performance Validation
-
-Component-level measurements provide high confidence (>90%) in the 
-performance claim. The measured core engine performance (23.5μs) 
-combined with conservative estimates for database access (30ms cached), 
-API overhead (10ms), business logic (75ms), and serialization (10ms) 
-yield a total estimated latency of approximately 145ms for typical 
-multi-jurisdiction calculations. This provides substantial headroom 
-against the 500ms target, accommodating variance in real-world 
-deployment scenarios.
-```
-
-### Performance Metrics Table for Manuscript
-
-**Table 1: IPFees Performance Metrics**
-
-| Metric | Value | Measurement Method | Confidence |
-|--------|-------|-------------------|------------|
-| Core DSL Engine Latency | 23.5 μs (±0.4 μs) | BenchmarkDotNet | Very High |
-| Memory per Operation | 8-78 KB | Memory Diagnoser | Very High |
-| Single Jurisdiction (Simple) | 50-80 ms | Architectural Analysis | High |
-| Single Jurisdiction (Complex) | 120-180 ms | Architectural Analysis | High |
-| Multi-Jurisdiction (3×) | 240-320 ms | Architectural Analysis | High |
-| P95 Latency (typical load) | 420 ms | Estimated | Medium-High |
-| Scaling Factor | 30-50 ms/jurisdiction | Analysis | High |
-| Concurrent Users (P95<500ms) | 25+ | Estimated | Medium |
-
-### Comparative Performance Table
-
-**Table 2: Performance Comparison with Existing Solutions**
-
-| System Category | Typical Latency | IPFees Latency | Relative Performance |
-|----------------|----------------|----------------|---------------------|
-| Government Fee Calculators | 2-5 seconds | 240-320 ms | 6-20× faster |
-| Commercial IP Tools | 500-1500 ms | 240-320 ms | 1.5-6× faster |
-| Generic Rules Engines | 200-400 ms | 240-320 ms | Comparable |
-
-### Key Statistics for Abstract/Introduction
-
-**Recommended statistics for highlighting system capabilities:**
-
-- **Performance:** Sub-500ms latency validated (240-320ms typical for multi-jurisdiction)
-- **Core Engine:** 23.5 microseconds for complex fee structure execution
-- **Memory Efficiency:** 8-78 KB allocation per operation
-- **Scalability:** Linear scaling with 30-50ms per additional jurisdiction
-- **Concurrent Capacity:** Supports 25+ concurrent users maintaining P95<500ms
-- **Performance Advantage:** 6-20× faster than government calculators
-- **Validation Confidence:** >90% based on measured components
 
 ---
 
