@@ -652,7 +652,7 @@ The performance claim is validated through three complementary approaches:
 **vs. Commercial IP Management Tools (PatSnap, Clarivate, etc.):**
 - **Latency:** 500-1500ms vs. 240-320ms = 1.5-6× improvement
 - **Accuracy:** Mixed vs. jurisdiction-specific = IPFees more accurate
-- **Coverage:** Limited jurisdictions vs. 160+ = IPFees more comprehensive
+- **Coverage:** Limited jurisdictions vs. 118 = IPFees more comprehensive
 - **Cost:** Enterprise pricing vs. open-source = IPFees more accessible
 - **Conclusion:** Better performance, accuracy, and cost profile
 
@@ -661,7 +661,7 @@ The performance claim is validated through three complementary approaches:
 IPFees achieves competitive performance while maintaining:
 
 1. **Flexibility:** DSL allows rule changes without code deployment
-2. **Maintainability:** 160+ jurisdictions supported without monolithic complexity
+2. **Maintainability:** 118 jurisdictions supported without monolithic complexity
 3. **Accuracy:** Complex fee structures correctly calculated
 4. **Auditability:** Full calculation steps tracked and visible
 5. **Extensibility:** New jurisdictions added through configuration

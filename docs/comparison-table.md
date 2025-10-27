@@ -14,7 +14,7 @@
 | Source Code Available | ❌ No | ❌ No | ❌ Proprietary | ⚠️ Limited | ✅ Full source on GitHub |
 | Self-Hosting Option | ❌ No | ❌ No | ❌ No | N/A | ✅ Docker deployment |
 | **Jurisdiction Coverage** |
-| Multi-Jurisdiction Support | Single jurisdiction only | 153 PCT contracting states [2] | Major jurisdictions [3] | Unknown/Limited | 160+ jurisdictions |
+| Multi-Jurisdiction Support | Single jurisdiction only | 153 PCT contracting states [2] | Major jurisdictions [3] | Unknown/Limited | 118 jurisdictions |
 | Jurisdiction Extensibility | ❌ Requires vendor | ⚠️ WIPO updates only | ⚠️ Vendor-dependent | Unknown | ✅ DSL-based configuration |
 | National Phase Entry | ❌ Per-country only | ⚠️ Basic PCT only | ✅ Yes | Unknown | ✅ Yes |
 | Regional Offices (EPO, ARIPO) | Per-office only | ⚠️ Limited | ✅ Yes | Unknown | ✅ Yes |
@@ -84,7 +84,7 @@ Search conducted on GitHub (October 2025) for "patent fee calculator" repositori
 
 | Repository | Stars | Last Update | Language | Jurisdictions | Status |
 |-----------|-------|-------------|----------|---------------|--------|
-| **IPFees (this work)** | - | Active (2025) | C# (.NET 9.0) | 160+ | Active development |
+| **IPFees (this work)** | - | Active (2025) | C# (.NET 9.0) | 118 | Active development |
 | uspto-fee-calculator [6] | 3 | 2019 | JavaScript | 1 (USPTO only) | Archived/Abandoned |
 | patent-cost-estimator [7] | 0 | 2021 | Python | 1 (US estimates) | No recent activity |
 | InPatent/Patent-Fee-Estimator [8] | 0 | 2022 | Java | 1 (India) | Minimal activity |
@@ -105,7 +105,7 @@ Search conducted on GitHub (October 2025) for "patent fee calculator" repositori
 | PatSnap | PatSnap | ⚠️ Analytics-focused | Limited | ✅ REST API | $8,000-$25,000/user [3] |
 | Dennemeyer IP | Dennemeyer | ✅ Integrated | 30+ | ❌ No public API | Enterprise pricing [1] |
 | Questel Orbit | Questel | ⚠️ Cost estimation only | Global estimates | ⚠️ Limited | Enterprise pricing [1] |
-| **IPFees** | Open Source | ✅ Core functionality | 160+ | ✅ Full REST API | **Free (MIT License)** |
+| **IPFees** | Open Source | ✅ Core functionality | 118 | ✅ Full REST API | **Free (MIT License)** |
 
 ## Table 4: DSL Comparison for Legal/Regulatory Domains
 

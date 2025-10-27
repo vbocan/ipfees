@@ -433,7 +433,7 @@ IPFees addresses a documented gap in intellectual property management tools by p
 
 Key contributions include:
 1. IPFLang, a declarative DSL designed for legal professionals with keyword-based syntax
-2. Multi-jurisdiction architecture supporting 160+ patent offices through configuration
+2. Multi-jurisdiction architecture supporting 118 patent offices through configuration
 3. Three-tier currency conversion system with real-time API integration
 4. Comprehensive REST APIs enabling integration with IP management platforms
 5. Open-source MIT license promoting reproducible research
@@ -543,7 +543,7 @@ ORCID: 0009-0006-9084-4064
 
 #### Concern 4: "Jurisdiction Coverage Validation"
 **Mitigation**:
-- 160+ jurisdictions supported
+- 118 jurisdictions supported
 - Independent validation by IP attorneys for major jurisdictions (USPTO, EPO, WIPO)
 - Test suite with expected calculations
 - Community contribution model for ongoing verification
