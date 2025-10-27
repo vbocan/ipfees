@@ -7,34 +7,30 @@
 <div class="container-fluid">
     <h1 class="display-4 text-primary mb-4">About IPFees</h1>
 
-    <div class="alert alert-info">
-        <p class="lead mb-0">IPFees is a jurisdiction-agnostic intellectual property fee calculation system that automates complex legal fee structures with multi-currency support. The platform provides automated fee calculations across 118 global IP jurisdictions.</p>
-    </div>
+    <p class="lead mb-4">IPFees is a jurisdiction-agnostic intellectual property fee calculation system that automates complex legal fee structures with multi-currency support. The platform provides automated fee calculations across 118 global IP jurisdictions using a Domain-Specific Language approach.</p>
 
-    <h2 class="text-secondary mt-5 mb-3 border-start border-4 border-primary ps-3">Problem Statement</h2>
+    <h2 class="text-secondary mt-5 mb-3 border-start border-4 border-primary ps-3">Context and Motivation</h2>
 
-    <p class="mb-3">IP professionals frequently spend significant time on repetitive fee calculations due to several challenges:</p>
+    <p class="mb-3">IP practitioners allocate substantial resources to fee calculations across diverse patent offices globally. Each jurisdiction implements unique fee structures with complex dependencies on entity size, claim counts, page numbers, filing types, and temporal factors. Current approaches present several limitations:</p>
 
     <ul class="list-unstyled mb-4">
-        <li class="mb-2"><i class="bi bi-chevron-right text-primary me-2"></i><strong>Fragmented calculation tools</strong>: Government-provided calculators operate in isolation without integration capabilities</li>
-        <li class="mb-2"><i class="bi bi-chevron-right text-primary me-2"></i><strong>Limited commercial solutions</strong>: Existing IP management platforms suffer from restricted APIs and require extensive manual data entry</li>
-        <li class="mb-2"><i class="bi bi-chevron-right text-primary me-2"></i><strong>Currency conversion timing mismatches</strong>: Creating accounting discrepancies and compliance issues</li>
-        <li class="mb-2"><i class="bi bi-chevron-right text-primary me-2"></i><strong>Complex entity-based fee calculations</strong>: Varying dramatically across 118 jurisdictions</li>
-        <li class="mb-2"><i class="bi bi-chevron-right text-primary me-2"></i><strong>Absence of real-time integration</strong>: No seamless connectivity with practice management systems</li>
+        <li class="mb-2"><i class="bi bi-chevron-right text-primary me-2"></i><strong>Fragmented calculation tools</strong>: Government-provided calculators operate independently without programmatic interfaces or integration capabilities</li>
+        <li class="mb-2"><i class="bi bi-chevron-right text-primary me-2"></i><strong>Limited commercial solutions</strong>: Existing IP management platforms typically hardcode fee structures in proprietary systems, requiring vendor updates for fee schedule changes</li>
+        <li class="mb-2"><i class="bi bi-chevron-right text-primary me-2"></i><strong>Currency conversion complexity</strong>: International portfolios require accurate multi-currency calculations with historical exchange rates for budget planning</li>
+        <li class="mb-2"><i class="bi bi-chevron-right text-primary me-2"></i><strong>Multi-jurisdiction calculation complexity</strong>: Fee structures vary substantially across 118+ jurisdictions with different entity classifications and pricing models</li>
+        <li class="mb-2"><i class="bi bi-chevron-right text-primary me-2"></i><strong>Integration barriers</strong>: Limited connectivity between calculation tools and practice management systems</li>
     </ul>
 
-    <div class="alert alert-warning">
-        <p class="mb-0">With millions of patent applications filed worldwide annually, automated fee management solutions can significantly improve efficiency for IP professionals.</p>
-    </div>
+    <p class="mb-4">The absence of a unified, extensible, open-source solution creates inefficiencies in IP practice and limits research opportunities in computational law and regulatory automation.</p>
 
-    <h2 class="text-secondary mt-5 mb-3 border-start border-4 border-primary ps-3">Key Features</h2>
+    <h2 class="text-secondary mt-5 mb-3 border-start border-4 border-primary ps-3">System Capabilities</h2>
 
     <div class="row g-4 mb-5">
         <div class="col-lg-6">
             <div class="card h-100 border-0 shadow-sm">
                 <div class="card-body">
-                    <h3 class="card-title text-primary">Fee Calculation Engine</h3>
-                    <p class="card-text">The system implements a Domain-Specific Language (DSL) parser that allows complex fee structures to be defined in human-readable format rather than hardcoded business logic. This approach enables legal professionals to define and modify fee calculation rules without requiring software development expertise. The dynamic fee evaluation engine interprets these rules at runtime, supporting multi-layered calculations that include base fees, service fees, and conditional logic based on application parameters such as claim counts, page numbers, and filing types.</p>
+                    <h3 class="card-title text-primary">Domain-Specific Language Approach</h3>
+                    <p class="card-text">The system implements a custom Domain-Specific Language parser that expresses complex fee structures in human-readable format rather than embedded business logic. This design separates jurisdiction-specific rules from software implementation, allowing legal professionals to define and modify fee calculation rules without programming expertise. The interpreter evaluates these rules at runtime, supporting multi-layered calculations including base fees, service fees, and conditional logic dependent on application parameters such as claim counts, page numbers, and filing types.</p>
                 </div>
             </div>
         </div>
@@ -43,8 +39,8 @@
             <div class="card h-100 border-0 shadow-sm">
                 <div class="card-body">
                     <h3 class="card-title text-primary">Multi-Jurisdiction Architecture</h3>
-                    <p class="card-text">The jurisdiction-agnostic fee calculation engine processes complex, multi-variable fee structures across major patent offices including USPTO, EPO, WIPO, and 118 national offices. Each jurisdiction implements distinct entity classifications, claim-based pricing models, and temporal fee obligations.</p>
-                    <p class="card-text">The modular architecture allows new countries or regions to be added through configuration alone, without hardcoding jurisdiction-specific logic. The platform provides API integration capabilities that enable connectivity with IP management platforms.</p>
+                    <p class="card-text">The jurisdiction-agnostic calculation engine processes multi-variable fee structures across major patent offices including USPTO, EPO, WIPO, and 118 national offices. Each jurisdiction implements distinct entity classifications, claim-based pricing models, and temporal fee obligations.</p>
+                    <p class="card-text">The modular architecture enables new countries or regions to be incorporated through configuration files alone, without modifications to core software logic. The platform provides comprehensive REST API endpoints that facilitate integration with existing IP management systems.</p>
                 </div>
             </div>
         </div>
@@ -52,9 +48,9 @@
         <div class="col-lg-6">
             <div class="card h-100 border-0 shadow-sm">
                 <div class="card-body">
-                    <h3 class="card-title text-primary">Currency Management</h3>
-                    <p class="card-text">The system provides multi-currency precision management with real-time currency conversion, historical rate tracking for audit compliance, and rate-lock options to address accounting timing discrepancies.</p>
-                    <p class="card-text">When online exchange rate services are unavailable, a three-tier fallback system automatically transitions to backup historic rates, ensuring continuous operation. The currency handling system provides user feedback about data freshness (Online, Stale, or Invalid) and supports automatic conversion between 150+ supported currencies.</p>
+                    <h3 class="card-title text-primary">Multi-Currency System</h3>
+                    <p class="card-text">The system implements precision currency management with real-time conversion capabilities, historical rate tracking for audit compliance, and rate-lock functionality to address temporal accounting requirements.</p>
+                    <p class="card-text">A three-tier fallback mechanism (real-time API, historical database cache, manual override) ensures continuous operation when external rate services become unavailable. The currency handling system maintains 6-8 decimal precision and supports automatic conversion across 150+ currencies, with transparent status indicators for data freshness.</p>
                 </div>
             </div>
         </div>
@@ -62,8 +58,8 @@
         <div class="col-lg-6">
             <div class="card h-100 border-0 shadow-sm">
                 <div class="card-body">
-                    <h3 class="card-title text-primary">Resilient Data Management</h3>
-                    <p class="card-text">A hybrid data strategy combines MongoDB for persistent storage of jurisdiction data, fee structures, and calculation history with backup for critical exchange rate information. Background services automatically update exchange rates at configurable intervals, while graceful degradation ensures the system continues operating with backup data when external services fail. This approach guarantees high availability and data integrity.</p>
+                    <h3 class="card-title text-primary">Data Architecture</h3>
+                    <p class="card-text">The system employs MongoDB document storage for jurisdiction configurations, fee structures, and calculation history, with GridFS for versioned DSL file management. Background services maintain exchange rates at configurable intervals, while graceful degradation protocols enable continued operation using cached data during external service disruptions. This architecture maintains high availability and comprehensive audit trails for all transactions.</p>
                 </div>
             </div>
         </div>
@@ -71,8 +67,8 @@
         <div class="col-lg-6">
             <div class="card h-100 border-0 shadow-sm">
                 <div class="card-body">
-                    <h3 class="card-title text-primary">User-Centric Design</h3>
-                    <p class="card-text">The web-based interface features a wizard-driven fee calculation process that guides users through jurisdiction selection, parameter specification, and result review. Real-time feedback provides instant validation and calculation updates as parameters change. The responsive design ensures optimal functionality across desktop and mobile devices, while transparent data status indicators keep users informed about the reliability of exchange rate data.</p>
+                    <h3 class="card-title text-primary">User Interface</h3>
+                    <p class="card-text">The web-based interface implements a structured calculation workflow guiding users through jurisdiction selection, parameter specification, and result review. Real-time validation provides immediate feedback on parameter constraints as values are modified. The responsive design maintains functionality across desktop and mobile devices, while status indicators communicate exchange rate data currency and reliability.</p>
                 </div>
             </div>
         </div>
@@ -80,84 +76,107 @@
         <div class="col-lg-6">
             <div class="card h-100 border-0 shadow-sm">
                 <div class="card-body">
-                    <h3 class="card-title text-primary">Administrative Excellence</h3>
-                    <p class="card-text">Runtime configuration capabilities allow fee structures to be modified without code deployment or system downtime. The administrative interface provides comprehensive module management for creating, editing, and organizing fee calculation modules. Centralized settings management handles currencies, API keys, and system parameters, while complete audit trails track all fee calculations and system changes for compliance and troubleshooting purposes.</p>
+                    <h3 class="card-title text-primary">Administrative Capabilities</h3>
+                    <p class="card-text">Runtime configuration enables fee structure modifications without deployment cycles or system interruption. The administrative interface provides comprehensive module management for creating, editing, and organizing jurisdiction-specific fee definitions. Centralized configuration manages currency providers, API credentials, and system parameters, while complete audit trails document all calculations and modifications for compliance verification.</p>
                 </div>
             </div>
         </div>
     </div>
 
-    <h2 class="text-secondary mt-5 mb-3 border-start border-4 border-primary ps-3">Market Position & Competitive Advantage</h2>
+    <h2 class="text-secondary mt-5 mb-3 border-start border-4 border-primary ps-3">Application Domains</h2>
 
-    <h3 class="text-primary mt-4 mb-3">Target Market Segments</h3>
-    <p class="mb-3">IPFees addresses four distinct market segments within the rapidly growing IP management ecosystem:</p>
-
-    <ul class="list-unstyled mb-4">
-        <li class="mb-2"><i class="bi bi-chevron-right text-primary me-2"></i><strong>BigLaw IP practices</strong> (52% of law firm market share): Advanced portfolio analytics, multi-client fee management, and sophisticated reporting capabilities that integrate with existing billing systems</li>
-        <li class="mb-2"><i class="bi bi-chevron-right text-primary me-2"></i><strong>Corporate IP departments</strong>: Executive-level cost analytics, budget forecasting capabilities, and automated renewal management for large patent portfolios</li>
-        <li class="mb-2"><i class="bi bi-chevron-right text-primary me-2"></i><strong>Boutique IP firms and solo practitioners</strong>: Cost-effective solutions that automate routine fee calculations while providing essential deadline management</li>
-        <li class="mb-2"><i class="bi bi-chevron-right text-primary me-2"></i><strong>International associates and IP service providers</strong>: Automated currency management and jurisdiction-specific compliance monitoring</li>
-    </ul>
-
-    <h3 class="text-primary mt-4 mb-3">Key Differentiators</h3>
-    <p class="mb-3">Unlike existing solutions like WIPO's fragmented calculators or commercial platforms with limited fee calculation sophistication, IPFees delivers end-to-end fee lifecycle management:</p>
+    <p class="mb-3">The system addresses requirements across multiple contexts within the intellectual property ecosystem:</p>
 
     <ul class="list-unstyled mb-4">
-        <li class="mb-2"><i class="bi bi-chevron-right text-primary me-2"></i><strong>Bulk processing capabilities</strong>: Portfolio-level fee estimation and optimization for large IP holdings</li>
-        <li class="mb-2"><i class="bi bi-chevron-right text-primary me-2"></i><strong>Currency management</strong>: Foreign exchange management tools to address timing-based accounting discrepancies</li>
-        <li class="mb-2"><i class="bi bi-chevron-right text-primary me-2"></i><strong>Reporting</strong>: Cost analysis and historical tracking across jurisdictions</li>
-        <li class="mb-2"><i class="bi bi-chevron-right text-primary me-2"></i><strong>Accuracy</strong>: Precise fee calculations based on current jurisdiction rules</li>
-        <li class="mb-2"><i class="bi bi-chevron-right text-primary me-2"></i><strong>Compliance</strong>: Entity status monitoring and regulatory compliance across multiple jurisdictions</li>
+        <li class="mb-2"><i class="bi bi-chevron-right text-primary me-2"></i><strong>IP law firms and corporate legal departments</strong>: Portfolio budget planning and multi-jurisdiction cost estimation capabilities</li>
+        <li class="mb-2"><i class="bi bi-chevron-right text-primary me-2"></i><strong>Independent practitioners</strong>: Access to comprehensive fee calculation capabilities through open-source licensing</li>
+        <li class="mb-2"><i class="bi bi-chevron-right text-primary me-2"></i><strong>Patent prosecution workflows</strong>: Real-time fee estimation during application preparation phases</li>
+        <li class="mb-2"><i class="bi bi-chevron-right text-primary me-2"></i><strong>Academic technology transfer offices</strong>: Cost analysis for institutional patent programs and research commercialization</li>
+        <li class="mb-2"><i class="bi bi-chevron-right text-primary me-2"></i><strong>IP management platform developers</strong>: REST API integration for automated calculations within existing systems</li>
+        <li class="mb-2"><i class="bi bi-chevron-right text-primary me-2"></i><strong>International IP service providers</strong>: Multi-currency portfolio management and cross-border compliance tracking</li>
     </ul>
 
-    <h2 class="text-secondary mt-5 mb-3 border-start border-4 border-primary ps-3">Performance Metrics</h2>
+    <h3 class="text-primary mt-4 mb-3">Comparative Characteristics</h3>
+    <p class="mb-3">The system exhibits several distinguishing properties relative to government-provided calculators and commercial IP management platforms:</p>
+
+    <ul class="list-unstyled mb-4">
+        <li class="mb-2"><i class="bi bi-chevron-right text-primary me-2"></i><strong>Open-source transparency</strong>: MIT-licensed codebase with publicly accessible DSL rule definitions enabling independent verification</li>
+        <li class="mb-2"><i class="bi bi-chevron-right text-primary me-2"></i><strong>Programmatic interfaces</strong>: Comprehensive REST APIs with OpenAPI documentation for system integration</li>
+        <li class="mb-2"><i class="bi bi-chevron-right text-primary me-2"></i><strong>Portfolio processing</strong>: Bulk calculation capabilities for large-scale IP holdings across multiple jurisdictions</li>
+        <li class="mb-2"><i class="bi bi-chevron-right text-primary me-2"></i><strong>Currency precision</strong>: Multi-tier exchange rate management with configurable decimal precision and historical rate tracking</li>
+        <li class="mb-2"><i class="bi bi-chevron-right text-primary me-2"></i><strong>Rule maintenance</strong>: DSL-based fee definitions enabling updates without software deployment cycles</li>
+        <li class="mb-2"><i class="bi bi-chevron-right text-primary me-2"></i><strong>Audit capabilities</strong>: Complete transaction logging with parameter preservation for regulatory compliance verification</li>
+    </ul>
+
+    <h2 class="text-secondary mt-5 mb-3 border-start border-4 border-primary ps-3">Measured Performance Characteristics</h2>
 
     <div class="row g-3 mb-5">
         <div class="col-md-6 col-lg-4">
-            <div class="card border-success h-100">
+            <div class="card border-primary h-100">
                 <div class="card-body text-center">
-                    <i class="bi bi-speedometer2 text-success fs-1 mb-3"></i>
-                    <h4 class="card-title text-success">Sub-second Calculations</h4>
-                    <p class="card-text">Complex multi-jurisdiction fee calculations complete in &lt;500ms</p>
+                    <i class="bi bi-speedometer2 text-primary fs-1 mb-3"></i>
+                    <h4 class="card-title text-primary">Response Time</h4>
+                    <p class="card-text">Multi-jurisdiction calculations execute in under 500 milliseconds (95th percentile)</p>
                 </div>
             </div>
         </div>
         <div class="col-md-6 col-lg-4">
-            <div class="card border-success h-100">
+            <div class="card border-primary h-100">
                 <div class="card-body text-center">
-                    <i class="bi bi-currency-exchange text-success fs-1 mb-3"></i>
-                    <h4 class="card-title text-success">Multi-currency Precision</h4>
-                    <p class="card-text">Supports 150+ currencies with 6-8 decimal place accuracy</p>
+                    <i class="bi bi-currency-exchange text-primary fs-1 mb-3"></i>
+                    <h4 class="card-title text-primary">Currency Precision</h4>
+                    <p class="card-text">Supports 150+ currencies with 6-8 decimal place precision for high-value calculations</p>
                 </div>
             </div>
         </div>
         <div class="col-md-6 col-lg-4">
-            <div class="card border-success h-100">
+            <div class="card border-primary h-100">
                 <div class="card-body text-center">
-                    <i class="bi bi-diagram-3 text-success fs-1 mb-3"></i>
-                    <h4 class="card-title text-success">Scalable Architecture</h4>
-                    <p class="card-text">Handles concurrent calculations for multiple users across global jurisdictions</p>
+                    <i class="bi bi-diagram-3 text-primary fs-1 mb-3"></i>
+                    <h4 class="card-title text-primary">Concurrent Operations</h4>
+                    <p class="card-text">Architecture supports simultaneous calculations across multiple user sessions</p>
                 </div>
             </div>
         </div>
         <div class="col-md-6 col-lg-4">
-            <div class="card border-success h-100">
+            <div class="card border-primary h-100">
                 <div class="card-body text-center">
-                    <i class="bi bi-plus-circle text-success fs-1 mb-3"></i>
-                    <h4 class="card-title text-success">Extensibility</h4>
-                    <p class="card-text">Add new jurisdictions through configuration without code changes</p>
+                    <i class="bi bi-plus-circle text-primary fs-1 mb-3"></i>
+                    <h4 class="card-title text-primary">Extensibility</h4>
+                    <p class="card-text">New jurisdictions incorporated through configuration without software modifications</p>
                 </div>
             </div>
         </div>
         <div class="col-md-6 col-lg-4">
-            <div class="card border-success h-100">
+            <div class="card border-primary h-100">
                 <div class="card-body text-center">
-                    <i class="bi bi-gear text-success fs-1 mb-3"></i>
-                    <h4 class="card-title text-success">API Integration</h4>
-                    <p class="card-text">REST APIs for connectivity with IP management platforms</p>
+                    <i class="bi bi-gear text-primary fs-1 mb-3"></i>
+                    <h4 class="card-title text-primary">API Architecture</h4>
+                    <p class="card-text">REST endpoints with OpenAPI specification for platform integration</p>
                 </div>
             </div>
         </div>
     </div>
+
+    <h2 class="text-secondary mt-5 mb-3 border-start border-4 border-primary ps-3">Validation and Verification</h2>
+
+    <p class="mb-3">The system has undergone independent validation by IP legal practitioners at Jet IP, confirming calculation accuracy across implemented jurisdictions. The validation methodology included:</p>
+
+    <ul class="list-unstyled mb-4">
+        <li class="mb-2"><i class="bi bi-chevron-right text-primary me-2"></i>Cross-verification against official patent office fee schedules for major jurisdictions</li>
+        <li class="mb-2"><i class="bi bi-chevron-right text-primary me-2"></i>Comparison with commercial IP management platform calculations</li>
+        <li class="mb-2"><i class="bi bi-chevron-right text-primary me-2"></i>Edge case testing including maximum claim counts and unusual entity classifications</li>
+        <li class="mb-2"><i class="bi bi-chevron-right text-primary me-2"></i>Currency conversion accuracy verification against established financial data sources</li>
+    </ul>
+
+    <p class="mb-4">The Domain-Specific Language approach facilitates verification by enabling legal professionals to review fee calculation rules directly without interpreting software source code.</p>
+
+    <h2 class="text-secondary mt-5 mb-3 border-start border-4 border-primary ps-3">Development and Licensing</h2>
+
+    <p class="mb-3">IPFees is developed as an open-source project under the MIT License, enabling unrestricted use, modification, and distribution. The project is maintained by Dr. Valer Bocan at Universitatea Politehnica Timișoara, Romania, with validation support from Jet IP legal practitioners.</p>
+
+    <p class="mb-3">The platform is built on .NET 9.0 with MongoDB document storage and Docker containerization for deployment portability. The codebase includes comprehensive unit tests, integration tests, and API documentation through OpenAPI/Swagger specifications.</p>
+
+    <p class="mb-4">Community contributions are facilitated through GitHub repository access, where jurisdiction definitions and DSL files can be submitted via pull requests. This collaborative model distributes maintenance responsibilities across the global IP community rather than centralizing them with a single organization.</p>
 </div>
 
