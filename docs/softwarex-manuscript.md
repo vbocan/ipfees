@@ -269,15 +269,15 @@ IPFees is positioned to address a gap among IP fee calculation solutions. Table 
 
 | Feature | Government Calculators | Commercial IP Software | IPFees |
 |---------|------------------------|------------------------|--------|
-| **Open Source** | ❌ No | ❌ No | ✅ MIT License |
+| **Open Source** | No | No | ✅ MIT License |
 | **Multi-Jurisdiction** | Single only | 10-50 offices | 160+ jurisdictions |
-| **API Access** | ❌ None | ⚠️ Limited | ✅ Full REST API |
-| **DSL Configuration** | ❌ No | ❌ No | ✅ Yes |
-| **Real-Time Currency** | N/A | ⚠️ Daily updates | ✅ Multi-provider |
-| **Transparency** | ❌ Black box | ❌ Proprietary | ✅ Open DSL source |
+| **API Access** | None | Limited | ✅ Full REST API |
+| **DSL Configuration** | No | No | ✅ Yes |
+| **Real-Time Currency** | N/A | Daily updates | ✅ Multi-provider |
+| **Transparency** | Black box | Proprietary | ✅ Open DSL source |
 | **Cost** | Free (web only) | $5K-$50K/year | Free |
-| **Extensibility** | ❌ Vendor-dependent | ⚠️ Professional services | ✅ Community |
-| **Version Control** | ❌ No | ❌ No | ✅ Git-based DSL |
+| **Extensibility** | Vendor-dependent | Professional services | ✅ Community |
+| **Version Control** | No | No | ✅ Git-based DSL |
 | **Response Time** | 2-5s | 500-1500ms | 240-320ms (validated) |
 | **Core Engine** | N/A | N/A | 23.5μs (measured) |
 
@@ -292,7 +292,7 @@ Independent validation by IP legal experts at Jet IP (https://www.jet-ip.legal) 
 1. Comparison with official patent office fee schedules for 20+ major jurisdictions
 2. Cross-verification against commercial IP management platform calculations
 3. Edge case testing including maximum claim counts, unusual entity sizes, and deadline-sensitive fees
-4. Currency conversion accuracy testing against Bloomberg exchange rate data
+4. Currency conversion accuracy testing against Central European Bank exchange rate data
 
 The DSL approach provides inherent advantages for validation: rules can be reviewed by legal professionals without reading software code, and version control enables tracking changes to fee structures over time.
 
