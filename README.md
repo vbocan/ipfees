@@ -7,7 +7,7 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![API](https://img.shields.io/badge/API-REST-orange)](https://localhost:8090/swagger)
 
-**🌐 [Live Demo Application](https://ipfees.dataman.ro/)** | **🐳 [Docker Hub](https://hub.docker.com/repository/docker/vbocan/ipfees)** | **📚 [Developer Guide](docs/developer.md)**
+## Live Demo: https://ipfees.dataman.ro/
 
 ![IPFees Application Screenshot](ipfees-screenshot.png)
 
@@ -26,7 +26,7 @@
 
 ## Overview
 
-IPFees is a jurisdiction-agnostic intellectual property fee calculation system that automates complex legal fee structures with multi-currency support. The platform provides automated fee calculations across 160+ global IP jurisdictions using a Domain-Specific Language (DSL) approach, enabling legal professionals to define and modify fee calculation rules without software development expertise.
+IPFees is a jurisdiction-agnostic intellectual property fee calculation system that automates complex legal fee structures with multi-currency support. The platform provides automated fee calculations across 118 global IP jurisdictions using a Domain-Specific Language (DSL) approach, enabling legal professionals to define and modify fee calculation rules without software development expertise.
 
 ## Quick Start with Docker
 
@@ -293,7 +293,7 @@ The modular architecture enables researchers and practitioners to:
 - **Concurrent Users**: Scalable architecture supporting 25+ simultaneous users
 - **Extensibility**: Add jurisdictions without code changes through configuration
 
-**Performance Validation:** Comprehensive benchmarking completed using BenchmarkDotNet v0.14.0. See [Performance Benchmark Report](docs/performance_benchmark_report.md) for detailed methodology, results, and analysis.
+**Performance Validation:** Comprehensive benchmarking completed using BenchmarkDotNet v0.14.0 with >90% confidence level. The validation includes statistical rigor (10 iterations, 99.9% confidence intervals), memory profiling, and comparative analysis showing 6-20× improvement over government calculators. See [Performance Benchmark Report](docs/performance_benchmark_report.md) for detailed methodology, results, and statistical analysis.
 
 ## Citation
 
@@ -335,6 +335,13 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 - **Architecture**: Detailed technical architecture in [docs/architecture.md](docs/architecture.md)
 - **Developer Guide**: Instructions for extending the system in [docs/developer.md](docs/developer.md)
 - **DSL Grammar**: Fee calculation DSL specification at `/grammar`
+
+### Academic & Research Documentation
+
+- **Performance Benchmark Report**: Comprehensive validation methodology and results in [docs/performance_benchmark_report.md](docs/performance_benchmark_report.md)
+- **Literature Review**: Academic survey of DSLs in legal domains in [docs/literature-review.md](docs/literature-review.md)
+- **Comparative Analysis**: Detailed 90+ dimension comparison with alternatives in [docs/comparison-table.md](docs/comparison-table.md)
+- **Research Manuscript**: Academic paper draft in [docs/softwarex-manuscript.md](docs/softwarex-manuscript.md)
 
 ## Support & Contact
 
