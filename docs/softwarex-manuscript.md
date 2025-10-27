@@ -26,7 +26,7 @@ Intellectual property (IP) practitioners face a persistent challenge in accurate
 
 **Fragmented Tools**: Government patent offices provide jurisdiction-specific calculators (e.g., USPTO fee schedule calculator, EPO fee calculator) that require manual navigation between multiple websites and separate calculations for each jurisdiction [1].
 
-**Limited Commercial Solutions**: Existing IP management software platforms (e.g., CPA Global, Anaqua, PatSnap) primarily focus on docketing and portfolio management, with fee calculation either absent or limited to major jurisdictions. These platforms typically hardcode fee structures, requiring software updates for fee schedule changes [2].
+**Limited Commercial Solutions**: Existing IP management software platforms (e.g., CPA Global, Anaqua, PatSnap) primarily focus on docketing and portfolio management, with fee calculation either absent or limited to major jurisdictions. These platforms typically hardcode fee structures, requiring software updates for fee schedule changes.
 
 **Manual Processes**: Many practitioners rely on spreadsheets and manual calculations, increasing error risk and consuming billable hours that could be allocated to higher-value legal analysis.
 
@@ -38,11 +38,11 @@ The absence of a unified, extensible, open-source solution creates inefficiencie
 
 IPFees introduces three primary innovations to IP fee management:
 
-**DSL-Based Configuration**: Unlike hardcoded fee logic, IPFees implements a custom Domain-Specific Language [8] that allows jurisdiction-specific rules to be expressed in human-readable format. This approach separates business logic from software implementation, enabling IP professionals to define and modify fee structures without programming expertise. The DSL supports conditional logic, arithmetic operations, and jurisdiction-specific variables, providing sufficient expressiveness for complex regulatory frameworks while maintaining simplicity for common cases.
+**DSL-Based Configuration**: Unlike hardcoded fee logic, IPFees implements a custom Domain-Specific Language [7] that allows jurisdiction-specific rules to be expressed in human-readable format. This approach separates business logic from software implementation, enabling IP professionals to define and modify fee structures without programming expertise. The DSL supports conditional logic, arithmetic operations, and jurisdiction-specific variables, providing sufficient expressiveness for complex regulatory frameworks while maintaining simplicity for common cases.
 
 **Jurisdiction-Agnostic Architecture**: The platform's modular design treats each jurisdiction as a configuration entity rather than a code module. Adding support for new patent offices requires only JSON configuration files and DSL rule definitions, not software modifications. This architecture dramatically reduces the barrier to expanding jurisdiction coverage and enables community contributions.
 
-**Computational Law Framework**: IPFees provides a reference implementation for encoding legal rules in executable format. The DSL approach ensures transparency, auditability, and version control for regulatory logic—properties essential for legal compliance systems [7]. The platform demonstrates how computational law principles can be applied to practical legal technology challenges.
+**Computational Law Framework**: IPFees provides a reference implementation for encoding legal rules in executable format. The DSL approach ensures transparency, auditability, and version control for regulatory logic—properties essential for legal compliance systems [6]. The platform demonstrates how computational law principles can be applied to practical legal technology challenges.
 
 ### 1.3 Research and Practical Applications
 
@@ -60,13 +60,13 @@ IPFees introduces three primary innovations to IP fee management:
 
 DSL applications in legal domains have matured significantly, yet multi-jurisdiction fee calculation remains unexplored.
 
-**Legal Contract DSLs**: Stipula [9] and Pacta Sunt Servanda [10] provide declarative syntax for contract obligations, temporal constraints, and formal verification. However, both focus on execution semantics rather than financial computations. Bartoletti et al. acknowledge: "monetary aspects require domain-specific treatment beyond generic contract languages" [10, p. 18].
+**Legal Contract DSLs**: Domain-specific languages for legal contracts have explored declarative syntax for obligations and temporal constraints, but typically focus on execution semantics rather than financial computations. Monetary aspects in legal contexts require specialized treatment with arithmetic precision and multi-currency support.
 
-**Regulatory Compliance**: LegalRuleML [14] offers XML-based legal rule specifications; REGOROUS [15] provides ontology-based compliance reasoning. Both emphasize binary compliance checking (compliant/non-compliant) with minimal arithmetic support. Catala [16], a DSL for tax law, demonstrates sophisticated financial calculations but targets single-jurisdiction applications and requires formal methods expertise.
+**Regulatory Compliance**: LegalRuleML [10] offers XML-based legal rule specifications with ontology-based compliance reasoning. These systems emphasize binary compliance checking (compliant/non-compliant) with minimal arithmetic support. Catala [11], a DSL for tax law, demonstrates sophisticated financial calculations but targets single-jurisdiction applications and requires formal methods expertise.
 
-**Existing Fee Calculators**: Patent offices (USPTO [1], EPO [4], JPO [11], WIPO [3]) provide web calculators with proprietary logic, lacking API access and multi-jurisdiction support. Commercial platforms (CPA Global, Anaqua) hardcode fee calculations in closed codebases requiring vendor patches for updates [2].
+**Existing Fee Calculators**: Patent offices (USPTO [1], EPO [3], JPO [8], WIPO [2]) provide web calculators with proprietary logic, lacking API access and multi-jurisdiction support. Commercial platforms (CPA Global, Anaqua) hardcode fee calculations in closed codebases requiring vendor patches for updates.
 
-**Research Gap**: To the best of our knowledge, a systematic search of academic databases (ACM, IEEE, Springer, Web of Science) and GitHub reveals **a gap in DSL frameworks for multi-jurisdiction regulatory fee calculations with combined temporal logic, multi-currency support, and arithmetic expressiveness**. Open-source alternatives are limited to single-jurisdiction calculators (e.g., InPatent [5] for India only) with minimal functionality. Table 1 illustrates the positioning of IPFees in this underserved domain. Comprehensive literature review analyzing 50+ publications available in supplementary materials.
+**Research Gap**: To the best of our knowledge, a systematic search of academic databases (ACM, IEEE, Springer, Web of Science) and GitHub reveals **a gap in DSL frameworks for multi-jurisdiction regulatory fee calculations with combined temporal logic, multi-currency support, and arithmetic expressiveness**. Open-source alternatives are limited to single-jurisdiction calculators (e.g., InPatent [4] for India only) with minimal functionality. Table 1 illustrates the positioning of IPFees in this underserved domain. Comprehensive literature review available in supplementary materials.
 
 ---
 
@@ -92,7 +92,7 @@ The architecture follows SOLID principles with dependency injection, enabling in
 
 ### 2.2 Domain-Specific Language: IPFLang
 
-IPFees implements IPFLang (Intellectual Property Fees Language), a declarative DSL with explicit keyword-based syntax designed for legal professionals without programming expertise [8]. Unlike expression-based DSLs, IPFLang uses structured blocks with clear semantic keywords, following established DSL design guidelines emphasizing domain-specific notations, explicit semantics, and minimal syntax complexity [9].
+IPFees implements IPFLang (Intellectual Property Fees Language), a declarative DSL with explicit keyword-based syntax designed for legal professionals without programming expertise [7]. Unlike expression-based DSLs, IPFLang uses structured blocks with clear semantic keywords, following established DSL design principles emphasizing domain-specific notations, explicit semantics, and minimal syntax complexity.
 
 **Input Definition**: IPFLang supports five input types with explicit declarations:
 
@@ -166,7 +166,7 @@ YIELD CF2*(ClaimCount-50) + CF1*35 IF ClaimCount GT 50
 ENDCOMPUTE
 ```
 
-The keyword-based syntax prioritizes readability and explicit semantics over conciseness, reducing the learning curve for legal professionals—a key principle of effective DSL design [9]. IPFLang implementation adheres to DSL design guidelines through: (1) **Domain-Specific Notation** using legal terminology (EntityType, ClaimFee, ValidationFee); (2) **Explicit Semantics** with clear keywords (DEFINE, COMPUTE, YIELD) avoiding ambiguous operators; (3) **Syntactic Sugar** minimizing boilerplate while maintaining clarity; and (4) **Error Prevention** through structured blocks with explicit ENDCOMPUTE and ENDDEFINE markers that aid comprehension and prevent common syntax errors. The language successfully balances expressiveness for complex regulatory rules with accessibility for non-programmer domain experts, demonstrating practical application of DSL engineering principles in the legal technology domain.
+The keyword-based syntax prioritizes readability and explicit semantics over conciseness, reducing the learning curve for legal professionals—a key principle of effective DSL design [7]. IPFLang implementation adheres to DSL design guidelines through: (1) **Domain-Specific Notation** using legal terminology (EntityType, ClaimFee, ValidationFee); (2) **Explicit Semantics** with clear keywords (DEFINE, COMPUTE, YIELD) avoiding ambiguous operators; (3) **Syntactic Sugar** minimizing boilerplate while maintaining clarity; and (4) **Error Prevention** through structured blocks with explicit ENDCOMPUTE and ENDDEFINE markers that aid comprehension and prevent common syntax errors. The language successfully balances expressiveness for complex regulatory rules with accessibility for non-programmer domain experts, demonstrating practical application of DSL engineering principles in the legal technology domain.
 
 ### 2.3 Multi-Currency System
 
@@ -299,9 +299,9 @@ IPFees is positioned to address a gap among IP fee calculation solutions. Table 
 | **Response Time** | 2-5s | 500-1500ms | 240-320ms (validated) |
 | **Core Engine** | N/A | N/A | 23.5μs (measured) |
 
-**Key Differentiators**: (1) **Open Source Transparency** – Many alternatives implement proprietary logic; IPFees' MIT-licensed DSL enables independent verification by legal professionals and auditors. (2) **API-First Architecture** – Government calculators provide no programmatic access; commercial platforms offer limited vendor-specific APIs [2]. IPFees provides comprehensive REST endpoints with OpenAPI documentation. (3) **DSL-Based Extensibility** – Commercial solutions hardcode fees requiring vendor patches; IPFees enables immediate DSL updates without software deployment. (4) **Multi-Currency Precision** – Three-tier fallback mechanism (real-time API, historical database, manual override) with 6-8 decimal precision ensures reliable calculations during API outages.
+**Key Differentiators**: (1) **Open Source Transparency** – Many alternatives implement proprietary logic; IPFees' MIT-licensed DSL enables independent verification by legal professionals and auditors. (2) **API-First Architecture** – Government calculators provide no programmatic access; commercial platforms offer limited vendor-specific APIs. IPFees provides comprehensive REST endpoints with OpenAPI documentation. (3) **DSL-Based Extensibility** – Commercial solutions hardcode fees requiring vendor patches; IPFees enables immediate DSL updates without software deployment. (4) **Multi-Currency Precision** – Three-tier fallback mechanism (real-time API, historical database, manual override) with 6-8 decimal precision ensures reliable calculations during API outages.
 
-GitHub search reveals limited open-source alternatives: InPatent [5] supports only India (0 stars, inactive since 2022); ipr-management [6] focuses on rights management. No multi-jurisdiction DSL-based calculator exists. Detailed 50+ dimension comparison in supplementary materials (docs/comparison-table.md).
+GitHub search reveals limited open-source alternatives: InPatent [4] supports only India (0 stars, inactive since 2022); ipr-management [5] focuses on rights management. No multi-jurisdiction DSL-based calculator exists. Detailed 90+ dimension comparison in supplementary materials (docs/comparison-table.md).
 
 ### 4.2 Validation and Accuracy
 
@@ -409,7 +409,7 @@ As patent systems worldwide continue to evolve their fee structures in response 
 
 ## Acknowledgments
 
-The author acknowledges validation and pilot implementation support from Jet IP (https://www.jet-ip.legal). This work received no direct funding and was developed as an independent research initiative.
+The author gratefully acknowledges Dr. Robert Fichter of Jet IP for his meticulous verification of each jurisdiction implementation in IPFLang, ensuring dollar-accurate calculations across all supported patent offices. Special thanks to Adrian Ivan, MSc, of Storya Soft for comprehensive end-to-end application testing, and to Cătălin Bălășcuță for his valuable contributions in implementing recurring fee calculation patterns and supporting Dr. Fichter's validation work.
 
 ---
 
@@ -417,35 +417,25 @@ The author acknowledges validation and pilot implementation support from Jet IP 
 
 [1] United States Patent and Trademark Office, "USPTO Fee Schedule," 2025. [Online]. Available: https://www.uspto.gov/learning-and-resources/fees-and-payment/uspto-fee-schedule. [Accessed: 12-Sep-2025].
 
-[2] Gartner, "Market Guide for IP Management Software," Research Report, 2023.
+[2] World Intellectual Property Organization, "PCT Fees," 2025. [Online]. Available: https://www.wipo.int/pct/en/fees.html. [Accessed: 28-Aug-2025].
 
-[3] World Intellectual Property Organization, "PCT Fees," 2025. [Online]. Available: https://www.wipo.int/pct/en/fees.html. [Accessed: 28-Aug-2025].
+[3] European Patent Office, "EPO Fee Calculator," 2025. [Online]. Available: https://www.epo.org/applying/fees.html. [Accessed: 05-Oct-2025].
 
-[4] European Patent Office, "EPO Fee Calculator," 2025. [Online]. Available: https://www.epo.org/applying/fees.html. [Accessed: 05-Oct-2025].
+[4] InPatent, "Patent-Fee-Estimator: Patent Fee Calculator (India)," GitHub Repository, 2025. [Online]. Available: https://github.com/InPatent/Patent-Fee-Estimator. [Accessed: 19-Jul-2025].
 
-[5] InPatent, "Patent-Fee-Estimator: Patent Fee Calculator (India)," GitHub Repository, 2025. [Online]. Available: https://github.com/InPatent/Patent-Fee-Estimator. [Accessed: 19-Jul-2025].
+[5] Cybersecurity-LINKS, "IPR-Management: Intellectual Property and Rights Management System," GitHub Repository, 2024. [Online]. Available: https://github.com/Cybersecurity-LINKS/ipr-management. [Accessed: 03-Aug-2025].
 
-[6] Cybersecurity-LINKS, "IPR-Management: Intellectual Property and Rights Management System," GitHub Repository, 2024. [Online]. Available: https://github.com/Cybersecurity-LINKS/ipr-management. [Accessed: 03-Aug-2025].
+[6] D. L. Burk and M. A. Lemley, "Policy Levers in Patent Law," Virginia Law Review, vol. 89, no. 7, pp. 1575-1696, 2003.
 
-[7] D. L. Burk and M. A. Lemley, "Policy Levers in Patent Law," Virginia Law Review, vol. 89, no. 7, pp. 1575-1696, 2003.
+[7] M. Fowler, Domain-Specific Languages. Boston, MA: Addison-Wesley Professional, 2010.
 
-[8] M. Fowler, Domain-Specific Languages. Boston, MA: Addison-Wesley Professional, 2010.
+[8] Japan Patent Office, "JPO Fee Calculator," 2025. [Online]. Available: https://www.jpo.go.jp/e/system/process/tesuryo/hyou.html. [Accessed: 15-Sep-2025].
 
-[9] M. Crosara and E. J. Scheid, "Stipula: A Domain-Specific Language for Legal Contracts," in Proceedings of the 2022 ACM Conference on Computer and Communications Security, Los Angeles, CA, USA, 2022, pp. 715-729. doi: 10.1145/3548606.3559354
+[9] R. Pereira, M. Couto, F. Ribeiro, R. Rua, J. Cunha, J. P. Fernandes, and J. Saraiva, "Energy Efficiency across Programming Languages: How Do Energy, Time, and Memory Relate?" in Proceedings of the 10th ACM SIGPLAN International Conference on Software Language Engineering, Vancouver, BC, Canada, 2017, pp. 256-267. doi: 10.1145/3136014.3136031
 
-[10] M. Bartoletti, L. Bocchi, and R. Zunino, "Pacta Sunt Servanda: Legal Contracts in Stipula," Science of Computer Programming, vol. 223, article 102869, 2023. doi: 10.1016/j.scico.2022.102869
+[10] M. Palmirani, G. Governatori, A. Rotolo, S. Tabet, H. Boley, and A. Paschke, "LegalRuleML: XML-Based Rules and Norms," in Rule Representation, Interchange and Reasoning on the Web, Lecture Notes in Computer Science, vol. 6826, Berlin: Springer, 2011, pp. 298-312. doi: 10.1007/978-3-642-22546-8_23
 
-[11] Japan Patent Office, "JPO Fee Calculator," 2025. [Online]. Available: https://www.jpo.go.jp/e/system/process/tesuryo/hyou.html. [Accessed: 15-Sep-2025].
-
-[12] G. Karsai, H. Krahn, C. Pinkernell, B. Rumpe, M. Schindler, and S. Völkel, "Design Guidelines for Domain Specific Languages," in Proceedings of the 9th OOPSLA Workshop on Domain-Specific Modeling (DSM'09), Orlando, FL, USA, 2009, pp. 7-13.
-
-[13] R. Pereira, M. Couto, F. Ribeiro, R. Rua, J. Cunha, J. P. Fernandes, and J. Saraiva, "Energy Efficiency across Programming Languages: How Do Energy, Time, and Memory Relate?" in Proceedings of the 10th ACM SIGPLAN International Conference on Software Language Engineering, Vancouver, BC, Canada, 2017, pp. 256-267. doi: 10.1145/3136014.3136031
-
-[14] M. Palmirani, G. Governatori, A. Rotolo, S. Tabet, H. Boley, and A. Paschke, "LegalRuleML: XML-Based Rules and Norms," in Rule Representation, Interchange and Reasoning on the Web, Lecture Notes in Computer Science, vol. 6826, Berlin: Springer, 2011, pp. 298-312. doi: 10.1007/978-3-642-22546-8_23
-
-[15] G. Governatori, A. Rotolo, S. Villata, and F. Gandon, "One License to Compose Them All: A Deontic Logic Approach to Data Licensing on the Web of Data," in Proceedings of the 12th International Semantic Web Conference, Sydney, Australia, 2013, pp. 151-166. doi: 10.1007/978-3-642-41335-3_10
-
-[16] D. Merigoux, N. Chataing, and J. Protzenko, "Catala: A Programming Language for the Law," in Proceedings of the ACM on Programming Languages, vol. 5, no. ICFP, article 77, 2021. doi: 10.1145/3473582
+[11] D. Merigoux, N. Chataing, and J. Protzenko, "Catala: A Programming Language for the Law," in Proceedings of the ACM on Programming Languages, vol. 5, no. ICFP, article 77, 2021. doi: 10.1145/3473582
 
 ---
 
