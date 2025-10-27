@@ -3,7 +3,7 @@ message: "If you use this software, please cite it as below."
 title: "IPFees: Intellectual Property Fee Calculator"
 version: 1.0.0
 date-released: 2025-10-24
-abstract: "A jurisdiction-agnostic intellectual property fee calculation system that automates complex legal fee structures with multi-currency support across 160+ global IP jurisdictions using a Domain-Specific Language approach."
+abstract: "A jurisdiction-agnostic intellectual property fee calculation system that automates complex legal fee structures with multi-currency support across 118 global IP jurisdictions using a Domain-Specific Language approach."
 authors:
   - family-names: "BOCAN"
     given-names: "Valer"
