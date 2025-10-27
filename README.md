@@ -139,7 +139,7 @@ For a detailed technical architecture diagram, see [architecture.md](docs/archit
 ### Key Features
 
 - **DSL-Based Fee Calculation**: Define complex fee structures in human-readable format without hardcoding business logic
-- **Multi-Jurisdiction Support**: Configurable architecture supporting USPTO, EPO, WIPO, and 160+ national patent offices
+- **Multi-Jurisdiction Support**: Configurable architecture supporting USPTO, EPO, WIPO, and 118 national patent offices
 - **Real-Time Currency Management**: Multi-currency precision with real-time conversion, historical rate tracking, and three-tier fallback system
 - **API-First Design**: Comprehensive REST APIs for integration with IP management platforms
 - **Bulk Processing**: Portfolio-level fee estimation for large IP holdings
