@@ -22,51 +22,39 @@ IPFees is an open-source, jurisdiction-agnostic intellectual property fee calcul
 
 ### 1.1 Problem Statement
 
-Intellectual property (IP) practitioners face a persistent challenge in accurately calculating filing, prosecution, and maintenance fees across diverse patent offices globally. Each jurisdiction implements unique fee structures with complex dependencies on entity size, claim counts, page numbers, filing types, and temporal factors. Current solutions present significant limitations:
+Intellectual property (IP) practitioners face a persistent challenge in accurately calculating filing, prosecution, and maintenance fees across diverse patent offices globally. Each jurisdiction implements unique fee structures with complex dependencies on entity size, claim counts, page numbers, filing types, and temporal factors, yet current solutions remain fragmented and inadequate for modern practice needs.
 
-**Fragmented Tools**: Government patent offices provide jurisdiction-specific calculators (e.g., USPTO fee schedule calculator, EPO fee calculator) that require manual navigation between multiple websites and separate calculations for each jurisdiction [1].
+Government patent offices provide jurisdiction-specific calculators such as the USPTO fee schedule calculator and EPO fee calculator [1], but these require manual navigation between multiple websites and separate calculations for each jurisdiction. This fragmentation becomes particularly problematic for practitioners managing international portfolios, where a single patent family may require fee calculations across dozens of jurisdictions. The time consumed in switching between different calculator interfaces and re-entering similar data represents a significant inefficiency in IP practice.
 
-**Limited Commercial Solutions**: Existing IP management software platforms (e.g., CPA Global, Anaqua, PatSnap) primarily focus on docketing and portfolio management, with fee calculation either absent or limited to major jurisdictions. These platforms typically hardcode fee structures, requiring software updates for fee schedule changes.
+Commercial IP management software platforms like CPA Global, Anaqua, and PatSnap primarily focus on docketing and portfolio management rather than comprehensive fee calculation. When fee calculation capabilities exist, they are typically limited to major jurisdictions and hardcode fee structures directly into the software, requiring vendor updates whenever fee schedules change. This creates dependency on vendor responsiveness and limits practitioners' ability to handle emerging jurisdictions or customize calculations for specific scenarios.
 
-**Manual Processes**: Many practitioners rely on spreadsheets and manual calculations, increasing error risk and consuming billable hours that could be allocated to higher-value legal analysis.
-
-**Currency Complexity**: International IP portfolios require accurate multi-currency calculations with historical exchange rates for budget planning and invoicing, functionality rarely integrated into existing tools.
-
-The absence of a unified, extensible, open-source solution creates inefficiencies in IP practice and limits research opportunities in computational law and regulatory automation.
+Many practitioners consequently fall back on spreadsheets and manual calculations, which increases error risk and consumes billable hours that could be allocated to higher-value legal analysis. The situation becomes even more complex for international IP portfolios, which require accurate multi-currency calculations with historical exchange rates for budget planning and invoicing—functionality rarely integrated into existing tools. The absence of a unified, extensible, open-source solution not only creates inefficiencies in IP practice but also limits research opportunities in computational law and regulatory automation.
 
 ### 1.2 Innovation and Contribution
 
-IPFees introduces three primary innovations to IP fee management:
+IPFees addresses these challenges through a fundamentally different architectural approach that separates regulatory logic from software implementation. Rather than hardcoding fee calculation rules into the application, the system implements a custom Domain-Specific Language (DSL) [7] that allows jurisdiction-specific rules to be expressed in human-readable format. This separation enables IP professionals to define and modify fee structures without programming expertise while maintaining the precision and reliability required for financial calculations. The DSL supports conditional logic, arithmetic operations, and jurisdiction-specific variables, providing sufficient expressiveness for complex regulatory frameworks while maintaining simplicity for common cases.
 
-**DSL-Based Configuration**: Unlike hardcoded fee logic, IPFees implements a custom Domain-Specific Language [7] that allows jurisdiction-specific rules to be expressed in human-readable format. This approach separates business logic from software implementation, enabling IP professionals to define and modify fee structures without programming expertise. The DSL supports conditional logic, arithmetic operations, and jurisdiction-specific variables, providing sufficient expressiveness for complex regulatory frameworks while maintaining simplicity for common cases.
+The platform's modular design treats each jurisdiction as a configuration entity rather than a code module. Adding support for new patent offices requires only JSON configuration files and DSL rule definitions, not software modifications. This architecture dramatically reduces the barrier to expanding jurisdiction coverage and enables community contributions from practitioners worldwide who understand specific jurisdictions better than any central development team could. The result is a system that can evolve organically as practitioners add support for new jurisdictions or update existing fee schedules in response to regulatory changes.
 
-**Jurisdiction-Agnostic Architecture**: The platform's modular design treats each jurisdiction as a configuration entity rather than a code module. Adding support for new patent offices requires only JSON configuration files and DSL rule definitions, not software modifications. This architecture dramatically reduces the barrier to expanding jurisdiction coverage and enables community contributions.
-
-**Computational Law Framework**: IPFees provides a reference implementation for encoding legal rules in executable format. The DSL approach ensures transparency, auditability, and version control for regulatory logic—properties essential for legal compliance systems [6]. The platform demonstrates how computational law principles can be applied to practical legal technology challenges.
+Beyond its immediate practical utility, IPFees provides a reference implementation for encoding legal rules in executable format, contributing to the emerging field of computational law. The DSL approach ensures transparency, auditability, and version control for regulatory logic—properties essential for legal compliance systems [6]. By demonstrating how computational law principles can be applied to a real-world legal technology challenge with measurable benefits, the platform offers a template for similar systems in other regulatory domains.
 
 ### 1.3 Research and Practical Applications
 
-**Legal Technology Research**: IPFees offers a testbed for studying automated compliance systems, rule-based AI in legal contexts, and human-computer interaction in specialized professional domains.
+The open-source nature of IPFees creates opportunities for both research and practical applications that extend beyond immediate fee calculation needs. As a testbed for studying automated compliance systems, the platform enables empirical research into how legal professionals interact with DSL-based configuration tools and how effectively domain-specific languages can capture complex regulatory logic. The system's transparent architecture allows researchers to analyze the tradeoffs between expressiveness and usability in regulatory DSLs, providing concrete data on what language features practitioners actually use versus what they find confusing or unnecessary.
 
-**DSL Development Best Practices**: The project demonstrates pragmatic DSL design for regulatory domains, balancing expressiveness with simplicity and maintainability.
+The platform's three-tier exchange rate fallback mechanism (real-time API, historical database, manual override) demonstrates a pattern for reliable financial calculations in distributed systems that balances accuracy with resilience. This approach addresses the practical reality that external API dependencies will occasionally fail, while still providing the most current data when available. As an MIT-licensed open-source project, IPFees enables reproducible research in IP economics, fee structure analysis, and international patent system studies—areas where proprietary commercial tools have limited research utility due to their black-box nature.
 
-**Multi-Currency Financial Systems**: The platform's three-tier exchange rate fallback mechanism (real-time API, historical database, manual override) provides a pattern for reliable financial calculations in distributed systems.
-
-**Open Science in Legal Technology**: As an MIT-licensed open-source project, IPFees enables reproducible research in IP economics, fee structure analysis, and international patent system studies.
-
-**Cross-Domain Applicability**: While developed for IP fees, the architecture extends naturally to other regulatory compliance domains including customs duties, tax calculations, and multi-jurisdiction licensing fees.
+While developed specifically for IP fees, the architecture extends naturally to other regulatory compliance domains. Any system requiring complex, jurisdiction-specific rule evaluation with frequent regulatory updates could benefit from a similar DSL-based approach. Examples include customs duty calculations based on product classifications and origin rules, multi-jurisdiction tax compliance systems, and professional licensing fee structures across different states or countries. The principles demonstrated here—separation of regulatory logic from software implementation, human-readable rule encoding, and version-controlled compliance specifications—apply broadly across regulatory technology domains.
 
 ### 1.4 Related Work and Research Gap
 
 DSL applications in legal domains have matured significantly, yet multi-jurisdiction fee calculation remains unexplored.
 
-**Legal Contract DSLs**: Domain-specific languages for legal contracts have explored declarative syntax for obligations and temporal constraints, but typically focus on execution semantics rather than financial computations. Monetary aspects in legal contexts require specialized treatment with arithmetic precision and multi-currency support.
+Domain-specific languages for legal contracts have explored declarative syntax for obligations and temporal constraints, but typically focus on execution semantics rather than financial computations. Monetary aspects in legal contexts require specialized treatment with arithmetic precision and multi-currency support that general-purpose legal DSLs have not prioritized. LegalRuleML [10] offers XML-based legal rule specifications with ontology-based compliance reasoning, but these systems emphasize binary compliance checking (compliant/non-compliant) with minimal arithmetic support. Catala [11], a DSL for tax law, demonstrates sophisticated financial calculations but targets single-jurisdiction applications and requires formal methods expertise that makes it less accessible to legal practitioners.
 
-**Regulatory Compliance**: LegalRuleML [10] offers XML-based legal rule specifications with ontology-based compliance reasoning. These systems emphasize binary compliance checking (compliant/non-compliant) with minimal arithmetic support. Catala [11], a DSL for tax law, demonstrates sophisticated financial calculations but targets single-jurisdiction applications and requires formal methods expertise.
+Patent offices themselves provide web calculators with proprietary logic. The USPTO [1], EPO [3], JPO [8], and WIPO [2] all maintain tools for their respective jurisdictions, but these lack API access and multi-jurisdiction support. Commercial platforms like CPA Global and Anaqua hardcode fee calculations in closed codebases requiring vendor patches for updates, creating dependency on vendor responsiveness when fee schedules change.
 
-**Existing Fee Calculators**: Patent offices (USPTO [1], EPO [3], JPO [8], WIPO [2]) provide web calculators with proprietary logic, lacking API access and multi-jurisdiction support. Commercial platforms (CPA Global, Anaqua) hardcode fee calculations in closed codebases requiring vendor patches for updates.
-
-**Research Gap**: To the best of our knowledge, a systematic search of academic databases (ACM, IEEE, Springer, Web of Science) and GitHub reveals **a gap in DSL frameworks for multi-jurisdiction regulatory fee calculations with combined temporal logic, multi-currency support, and arithmetic expressiveness**. Open-source alternatives are limited to single-jurisdiction calculators (e.g., InPatent [4] for India only) with minimal functionality. Table 1 illustrates the positioning of IPFees in this underserved domain. Comprehensive literature review available in supplementary materials.
+To the best of our knowledge, a systematic search of academic databases (ACM, IEEE, Springer, Web of Science) and GitHub reveals a gap in DSL frameworks for multi-jurisdiction regulatory fee calculations that combine temporal logic, multi-currency support, and arithmetic expressiveness. Open-source alternatives are limited to single-jurisdiction calculators such as InPatent [4] for India with minimal functionality. Table 1 in the supplementary materials illustrates the positioning of IPFees in this underserved domain, with comprehensive literature review available in the supplementary documentation.
 
 ---
 
@@ -180,17 +168,11 @@ The system maintains 6-8 decimal precision for high-value portfolio calculations
 
 ### 2.4 Key Features
 
-**Bulk Processing**: Portfolio-level fee estimation across multiple jurisdictions with CSV export for budget planning
+Beyond basic fee calculation, IPFees delivers comprehensive functionality designed for real-world IP portfolio management. The system supports bulk processing for portfolio-level fee estimation across multiple jurisdictions, with CSV export capabilities for budget planning and financial reporting. This allows practitioners to model the costs of different filing strategies across entire patent families rather than calculating fees one jurisdiction at a time.
 
-**API-First Design**: Comprehensive REST endpoints enable integration with existing IP management systems, supporting automated fee calculations in docketing workflows
+The API-first design philosophy ensures that all functionality available through the web interface is also accessible programmatically through comprehensive REST endpoints. This enables integration with existing IP management systems and supports automated workflows where fee estimates feed into larger decision-making processes. Jurisdiction-specific validation rules prevent invalid parameter combinations—such as claim counts exceeding jurisdiction limits or invalid entity type specifications—catching errors before they propagate into budget models or client communications.
 
-**Real-Time Validation**: Jurisdiction-specific validation rules prevent invalid parameter combinations (e.g., claims exceeding jurisdiction limits)
-
-**Audit Logging**: Complete transaction history with jurisdiction, parameters, results, and exchange rates for compliance and reproducibility
-
-**Extensible Architecture**: Plugin system for custom currency providers and jurisdiction-specific calculation overrides
-
-**Responsive Design**: Mobile-optimized interface for on-the-go fee estimations and portfolio reviews
+Complete audit logging captures the full transaction history including jurisdiction, parameters, results, and exchange rates used, enabling both compliance verification and historical analysis of fee trends over time. The extensible architecture includes a plugin system for custom currency providers and jurisdiction-specific calculation extensions, supporting enterprise integration scenarios where organizations may have negotiated special fee arrangements or require integration with internal financial systems. The responsive design ensures the interface works effectively on mobile devices, recognizing that practitioners often need to perform quick calculations or review fee estimates while away from their desks.
 
 ---
 
@@ -328,31 +310,19 @@ Comparative analysis shows 6-20× improvement over government calculators (2-5 s
 
 ### 5.1 Cross-Domain Applications
 
-While developed for IP fee management, the IPFees architecture demonstrates applicability to other regulatory compliance domains:
+While developed for IP fee management, the IPFees architecture demonstrates applicability to other regulatory compliance domains that share similar structural properties. Corporate tax obligations across jurisdictions involve complex rules with entity-specific rates and temporal factors similar to those found in IP fee calculations. The DSL could encode tax code logic with jurisdiction-specific deductions, credits, and filing deadlines using the same conditional structures currently employed for patent fees.
 
-**International Tax Calculations**: Corporate tax obligations across jurisdictions involve complex rules, entity-specific rates, and temporal factors—structural similarities to IP fee calculations. The DSL could encode tax code logic with jurisdiction-specific deductions and credits.
+Customs and import duties present another natural application domain. Harmonized System (HS) codes determine import duties based on product classification, country of origin, and trade agreements—all factors that require the same kind of conditional logic the DSL already expresses for jurisdiction-specific fee rules. Professional licensing provides yet another example, where medical, engineering, and legal licenses require renewal fees that vary by jurisdiction, credential type, and practitioner status. The platform's architecture would support these scenarios with minimal modification, as the underlying structure of "jurisdiction-specific rules determining fees based on entity characteristics" remains constant.
 
-**Customs and Import Duties**: Harmonized System (HS) codes determine import duties based on product classification, country of origin, and trade agreements. The DSL's conditional logic naturally expresses these rule-based calculations.
-
-**Multi-Jurisdiction Licensing Fees**: Professional licenses (medical, engineering, legal) require renewal fees varying by jurisdiction, credential type, and practitioner status. The platform's architecture supports these scenarios with minimal modification.
-
-**Regulatory Compliance Reporting**: Industries requiring multi-jurisdiction compliance (financial services, pharmaceuticals, environmental) could leverage the DSL to encode reporting requirements and fee structures.
-
-The key insight is that many regulatory domains share structural properties: jurisdiction-specific rules, conditional logic based on entity characteristics, temporal factors, and financial calculations. IPFees provides a tested framework for encoding and executing such rules reliably.
+Industries requiring multi-jurisdiction compliance in financial services, pharmaceuticals, or environmental regulation could similarly leverage the DSL to encode reporting requirements and associated fee structures. The key insight is that many regulatory domains share fundamental properties: jurisdiction-specific rules, conditional logic based on entity characteristics, temporal factors, and financial calculations requiring precision. IPFees provides a tested framework for encoding and executing such rules reliably at production scale.
 
 ### 5.2 Extension Mechanisms
 
-IPFees provides multiple extension points for customization:
+IPFees provides multiple extension points that allow customization without modifying core system code. Developers can implement the `ICurrencyProvider` interface to integrate with enterprise exchange rate services, cryptocurrency APIs, or blockchain-based rate oracles. This allows organizations to use their preferred currency data sources while maintaining the system's three-tier fallback architecture.
 
-**Custom Currency Providers**: Implement `ICurrencyProvider` interface to integrate with enterprise exchange rate services, cryptocurrency APIs, or blockchain-based rate oracles.
+For jurisdictions requiring procedural logic beyond what the DSL can express—rare but supported—developers can extend the `BaseFeeCalculator` class to implement custom calculation methods. This preserves the transparency of DSL-based jurisdictions while accommodating edge cases that need more complex logic. Similarly, the DSL interpreter itself supports extension through custom functions, enabling domain-specific operations like specialized date calculations for deadline-based fees or jurisdiction-specific mathematical operations.
 
-**Jurisdiction-Specific Calculators**: Extend `BaseFeeCalculator` for jurisdictions requiring procedural logic beyond DSL expressiveness (rare but supported).
-
-**Custom DSL Functions**: Add domain-specific functions to the DSL interpreter (e.g., date calculations for deadline-based fees).
-
-**Audit and Compliance Modules**: Integrate with enterprise compliance systems via webhook notifications and event streams.
-
-**Report Generators**: Extend the reporting engine for jurisdiction-specific filing documents and fee payment receipts.
+Integration with enterprise systems occurs through audit and compliance modules that can communicate via webhook notifications and event streams. Report generators can be extended to produce jurisdiction-specific filing documents and fee payment receipts in formats required by different patent offices. These extension points follow standard software engineering patterns, making customization straightforward for organizations with existing development teams.
 
 ### 5.3 Community Contribution Model
 
@@ -371,29 +341,27 @@ This contribution model democratizes IP fee calculation by distributing the main
 
 ### 6.1 Current Limitations
 
-**DSL Expressiveness**: Simple syntax limits highly complex procedural structures. While 160+ jurisdictions encode successfully, edge cases may require custom implementations, prioritizing accessibility over complete expressiveness.
+The DSL's deliberately simple syntax prioritizes readability and maintainability over maximum expressiveness. While this design choice has proven sufficient for encoding 160+ jurisdictions successfully, edge cases requiring external database lookups or complex multi-step workflows may necessitate custom implementations through the plugin architecture. This tradeoff favors accessibility for legal professionals over complete expressiveness, accepting that some jurisdictions may need procedural extensions that reduce the transparency benefits of pure DSL implementation.
 
-**Scope of Features**: Focus on fee calculation excludes advanced NLP, complex temporal reasoning, or external database integration, maintaining simplicity and minimal learning curve.
+The platform's focused scope on fee calculation intentionally excludes advanced natural language processing, complex temporal reasoning beyond date arithmetic, and automatic integration with external data sources. For example, the system cannot automatically parse patent claims text to determine claim counts or analyze specification documents to calculate page counts—these parameters must be provided by the user. While this keeps the system's complexity manageable and its behavior predictable, it does place some burden on users to extract the relevant parameters from their documents.
 
-**Currency Provider Dependencies**: Real-time conversion requires external APIs. Three-tier fallback mitigates outages, but extended unavailability needs manual intervention.
+Real-time currency conversion depends on external API providers, which introduces a network dependency. The three-tier fallback mechanism (real-time API, historical database, manual override) mitigates this limitation for most scenarios, but extended unavailability of all currency providers would require manual intervention. Organizations requiring air-gapped deployment can still use the system with historical rates or manual overrides, though they lose the convenience of automatic current exchange rates.
 
 ### 6.2 Planned Enhancements
 
-**LLM-Assisted DSL Generation**: Large Language Models will analyze WIPO fee schedules to automatically generate draft DSL code, addressing the primary barrier to jurisdiction expansion. Human-in-the-loop workflow ensures deterministic, auditable calculations while leveraging LLM encoding capabilities.
+The most promising near-term enhancement involves leveraging Large Language Models to analyze WIPO fee schedules and automatically generate initial DSL implementations. Current jurisdiction onboarding requires a practitioner familiar with both the fee schedule and IPFLang syntax to manually encode the rules, typically taking several hours per jurisdiction. LLM-assisted generation could reduce this to minutes of initial generation followed by human verification, dramatically accelerating the expansion of jurisdiction coverage. A human-in-the-loop workflow would ensure the final calculations remain deterministic and auditable while leveraging LLM capabilities for the initial encoding from natural language fee schedules.
 
-**Enhanced Reporting**: PDF generation for filings, invoice integration, portfolio analytics dashboards.
+Enhanced reporting capabilities represent another clear path for improvement. The system currently exports raw calculation results, but IP practitioners often need formatted documents for client communication, integration with invoicing systems, or portfolio analytics dashboards that visualize fee trends and forecast future costs. API expansion to include GraphQL endpoints would provide more flexible data querying, while webhook support for calculation events would enable real-time integration with downstream systems that need to react to fee estimates as they are computed.
 
-**API Expansion**: GraphQL endpoints, webhooks for events, batch processing for large-scale analysis.
-
-**Research Applications**: Historical fee analysis for cost prediction, anomaly detection, optimal filing strategy recommendations.
+From a research perspective, the accumulation of historical calculation data opens opportunities for time-series analysis of fee trends, anomaly detection in fee schedule updates, and modeling optimal filing strategies based on cost-benefit analysis across different jurisdiction combinations. As the system gains adoption, anonymized aggregate data could support empirical studies of IP economics and international patent system evolution.
 
 ### 6.3 Research Directions
 
-**Computational Law Studies**: IPFees provides infrastructure for empirical studies of fee structure complexity, cross-jurisdiction comparative analysis, and economic modeling of patent system accessibility.
+The open-source nature of IPFees creates unique opportunities for computational law research that would be impossible with proprietary systems. With fee calculation rules encoded in machine-readable format across 160+ jurisdictions, researchers can conduct empirical studies comparing fee structure complexity, analyzing correlations between fee structures and observed filing patterns, and examining how economic incentives embedded in patent systems influence applicant behavior. The ability to simulate fee scenarios across different jurisdictions enables counterfactual analysis of how fee structure changes might affect filing strategies and patent system accessibility.
 
-**DSL Evolution**: Research opportunities include formal verification of DSL rules, automated testing generation from natural language specifications, and optimization of DSL interpreter performance.
+From a DSL design perspective, IPFLang represents one point in a large design space of possible regulatory encoding languages. Research questions include whether formal verification techniques could automatically prove correctness properties of fee calculation rules, how automated test generation from natural language specifications might improve confidence in implementations, and what performance optimization techniques apply specifically to regulatory DSL interpreters. The system provides concrete data on which language features prove most useful in practice versus which remain unused or frequently misused.
 
-**Legal Technology Adoption**: User studies examining how legal professionals interact with DSL-based configuration, adoption barriers in conservative legal environments, and training methodologies for non-technical users.
+Finally, IPFees offers an opportunity to study how legal professionals adopt and interact with DSL-based configuration tools in production settings. Questions about learning curves, common error patterns, adoption barriers in conservative legal environments, and training methodologies for non-technical users can be investigated through user studies and analysis of actual system usage. Understanding these human factors is essential for designing regulatory technology that practitioners will actually use rather than work around.
 
 ---
 
