@@ -2,7 +2,7 @@
 
 **Valer Bocan, PhD, CSSLP**
 
-*Universitatea Politehnica Timișoara, Romania*
+*Department of Computer and Information Technology, Politehnica University of Timisoara, Timisoara, 300223, Romania*
 
 *Email: valer.bocan@upt.ro*
 
@@ -12,7 +12,7 @@
 
 ## Abstract
 
-IPFees is an open-source, jurisdiction-agnostic intellectual property fee calculation system that automates complex legal fee structures across 118 global IP jurisdictions using a Domain-Specific Language (DSL) approach. The platform addresses documented inefficiencies in IP fee management where professionals spend significant time on repetitive calculations across fragmented government-provided calculators. By enabling legal professionals to define and modify fee calculation rules without software development expertise, IPFees democratizes access to sophisticated fee computation while maintaining precision and auditability. Built on .NET 9.0 with MongoDB and Docker containerization, the system provides real-time currency conversion, multi-jurisdiction support, and comprehensive REST APIs for integration with existing IP management platforms. Performance validation via BenchmarkDotNet demonstrates sub-millisecond DSL execution (23.5μs for complex structures) and 240-320ms multi-jurisdiction calculations, achieving 6-20× improvement over government calculators. Independent validation by IP legal experts confirms dollar-accurate calculations across all implemented jurisdictions. The platform's DSL-based architecture demonstrates cross-domain applicability to other regulatory compliance systems requiring complex, jurisdiction-specific rule evaluation.
+IPFees is an open-source, jurisdiction-agnostic intellectual property fee calculation system that automates complex legal fee structures across 118 global IP jurisdictions using a Domain-Specific Language (DSL) approach. The platform addresses documented inefficiencies in IP fee management where professionals spend significant time on repetitive calculations across fragmented government-provided calculators. By enabling legal professionals to define and modify fee calculation rules without software development expertise, IPFees democratizes access to sophisticated fee computation while maintaining precision and auditability. Built on .NET 9.0 with MongoDB and Docker containerization, the system provides real-time currency conversion, multi-jurisdiction support, and comprehensive REST APIs for integration with existing IP management platforms. Performance validation via BenchmarkDotNet demonstrates sub-millisecond DSL execution (23.5μs for complex structures) and 240-320ms multi-jurisdiction calculations, achieving 6-20X improvement over government calculators. Independent validation by IP legal experts confirms dollar-accurate calculations across all implemented jurisdictions. The platform's DSL-based architecture demonstrates cross-domain applicability to other regulatory compliance systems requiring complex, jurisdiction-specific rule evaluation.
 
 **Keywords:** intellectual property, patent fees, domain-specific language, legal technology, computational law, regulatory automation, multi-jurisdiction, fee calculation, IP management
 
