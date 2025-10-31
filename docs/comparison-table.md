@@ -6,77 +6,77 @@
 
 ## Table 1: Comprehensive Feature Comparison
 
-| Feature/Capability | Government Patent Office Calculators<br/>(USPTO, EPO, JPO) | WIPO Fee Calculator | Commercial IP Management Software<br/>(CPA Global, Anaqua, PatSnap) | Open-Source Alternatives | **IPFees** |
-|-------------------|-------------------------------------------------------------|---------------------|---------------------------------------------------------------------|-------------------------|-----------|
+| Feature/Capability | Government Patent Office Calculators<br/>(USPTO, EPO, JPO) | WIPO Fee Calculator | Commercial IP Management Software<br/>(CPA Global, Anaqua, PatSnap) | **IPFees** |
+|-------------------|-------------------------------------------------------------|---------------------|---------------------------------------------------------------------|-----------|
 | **Accessibility & Licensing** |
-| Open Source | ❌ No | ❌ No | ❌ No | ⚠️ Limited/None found | ✅ MIT License |
-| Cost | Free (web only) | Free (web only) | High annual licensing costs [1] | Free | Free (self-hosted) |
-| Source Code Available | ❌ No | ❌ No | ❌ Proprietary | ⚠️ Limited | ✅ Full source on GitHub |
-| Self-Hosting Option | ❌ No | ❌ No | ❌ No | N/A | ✅ Docker deployment |
+| Open Source | ❌ No | ❌ No | ❌ No | ✅ MIT License |
+| Cost | Free (web only) | Free (web only) | High annual licensing costs [1] | Free (self-hosted) |
+| Source Code Available | ❌ No | ❌ No | ❌ Proprietary | ✅ Full source on GitHub |
+| Self-Hosting Option | ❌ No | ❌ No | ❌ No | ✅ Docker deployment |
 | **Jurisdiction Coverage** |
-| Multi-Jurisdiction Support | Single jurisdiction only | 153 PCT contracting states [2] | Major jurisdictions [3] | Unknown/Limited | 118 jurisdictions |
-| Jurisdiction Extensibility | ❌ Requires vendor | ⚠️ WIPO updates only | ⚠️ Vendor-dependent | Unknown | ✅ DSL-based configuration |
-| National Phase Entry | ❌ Per-country only | ⚠️ Basic PCT only | ✅ Yes | Unknown | ✅ Yes |
-| Regional Offices (EPO, ARIPO) | Per-office only | ⚠️ Limited | ✅ Yes | Unknown | ✅ Yes |
+| Multi-Jurisdiction Support | Single jurisdiction only | 153 PCT contracting states [2] | Major jurisdictions [3] | 118 jurisdictions |
+| Jurisdiction Extensibility | ❌ Requires vendor | ⚠️ WIPO updates only | ⚠️ Vendor-dependent | ✅ DSL-based configuration |
+| National Phase Entry | ❌ Per-country only | ⚠️ Basic PCT only | ✅ Yes | ✅ Yes |
+| Regional Offices (EPO, ARIPO) | Per-office only | ⚠️ Limited | ✅ Yes | ✅ Yes |
 | **Technical Integration** |
-| REST API | ❌ No | ❌ No | ⚠️ Limited/Proprietary | Unknown | ✅ Full OpenAPI/Swagger |
-| Programmatic Access | ❌ Web scraping only | ❌ No | ⚠️ Vendor API (costly) | Unknown | ✅ JSON REST API |
-| Bulk Calculations | ❌ One-at-a-time | ❌ One-at-a-time | ✅ Yes | Unknown | ✅ Multi-jurisdiction batch |
-| Third-Party Integration | ❌ No | ❌ No | ⚠️ Custom integration ($$) | Unknown | ✅ Standard REST |
-| Webhook Support | ❌ No | ❌ No | ❌ No | Unknown | ⚠️ Future enhancement |
+| REST API | ❌ No | ❌ No | ⚠️ Limited/Proprietary | ✅ Full OpenAPI/Swagger |
+| Programmatic Access | ❌ Web scraping only | ❌ No | ⚠️ Vendor API (costly) | ✅ JSON REST API |
+| Bulk Calculations | ❌ One-at-a-time | ❌ One-at-a-time | ✅ Yes | ✅ Multi-jurisdiction batch |
+| Third-Party Integration | ❌ No | ❌ No | ⚠️ Custom integration ($$) | ✅ Standard REST |
+| Webhook Support | ❌ No | ❌ No | ❌ No | ⚠️ Future enhancement |
 | **Currency Management** |
-| Multi-Currency Support | Native currency only | USD/CHF only | ✅ Yes | Unknown | ✅ 150+ currencies |
-| Real-Time Exchange Rates | N/A | ❌ Static rates | ⚠️ Daily updates | Unknown | ✅ Real-time via APIs |
-| Historical Rate Support | ❌ No | ❌ No | ⚠️ Limited | Unknown | ✅ Time-travel calculations |
-| Currency Conversion Precision | N/A | Standard | Standard | Unknown | ✅ 6-8 decimal places |
-| Fallback Mechanisms | N/A | N/A | ⚠️ Unknown | Unknown | ✅ Three-tier fallback |
+| Multi-Currency Support | Native currency only | USD/CHF only | ✅ Yes | ✅ 150+ currencies |
+| Real-Time Exchange Rates | N/A | ❌ Static rates | ⚠️ Daily updates | ✅ Real-time via APIs |
+| Historical Rate Support | ❌ No | ❌ No | ⚠️ Limited | ✅ Time-travel calculations |
+| Currency Conversion Precision | N/A | Standard | Standard | ✅ 6-8 decimal places |
+| Fallback Mechanisms | N/A | N/A | ⚠️ Unknown | ✅ Three-tier fallback |
 | **Fee Calculation Features** |
-| Entity Size Discounts | ✅ Where applicable | ⚠️ Limited | ✅ Yes | Unknown | ✅ Configurable per jurisdiction |
-| Claim-Based Fees | ✅ Yes | ⚠️ Basic | ✅ Yes | Unknown | ✅ Complex formulas supported |
-| Page/Sheet Fees | ✅ Yes | ⚠️ Basic | ✅ Yes | Unknown | ✅ Threshold-based calculations |
-| Time-Dependent Fees | ⚠️ Manual date entry | ❌ No | ⚠️ Limited | Unknown | ✅ Date arithmetic operators |
-| Conditional Fee Logic | ❌ Pre-programmed | ❌ Limited | ⚠️ Rule engine | Unknown | ✅ DSL conditional blocks |
-| Optional Fee Handling | ⚠️ Manual selection | ❌ Limited | ✅ Yes | Unknown | ✅ OPTIONAL keyword |
+| Entity Size Discounts | ✅ Where applicable | ⚠️ Limited | ✅ Yes | ✅ Configurable per jurisdiction |
+| Claim-Based Fees | ✅ Yes | ⚠️ Basic | ✅ Yes | ✅ Complex formulas supported |
+| Page/Sheet Fees | ✅ Yes | ⚠️ Basic | ✅ Yes | ✅ Threshold-based calculations |
+| Time-Dependent Fees | ⚠️ Manual date entry | ❌ No | ⚠️ Limited | ✅ Date arithmetic operators |
+| Conditional Fee Logic | ❌ Pre-programmed | ❌ Limited | ⚠️ Rule engine | ✅ DSL conditional blocks |
+| Optional Fee Handling | ⚠️ Manual selection | ❌ Limited | ✅ Yes | ✅ OPTIONAL keyword |
 | **Transparency & Auditability** |
-| Calculation Formula Visible | ❌ Black box | ❌ Black box | ❌ Proprietary | Unknown | ✅ DSL source code |
-| Fee Schedule Updates | ⚠️ Vendor updates | ⚠️ WIPO updates | ⚠️ Vendor patches | Unknown | ✅ User-editable DSL |
-| Calculation Audit Trail | ❌ No | ❌ No | ⚠️ Limited logging | Unknown | ✅ Detailed trace |
-| Version Control | ❌ No | ❌ No | ❌ No | Unknown | ✅ Git-based DSL versioning |
-| Fee Schedule Provenance | ⚠️ Unclear | Official WIPO | ⚠️ Vendor-maintained | Unknown | ✅ Documented sources |
+| Calculation Formula Visible | ❌ Black box | ❌ Black box | ❌ Proprietary | ✅ DSL source code |
+| Fee Schedule Updates | ⚠️ Vendor updates | ⚠️ WIPO updates | ⚠️ Vendor patches | ✅ User-editable DSL |
+| Calculation Audit Trail | ❌ No | ❌ No | ⚠️ Limited logging | ✅ Detailed trace |
+| Version Control | ❌ No | ❌ No | ❌ No | ✅ Git-based DSL versioning |
+| Fee Schedule Provenance | ⚠️ Unclear | Official WIPO | ⚠️ Vendor-maintained | ✅ Documented sources |
 | **Accuracy & Validation** |
-| Official Fee Accuracy | ✅ 100% (official) | ✅ 100% (official WIPO) | ⚠️ Vendor claims | Unknown | ✅ Dollar-accurate (validated) [4] |
-| Independent Verification | N/A (official source) | N/A (official source) | ❌ Proprietary | Unknown | ✅ IP legal expert validation [4] |
-| Test Suite | Unknown | Unknown | ❌ Not public | Unknown | ✅ xUnit test coverage |
-| Edge Case Handling | ⚠️ May fail | ⚠️ Limited | ⚠️ Unknown | Unknown | ✅ Comprehensive validation |
+| Official Fee Accuracy | ✅ 100% (official) | ✅ 100% (official WIPO) | ⚠️ Vendor claims | ✅ Dollar-accurate (validated) [4] |
+| Independent Verification | N/A (official source) | N/A (official source) | ❌ Proprietary | ✅ IP legal expert validation [4] |
+| Test Suite | Unknown | Unknown | ❌ Not public | ✅ xUnit test coverage |
+| Edge Case Handling | ⚠️ May fail | ⚠️ Limited | ⚠️ Unknown | ✅ Comprehensive validation |
 | **User Experience** |
-| Web Interface | ✅ Yes | ✅ Yes | ✅ Yes | Unknown | ✅ Responsive web UI |
-| Learning Curve | Low (single jurisdiction) | Low (PCT focus) | High (complex software) | Unknown | Medium (DSL optional) |
-| Documentation | ⚠️ Per-jurisdiction help | ⚠️ PCT guides | ⚠️ Vendor training required | Unknown | ✅ Comprehensive docs |
-| Mobile Support | ⚠️ Basic responsive | ⚠️ Basic responsive | ✅ Native apps | Unknown | ✅ Responsive web |
-| Offline Capability | ❌ No | ❌ No | ⚠️ Limited | Unknown | ✅ Self-hosted option |
+| Web Interface | ✅ Yes | ✅ Yes | ✅ Yes | ✅ Responsive web UI |
+| Learning Curve | Low (single jurisdiction) | Low (PCT focus) | High (complex software) | Medium (DSL optional) |
+| Documentation | ⚠️ Per-jurisdiction help | ⚠️ PCT guides | ⚠️ Vendor training required | ✅ Comprehensive docs |
+| Mobile Support | ⚠️ Basic responsive | ⚠️ Basic responsive | ✅ Native apps | ✅ Responsive web |
+| Offline Capability | ❌ No | ❌ No | ⚠️ Limited | ✅ Self-hosted option |
 | **Extensibility & Customization** |
-| Custom Fee Rules | ❌ No | ❌ No | ⚠️ Professional services ($$) | Unknown | ✅ DSL programming |
-| Attorney Fee Estimation | ❌ No | ❌ No | ✅ Yes | Unknown | ⚠️ Future enhancement |
-| Custom Workflows | ❌ No | ❌ No | ✅ Yes | Unknown | ⚠️ API-level only |
-| Plugin Architecture | ❌ No | ❌ No | ⚠️ Limited | Unknown | ✅ DSL module system |
+| Custom Fee Rules | ❌ No | ❌ No | ⚠️ Professional services ($$) | ✅ DSL programming |
+| Attorney Fee Estimation | ❌ No | ❌ No | ✅ Yes | ⚠️ Future enhancement |
+| Custom Workflows | ❌ No | ❌ No | ✅ Yes | ⚠️ API-level only |
+| Plugin Architecture | ❌ No | ❌ No | ⚠️ Limited | ✅ DSL module system |
 | **Performance & Scalability** |
-| Response Time | <1s (simple) | <2s (typical) | Varies (2-10s) | Unknown | <500ms (validated) [5] |
-| Core Engine Performance | Unknown | Unknown | Unknown | Unknown | 23.5μs DSL execution [5] |
-| Multi-Jurisdiction Calculation | N/A | N/A | Unknown | Unknown | 240-320ms (3 jurisdictions) [5] |
-| Concurrent Users | Unknown (cloud) | Unknown (cloud) | 100-1000s | Unknown | 25+ concurrent (tested) [5] |
-| Bulk Calculation Speed | N/A (one-at-a-time) | N/A (one-at-a-time) | Fast (optimized) | Unknown | Linear scaling (~30-50ms/jurisdiction) [5] |
-| Memory Efficiency | Unknown | Unknown | Unknown | Unknown | 8-78 KB per operation [5] |
-| Caching Strategy | Unknown | Unknown | Proprietary | Unknown | ✅ Intelligent caching |
+| Response Time | <1s (simple) | <2s (typical) | Varies (2-10s) | <500ms (validated) [5] |
+| Core Engine Performance | Unknown | Unknown | Unknown | 23.5μs DSL execution [5] |
+| Multi-Jurisdiction Calculation | N/A | N/A | Unknown | 240-320ms (3 jurisdictions) [5] |
+| Concurrent Users | Unknown (cloud) | Unknown (cloud) | 100-1000s | 25+ concurrent (tested) [5] |
+| Bulk Calculation Speed | N/A (one-at-a-time) | N/A (one-at-a-time) | Fast (optimized) | Linear scaling (~30-50ms/jurisdiction) [5] |
+| Memory Efficiency | Unknown | Unknown | Unknown | 8-78 KB per operation [5] |
+| Caching Strategy | Unknown | Unknown | Proprietary | ✅ Intelligent caching |
 | **Development & Maintenance** |
-| Update Frequency | Irregular (per jurisdiction) | Annual (fee schedule updates) | Quarterly (vendor releases) | N/A | User-controlled (DSL updates) |
-| Community Contributions | ❌ No | ❌ No | ❌ No | N/A | ✅ Open contribution model |
-| Bug Reporting | ⚠️ Government channels | ⚠️ WIPO contact | ⚠️ Support tickets | N/A | ✅ GitHub Issues |
-| Feature Requests | ❌ No | ❌ No | ⚠️ Paid enhancement | N/A | ✅ GitHub Discussions |
+| Update Frequency | Irregular (per jurisdiction) | Annual (fee schedule updates) | Quarterly (vendor releases) | User-controlled (DSL updates) |
+| Community Contributions | ❌ No | ❌ No | ❌ No | ✅ Open contribution model |
+| Bug Reporting | ⚠️ Government channels | ⚠️ WIPO contact | ⚠️ Support tickets | ✅ GitHub Issues |
+| Feature Requests | ❌ No | ❌ No | ⚠️ Paid enhancement | ✅ GitHub Discussions |
 | **Research & Academic Use** |
-| Citability | ❌ No (government resource) | ❌ No | ❌ No | N/A | ✅ CITATION.cff + DOI |
-| Research Applications | Limited | Limited | ❌ No (commercial) | N/A | ✅ Academic-friendly license |
-| Reproducibility | ❌ No | ❌ No | ❌ No | N/A | ✅ Version-controlled DSL |
-| Benchmark Datasets | ❌ No | ❌ No | ❌ No | N/A | ✅ Test fixtures included |
+| Citability | ❌ No (government resource) | ❌ No | ❌ No | ✅ CITATION.cff + DOI |
+| Research Applications | Limited | Limited | ❌ No (commercial) | ✅ Academic-friendly license |
+| Reproducibility | ❌ No | ❌ No | ❌ No | ✅ Version-controlled DSL |
+| Benchmark Datasets | ❌ No | ❌ No | ❌ No | ✅ Test fixtures included |
 
 ## Table 2: GitHub Repository Comparison (Patent Fee Calculators)
 
