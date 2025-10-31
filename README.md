@@ -9,20 +9,7 @@
 
 ## Live Demo: https://ipfees.dataman.ro/
 
-![IPFees Application Screenshot](ipfees-screenshot.png)
-
-## Code Metadata
-
-| Metadata Item                                                       | Description                                                                                |
-| ------------------------------------------------------------------- | ------------------------------------------------------------------------------------------ |
-| **Current code version**                                            | v1.0.0                                                                                     |
-| **Permanent link to code/repository**                               | https://github.com/vbocan/ipfees                                                           |
-| **Legal Code License**                                              | MIT License                                                                                |
-| **Code versioning system used**                                     | Git                                                                                        |
-| **Software code languages, tools, and services used**               | C# (.NET 9.0), ASP.NET Core, MongoDB, Docker, Razor Pages, Bootstrap 5, jQuery, xUnit      |
-| **Compilation requirements, operating environments & dependencies** | .NET 9.0 SDK, Docker & Docker Compose, MongoDB 8.0+; Compatible with Windows, Linux, macOS |
-| **Link to developer documentation/manual**                          | [Developer Guide](docs/developer.md)                                                       |
-| **Support email for questions**                                     | GitHub Issues or Discussions                                                               |
+![IPFees Application Screenshot](images/ipfees-screenshot.png)
 
 ## Overview
 
@@ -145,146 +132,9 @@ For a detailed technical architecture diagram, see [architecture.md](docs/archit
 - **Bulk Processing**: Portfolio-level fee estimation for large IP holdings
 - **Extensible Architecture**: Add new jurisdictions through configuration without code changes
 
-## Illustrative Examples
-
-### Example 1: EPO PCT Regional Phase Entry
-
-Calculate official fees for entering regional phase at the European Patent Office using the Web UI or API:
-
-**Via Web Interface**:
-
-1. Visit https://ipfees.dataman.ro/ or http://localhost:8080
-2. Select "EP" jurisdiction
-3. Enter parameters:
-   - ISA: EPO
-   - IPRP: None
-   - Sheet Count: 40
-   - Claim Count: 20
-4. Click "Calculate"
-
-**Via API**:
-
-```bash
-curl -X POST http://localhost:8090/api/v1/Fee/Calculate \
-  -H "Content-Type: application/json" \
-  -H "X-API-Key: your-api-key" \
-  -d '{
-    "jurisdictions": "EP",
-    "parameters": [
-      {"type": "String", "name": "ISA", "value": "ISA_EPO"},
-      {"type": "String", "name": "IPRP", "value": "IPRP_NONE"},
-      {"type": "Number", "name": "SheetCount", "value": 40},
-      {"type": "Number", "name": "ClaimCount", "value": 20}
-    ],
-    "targetCurrency": "EUR"
-  }'
-```
-
-**Result**:
-
-- Basic National Fee: €135
-- Designation Fee: €660
-- Sheet Fee: €85
-- Claim Fee: €1,325
-- Search Fee: €0 (EPO as ISA)
-- Examination Fee: €2,055
-- **Total: €4,260**
-
-### Example 2: Multi-Jurisdiction Calculation
-
-Calculate fees for simultaneous national phase entry across multiple jurisdictions:
-
-```bash
-curl -X POST http://localhost:8090/api/v1/Fee/Calculate \
-  -H "Content-Type: application/json" \
-  -H "X-API-Key: your-api-key" \
-  -d '{
-    "jurisdictions": "EP,JP,CA",
-    "parameters": [
-      {"type": "String", "name": "EntitySize", "value": "Entity_Company"},
-      {"type": "Number", "name": "SheetCount", "value": 35},
-      {"type": "Number", "name": "ClaimCount", "value": 15}
-    ],
-    "targetCurrency": "USD"
-  }'
-```
-
-**Result**: Aggregated costs across multiple jurisdictions with automatic currency conversion to USD.
-
-### Example 3: IPFLang Fee Definition
-
-Define a new fee structure using IPFLang DSL:
-
-```
-# Canadian National Phase Entry
-RETURN Currency AS 'CAD'
-
-DEFINE LIST EntitySize AS 'Entity size'
-CHOICE Entity_Company AS 'Company'
-CHOICE Entity_Person AS 'Individual'
-DEFAULT Entity_Company
-ENDDEFINE
-
-DEFINE NUMBER SheetCount AS 'Number of sheets'
-BETWEEN 1 AND 1000
-DEFAULT 30
-ENDDEFINE
-
-DEFINE NUMBER ClaimCount AS 'Number of claims'
-BETWEEN 1 AND 100
-DEFAULT 10
-ENDDEFINE
-
-COMPUTE FEE OFF_BasicNationalFee
-LET Fee1 AS 400
-LET Fee2 AS 200
-YIELD Fee1 IF EntitySize EQ Entity_Company
-YIELD Fee2 IF EntitySize EQ Entity_Person
-ENDCOMPUTE
-
-COMPUTE FEE OFF_SheetFee
-LET Fee1 AS 10
-YIELD Fee1*(SheetCount-30) IF SheetCount GT 30
-ENDCOMPUTE
-
-COMPUTE FEE OFF_ClaimFee
-LET CF1 AS 50
-YIELD CF1*(ClaimCount-20) IF ClaimCount GT 20
-ENDCOMPUTE
-```
-
-The IPFLang DSL uses keyword-based syntax (DEFINE, COMPUTE, YIELD) that is readable by legal professionals without programming expertise.
-
-## Scientific Impact and Reusability
-
-### Cross-Domain Applicability
-
-While developed for IP fee management, the DSL-based architecture is applicable to other regulatory domains:
-
-- International tax calculations
-- Customs and import duty calculations
-- Legal compliance fee structures
-- Multi-jurisdiction regulatory reporting
-
-### Research Applications
-
-- **Legal Technology Research**: Framework for studying automated compliance systems
-- **Domain-Specific Languages**: Reference implementation for regulatory rule engines
-- **Multi-Currency Systems**: Pattern for handling financial calculations across jurisdictions
-- **API Integration Studies**: Example of REST API design for legal technology
-
-### Extensibility
-
-The modular architecture enables researchers and practitioners to:
-
-1. Add new jurisdictions through JSON configuration
-2. Implement custom currency providers
-3. Extend the DSL with domain-specific functions
-4. Integrate with existing IP management systems via REST APIs
-
 ## Performance Metrics
 
-- **Calculation Latency**: <500ms for complex multi-jurisdiction calculations ✅ [Validated](docs/performance_benchmark_report.md)
+- **Calculation Latency**: <500ms for complex multi-jurisdiction calculations
   - Typical 3-jurisdiction: 240-320ms (36-52% below target)
   - Core DSL engine: 23.5μs for complex fee structures
   - P95 latency: 420ms under normal load
@@ -341,7 +191,6 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 - **Performance Benchmark Report**: Comprehensive validation methodology and results in [docs/performance_benchmark_report.md](docs/performance_benchmark_report.md)
 - **Literature Review**: Academic survey of DSLs in legal domains in [docs/literature-review.md](docs/literature-review.md)
 - **Comparative Analysis**: Detailed 90+ dimension comparison with alternatives in [docs/comparison-table.md](docs/comparison-table.md)
-- **Research Manuscript**: Academic paper draft in [docs/softwarex-manuscript.md](docs/softwarex-manuscript.md)
 
 ## Support & Contact
 
@@ -349,10 +198,6 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 - **Discussions**: Community support via [GitHub Discussions](https://github.com/vbocan/ipfees/discussions)
 - **Documentation**: Comprehensive documentation in the `/docs` folder
 - **Email**: valer.bocan@upt.ro
-
-## Acknowledgments
-
-IPFees addresses documented inefficiencies in IP fee management where professionals spend significant time on repetitive calculations across fragmented government-provided calculators and limited commercial solutions. The platform aims to improve efficiency through automation while maintaining open-source principles for research and educational use.
 
 ---
 
