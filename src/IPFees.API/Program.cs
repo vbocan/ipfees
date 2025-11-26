@@ -12,7 +12,7 @@ using IPFees.Core.Repository;
 using IPFees.Parser;
 using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.Extensions.Options;
-using Microsoft.OpenApi.Models;
+using Microsoft.OpenApi;
 using Serilog;
 
 // Set Serilog settings
@@ -65,12 +65,12 @@ builder.Services.AddSwaggerGen(c =>
         return descriptions.First();
     });
 
-    c.SwaggerDoc("v1", new OpenApiInfo
+    c.SwaggerDoc("v1", new Microsoft.OpenApi.OpenApiInfo
     {
         Title = "IPFees API",
         Version = "1",
         Description = "A simple API to compute the IP fees for supported jurisdictions and currencies.",
-        Contact = new OpenApiContact
+        Contact = new Microsoft.OpenApi.OpenApiContact
         {
             Name = "Valer Bocan, PhD, CSSLP",
             Email = "valer@bocan.ro",
