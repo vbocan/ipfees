@@ -17,10 +17,9 @@ namespace IPFees.Core.Data
         public DataContext(string ConnectionString)
         {
             this.ConnectionString = ConnectionString;
-            DatabaseName = MongoUrl.Create(ConnectionString).DatabaseName;
+            DatabaseName = MongoUrl.Create(ConnectionString).DatabaseName!;
             var client = new MongoClient(ConnectionString);
-            if (client != null)
-                Context = client.GetDatabase(DatabaseName);
+            Context = client.GetDatabase(DatabaseName);
             
             ModuleCollection = Context.GetCollection<ModuleDoc>(ModuleDoc.CollectionName);
             FeeCollection = Context.GetCollection<FeeDoc>(FeeDoc.CollectionName);

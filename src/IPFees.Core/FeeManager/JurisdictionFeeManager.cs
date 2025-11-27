@@ -40,12 +40,12 @@ namespace IPFees.Core.FeeManager
                     var inp = feeCalculator.GetInputs(f.Id);
                     if (inp is FeeResultFail)
                     {
-                        Errors.Add(inp as FeeResultFail);
+                        Errors.Add((FeeResultFail)inp);
                     }
                     else
                     {
                         var fps = inp as FeeResultParse;
-                        Inputs.AddRange(fps.FeeInputs);
+                        Inputs.AddRange(fps!.FeeInputs);
                         Groups.AddRange(fps.FeeGroups);
                     }
                 }
@@ -105,7 +105,7 @@ namespace IPFees.Core.FeeManager
                     if (res is FeeResultFail)
                     {
                         // If the calculation has failed, accrue the errors in the list
-                        Errors.Add(res as FeeResultFail);
+                        Errors.Add((FeeResultFail)res);
                     }
                     else
                     {
@@ -116,7 +116,7 @@ namespace IPFees.Core.FeeManager
                             case FeeCategory.OfficialFees:
                                 OfficialFeeDefined = true;
                                 OfficialFee = new Fee(
-                                    frc.TotalMandatoryAmount,
+                                    frc!.TotalMandatoryAmount,
                                     frc.TotalOptionalAmount,
                                     frc.Returns.Where(w => w.Item1.Equals("Currency", StringComparison.InvariantCultureIgnoreCase)).Select(s => s.Item2 ?? string.Empty).SingleOrDefault(string.Empty)
                                     );
@@ -124,13 +124,13 @@ namespace IPFees.Core.FeeManager
                             case FeeCategory.PartnerFees:
                                 PartnerFeeDefined = true;
                                 PartnerFee = new Fee(
-                                    frc.TotalMandatoryAmount,
+                                    frc!.TotalMandatoryAmount,
                                     frc.TotalOptionalAmount,
                                     frc.Returns.Where(w => w.Item1.Equals("Currency", StringComparison.InvariantCultureIgnoreCase)).Select(s => s.Item2 ?? string.Empty).SingleOrDefault(string.Empty)
                                     );
                                 break;
                             case FeeCategory.TranslationFees:
-                                JurisdictionLanguage = frc.Returns.Where(w => w.Item1.Equals("Language", StringComparison.InvariantCultureIgnoreCase)).Select(s => s.Item2 ?? "N/A").SingleOrDefault(string.Empty);
+                                JurisdictionLanguage = frc!.Returns.Where(w => w.Item1.Equals("Language", StringComparison.InvariantCultureIgnoreCase)).Select(s => s.Item2 ?? "N/A").SingleOrDefault(string.Empty);
                                 TranslationFeeDefined = true;
                                 TranslationFee = new Fee(
                                     frc.TotalMandatoryAmount,

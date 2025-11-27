@@ -74,7 +74,7 @@ namespace IPFees.Calculator.Tests
             Assert.NotNull(result);
             Assert.Equal("L1", result.Name);
             Assert.Equal("List #1", result.Text);
-            Assert.Equal(1, result.Items.Count);
+            Assert.Single(result.Items);
             Assert.Equal(new DslListItem("C1", "Choice #1"), result.Items[0]);
         }
 

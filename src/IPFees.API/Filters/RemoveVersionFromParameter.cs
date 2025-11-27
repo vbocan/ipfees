@@ -7,8 +7,9 @@ namespace IPFees.API.Filters
     {
         public void Apply(OpenApiOperation operation, OperationFilterContext context)
         {
-            var versionParameter = operation.Parameters.Single(p => p.Name == "version");
-            operation.Parameters.Remove(versionParameter);
+            var versionParameter = operation.Parameters?.Single(p => p.Name == "version");
+            if (versionParameter != null)
+                operation.Parameters!.Remove(versionParameter);
         }
     }
 }
