@@ -24,7 +24,7 @@ namespace IPFees.Evaluator
                 throw new InvalidDataException($"Unknown variable: '{name}'");
 
             // Call the property
-            return (decimal)pi.GetValue(_targetObject);
+            return (decimal)pi.GetValue(_targetObject)!;
         }
 
         public decimal CallFunction(string name, decimal[] arguments)
@@ -38,7 +38,7 @@ namespace IPFees.Evaluator
             var argObjs = arguments.Select(x => (object)x).ToArray();
 
             // Call the method
-            return (decimal)mi.Invoke(_targetObject, argObjs);
+            return (decimal)mi.Invoke(_targetObject, argObjs)!;
         }
     }
 }

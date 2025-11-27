@@ -24,7 +24,7 @@ namespace IPFees.Evaluator
             {
                 throw new InvalidDataException($"Invalid variable [{name}] in this context.'");
             }
-            return (TokenValue as IPFValueNumber).Value;
+            return (TokenValue as IPFValueNumber)!.Value;
         }
 
         public decimal CallFunction(string name, decimal[] arguments)
@@ -65,7 +65,7 @@ namespace IPFees.Evaluator
                 if (List is not null)
                 {
                     // Push the length of the list (number of items)
-                    return new IPFValueNumber(string.Empty, (List as IPFValueStringList).Value.Count());
+                    return new IPFValueNumber(string.Empty, (List as IPFValueStringList)!.Value.Count());
                 }
             }
             #endregion
@@ -79,7 +79,7 @@ namespace IPFees.Evaluator
                 if (Date is not null)
                 {
                     // Push the difference between dates as years
-                    TimeSpan difference = DateTime.Now.Subtract((Date as IPFValueDate).Value.ToDateTime(TimeOnly.MinValue));
+                    TimeSpan difference = DateTime.Now.Subtract((Date as IPFValueDate)!.Value.ToDateTime(TimeOnly.MinValue));
                     return new IPFValueNumber(string.Empty, (decimal)(difference.TotalDays / 365.25));
                 }
             }
@@ -94,7 +94,7 @@ namespace IPFees.Evaluator
                 if (Date is not null)
                 {
                     // Push the difference between dates as months
-                    TimeSpan difference = DateTime.Now.Subtract((Date as IPFValueDate).Value.ToDateTime(TimeOnly.MinValue));
+                    TimeSpan difference = DateTime.Now.Subtract((Date as IPFValueDate)!.Value.ToDateTime(TimeOnly.MinValue));
                     return new IPFValueNumber(string.Empty, (decimal)(difference.TotalDays / (365.25 / 12)));
                 }
             }
@@ -109,7 +109,7 @@ namespace IPFees.Evaluator
                 if (Date is not null)
                 {
                     // Push the difference between dates as days
-                    TimeSpan difference = DateTime.Now.Subtract((Date as IPFValueDate).Value.ToDateTime(TimeOnly.MinValue));
+                    TimeSpan difference = DateTime.Now.Subtract((Date as IPFValueDate)!.Value.ToDateTime(TimeOnly.MinValue));
                     return new IPFValueNumber(string.Empty, (decimal)difference.TotalDays);
                 }
             }
@@ -123,7 +123,7 @@ namespace IPFees.Evaluator
                 var Date = Vars.SingleOrDefault(s => s.Name.Equals(DateName));
                 if (Date is not null)
                 {
-                    var givenDate = (Date as IPFValueDate).Value;
+                    var givenDate = (Date as IPFValueDate)!.Value;
                     int daysInMonth = DateTime.DaysInMonth(givenDate.Year, givenDate.Month);
                     DateOnly endOfMonth = new DateOnly(givenDate.Year, givenDate.Month, daysInMonth);
                     // Push the difference between dates as months

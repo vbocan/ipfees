@@ -100,7 +100,7 @@ namespace IPFees.Evaluator
             // Top of 'values' contains result, return it
             var result = values.Pop();
             if (result is not IPFValueBoolean) throw new NotSupportedException(string.Format("Invalid logic expression: [{0}]", string.Join(' ', Tokens)));
-            return (result as IPFValueBoolean).Value;
+            return (result as IPFValueBoolean)!.Value;
         }
 
         // Returns true if 'op2' has higher or same precedence as 'op1', otherwise returns false.
@@ -121,8 +121,8 @@ namespace IPFees.Evaluator
             // Both values are booleans
             if (a is IPFValueBoolean && b is IPFValueBoolean)
             {
-                var av = (a as IPFValueBoolean).Value;
-                var bv = (b as IPFValueBoolean).Value;
+                var av = (a as IPFValueBoolean)!.Value;
+                var bv = (b as IPFValueBoolean)!.Value;
                 return op switch
                 {
                     "AND" => new IPFValueBoolean(string.Empty, av && bv),
@@ -136,8 +136,8 @@ namespace IPFees.Evaluator
             // Both values are string
             else if (a is IPFValueString && b is IPFValueString)
             {
-                var av = (a as IPFValueString).Value;
-                var bv = (b as IPFValueString).Value;
+                var av = (a as IPFValueString)!.Value;
+                var bv = (b as IPFValueString)!.Value;
                 return op switch
                 {
                     "EQ" => new IPFValueBoolean(string.Empty, av == bv),
@@ -149,8 +149,8 @@ namespace IPFees.Evaluator
             // Left value is string and right value is string list
             else if (a is IPFValueString && b is IPFValueStringList)
             {
-                var av = (a as IPFValueString).Value;
-                var bv = (b as IPFValueStringList).Value;
+                var av = (a as IPFValueString)!.Value;
+                var bv = (b as IPFValueStringList)!.Value;
                 return op switch
                 {
                     "IN" => new IPFValueBoolean(string.Empty, bv.Contains(av)),
@@ -162,8 +162,8 @@ namespace IPFees.Evaluator
             // Both values are numeric
             else if (a is IPFValueNumber && b is IPFValueNumber)
             {
-                var av = (a as IPFValueNumber).Value;
-                var bv = (b as IPFValueNumber).Value;
+                var av = (a as IPFValueNumber)!.Value;
+                var bv = (b as IPFValueNumber)!.Value;
                 return op switch
                 {
                     "EQ" => new IPFValueBoolean(string.Empty, av == bv),
@@ -179,8 +179,8 @@ namespace IPFees.Evaluator
             // Both values are dates
             else if (a is IPFValueDate && b is IPFValueDate)
             {
-                var av = (a as IPFValueDate).Value;
-                var bv = (b as IPFValueDate).Value;
+                var av = (a as IPFValueDate)!.Value;
+                var bv = (b as IPFValueDate)!.Value;
                 return op switch
                 {
                     "EQ" => new IPFValueBoolean(string.Empty, av == bv),

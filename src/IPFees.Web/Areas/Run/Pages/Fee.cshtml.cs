@@ -37,10 +37,10 @@ namespace IPFees.Web.Areas.Run.Pages
             var res = officialFee.GetInputs(id);
             if (res is FeeResultFail)
             {
-                TempData["Errors"] = (res as FeeResultFail).Errors.ToArray();
+                TempData["Errors"] = ((FeeResultFail)res).Errors.ToArray();
                 return RedirectToPage("Error");
             }
-            Inputs = (res as FeeResultParse)!.FeeInputs.Select(pv => new InputViewModel(pv.Group, pv.Name, pv.GetType().ToString(), pv, string.Empty, Array.Empty<string>(), 0, false, DateOnly.MinValue)).ToList();
+            Inputs = ((FeeResultParse)res).FeeInputs.Select(pv => new InputViewModel(pv.Group, pv.Name, pv.GetType().ToString(), pv, string.Empty, Array.Empty<string>(), 0, false, DateOnly.MinValue)).ToList();
             return Page();
         }
 
@@ -82,12 +82,12 @@ namespace IPFees.Web.Areas.Run.Pages
 
             if (result is FeeResultFail)
             {
-                TempData["Errors"] = (result as FeeResultFail).Errors.Distinct().ToList();
+                TempData["Errors"] = ((FeeResultFail)result).Errors.Distinct().ToList();
                 return RedirectToPage("Error");
             }
             else
             {
-                var res = (result as FeeResultCalculation);
+                var res = (FeeResultCalculation)result;
                 TotalMandatoryAmount = res.TotalMandatoryAmount;
                 TotalOptionalAmount = res.TotalOptionalAmount;
                 CalculationSteps = res.CalculationSteps;
