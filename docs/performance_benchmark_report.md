@@ -241,7 +241,7 @@ Three test jurisdictions created with increasing complexity:
 ### Software Environment
 
 **Runtime:**
-- .NET Version: 9.0.10 (9.0.1025.47515)
+- .NET Version: 10.0.0
 - JIT Compiler: RyuJIT with AVX2 optimizations
 - Garbage Collector: Concurrent Workstation mode
 - Runtime Configuration: Release build, optimizations enabled
@@ -250,7 +250,7 @@ Three test jurisdictions created with increasing complexity:
 - BenchmarkDotNet: v0.14.0
 - MongoDB Driver: Latest compatible version
 - Testcontainers: v3.10.0
-- ASP.NET Core: 9.0
+- ASP.NET Core: 10.0
 
 **Database:**
 - MongoDB: 8.0 (latest stable)
@@ -280,8 +280,8 @@ Three test jurisdictions created with increasing complexity:
 ### 1. DSL Calculator Benchmarks (Core Engine)
 
 **Test Date:** October 26, 2025  
-**Runtime:** .NET 9.0.10, X64 RyuJIT AVX2  
-**Iterations:** 10 measurements after 3 warmups  
+**Runtime:** .NET 10.0.0, X64 RyuJIT AVX2  
+**Iterations:** 10 measurements after 3 warmups
 
 | Benchmark | Mean | StdDev | StdErr | Median | Min | Max | Allocated | Gen0 | Gen1 | Rank |
 |-----------|------|--------|--------|--------|-----|-----|-----------|------|------|------|
@@ -730,9 +730,9 @@ IPFees achieves competitive performance while maintaining:
 ```
 BenchmarkDotNet=v0.14.0, OS=Windows 11 (10.0.26200.6901)
 Unknown processor
-.NET SDK 9.0.306
-  [Host]     : .NET 9.0.10 (9.0.1025.47515), X64 RyuJIT AVX2
-  DefaultJob : .NET 9.0.10 (9.0.1025.47515), X64 RyuJIT AVX2
+.NET SDK 10.0.0
+  [Host]     : .NET 10.0.0, X64 RyuJIT AVX2
+  DefaultJob : .NET 10.0.0, X64 RyuJIT AVX2
 
 | Method                                         | Mean      | Error     | StdDev    | Rank | Gen0    | Gen1   | Allocated |
 |----------------------------------------------- |----------:|----------:|----------:|-----:|--------:|-------:|----------:|
