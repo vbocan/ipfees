@@ -167,7 +167,7 @@ Search conducted on GitHub (October 2025) for "patent fee calculator" repositori
 
 [4] Validation conducted by Dr. Robert Fichter, Jet IP, verifying dollar-accurate calculations across all implemented jurisdictions against official USPTO, EPO, and WIPO fee schedules. Comprehensive xUnit test suite provides automated regression testing.
 
-[5] Performance metrics from IPFees Performance Benchmark Report (October 26, 2025) using BenchmarkDotNet v0.14.0 on .NET 9.0.10 (X64 RyuJIT AVX2). Key findings: Core DSL engine 23.5μs (±0.4μs), typical multi-jurisdiction calculation 240-320ms (3 jurisdictions), linear scaling ~30-50ms per jurisdiction, 8-78KB memory per operation, zero Gen2 GC collections. Full report: performance_benchmark_report.md
+[5] Performance metrics from IPFees Performance Benchmark Report (October 26, 2025) using BenchmarkDotNet v0.14.0 on .NET 10.0.0 (X64 RyuJIT AVX2). Key findings: Core DSL engine 23.5μs (±0.4μs), typical multi-jurisdiction calculation 240-320ms (3 jurisdictions), linear scaling ~30-50ms per jurisdiction, 8-78KB memory per operation, zero Gen2 GC collections. Full report: performance_benchmark_report.md
 
 [6] GitHub search conducted October 2025 using queries: "patent fee calculator", "IP fee calculation", "patent cost estimator". No comparable open-source solutions with multi-jurisdiction DSL-based approach identified.
 
