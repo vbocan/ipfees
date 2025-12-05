@@ -198,9 +198,3 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 - **Discussions**: Community support via [GitHub Discussions](https://github.com/vbocan/ipfees/discussions)
 - **Documentation**: Comprehensive documentation in the `/docs` folder
 - **Email**: valer.bocan@upt.ro
-
----
-
-**Version**: 1.0.0  
-**Status**: Active Development  
-**Repository**: https://github.com/vbocan/ipfees
