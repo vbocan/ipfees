@@ -115,7 +115,7 @@ For a detailed technical architecture diagram, see [architecture.md](docs/archit
 
 ### Technology Stack
 
-- **Backend**: .NET 9.0, ASP.NET Core
+- **Backend**: .NET 10.0, ASP.NET Core
 - **Frontend**: Razor Pages, Bootstrap 5
 - **Database**: MongoDB with GridFS
 - **Containerization**: Docker & Docker Compose

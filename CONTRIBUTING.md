@@ -69,7 +69,7 @@ For feature requests or enhancements:
 
 ### Prerequisites
 
-- [.NET 9.0 SDK](https://dotnet.microsoft.com/download)
+- [.NET 10.0 SDK](https://dotnet.microsoft.com/download)
 - [Docker Desktop](https://www.docker.com/products/docker-desktop)
 - [MongoDB](https://www.mongodb.com/try/download/community) (or use Docker)
 - Git
