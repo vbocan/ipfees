@@ -147,9 +147,9 @@ ipfees/
 
 ## Questions?
 
-- **General questions**: Use [GitHub Discussions](https://github.com/[username]/ipfees/discussions)
-- **Bug reports**: Create a [GitHub Issue](https://github.com/[username]/ipfees/issues)
-- **Security concerns**: Email [security contact] privately
+- **General questions**: Use [GitHub Discussions](https://github.com/vbocan/ipfees/discussions)
+- **Bug reports**: Create a [GitHub Issue](https://github.com/vbocan/ipfees/issues)
+- **Security concerns**: Email valer.bocan@upt.ro privately
 
 ## License
 
