@@ -1,6 +1,6 @@
 # IPFees - Intellectual Property Fee Calculator
 
-[![.NET](https://img.shields.io/badge/.NET-9.0-purple?logo=dotnet)](https://dotnet.microsoft.com)
+[![.NET](https://img.shields.io/badge/.NET-10.0-purple?logo=dotnet)](https://dotnet.microsoft.com)
 [![Docker](https://img.shields.io/badge/Docker-Supported-blue?logo=docker)](https://docker.com)
 [![MongoDB](https://img.shields.io/badge/Database-MongoDB-green?logo=mongodb)](https://mongodb.com)
 [![Build Status](https://img.shields.io/badge/build-passing-brightgreen)](https://github.com/ipfees/ipfees)
