@@ -4,7 +4,7 @@
 [![Docker](https://img.shields.io/badge/Docker-Supported-blue?logo=docker)](https://docker.com)
 [![MongoDB](https://img.shields.io/badge/Database-MongoDB-green?logo=mongodb)](https://mongodb.com)
 [![Build Status](https://img.shields.io/badge/build-passing-brightgreen)](https://github.com/ipfees/ipfees)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
 [![API](https://img.shields.io/badge/API-REST-orange)](https://localhost:8090/swagger)
 
 ## Live Demo: https://ipfees.dataman.ro/
@@ -156,7 +156,7 @@ If you use IPFees in your research, please cite:
   year = {2025},
   version = {1.0.0},
   url = {https://github.com/vbocan/ipfees},
-  license = {MIT}
+  license = {GPL-3.0}
 }
 ```
 
@@ -176,7 +176,7 @@ For major changes, please open an issue first to discuss proposed modifications.
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details. This OSI-approved license permits academic research, commercial use, modification, and integration into other projects.
+This project is licensed under the GNU General Public License v3.0 - see the [LICENSE](LICENSE) file for details. This OSI-approved copyleft license ensures that derivative works remain free and open source, while permitting academic research, commercial use, and modification.
 
 ## Documentation
 

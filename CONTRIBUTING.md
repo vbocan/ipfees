@@ -141,7 +141,7 @@ ipfees/
 │   ├── IPFees.Core.Tests/    # Core unit tests
 │   └── IPFees.Calculator.Tests/ # Calculator tests
 ├── docs/                      # Documentation
-├── LICENSE                    # MIT License
+├── LICENSE                    # GPLv3 License
 └── README.md                  # Project overview
 ```
 
@@ -153,7 +153,7 @@ ipfees/
 
 ## License
 
-By contributing, you agree that your contributions will be licensed under the MIT License.
+By contributing, you agree that your contributions will be licensed under the GNU General Public License v3.0.
 
 ## Recognition
 

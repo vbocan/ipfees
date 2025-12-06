@@ -11,7 +11,7 @@ authors:
     orcid: "https://orcid.org/0009-0006-9084-4064"
 repository-code: "https://github.com/vbocan/ipfees"
 url: "https://github.com/vbocan/ipfees"
-license: MIT
+license: GPL-3.0
 keywords:
   - intellectual property
   - patent management

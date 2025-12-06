@@ -9,7 +9,7 @@
 | Feature/Capability | Government Patent Office Calculators<br/>(USPTO, EPO, JPO) | WIPO Fee Calculator | Commercial IP Management Software<br/>(CPA Global, Anaqua, PatSnap) | **IPFees** |
 |-------------------|-------------------------------------------------------------|---------------------|---------------------------------------------------------------------|-----------|
 | **Accessibility & Licensing** |
-| Open Source | ❌ No | ❌ No | ❌ No | ✅ MIT License |
+| Open Source | ❌ No | ❌ No | ❌ No | ✅ GPLv3 License |
 | Cost | Free (web only) | Free (web only) | High annual licensing costs [1] | Free (self-hosted) |
 | Source Code Available | ❌ No | ❌ No | ❌ Proprietary | ✅ Full source on GitHub |
 | Self-Hosting Option | ❌ No | ❌ No | ❌ No | ✅ Docker deployment |
@@ -105,7 +105,7 @@ Search conducted on GitHub (October 2025) for "patent fee calculator" repositori
 | PatSnap | PatSnap | ⚠️ Analytics-focused | Limited | ✅ REST API | $8,000-$25,000/user [3] |
 | Dennemeyer IP | Dennemeyer | ✅ Integrated | 30+ | ❌ No public API | Enterprise pricing [1] |
 | Questel Orbit | Questel | ⚠️ Cost estimation only | Global estimates | ⚠️ Limited | Enterprise pricing [1] |
-| **IPFees** | Open Source | ✅ Core functionality | 118 | ✅ Full REST API | **Free (MIT License)** |
+| **IPFees** | Open Source | ✅ Core functionality | 118 | ✅ Full REST API | **Free (GPLv3)** |
 
 ## Table 4: DSL Comparison for Legal/Regulatory Domains
 

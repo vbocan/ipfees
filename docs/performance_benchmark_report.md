@@ -800,7 +800,7 @@ Unknown processor
 - Live Demo: https://ipfees.dataman.ro/
 - Benchmark Suite: src/IPFees.Performance.Tests/
 
-**License:** MIT License
+**License:** GNU General Public License v3.0
 
 **Citation:**
 ```bibtex
