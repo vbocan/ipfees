@@ -84,7 +84,7 @@ Search conducted on GitHub (October 2025) for "patent fee calculator" repositori
 
 | Repository | Stars | Last Update | Language | Jurisdictions | Status |
 |-----------|-------|-------------|----------|---------------|--------|
-| **IPFees (this work)** | - | Active (2025) | C# (.NET 9.0) | 118 | Active development |
+| **IPFees (this work)** | - | Active (2025) | C# (.NET 10.0) | 118 | Active development |
 | uspto-fee-calculator [6] | 3 | 2019 | JavaScript | 1 (USPTO only) | Archived/Abandoned |
 | patent-cost-estimator [7] | 0 | 2021 | Python | 1 (US estimates) | No recent activity |
 | InPatent/Patent-Fee-Estimator [8] | 0 | 2022 | Java | 1 (India) | Minimal activity |

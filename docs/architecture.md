@@ -176,7 +176,7 @@ Test Projects:
 
 ## Technology Stack Summary
 
-- **Framework**: .NET 9.0, ASP.NET Core
+- **Framework**: .NET 10.0, ASP.NET Core
 - **Frontend**: Razor Pages, Bootstrap 5, jQuery
 - **Database**: MongoDB 8.0+ with official C# driver
 - **DSL Engine**: Custom lexer/parser/evaluator
