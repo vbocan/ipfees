@@ -1,0 +1,27 @@
+namespace IPFLang.Evaluator
+{
+    public class NodeFunctionCall : Node
+    {
+        public NodeFunctionCall(string functionName, Node[] arguments)
+        {
+            _functionName = functionName;
+            _arguments = arguments;
+        }
+
+        string _functionName;
+        Node[] _arguments;
+
+        public override decimal Eval(IContext ctx)
+        {
+            // Evaluate all arguments
+            var argVals = new decimal[_arguments.Length];
+            for (int i = 0; i < _arguments.Length; i++)
+            {
+                argVals[i] = _arguments[i].Eval(ctx);
+            }
+
+            // Call the function
+            return ctx.CallFunction(_functionName, argVals);
+        }
+    }
+}
