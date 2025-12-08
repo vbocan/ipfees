@@ -1,0 +1,210 @@
+Analysis: Novelty Gaps and Opportunities
+
+  Current State
+
+  IPFLang uses standard DSL constructs: conditional expressions, arithmetic, basic types, module imports. These are
+  well-established patterns from Fowler's DSL book and general PL theory. The criticism is valid.
+
+  Potential Novel Contributions
+
+  I've identified six directions that could provide genuine research contributions:
+
+  ---
+  1. Currency-Aware Dimensional Type System
+
+  The Problem: Current IPFLang allows nonsensical operations like adding EUR amounts to USD amounts without conversion.
+  Errors are caught at runtime (or worse, not at all).
+
+  The Innovation: A static type system with dimensional analysis for currencies, inspired by units-of-measure type systems
+   (F#, Ur/Web) but adapted for multi-currency financial calculations.
+
+  // Type system prevents this at compile time:
+  LET Total AS FilingFee_EUR + SearchFee_USD  // TYPE ERROR: currency mismatch
+
+  // Requires explicit conversion:
+  LET Total AS FilingFee_EUR + CONVERT(SearchFee_USD, EUR)
+
+  // Currency-polymorphic functions:
+  COMPUTE FEE ClaimFee<C: Currency> RETURN C
+    YIELD 100<C> * ExcessClaims
+  ENDCOMPUTE
+
+  Why Novel:
+  - Catala has no currency type system
+  - LegalRuleML has no arithmetic types at all
+  - Financial DSLs (e.g., Haskell's Quantlib bindings) don't handle multi-currency regulatory contexts
+  - Combines dimensional typing with regulatory domain constraints
+
+  Academic Contribution: First application of dimensional type systems to multi-jurisdiction regulatory calculations with
+  formal soundness proof.
+
+  ---
+  2. Completeness and Monotonicity Verification
+
+  The Problem: Fee schedules must cover all valid inputs (no gaps) and should exhibit expected monotonicity (more claims →
+   higher fees, never lower). Currently no static guarantees.
+
+  The Innovation: Static analysis algorithms that verify:
+
+  // Completeness: Prove all input combinations have defined outputs
+  VERIFY COMPLETE FeeSchedule
+    OVER EntityType, ClaimCount IN [1..200], PageCount IN [1..500]
+    // Analyzer proves: no input combination yields undefined result
+
+  // Monotonicity: Prove larger inputs never decrease fees
+  VERIFY MONOTONIC ClaimFee
+    WITH RESPECT TO ClaimCount
+    // Analyzer proves: ClaimCount↑ ⟹ ClaimFee↑ (or unchanged)
+
+  Why Novel:
+  - No regulatory DSL provides static completeness verification
+  - Monotonicity checking for fee structures is unexplored
+  - Connects to SMT-based verification (Z3) in a domain-specific way
+  - Practical value: catches specification errors before deployment
+
+  Academic Contribution: Novel verification conditions for regulatory fee completeness; decidable fragment for common fee
+  patterns; integration with SMT solvers.
+
+  ---
+  3. Provenance-Preserving Semantics
+
+  The Problem: Current audit trails show what was calculated but not why in a formally structured way. Legal disputes
+  require understanding exactly which rules contributed to each fee component.
+
+  The Innovation: Semantics where every computed value carries formal provenance:
+
+  // Every fee result includes provenance certificate:
+  FeeResult {
+    amount: 1250 EUR,
+    provenance: [
+      (FilingFee, Rule 2.3, "ClaimCount > 20", contributed: 500 EUR),
+      (SearchFee, Rule 4.1, "EntityType = Small", contributed: 750 EUR)
+    ],
+    counterfactuals: [
+      "If EntityType were Large: total would be 2500 EUR (+1250)",
+      "If ClaimCount were 20: total would be 750 EUR (-500)"
+    ]
+  }
+
+  Why Novel:
+  - Goes beyond execution traces to structured provenance
+  - Counterfactual reasoning in regulatory DSLs is unexplored
+  - Connects to work on explainable AI but for deterministic rule systems
+  - Formally defined provenance algebra for fee compositions
+
+  Academic Contribution: Formal provenance semantics for regulatory calculations; counterfactual generation algorithm;
+  provenance composition laws.
+
+  ---
+  4. Regulatory Temporal Logic (RTL)
+
+  The Problem: Date calculations in IPFLang use ad-hoc operators (!MONTHSTONOW). Real regulatory deadlines involve complex
+   rules: business days, jurisdiction-specific holidays, "anniversary" calculations, grace periods.
+
+  The Innovation: A domain-specific temporal logic for regulatory deadlines:
+
+  // Formal deadline operators with jurisdiction-aware semantics:
+  DEADLINE MaintenanceDue AS
+    ANNIVERSARY(FilingDate, 3.5 YEARS)
+    ADJUSTED BY BUSINESS_DAYS(Jurisdiction)
+    WITH GRACE_PERIOD(6 MONTHS, SURCHARGE 50%)
+
+  // Temporal constraints expressible in the type system:
+  DEFINE DATE<PAST> FilingDate        // Must be in the past
+  DEFINE DATE<FUTURE> PaymentDue      // Must be in the future
+  DEFINE DATE<AFTER FilingDate> GrantDate  // Dependent date constraint
+
+  Why Novel:
+  - Existing temporal logics (LTL, CTL) don't model regulatory deadlines
+  - Jurisdiction-aware calendar semantics unexplored in DSLs
+  - Type-level temporal constraints are novel
+  - Formal semantics for "business day" across 118 jurisdictions
+
+  Academic Contribution: RTL formal syntax and semantics; decidability results for deadline satisfiability; jurisdiction
+  calendar algebra.
+
+  ---
+  5. Jurisdiction Composition Calculus
+
+  The Problem: Many jurisdictions share common fee structures (all PCT national phases share base PCT fees). Current
+  module system is ad-hoc. No formal model for how jurisdictions relate.
+
+  The Innovation: A formal calculus for jurisdiction composition and inheritance:
+
+  // Jurisdiction inheritance with override semantics:
+  JURISDICTION EPValidation EXTENDS EuropeanPatent
+    OVERRIDE FilingFee AS ParentFilingFee + ValidationFee
+    ADD NationalFee AS ...
+  ENDJURISDICTION
+
+  // Composition for multi-phase filings:
+  JURISDICTION PCTNationalUS = PCTInternational ⊕ USNational
+    WITH PHASE_TRANSITION(InternationalDate, NationalDate)
+
+  // Cross-jurisdiction constraints:
+  CONSTRAINT TotalCost(PCT → EP → DE) ≤ TotalCost(Direct → DE) + 20%
+
+  Why Novel:
+  - No formal model exists for jurisdiction relationships
+  - Connects to mixin/trait calculi from OOP theory
+  - Enables automatic detection of "equivalent" fee paths
+  - Cross-jurisdiction constraint verification is novel
+
+  Academic Contribution: Jurisdiction composition algebra with formal semantics; equivalence checking algorithms;
+  constraint language for cross-jurisdiction properties.
+
+  ---
+  6. Regulatory Change Semantics
+
+  The Problem: Fee schedules change frequently. No formal way to express, verify, or analyze changes. Updates are ad-hoc.
+
+  The Innovation: First-class support for regulatory versioning with formal diff semantics:
+
+  // Temporal versioning built into the language:
+  COMPUTE FEE ClaimFee RETURN USD
+    VERSION EFFECTIVE 2024-01-01
+      YIELD 100 * ExcessClaims IF EntityType EQ Large
+    VERSION EFFECTIVE 2025-01-01
+      YIELD 110 * ExcessClaims IF EntityType EQ Large  // 10% increase
+  ENDCOMPUTE
+
+  // Automatic diff generation:
+  DIFF ClaimFee FROM 2024-01-01 TO 2025-01-01
+  // Output: "Large entity claim fee increased 10% ($100 → $110 per claim)"
+
+  // Impact analysis:
+  ANALYZE IMPACT OF VERSION 2025-01-01
+    ON PORTFOLIO(applications.csv)
+  // Output: "Average cost increase: 8.3% across 1,247 applications"
+
+  Why Novel:
+  - No DSL provides formal regulatory change semantics
+  - Version diff algorithms for fee structures unexplored
+  - Impact analysis as language feature is novel
+  - Connects to database temporal versioning but for rules
+
+  Academic Contribution: Formal semantics for versioned regulatory rules; diff algorithm for fee structures; impact
+  analysis framework.
+
+  ---
+  Recommendation: Which to Prioritize
+
+  For CSI submission, I'd recommend focusing on 2-3 of these that can be implemented and evaluated:
+
+  | Innovation                | Implementation Effort | Academic Impact | Practical Value |
+  |---------------------------|-----------------------|-----------------|-----------------|
+  | Currency Type System      | Medium                | High            | High            |
+  | Completeness Verification | Medium                | Very High       | High            |
+  | Provenance Semantics      | Medium                | High            | Very High       |
+  | Temporal Logic            | High                  | High            | Medium          |
+  | Jurisdiction Calculus     | High                  | Medium          | Medium          |
+  | Change Semantics          | Medium                | Medium          | Very High       |
+
+  My top recommendation:
+  1. Completeness Verification (strongest academic novelty)
+  2. Currency Type System (practical + novel)
+  3. Provenance Semantics (differentiator for legal domain)
+
+  These three together would make a compelling novelty story: "IPFLang contributes (1) a currency-aware type system
+  preventing cross-currency errors, (2) static completeness verification ensuring all inputs are handled, and (3)
+  provenance-preserving semantics enabling formal audit trails."
