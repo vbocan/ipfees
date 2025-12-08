@@ -17,6 +17,7 @@ namespace IPFLang.Evaluator
         Token _currentToken;
         decimal _number;
         string _identifier = string.Empty;
+        string _currency = string.Empty;
 
         public Token Token
         {
@@ -31,6 +32,11 @@ namespace IPFLang.Evaluator
         public string Identifier
         {
             get { return _identifier; }
+        }
+
+        public string Currency
+        {
+            get { return _currency; }
         }
 
         // Read the next character from the input strem
@@ -93,7 +99,7 @@ namespace IPFLang.Evaluator
                     return;
             }
 
-            // Number?
+            // Number or CurrencyLiteral?
             if (char.IsDigit(_currentChar) || _currentChar == '.')
             {
                 // Capture digits/decimal point
@@ -106,8 +112,31 @@ namespace IPFLang.Evaluator
                     NextChar();
                 }
 
-                // Parse it
+                // Parse the number
                 _number = decimal.Parse(sb.ToString(), CultureInfo.InvariantCulture);
+
+                // Check for currency suffix: <CUR>
+                if (_currentChar == '<')
+                {
+                    NextChar(); // skip '<'
+                    var currSb = new StringBuilder();
+                    while (char.IsLetter(_currentChar))
+                    {
+                        currSb.Append(_currentChar);
+                        NextChar();
+                    }
+                    if (_currentChar == '>')
+                    {
+                        NextChar(); // skip '>'
+                        _currency = currSb.ToString().ToUpperInvariant();
+                        _currentToken = Token.CurrencyLiteral;
+                        return;
+                    }
+                    // Invalid currency syntax - treat as error
+                    throw new SyntaxException($"Invalid currency literal: expected '>' after currency code");
+                }
+
+                _currency = string.Empty;
                 _currentToken = Token.Number;
                 return;
             }

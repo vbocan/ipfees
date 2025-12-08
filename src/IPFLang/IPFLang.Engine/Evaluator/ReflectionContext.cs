@@ -33,5 +33,10 @@ namespace IPFLang.Evaluator
             // Call the method
             return (decimal)mi.Invoke(_targetObject, argObjs)!;
         }
+
+        public decimal ConvertCurrency(decimal amount, string sourceCurrency, string targetCurrency)
+        {
+            throw new NotSupportedException("Currency conversion is not supported in ReflectionContext");
+        }
     }
 }

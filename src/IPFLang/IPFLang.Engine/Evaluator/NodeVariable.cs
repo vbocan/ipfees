@@ -10,6 +10,8 @@ namespace IPFLang.Evaluator
 
         string _variableName;
 
+        public string Name => _variableName;
+
         public override decimal Eval(IContext ctx)
         {
             return ctx.ResolveVariable(_variableName);

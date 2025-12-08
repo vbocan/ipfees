@@ -1,4 +1,5 @@
 using System.Text;
+using IPFLang.CurrencyConversion;
 
 namespace IPFLang.Evaluator
 {
@@ -6,10 +7,18 @@ namespace IPFLang.Evaluator
     {
         private readonly IEnumerable<IPFValue> Vars;
         private readonly string FeeName;
+        private readonly ICurrencyConverter? CurrencyConverter;
+
         public EvaluatorContext(IEnumerable<IPFValue> Vars, string FeeName)
+            : this(Vars, FeeName, null)
+        {
+        }
+
+        public EvaluatorContext(IEnumerable<IPFValue> Vars, string FeeName, ICurrencyConverter? currencyConverter)
         {
             this.Vars = Vars;
             this.FeeName = FeeName;
+            this.CurrencyConverter = currencyConverter;
         }
 
         public decimal ResolveVariable(string name)
@@ -19,11 +28,15 @@ namespace IPFLang.Evaluator
             {
                 throw new InvalidDataException($"No variable [{name}] in fee [{FeeName}]'");
             }
-            if (TokenValue is not IPFValueNumber)
+            if (TokenValue is IPFValueNumber numVal)
             {
-                throw new InvalidDataException($"Invalid variable [{name}] in this context.'");
+                return numVal.Value;
             }
-            return (TokenValue as IPFValueNumber)!.Value;
+            if (TokenValue is IPFValueAmount amtVal)
+            {
+                return amtVal.Value;
+            }
+            throw new InvalidDataException($"Invalid variable [{name}] in this context.'");
         }
 
         public decimal CallFunction(string name, decimal[] arguments)
@@ -35,6 +48,15 @@ namespace IPFLang.Evaluator
                 "CEIL" => Math.Ceiling(arguments[0]),
                 _ => throw new InvalidDataException($"Unknown function: '{name}'"),
             };
+        }
+
+        public decimal ConvertCurrency(decimal amount, string sourceCurrency, string targetCurrency)
+        {
+            if (CurrencyConverter == null)
+            {
+                throw new InvalidOperationException("Currency conversion is not available. No currency converter configured.");
+            }
+            return CurrencyConverter.Convert(amount, sourceCurrency, targetCurrency);
         }
 
         public IPFValue? ProcessTokenAsVariableOrProperty(string name)

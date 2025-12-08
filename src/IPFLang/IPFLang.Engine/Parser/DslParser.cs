@@ -12,6 +12,7 @@ namespace IPFLang.Parser
         private DslInputNumber CurrentNumber { get; set; } = new DslInputNumber(string.Empty, string.Empty, string.Empty, int.MinValue, int.MaxValue, 0);
         private DslInputDate CurrentDate { get; set; } = new DslInputDate(string.Empty, string.Empty, string.Empty, DateOnly.MinValue, DateOnly.MaxValue, DateOnly.FromDateTime(DateTime.Now));
         private DslInputBoolean CurrentBoolean { get; set; } = new DslInputBoolean(string.Empty, string.Empty, string.Empty, false);
+        private DslInputAmount CurrentAmount { get; set; } = new DslInputAmount(string.Empty, string.Empty, string.Empty, string.Empty, 0m);
         private DslFee CurrentFee { get; set; } = new DslFee(string.Empty, false, new List<DslItem>(), new List<DslFeeVar>());
         private DslFeeCase CurrentFeeCase { get; set; } = new DslFeeCase(Enumerable.Empty<string>(), new List<DslFeeYield>());
 
@@ -48,6 +49,10 @@ namespace IPFLang.Parser
                 ParseBoolean,
                 ParseBooleanDefault,
                 ParseBooleanGroup,
+                ParseAmount,
+                ParseAmountCurrency,
+                ParseAmountDefault,
+                ParseAmountGroup,
                 ParseEndDefine,
                 ParseFee,
                 ParseFeeCase,
@@ -160,7 +165,7 @@ namespace IPFLang.Parser
         IEnumerable<string> Tokenize(string input)
         {
             string token = string.Empty;
-            var SingleCharTokens = new List<char> { '(', ')', '+', '-', '*', '/' };
+            var SingleCharTokens = new List<char> { '(', ')', '+', '-', '*', '/', ',' };
             bool inQuote = false;
 
             for (int i = 0; i < input.Length; i++)
@@ -433,6 +438,92 @@ namespace IPFLang.Parser
         }
         #endregion
 
+        #region Amount Parsing
+        bool ParseAmount(string[] tokens)
+        {
+            if (CurrentlyParsing != Parsing.None) return false;
+            if (tokens.Length != 5) return false;
+            if (tokens[0] != "DEFINE") return false;
+            if (tokens[1] != "AMOUNT") return false;
+            if (tokens[3] != "AS") return false;
+            CurrentlyParsing = Parsing.Amount;
+            CurrentAmount = new DslInputAmount(tokens[2], tokens[4], string.Empty, string.Empty, 0m);
+            return true;
+        }
+
+        bool ParseAmountCurrency(string[] tokens)
+        {
+            if (CurrentlyParsing != Parsing.Amount) return false;
+            if (tokens.Length != 2) return false;
+            if (tokens[0] != "CURRENCY") return false;
+            var currency = tokens[1].ToUpperInvariant();
+            if (!Types.Currency.IsValid(currency))
+            {
+                throw new ArgumentException($"Invalid ISO 4217 currency code: '{tokens[1]}'");
+            }
+            CurrentAmount = CurrentAmount with { Currency = currency };
+            return true;
+        }
+
+        bool ParseAmountDefault(string[] tokens)
+        {
+            if (CurrentlyParsing != Parsing.Amount) return false;
+            if (tokens.Length != 2) return false;
+            if (tokens[0] != "DEFAULT") return false;
+            // Parse currency literal: n<CUR> or just n
+            var (value, currency) = ParseCurrencyLiteral(tokens[1]);
+            if (currency != null && !string.IsNullOrEmpty(CurrentAmount.Currency) && currency != CurrentAmount.Currency)
+            {
+                throw new ArgumentException($"Default value currency '{currency}' doesn't match declared currency '{CurrentAmount.Currency}'");
+            }
+            if (currency != null)
+            {
+                CurrentAmount = CurrentAmount with { DefaultValue = value, Currency = currency };
+            }
+            else
+            {
+                CurrentAmount = CurrentAmount with { DefaultValue = value };
+            }
+            return true;
+        }
+
+        bool ParseAmountGroup(string[] tokens)
+        {
+            if (CurrentlyParsing != Parsing.Amount) return false;
+            if (tokens.Length != 2) return false;
+            if (tokens[0] != "GROUP") return false;
+            CurrentAmount = CurrentAmount with { Group = tokens[1] };
+            return true;
+        }
+
+        /// <summary>
+        /// Parse a currency literal like 100&lt;EUR&gt; or just 100
+        /// </summary>
+        private static (decimal Value, string? Currency) ParseCurrencyLiteral(string token)
+        {
+            // Check for currency annotation: n<CUR>
+            var match = System.Text.RegularExpressions.Regex.Match(token, @"^(-?\d+(?:\.\d+)?)<([A-Z]{3})>$");
+            if (match.Success)
+            {
+                var value = decimal.Parse(match.Groups[1].Value, System.Globalization.CultureInfo.InvariantCulture);
+                var currency = match.Groups[2].Value;
+                if (!Types.Currency.IsValid(currency))
+                {
+                    throw new ArgumentException($"Invalid ISO 4217 currency code: '{currency}'");
+                }
+                return (value, currency);
+            }
+
+            // Plain number
+            if (decimal.TryParse(token, System.Globalization.NumberStyles.Any, System.Globalization.CultureInfo.InvariantCulture, out var plainValue))
+            {
+                return (plainValue, null);
+            }
+
+            throw new ArgumentException($"Invalid amount literal: '{token}'");
+        }
+        #endregion
+
         #region Parse EndDefine
         bool ParseEndDefine(string[] tokens)
         {
@@ -460,6 +551,14 @@ namespace IPFLang.Parser
                     IPFInputs.Add(CurrentDate);
                     CurrentlyParsing = Parsing.None;
                     return true;
+                case Parsing.Amount:
+                    if (string.IsNullOrEmpty(CurrentAmount.Currency))
+                    {
+                        throw new ArgumentException("Amount definition requires a CURRENCY declaration");
+                    }
+                    IPFInputs.Add(CurrentAmount);
+                    CurrentlyParsing = Parsing.None;
+                    return true;
             }
             return false;
         }
@@ -469,12 +568,52 @@ namespace IPFLang.Parser
         bool ParseFee(string[] tokens)
         {
             if (CurrentlyParsing != Parsing.None) return false;
-            if (tokens.Length != 3 && tokens.Length != 4) return false;
+            if (tokens.Length < 3) return false;
             if (tokens[0] != "COMPUTE") return false;
             if (tokens[1] != "FEE") return false;
+
+            var feeName = tokens[2];
+            string? typeParameter = null;
+            string? returnCurrency = null;
+            bool isOptional = false;
+
+            // Check for polymorphic fee: COMPUTE FEE Name<C> RETURN C [OPTIONAL]
+            var polyMatch = System.Text.RegularExpressions.Regex.Match(feeName, @"^(\w+)<([A-Z])>$");
+            if (polyMatch.Success)
+            {
+                feeName = polyMatch.Groups[1].Value;
+                typeParameter = polyMatch.Groups[2].Value;
+
+                // Must have RETURN clause
+                if (tokens.Length < 5 || tokens[3] != "RETURN")
+                {
+                    throw new ArgumentException($"Polymorphic fee '{feeName}<{typeParameter}>' requires RETURN clause");
+                }
+                returnCurrency = tokens[4];
+
+                // Return currency must be the type parameter or a concrete currency
+                if (returnCurrency != typeParameter && !Types.Currency.IsValid(returnCurrency))
+                {
+                    throw new ArgumentException($"Return type '{returnCurrency}' must be type parameter '{typeParameter}' or valid ISO 4217 currency");
+                }
+
+                isOptional = tokens.Length > 5 && tokens[5] == "OPTIONAL";
+            }
+            else
+            {
+                // Non-polymorphic fee: COMPUTE FEE Name [OPTIONAL]
+                if (tokens.Length == 4 && tokens[3] == "OPTIONAL")
+                {
+                    isOptional = true;
+                }
+                else if (tokens.Length != 3)
+                {
+                    return false;
+                }
+            }
+
             CurrentlyParsing = Parsing.Fee;
-            var IsFeeOptional = (tokens.Length == 4 && tokens[3] == "OPTIONAL");
-            CurrentFee = new DslFee(tokens[2], IsFeeOptional, new List<DslItem>(), new List<DslFeeVar>());
+            CurrentFee = new DslFee(feeName, isOptional, new List<DslItem>(), new List<DslFeeVar>(), typeParameter, returnCurrency);
             return true;
         }
 
@@ -574,6 +713,6 @@ namespace IPFLang.Parser
 
     internal enum Parsing
     {
-        None, List, ListMultiple, Number, Date, Boolean, Fee, FeeCase
+        None, List, ListMultiple, Number, Date, Boolean, Amount, Fee, FeeCase
     }
 }

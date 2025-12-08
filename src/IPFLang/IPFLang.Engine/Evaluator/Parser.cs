@@ -136,6 +136,14 @@ namespace IPFLang.Evaluator
                 return node;
             }
 
+            // Currency literal (e.g., 100<EUR>)?
+            if (_tokenizer.Token == Token.CurrencyLiteral)
+            {
+                var node = new NodeCurrencyLiteral(_tokenizer.Number, _tokenizer.Currency);
+                _tokenizer.NextToken();
+                return node;
+            }
+
             // Parenthesis?
             if (_tokenizer.Token == Token.OpenParens)
             {

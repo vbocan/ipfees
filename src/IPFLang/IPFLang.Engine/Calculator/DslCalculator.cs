@@ -1,11 +1,16 @@
+using IPFLang.CurrencyConversion;
 using IPFLang.Evaluator;
 using IPFLang.Parser;
+using IPFLang.Types;
 
 namespace IPFLang.Engine
 {
     public class DslCalculator : IDslCalculator
     {
         private IDslParser Parser { get; set; }
+        private ICurrencyConverter? CurrencyConverter { get; set; }
+        private readonly CurrencyTypeChecker TypeChecker = new();
+        private IEnumerable<TypeError> _typeErrors = Enumerable.Empty<TypeError>();
 
         public DslCalculator(IDslParser parser)
         {
@@ -14,14 +19,30 @@ namespace IPFLang.Engine
 
         public bool Parse(string text)
         {
-            return Parser.Parse(text);
+            _typeErrors = Enumerable.Empty<TypeError>();
+            var parseResult = Parser.Parse(text);
+
+            // If parsing succeeded, run type checker
+            if (parseResult)
+            {
+                _typeErrors = TypeChecker.Check(Parser.GetInputs(), Parser.GetFees());
+            }
+
+            // Return true only if both parsing and type checking pass
+            return parseResult && !_typeErrors.Any();
         }
 
         public IEnumerable<string> GetErrors() => Parser.GetErrors().Select(s => s.Item2);
+        public IEnumerable<TypeError> GetTypeErrors() => _typeErrors;
         public IEnumerable<DslInput> GetInputs() => Parser.GetInputs();
         public IEnumerable<DslFee> GetFees() => Parser.GetFees();
         public IEnumerable<DslReturn> GetReturns() => Parser.GetReturns();
         public IEnumerable<DslGroup> GetGroups() => Parser.GetGroups();
+
+        public void SetCurrencyConverter(ICurrencyConverter converter)
+        {
+            CurrencyConverter = converter;
+        }
 
         public (decimal, decimal, IEnumerable<string>, IEnumerable<(string, string)>) Compute(IEnumerable<IPFValue> InputValues)
         {
@@ -44,7 +65,7 @@ namespace IPFLang.Engine
                 AllVars.AddRange(InputValues);
                 foreach (var fv in fee.Vars)
                 {
-                    var fv_val = DslEvaluator.EvaluateExpression(fv.ValueTokens.ToArray(), AllVars, fee.Name);
+                    var fv_val = DslEvaluator.EvaluateExpression(fv.ValueTokens.ToArray(), AllVars, fee.Name, CurrencyConverter);
                     var fee_val = new IPFValueNumber(fv.Name, fv_val);
                     AllVars.Add(fee_val);
                 }
@@ -53,7 +74,7 @@ namespace IPFLang.Engine
                 ComputeSteps.Add(string.Format("Amount is initially {0}", CurrentAmount));
                 foreach (DslFeeCase fc in fee.Cases.Cast<DslFeeCase>())
                 {
-                    var case_cond = DslEvaluator.EvaluateLogic(fc.Condition.ToArray(), AllVars, fee.Name);
+                    var case_cond = DslEvaluator.EvaluateLogic(fc.Condition.ToArray(), AllVars, fee.Name, CurrencyConverter);
                     if (!case_cond)
                     {
                         ComputeSteps.Add(string.Format("Condition [{0}] is FALSE, skipping", string.Join(" ", fc.Condition)));
@@ -62,8 +83,8 @@ namespace IPFLang.Engine
                     if (fc.Condition.Any()) ComputeSteps.Add(string.Format("Condition [{0}] is TRUE, proceeding with evaluating individual expressions", string.Join(" ", fc.Condition)));
                     foreach (var b in fc.Yields)
                     {
-                        var cond_b = DslEvaluator.EvaluateLogic(b.Condition.ToArray(), AllVars, fee.Name);
-                        var val_b = DslEvaluator.EvaluateExpression(b.Values.ToArray(), AllVars, fee.Name);
+                        var cond_b = DslEvaluator.EvaluateLogic(b.Condition.ToArray(), AllVars, fee.Name, CurrencyConverter);
+                        var val_b = DslEvaluator.EvaluateExpression(b.Values.ToArray(), AllVars, fee.Name, CurrencyConverter);
                         if (b.Condition.Any()) ComputeSteps.Add(string.Format("Condition: [{0}] is [{1}]", string.Join(" ", b.Condition), cond_b));
                         if (cond_b)
                         {

@@ -22,6 +22,13 @@ namespace IPFLang.Evaluator
             return string.Format("[number: {0} = {1}]", Name, Value);
         }
     };
+    public record IPFValueAmount(string Name, decimal Value, string Currency) : IPFValue(Name)
+    {
+        public override string ToString()
+        {
+            return string.Format("[amount: {0} = {1}<{2}>]", Name, Value, Currency);
+        }
+    };
     public record IPFValueDate(string Name, DateOnly Value) : IPFValue(Name)
     {
         public override string ToString()

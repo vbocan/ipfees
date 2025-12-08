@@ -12,5 +12,6 @@ namespace IPFLang.Evaluator
         Comma,
         Identifier,
         Number,
+        CurrencyLiteral,
     }
 }

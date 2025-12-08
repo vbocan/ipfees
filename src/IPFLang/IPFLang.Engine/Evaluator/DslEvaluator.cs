@@ -1,4 +1,5 @@
 using System.Globalization;
+using IPFLang.CurrencyConversion;
 
 namespace IPFLang.Evaluator
 {
@@ -12,20 +13,22 @@ namespace IPFLang.Evaluator
 
         private static readonly Dictionary<string, int> Operators = new() { { "LT", 4 }, { "LTE", 4 }, { "GT", 4 }, { "GTE", 4 }, { "EQ", 3 }, { "NEQ", 3 }, { "IN", 3 }, { "NIN", 3 }, { "AND", 2 }, { "OR", 1 } };
 
-        public static decimal EvaluateExpression(string[] Tokens, IEnumerable<IPFValue> Vars) => EvaluateExpression(Tokens, Vars, string.Empty);
-        public static decimal EvaluateExpression(string[] Tokens, IEnumerable<IPFValue> Vars, string FeeName)
+        public static decimal EvaluateExpression(string[] Tokens, IEnumerable<IPFValue> Vars) => EvaluateExpression(Tokens, Vars, string.Empty, null);
+        public static decimal EvaluateExpression(string[] Tokens, IEnumerable<IPFValue> Vars, string FeeName) => EvaluateExpression(Tokens, Vars, FeeName, null);
+        public static decimal EvaluateExpression(string[] Tokens, IEnumerable<IPFValue> Vars, string FeeName, ICurrencyConverter? currencyConverter)
         {
-            return Parser.Parse(string.Join(" ", Tokens)).Eval(new EvaluatorContext(Vars, FeeName));
+            return Parser.Parse(string.Join(" ", Tokens)).Eval(new EvaluatorContext(Vars, FeeName, currencyConverter));
         }
 
-        public static bool EvaluateLogic(string[] Tokens, IEnumerable<IPFValue> Vars) => EvaluateLogic(Tokens, Vars, string.Empty);
-        public static bool EvaluateLogic(string[] Tokens, IEnumerable<IPFValue> Vars, string FeeName)
+        public static bool EvaluateLogic(string[] Tokens, IEnumerable<IPFValue> Vars) => EvaluateLogic(Tokens, Vars, string.Empty, null);
+        public static bool EvaluateLogic(string[] Tokens, IEnumerable<IPFValue> Vars, string FeeName) => EvaluateLogic(Tokens, Vars, FeeName, null);
+        public static bool EvaluateLogic(string[] Tokens, IEnumerable<IPFValue> Vars, string FeeName, ICurrencyConverter? currencyConverter)
         {
             // If no tokens are provided, the logic is implicitly true
             if (Tokens.Length == 0) return true;
 
             // Initialize context
-            var Context = new EvaluatorContext(Vars, FeeName);
+            var Context = new EvaluatorContext(Vars, FeeName, currencyConverter);
 
             // Stack for values
             var values = new Stack<IPFValue>();

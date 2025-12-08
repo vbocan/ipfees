@@ -7,20 +7,24 @@ namespace IPFLang.Parser
     public record DslListItem(string Symbol, string Value);
     public record DslInputNumber(string Name, string Text, string Group, int MinValue, int MaxValue, int DefaultValue) : DslInput(Name, Text, Group);
     public record DslInputDate(string Name, string Text, string Group, DateOnly MinValue, DateOnly MaxValue, DateOnly DefaultValue) : DslInput(Name, Text, Group);
+    public record DslInputAmount(string Name, string Text, string Group, string Currency, decimal DefaultValue) : DslInput(Name, Text, Group);
     public record DslGroup(string Name, string Text, int Weight);
 
     public abstract record DslItem(IEnumerable<string> Condition);
-    public record DslFee(string Name, bool Optional, IList<DslItem> Cases, IList<DslFeeVar> Vars)
+    public record DslFee(string Name, bool Optional, IList<DslItem> Cases, IList<DslFeeVar> Vars, string? TypeParameter = null, string? ReturnCurrency = null)
     {
+        public bool IsPolymorphic => TypeParameter != null;
+
         public override string ToString()
         {
+            var typeInfo = IsPolymorphic ? $"<{TypeParameter}> RETURN {ReturnCurrency}" : "";
             if (Optional)
             {
-                return string.Format("\n\rOPTIONAL FEE: {0}\n\r{2}\n\r{1}\n\r", Name, string.Join(Environment.NewLine, Cases), string.Join(Environment.NewLine, Vars));
+                return string.Format("\n\rOPTIONAL FEE: {0}{3}\n\r{2}\n\r{1}\n\r", Name, string.Join(Environment.NewLine, Cases), string.Join(Environment.NewLine, Vars), typeInfo);
             }
             else
             {
-                return string.Format("\n\rFEE: {0}\n\r{2}\n\r{1}\n\r", Name, string.Join(Environment.NewLine, Cases), string.Join(Environment.NewLine, Vars));
+                return string.Format("\n\rFEE: {0}{3}\n\r{2}\n\r{1}\n\r", Name, string.Join(Environment.NewLine, Cases), string.Join(Environment.NewLine, Vars), typeInfo);
             }
         }
     }
