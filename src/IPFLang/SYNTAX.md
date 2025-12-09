@@ -127,6 +127,51 @@ ENDCOMPUTE
 - Version directive should appear at the beginning of the script
 - Effective date uses yyyy-MM-dd format (e.g., 2024-01-15)
 
+**Version Comparison:**
+
+When you have multiple versions of a fee schedule, you can programmatically compare them to identify changes:
+
+```csharp
+// Load two versions
+var version1 = new Version("2023.1", new DateOnly(2023, 1, 1));
+var version2 = new Version("2024.1", new DateOnly(2024, 1, 15));
+
+// Parse both scripts
+var script1 = parser.Parse(script2023Text);
+var script2 = parser.Parse(script2024Text);
+
+// Compare versions
+var diffEngine = new DiffEngine();
+var changeReport = diffEngine.Compare(version1, script1, version2, script2);
+
+// Check for changes
+if (changeReport.HasChanges)
+{
+    Console.WriteLine($"Changes from {version1.Id} to {version2.Id}:");
+    Console.WriteLine($"  Added: {changeReport.AddedCount}");
+    Console.WriteLine($"  Removed: {changeReport.RemovedCount}");
+    Console.WriteLine($"  Modified: {changeReport.ModifiedCount}");
+    Console.WriteLine($"  Breaking: {changeReport.BreakingCount}");
+    
+    // List breaking changes
+    foreach (var change in changeReport.BreakingChanges)
+    {
+        Console.WriteLine($"  ⚠️  {change}");
+    }
+}
+
+// Analyze impact
+var impactAnalyzer = new ImpactAnalyzer();
+var impact = impactAnalyzer.AnalyzeImpact(changeReport, script1, script2);
+Console.WriteLine($"Affected scenarios: {impact.TotalAffectedScenarios}");
+```
+
+**Breaking Changes:**
+
+The diff engine automatically classifies changes as breaking or non-breaking:
+- **Breaking**: Removing mandatory fees, adding required inputs, narrowing input ranges
+- **Non-breaking**: Adding optional fees, widening input ranges, changing descriptions
+
 ---
 
 ## Input Definitions
