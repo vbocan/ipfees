@@ -20,6 +20,7 @@ namespace IPFLang.Parser
         private readonly IList<DslReturn> IPFReturns = new List<DslReturn>();
         private readonly IList<DslInput> IPFInputs = new List<DslInput>();
         private readonly IList<DslFee> IPFFees = new List<DslFee>();
+        private readonly IList<DslVerify> IPFVerifications = new List<DslVerify>();
         private readonly IList<(DslError, string)> IPFErrors = new List<(DslError, string)>();
 
 
@@ -60,7 +61,9 @@ namespace IPFLang.Parser
                 ParseFeeLet,
                 ParseFeeEndCase,
                 ParseEndCompute,
-                ParseReturn
+                ParseReturn,
+                ParseVerifyComplete,
+                ParseVerifyMonotonic
             };
 
             string[] IPFData = source.Split(new string[] { Environment.NewLine }, StringSplitOptions.None);
@@ -154,6 +157,12 @@ namespace IPFLang.Parser
         public IEnumerable<(DslError, string)> GetErrors()
         {
             return IPFErrors;
+        }
+
+        public IEnumerable<DslVerify> GetVerifications()
+        {
+            if (IPFErrors.Count > 0) throw new NotSupportedException("Unable to access verifications. Check the error list.");
+            return IPFVerifications;
         }
 
         #region Tokenization
@@ -706,7 +715,62 @@ namespace IPFLang.Parser
             IPFReturns.Clear();
             IPFInputs.Clear();
             IPFFees.Clear();
+            IPFVerifications.Clear();
             IPFErrors.Clear();
+        }
+        #endregion
+
+        #region Verification Parsing
+        /// <summary>
+        /// Parse: VERIFY COMPLETE FEE FeeName
+        /// </summary>
+        bool ParseVerifyComplete(string[] tokens)
+        {
+            if (CurrentlyParsing != Parsing.None) return false;
+            if (tokens.Length != 4) return false;
+            if (tokens[0] != "VERIFY") return false;
+            if (tokens[1] != "COMPLETE") return false;
+            if (tokens[2] != "FEE") return false;
+            IPFVerifications.Add(new DslVerifyComplete(tokens[3]));
+            return true;
+        }
+
+        /// <summary>
+        /// Parse: VERIFY MONOTONIC FEE FeeName WITH RESPECT TO InputName [DIRECTION direction]
+        /// </summary>
+        bool ParseVerifyMonotonic(string[] tokens)
+        {
+            if (CurrentlyParsing != Parsing.None) return false;
+            if (tokens.Length < 8) return false;
+            if (tokens[0] != "VERIFY") return false;
+            if (tokens[1] != "MONOTONIC") return false;
+            if (tokens[2] != "FEE") return false;
+            if (tokens[4] != "WITH") return false;
+            if (tokens[5] != "RESPECT") return false;
+            if (tokens[6] != "TO") return false;
+
+            var feeName = tokens[3];
+            var withRespectTo = tokens[7];
+            var direction = "NonDecreasing"; // default
+
+            // Optional DIRECTION clause
+            if (tokens.Length >= 10 && tokens[8] == "DIRECTION")
+            {
+                direction = tokens[9];
+                // Validate direction
+                var validDirections = new[] { "NonDecreasing", "NonIncreasing", "StrictlyIncreasing", "StrictlyDecreasing" };
+                if (!validDirections.Contains(direction))
+                {
+                    throw new ArgumentException($"Invalid monotonicity direction '{direction}'. Valid values: {string.Join(", ", validDirections)}");
+                }
+            }
+            else if (tokens.Length != 8)
+            {
+                return false;
+            }
+
+            IPFVerifications.Add(new DslVerifyMonotonic(feeName, withRespectTo, direction));
+            return true;
         }
         #endregion
     }

@@ -7,6 +7,7 @@ namespace IPFLang.Parser
         IEnumerable<DslInput> GetInputs();
         IEnumerable<DslReturn> GetReturns();
         IEnumerable<DslGroup> GetGroups();
+        IEnumerable<DslVerify> GetVerifications();
         bool Parse(string source);
         void Reset();
     }

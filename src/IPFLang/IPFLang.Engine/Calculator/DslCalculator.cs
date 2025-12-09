@@ -1,3 +1,4 @@
+using IPFLang.Analysis;
 using IPFLang.CurrencyConversion;
 using IPFLang.Evaluator;
 using IPFLang.Parser;
@@ -10,6 +11,8 @@ namespace IPFLang.Engine
         private IDslParser Parser { get; set; }
         private ICurrencyConverter? CurrencyConverter { get; set; }
         private readonly CurrencyTypeChecker TypeChecker = new();
+        private readonly CompletenessChecker CompletenessChecker = new();
+        private readonly MonotonicityChecker MonotonicityChecker = new();
         private IEnumerable<TypeError> _typeErrors = Enumerable.Empty<TypeError>();
 
         public DslCalculator(IDslParser parser)
@@ -38,6 +41,7 @@ namespace IPFLang.Engine
         public IEnumerable<DslFee> GetFees() => Parser.GetFees();
         public IEnumerable<DslReturn> GetReturns() => Parser.GetReturns();
         public IEnumerable<DslGroup> GetGroups() => Parser.GetGroups();
+        public IEnumerable<DslVerify> GetVerifications() => Parser.GetVerifications();
 
         public void SetCurrencyConverter(ICurrencyConverter converter)
         {
@@ -115,6 +119,69 @@ namespace IPFLang.Engine
         public void Reset()
         {
             Parser.Reset();
+        }
+
+        public CompletenessReport VerifyCompleteness()
+        {
+            return CompletenessChecker.CheckCompleteness(Parser.GetInputs(), Parser.GetFees());
+        }
+
+        public MonotonicityReport VerifyMonotonicity(string feeName, string withRespectTo, MonotonicityDirection direction = MonotonicityDirection.NonDecreasing)
+        {
+            var fee = Parser.GetFees().FirstOrDefault(f => f.Name == feeName);
+            if (fee == null)
+                throw new ArgumentException($"Fee '{feeName}' not found");
+            return MonotonicityChecker.CheckMonotonicity(fee, Parser.GetInputs(), withRespectTo, direction);
+        }
+
+        public VerificationResults RunVerifications()
+        {
+            var results = new VerificationResults();
+            var fees = Parser.GetFees().ToList();
+            var inputs = Parser.GetInputs().ToList();
+
+            foreach (var verify in Parser.GetVerifications())
+            {
+                try
+                {
+                    switch (verify)
+                    {
+                        case DslVerifyComplete vc:
+                            var fee = fees.FirstOrDefault(f => f.Name == vc.FeeName);
+                            if (fee == null)
+                            {
+                                results.Errors.Add($"Fee '{vc.FeeName}' not found for VERIFY COMPLETE");
+                                continue;
+                            }
+                            var domains = new DomainAnalyzer().ExtractDomains(inputs).ToList();
+                            var report = CompletenessChecker.CheckFeeCompleteness(fee, domains);
+                            results.CompletenessReports.Add(report);
+                            break;
+
+                        case DslVerifyMonotonic vm:
+                            var mFee = fees.FirstOrDefault(f => f.Name == vm.FeeName);
+                            if (mFee == null)
+                            {
+                                results.Errors.Add($"Fee '{vm.FeeName}' not found for VERIFY MONOTONIC");
+                                continue;
+                            }
+                            if (!Enum.TryParse<MonotonicityDirection>(vm.Direction, out var direction))
+                            {
+                                results.Errors.Add($"Invalid direction '{vm.Direction}' for VERIFY MONOTONIC");
+                                continue;
+                            }
+                            var mReport = MonotonicityChecker.CheckMonotonicity(mFee, inputs, vm.WithRespectTo, direction);
+                            results.MonotonicityReports.Add(mReport);
+                            break;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    results.Errors.Add($"Error processing {verify}: {ex.Message}");
+                }
+            }
+
+            return results;
         }
     }
 }

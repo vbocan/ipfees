@@ -56,4 +56,25 @@ namespace IPFLang.Parser
             return string.Format("RETURN: {0} AS [{1}]", Symbol, Text);
         }
     }
+
+    /// <summary>
+    /// Base class for verification directives
+    /// </summary>
+    public abstract record DslVerify(string FeeName);
+
+    /// <summary>
+    /// VERIFY COMPLETE FEE FeeName
+    /// </summary>
+    public record DslVerifyComplete(string FeeName) : DslVerify(FeeName)
+    {
+        public override string ToString() => $"VERIFY COMPLETE FEE {FeeName}";
+    }
+
+    /// <summary>
+    /// VERIFY MONOTONIC FEE FeeName WITH RESPECT TO InputName [DIRECTION direction]
+    /// </summary>
+    public record DslVerifyMonotonic(string FeeName, string WithRespectTo, string Direction = "NonDecreasing") : DslVerify(FeeName)
+    {
+        public override string ToString() => $"VERIFY MONOTONIC FEE {FeeName} WITH RESPECT TO {WithRespectTo} DIRECTION {Direction}";
+    }
 }

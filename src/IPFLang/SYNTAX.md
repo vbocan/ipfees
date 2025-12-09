@@ -30,7 +30,10 @@ IPFLang is a domain-specific language for defining intellectual property fee cal
    - [Currency Literals](#currency-literals) *(currency-aware)*
    - [Currency Conversion](#currency-conversion) *(currency-aware)*
 7. [Returns](#returns)
-8. [Complete Example](#complete-example)
+8. [Verification Directives](#verification-directives) *(completeness checking)*
+   - [VERIFY COMPLETE](#verify-complete)
+   - [VERIFY MONOTONIC](#verify-monotonic)
+9. [Complete Example](#complete-example)
 
 ---
 
@@ -692,6 +695,76 @@ RETURN Total AS 'Total Fees'
 | NOK | Norwegian Krone |
 
 IPFLang supports all 161 ISO 4217 currency codes.
+
+---
+
+## Verification Directives
+
+IPFLang includes static analysis to verify fee correctness at compile time.
+
+### VERIFY COMPLETE
+
+Verify that a fee covers all possible input combinations (no gaps).
+
+**Syntax:**
+```
+VERIFY COMPLETE FEE <FeeName>
+```
+
+**Example:**
+```
+DEFINE LIST EntityType AS 'Entity type'
+CHOICE Normal AS 'Normal'
+CHOICE Small AS 'Small'
+DEFAULT Normal
+ENDDEFINE
+
+COMPUTE FEE BasicFee
+YIELD 100 IF EntityType EQ Normal
+YIELD 50 IF EntityType EQ Small
+ENDCOMPUTE
+
+VERIFY COMPLETE FEE BasicFee  # Verifies all EntityType values are covered
+```
+
+If the fee is incomplete (e.g., missing a case for one EntityType), the verification will report the gap.
+
+---
+
+### VERIFY MONOTONIC
+
+Verify that a fee is monotonic with respect to a numeric input (e.g., more claims never reduces the fee).
+
+**Syntax:**
+```
+VERIFY MONOTONIC FEE <FeeName> WITH RESPECT TO <InputName>
+VERIFY MONOTONIC FEE <FeeName> WITH RESPECT TO <InputName> DIRECTION <Direction>
+```
+
+**Direction options:**
+- `NonDecreasing` (default) - Fee never decreases as input increases
+- `NonIncreasing` - Fee never increases as input increases
+- `StrictlyIncreasing` - Fee always increases as input increases
+- `StrictlyDecreasing` - Fee always decreases as input increases
+
+**Example:**
+```
+DEFINE NUMBER ClaimCount AS 'Number of claims'
+BETWEEN 1 AND 100
+DEFAULT 10
+ENDDEFINE
+
+COMPUTE FEE ClaimFee
+LET ExcessClaims AS ClaimCount - 10
+YIELD 50 * ExcessClaims IF ExcessClaims GT 0
+YIELD 0 IF ExcessClaims LTE 0
+ENDCOMPUTE
+
+VERIFY MONOTONIC FEE ClaimFee WITH RESPECT TO ClaimCount
+VERIFY MONOTONIC FEE ClaimFee WITH RESPECT TO ClaimCount DIRECTION NonDecreasing
+```
+
+If the fee violates monotonicity (e.g., fee decreases when ClaimCount increases), the verification will report the violation with specific values.
 
 ---
 

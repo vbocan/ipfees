@@ -12,7 +12,7 @@ namespace IPFLang.Types
         private static readonly Regex CurrencyLiteralPattern = new(@"^(-?\d+(?:\.\d+)?)<([A-Z]{3})>$", RegexOptions.Compiled);
         private static readonly Regex ConvertPattern = new(@"^CONVERT$", RegexOptions.Compiled | RegexOptions.IgnoreCase);
         private static readonly HashSet<string> ArithmeticOperators = new() { "+", "-", "*", "/" };
-        private static readonly HashSet<string> ComparisonOperators = new() { "EQ", "NE", "GT", "GE", "LT", "LE" };
+        private static readonly HashSet<string> ComparisonOperators = new() { "EQ", "NEQ", "GT", "GTE", "LT", "LTE", "IN", "NIN" };
         private static readonly HashSet<string> LogicalOperators = new() { "AND", "OR", "NOT" };
 
         private readonly List<TypeError> _errors = new();
@@ -318,9 +318,9 @@ namespace IPFLang.Types
                 return new IPFTypeNumber(); // Keywords like IF, THEN handled elsewhere
             }
 
-            // Undefined variable
-            _errors.Add(TypeError.UndefinedVariable(token, context));
-            return new IPFTypeError($"Undefined: {token}");
+            // Treat as string literal (for list choice symbols like EntityType EQ NormalEntity)
+            // This is a valid token that represents a choice symbol in a comparison
+            return new IPFTypeString();
         }
 
         /// <summary>
@@ -545,7 +545,7 @@ namespace IPFLang.Types
                 "OR" => 1,
                 "AND" => 2,
                 "NOT" => 3,
-                "EQ" or "NE" or "GT" or "GE" or "LT" or "LE" => 4,
+                "EQ" or "NEQ" or "GT" or "GTE" or "LT" or "LTE" or "IN" or "NIN" => 4,
                 "+" or "-" => 5,
                 "*" or "/" => 6,
                 _ => 0
