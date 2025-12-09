@@ -11,18 +11,19 @@ ORCID: 0009-0006-9084-4064
 
 ## Abstract
 
-The intellectual property management industry faces interoperability challenges due to fragmented fee calculation implementations across 118 national patent offices. Each jurisdiction employs distinct web-based calculators with no standard data formats or API interfaces, forcing practitioners to manually navigate multiple systems. This paper proposes **IPFLang** (Intellectual Property Fees Language), a domain-specific language for encoding jurisdiction-specific fee calculation rules in a human-readable, machine-executable format. IPFLang addresses three standardization gaps: the lack of a specification language for regulatory fee structures, absent REST API interfaces for system integration, and limited interoperability between IP technology platforms. We present the formal IPFLang specification using EBNF grammar, alongside a REST API design conforming to OpenAPI 3.0 standards. The open-source reference implementation, IPFees, covers 118 jurisdictions with independent expert verification of calculation accuracy against official fee schedules. Performance benchmarks demonstrate sub-500ms response times for multi-jurisdiction portfolios. The implementation provides a foundation for standards adoption and demonstrates potential extensibility to adjacent regulatory domains. This work contributes to computational law by proposing a practical approach to regulatory fee automation.
+The intellectual property management industry faces interoperability challenges due to fragmented fee calculation implementations across 118 national patent offices. Each jurisdiction employs distinct web-based calculators with no standard data formats or API interfaces, forcing practitioners to manually navigate multiple systems. This paper proposes **IPFLang** (Intellectual Property Fees Language), a domain-specific language for encoding jurisdiction-specific fee calculation rules in a human-readable, machine-executable format. IPFLang addresses three standardization gaps: the lack of a specification language for regulatory fee structures, absent REST API interfaces for system integration, and limited interoperability between IP technology platforms. We present the formal IPFLang specification including EBNF grammar, a currency-aware type system preventing cross-currency arithmetic errors at compile time, and static verification of fee completeness and monotonicity. The REST API design conforms to OpenAPI 3.0 standards. The open-source reference implementation, IPFees, covers 118 jurisdictions with independent expert verification of calculation accuracy against official fee schedules. Performance benchmarks demonstrate sub-500ms response times for multi-jurisdiction portfolios. This work contributes to computational law by combining practical regulatory automation with formal correctness guarantees.
 
-**Keywords:** intellectual property, domain-specific language, API standards, interoperability, regulatory automation, legal technology, interface design, software standards
+**Keywords:** intellectual property, domain-specific language, API standards, interoperability, regulatory automation, legal technology, type systems, software standards
 
 ---
 
 ## Highlights
 
 - Proposed DSL for multi-jurisdiction IP fee calculations covering 118 offices
+- Currency-aware type system preventing cross-currency arithmetic errors statically
+- Static verification of fee completeness and monotonicity properties
 - OpenAPI 3.0 REST API enables integration with IP management systems
 - Expert-validated accuracy with sub-500ms multi-jurisdiction response times
-- Cross-domain extensibility to tax, customs, and licensing fee calculations
 - Open-source implementation at github.com/vbocan/ipfees (GPLv3)
 
 ---
@@ -55,13 +56,13 @@ The IP technology domain lacks equivalent standards for fee calculation, resulti
 
 This work addresses four fundamental questions regarding standardization of IP fee calculations.
 
-The first research question concerns language design: can a domain-specific language provide sufficient expressiveness for complex regulatory fee structures while remaining accessible to legal professionals without programming expertise? The second addresses interface standardization: what API design principles enable seamless integration with heterogeneous IP management systems while supporting evolving jurisdiction requirements? The third focuses on validation and accuracy: how can DSL-based fee calculations achieve verifiable accuracy across diverse jurisdictions with distinct regulatory frameworks? The fourth explores cross-domain applicability: to what extent does an IP fee calculation standard generalize to adjacent regulatory domains sharing similar computational patterns?
+The first research question concerns language design: can a domain-specific language provide sufficient expressiveness for complex regulatory fee structures while remaining accessible to legal professionals without programming expertise? The second addresses formal correctness: what static guarantees can a type system and verification framework provide for multi-currency regulatory calculations? The third focuses on validation and accuracy: how can DSL-based fee calculations achieve verifiable accuracy across diverse jurisdictions with distinct regulatory frameworks? The fourth explores interface standardization: what API design principles enable seamless integration with heterogeneous IP management systems?
 
-This paper presents IPFLang (Intellectual Property Fees Language), a domain-specific language standard for multi-jurisdiction fee calculations, with four principal contributions. The first contribution is the language specification presented in Section 3, providing a formal definition of IPFLang syntax, semantics, and type system using EBNF grammar. The language provides declarative fee computation blocks, explicit input type declarations, temporal operators for date-dependent calculations, and multi-currency primitives. The second contribution comprises the API standards detailed in Section 4, offering a comprehensive REST API design conforming to OpenAPI 3.0, including endpoint specifications, JSON schema definitions, authentication mechanisms, and integration patterns enabling interoperability with commercial IP management platforms. The third contribution is the reference implementation described in Section 5, an open-source IPFees system released under GPLv3 demonstrating IPFLang execution with MongoDB-based jurisdiction storage, three-tier currency conversion, and Docker-based deployment. The architecture supports extensibility through plugin interfaces and module systems. The fourth contribution is the multi-jurisdiction validation presented in Section 6, featuring independent expert verification across 118 jurisdictions confirming dollar-accurate calculations validated against official USPTO, EPO, WIPO, and JPO fee schedules. Performance benchmarks demonstrate 23.5μs core engine execution and 240-320ms multi-jurisdiction response times.
+This paper presents IPFLang (Intellectual Property Fees Language), a domain-specific language standard for multi-jurisdiction fee calculations, with five principal contributions. The first contribution is the language specification presented in Section 3, providing a formal definition of IPFLang syntax using EBNF grammar, with declarative fee computation blocks, explicit input type declarations, temporal operators for date-dependent calculations, and multi-currency primitives. The second contribution is the formal type system and verification framework also in Section 3, featuring a currency-aware type system that prevents cross-currency arithmetic errors at compile time, along with static completeness and monotonicity verification ensuring fee definitions cover all valid inputs and behave predictably. The third contribution comprises the API standards detailed in Section 4, offering a comprehensive REST API design conforming to OpenAPI 3.0, including endpoint specifications, JSON schema definitions, and integration patterns enabling interoperability with commercial IP management platforms. The fourth contribution is the reference implementation described in Section 5, an open-source IPFees system released under GPLv3 demonstrating IPFLang execution with 266 tests validating type safety and verification correctness. The fifth contribution is the multi-jurisdiction validation presented in Section 6, featuring independent expert verification across 118 jurisdictions confirming dollar-accurate calculations validated against official USPTO, EPO, WIPO, and JPO fee schedules.
 
 ### 1.4 Paper Organization
 
-Section 2 surveys related work in IP data standards, legal domain DSLs, and API standardization efforts. Section 3 presents the complete IPFLang specification including formal grammar and semantics. Section 4 details REST API design and integration patterns. Section 5 describes the reference implementation architecture. Section 6 validates accuracy and performance across 118 jurisdictions. Section 7 presents integration scenarios and cross-domain applicability. Section 8 discusses standardization implications and adoption strategies. Section 9 concludes with impact assessment and future directions.
+Section 2 surveys related work in IP data standards, legal domain DSLs, and API standardization efforts. Section 3 presents the complete IPFLang specification including formal grammar, currency-aware type system, and verification semantics. Section 4 details REST API design and integration patterns. Section 5 describes the reference implementation architecture. Section 6 validates accuracy and performance across 118 jurisdictions. Section 7 presents integration scenarios and cross-domain applicability. Section 8 discusses standardization implications and adoption strategies. Section 9 concludes with impact assessment and future directions.
 
 ---
 
@@ -339,19 +340,66 @@ The complete formal grammar in Extended Backus-Naur Form defines the language pr
 <currency>             ::= [A-Z]{3}
 ```
 
-### 3.9 Type System and Semantic Rules
+### 3.9 Currency-Aware Type System
 
-IPFLang enforces type safety through input type declarations and operator type constraints. Arithmetic operators require NUMBER operands, comparison operators work on NUMBER and LIST identifiers, logical operators require BOOLEAN values or conditions, set operators require MULTILIST operands, and temporal operators require DATE operands.
+IPFLang employs a dimensional type system preventing cross-currency arithmetic errors at compile time, analogous to units-of-measure checking in scientific computing. The type system enforces three invariants: (1) addition and subtraction require operands of the same currency; (2) scalar multiplication preserves currency; and (3) currency conversion requires explicit CONVERT operations.
 
-Semantic validation ensures that all identifiers reference defined inputs or LET-bound variables, that at most one YIELD statement executes per COMPUTE FEE block, that evaluation is deterministic so identical inputs produce identical outputs, and that expressions have no side effects.
+The type language extends basic types with currency-parameterized amounts:
 
-The reference implementation performs three-pass validation consisting of lexical analysis for tokenization, parsing for AST construction with syntax validation, and semantic analysis for type checking and identifier resolution.
+```
+τ ::= Num | Bool | Sym | Date | Amt[c] | α
+```
 
-### 3.10 Execution Semantics and Traceability
+where `Num` represents dimensionless numbers, `Amt[c]` represents monetary amounts in currency `c ∈ ISO-4217`, and `α` represents type variables for polymorphic fee definitions.
+
+**Typing Rules.** Under typing environment Γ mapping identifiers to types, we define well-typed expressions. For currency literals, `n⟨c⟩ : Amt[c]` for any numeric `n` and currency code `c`. For same-currency arithmetic, if `e₁ : Amt[c]` and `e₂ : Amt[c]`, then `e₁ + e₂ : Amt[c]` and `e₁ - e₂ : Amt[c]`. For scalar operations, if `e₁ : Amt[c]` and `e₂ : Num`, then `e₁ * e₂ : Amt[c]`. For explicit conversion, if `e : Amt[c₁]`, then `CONVERT(e, c₂) : Amt[c₂]`.
+
+Critically, no typing rule permits `Amt[c₁] + Amt[c₂]` when `c₁ ≠ c₂`. The type checker rejects such expressions statically:
+
+```
+# Type error: Cannot add EUR and USD without conversion
+YIELD FilingFee + SearchFee   -- where FilingFee:EUR, SearchFee:USD
+
+# Correct: Explicit conversion
+YIELD FilingFee + CONVERT(SearchFee, EUR)
+```
+
+**Type Soundness.** For any well-typed IPFLang program: (1) every addition/subtraction involves operands of identical currency; (2) every computed fee carries an unambiguous currency tag; (3) no implicit currency conversion occurs. The proof proceeds by structural induction on typing derivations.
+
+### 3.10 Completeness Verification
+
+IPFLang supports static verification that fee computations produce defined outputs for all valid input combinations, eliminating undefined behavior.
+
+**Input Domains.** Each input declaration defines a semantic domain: `NUMBER ∈ [m,M]` yields {n ∈ ℤ : m ≤ n ≤ M}, `BOOLEAN` yields {TRUE, FALSE}, and `LIST` with choices {c₁,...,cₖ} yields that finite set. The valuation space Σ is the Cartesian product of all input domains.
+
+**Coverage.** For fee `f` with conditional yields guarded by conditions φ₁,...,φₙ, define coverage as Cov(f) = {σ ∈ Σ : ∃i. σ ⊨ φᵢ}. Fee `f` is *complete* if Cov(f) = Σ—equivalently, if φ₁ ∨ ... ∨ φₙ is valid over Σ.
+
+**Verification Algorithm.** For small domains (|Σ| ≤ 10⁶), exhaustive enumeration checks every valuation. For large domains, representative sampling focuses on boundary values and condition thresholds. The directive `VERIFY COMPLETE FEE f` triggers this analysis, reporting any uncovered input combinations.
+
+Consider this incomplete fee definition:
+
+```
+COMPUTE FEE ClaimFee RETURN USD
+  YIELD 100 * (ClaimCount - 20) IF EntityType EQ Large AND ClaimCount GT 20
+  YIELD 50 * (ClaimCount - 20) IF EntityType EQ Small AND ClaimCount GT 20
+ENDCOMPUTE
+```
+
+Completeness verification detects the gap: inputs where `ClaimCount ≤ 20` or `EntityType = Micro` produce no output. Adding `YIELD 0` as a default branch achieves completeness.
+
+### 3.11 Monotonicity Verification
+
+Fee schedules should exhibit predictable behavior: increasing claim count should never decrease the fee. The directive `VERIFY MONOTONIC FEE f WITH RESPECT TO x` checks that fee `f` is non-decreasing as input `x` increases.
+
+Formally, fee `f` is non-decreasing with respect to input `x` if for all contexts σ₋ₓ (valuations of other inputs) and values v₁ < v₂: f(σ₋ₓ ∪ {x↦v₁}) ≤ f(σ₋ₓ ∪ {x↦v₂}).
+
+The verification algorithm samples representative values and checks that fee outputs respect the expected direction, reporting violations with concrete counterexamples.
+
+### 3.12 Execution Semantics and Traceability
 
 The evaluation model uses eager evaluation with short-circuit boolean logic. Execution proceeds through several steps: input collection from the user, validation of BETWEEN constraints and date formats, module resolution and loading, LET evaluation in declaration order, CASE block processing, YIELD selection based on the first TRUE condition, currency conversion if the display currency differs from the source, and aggregation of all fee results.
 
-Each evaluation step generates audit logs showing input parameter values, LET variable bindings, CASE and YIELD condition evaluations with their true/false results, the selected YIELD expression and its result, and the final fee amount with currency. This trace enables legal professionals to verify calculations against official schedules and assists in dispute resolution.
+Each evaluation step generates provenance records showing input parameter values, LET variable bindings, CASE and YIELD condition evaluations with their true/false results, the selected YIELD expression and its result, and the final fee amount with currency. This trace enables legal professionals to verify calculations against official schedules and assists in dispute resolution. The system also generates counterfactual explanations showing how alternative input values would affect the total fee.
 
 ---
 
@@ -658,33 +706,27 @@ This paper introduced IPFLang, a domain-specific language for standardizing inte
 
 ### 9.1 Summary of Contributions
 
-The language specification provides declarative syntax readable by legal professionals without programming expertise. The static type system supports five input types comprising LIST, MULTILIST, NUMBER, BOOLEAN, and DATE. Temporal operators enable date-dependent calculations. The modular architecture supports code reuse. A complete EBNF grammar enables independent implementations. The jurisdiction-agnostic design supports 118 or more patent offices.
+The language specification provides declarative syntax readable by legal professionals without programming expertise. The currency-aware type system prevents cross-currency arithmetic errors at compile time through dimensional typing rules, ensuring that EUR and USD values cannot be accidentally combined without explicit conversion. Static verification directives enable completeness checking (ensuring all input combinations produce defined outputs) and monotonicity verification (ensuring fees behave predictably as inputs increase). These formal guarantees distinguish IPFLang from ad-hoc calculator implementations.
 
 The API standards conform to OpenAPI 3.0 with sub-500ms latency. JSON schema validation ensures request and response integrity. Standard HTTP semantics and authentication enable vendor-independent integration with commercial IP management platforms.
 
-The validated implementation covers 118 jurisdictions with calculation accuracy independently verified by an IP legal expert against official fee schedules. Performance measurements show 23.5μs DSL execution and 240-320ms multi-jurisdiction response times. The production-ready architecture includes Docker deployment, a comprehensive test suite, and open-source release.
-
-Cross-domain applicability demonstrates generalizability to tax calculations, customs duties, professional licensing, and financial regulatory fees through common computational patterns including entity-based tiers, progressive pricing, temporal dependencies, multi-component aggregation, and jurisdiction variability.
+The validated implementation covers 118 jurisdictions with calculation accuracy independently verified by an IP legal expert against official fee schedules. The test suite comprises 266 tests validating type safety, completeness verification, and monotonicity checking. Performance measurements show 23.5μs DSL execution and 240-320ms multi-jurisdiction response times.
 
 ### 9.2 Impact
 
-For practitioners, IPFLang can eliminate proprietary calculator licensing costs of $500-$2,000 per year per user, reduce billing disputes through standardized calculations with audit trails, enable portfolio analytics via API access, and simplify multi-jurisdiction workflows from hours to minutes.
+For practitioners, IPFLang eliminates proprietary calculator licensing costs, reduces billing disputes through standardized calculations with audit trails, and simplifies multi-jurisdiction workflows from hours to minutes.
 
-For patent offices, the standard achieves transparency through publicly auditable IPFLang scripts, improves maintenance efficiency taking days versus weeks for fee schedule updates, enables e-filing portal integration with standardized APIs, and reduces support burden through self-service calculation verification.
+For patent offices, the standard achieves transparency through publicly auditable IPFLang scripts, improves maintenance efficiency taking days versus weeks for fee schedule updates, and enables e-filing portal integration with standardized APIs.
 
-For vendors, the standard reduces development costs by reusing the standard calculation engine, accelerates time-to-market for new jurisdictions from months to days, enables differentiation on user experience and analytics rather than calculation accuracy, and avoids redundant reimplementation of 118 jurisdiction fee structures.
+For vendors, the standard reduces development costs by reusing the standard calculation engine and enables differentiation on user experience rather than calculation accuracy.
 
 ### 9.3 Limitations and Future Work
 
-Current limitations include limited production deployments at enterprise scale, a governance model that remains conceptual rather than validated, incomplete formal semantics as the EBNF grammar is provided but operational semantics in TLA+ or Coq are absent, and cross-domain extensions that have been analyzed but not prototyped.
-
-Future work includes production pilots with law firms and patent offices, formal semantics development enabling mathematical correctness proofs, cross-domain prototypes in 2-3 non-IP domains, LLM-assisted DSL generation from natural language fee schedules, conformance test suite development, and security and privacy analysis.
+Current limitations include limited production deployments at enterprise scale and a governance model that remains conceptual. Future work includes production pilots with law firms and patent offices, mechanized proofs of type soundness in Coq or similar proof assistants, cross-domain prototypes for tax and customs applications, and LLM-assisted DSL generation from natural language fee schedules.
 
 ### 9.4 Final Remarks
 
-The IP ecosystem faces a choice: perpetuate fragmented, proprietary fee calculation systems, or embrace standardized, interoperable interfaces. This paper provides the technical foundation for standardization. The precedents are clear: SQL revolutionized databases, HTML enabled the web, and OpenAPI standardized REST APIs. These examples demonstrate that well-designed interface standards can transform entire industries.
-
-IPFLang demonstrates that standardization of regulatory fee calculations is technically feasible, economically viable, and legally defensible. The open-source implementation is available. The community must now decide whether stakeholders including patent offices, practitioners, vendors, and researchers will collaborate to realize this vision. IPFLang is proposed as a standard. The question is whether to adopt it.
+IPFLang demonstrates that standardization of regulatory fee calculations is technically feasible, economically viable, and formally grounded. The combination of practical DSL design with static correctness guarantees addresses both the software engineering requirement for reliable systems and the legal requirement for auditable, deterministic calculations. The open-source implementation is available at github.com/vbocan/ipfees under GPLv3.
 
 ---
 
