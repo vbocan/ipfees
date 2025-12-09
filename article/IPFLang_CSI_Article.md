@@ -50,7 +50,7 @@ This fragmentation imposes measurable costs on IP practice. Practitioners common
 
 Successful technology domains achieve interoperability through open standards. SQL standardized database queries through ISO/IEC 9075, HTML standardized web content through W3C specifications, and XML Schema standardized data validation under the same organization. These standards enabled ecosystem growth by separating interface specifications from implementations, allowing multiple vendors to provide interoperable solutions that customers could mix and match according to their needs.
 
-The IP technology domain lacks equivalent standards for fee calculation, resulting in three critical gaps that hamper progress. The first is a specification gap: no standard language exists for expressing jurisdiction-specific fee rules. LegalRuleML [7] addresses compliance checking but lacks arithmetic expressiveness for financial calculations. Catala [8] demonstrates sophisticated tax calculations but targets single-jurisdiction applications requiring formal methods expertise unsuitable for legal practitioners. The second gap concerns interfaces: government patent offices provide no standardized APIs whatsoever. The EPO offers OPS (Open Patent Services) for patent data retrieval [9] but excludes fee calculations entirely. WIPO ST.96 standardizes patent data exchange [10] but omits financial computations from its scope. The third gap is one of interoperability: IP management workflows involve multiple specialized systems for docketing, billing, document management, and analytics, yet these platforms cannot programmatically exchange fee calculations due to absent standards.
+The IP technology domain lacks equivalent standards for fee calculation, resulting in three critical gaps that hamper progress. The first is a specification gap: no standard language exists for expressing jurisdiction-specific fee rules. LegalRuleML [6] addresses compliance checking but lacks arithmetic expressiveness for financial calculations. Catala [7] demonstrates sophisticated tax calculations but targets single-jurisdiction applications requiring formal methods expertise unsuitable for legal practitioners. The second gap concerns interfaces: government patent offices provide no standardized APIs whatsoever. The EPO offers OPS (Open Patent Services) for patent data retrieval [8] but excludes fee calculations entirely. WIPO ST.96 standardizes patent data exchange [9] but omits financial computations from its scope. The third gap is one of interoperability: IP management workflows involve multiple specialized systems for docketing, billing, document management, and analytics, yet these platforms cannot programmatically exchange fee calculations due to absent standards.
 
 ### 1.3 Research Questions and Contributions
 
@@ -72,13 +72,13 @@ Section 2 surveys related work in IP data standards, legal domain DSLs, and API 
 
 The IP technology domain has achieved partial standardization in data exchange but lacks standards for computational tasks like fee calculation.
 
-WIPO ST.96, commonly known as Patent XML, represents the World Intellectual Property Organization's standard for patent application data exchange [10]. The standard defines XML schemas covering bibliographic data, descriptions, claims, and drawings, but it explicitly excludes financial calculations from its scope. Adoption of ST.96 remains incomplete, with major offices supporting multiple competing formats. While the standard provides a foundation for data interoperability, fee calculations fall entirely outside its purview.
+WIPO ST.96, commonly known as Patent XML, represents the World Intellectual Property Organization's standard for patent application data exchange [9]. The standard defines XML schemas covering bibliographic data, descriptions, claims, and drawings, but it explicitly excludes financial calculations from its scope. Adoption of ST.96 remains incomplete, with major offices supporting multiple competing formats. While the standard provides a foundation for data interoperability, fee calculations fall entirely outside its purview.
 
-The European Patent Office provides a more promising example through its Open Patent Services (OPS), which offers RESTful APIs for patent search and retrieval [9]. OPS provides family information, legal status, and bibliographic data, but omits fee calculation endpoints entirely. Authentication uses OAuth 2.0, demonstrating that the EPO has successfully adopted modern API standards in some areas, yet API coverage excludes the financial operations required for IP management workflows. The existence of OPS demonstrates that patent offices can successfully deploy REST APIs, suggesting that fee calculation APIs are technically feasible but simply have not been prioritized.
+The European Patent Office provides a more promising example through its Open Patent Services (OPS), which offers RESTful APIs for patent search and retrieval [8]. OPS provides family information, legal status, and bibliographic data, but omits fee calculation endpoints entirely. Authentication uses OAuth 2.0, demonstrating that the EPO has successfully adopted modern API standards in some areas, yet API coverage excludes the financial operations required for IP management workflows. The existence of OPS demonstrates that patent offices can successfully deploy REST APIs, suggesting that fee calculation APIs are technically feasible but simply have not been prioritized.
 
 The USPTO Patent Examination Data System (PEDS) provides bulk data downloads and limited APIs for patent examination history [1]. Fee schedule information exists only as static PDF documents requiring manual interpretation, with no programmatic fee calculation interface available. The USPTO Fee Estimator, while useful, is a web application without API access.
 
-PatentScope, operated by WIPO, offers an international patent search service with REST APIs for query and retrieval [11]. Similar to OPS, PatentScope excludes financial calculations despite WIPO's central role operating the PCT system, which requires complex fee structures for 157 contracting states.
+PatentScope, operated by WIPO, offers an international patent search service with REST APIs for query and retrieval [10]. Similar to OPS, PatentScope excludes financial calculations despite WIPO's central role operating the PCT system, which requires complex fee structures for 157 contracting states.
 
 The gap becomes clear upon examination: IP data standards focus on informational exchange such as bibliographic data, legal status, and full-text search, while omitting computational tasks entirely. Fee calculation remains manual, preventing end-to-end workflow automation.
 
@@ -86,11 +86,11 @@ The gap becomes clear upon examination: IP data standards focus on informational
 
 Academic research in computational law has produced several DSLs for legal rules, yet none address regulatory fee calculations with multi-currency and multi-jurisdiction requirements.
 
-LegalRuleML, developed by Palmirani et al. [7], provides an XML-based specification language for legal rules with ontology-based reasoning. The language excels at representing deontic logic covering obligations, permissions, and prohibitions, and supports defeasibility for handling rule precedence. However, LegalRuleML emphasizes binary compliance checking (compliant or non-compliant) with minimal arithmetic support. Complex fee formulas involving thresholds, progressions, and conditional multipliers exceed the language's design scope. The XML syntax also presents accessibility challenges for legal professionals without technical training.
+LegalRuleML, developed by Palmirani et al. [6], provides an XML-based specification language for legal rules with ontology-based reasoning. The language excels at representing deontic logic covering obligations, permissions, and prohibitions, and supports defeasibility for handling rule precedence. However, LegalRuleML emphasizes binary compliance checking (compliant or non-compliant) with minimal arithmetic support. Complex fee formulas involving thresholds, progressions, and conditional multipliers exceed the language's design scope. The XML syntax also presents accessibility challenges for legal professionals without technical training.
 
-Catala, created by Merigoux et al. [8], represents a programming language specifically designed for tax law computation. The language demonstrates sophisticated financial calculations with formal verification guarantees through type theory. However, Catala targets single-jurisdiction applications, primarily the French tax code, and requires formal methods expertise that limits adoption by legal practitioners. The language's dependent type system ensures correctness but imposes steep learning curves incompatible with practitioner-editable fee structures. While Catala represents an important advance in computational law, it addresses fundamentally different requirements than multi-jurisdiction IP fee calculations.
+Catala, created by Merigoux et al. [7], represents a programming language specifically designed for tax law computation. The language demonstrates sophisticated financial calculations with formal verification guarantees through type theory. However, Catala targets single-jurisdiction applications, primarily the French tax code, and requires formal methods expertise that limits adoption by legal practitioners. The language's dependent type system ensures correctness but imposes steep learning curves incompatible with practitioner-editable fee structures. While Catala represents an important advance in computational law, it addresses fundamentally different requirements than multi-jurisdiction IP fee calculations.
 
-Contract-oriented DSLs [12] focus on party obligations, temporal constraints, and conditional execution semantics. Smart contract languages like Solidity and Clarity extend these concepts to blockchain-based agreements. Monetary aspects receive minimal treatment, with basic arithmetic operations but lacking multi-currency precision, exchange rate management, and historical rate tracking required for cross-border IP portfolios. The Accord Project's Ergo language provides functional programming constructs suitable for contract logic but lacks domain-specific primitives for regulatory fee calculations.
+Contract-oriented DSLs [11] focus on party obligations, temporal constraints, and conditional execution semantics. Smart contract languages like Solidity and Clarity extend these concepts to blockchain-based agreements. Monetary aspects receive minimal treatment, with basic arithmetic operations but lacking multi-currency precision, exchange rate management, and historical rate tracking required for cross-border IP portfolios. The Accord Project's Ergo language provides functional programming constructs suitable for contract logic but lacks domain-specific primitives for regulatory fee calculations.
 
 Existing legal DSLs address contract execution, compliance checking, or single-jurisdiction calculations, but none provide the combination of arithmetic expressiveness for complex fee formulas, temporal logic for date-dependent calculations, multi-currency support with precision control, accessibility to non-programmer legal professionals, and multi-jurisdiction portability that IP fee calculation demands.
 
@@ -98,9 +98,9 @@ Existing legal DSLs address contract execution, compliance checking, or single-j
 
 API standardization in legal technology remains nascent compared to mature domains like finance or healthcare.
 
-The financial sector demonstrates successful API standardization through PSD2 (Payment Services Directive 2) in Europe [13] and Open Banking initiatives globally. These standards mandate REST APIs with OAuth 2.0 authentication, JSON data formats, and standardized endpoints for account information and payments. Financial services interoperability provides a model for IP technology standardization, demonstrating that regulatory domains can achieve widespread API adoption through mandates and industry collaboration.
+The financial sector demonstrates successful API standardization through PSD2 (Payment Services Directive 2) in Europe [12] and Open Banking initiatives globally. These standards mandate REST APIs with OAuth 2.0 authentication, JSON data formats, and standardized endpoints for account information and payments. Financial services interoperability provides a model for IP technology standardization, demonstrating that regulatory domains can achieve widespread API adoption through mandates and industry collaboration.
 
-Healthcare offers another instructive example through FHIR (Fast Healthcare Interoperability Resources) [14], which achieved widespread adoption through REST API standards for healthcare data exchange. FHIR defines resource types such as Patient, Observation, and Medication with JSON serializations and standard HTTP operations. The healthcare domain's success in standardization suggests similar approaches could benefit IP technology.
+Healthcare offers another instructive example through FHIR (Fast Healthcare Interoperability Resources) [13], which achieved widespread adoption through REST API standards for healthcare data exchange. FHIR defines resource types such as Patient, Observation, and Medication with JSON serializations and standard HTTP operations. The healthcare domain's success in standardization suggests similar approaches could benefit IP technology.
 
 The legal technology landscape presents a stark contrast. Commercial legal technology vendors provide proprietary APIs with vendor-specific authentication, incompatible data formats, and limited interoperability. No industry consortium or standards body coordinates API specifications for legal technology, unlike finance with its Open Banking Implementation Entity or healthcare with HL7 International.
 
@@ -110,9 +110,9 @@ IP technology lacks API standards comparable to these domains. Individual vendor
 
 Automated compliance checking represents a related domain where technology assists regulatory interpretation.
 
-Business Rules Management Systems such as Drools [15] and IBM ODM provide general-purpose rules engines using production rules with Rete algorithm inference. These systems require substantial technical expertise, lack domain-specific abstractions for legal concepts, and impose expensive enterprise licensing ranging from $50,000 to over $500,000 annually. While powerful, BRMS platforms are fundamentally over-engineered for deterministic fee calculations.
+Business Rules Management Systems such as Drools [14] and IBM ODM provide general-purpose rules engines using production rules with Rete algorithm inference. These systems require substantial technical expertise, lack domain-specific abstractions for legal concepts, and impose expensive enterprise licensing ranging from $50,000 to over $500,000 annually. While powerful, BRMS platforms are fundamentally over-engineered for deterministic fee calculations.
 
-Some governments have begun pursuing rules-as-code initiatives that encode regulations in executable formats [16]. New Zealand's "Better Rules" program and Australia's Digital Transformation Agency explore machine-consumable legislation. These initiatives typically use general-purpose languages rather than domain-specific languages, limiting accessibility to legal experts who must rely on programmers for implementation.
+Some governments have begun pursuing rules-as-code initiatives that encode regulations in executable formats [15]. New Zealand's "Better Rules" program and Australia's Digital Transformation Agency explore machine-consumable legislation. These initiatives typically use general-purpose languages rather than domain-specific languages, limiting accessibility to legal experts who must rely on programmers for implementation.
 
 ---
 
@@ -124,7 +124,7 @@ IPFLang design balances five competing objectives: expressiveness for complex re
 
 The first principle is declarative semantics. Fee calculations specify what to compute rather than how to compute it. Declarative approaches facilitate correctness verification by legal experts who can validate fee formulas directly against official schedules without needing to understand imperative control flow.
 
-The second principle requires explicit semantics. Operators use keyword syntax such as EQ, GT, AND, and OR rather than symbols like ==, >, &&, and ||. This approach avoids ambiguity and improves readability for non-programmers, aligning with DSL design guidelines emphasizing domain-specific notation [17].
+The second principle requires explicit semantics. Operators use keyword syntax such as EQ, GT, AND, and OR rather than symbols like ==, >, &&, and ||. This approach avoids ambiguity and improves readability for non-programmers, aligning with DSL design guidelines emphasizing domain-specific notation [16].
 
 The third principle establishes a static type system. Input declarations explicitly specify types including NUMBER, LIST, MULTILIST, BOOLEAN, and DATE, enabling compile-time validation. Static typing prevents runtime errors from type mismatches and provides clear parameter documentation.
 
@@ -512,11 +512,11 @@ The data layer uses MongoDB as its document database for jurisdiction definition
 
 Background services include an exchange rate updater performing periodic refresh every 12 hours and a database initialization service for development environments.
 
-The architecture follows several key principles. Separation of concerns [18] ensures each layer has distinct responsibilities. Dependency inversion means higher layers depend on interfaces rather than implementations. Single responsibility keeps the Calculator focused exclusively on DSL interpretation while the Currency Service handles conversion. API-first design ensures the web UI consumes the same API as external clients, guaranteeing feature parity.
+The architecture follows several key principles. Separation of concerns [17] ensures each layer has distinct responsibilities. Dependency inversion means higher layers depend on interfaces rather than implementations. Single responsibility keeps the Calculator focused exclusively on DSL interpretation while the Currency Service handles conversion. API-first design ensures the web UI consumes the same API as external clients, guaranteeing feature parity.
 
 ### 5.2 DSL Interpreter Implementation
 
-The IPFLang interpreter follows classical compiler design principles [19] with three phases.
+The IPFLang interpreter follows classical compiler design principles [18] with three phases.
 
 Lexical analysis converts DSL source text into a token stream. Token types include keywords such as DEFINE, COMPUTE, YIELD, LET, and CASE; operators like EQ, GT, AND, and OR; identifiers; literals for numbers, strings, and dates; and delimiters. The custom lexer uses character-by-character scanning with lookahead for multi-character operators like GTE, LTE, and NEQ.
 
@@ -742,33 +742,31 @@ IPFLang demonstrates that standardization of regulatory fee calculations is tech
 
 [5] CPA Global. (2024). IP Management Solutions. https://www.cpaglobal.com/
 
-[6] De Rassenfosse, G., Dernis, H., & Boedt, G. (2014). An introduction to the Patstat database with example queries. Australian Economic Review, 47(3), 395-408. https://doi.org/10.1111/1467-8462.12073
+[6] Athan, T., Boley, H., Governatori, G., Palmirani, M., Paschke, A., & Wyner, A. (2015). LegalRuleML: Design Principles and Foundations. In Reasoning Web. Web Logic Rules (pp. 151-188). Springer, Cham. https://doi.org/10.1007/978-3-319-21768-0_6
 
-[7] Athan, T., Boley, H., Governatori, G., Palmirani, M., Paschke, A., & Wyner, A. (2015). LegalRuleML: Design Principles and Foundations. In Reasoning Web. Web Logic Rules (pp. 151-188). Springer, Cham. https://doi.org/10.1007/978-3-319-21768-0_6
+[7] Merigoux, D., Chataing, N., & Protzenko, J. (2021). Catala: A Programming Language for the Law. Proceedings of the ACM on Programming Languages, 5(ICFP), Article 77. https://doi.org/10.1145/3473582
 
-[8] Merigoux, D., Chataing, N., & Protzenko, J. (2021). Catala: A Programming Language for the Law. Proceedings of the ACM on Programming Languages, 5(ICFP), Article 77. https://doi.org/10.1145/3473582
+[8] European Patent Office. (2024). EPO Open Patent Services (OPS) API. https://www.epo.org/searching-for-patents/data/web-services/ops.html
 
-[9] European Patent Office. (2024). EPO Open Patent Services (OPS) API. https://www.epo.org/searching-for-patents/data/web-services/ops.html
+[9] World Intellectual Property Organization. (2023). WIPO ST.96 - Processing of IP Information using XML. WIPO Standards. https://www.wipo.int/standards/en/st96.html
 
-[10] World Intellectual Property Organization. (2023). WIPO ST.96 - Processing of IP Information using XML. WIPO Standards. https://www.wipo.int/standards/en/st96.html
+[10] World Intellectual Property Organization. (2024). PatentScope Search Service. https://patentscope.wipo.int/
 
-[11] World Intellectual Property Organization. (2024). PatentScope Search Service. https://patentscope.wipo.int/
+[11] Hvitved, T. (2012). Contract Formalisation and Modular Implementation of Domain-Specific Languages. PhD Thesis, University of Copenhagen.
 
-[12] Hvitved, T. (2012). Contract Formalisation and Modular Implementation of Domain-Specific Languages. PhD Thesis, University of Copenhagen.
+[12] European Commission. (2015). Payment Services Directive 2 (PSD2). Directive (EU) 2015/2366. https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32015L2366
 
-[13] European Commission. (2015). Payment Services Directive 2 (PSD2). Directive (EU) 2015/2366. https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32015L2366
+[13] HL7 International. (2024). FHIR (Fast Healthcare Interoperability Resources). https://www.hl7.org/fhir/
 
-[14] HL7 International. (2024). FHIR (Fast Healthcare Interoperability Resources). https://www.hl7.org/fhir/
+[14] Red Hat. (2024). Drools Business Rules Management System. https://www.drools.org/
 
-[15] Red Hat. (2024). Drools Business Rules Management System. https://www.drools.org/
+[15] New Zealand Government. (2018). Better Rules for Government Discovery Report. https://www.digital.govt.nz/standards-and-guidance/technology-and-architecture/better-rules/
 
-[16] New Zealand Government. (2018). Better Rules for Government Discovery Report. https://www.digital.govt.nz/standards-and-guidance/technology-and-architecture/better-rules/
+[16] Fowler, M. (2010). Domain-Specific Languages. Addison-Wesley. ISBN: 978-0321712943
 
-[17] Fowler, M. (2010). Domain-Specific Languages. Addison-Wesley. ISBN: 978-0321712943
+[17] Parnas, D. L. (1972). On the criteria to be used in decomposing systems into modules. Communications of the ACM, 15(12), 1053-1058. https://doi.org/10.1145/361598.361623
 
-[18] Parnas, D. L. (1972). On the criteria to be used in decomposing systems into modules. Communications of the ACM, 15(12), 1053-1058. https://doi.org/10.1145/361598.361623
-
-[19] Aho, A. V., Lam, M. S., Sethi, R., & Ullman, J. D. (2006). Compilers: Principles, Techniques, and Tools (2nd ed.). Addison-Wesley. ISBN: 978-0321486814
+[18] Aho, A. V., Lam, M. S., Sethi, R., & Ullman, J. D. (2006). Compilers: Principles, Techniques, and Tools (2nd ed.). Addison-Wesley. ISBN: 978-0321486814
 
 ---
 
