@@ -2,6 +2,7 @@ using IPFLang.Analysis;
 using IPFLang.CurrencyConversion;
 using IPFLang.Evaluator;
 using IPFLang.Parser;
+using IPFLang.Provenance;
 using IPFLang.Types;
 
 namespace IPFLang.Engine
@@ -182,6 +183,31 @@ namespace IPFLang.Engine
             }
 
             return results;
+        }
+
+        public ComputationProvenance ComputeWithProvenance(IEnumerable<IPFValue> inputValues)
+        {
+            var collector = new ProvenanceCollector(CurrencyConverter);
+            return collector.ComputeWithProvenance(Parser.GetFees(), inputValues);
+        }
+
+        public ComputationProvenance ComputeWithCounterfactuals(IEnumerable<IPFValue> inputValues)
+        {
+            var provenance = ComputeWithProvenance(inputValues);
+
+            var counterfactualEngine = new CounterfactualEngine(CurrencyConverter);
+            var counterfactuals = counterfactualEngine.GenerateCounterfactuals(
+                Parser.GetFees(),
+                Parser.GetInputs(),
+                inputValues,
+                provenance.GrandTotal);
+
+            foreach (var cf in counterfactuals)
+            {
+                provenance.Counterfactuals.Add(cf);
+            }
+
+            return provenance;
         }
     }
 }

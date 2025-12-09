@@ -95,6 +95,14 @@ namespace IPFLang.Types
             {
                 var inferredType = InferType(letVar.ValueTokens, env, $"fee '{fee.Name}' LET {letVar.Name}");
                 env.Bind(letVar.Name, inferredType);
+
+                // Also bind the unprefixed name (parser stores as "FeeName.VarName", but expressions use "VarName")
+                var dotIndex = letVar.Name.IndexOf('.');
+                if (dotIndex >= 0)
+                {
+                    var unprefixedName = letVar.Name.Substring(dotIndex + 1);
+                    env.Bind(unprefixedName, inferredType);
+                }
             }
 
             // Check each case and yield

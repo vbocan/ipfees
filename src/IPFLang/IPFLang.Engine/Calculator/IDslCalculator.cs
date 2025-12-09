@@ -2,6 +2,7 @@ using IPFLang.Analysis;
 using IPFLang.CurrencyConversion;
 using IPFLang.Evaluator;
 using IPFLang.Parser;
+using IPFLang.Provenance;
 using IPFLang.Types;
 
 namespace IPFLang.Engine
@@ -34,6 +35,16 @@ namespace IPFLang.Engine
         /// Run all VERIFY directives from the parsed DSL and return combined results
         /// </summary>
         VerificationResults RunVerifications();
+
+        /// <summary>
+        /// Compute fees with full provenance tracking
+        /// </summary>
+        ComputationProvenance ComputeWithProvenance(IEnumerable<IPFValue> inputValues);
+
+        /// <summary>
+        /// Compute fees with provenance and counterfactual analysis
+        /// </summary>
+        ComputationProvenance ComputeWithCounterfactuals(IEnumerable<IPFValue> inputValues);
     }
 
     /// <summary>
