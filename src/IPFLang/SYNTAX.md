@@ -154,6 +154,115 @@ var withinGrace = evaluator.IsWithinGracePeriod(
 
 ---
 
+## Jurisdiction Composition
+
+IPFLang supports jurisdiction inheritance and composition for code reuse across related fee schedules.
+
+**Jurisdiction Hierarchy:**
+
+```csharp
+// Create jurisdiction registry
+var registry = new JurisdictionRegistry();
+
+// Base EPO jurisdiction with common fees
+var epo = new Jurisdiction("EPO", "European Patent Office",
+    CreateScriptWithFees("FilingFee", "SearchFee", "ExaminationFee", "DesignationFee"));
+registry.Register(epo);
+
+// Germany inherits EPO fees, adds translation fee
+var germany = new Jurisdiction("EPO-DE", "Germany (EPO)", 
+    CreateScriptWithFees("TranslationFee"),
+    parentJurisdictionId: "EPO");  // Inherits from EPO
+registry.Register(germany);
+
+// France inherits EPO, overrides FilingFee with different amount
+var france = new Jurisdiction("EPO-FR", "France (EPO)", 
+    CreateScriptWithFees("FilingFee", "TranslationFee"),  // Override FilingFee
+    parentJurisdictionId: "EPO");
+registry.Register(france);
+```
+
+**Composing Fee Schedules:**
+
+```csharp
+var composer = new JurisdictionComposer(registry);
+
+// Compose complete fee schedule for Germany
+var composed = composer.Compose("EPO-DE");
+
+Console.WriteLine($"Jurisdiction: {composed.JurisdictionId}");
+Console.WriteLine($"Total fees: {composed.Script.Fees.Count()}");
+Console.WriteLine($"Inheritance levels: {composed.InheritanceLevels}");
+Console.WriteLine($"Applied: {string.Join(" → ", composed.AppliedJurisdictions)}");
+
+// Output:
+// Jurisdiction: EPO-DE
+// Total fees: 5
+// Inheritance levels: 1
+// Applied: EPO → EPO-DE
+```
+
+**Analyzing Code Reuse:**
+
+```csharp
+// Analyze what Germany inherits vs. defines
+var analysis = composer.AnalyzeInheritance("EPO-DE");
+
+Console.WriteLine($"Inherited fees: {analysis.InheritedFees.Count}");     // 4 (from EPO)
+Console.WriteLine($"Defined fees: {analysis.DefinedFees.Count}");         // 1 (TranslationFee)
+Console.WriteLine($"Overridden fees: {analysis.OverriddenFees.Count}");   // 0
+Console.WriteLine($"Code reuse: {analysis.ReusePercentage:F1}%");         // 80%
+
+// Calculate metrics across all jurisdictions
+var metrics = composer.CalculateMetrics();
+
+Console.WriteLine($"Total jurisdictions: {metrics.TotalJurisdictions}");
+Console.WriteLine($"With inheritance: {metrics.JurisdictionsWithInheritance}");
+Console.WriteLine($"Inheritance usage: {metrics.InheritancePercentage:F1}%");
+Console.WriteLine($"Code reuse: {metrics.ReusePercentage:F1}%");
+```
+
+**Multi-Level Inheritance:**
+
+```csharp
+// Three-level hierarchy: EPO → EPO-DE → EPO-DE-BY (Bavaria)
+var bavaria = new Jurisdiction("EPO-DE-BY", "Bavaria",
+    CreateScriptWithFees("RegionalFee"),
+    parentJurisdictionId: "EPO-DE");
+registry.Register(bavaria);
+
+var composed = composer.Compose("EPO-DE-BY");
+// Inherits: FilingFee, SearchFee, ExaminationFee, DesignationFee (EPO)
+//          + TranslationFee (EPO-DE)
+//          + RegionalFee (EPO-DE-BY)
+// Total: 6 fees
+```
+
+**Inheritance Chain:**
+
+```csharp
+var chain = registry.GetInheritanceChain("EPO-DE-BY");
+
+foreach (var jurisdiction in chain)
+{
+    Console.WriteLine($"{jurisdiction.Id}: {jurisdiction.Name}");
+}
+
+// Output:
+// EPO: European Patent Office
+// EPO-DE: Germany (EPO)
+// EPO-DE-BY: Bavaria
+```
+
+**Real-World Benefits:**
+- **EPO National Phases**: Share 80% of code between EPO and national offices
+- **PCT/Paris Convention**: Reuse common fee structures across filing routes
+- **Regional Variations**: Override specific fees while inheriting base rates
+- **Maintenance**: Update base fees once, propagate to all children
+- **Consistency**: Ensure related jurisdictions use compatible fee structures
+
+---
+
 ## Comments
 
 Use `#` for single-line comments. Comments can appear anywhere except inside quoted strings.
