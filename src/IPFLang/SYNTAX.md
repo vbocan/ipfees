@@ -172,6 +172,47 @@ The diff engine automatically classifies changes as breaking or non-breaking:
 - **Breaking**: Removing mandatory fees, adding required inputs, narrowing input ranges
 - **Non-breaking**: Adding optional fees, widening input ranges, changing descriptions
 
+**Temporal Queries:**
+
+Query historical fee calculations using version effective dates:
+
+```csharp
+// Create temporal query engine
+var versionedScript = new VersionedScript();
+versionedScript.AddVersion(version2023, script2023);
+versionedScript.AddVersion(version2024, script2024);
+
+var temporal = new TemporalQuery(versionedScript, calculatorFactory);
+
+// Calculate fees as they were on March 1, 2023
+var result2023 = temporal.ComputeAtDate(new DateOnly(2023, 3, 1), inputs);
+Console.WriteLine($"Total in March 2023: {result2023.GrandTotal:C}");
+Console.WriteLine($"Using version: {result2023.ApplicableVersion.Id}");
+
+// Compare fees across two dates
+var comparison = temporal.CompareAcrossDates(
+    new DateOnly(2023, 3, 1),  // Before fee increase
+    new DateOnly(2024, 3, 1),  // After fee increase
+    inputs
+);
+Console.WriteLine($"Fee change: {comparison.TotalDifference:C}");
+Console.WriteLine($"Percentage: {comparison.PercentageChange:+0.00;-0.00}%");
+
+// Verify that completeness was preserved across versions
+var preservation = temporal.VerifyCompletenessPreserved(
+    new DateOnly(2023, 1, 1),
+    new DateOnly(2024, 1, 1)
+);
+Console.WriteLine($"Completeness preserved: {preservation.IsPreserved}");
+```
+
+**Use Cases:**
+- Calculate fees for past dates using historical schedules
+- Analyze impact of fee increases on existing applications
+- Verify regulatory compliance across version changes
+- Generate audit trails showing which version was used
+- Compare fee amounts before and after regulatory updates
+
 ---
 
 ## Input Definitions
