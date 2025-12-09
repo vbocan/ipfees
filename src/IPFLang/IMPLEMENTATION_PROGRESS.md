@@ -315,24 +315,260 @@ The counterfactual engine automatically generates what-if scenarios:
 
 ---
 
-## Future Innovations (Lower Priority)
+## Future Innovations (In Progress)
 
-These were identified but not prioritized for initial implementation:
+Based on Critical Review analysis, three additional innovations are planned to strengthen academic contribution and address formal verification gaps.
 
-### 4. Regulatory Temporal Logic (RTL)
-- Domain-specific temporal logic for regulatory deadlines
-- Jurisdiction-aware calendar semantics
-- Type-level temporal constraints
+---
 
-### 5. Jurisdiction Composition Calculus
-- Formal calculus for jurisdiction inheritance
-- Override and composition semantics
-- Cross-jurisdiction constraint verification
+## 4. Regulatory Change Semantics 🚧 IN PROGRESS
 
-### 6. Regulatory Change Semantics
-- First-class versioning in the language
-- Automatic diff generation
-- Impact analysis framework
+### Problem to Solve
+Fee schedules change frequently (annually or more often). Current implementation has no versioning support, making it impossible to:
+- Query historical fee amounts ("what was the fee on date X?")
+- Analyze impact of fee schedule changes
+- Verify that updates preserve completeness/monotonicity
+- Generate audit trails showing when and why fees changed
+
+### Innovation to Implement
+First-class versioning semantics with automatic diff generation and impact analysis.
+
+### Academic Contribution
+- **Novelty**: First DSL with formal regulatory change semantics and automated impact analysis
+- **Addresses Critical Review gaps**: Versioning, formal verification, temporal correctness
+- **Publication potential**: Standalone paper on "Version Control for Regulatory DSLs"
+- **Real-world validation**: Can analyze actual historical changes from 118 jurisdictions
+
+### Planned Implementation (Phase 1: Core Versioning)
+
+#### Files to Create
+
+| File | Purpose |
+|------|---------|
+| `Versioning/Version.cs` | Version representation (semantic versioning + effective dates) |
+| `Versioning/VersionedScript.cs` | Container for multiple versions of a fee schedule |
+| `Versioning/VersionResolver.cs` | Resolve which version applies for a given date |
+| `Versioning/ChangeRecord.cs` | Representation of changes between versions |
+| `Versioning/DiffEngine.cs` | Compare two versions, generate structured diff |
+| `Versioning/ImpactAnalyzer.cs` | Analyze impact of changes on calculations |
+| `Versioning/TemporalQuery.cs` | Query historical fee amounts |
+
+#### Files to Modify
+
+| File | Changes |
+|------|---------|
+| `Parser/Records.cs` | Add `DslVersion`, extend `DslScript` with version metadata |
+| `Parser/DslParser.cs` | Parse VERSION directive |
+| `Calculator/IDslCalculator.cs` | Add `ComputeAtDate()`, `AnalyzeChange()`, `GetVersionHistory()` |
+| `Calculator/DslCalculator.cs` | Version resolver integration |
+
+#### New Syntax to Implement
+
+```dsl
+# Version declaration
+VERSION '2024.1' EFFECTIVE 2024-01-15
+DESCRIPTION 'USPTO fee increase per Federal Register Vol. 89, No. 123'
+
+# Reference historical versions
+COMPUTE FEE FilingFee RETURN USD
+  CASE EffectiveDate BEFORE 2024-01-15
+    YIELD 100<USD>  # Old rate (version 2023.1)
+  DEFAULT
+    YIELD 150<USD>  # New rate (version 2024.1)
+  ENDCASE
+ENDCOMPUTE
+
+# Change analysis directive
+ANALYZE CHANGE FROM VERSION '2023.1' TO VERSION '2024.1'
+VERIFY PRESERVES COMPLETENESS
+VERIFY PRESERVES MONOTONICITY
+```
+
+#### API Design
+
+```csharp
+// Query historical fee
+var fee = calculator.ComputeAtDate(inputs, date: new DateTime(2023, 6, 1));
+
+// Analyze change impact
+var impact = calculator.AnalyzeChange("2023.1", "2024.1");
+// Returns: "32 of 355 fees changed, affecting calculations with ClaimCount > 20"
+
+// Get diff
+var diff = calculator.GetDiff("2023.1", "2024.1");
+foreach (var change in diff.Changes)
+{
+    Console.WriteLine($"{change.FeeName}: {change.OldValue} -> {change.NewValue}");
+    Console.WriteLine($"  Breaking: {change.IsBreaking}");
+    Console.WriteLine($"  Affects: {change.AffectedInputCombinations.Count} scenarios");
+}
+```
+
+#### Implementation Phases
+
+**Phase 1: Core Versioning (Weeks 1-2)**
+- [ ] Version data model and parser
+- [ ] VersionedScript container
+- [ ] VersionResolver for date-based resolution
+- [ ] Tests: 15 tests covering version parsing, resolution
+
+**Phase 2: Diff Engine (Weeks 3-4)**
+- [ ] DiffEngine comparing two versions
+- [ ] ChangeRecord with breaking/non-breaking classification
+- [ ] ImpactAnalyzer showing affected input combinations
+- [ ] Tests: 20 tests covering diff generation, impact analysis
+
+**Phase 3: Temporal Queries (Weeks 5-6)**
+- [ ] TemporalQuery for historical calculations
+- [ ] Integration with existing provenance system
+- [ ] Verification that changes preserve completeness/monotonicity
+- [ ] Tests: 15 tests covering temporal queries, verification
+
+**Phase 4: Real-World Validation (Week 7)**
+- [ ] Load actual 2023 vs 2024 USPTO fee schedules
+- [ ] Load actual 2023 vs 2024 EPO fee schedules
+- [ ] Generate change reports
+- [ ] Measure: number of breaking changes, affected scenarios
+- [ ] Document findings for paper
+
+#### Success Metrics
+- Successfully parse and manage 5+ versions per jurisdiction
+- Accurately identify breaking vs. non-breaking changes
+- Generate change reports validated against official notices
+- Query historical fees with 100% accuracy vs. official archives
+
+### Academic Paper Outline
+- **Title**: "Version Control and Change Impact Analysis for Regulatory Domain-Specific Languages"
+- **Contribution 1**: Formal semantics for regulatory versioning
+- **Contribution 2**: Automated diff algorithm with breaking change detection
+- **Contribution 3**: Impact analysis framework
+- **Evaluation**: Analysis of real fee changes across 118 jurisdictions over 2023-2024
+
+---
+
+## 5. Regulatory Temporal Logic (RTL) 📋 PLANNED
+
+### Problem to Solve
+IP fee calculations often depend on deadlines and time-sensitive events:
+- Late filing fees based on days past deadline
+- Deadline calculations vary by jurisdiction (business days vs. calendar days)
+- Holiday calendars differ by jurisdiction
+- No static verification that deadlines can be met
+
+### Innovation to Implement
+Domain-specific temporal logic with jurisdiction-aware calendar semantics and type-level temporal constraints.
+
+### Academic Contribution
+- **Novelty**: First temporal logic designed for regulatory compliance
+- **Formal foundations**: Adds mathematical framework requested by reviewers
+- **Practical value**: Automated deadline calculation and verification
+
+### Planned Syntax
+
+```dsl
+# Deadline input type
+DEFINE DEADLINE FilingDeadline AS 'Patent filing deadline'
+JURISDICTION USPTO
+BUSINESS_DAYS_ONLY
+EXCLUDE_HOLIDAYS
+DEFAULT TODAY + 6 MONTHS
+ENDDEFINE
+
+# Late fee calculation
+COMPUTE FEE LateFee RETURN USD
+  LET DaysLate = BUSINESS_DAYS_BETWEEN(FilingDeadline, ActualFilingDate)
+  YIELD 0<USD> IF DaysLate <= 0
+  YIELD 50<USD> * DaysLate IF DaysLate BETWEEN 1 AND 30
+  YIELD REJECT "Filing deadline exceeded" IF DaysLate > 30
+ENDCOMPUTE
+
+# Temporal verification
+VERIFY DEADLINE FilingDeadline IS REACHABLE FROM TODAY
+```
+
+### Implementation Phases
+**Phase 1**: Temporal type system (DEADLINE type, temporal operators)
+**Phase 2**: Jurisdiction calendar data (business days, holidays)
+**Phase 3**: Temporal verification (deadline reachability)
+**Phase 4**: Integration with existing type checker
+
+### Success Metrics
+- Support 10+ jurisdictions with different calendar rules
+- Accurately calculate business days vs. calendar days
+- Verify temporal constraints statically
+
+**Status**: Awaiting completion of Regulatory Change Semantics
+**Estimated Start**: Week 8
+
+---
+
+## 6. Jurisdiction Composition Calculus 📋 PLANNED
+
+### Problem to Solve
+Many jurisdictions share fee structures with minor variations (e.g., EPO vs. national phases). Current implementation duplicates fee definitions across 118 jurisdictions.
+
+### Innovation to Implement
+Formal composition calculus for jurisdiction inheritance with override semantics.
+
+### Academic Contribution
+- **Code reuse**: Reduce 355 fee definitions through inheritance
+- **Formal semantics**: Composition and override rules
+- **Verification**: Cross-jurisdiction constraint checking
+
+### Planned Syntax
+
+```dsl
+# Base jurisdiction
+JURISDICTION EPO {
+  DEFINE NUMBER ClaimCount AS 'Number of claims'
+  BETWEEN 0 AND 100
+  DEFAULT 1
+  ENDDEFINE
+  
+  COMPUTE FEE ClaimFee RETURN EUR
+    YIELD 15<EUR> * MAX(0, ClaimCount - 10)
+  ENDCOMPUTE
+}
+
+# Derived jurisdiction with override
+JURISDICTION EPO_DE INHERITS EPO {
+  OVERRIDE FEE ClaimFee RETURN EUR
+    YIELD 50<EUR> * MAX(0, ClaimCount - 10)  # Different rate
+  ENDOVERRIDE
+}
+```
+
+### Implementation Phases
+**Phase 1**: Parser support for JURISDICTION blocks and INHERITS
+**Phase 2**: Inheritance resolution algorithm
+**Phase 3**: Override semantics and validation
+**Phase 4**: Verification that overrides preserve type safety
+
+### Success Metrics
+- Define base jurisdictions (EPO, PCT, Madrid)
+- Reduce code duplication by 40%+
+- Verify override correctness
+
+**Status**: Awaiting completion of RTL
+**Estimated Start**: Week 14
+
+---
+
+## Implementation Timeline
+
+| Week | Phase | Deliverable |
+|------|-------|-------------|
+| 1-2  | Change Semantics Phase 1 | Version parsing and resolution |
+| 3-4  | Change Semantics Phase 2 | Diff engine and impact analysis |
+| 5-6  | Change Semantics Phase 3 | Temporal queries and verification |
+| 7    | Change Semantics Phase 4 | Real-world validation with USPTO/EPO |
+| 8-10 | RTL Phase 1-2 | Temporal types and calendar data |
+| 11-13| RTL Phase 3-4 | Verification and integration |
+| 14-16| Composition Phase 1-3 | Inheritance and override semantics |
+| 17   | Integration testing | All three innovations working together |
+
+**Current Status**: Starting Week 1 - Regulatory Change Semantics Phase 1
+**Next Milestone**: Version parsing complete by end of Week 2
 
 ---
 
