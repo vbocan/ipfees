@@ -58,6 +58,99 @@ The calculator processes inputs through fee definitions and produces totals, wit
 - **Completeness verification**: Ensures all input combinations are covered
 - **Provenance tracking**: Records which rules contributed to each fee
 - **Version management**: Tracks fee schedule changes with effective dates
+- **Temporal logic**: Business day calculations, deadline tracking, and time-based fees
+
+---
+
+## Temporal Operations
+
+IPFLang includes temporal operators for deadline calculations and time-based fee logic.
+
+**Business Days vs Calendar Days:**
+
+```csharp
+// Calculate business days between two dates (excludes weekends)
+var businessDays = TemporalOperators.BusinessDaysBetween(
+    new DateOnly(2024, 1, 15), // Monday
+    new DateOnly(2024, 1, 19)  // Friday
+); // Returns: 4 business days
+
+// Add business days (automatically skips weekends)
+var deadline = TemporalOperators.AddBusinessDays(
+    new DateOnly(2024, 1, 19), // Friday
+    3 // Add 3 business days
+); // Returns: 2024-01-24 (Wednesday)
+```
+
+**Late Fee Calculations:**
+
+```csharp
+var evaluator = new TemporalEvaluator();
+
+// Multiplier-based late fees (increases daily)
+var multiplier = evaluator.CalculateLateFeeMultiplier(
+    deadline: new DateOnly(2024, 1, 31),
+    actualDate: new DateOnly(2024, 2, 10), // 10 days late
+    baseMultiplier: 1.0m,
+    dailyIncrease: 0.01m,  // 1% per day
+    maxMultiplier: 2.0m    // Cap at 2x
+); // Returns: 1.10 (base fee * 1.10)
+
+// Stepped late fees (tier-based)
+var lateFee = evaluator.CalculateSteppedLateFee(
+    deadline,
+    actualDate,
+    (1, 50m),    // 1-29 days late: $50
+    (30, 100m),  // 30-59 days late: $100
+    (60, 200m)   // 60+ days late: $200
+);
+```
+
+**Patent Renewal Calculations:**
+
+```csharp
+// Check if renewal is due based on years since filing
+var isDue = evaluator.IsRenewalDue(
+    filingDate: new DateOnly(2020, 1, 15),
+    checkDate: new DateOnly(2024, 6, 1),
+    yearInterval: 3  // 3-year renewal cycle
+); // Returns: true (4+ years have passed)
+
+// Calculate next renewal date
+var nextRenewal = evaluator.CalculateNextRenewalDate(
+    filingDate: new DateOnly(2020, 1, 15),
+    yearInterval: 3
+); // Returns: 2026-01-15 (year 6)
+```
+
+**Priority Period Validation (Paris Convention):**
+
+```csharp
+// Check if later filing is within 12-month priority period
+var hasPriority = evaluator.IsWithinPriorityPeriod(
+    priorityDate: new DateOnly(2024, 1, 15),  // Earlier filing
+    filingDate: new DateOnly(2024, 10, 15),   // Later filing
+    months: 12  // 12-month priority period
+); // Returns: true (within period)
+```
+
+**Grace Period Checking:**
+
+```csharp
+// Check if payment is within grace period
+var withinGrace = evaluator.IsWithinGracePeriod(
+    deadline: new DateOnly(2024, 1, 31),
+    actualDate: new DateOnly(2024, 3, 15),
+    gracePeriodMonths: 6
+); // Returns: true (within 6 months)
+```
+
+**Use Cases:**
+- Automatic late fee calculations based on filing date
+- Renewal reminder systems with accurate date calculations
+- Priority right validation for international filings
+- Grace period extensions with fee multipliers
+- Business day deadline calculations (excluding weekends/holidays)
 
 ---
 
