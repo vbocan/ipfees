@@ -77,4 +77,17 @@ namespace IPFLang.Parser
     {
         public override string ToString() => $"VERIFY MONOTONIC FEE {FeeName} WITH RESPECT TO {WithRespectTo} DIRECTION {Direction}";
     }
+
+    /// <summary>
+    /// VERSION 'versionId' EFFECTIVE yyyy-MM-dd [DESCRIPTION 'description'] [REFERENCE 'reference']
+    /// </summary>
+    public record DslVersion(string VersionId, DateOnly EffectiveDate, string? Description = null, string? RegulatoryReference = null)
+    {
+        public override string ToString()
+        {
+            var desc = !string.IsNullOrWhiteSpace(Description) ? $" DESCRIPTION '{Description}'" : "";
+            var refer = !string.IsNullOrWhiteSpace(RegulatoryReference) ? $" REFERENCE '{RegulatoryReference}'" : "";
+            return $"VERSION '{VersionId}' EFFECTIVE {EffectiveDate:yyyy-MM-dd}{desc}{refer}";
+        }
+    }
 }

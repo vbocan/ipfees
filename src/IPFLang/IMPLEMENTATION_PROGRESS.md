@@ -6,13 +6,23 @@ This document tracks the implementation of research novelty features for IPFLang
 
 ## Overview
 
-The goal is to transform IPFLang from a standard DSL into a research contribution with genuine academic novelty. Three primary innovations were selected for implementation:
+The goal is to transform IPFLang from a standard DSL into a research contribution with genuine academic novelty. Six innovations have been identified for implementation:
+
+### Primary Innovations (Complete)
 
 | # | Innovation | Status | Academic Impact | Practical Value |
 |---|------------|--------|-----------------|-----------------|
 | 1 | Currency-Aware Type System | ✅ **COMPLETE** | High | High |
 | 2 | Completeness Verification | ✅ **COMPLETE** | Very High | High |
 | 3 | Provenance Semantics | ✅ **COMPLETE** | High | Very High |
+
+### Future Innovations (In Progress)
+
+| # | Innovation | Status | Academic Impact | Practical Value |
+|---|------------|--------|-----------------|-----------------|
+| 4 | Regulatory Change Semantics | 🚧 **IN PROGRESS** (Phase 1 ✅) | Very High | High |
+| 5 | Regulatory Temporal Logic (RTL) | 📋 **PLANNED** | High | High |
+| 6 | Jurisdiction Composition Calculus | 📋 **PLANNED** | Medium | Very High |
 
 ---
 
@@ -339,7 +349,102 @@ First-class versioning semantics with automatic diff generation and impact analy
 - **Publication potential**: Standalone paper on "Version Control for Regulatory DSLs"
 - **Real-world validation**: Can analyze actual historical changes from 118 jurisdictions
 
-### Planned Implementation (Phase 1: Core Versioning)
+### Implementation (Phase 1: Core Versioning) ✅ **COMPLETE**
+
+#### Implementation Date
+December 2024
+
+#### Files Created
+
+| File | Purpose |
+|------|---------|
+| `Versioning/Version.cs` | Version representation (semantic versioning + effective dates) |
+| `Versioning/VersionedScript.cs` | Container for multiple versions of a fee schedule with ParsedScript record |
+| `Versioning/VersionResolver.cs` | Resolve which version applies for a given date |
+
+#### Files Modified
+
+| File | Changes |
+|------|---------|
+| `Parser/Records.cs` | Added `DslVersion` record for version metadata |
+| `Parser/IDslParser.cs` | Added `GetVersion()` method |
+| `Parser/DslParser.cs` | Added `ParseVersion()` method, version field, and integration in parser chain |
+
+#### New Syntax Implemented
+
+```dsl
+# Basic version declaration
+VERSION '2024.1' EFFECTIVE 2024-01-15
+
+# With description
+VERSION '2024.1' EFFECTIVE 2024-01-15 DESCRIPTION 'USPTO fee increase'
+
+# With regulatory reference
+VERSION '2024.1' EFFECTIVE 2024-01-15 REFERENCE 'Federal Register Vol. 89, No. 123'
+
+# With both
+VERSION '2024.1' EFFECTIVE 2024-01-15 DESCRIPTION 'USPTO fee increase' REFERENCE 'Federal Register Vol. 89, No. 123'
+```
+
+#### Data Models Implemented
+
+```csharp
+// Version representation
+public record Version(
+    string Id,
+    DateOnly EffectiveDate,
+    string? Description = null,
+    string? RegulatoryReference = null
+);
+
+// Parsed script snapshot
+public record ParsedScript(
+    IEnumerable<DslInput> Inputs,
+    IEnumerable<DslFee> Fees,
+    IEnumerable<DslReturn> Returns,
+    IEnumerable<DslGroup> Groups,
+    IEnumerable<DslVerify> Verifications
+);
+
+// Versioned script container
+public class VersionedScript
+{
+    void AddVersion(Version version, ParsedScript script);
+    (Version Version, ParsedScript Script)? GetVersion(string versionId);
+    (Version Version, ParsedScript Script)? GetVersionAtDate(DateOnly date);
+    (Version Version, ParsedScript Script)? GetLatestVersion();
+    IEnumerable<string> GetVersionIds();
+    bool HasVersion(string versionId);
+}
+
+// Version resolver
+public class VersionResolver
+{
+    (Version Version, ParsedScript Script)? ResolveByDate(DateOnly date);
+    (Version Version, ParsedScript Script)? ResolveById(string versionId);
+    (Version Version, ParsedScript Script)? ResolveLatest();
+    IEnumerable<(Version Version, ParsedScript Script)> ResolveRange(DateOnly start, DateOnly end);
+    IEnumerable<Version> GetHistory();
+}
+```
+
+#### Test Coverage
+- 11 new tests in `VersioningTests.cs`
+- All 172 tests passing (161 previous + 11 new)
+- Tests cover:
+  - Version parsing (basic, with description, with reference, with both)
+  - VersionedScript operations (add, retrieve, chronological ordering)
+  - VersionResolver (by date, by ID, latest, range queries)
+
+#### Academic Contribution (Phase 1)
+- Formal version model with effective dates
+- Chronological version ordering and resolution
+- Support for regulatory references (e.g., Federal Register citations)
+- Foundation for diff engine and temporal queries
+
+---
+
+### Planned Implementation (Phases 2-4)
 
 #### Files to Create
 
@@ -406,11 +511,11 @@ foreach (var change in diff.Changes)
 
 #### Implementation Phases
 
-**Phase 1: Core Versioning (Weeks 1-2)**
-- [ ] Version data model and parser
-- [ ] VersionedScript container
-- [ ] VersionResolver for date-based resolution
-- [ ] Tests: 15 tests covering version parsing, resolution
+**Phase 1: Core Versioning (Weeks 1-2)** ✅ **COMPLETE**
+- [x] Version data model and parser
+- [x] VersionedScript container
+- [x] VersionResolver for date-based resolution
+- [x] Tests: 11 tests covering version parsing, resolution
 
 **Phase 2: Diff Engine (Weeks 3-4)**
 - [ ] DiffEngine comparing two versions
@@ -567,8 +672,8 @@ JURISDICTION EPO_DE INHERITS EPO {
 | 14-16| Composition Phase 1-3 | Inheritance and override semantics |
 | 17   | Integration testing | All three innovations working together |
 
-**Current Status**: Starting Week 1 - Regulatory Change Semantics Phase 1
-**Next Milestone**: Version parsing complete by end of Week 2
+**Current Status**: Week 2 - Regulatory Change Semantics Phase 1 ✅ **COMPLETE**
+**Next Milestone**: Diff engine and impact analysis (Phase 2)
 
 ---
 
@@ -592,11 +697,12 @@ dotnet test
 
 ### Current Test Status
 ```
-Passed: 161 | Failed: 0 | Skipped: 0
+Passed: 172 | Failed: 0 | Skipped: 0
 - Original tests: 77
 - Currency type tests: 39
 - Completeness tests: 25
 - Provenance tests: 20
+- Versioning tests: 11
 ```
 
 ---

@@ -1,6 +1,12 @@
 # IPFLang Syntax Reference
 
-IPFLang is a domain-specific language for defining intellectual property fee calculations. This document provides a complete reference for IP practitioners.
+IPFLang is a domain-specific language for defining intellectual property fee calculations with advanced features for currency handling, completeness verification, provenance tracking, and version management. This document provides a complete syntax reference for IP practitioners and developers.
+
+**Key Features:**
+- Currency-aware type system with compile-time validation
+- Static completeness and monotonicity verification
+- Provenance tracking with counterfactual analysis
+- Version management with effective dates and regulatory references
 
 ---
 
@@ -8,43 +14,50 @@ IPFLang is a domain-specific language for defining intellectual property fee cal
 
 1. [Basic Concepts](#basic-concepts)
 2. [Comments](#comments)
-3. [Input Definitions](#input-definitions)
+3. [Version Declaration](#version-declaration) *(versioning)*
+4. [Input Definitions](#input-definitions)
    - [LIST](#list-input)
    - [MULTILIST](#multilist-input)
    - [NUMBER](#number-input)
    - [BOOLEAN](#boolean-input)
    - [DATE](#date-input)
    - [AMOUNT](#amount-input) *(currency-aware)*
-4. [Groups](#groups)
-5. [Fee Computations](#fee-computations)
+5. [Groups](#groups)
+6. [Fee Computations](#fee-computations)
    - [Basic Fees](#basic-fees)
    - [Optional Fees](#optional-fees)
    - [Cases and Conditions](#cases-and-conditions)
    - [Local Variables (LET)](#local-variables)
    - [Polymorphic Fees](#polymorphic-fees) *(currency-aware)*
-6. [Expressions](#expressions)
+7. [Expressions](#expressions)
    - [Arithmetic](#arithmetic-operators)
    - [Comparisons](#comparison-operators)
    - [Logical](#logical-operators)
    - [Built-in Functions](#built-in-functions)
    - [Currency Literals](#currency-literals) *(currency-aware)*
    - [Currency Conversion](#currency-conversion) *(currency-aware)*
-7. [Returns](#returns)
-8. [Verification Directives](#verification-directives) *(completeness checking)*
+8. [Returns](#returns)
+9. [Verification Directives](#verification-directives) *(completeness checking)*
    - [VERIFY COMPLETE](#verify-complete)
    - [VERIFY MONOTONIC](#verify-monotonic)
-9. [Complete Example](#complete-example)
+10. [Complete Example](#complete-example)
 
 ---
 
 ## Basic Concepts
 
 IPFLang scripts define:
+- **Versions**: Optional metadata for tracking fee schedule changes over time
 - **Inputs**: Variables that users provide (entity type, claim count, dates, fees)
 - **Fees**: Computed amounts based on input values
 - **Returns**: Named outputs from the calculation
+- **Verification**: Static analysis directives for completeness and monotonicity
 
-The calculator processes inputs through fee definitions and produces totals.
+The calculator processes inputs through fee definitions and produces totals, with support for:
+- **Currency-aware type checking**: Prevents accidental cross-currency arithmetic
+- **Completeness verification**: Ensures all input combinations are covered
+- **Provenance tracking**: Records which rules contributed to each fee
+- **Version management**: Tracks fee schedule changes with effective dates
 
 ---
 
@@ -59,6 +72,60 @@ BETWEEN 0 AND 100
 DEFAULT 1
 ENDDEFINE
 ```
+
+---
+
+## Version Declaration
+
+Declare the version of a fee schedule with an effective date and optional metadata. This enables version tracking and temporal queries.
+
+**Syntax:**
+```
+VERSION '<VersionId>' EFFECTIVE yyyy-MM-dd [DESCRIPTION '<description>'] [REFERENCE '<reference>']
+```
+
+**Parameters:**
+- `VersionId`: Unique identifier for this version (e.g., '2024.1', '1.0.0')
+- `EFFECTIVE yyyy-MM-dd`: Date when this version becomes effective (ISO 8601 format)
+- `DESCRIPTION` (optional): Human-readable description of changes
+- `REFERENCE` (optional): Regulatory reference (e.g., Federal Register citation)
+
+**Examples:**
+
+Basic version declaration:
+```
+VERSION '2024.1' EFFECTIVE 2024-01-15
+```
+
+With description:
+```
+VERSION '2024.1' EFFECTIVE 2024-01-15 DESCRIPTION 'Annual fee increase'
+```
+
+With regulatory reference:
+```
+VERSION '2024.1' EFFECTIVE 2024-01-15 REFERENCE 'Federal Register Vol. 89, No. 123'
+```
+
+Complete example:
+```
+VERSION '2024.1' EFFECTIVE 2024-01-15 DESCRIPTION 'USPTO fee increase' REFERENCE 'Federal Register Vol. 89, No. 123'
+
+DEFINE NUMBER ClaimCount AS 'Number of claims'
+BETWEEN 1 AND 100
+DEFAULT 1
+ENDDEFINE
+
+COMPUTE FEE FilingFee RETURN USD
+  YIELD 100<USD>
+ENDCOMPUTE
+```
+
+**Notes:**
+- Version declaration is optional but recommended for tracking fee schedule changes
+- Only one VERSION directive is allowed per script
+- Version directive should appear at the beginning of the script
+- Effective date uses yyyy-MM-dd format (e.g., 2024-01-15)
 
 ---
 
@@ -585,6 +652,9 @@ RETURN GrandTotal AS 'Grand total'
 # ===========================================
 # European Patent Application Fee Calculator
 # ===========================================
+
+# Version declaration
+VERSION '2024.1' EFFECTIVE 2024-01-15 DESCRIPTION 'Updated EPO fees for 2024' REFERENCE 'EPO Official Journal 2023/12'
 
 # --- Groups ---
 DEFINE GROUP General AS 'General Information' WITH WEIGHT 1

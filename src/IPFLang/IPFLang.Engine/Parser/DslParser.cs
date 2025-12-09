@@ -22,6 +22,7 @@ namespace IPFLang.Parser
         private readonly IList<DslFee> IPFFees = new List<DslFee>();
         private readonly IList<DslVerify> IPFVerifications = new List<DslVerify>();
         private readonly IList<(DslError, string)> IPFErrors = new List<(DslError, string)>();
+        private DslVersion? IPFVersion = null;
 
 
         public DslParser() { }
@@ -30,6 +31,7 @@ namespace IPFLang.Parser
         {
             Func<string[], bool>[] IPFParsers = new Func<string[], bool>[]
             {
+                ParseVersion,
                 ParseGroup,
                 ParseList,
                 ParseListChoice,
@@ -163,6 +165,12 @@ namespace IPFLang.Parser
         {
             if (IPFErrors.Count > 0) throw new NotSupportedException("Unable to access verifications. Check the error list.");
             return IPFVerifications;
+        }
+
+        public DslVersion? GetVersion()
+        {
+            if (IPFErrors.Count > 0) throw new NotSupportedException("Unable to access version. Check the error list.");
+            return IPFVersion;
         }
 
         #region Tokenization
@@ -717,6 +725,58 @@ namespace IPFLang.Parser
             IPFFees.Clear();
             IPFVerifications.Clear();
             IPFErrors.Clear();
+            IPFVersion = null;
+        }
+        #endregion
+
+        #region Version Parsing
+        /// <summary>
+        /// Parse: VERSION 'versionId' EFFECTIVE yyyy-MM-dd [DESCRIPTION 'description'] [REFERENCE 'reference']
+        /// Note: Date is tokenized as separate yyyy, -, MM, -, dd tokens due to hyphen being a single-char token
+        /// </summary>
+        bool ParseVersion(string[] tokens)
+        {
+            if (CurrentlyParsing != Parsing.None) return false;
+            if (tokens.Length < 8) return false; // VERSION versionId EFFECTIVE yyyy - MM - dd (minimum 8 tokens)
+            if (tokens[0] != "VERSION") return false;
+            if (tokens[2] != "EFFECTIVE") return false;
+            
+            // Date is split as: yyyy - MM - dd (5 tokens)
+            if (tokens.Length < 8 || tokens[4] != "-" || tokens[6] != "-") return false;
+
+            var versionId = tokens[1];
+            
+            // Reconstruct date from tokens[3], tokens[5], tokens[7]
+            var dateString = $"{tokens[3]}-{tokens[5]}-{tokens[7]}";
+            if (!DateOnly.TryParseExact(dateString, "yyyy-MM-dd", CultureInfo.InvariantCulture, DateTimeStyles.None, out var effectiveDate))
+            {
+                throw new ArgumentException($"Invalid effective date format '{dateString}'. Expected yyyy-MM-dd");
+            }
+
+            string? description = null;
+            string? reference = null;
+
+            // Parse optional DESCRIPTION and REFERENCE (starting at index 8)
+            for (int i = 8; i < tokens.Length; i++)
+            {
+                if (tokens[i] == "DESCRIPTION" && i + 1 < tokens.Length)
+                {
+                    description = tokens[i + 1];
+                    i++;
+                }
+                else if (tokens[i] == "REFERENCE" && i + 1 < tokens.Length)
+                {
+                    reference = tokens[i + 1];
+                    i++;
+                }
+                else
+                {
+                    return false; // Unknown token
+                }
+            }
+
+            IPFVersion = new DslVersion(versionId, effectiveDate, description, reference);
+            return true;
         }
         #endregion
 
