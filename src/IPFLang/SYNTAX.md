@@ -213,6 +213,65 @@ Console.WriteLine($"Completeness preserved: {preservation.IsPreserved}");
 - Generate audit trails showing which version was used
 - Compare fee amounts before and after regulatory updates
 
+**Real-World Validation:**
+
+Validate fee schedules against actual regulatory changes:
+
+```csharp
+// Create versioned fee schedule
+var versionedScript = new VersionedScript();
+versionedScript.AddVersion(uspto2023Version, script2023);
+versionedScript.AddVersion(uspto2024Version, script2024);
+
+// Create validator
+var validator = new RealWorldValidator(versionedScript);
+
+// Generate comprehensive validation report
+var report = validator.GenerateReport();
+Console.WriteLine(report);
+// Output:
+// === Real-World Validation Report ===
+// Total Versions: 2
+// Total Transitions: 1
+// Total Changes: 3
+// Breaking Changes: 0
+//
+// --- USPTO-2023 → USPTO-2024 ---
+// Effective: 2024-01-15
+// Description: USPTO Fee Schedule 2024 - Annual Adjustments
+// Reference: Federal Register Vol. 89, No. 10
+// Changes: +0 ~3 -0
+// Impact: 1000 scenarios
+
+// Validate specific expectations
+var expectedChanges = new List<ExpectedChange>
+{
+    new(ExpectedChangeType.FeeModified, "FilingFee", "Annual fee increase"),
+    new(ExpectedChangeType.FeeModified, "SearchFee", "Annual fee increase"),
+    new(ExpectedChangeType.FeeModified, "ExaminationFee", "Annual fee increase")
+};
+
+var issues = validator.ValidateExpectedChanges("USPTO-2023", "USPTO-2024", expectedChanges);
+if (!issues.Any())
+{
+    Console.WriteLine("✓ All expected changes found in schedule");
+}
+
+// Check chronology
+var chronologyIssues = validator.ValidateChronology();
+foreach (var issue in chronologyIssues.Where(i => i.Severity == IssueSeverity.Error))
+{
+    Console.WriteLine($"ERROR: {issue.Message}");
+}
+```
+
+**Validation Reports Include:**
+- Total versions and transitions analyzed
+- Change statistics (added, removed, modified)
+- Breaking change identification
+- Regulatory references and effective dates
+- Impact analysis on input scenarios
+
 ---
 
 ## Input Definitions
