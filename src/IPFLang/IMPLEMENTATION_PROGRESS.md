@@ -12,7 +12,7 @@ The goal is to transform IPFLang from a standard DSL into a research contributio
 |---|------------|--------|-----------------|-----------------|
 | 1 | Currency-Aware Type System | ✅ **COMPLETE** | High | High |
 | 2 | Completeness Verification | ✅ **COMPLETE** | Very High | High |
-| 3 | Provenance Semantics | 🔲 Not Started | High | Very High |
+| 3 | Provenance Semantics | ✅ **COMPLETE** | High | Very High |
 
 ---
 
@@ -179,94 +179,139 @@ VERIFY MONOTONIC FEE StrictFee WITH RESPECT TO Count DIRECTION StrictlyIncreasin
 
 ---
 
-## 3. Provenance Semantics 🔲 NOT STARTED
+## 3. Provenance Semantics ✅ COMPLETE
 
-### Problem to Solve
-Current audit trails show *what* was calculated but not *why* in a formally structured way. Legal disputes require understanding exactly which rules contributed to each fee component.
+### Problem Solved
+Fee calculations lacked formal audit trails. Users could see final amounts but not understand *why* specific fees were charged or *which rules* contributed. Legal disputes and regulatory audits require precise provenance tracking.
 
-### Proposed Innovation
-Semantics where every computed value carries formal provenance:
+### Innovation Implemented
+Every computed fee carries formal provenance tracking:
+- Which CASE conditions fired
+- Which YIELD conditions matched
+- Individual contribution amounts from each rule
+- LET variable evaluations
+- Counterfactual explanations showing alternative outcomes
+
+### Implementation Date
+December 2024
+
+### Files Created
+
+| File | Purpose |
+|------|---------|
+| `Provenance/ProvenanceRecord.cs` | Core data model with `ProvenanceRecord`, `FeeProvenance`, `ComputationProvenance`, `Counterfactual` classes |
+| `Provenance/ProvenanceCollector.cs` | Collects provenance during fee evaluation |
+| `Provenance/CounterfactualEngine.cs` | Generates what-if scenarios by trying alternative input values |
+| `Provenance/ProvenanceExporter.cs` | Export to JSON, text, markdown, and legal citation formats |
+
+### Files Modified
+
+| File | Changes |
+|------|---------|
+| `Calculator/IDslCalculator.cs` | Added `ComputeWithProvenance()`, `ComputeWithCounterfactuals()` |
+| `Calculator/DslCalculator.cs` | Integration of provenance collector and counterfactual engine |
+| `Types/CurrencyTypeChecker.cs` | Fixed LET variable binding (prefixed vs unprefixed names) |
+
+### API Usage
 
 ```csharp
-FeeResult {
-  amount: 1250 EUR,
-  provenance: [
-    (FilingFee, Rule 2.3, "ClaimCount > 20", contributed: 500 EUR),
-    (SearchFee, Rule 4.1, "EntityType = Small", contributed: 750 EUR)
-  ],
-  counterfactuals: [
-    "If EntityType were Large: total would be 2500 EUR (+1250)",
-    "If ClaimCount were 20: total would be 750 EUR (-500)"
-  ]
+// Get provenance with computation
+var provenance = calculator.ComputeWithProvenance(inputs);
+
+// Access breakdown
+foreach (var fee in provenance.FeeProvenances)
+{
+    Console.WriteLine($"Fee: {fee.FeeName}, Total: {fee.TotalAmount}");
+    foreach (var record in fee.ContributingRecords)
+    {
+        Console.WriteLine($"  + {record.Contribution} from [{record.Expression}]");
+        if (record.CaseCondition != null)
+            Console.WriteLine($"    CASE: {record.CaseCondition}");
+    }
+}
+
+// Get counterfactuals too
+var withCf = calculator.ComputeWithCounterfactuals(inputs);
+foreach (var cf in withCf.Counterfactuals)
+{
+    Console.WriteLine($"If {cf.InputName} were {cf.AlternativeValue}: {cf.AlternativeTotal} ({cf.Difference:+0.00;-0.00})");
 }
 ```
 
-### Implementation Plan
+### Provenance Data Model
 
-#### Phase 1: Provenance Data Model
-- Define provenance record structure
-- Track rule references, conditions matched, contributions
+```csharp
+ProvenanceRecord {
+    FeeName: string,           // Which fee this contribution belongs to
+    CaseCondition: string?,    // The CASE condition (if any)
+    CaseConditionResult: bool, // Whether case condition was true
+    YieldCondition: string?,   // The YIELD IF condition (if any)
+    YieldConditionResult: bool,// Whether yield condition was true
+    Expression: string,        // The evaluated expression
+    Contribution: decimal,     // Amount contributed
+    DidContribute: bool,       // True if actually added to total
+    ReferencedInputs: dict,    // Input values used in evaluation
+    LetVariables: dict         // LET variable values
+}
 
-**New files to create:**
-```
-Provenance/ProvenanceRecord.cs      - Single provenance entry
-Provenance/ProvenanceTrace.cs       - Full provenance for a result
-Provenance/RuleReference.cs         - Reference to DSL rule
-```
+FeeProvenance {
+    FeeName: string,
+    IsOptional: bool,
+    Records: List<ProvenanceRecord>,
+    LetVariables: Dictionary<string, decimal>,
+    TotalAmount: decimal,      // Computed property
+    ContributingRecords,       // Records where DidContribute = true
+    SkippedRecords            // Records where condition was false
+}
 
-#### Phase 2: Instrumented Evaluation
-- Extend evaluator to track which rules fired
-- Record condition evaluation results
-- Accumulate contributions per fee
+ComputationProvenance {
+    InputValues: Dictionary<string, object>,
+    FeeProvenances: List<FeeProvenance>,
+    TotalMandatory: decimal,
+    TotalOptional: decimal,
+    GrandTotal: decimal,
+    Counterfactuals: List<Counterfactual>
+}
 
-**Files to modify:**
-```
-Evaluator/DslEvaluator.cs           - Add provenance tracking
-Calculator/DslCalculator.cs         - Return provenance with results
-```
-
-**New files to create:**
-```
-Evaluator/ProvenanceContext.cs      - Context with provenance tracking
-```
-
-#### Phase 3: Provenance Composition
-- Define algebra for composing provenance
-- Handle LET variable provenance
-- Propagate through arithmetic operations
-
-**New files to create:**
-```
-Provenance/ProvenanceAlgebra.cs     - Composition operations
-Provenance/ProvenanceComposer.cs    - Compose during evaluation
-```
-
-#### Phase 4: Counterfactual Generation
-- Identify key decision points
-- Re-evaluate with modified inputs
-- Generate human-readable explanations
-
-**New files to create:**
-```
-Provenance/CounterfactualEngine.cs  - Generate counterfactuals
-Provenance/ExplanationGenerator.cs  - Natural language output
+Counterfactual {
+    InputName: string,
+    OriginalValue: object,
+    AlternativeValue: object,
+    OriginalTotal: decimal,
+    AlternativeTotal: decimal,
+    Difference: decimal
+}
 ```
 
-#### Phase 5: Output Formats
-- JSON export for integration
-- Human-readable report format
-- Legal citation format
+### Export Formats
 
-**New files to create:**
-```
-Provenance/ProvenanceExporter.cs    - Export formats
-Provenance/LegalCitationFormat.cs   - Legal-style citations
-```
+| Method | Format | Use Case |
+|--------|--------|----------|
+| `ToJson()` | JSON | API integration, data exchange |
+| `ToText()` | Human-readable | Console output, logging |
+| `ToMarkdown()` | Markdown tables | Documentation, reports |
+| `ToLegalCitation()` | Legal format | Dispute resolution, formal audits |
 
-### Academic Contribution (Expected)
-- Formal provenance semantics for regulatory calculations
+### Counterfactual Generation
+
+The counterfactual engine automatically generates what-if scenarios:
+
+| Input Type | Alternative Values Generated |
+|------------|------------------------------|
+| Boolean | Opposite value |
+| List | All other choices |
+| Number | Boundary values (min, max, middle) |
+| Amount | Doubled and halved values |
+
+### Test Coverage
+- 20 new tests in `ProvenanceTests.cs`
+- All 161 tests passing (141 previous + 20 new)
+
+### Academic Contribution
+- Formal provenance semantics for regulatory fee calculations
 - Counterfactual generation algorithm for fee explanations
-- Provenance composition laws (associativity, etc.)
+- Multiple export formats for different stakeholders (technical, legal, documentation)
+- Provenance composition across LET variables and nested conditions
 
 ---
 
@@ -311,10 +356,11 @@ dotnet test
 
 ### Current Test Status
 ```
-Passed: 141 | Failed: 0 | Skipped: 0
+Passed: 161 | Failed: 0 | Skipped: 0
 - Original tests: 77
 - Currency type tests: 39
 - Completeness tests: 25
+- Provenance tests: 20
 ```
 
 ---
@@ -336,21 +382,24 @@ Passed: 141 | Failed: 0 | Skipped: 0
 
 ## Resuming Work
 
-To continue implementation:
+All three primary innovations are now complete! To extend with future innovations:
 
-1. **For Provenance Semantics**: Start with Phase 1 (Provenance Data Model). Create `Provenance/` folder and implement core records.
-
-2. **Run existing tests** after any changes to ensure backward compatibility:
+1. **Run existing tests** after any changes to ensure backward compatibility:
    ```bash
    dotnet test src/IPFLang/IPFLang.sln
    ```
 
-3. **Follow the pattern** established in Currency Type System and Completeness Verification:
+2. **Follow the pattern** established in the completed implementations:
    - Create interfaces first
    - Implement core logic
    - Extend parser if new syntax needed
    - Integrate with calculator
    - Write comprehensive tests
+
+3. **Consider future innovations** from the "Future Innovations" section above:
+   - Regulatory Temporal Logic (RTL)
+   - Jurisdiction Composition Calculus
+   - Regulatory Change Semantics
 
 ### Completed Implementations
 
@@ -358,3 +407,4 @@ To continue implementation:
 |------------|-----------|-------|
 | Currency-Aware Type System | December 2024 | 39 tests |
 | Completeness Verification | December 2024 | 25 tests |
+| Provenance Semantics | December 2024 | 20 tests |
