@@ -1,5 +1,4 @@
 using Asp.Versioning;
-using IPFees.API.Attributes;
 using IPFees.API.Data;
 using IPFees.Core.Data;
 using IPFees.Core.FeeCalculation;
@@ -17,7 +16,6 @@ namespace IPFees.API.Controllers
     [ApiController]
     [Route("api/v{version:apiVersion}/[controller]")]
     [ApiVersion("1")]
-    [ApiKey]
     public class FeeController : ControllerBase
     {
         #region Constants

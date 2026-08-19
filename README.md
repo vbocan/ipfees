@@ -132,9 +132,27 @@ For a detailed technical architecture diagram, see [architecture.md](docs/archit
 - **Currency Type Safety**: Cross-currency arithmetic is rejected at edit time, not discovered at calculation time
 - **Multi-Jurisdiction Support**: Configurable architecture supporting USPTO, EPO, WIPO, and 118 national patent offices
 - **Real-Time Currency Management**: Multi-currency precision with real-time conversion, historical rate tracking, and three-tier fallback system
-- **API-First Design**: Comprehensive REST APIs for integration with IP management platforms
+- **API-First Design**: Comprehensive REST APIs for integration with IP management platforms. **The API is public and unauthenticated** — see [API access](#api-access) below
 - **Bulk Processing**: Portfolio-level fee estimation for large IP holdings
 - **Extensible Architecture**: Add new jurisdictions through configuration without code changes
+
+## API access
+
+The REST API at `/api/v1` is **public and requires no authentication**. It exposes the same
+fee schedules as the web calculator, which are published by the patent offices themselves, so
+there is nothing here that is not already public.
+
+There is no rate limiting. Treat the hosted instance as a reference service, and run your own
+deployment if you need it as a dependency. `/Fee/Verify` is the one endpoint worth singling
+out: it runs static analysis over a fee schedule rather than simply evaluating it, and a
+schedule declaring a monotonicity directive will consume the full verification budget before
+responding.
+
+Earlier releases carried an `[ApiKey]` attribute on the API controllers. It never enforced
+anything — the validator behind it was an unimplemented stub that accepted every request,
+including requests with no key at all. Rather than leave a control that looks present and is
+not, it has been removed and the API is documented as open. If you need authenticated access,
+deploy your own instance behind a gateway that enforces it.
 
 ## Performance Metrics
 
