@@ -5,7 +5,6 @@ using IPFees.Core.FeeCalculation;
 using IPFees.Core.FeeManager;
 using IPFLang.Evaluator;
 using IPFLang.Parser;
-using Mapster;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using System.Globalization;
@@ -142,7 +141,7 @@ namespace IPFees.API.Controllers
         }
 
         [HttpPost("Calculate"), MapToApiVersion("1")]
-        [ProducesResponseType(typeof(TotalFeeInfo), 200)]
+        [ProducesResponseType(typeof(CalculationResult), 200)]
         public async Task<IActionResult> Calculate([FromBody] CalculationViewModel Model)
         {
             logger.LogInformation($"[REQUEST] Perform calculation for jurisdictions {Model.Jurisdictions}.");
@@ -165,9 +164,16 @@ namespace IPFees.API.Controllers
                     // Errors have occured while calculating
                     return StatusCode(StatusCodes.Status500InternalServerError);
                 }
-                // We're not returning a POCO, so we need a dedicated object
-                var CalculationResult = FeeResults.Adapt<CalculationResult>();
-                return Ok(CalculationResult);
+                // Constructed rather than mapped by convention. A name-matching mapper silently
+                // yields null for any field whose source has been renamed, which is how three
+                // totals reached the wire empty after the fee model changed shape. Naming each
+                // field here turns that class of mistake into a compile error.
+                return Ok(new CalculationResult(
+                    FeeResults.JurisdictionFees,
+                    FeeResults.TotalFees,
+                    FeeResults.TotalServiceFee,
+                    FeeResults.GrandTotalFee,
+                    FeeResults.Errors));
             }
             catch (Exception)
             {
@@ -262,5 +268,11 @@ namespace IPFees.API.Controllers
     public record CalculationParams(IEnumerable<object> Inputs);
     public record CalculationViewModel(string Jurisdictions, string TargetCurrency, IEnumerable<CalculationParameter> Parameters);
     public record CalculationParameter(string Type, string Name, string Value);
-    public record CalculationResult(List<JurisdictionFeesAmount> JurisdictionFees, Fee TotalOfficialFee, Fee TotalPartnerFee, Fee TotalTranslationFee, Fee TotalServiceFee, Fee GrandTotalFee, IList<FeeResultFail> Errors);
+    /// <param name="TotalFees">
+    /// Everything the jurisdictions' own schedules produced, converted to the target currency.
+    /// </param>
+    /// <param name="TotalServiceFee">
+    /// Filing-orchestration charge, which comes from settings rather than from any schedule.
+    /// </param>
+    public record CalculationResult(List<JurisdictionFeesAmount> JurisdictionFees, Fee TotalFees, Fee TotalServiceFee, Fee GrandTotalFee, IList<FeeResultFail> Errors);
 }
