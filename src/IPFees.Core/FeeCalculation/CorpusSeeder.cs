@@ -18,7 +18,13 @@ namespace IPFees.Core.FeeCalculation
         Task<CorpusSeedReport> SeedAsync(CancellationToken cancellationToken = default);
     }
 
-    public record CorpusSeedReport(int Jurisdictions, int Bases, IReadOnlyList<string> Errors)
+    /// <param name="Superseded">
+    /// Fee documents removed because the corpus now covers their jurisdiction. IPFees used to
+    /// hold three documents per jurisdiction, split by category; the corpus expresses each
+    /// jurisdiction as one schedule. Leaving the old ones in place would double-count, since a
+    /// calculation sums every definition registered for a jurisdiction.
+    /// </param>
+    public record CorpusSeedReport(int Jurisdictions, int Bases, int Superseded, IReadOnlyList<string> Errors)
     {
         public bool Succeeded => Errors.Count == 0;
     }
@@ -83,7 +89,47 @@ namespace IPFees.Core.FeeCalculation
                 }
             }
 
-            return new CorpusSeedReport(seeded, baseIds.Count, errors);
+            var superseded = await PruneSupersededFees(errors);
+
+            return new CorpusSeedReport(seeded, baseIds.Count, superseded, errors);
+        }
+
+        /// <summary>
+        /// Remove fee documents that the corpus has replaced.
+        ///
+        /// Before the corpus became the source of fee schedules, a jurisdiction was three
+        /// documents: official, translation and agent fees. Each is now a component of the one
+        /// schedule the corpus ships. A calculation sums every definition registered for a
+        /// jurisdiction, so leaving the old documents alongside the new one double-counts.
+        ///
+        /// Only jurisdictions the corpus covers are touched. Anything registered against a
+        /// jurisdiction the corpus does not know is left alone.
+        /// </summary>
+        private async Task<int> PruneSupersededFees(List<string> errors)
+        {
+            var covered = JurisdictionCorpus.Codes.ToHashSet(StringComparer.OrdinalIgnoreCase);
+            var removed = 0;
+
+            var stale = (await fees.GetFees())
+                .Where(f => covered.Contains(f.JurisdictionName)
+                            && !f.Name.Equals($"PCT-{f.JurisdictionName}", StringComparison.OrdinalIgnoreCase))
+                .ToList();
+
+            foreach (var fee in stale)
+            {
+                try
+                {
+                    var result = await fees.RemoveFeeAsync(fee.Id);
+                    if (result.Success) removed++;
+                    else errors.Add($"could not remove superseded fee '{fee.Name}': {result.Reason}");
+                }
+                catch (Exception ex)
+                {
+                    errors.Add($"could not remove superseded fee '{fee.Name}': {ex.Message}");
+                }
+            }
+
+            return removed;
         }
 
         /// <summary>

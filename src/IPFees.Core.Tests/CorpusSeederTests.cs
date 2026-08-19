@@ -32,6 +32,30 @@ namespace IPFees.Core.Tests
                 new FeeScriptComposer(new DslParser()));
 
         [Fact]
+        public async Task SeedingLeavesExactlyOneSchedulePerJurisdiction()
+        {
+            // IPFees used to hold three documents per jurisdiction, split by category. A
+            // calculation sums every definition registered for a jurisdiction, so if the old
+            // documents survive alongside the corpus schedule every fee is counted twice.
+            var stale = await fixture.FeeRepository.AddFeeAsync("PCT-RO-OFF");
+            Assert.True(stale.Success);
+            Assert.True((await fixture.FeeRepository.SetFeeJurisdictionNameAsync(stale.Id, "RO")).Success);
+            Assert.True((await fixture.FeeRepository.SetFeeSourceCodeAsync(stale.Id, "COMPUTE FEE Legacy\nYIELD 1\nENDCOMPUTE")).Success);
+
+            var report = await NewSeeder().SeedAsync();
+
+            Assert.True(report.Succeeded, string.Join(" | ", report.Errors));
+            Assert.True(report.Superseded >= 1, "the legacy document should have been removed");
+
+            var romanian = (await fixture.FeeRepository.GetFees())
+                .Where(f => f.JurisdictionName.Equals("RO", StringComparison.OrdinalIgnoreCase))
+                .ToList();
+
+            var only = Assert.Single(romanian);
+            Assert.Equal("PCT-RO", only.Name);
+        }
+
+        [Fact]
         public async Task SeedsEveryJurisdictionAndBaseFromThePackage()
         {
             var report = await NewSeeder().SeedAsync();
