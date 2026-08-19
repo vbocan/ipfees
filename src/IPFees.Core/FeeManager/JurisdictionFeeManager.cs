@@ -81,7 +81,9 @@ namespace IPFees.Core.FeeManager
                 var configured = await settingsRepository.GetServiceFeeAsync(jur.ServiceFeeLevel);
                 var ServiceFee = new Fee(configured.Amount, 0, configured.Currency);
 
-                var Fees = new Fee(0M, 0M, string.Empty);
+                // Seeded in the target currency: every component is converted before it is
+                // accumulated, and Fee.Add refuses to combine two different currencies.
+                var Fees = new Fee(0M, 0M, TargetCurrency);
                 var Language = "N/A";
                 var Calculated = false;
                 var Failed = false;
@@ -110,8 +112,16 @@ namespace IPFees.Core.FeeManager
 
                     // Convert each definition from its own currency before accumulating, so a
                     // jurisdiction whose components are quoted in different currencies still adds up.
-                    Fees = Fee.Add(Fees, ConvertCurrency(new Fee(frc.TotalMandatoryAmount, frc.TotalOptionalAmount, Currency), TargetCurrency, CurrencyMarkup));
-                    Calculated = true;
+                    try
+                    {
+                        Fees = Fee.Add(Fees, ConvertCurrency(new Fee(frc.TotalMandatoryAmount, frc.TotalOptionalAmount, Currency), TargetCurrency, CurrencyMarkup));
+                        Calculated = true;
+                    }
+                    catch (Exception ex)
+                    {
+                        Errors.Add(new FeeResultFail(fd.Name, fd.Description, new[] { $"Could not convert {Currency} to {TargetCurrency}: {ex.Message}" }));
+                        Failed = true;
+                    }
                 }
 
                 if (Failed) continue;
