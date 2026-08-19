@@ -1,7 +1,7 @@
-using IPFees.Core.CurrencyConversion;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using IPFLang.CurrencyConversion;
 
 namespace IPFees.Web.Areas.Currency.Pages
 {    
@@ -31,7 +31,7 @@ namespace IPFees.Web.Areas.Currency.Pages
                 decimal? ExchangeRate = null;
                 try
                 {
-                    ExchangeRate = Math.Round(serd.ConvertCurrency(1, Currency, "EUR"), 4);
+                    ExchangeRate = Math.Round(serd.Convert(1, Currency, "EUR"), 4);
                 }
                 catch (Exception) { }
                 yield return (Currency, Description, ExchangeRate);

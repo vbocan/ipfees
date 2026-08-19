@@ -3,7 +3,6 @@ using IPFees.API.Data;
 using IPFees.API.Filters;
 using IPFees.API.Services;
 using IPFLang.Engine;
-using IPFees.Core.CurrencyConversion;
 using IPFees.Core.Data;
 using IPFees.Core.FeeCalculation;
 using IPFees.Core.FeeManager;
@@ -16,6 +15,7 @@ using MongoDB.Bson;
 using MongoDB.Bson.Serialization;
 using MongoDB.Bson.Serialization.Serializers;
 using Serilog;
+using IPFLang.CurrencyConversion;
 
 // Configure GuidRepresentation globally.
 // This must match IPFees.Web, which writes the documents this process reads. Without it the

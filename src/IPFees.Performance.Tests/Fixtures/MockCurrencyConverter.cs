@@ -1,4 +1,4 @@
-using IPFees.Core.CurrencyConversion;
+using IPFLang.CurrencyConversion;
 
 namespace IPFees.Performance.Tests.Fixtures
 {
@@ -23,14 +23,14 @@ namespace IPFees.Performance.Tests.Fixtures
         public MockCurrencyConverter()
         {
             Response = new ExchangeRateResponse(
-                ResponseStatus.ResponseOnline,
+                ResponseStatus.Online,
                 string.Empty,
                 exchangeRates,
                 DateTime.Now
             );
         }
 
-        public decimal ConvertCurrency(decimal Amount, string SourceCurrency, string TargetCurrency)
+        public decimal Convert(decimal Amount, string SourceCurrency, string TargetCurrency)
         {
             if (SourceCurrency == TargetCurrency)
                 return Amount;
@@ -41,7 +41,18 @@ namespace IPFees.Performance.Tests.Fixtures
             return Amount * (toRate / fromRate);
         }
 
-        public IEnumerable<(string, string)> GetCurrencies()
+        public decimal GetRate(string SourceCurrency, string TargetCurrency)
+        {
+            if (SourceCurrency == TargetCurrency)
+                return 1.0m;
+
+            var fromRate = exchangeRates.GetValueOrDefault(SourceCurrency, 1.0m);
+            var toRate = exchangeRates.GetValueOrDefault(TargetCurrency, 1.0m);
+
+            return toRate / fromRate;
+        }
+
+        public IEnumerable<(string Code, string Name)> GetCurrencies()
         {
             return exchangeRates.Keys.Select(k => (k, k)).ToList();
         }

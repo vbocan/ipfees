@@ -1,4 +1,4 @@
-﻿using IPFLang.Evaluator;
+using IPFLang.Evaluator;
 using IPFLang.Parser;
 
 namespace IPFees.Core.FeeCalculation
@@ -12,5 +12,10 @@ namespace IPFees.Core.FeeCalculation
         /// Run the fee's static verification directives (completeness, monotonicity).
         /// </summary>
         FeeResult Verify(Guid FeeId);
+
+        /// <summary>
+        /// Compute the fee and record why each amount arose, optionally with counterfactuals.
+        /// </summary>
+        FeeResult Explain(Guid FeeId, IList<IPFValue> InputValues, bool IncludeAlternatives = false);
     }
 }

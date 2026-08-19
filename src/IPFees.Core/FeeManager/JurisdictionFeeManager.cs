@@ -1,4 +1,3 @@
-using IPFees.Core.CurrencyConversion;
 using IPFees.Core.Data;
 using IPFees.Core.Enum;
 using IPFees.Core.FeeCalculation;
@@ -7,6 +6,7 @@ using IPFees.Core.Repository;
 using IPFLang.Evaluator;
 using IPFLang.Parser;
 using MongoDB.Driver;
+using IPFLang.CurrencyConversion;
 
 namespace IPFees.Core.FeeManager
 {
@@ -202,6 +202,20 @@ namespace IPFees.Core.FeeManager
             }
         }
 
+        public IEnumerable<FeeExplanation> Explain(IEnumerable<string> JurisdictionNames, IList<IPFValue> InputValues, bool IncludeAlternatives = false)
+        {
+            foreach (var jn in JurisdictionNames)
+            {
+                foreach (var fd in GetFeeDefinitionForJurisdiction(jn))
+                {
+                    if (feeCalculator.Explain(fd.Id, InputValues, IncludeAlternatives) is FeeResultExplanation explained)
+                    {
+                        yield return explained.Explanation;
+                    }
+                }
+            }
+        }
+
         private IEnumerable<FeeInfo> GetFeeDefinitionForJurisdiction(string JurisdictionName) => feeRepository.GetFees().Result.Where(w => w.JurisdictionName.Equals(JurisdictionName));
 
         /// <summary>
@@ -216,8 +230,8 @@ namespace IPFees.Core.FeeManager
             // Avoid converting the same currency (markup would be applied needlessly)
             if (SourceFee.Currency.Equals(TargetCurrency)) return SourceFee;
             // Compute the monetary value in the TargetCurrency
-            var ma = currencyConverter.ConvertCurrency(SourceFee.MandatoryAmount, SourceFee.Currency, TargetCurrency);
-            var oa = currencyConverter.ConvertCurrency(SourceFee.OptionalAmount, SourceFee.Currency, TargetCurrency);
+            var ma = currencyConverter.Convert(SourceFee.MandatoryAmount, SourceFee.Currency, TargetCurrency);
+            var oa = currencyConverter.Convert(SourceFee.OptionalAmount, SourceFee.Currency, TargetCurrency);
             // Add the specified currency markup
             var mam = ma + (ma * CurrencyMarkup / 100M);
             var oam = oa + (oa * CurrencyMarkup / 100M);

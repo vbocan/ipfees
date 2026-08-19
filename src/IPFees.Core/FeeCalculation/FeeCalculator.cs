@@ -1,8 +1,10 @@
 using IPFees.Core.Model;
 using IPFees.Core.Repository;
+using IPFLang.CurrencyConversion;
 using IPFLang.Engine;
 using IPFLang.Evaluator;
 using IPFLang.Parser;
+using IPFLang.Provenance;
 
 namespace IPFees.Core.FeeCalculation
 {
@@ -23,13 +25,22 @@ namespace IPFees.Core.FeeCalculation
         private readonly IEnumerable<FeeInfo> Fees;
         private readonly IEnumerable<ModuleInfo> Modules;
 
-        public FeeCalculator(IFeeRepository fee, IModuleRepository module, IDslCalculator calculator, IFeeScriptComposer composer, VerificationBudget? budget = null)
+        public FeeCalculator(IFeeRepository fee, IModuleRepository module, IDslCalculator calculator, IFeeScriptComposer composer, VerificationBudget? budget = null, ICurrencyConverter? currencyConverter = null)
         {
             Calculator = calculator;
             Composer = composer;
             Budget = budget ?? new VerificationBudget();
             Fees = fee.GetFees().Result;
             Modules = module.GetModules().Result;
+
+            // The engine owns the arithmetic behind the CONVERT operator but carries no exchange
+            // rates of its own. Handing it the rates this deployment holds is what makes a
+            // schedule written with CONVERT executable; without it the operator has nothing to
+            // work from.
+            if (currencyConverter is not null)
+            {
+                Calculator.SetCurrencyConverter(currencyConverter);
+            }
         }
 
         private FeeInfo? GetFeeById(Guid Id) => Fees.SingleOrDefault(w => w.Id.Equals(Id));
@@ -100,6 +111,83 @@ namespace IPFees.Core.FeeCalculation
         }
 
         /// <summary>
+        /// Compute the fee and record why each amount arose.
+        ///
+        /// Where <see cref="Calculate"/> returns totals, this returns the reasoning behind them:
+        /// which yields fired, which did not and on what condition, and what the inputs were at
+        /// each step. Asking for alternatives additionally reports what the total would have
+        /// been had a single input differed.
+        /// </summary>
+        /// <param name="FeeId">Fee Id</param>
+        /// <param name="InputValues">Calculation parameters</param>
+        /// <param name="IncludeAlternatives">Also compute counterfactual totals for each input.</param>
+        public FeeResult Explain(Guid FeeId, IList<IPFValue> InputValues, bool IncludeAlternatives = false)
+        {
+            var (fee, failure) = Prepare(FeeId);
+            if (failure is not null) return failure;
+
+            try
+            {
+                var provenance = IncludeAlternatives
+                    ? Calculator.ComputeWithCounterfactuals(InputValues)
+                    : Calculator.ComputeWithProvenance(InputValues);
+
+                return new FeeResultExplanation(fee.Name, fee.Description, Describe(fee, provenance));
+            }
+            catch (Exception ex)
+            {
+                return new FeeResultFail(fee.Name, fee.Description, new[] { ex.Message });
+            }
+        }
+
+        /// <summary>
+        /// Restate the engine's provenance in the platform's own vocabulary.
+        /// </summary>
+        private static FeeExplanation Describe(FeeInfo fee, ComputationProvenance provenance)
+        {
+            var fees = provenance.FeeProvenances.Select(f => new ExplainedFee(
+                f.FeeName,
+                f.IsOptional,
+                f.TotalAmount,
+                f.Records.Select(r => new ExplainedStep(
+                    r.Expression,
+                    r.Contribution,
+                    r.DidContribute,
+                    DescribeCondition(r),
+                    r.ReferencedInputs.ToDictionary(k => k.Key, v => v.Value?.ToString() ?? string.Empty),
+                    new Dictionary<string, decimal>(r.LetVariables))).ToList()))
+                .ToList();
+
+            var alternatives = provenance.Counterfactuals.Select(c => new ExplainedAlternative(
+                c.InputName,
+                c.OriginalValue?.ToString() ?? string.Empty,
+                c.AlternativeValue?.ToString() ?? string.Empty,
+                c.OriginalTotal,
+                c.AlternativeTotal,
+                c.Difference)).ToList();
+
+            return new FeeExplanation(
+                fee.Name,
+                fee.Description,
+                provenance.TotalMandatory,
+                provenance.TotalOptional,
+                provenance.InputValues.ToDictionary(k => k.Key, v => v.Value?.ToString() ?? string.Empty),
+                fees,
+                alternatives);
+        }
+
+        /// <summary>
+        /// Render the guards on a yield as the schedule author wrote them.
+        /// </summary>
+        private static string? DescribeCondition(ProvenanceRecord record)
+        {
+            var guards = new List<string>();
+            if (!string.IsNullOrEmpty(record.CaseCondition)) guards.Add($"CASE {record.CaseCondition}");
+            if (!string.IsNullOrEmpty(record.YieldCondition)) guards.Add($"IF {record.YieldCondition}");
+            return guards.Count == 0 ? null : string.Join(" / ", guards);
+        }
+
+        /// <summary>
         /// Resolve a fee to its composed script and load it into the calculator.
         /// Returns the fee metadata, plus a failure result when composition did not succeed.
         /// </summary>
@@ -136,4 +224,5 @@ namespace IPFees.Core.FeeCalculation
     /// proven nor disproven and <paramref name="Results"/> is empty.
     /// </param>
     public record FeeResultVerification(string FeeName, string FeeDescription, VerificationResults Results, bool TimedOut = false) : FeeResult();
+    public record FeeResultExplanation(string FeeName, string FeeDescription, FeeExplanation Explanation) : FeeResult();
 }
