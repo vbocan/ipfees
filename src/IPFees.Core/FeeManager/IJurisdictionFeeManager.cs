@@ -1,4 +1,4 @@
-﻿using IPFees.Core.FeeCalculation;
+using IPFees.Core.FeeCalculation;
 using IPFLang.Evaluator;
 using IPFLang.Parser;
 
@@ -24,6 +24,10 @@ namespace IPFees.Core.FeeManager
     /// How many VERIFY directives the definition declares. Zero means nothing was proven,
     /// which is different from everything having passed.
     /// </param>
+    /// <param name="TimedOut">
+    /// True when the analysis was abandoned before finishing. The directives were neither
+    /// proven nor disproven, so <paramref name="Passed"/> carries no meaning.
+    /// </param>
     public record FeeVerificationInfo(
         string Jurisdiction,
         string FeeName,
@@ -32,5 +36,6 @@ namespace IPFees.Core.FeeManager
         bool Passed,
         IReadOnlyList<string> CompletenessFailures,
         IReadOnlyList<string> MonotonicityFailures,
-        IReadOnlyList<string> Errors);
+        IReadOnlyList<string> Errors,
+        bool TimedOut = false);
 }

@@ -25,11 +25,12 @@ namespace IPFees.Core.Tests
         private CorpusSeeder NewSeeder() =>
             new(fixture.JurisdictionRepository, fixture.FeeRepository, fixture.ModuleRepository);
 
-        private FeeCalculator NewCalculator() =>
+        private FeeCalculator NewCalculator(VerificationBudget? budget = null) =>
             new(fixture.FeeRepository,
                 fixture.ModuleRepository,
                 new DslCalculator(new DslParser()),
-                new FeeScriptComposer(new DslParser()));
+                new FeeScriptComposer(new DslParser()),
+                budget);
 
         [Fact]
         public async Task SeedingLeavesExactlyOneSchedulePerJurisdiction()
@@ -172,6 +173,30 @@ namespace IPFees.Core.Tests
         /// behaviour: the budget must be honoured, and the result must say plainly that nothing
         /// was proven.
         /// </summary>
+        /// <summary>
+        /// The REST endpoint that runs verification is reachable without credentials, so a
+        /// request that never returns is not merely a broken feature. Verification through
+        /// FeeCalculator must honour the budget and say it did not finish.
+        /// </summary>
+        [Fact]
+        public async Task VerifyingAWideScheduleReturnsWithinTheBudget()
+        {
+            await NewSeeder().SeedAsync();
+
+            var fee = (await fixture.FeeRepository.GetFees())
+                .Single(f => f.Name.Equals("PCT-US", StringComparison.OrdinalIgnoreCase));
+
+            var calculator = NewCalculator(new VerificationBudget { Limit = TimeSpan.FromSeconds(3) });
+
+            var started = DateTime.UtcNow;
+            var result = calculator.Verify(fee.Id);
+            var elapsed = DateTime.UtcNow - started;
+
+            var verification = Assert.IsType<FeeResultVerification>(result);
+            Assert.True(verification.TimedOut, "expected the run to be abandoned at the budget");
+            Assert.True(elapsed < TimeSpan.FromSeconds(20), $"budget was not honoured: waited {elapsed.TotalSeconds:N1}s");
+        }
+
         [Fact]
         public async Task MonotonicityCheckingDoesNotScaleToWideSchedules()
         {
