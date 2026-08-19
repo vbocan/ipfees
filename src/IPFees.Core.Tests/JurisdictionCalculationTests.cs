@@ -1,4 +1,3 @@
-using IPFees.Core.CurrencyConversion;
 using IPFees.Core.Enum;
 using IPFees.Core.FeeCalculation;
 using IPFees.Core.FeeManager;
@@ -6,6 +5,7 @@ using IPFees.Core.Tests.Fixture;
 using IPFLang.Engine;
 using IPFLang.Evaluator;
 using IPFLang.Parser;
+using IPFLang.CurrencyConversion;
 
 namespace IPFees.Core.Tests
 {
@@ -34,9 +34,10 @@ namespace IPFees.Core.Tests
         private sealed class IdentityConverter : ICurrencyConverter
         {
             public ExchangeRateResponse Response { get; set; } =
-                new(ResponseStatus.ResponseOnline, "test", new Dictionary<string, decimal>(), DateTime.UtcNow);
-            public decimal ConvertCurrency(decimal amount, string source, string target) => amount;
-            public IEnumerable<(string, string)> GetCurrencies() => Array.Empty<(string, string)>();
+                new(ResponseStatus.Online, "test", new Dictionary<string, decimal>(), DateTime.UtcNow);
+            public decimal Convert(decimal amount, string source, string target) => amount;
+            public decimal GetRate(string source, string target) => 1m;
+            public IEnumerable<(string Code, string Name)> GetCurrencies() => Array.Empty<(string, string)>();
         }
 
         private async Task<JurisdictionFeeManager> SeedAndBuildManager()
@@ -129,6 +130,51 @@ namespace IPFees.Core.Tests
             }
 
             Assert.True(failures.Count == 0, $"{failures.Count} jurisdictions failed:{Environment.NewLine}{string.Join(Environment.NewLine, failures.Take(15))}");
+        }
+
+        [Fact]
+        public async Task ExplanationReportsWhichRulesFiredAndWhichDidNot()
+        {
+            var manager = await SeedAndBuildManager();
+
+            var (inputs, _, _) = manager.GetConsolidatedInputs(new[] { "RO" });
+            var explanations = manager.Explain(new[] { "RO" }, DefaultsFor(inputs)).ToList();
+
+            var romania = Assert.Single(explanations);
+            Assert.NotEmpty(romania.Fees);
+            Assert.True(romania.GrandTotal > 0);
+
+            // A schedule reports the steps it skipped as well as those it applied; an absent
+            // charge is as much a part of the explanation as a present one.
+            var steps = romania.Fees.SelectMany(f => f.Steps).ToList();
+            Assert.NotEmpty(steps);
+            Assert.Contains(steps, s => s.Applied);
+
+            // Every applied step must carry the expression that produced it.
+            Assert.All(steps.Where(s => s.Applied), s => Assert.False(string.IsNullOrWhiteSpace(s.Expression)));
+
+            // Mandatory and optional are separated, matching how the schedule declares them.
+            Assert.Equal(romania.TotalMandatory + romania.TotalOptional, romania.GrandTotal);
+            Assert.Contains(romania.Fees, f => f.Optional);
+        }
+
+        [Fact]
+        public async Task ExplanationCanReportWhatADifferentInputWouldCost()
+        {
+            var manager = await SeedAndBuildManager();
+
+            var (inputs, _, _) = manager.GetConsolidatedInputs(new[] { "RO" });
+            var explanations = manager.Explain(new[] { "RO" }, DefaultsFor(inputs), IncludeAlternatives: true).ToList();
+
+            var romania = Assert.Single(explanations);
+            Assert.NotEmpty(romania.Alternatives);
+
+            // Each alternative names the input it varied and states the resulting difference.
+            Assert.All(romania.Alternatives, a =>
+            {
+                Assert.False(string.IsNullOrWhiteSpace(a.InputName));
+                Assert.Equal(a.AlternativeTotal - a.OriginalTotal, a.Difference);
+            });
         }
 
         private static List<IPFValue> DefaultsFor(IEnumerable<DslInput> inputs)

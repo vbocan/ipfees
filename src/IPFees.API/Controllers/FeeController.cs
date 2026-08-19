@@ -153,48 +153,9 @@ namespace IPFees.API.Controllers
             {
                 return BadRequest("You need to supply one or more comma-separated jurisdictions.");
             }
-            var CollectedValues = new List<IPFValue>();
-            foreach (var par in Model.Parameters)
+            if (!TryCollectValues(Model.Parameters, out var CollectedValues, out var ParameterError))
             {
-                // Input parameter is a boolean
-                if (par.Type.Equals(STR_BOOL, StringComparison.InvariantCultureIgnoreCase))
-                {
-                    var Name = par.Name;
-                    var Value = bool.Parse(par.Value);
-                    CollectedValues.Add(new IPFValueBoolean(Name, Value));
-                }
-                // Input parameter is a string
-                else if (par.Type.Equals(STR_STRING, StringComparison.InvariantCultureIgnoreCase))
-                {
-                    var Name = par.Name;
-                    var Value = par.Value;
-                    CollectedValues.Add(new IPFValueString(Name, Value));
-                }
-                // Input parameter is a list of comma-separated strings
-                else if (par.Type.Equals(STR_MULTIPLESTRINGS, StringComparison.InvariantCultureIgnoreCase))
-                {
-                    var Name = par.Name;
-                    var Value = par.Value.Split(',', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries);
-                    CollectedValues.Add(new IPFValueStringList(Name, Value));
-                }
-                // Input parameter is a number
-                else if (par.Type.Equals(STR_NUMBER, StringComparison.InvariantCultureIgnoreCase))
-                {
-                    var Name = par.Name;
-                    var Value = decimal.Parse(par.Value);
-                    CollectedValues.Add(new IPFValueNumber(Name, Value));
-                }
-                // Input parameter is a date in the format yyyy-mm-dd
-                else if (par.Type.Equals(STR_DATE, StringComparison.InvariantCultureIgnoreCase))
-                {
-                    var Name = par.Name;
-                    var Value = DateOnly.FromDateTime(DateTime.ParseExact(par.Value, STR_DATEFORMAT, CultureInfo.InvariantCulture));
-                    CollectedValues.Add(new IPFValueDate(Name, Value));
-                }
-                else
-                {
-                    return BadRequest("Unknown input type. Must be either Bool, String, MultipleStrings, Number, Date.");
-                }
+                return BadRequest(ParameterError);
             }
             try
             {
@@ -214,6 +175,88 @@ namespace IPFees.API.Controllers
             }
 
 
+        }
+
+        /// <summary>
+        /// Turn the wire representation of the calculation parameters into engine input values.
+        /// A malformed value is reported rather than thrown, so a bad request reads as a 400
+        /// naming the parameter instead of a 500.
+        /// </summary>
+        private bool TryCollectValues(IEnumerable<CalculationParameter> parameters, out List<IPFValue> values, out string error)
+        {
+            values = new List<IPFValue>();
+            error = string.Empty;
+
+            foreach (var par in parameters)
+            {
+                try
+                {
+                    if (par.Type.Equals(STR_BOOL, StringComparison.InvariantCultureIgnoreCase))
+                    {
+                        values.Add(new IPFValueBoolean(par.Name, bool.Parse(par.Value)));
+                    }
+                    else if (par.Type.Equals(STR_STRING, StringComparison.InvariantCultureIgnoreCase))
+                    {
+                        values.Add(new IPFValueString(par.Name, par.Value));
+                    }
+                    else if (par.Type.Equals(STR_MULTIPLESTRINGS, StringComparison.InvariantCultureIgnoreCase))
+                    {
+                        values.Add(new IPFValueStringList(par.Name, par.Value.Split(',', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries)));
+                    }
+                    else if (par.Type.Equals(STR_NUMBER, StringComparison.InvariantCultureIgnoreCase))
+                    {
+                        values.Add(new IPFValueNumber(par.Name, decimal.Parse(par.Value, CultureInfo.InvariantCulture)));
+                    }
+                    else if (par.Type.Equals(STR_DATE, StringComparison.InvariantCultureIgnoreCase))
+                    {
+                        values.Add(new IPFValueDate(par.Name, DateOnly.FromDateTime(DateTime.ParseExact(par.Value, STR_DATEFORMAT, CultureInfo.InvariantCulture))));
+                    }
+                    else
+                    {
+                        error = $"Unknown type '{par.Type}' for parameter '{par.Name}'. Must be one of Boolean, String, MultipleStrings, Number, Date.";
+                        return false;
+                    }
+                }
+                catch (Exception ex) when (ex is FormatException or ArgumentException)
+                {
+                    error = $"Value '{par.Value}' is not a valid {par.Type} for parameter '{par.Name}'.";
+                    return false;
+                }
+            }
+
+            return true;
+        }
+
+        /// <summary>
+        /// Compute the given jurisdictions and return why each amount arose rather than the
+        /// amounts alone: which rules fired, which did not and on what condition, and what the
+        /// inputs were worth at each step. Set <c>alternatives</c> to also report what the total
+        /// would have been had a single input differed.
+        /// </summary>
+        [HttpPost("Explain"), MapToApiVersion("1")]
+        [ProducesResponseType(typeof(IEnumerable<FeeExplanation>), 200)]
+        public IActionResult Explain([FromBody] CalculationViewModel Model, [FromQuery] bool alternatives = false)
+        {
+            logger.LogInformation($"[REQUEST] Explain calculation for jurisdictions {Model.Jurisdictions}.");
+
+            var JurisdictionList = Model.Jurisdictions.Split(',', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries);
+            if (JurisdictionList.Length == 0)
+            {
+                return BadRequest("You need to supply one or more comma-separated jurisdictions.");
+            }
+
+            if (!TryCollectValues(Model.Parameters, out var CollectedValues, out var ParameterError))
+            {
+                return BadRequest(ParameterError);
+            }
+
+            var Explanations = jurisdictionFeeManager.Explain(JurisdictionList, CollectedValues, alternatives).ToList();
+            if (Explanations.Count == 0)
+            {
+                return NotFound($"No fee definitions are registered for {Model.Jurisdictions}.");
+            }
+
+            return Ok(Explanations);
         }
     }
     public record CalculationParams(IEnumerable<object> Inputs);

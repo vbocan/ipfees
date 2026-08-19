@@ -1,5 +1,4 @@
 using IPFLang.Engine;
-using IPFees.Core.CurrencyConversion;
 using IPFees.Core.Data;
 using IPFees.Core.FeeCalculation;
 using IPFees.Core.FeeManager;
@@ -14,6 +13,7 @@ using MongoDB.Bson.Serialization;
 using MongoDB.Bson.Serialization.Serializers;
 using MongoDB.Driver;
 using Serilog;
+using IPFLang.CurrencyConversion;
 
 // Configure GuidRepresentation globally
 BsonSerializer.RegisterSerializer(new GuidSerializer(GuidRepresentation.CSharpLegacy));

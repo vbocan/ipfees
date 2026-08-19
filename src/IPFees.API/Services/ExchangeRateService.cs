@@ -1,4 +1,4 @@
-﻿using IPFees.Core.CurrencyConversion;
+using IPFLang.CurrencyConversion;
 
 namespace IPFees.API.Services
 {
@@ -22,8 +22,8 @@ namespace IPFees.API.Services
             while (!stoppingToken.IsCancellationRequested)
             {
                 logger.LogInformation($"Fetching exchange rates");
-                var response = await exchangeRateFetcher.FetchCurrencyExchangeData();
-                if (response.Status == ResponseStatus.ResponseOnline)
+                var response = await exchangeRateFetcher.FetchExchangeRates();
+                if (response.Status == ResponseStatus.Online)
                 {
                     logger.LogInformation($"Fetched {response.ExchangeRates.Count} exchange rates");
                 }
@@ -35,7 +35,7 @@ namespace IPFees.API.Services
                 }
                 // Store fetched data
                 currencyConverter.Response = response;
-                var delay = response.Status == ResponseStatus.ResponseOnline ? ExchangeRateDelaySuccess : ExchangeRateDelayFail;
+                var delay = response.Status == ResponseStatus.Online ? ExchangeRateDelaySuccess : ExchangeRateDelayFail;
                 logger.LogInformation($"Exchange rate service going to sleep for {delay.ToString(@"hh\:mm\:ss")}");
                 await Task.Delay(delay, stoppingToken);
             }
@@ -73,7 +73,7 @@ namespace IPFees.API.Services
                 }
 
                 logger.LogInformation($"Loaded {exchangeRates.Count} default exchange rates from CSV");
-                return new ExchangeRateResponse(ResponseStatus.ResponseStale, "Loaded from default CSV file", exchangeRates, DateTime.Now);
+                return new ExchangeRateResponse(ResponseStatus.Stale, "Loaded from default CSV file", exchangeRates, DateTime.Now);
             }
             catch (Exception ex)
             {

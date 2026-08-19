@@ -1,6 +1,7 @@
 using IPFees.Core.Enum;
 using IPFees.Core.Repository;
 using IPFees.Core.Tests.Fixture;
+using IPFLang.CurrencyConversion;
 
 namespace IPFees.Core.Tests
 {
@@ -193,7 +194,7 @@ namespace IPFees.Core.Tests
         //public async void ConvertCurrencyTest()
         //{
         //    var cc = fixture.CurrencyConverter;
-        //    var cr = await cc.ConvertCurrency(100, "RON", "EUR");
+        //    var cr = await cc.Convert(100, "RON", "EUR");
         //}
 
     }

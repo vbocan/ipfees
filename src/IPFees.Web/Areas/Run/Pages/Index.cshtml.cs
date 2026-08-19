@@ -1,4 +1,3 @@
-using IPFees.Core.CurrencyConversion;
 using IPFees.Core.Model;
 using IPFees.Core.Repository;
 using IPFees.Web.Data;
@@ -6,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Extensions.Options;
+using IPFLang.CurrencyConversion;
 
 namespace IPFees.Web.Areas.Run.Pages
 {

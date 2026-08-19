@@ -1,5 +1,6 @@
 @page
 @using IPFees.Core;
+@using IPFees.Core.FeeCalculation;
 @using static IPFees.Core.FeeCalculation.FeeCalculator;
 @model ResultModel
 @{
@@ -81,6 +82,78 @@
             may or may not incur, such as examination, translation or agent work.
         </small>
     </div>
+    @if (Model.Explanations.Any())
+    {
+        <div class="col-lg-12 mt-5">
+            <h3>Why these amounts</h3>
+            <p class="text-secondary">
+                Every rule the calculation evaluated, in order. Rules that did not apply are shown
+                too, with the condition that excluded them, because a charge you did not incur is
+                as much part of the answer as one you did.
+            </p>
+
+            @foreach (var explanation in Model.Explanations)
+            {
+                <div class="card mb-3">
+                    <div class="card-header d-flex justify-content-between align-items-center">
+                        <span><strong>@explanation.FeeName</strong> <span class="text-secondary">@explanation.FeeDescription</span></span>
+                        <span class="text-nowrap">@($"{explanation.GrandTotal:N2}")</span>
+                    </div>
+                    <div class="card-body p-0">
+                        <table class="table table-sm mb-0">
+                            <thead>
+                                <tr>
+                                    <th scope="col" style="width:22%">Fee</th>
+                                    <th scope="col" style="width:30%">Rule</th>
+                                    <th scope="col" style="width:30%">Condition</th>
+                                    <th scope="col" class="text-end" style="width:18%">Contribution</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var fee in explanation.Fees)
+                                {
+                                    @foreach (var step in fee.Steps)
+                                    {
+                                        <tr class="@(step.Applied ? "" : "text-secondary")">
+                                            <td>
+                                                @fee.Name
+                                                @if (fee.Optional)
+                                                {
+                                                    <span class="badge text-bg-light">optional</span>
+                                                }
+                                            </td>
+                                            <td><code>@step.Expression</code></td>
+                                            <td>
+                                                @if (string.IsNullOrEmpty(step.Condition))
+                                                {
+                                                    <span class="text-secondary">unconditional</span>
+                                                }
+                                                else
+                                                {
+                                                    <code>@step.Condition</code>
+                                                }
+                                            </td>
+                                            <td class="text-end">
+                                                @if (step.Applied)
+                                                {
+                                                    <span>@($"{step.Contribution:N2}")</span>
+                                                }
+                                                else
+                                                {
+                                                    <span title="This rule was evaluated but its condition did not hold">not applied</span>
+                                                }
+                                            </td>
+                                        </tr>
+                                    }
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            }
+        </div>
+    }
+
     <div class="col-12 mt-4 text-secondary">
         @if (Model.FeeResults.Errors.Count() > 0)
         {

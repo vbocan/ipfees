@@ -15,6 +15,12 @@ namespace IPFees.Core.FeeManager
         /// declared nothing to prove.
         /// </summary>
         IEnumerable<FeeVerificationInfo> Verify(IEnumerable<string> JurisdictionNames);
+
+        /// <summary>
+        /// Compute the given jurisdictions and return the reasoning behind every amount:
+        /// which rules fired, which did not and why, and what each input was worth at the time.
+        /// </summary>
+        IEnumerable<FeeExplanation> Explain(IEnumerable<string> JurisdictionNames, IList<IPFValue> InputValues, bool IncludeAlternatives = false);
     }
 
     /// <summary>
