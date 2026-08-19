@@ -1,5 +1,4 @@
 using Asp.Versioning;
-using IPFees.API.Attributes;
 using IPFees.Core.CurrencyConversion;
 using Microsoft.AspNetCore.Mvc;
 
@@ -8,7 +7,6 @@ namespace IPFees.API.Controllers
     [ApiController]
     [Route("api/v{version:apiVersion}/[controller]")]
     [ApiVersion("1")]
-    [ApiKey]
     public class CurrencyController : ControllerBase
     {
         private readonly ICurrencyConverter serd;

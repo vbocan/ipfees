@@ -2,7 +2,6 @@ using Asp.Versioning;
 using IPFees.API.Data;
 using IPFees.API.Filters;
 using IPFees.API.Services;
-using IPFees.API.Validator;
 using IPFLang.Engine;
 using IPFees.Core.CurrencyConversion;
 using IPFees.Core.Data;
@@ -78,7 +77,15 @@ builder.Services.AddSwaggerGen(c =>
     {
         Title = "IPFees API",
         Version = "1",
-        Description = "A simple API to compute the IP fees for supported jurisdictions and currencies.",
+        Description =
+            "Computes intellectual property fees for supported jurisdictions and currencies.\n\n" +
+            "**This API is public and requires no authentication.** It serves the same fee " +
+            "schedules as the web calculator, all of which are published by the patent offices " +
+            "themselves. There is no rate limiting, so treat it as a reference service rather " +
+            "than a dependency for production workloads.\n\n" +
+            "Note that `/Fee/Verify` runs static analysis over a fee schedule and is far more " +
+            "expensive than the other endpoints; a schedule declaring a monotonicity directive " +
+            "will consume the full verification budget before responding.",
         Contact = new Microsoft.OpenApi.OpenApiContact
         {
             Name = "Valer Bocan, PhD, CSSLP",
@@ -119,8 +126,6 @@ builder.Services.AddTransient<IFeeDefinitionValidator, FeeDefinitionValidator>()
 builder.Services.AddTransient<IFeeCalculator, FeeCalculator>();
 builder.Services.AddTransient<IJurisdictionFeeManager, JurisdictionFeeManager>();
 builder.Services.AddTransient<IExchangeRateFetcher>(x => new ExchangeRateFetcher(x.GetRequiredService<IOptions<ServiceKeys>>().Value.ExchangeRateApiKey));
-builder.Services.AddSingleton<ApiKeyAuthorizationFilter>();
-builder.Services.AddSingleton<IApiKeyValidator, ApiKeyValidator>();
 
 // Add logger
 builder.Logging.AddSerilog(logger);
