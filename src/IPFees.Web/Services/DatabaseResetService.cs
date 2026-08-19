@@ -138,8 +138,8 @@ namespace IPFees.Web.Services
             var report = await seeder.SeedAsync(stoppingToken);
 
             logger.LogInformation(
-                "Seeded {Jurisdictions} jurisdictions and {Bases} regional bases from the IPFLang corpus.",
-                report.Jurisdictions, report.Bases);
+                "Seeded {Jurisdictions} jurisdictions and {Bases} regional bases from the IPFLang corpus; removed {Superseded} superseded fee documents.",
+                report.Jurisdictions, report.Bases, report.Superseded);
 
             foreach (var error in report.Errors)
             {
