@@ -1,8 +1,8 @@
-using IPFees.Calculator;
+using IPFLang.Engine;
 using IPFees.Core.FeeCalculation;
 using IPFees.Core.Tests.Fixture;
-using IPFees.Evaluator;
-using IPFees.Parser;
+using IPFLang.Evaluator;
+using IPFLang.Parser;
 
 namespace IPFees.Core.Tests
 {
@@ -47,7 +47,7 @@ namespace IPFees.Core.Tests
             Assert.True(res6.Success);
             var parser = new DslParser();            
             IDslCalculator calc = new DslCalculator(parser);
-            FeeCalculator of = new(jur, mod, calc);
+            FeeCalculator of = new(jur, mod, calc, new FeeScriptComposer(parser));
             var res7 = of.Calculate(res4.Id, new List<IPFValue> { });            
             Assert.IsType<FeeResultCalculation>(res7);
             var res = (FeeResultCalculation)res7;

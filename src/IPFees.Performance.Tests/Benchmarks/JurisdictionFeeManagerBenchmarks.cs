@@ -1,10 +1,10 @@
 using BenchmarkDotNet.Attributes;
 using BenchmarkDotNet.Order;
-using IPFees.Calculator;
+using IPFLang.Engine;
 using IPFees.Core.FeeCalculation;
 using IPFees.Core.FeeManager;
-using IPFees.Evaluator;
-using IPFees.Parser;
+using IPFLang.Evaluator;
+using IPFLang.Parser;
 using IPFees.Performance.Tests.Fixtures;
 
 namespace IPFees.Performance.Tests.Benchmarks
@@ -29,7 +29,7 @@ namespace IPFees.Performance.Tests.Benchmarks
 
             var parser = new DslParser();
             IDslCalculator calculator = new DslCalculator(parser);
-            var feeCalculator = new FeeCalculator(fixture.FeeRepository, fixture.ModuleRepository, calculator);
+            var feeCalculator = new FeeCalculator(fixture.FeeRepository, fixture.ModuleRepository, calculator, new FeeScriptComposer(parser));
             
             // Create a mock currency converter (no actual API calls in benchmarks)
             var currencyConverter = new MockCurrencyConverter();

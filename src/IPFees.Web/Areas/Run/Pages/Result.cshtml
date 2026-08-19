@@ -1,4 +1,4 @@
-﻿@page
+@page
 @using IPFees.Core;
 @using static IPFees.Core.FeeCalculation.FeeCalculator;
 @model ResultModel
@@ -19,16 +19,14 @@
     <div class="col-lg-12">
         <h3>
             Fees by jurisdiction
-        </h3>        
+        </h3>
         <table class="table table-hover table-bordered">
             <thead>
                 <tr>
                     <th scope="col">Jurisdiction</th>
                     <th scope="col">Language</th>
-                    <th scope="col">Official Fee</th>
-                    <th scope="col">Partner Fee</th>
+                    <th scope="col">Fees</th>
                     <th scope="col">Service Fee</th>
-                    <th scope="col">Translation Fee</th>
                     <th scope="col">Jurisdiction Total</th>
                 </tr>
             </thead>
@@ -39,24 +37,14 @@
                         <th scope="row">@f.Jurisdiction</th>
                         <td>@f.Language</td>
                         <td>
-                            <i class="bi bi-cash text-primary px-1"></i> @($"{f.OfficialFee.MandatoryAmount} {@f.OfficialFee.Currency}")
+                            <i class="bi bi-cash text-primary px-1"></i> @($"{f.Fees.MandatoryAmount} {@f.Fees.Currency}")
                             <br />
-                            <i class="bi bi-cash-stack text-secondary px-1"></i> @($"{f.OfficialFee.OptionalAmount} {@f.OfficialFee.Currency}")
-                        </td>
-                        <td>
-                            <i class="bi bi-cash text-primary px-1"></i> @($"{f.PartnerFee.MandatoryAmount} {@f.PartnerFee.Currency}")
-                            <br />
-                            <i class="bi bi-cash-stack text-secondary px-1"></i> @($"{f.PartnerFee.OptionalAmount} {@f.PartnerFee.Currency}")
+                            <i class="bi bi-cash-stack text-secondary px-1"></i> @($"{f.Fees.OptionalAmount} {@f.Fees.Currency}")
                         </td>
                         <td>
                             <i class="bi bi-cash text-primary px-1"></i> @($"{f.ServiceFee.MandatoryAmount} {@f.ServiceFee.Currency}")
                             <br />
                             <i class="bi bi-cash-stack text-secondary px-1"></i> @($"{f.ServiceFee.OptionalAmount} {@f.ServiceFee.Currency}")
-                        </td>
-                        <td>
-                            <i class="bi bi-cash text-primary px-1"></i> @($"{f.TranslationFee.MandatoryAmount} {@f.TranslationFee.Currency}")
-                            <br />
-                            <i class="bi bi-cash-stack text-secondary px-1"></i> @($"{f.TranslationFee.OptionalAmount} {@f.TranslationFee.Currency}")
                         </td>
                         <td>
                             <i class="bi bi-cash text-primary px-1"></i> @($"{f.TotalFee.MandatoryAmount} {@f.TotalFee.Currency}")
@@ -67,16 +55,11 @@
                 }
                 <!-- Totals -->
                 <tr class="table-secondary fw-bolder">
-                    <td colspan ="2">TOTALS</td>                    
+                    <td colspan="2">TOTALS</td>
                     <td>
-                        <i class="bi bi-cash text-primary px-1"></i> @($"{Model.FeeResults.TotalOfficialFee.MandatoryAmount} {@Model.FeeResults.TotalOfficialFee.Currency}")
+                        <i class="bi bi-cash text-primary px-1"></i> @($"{Model.FeeResults.TotalFees.MandatoryAmount} {@Model.FeeResults.TotalFees.Currency}")
                         <br />
-                        <i class="bi bi-cash-stack text-secondary px-1"></i> @($"{Model.FeeResults.TotalOfficialFee.OptionalAmount} {@Model.FeeResults.TotalOfficialFee.Currency}")
-                    </td>
-                    <td>
-                        <i class="bi bi-cash text-primary px-1"></i> @($"{Model.FeeResults.TotalPartnerFee.MandatoryAmount} {@Model.FeeResults.TotalPartnerFee.Currency}")
-                        <br />
-                        <i class="bi bi-cash-stack text-secondary px-1"></i> @($"{Model.FeeResults.TotalPartnerFee.OptionalAmount} {@Model.FeeResults.TotalPartnerFee.Currency}")
+                        <i class="bi bi-cash-stack text-secondary px-1"></i> @($"{Model.FeeResults.TotalFees.OptionalAmount} {@Model.FeeResults.TotalFees.Currency}")
                     </td>
                     <td>
                         <i class="bi bi-cash text-primary px-1"></i> @($"{Model.FeeResults.TotalServiceFee.MandatoryAmount} {@Model.FeeResults.TotalServiceFee.Currency}")
@@ -84,21 +67,18 @@
                         <i class="bi bi-cash-stack text-secondary px-1"></i> @($"{Model.FeeResults.TotalServiceFee.OptionalAmount} {@Model.FeeResults.TotalServiceFee.Currency}")
                     </td>
                     <td>
-                        <i class="bi bi-cash text-primary px-1"></i> @($"{Model.FeeResults.TotalTranslationFee.MandatoryAmount} {@Model.FeeResults.TotalTranslationFee.Currency}")
-                        <br />
-                        <i class="bi bi-cash-stack text-secondary px-1"></i> @($"{Model.FeeResults.TotalTranslationFee.OptionalAmount} {@Model.FeeResults.TotalTranslationFee.Currency}")
-                    </td>
-                    <td>
                         <i class="bi bi-cash text-primary px-1"></i> @($"{Model.FeeResults.GrandTotalFee.MandatoryAmount} {@Model.FeeResults.GrandTotalFee.Currency}")
                         <br />
                         <i class="bi bi-cash-stack text-secondary px-1"></i> @($"{Model.FeeResults.GrandTotalFee.OptionalAmount} {@Model.FeeResults.GrandTotalFee.Currency}")
-                    </td>                    
+                    </td>
                 </tr>
                 <!-- End of Totals -->
             </tbody>
         </table>
         <small>
-            Legend: <i class="bi bi-cash text-primary px-1"></i> Mandatory <i class="bi bi-cash-stack text-secondary px-1"></i> Optional
+            Legend: <i class="bi bi-cash text-primary px-1"></i> Mandatory
+            <i class="bi bi-cash-stack text-secondary px-1"></i> Optional &mdash; components a filing
+            may or may not incur, such as examination, translation or agent work.
         </small>
     </div>
     <div class="col-12 mt-4 text-secondary">

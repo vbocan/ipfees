@@ -1,4 +1,5 @@
-﻿using MongoDB.Bson;
+using IPFees.Core.FeeCalculation;
+using MongoDB.Bson;
 using MongoDB.Driver;
 using System.Text.Json;
 
@@ -7,18 +8,20 @@ namespace IPFees.Web.Services
     public class DatabaseResetService : BackgroundService
     {
         private readonly IMongoDatabase database;
+        private readonly IServiceScopeFactory scopeFactory;
         private readonly ILogger<DatabaseResetService> logger;
         private readonly string dataFolder;
+        // Jurisdictions, regional bases and fee schedules come from the IPFLang package,
+        // so they move forward with the language rather than with a file checked in here.
+        // Service fee levels are a local commercial setting and stay file-driven.
         private readonly (int Index, string FileName, string CollectionName)[] fileMappings =
         [
-            (0, "servicefees.json", "ServiceFees"),
-            (1, "jurisdictions.json", "Jurisdictions"),
-            (2, "modules.json", "Modules"),
-            (3, "fees.json", "Fees")
+            (0, "servicefees.json", "ServiceFees")
         ];
 
-        public DatabaseResetService(IMongoClient mongoClient, IConfiguration configuration, ILogger<DatabaseResetService> logger)
+        public DatabaseResetService(IMongoClient mongoClient, IConfiguration configuration, IServiceScopeFactory scopeFactory, ILogger<DatabaseResetService> logger)
         {
+            this.scopeFactory = scopeFactory;
             var mongoUrl = new MongoUrl(configuration.GetValue<string>("ConnectionStrings:MongoDbConnection"));
             database = mongoClient.GetDatabase(mongoUrl.DatabaseName);
             this.logger = logger;
@@ -106,6 +109,8 @@ namespace IPFees.Web.Services
                     logger.LogInformation("Inserted {Count} documents into {Collection}.", documents.Count, collectionName);
                 }
 
+                await SeedCorpus(stoppingToken);
+
                 // Verify collection counts
                 foreach (var item in fileMappings)
                 {
@@ -117,6 +122,28 @@ namespace IPFees.Web.Services
             catch (Exception ex)
             {
                 logger.LogError("Database reset failed: {Error}", ex.Message);
+            }
+        }
+
+        /// <summary>
+        /// Load the jurisdiction corpus shipped inside the IPFLang package. Existing entries are
+        /// refreshed in place rather than dropped, so a service fee level an operator changed
+        /// survives the reset.
+        /// </summary>
+        private async Task SeedCorpus(CancellationToken stoppingToken)
+        {
+            using var scope = scopeFactory.CreateScope();
+            var seeder = scope.ServiceProvider.GetRequiredService<ICorpusSeeder>();
+
+            var report = await seeder.SeedAsync(stoppingToken);
+
+            logger.LogInformation(
+                "Seeded {Jurisdictions} jurisdictions and {Bases} regional bases from the IPFLang corpus.",
+                report.Jurisdictions, report.Bases);
+
+            foreach (var error in report.Errors)
+            {
+                logger.LogError("Corpus seeding: {Error}", error);
             }
         }
     }

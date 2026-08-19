@@ -22,6 +22,10 @@
                 </div>
             </div>
         }
+        @if (Model.Validation is not null)
+        {
+            <partial name="_ValidationReport" model="Model.Validation" />
+        }
         <form method="post">
             <div class="mb-3">
                 <label for="@Model.Name" class="form-label">Name</label>

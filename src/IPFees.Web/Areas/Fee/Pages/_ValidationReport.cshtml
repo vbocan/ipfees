@@ -1,0 +1,110 @@
+@using IPFees.Core.FeeCalculation
+@model FeeValidationReport
+
+@*
+    Renders what the IPFLang engine found in a fee definition.
+
+    The four categories are deliberately kept apart, because they mean different things to
+    the author: the first two say the definition is broken, the last two say it is well formed
+    but does not behave the way its own VERIFY directives claim.
+*@
+
+@if (Model.ParseErrors.Any())
+{
+    <div class="alert alert-danger" role="alert">
+        <h5 class="alert-heading">The definition could not be parsed</h5>
+        <p class="mb-2">Nothing was saved. Fix the syntax and try again.</p>
+        <ul class="mb-0">
+            @foreach (var e in Model.ParseErrors)
+            {
+                <li><code>@e</code></li>
+            }
+        </ul>
+    </div>
+}
+
+@if (Model.TypeErrors.Any())
+{
+    <div class="alert alert-danger" role="alert">
+        <h5 class="alert-heading">The definition does not type-check</h5>
+        <p class="mb-2">
+            Nothing was saved. Most often this means two different currencies were combined in
+            one calculation, which IPFLang rejects before the fee can ever be computed.
+        </p>
+        <ul class="mb-0">
+            @foreach (var e in Model.TypeErrors)
+            {
+                <li><code>@e</code></li>
+            }
+        </ul>
+    </div>
+}
+
+@if (Model.CompletenessFailures.Any())
+{
+    <div class="alert alert-warning" role="alert">
+        <h5 class="alert-heading">Incomplete coverage</h5>
+        <p class="mb-2">
+            This definition declares <code>VERIFY COMPLETE</code>, but there are input
+            combinations it does not answer. Nothing was saved.
+        </p>
+        <ul class="mb-0">
+            @foreach (var e in Model.CompletenessFailures)
+            {
+                <li>@e</li>
+            }
+        </ul>
+    </div>
+}
+
+@if (Model.MonotonicityFailures.Any())
+{
+    <div class="alert alert-warning" role="alert">
+        <h5 class="alert-heading">Fee moves the wrong way</h5>
+        <p class="mb-2">
+            This definition declares <code>VERIFY MONOTONIC</code>, but the fee does not follow
+            the direction it promised. Nothing was saved.
+        </p>
+        <ul class="mb-0">
+            @foreach (var e in Model.MonotonicityFailures)
+            {
+                <li>@e</li>
+            }
+        </ul>
+    </div>
+}
+
+@if (Model.VerificationTimedOut)
+{
+    <div class="alert alert-secondary" role="alert">
+        <h5 class="alert-heading">Verification did not finish</h5>
+        <p class="mb-0">
+            This definition parsed and type-checked, and it was saved. Its
+            @Model.VerificationsRun <code>VERIFY</code>
+            @(Model.VerificationsRun == 1 ? "directive was" : "directives were") abandoned before
+            completing, so they are neither proven nor disproven. Monotonicity checking walks a
+            numeric range against every combination of the other inputs, which does not finish in
+            useful time on a schedule with many inputs. Narrowing the range a fee is checked over,
+            for instance <code>BETWEEN 1 AND 100</code> rather than <code>BETWEEN 1 AND 1000</code>,
+            usually brings it back within reach.
+        </p>
+    </div>
+}
+
+@if (Model.IsClean && !Model.VerificationTimedOut && !Model.HasNoVerifications)
+{
+    <div class="alert alert-success" role="alert">
+        Parsed, type-checked, and all @Model.VerificationsRun verification
+        @(Model.VerificationsRun == 1 ? "directive" : "directives") hold.
+    </div>
+}
+else if (Model.IsClean && !Model.VerificationTimedOut)
+{
+    <div class="alert alert-info" role="alert">
+        Parsed and type-checked. This definition declares no <code>VERIFY</code> directives, so
+        coverage and monotonicity were not checked. Add
+        <code>VERIFY COMPLETE FEE &lt;name&gt;</code> or
+        <code>VERIFY MONOTONIC FEE &lt;name&gt; WITH RESPECT TO &lt;input&gt;</code> to have them
+        checked on every save.
+    </div>
+}
