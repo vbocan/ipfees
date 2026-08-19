@@ -19,13 +19,15 @@ namespace IPFees.Core.FeeCalculation
     {
         private readonly IDslCalculator Calculator;
         private readonly IFeeScriptComposer Composer;
+        private readonly VerificationBudget Budget;
         private readonly IEnumerable<FeeInfo> Fees;
         private readonly IEnumerable<ModuleInfo> Modules;
 
-        public FeeCalculator(IFeeRepository fee, IModuleRepository module, IDslCalculator calculator, IFeeScriptComposer composer)
+        public FeeCalculator(IFeeRepository fee, IModuleRepository module, IDslCalculator calculator, IFeeScriptComposer composer, VerificationBudget? budget = null)
         {
             Calculator = calculator;
             Composer = composer;
+            Budget = budget ?? new VerificationBudget();
             Fees = fee.GetFees().Result;
             Modules = module.GetModules().Result;
         }
@@ -79,7 +81,17 @@ namespace IPFees.Core.FeeCalculation
 
             try
             {
-                return new FeeResultVerification(fee.Name, fee.Description, Calculator.RunVerifications());
+                // Monotonicity checking does not finish in usable time on wide schedules, and the
+                // engine offers no cancellation, so an overrunning run is abandoned rather than
+                // stopped. Without this a caller waits forever; the REST endpoint is reachable
+                // without credentials, so forever is not an option.
+                var running = Task.Run(() => Calculator.RunVerifications());
+                if (!running.Wait(Budget.Limit))
+                {
+                    return new FeeResultVerification(fee.Name, fee.Description, new VerificationResults(), TimedOut: true);
+                }
+
+                return new FeeResultVerification(fee.Name, fee.Description, running.Result);
             }
             catch (Exception ex)
             {
@@ -119,5 +131,9 @@ namespace IPFees.Core.FeeCalculation
     public record FeeResultFail(string FeeName, string FeeDescription, IEnumerable<string> Errors) : FeeResult();
     public record FeeResultCalculation(string FeeName, string FeeDescription, decimal TotalMandatoryAmount, decimal TotalOptionalAmount, IEnumerable<string> CalculationSteps, IEnumerable<(string, string)> Returns) : FeeResult();
     public record FeeResultParse(string FeeName, string FeeDescription, IEnumerable<DslInput> FeeInputs, IEnumerable<DslGroup> FeeGroups) : FeeResult();
-    public record FeeResultVerification(string FeeName, string FeeDescription, VerificationResults Results) : FeeResult();
+    /// <param name="TimedOut">
+    /// True when verification was abandoned at the budget, so the directives were neither
+    /// proven nor disproven and <paramref name="Results"/> is empty.
+    /// </param>
+    public record FeeResultVerification(string FeeName, string FeeDescription, VerificationResults Results, bool TimedOut = false) : FeeResult();
 }

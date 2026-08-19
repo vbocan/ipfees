@@ -163,7 +163,15 @@ namespace IPFees.Core.FeeManager
                         continue;
                     }
 
-                    var results = ((FeeResultVerification)result).Results;
+                    var verification = (FeeResultVerification)result;
+                    if (verification.TimedOut)
+                    {
+                        yield return new FeeVerificationInfo(jn, fd.Name, fd.Category.ToString(), 0, false,
+                            Array.Empty<string>(), Array.Empty<string>(), Array.Empty<string>(), TimedOut: true);
+                        continue;
+                    }
+
+                    var results = verification.Results;
 
                     var completeness = results.CompletenessReports
                         .Where(r => !r.IsComplete)
