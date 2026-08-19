@@ -14,7 +14,6 @@ ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
 COPY ["IPFees.Web/IPFees.Web.csproj", "IPFees.Web/"]
 COPY ["IPFees.Core/IPFees.Core.csproj", "IPFees.Core/"]
-COPY ["IPFees.Calculator/IPFees.Calculator.csproj", "IPFees.Calculator/"]
 RUN dotnet restore "./IPFees.Web/IPFees.Web.csproj"
 COPY . .
 WORKDIR "/src/IPFees.Web"
