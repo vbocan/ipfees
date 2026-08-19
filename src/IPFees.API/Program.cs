@@ -13,7 +13,16 @@ using IPFLang.Parser;
 using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.Extensions.Options;
 using Microsoft.OpenApi;
+using MongoDB.Bson;
+using MongoDB.Bson.Serialization;
+using MongoDB.Bson.Serialization.Serializers;
 using Serilog;
+
+// Configure GuidRepresentation globally.
+// This must match IPFees.Web, which writes the documents this process reads. Without it the
+// driver refuses every document keyed by a Guid, failing any request that touches fees with
+// "GuidSerializer cannot deserialize a Guid when GuidRepresentation is Unspecified".
+BsonSerializer.RegisterSerializer(new GuidSerializer(GuidRepresentation.CSharpLegacy));
 
 // Set Serilog settings
 var logger = new LoggerConfiguration()
