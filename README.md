@@ -13,7 +13,9 @@
 
 ## Overview
 
-IPFees is a jurisdiction-agnostic intellectual property fee calculation system that automates complex legal fee structures with multi-currency support. The platform provides automated fee calculations across 118 global IP jurisdictions using a Domain-Specific Language (DSL) approach, enabling legal professionals to define and modify fee calculation rules without software development expertise.
+IPFees is a jurisdiction-agnostic intellectual property fee calculation platform covering 118 global IP jurisdictions. Fee schedules are written in [IPFLang](https://github.com/vbocan/IPFLang), a domain-specific language for regulatory fee computation, so legal professionals can define and change calculation rules without software development expertise.
+
+IPFees does not implement the language. It consumes the IPFLang engine as a NuGet package and provides the layer around it: a REST API, a web interface where schedules are authored and **statically verified before they can be saved**, multi-currency conversion with historical rates, and portfolio-level estimation.
 
 ## Quick Start with Docker
 
@@ -120,12 +122,14 @@ For a detailed technical architecture diagram, see [architecture.md](docs/archit
 - **Database**: MongoDB with GridFS
 - **Containerization**: Docker & Docker Compose
 - **Background Services**: .NET BackgroundService
-- **Expression Parsing**: Custom DSL interpreter
+- **Fee Calculation Language**: [IPFLang.Engine](https://github.com/vbocan/IPFLang) (NuGet package)
 - **Testing**: xUnit, Testcontainers
 
 ### Key Features
 
 - **DSL-Based Fee Calculation**: Define complex fee structures in human-readable format without hardcoding business logic
+- **Static Verification in the Browser**: A schedule declaring `VERIFY COMPLETE` or `VERIFY MONOTONIC` is checked on save; one that leaves input combinations unanswered, or that moves the wrong way against an input, is refused with the specific gap named
+- **Currency Type Safety**: Cross-currency arithmetic is rejected at edit time, not discovered at calculation time
 - **Multi-Jurisdiction Support**: Configurable architecture supporting USPTO, EPO, WIPO, and 118 national patent offices
 - **Real-Time Currency Management**: Multi-currency precision with real-time conversion, historical rate tracking, and three-tier fallback system
 - **API-First Design**: Comprehensive REST APIs for integration with IP management platforms
@@ -145,18 +149,48 @@ For a detailed technical architecture diagram, see [architecture.md](docs/archit
 
 **Performance Validation:** Comprehensive benchmarking completed using BenchmarkDotNet v0.14.0 with >90% confidence level. The validation includes statistical rigor (10 iterations, 99.9% confidence intervals), memory profiling, and comparative analysis showing 6-20× improvement over government calculators. See [Performance Benchmark Report](docs/performance_benchmark_report.md) for detailed methodology, results, and statistical analysis.
 
+## Relationship to IPFLang
+
+The fee calculation language began inside this repository as `IPFees.Calculator`. It was
+extracted into a separate project, given a formal grammar, a currency-aware type system and
+static verification, and published as [IPFLang](https://github.com/vbocan/IPFLang). IPFees
+now consumes it as a versioned package rather than carrying a copy of it.
+
+What that buys the platform:
+
+| Engine capability | Where IPFees surfaces it |
+|---|---|
+| Completeness and monotonicity checking | Refused on save in the fee editor; `GET /api/v1/Fee/Verify/{jurisdictions}` |
+| Currency-aware type system | Cross-currency arithmetic rejected at edit time |
+| Jurisdiction composition | Shared input modules applied as an inheritance chain |
+| Provenance and counterfactuals | Calculation audit trail |
+| Embedded jurisdiction corpus | 118 reference schedules shipped with the engine |
+
+`IPFees.Core.Tests` includes an equivalence suite that holds the current corpus accountable
+to the schedules IPFees shipped before the change: every fee definition present in both
+computes the same amount from the same inputs.
+
 ## Citation
 
-If you use IPFees in your research, please cite:
+If you use IPFees in your research, please cite the software and the article describing the
+language it runs on:
 
 ```bibtex
-@software{ipfees2025,
-  title = {IPFees: Intellectual Property Fee Calculator},
-  author = {Valer Bocan, PhD, CSSLP},
-  year = {2025},
-  version = {1.0.0},
-  url = {https://github.com/vbocan/ipfees},
-  license = {GPL-3.0}
+@software{ipfees,
+  title    = {IPFees: Intellectual Property Fee Calculator},
+  author   = {Bocan, Valer},
+  year     = {2026},
+  version  = {2.0.0},
+  url      = {https://github.com/vbocan/ipfees},
+  license  = {GPL-3.0}
+}
+
+@article{ipflang,
+  title    = {{IPFLang}: A Domain-Specific Language for Multi-Currency Regulatory Fee
+              Computation with Static Verification},
+  author   = {Bocan, Valer and Balas, Valentina E.},
+  journal  = {IEEE Open Journal of the Computer Society},
+  year     = {2026}
 }
 ```
 

@@ -1,16 +1,18 @@
 cff-version: 1.2.0
-message: "If you use this software, please cite it as below."
+message: "If you use this software, please cite it as below. If you use the fee calculation language it runs on, please also cite IPFLang under references."
 title: "IPFees: Intellectual Property Fee Calculator"
-version: 1.0.0
-date-released: 2025-10-24
-abstract: "A jurisdiction-agnostic intellectual property fee calculation system that automates complex legal fee structures with multi-currency support across 118 global IP jurisdictions using a Domain-Specific Language approach."
+version: 2.0.0
+date-released: 2026-08-19
+abstract: "A jurisdiction-agnostic intellectual property fee calculation platform covering 118 global IP jurisdictions. IPFees provides the deployable layer around the IPFLang domain-specific language: a REST API, a web interface where fee schedules are authored and statically verified without programming, multi-currency conversion with historical rates, and portfolio-level estimation."
 authors:
-  - family-names: "BOCAN"
+  - family-names: "Bocan"
     given-names: "Valer"
+    name-suffix: "Ph.D., CSSLP"
     email: "valer.bocan@upt.ro"
     orcid: "https://orcid.org/0009-0006-9084-4064"
+    affiliation: "Politehnica University of Timisoara"
 repository-code: "https://github.com/vbocan/ipfees"
-url: "https://github.com/vbocan/ipfees"
+url: "https://ipfees.dataman.ro/"
 license: GPL-3.0
 keywords:
   - intellectual property
@@ -21,6 +23,32 @@ keywords:
   - multi-jurisdiction
   - currency conversion
   - regulatory automation
+  - static verification
   - IP management
   - patent fees
 type: software
+
+# IPFees executes fee schedules written in IPFLang and consumes its engine as a package.
+# The language, its currency-aware type system and its static verification are described
+# in the article below.
+references:
+  - type: article
+    title: "IPFLang: A Domain-Specific Language for Multi-Currency Regulatory Fee Computation with Static Verification"
+    journal: "IEEE Open Journal of the Computer Society"
+    year: 2026
+    authors:
+      - family-names: "Bocan"
+        given-names: "Valer"
+        orcid: "https://orcid.org/0009-0006-9084-4064"
+      - family-names: "Balas"
+        given-names: "Valentina E."
+        orcid: "https://orcid.org/0000-0003-0885-1283"
+  - type: software
+    title: "IPFLang: Domain-Specific Language for Intellectual Property Fee Calculations"
+    version: "1.2.0"
+    repository-code: "https://github.com/vbocan/IPFLang"
+    license: GPL-3.0
+    authors:
+      - family-names: "Bocan"
+        given-names: "Valer"
+        orcid: "https://orcid.org/0009-0006-9084-4064"

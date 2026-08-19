@@ -1,69 +1,55 @@
-﻿using IPFees.Calculator;
 using IPFees.Core.Model;
 using IPFees.Core.Repository;
-using IPFees.Evaluator;
-using IPFees.Parser;
+using IPFLang.Engine;
+using IPFLang.Evaluator;
+using IPFLang.Parser;
 
 namespace IPFees.Core.FeeCalculation
 {
+    /// <summary>
+    /// Executes a stored fee definition against the IPFLang engine.
+    ///
+    /// A fee definition rarely stands alone: it relies on shared input declarations kept
+    /// in modules. Those modules are combined with the fee script through IPFLang's
+    /// jurisdiction composition, where each module is a parent of the one after it and the
+    /// fee script is the leaf. Later definitions override earlier ones of the same name,
+    /// which is what lets a fee script specialise a shared module.
+    /// </summary>
     public class FeeCalculator : IFeeCalculator
     {
         private readonly IDslCalculator Calculator;
+        private readonly IFeeScriptComposer Composer;
         private readonly IEnumerable<FeeInfo> Fees;
         private readonly IEnumerable<ModuleInfo> Modules;
 
-        public FeeCalculator(IFeeRepository fee, IModuleRepository module, IDslCalculator calculator)
+        public FeeCalculator(IFeeRepository fee, IModuleRepository module, IDslCalculator calculator, IFeeScriptComposer composer)
         {
             Calculator = calculator;
+            Composer = composer;
             Fees = fee.GetFees().Result;
             Modules = module.GetModules().Result;
         }
 
         private FeeInfo? GetFeeById(Guid Id) => Fees.SingleOrDefault(w => w.Id.Equals(Id));
-        private ModuleInfo? GetModuleById(Guid Id) => Modules.SingleOrDefault(w => w.Id.Equals(Id));
 
         /// <summary>
         /// Compute the specified fee
         /// </summary>
         /// <param name="FeeId">Fee Id</param>
         /// <param name="InputValues">Calculation parameters</param>
-        /// <exception cref="NotSupportedException"></exception>
         public FeeResult Calculate(Guid FeeId, IList<IPFValue> InputValues)
         {
-            // Reset calculator
-            Calculator.Reset();
-            var jur = GetFeeById(FeeId) ?? throw new NotSupportedException($"Fee '{FeeId}' does not exist.");
-            // Step 1: Parse the source code of the referenced modules (if any)
-            foreach (var rm in jur.ReferencedModules)
-            {
-                // Retrieve the referenced module
-                var mod = GetModuleById(rm) ?? throw new NotSupportedException($"Module '{rm}' does not exist.");
-                Calculator.Parse(mod.SourceCode);
-            }
-            // Step 2: Parse autorun modules
-            var AutoRunModules = Modules.Where(w => w.AutoRun);
-            foreach (var arm in AutoRunModules)
-            {
-                // Retrieve the autorun module
-                var mod = GetModuleById(arm.Id) ?? throw new NotSupportedException($"Module '{arm}' does not exist.");
-                Calculator.Parse(mod.SourceCode);
-            }
-            // Step 3: Parse the source code of the current fee
-            var res = Calculator.Parse(jur.SourceCode);
-            if (!res)
-            {
-                var Errors = Calculator.GetErrors();
-                return new FeeResultFail(jur.Name, jur.Description, Errors);
-            }
+            var (fee, failure) = Prepare(FeeId);
+            if (failure is not null) return failure;
 
             try
             {
                 var (TotalMandatoryAmount, TotalOptionalAmount, CalculationSteps, Returns) = Calculator.Compute(InputValues);
-                return new FeeResultCalculation(jur.Name, jur.Description, TotalMandatoryAmount, TotalOptionalAmount, CalculationSteps, Returns);
+                return new FeeResultCalculation(fee.Name, fee.Description, TotalMandatoryAmount, TotalOptionalAmount, CalculationSteps, Returns);
             }
             catch (Exception ex)
             {
-                return new FeeResultFail(jur.Name, jur.Description, new string[] { ex.Message });
+                return new FeeResultFail(fee.Name, fee.Description, new[] { ex.Message });
             }
         }
 
@@ -72,40 +58,60 @@ namespace IPFees.Core.FeeCalculation
         /// </summary>
         /// <param name="FeeId">Fee Id</param>
         /// <returns>List of inputs needed for invoking the fee calculation</returns>
-        /// <exception cref="NotSupportedException"></exception>
         public FeeResult GetInputs(Guid FeeId)
         {
-            // Reset calculator
+            var (fee, failure) = Prepare(FeeId);
+            if (failure is not null) return failure;
+
+            return new FeeResultParse(fee.Name, fee.Description, Calculator.GetInputs(), Calculator.GetGroups());
+        }
+
+        /// <summary>
+        /// Run the VERIFY directives declared by the fee and its modules. This surfaces
+        /// IPFLang's static completeness and monotonicity analysis to callers that never
+        /// touch the DSL directly.
+        /// </summary>
+        /// <param name="FeeId">Fee Id</param>
+        public FeeResult Verify(Guid FeeId)
+        {
+            var (fee, failure) = Prepare(FeeId);
+            if (failure is not null) return failure;
+
+            try
+            {
+                return new FeeResultVerification(fee.Name, fee.Description, Calculator.RunVerifications());
+            }
+            catch (Exception ex)
+            {
+                return new FeeResultFail(fee.Name, fee.Description, new[] { ex.Message });
+            }
+        }
+
+        /// <summary>
+        /// Resolve a fee to its composed script and load it into the calculator.
+        /// Returns the fee metadata, plus a failure result when composition did not succeed.
+        /// </summary>
+        private (FeeInfo Fee, FeeResult? Failure) Prepare(Guid FeeId)
+        {
             Calculator.Reset();
-            var jur = GetFeeById(FeeId) ?? throw new NotSupportedException($"Fee '{FeeId}' does not exist.");
-            // Step 1: Parse the source code of the referenced modules (if any)
-            foreach (var rm in jur.ReferencedModules)
+            var fee = GetFeeById(FeeId) ?? throw new NotSupportedException($"Fee '{FeeId}' does not exist.");
+
+            try
             {
-                // Retrieve the referenced module
-                var mod = GetModuleById(rm) ?? throw new NotSupportedException($"Module '{rm}' does not exist.");
-                Calculator.Parse(mod.SourceCode);
+                var (script, errors) = Composer.Compose(fee.SourceCode, $"fee:{fee.Name}", fee.ReferencedModules, Modules);
+                if (script is null)
+                {
+                    return (fee, new FeeResultFail(fee.Name, fee.Description, errors));
+                }
+
+                Calculator.LoadParsedScript(script);
             }
-            // Step 2: Parse autorun modules
-            var AutoRunModules = Modules.Where(w => w.AutoRun);
-            foreach (var arm in AutoRunModules)
+            catch (Exception ex)
             {
-                // Retrieve the autorun module
-                var mod = GetModuleById(arm.Id) ?? throw new NotSupportedException($"Module '{arm}' does not exist.");
-                Calculator.Parse(mod.SourceCode);
+                return (fee, new FeeResultFail(fee.Name, fee.Description, new[] { ex.Message }));
             }
-            // Step 3: Parse the source code of the current fee
-            var res = Calculator.Parse(jur.SourceCode);
-            if (!res)
-            {
-                var Errors = Calculator.GetErrors();
-                return new FeeResultFail(jur.Name, jur.Description, Errors);
-            }
-            else
-            {
-                var Inputs = Calculator.GetInputs();
-                var Groups = Calculator.GetGroups();
-                return new FeeResultParse(jur.Name, jur.Description, Inputs, Groups);
-            }
+
+            return (fee, null);
         }
     }
 
@@ -113,4 +119,5 @@ namespace IPFees.Core.FeeCalculation
     public record FeeResultFail(string FeeName, string FeeDescription, IEnumerable<string> Errors) : FeeResult();
     public record FeeResultCalculation(string FeeName, string FeeDescription, decimal TotalMandatoryAmount, decimal TotalOptionalAmount, IEnumerable<string> CalculationSteps, IEnumerable<(string, string)> Returns) : FeeResult();
     public record FeeResultParse(string FeeName, string FeeDescription, IEnumerable<DslInput> FeeInputs, IEnumerable<DslGroup> FeeGroups) : FeeResult();
+    public record FeeResultVerification(string FeeName, string FeeDescription, VerificationResults Results) : FeeResult();
 }

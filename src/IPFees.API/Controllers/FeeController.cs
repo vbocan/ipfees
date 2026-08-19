@@ -4,8 +4,8 @@ using IPFees.API.Data;
 using IPFees.Core.Data;
 using IPFees.Core.FeeCalculation;
 using IPFees.Core.FeeManager;
-using IPFees.Evaluator;
-using IPFees.Parser;
+using IPFLang.Evaluator;
+using IPFLang.Parser;
 using Mapster;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
@@ -114,6 +114,33 @@ namespace IPFees.API.Controllers
                 }
             }
             return Ok(new CalculationParams(response));
+        }
+
+        /// <summary>
+        /// Run the static verification directives declared by the fee schedules behind one or
+        /// more jurisdictions, without computing anything. Answers whether a schedule covers
+        /// every input combination and moves in the direction it promised.
+        /// </summary>
+        /// <param name="Jurisdictions">Comma-separated jurisdiction names.</param>
+        [HttpGet("Verify/{Jurisdictions}"), MapToApiVersion("1")]
+        [ProducesResponseType(typeof(IEnumerable<FeeVerificationInfo>), 200)]
+        public IActionResult Verify(string Jurisdictions)
+        {
+            logger.LogInformation($"[REQUEST] Verify fee schedules for jurisdictions {Jurisdictions}.");
+
+            var JurisdictionList = Jurisdictions.Split(",", StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries);
+            if (JurisdictionList.Length == 0)
+            {
+                return BadRequest("You need to supply one or more comma-separated jurisdictions.");
+            }
+
+            var results = jurisdictionFeeManager.Verify(JurisdictionList).ToList();
+            if (results.Count == 0)
+            {
+                return NotFound($"No fee definitions are registered for {Jurisdictions}.");
+            }
+
+            return Ok(results);
         }
 
         [HttpPost("Calculate"), MapToApiVersion("1")]

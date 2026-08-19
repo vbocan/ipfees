@@ -1,9 +1,9 @@
 using BenchmarkDotNet.Attributes;
 using BenchmarkDotNet.Order;
-using IPFees.Calculator;
+using IPFLang.Engine;
 using IPFees.Core.FeeCalculation;
-using IPFees.Evaluator;
-using IPFees.Parser;
+using IPFLang.Evaluator;
+using IPFLang.Parser;
 using IPFees.Performance.Tests.Fixtures;
 
 namespace IPFees.Performance.Tests.Benchmarks
@@ -31,7 +31,7 @@ namespace IPFees.Performance.Tests.Benchmarks
 
             var parser = new DslParser();
             IDslCalculator calculator = new DslCalculator(parser);
-            feeCalculator = new FeeCalculator(fixture.FeeRepository, fixture.ModuleRepository, calculator);
+            feeCalculator = new FeeCalculator(fixture.FeeRepository, fixture.ModuleRepository, calculator, new FeeScriptComposer(parser));
 
             // Get fee IDs by name
             var fees = await fixture.FeeRepository.GetFees();

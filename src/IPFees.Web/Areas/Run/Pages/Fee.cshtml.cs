@@ -1,6 +1,6 @@
 using IPFees.Core.FeeCalculation;
-using IPFees.Evaluator;
-using IPFees.Parser;
+using IPFLang.Evaluator;
+using IPFLang.Parser;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 

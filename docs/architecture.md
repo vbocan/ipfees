@@ -10,7 +10,7 @@ graph TB
 
     subgraph "Business Logic Layer"
         Core[IPFees.Core<br/>Fee Calculation<br/>Currency Conversion<br/>Repositories]
-        Calculator[IPFees.Calculator<br/>DSL Parser<br/>DSL Evaluator<br/>Expression Engine]
+        Calculator["IPFLang.Engine (NuGet)<br/>Parser · Type System<br/>Static Verification<br/>Provenance · Composition"]
         FeeManager[Jurisdiction Fee<br/>Manager]
     end
 
@@ -96,21 +96,22 @@ The IPFees system is built using a clean, layered architecture with clear separa
   - `FeeManager`: Jurisdiction-specific fee management
   - `Model`: Domain entities (FeeDoc, JurisdictionDoc, ModuleDoc)
   - `Data`: MongoDB data context
-- **Dependencies**: IPFees.Calculator, MongoDB.Driver
+- **Dependencies**: IPFLang.Engine (NuGet package), MongoDB.Driver
 
-#### IPFees.Calculator (Critical Component)
-- **Purpose**: Domain-Specific Language (DSL) engine - the heart of IPFees
+#### IPFLang.Engine (external package)
+- **Purpose**: The fee calculation language and its engine, consumed as a NuGet package
+- **Source**: [github.com/vbocan/IPFLang](https://github.com/vbocan/IPFLang), GPL-3.0
 - **Key Components**:
-  - `Parser`: DSL syntax parser (DslParser, DslSemanticChecker)
-  - `Evaluator`: Expression evaluator (DslEvaluator, node types)
-  - `Calculator`: DSL calculator orchestration (DslCalculator)
-- **Technology**: Custom lexer/parser with AST evaluation
-- **Note**: This is a standalone project with **no external dependencies**
-- **Capabilities**: 
-  - Parses IPFLang DSL syntax
-  - Evaluates complex fee expressions
-  - Supports variables, functions, conditionals
-  - Type checking and semantic validation
+  - `Parser`: IPFLang syntax and semantic analysis
+  - `Types`: Currency-aware type system over the 161 active ISO 4217 currencies
+  - `Analysis`: Static completeness and monotonicity verification
+  - `Provenance`: Execution traces and counterfactual analysis
+  - `Composition`: Jurisdiction inheritance and override resolution
+  - `Corpus`: The 118 production jurisdiction schedules, embedded in the assembly
+- **Note**: Has **no external dependencies** of its own
+- **Relationship**: IPFees does not implement a DSL. It stores IPFLang scripts, composes
+  them, executes them, and surfaces the engine's static analysis to people who never see
+  the language. The engine is described in the IEEE OJCS article cited in `CITATION.cff`.
 
 #### Jurisdiction Fee Manager
 - **Purpose**: Manages jurisdiction-specific fee calculations
@@ -124,7 +125,7 @@ The IPFees system is built using a clean, layered architecture with clear separa
 - **Collections**:
   - `fees`: Fee definitions with DSL source code
   - `jurisdictions`: Jurisdiction metadata and configuration
-  - `modules`: Reusable DSL modules
+  - `modules`: Shared input declarations, applied through IPFLang jurisdiction composition
   - `serviceSettings`: System configuration
 - **Note**: GridFS is **not currently implemented** despite architecture references
 - **Access Pattern**: Repository pattern through IPFees.Core
@@ -152,21 +153,26 @@ The IPFees system is built using a clean, layered architecture with clear separa
 ```
 IPFees.Web
   └── IPFees.Core
-      └── IPFees.Calculator (standalone, no dependencies)
+      └── IPFLang.Engine  [NuGet, no dependencies of its own]
 
 IPFees.API
   └── IPFees.Core
-      └── IPFees.Calculator (standalone, no dependencies)
+      └── IPFLang.Engine  [NuGet, no dependencies of its own]
 
 Test Projects:
-  - IPFees.Core.Tests
-  - IPFees.Calculator.Tests
-  - IPFees.Performance.Tests
+  - IPFees.Core.Tests          repositories, validation, corpus equivalence
+  - IPFees.Performance.Tests   BenchmarkDotNet suite
 ```
+
+The language engine used to live in this repository as `IPFees.Calculator`. It was
+extracted into IPFLang, formalised, and published; IPFees now consumes it as a versioned
+package rather than carrying a copy. `IPFees.Core.Tests` includes an equivalence suite
+holding the current corpus accountable to the fee schedules IPFees shipped before the
+change.
 
 ## Key Architectural Benefits
 
-1. **Clean Separation**: Calculator is completely isolated, making the DSL engine reusable and testable
+1. **Clean Separation**: The language is a published package, so the platform and the DSL version and evolve independently
 2. **Modular Design**: Each project has a single, well-defined responsibility
 3. **Dependency Management**: Clear dependency hierarchy prevents circular references
 4. **Testability**: Each layer can be tested independently (unit, integration, performance tests)

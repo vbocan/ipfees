@@ -1,5 +1,5 @@
-﻿using IPFees.Evaluator;
-using IPFees.Parser;
+﻿using IPFLang.Evaluator;
+using IPFLang.Parser;
 
 namespace IPFees.Core.FeeCalculation
 {
@@ -7,5 +7,10 @@ namespace IPFees.Core.FeeCalculation
     {
         FeeResult GetInputs(Guid FeeId);
         FeeResult Calculate(Guid FeeId, IList<IPFValue> InputValues);
+
+        /// <summary>
+        /// Run the fee's static verification directives (completeness, monotonicity).
+        /// </summary>
+        FeeResult Verify(Guid FeeId);
     }
 }

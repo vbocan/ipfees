@@ -1,8 +1,8 @@
 using BenchmarkDotNet.Attributes;
 using BenchmarkDotNet.Order;
-using IPFees.Calculator;
-using IPFees.Evaluator;
-using IPFees.Parser;
+using IPFLang.Engine;
+using IPFLang.Evaluator;
+using IPFLang.Parser;
 
 namespace IPFees.Performance.Tests.Benchmarks
 {
