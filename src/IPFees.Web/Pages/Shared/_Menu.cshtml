@@ -4,8 +4,19 @@
 <li class="nav-item">
     <a class="nav-link text-dark" asp-area="" asp-page="/Grammar">Grammar</a>
 </li>
-<li class="nav-item">
-    <a class="nav-link text-dark" asp-area="" asp-page="/Admin">Backstage</a>
+<li class="nav-item dropdown">
+    <a class="nav-link dropdown-toggle text-dark" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+        Explore
+    </a>
+    <ul class="dropdown-menu dropdown-menu-end">
+        <li><a class="dropdown-item" asp-area="Jurisdiction" asp-page="Index"><i class="bi bi-globe-americas me-2"></i>Jurisdictions</a></li>
+        <li><a class="dropdown-item" asp-area="Fee" asp-page="Index"><i class="bi bi-receipt-cutoff me-2"></i>Fees</a></li>
+        <li><a class="dropdown-item" asp-area="Settings" asp-page="Index"><i class="bi bi-gear-wide-connected me-2"></i>Service Fees</a></li>
+        <li><a class="dropdown-item" asp-area="Currency" asp-page="Index"><i class="bi bi-currency-exchange me-2"></i>Currencies</a></li>
+        <li><a class="dropdown-item" asp-area="Module" asp-page="Index"><i class="bi bi-diagram-3 me-2"></i>Modules</a></li>
+        <li><hr class="dropdown-divider"></li>
+        <li><a class="dropdown-item" href="https://ipfeesapi.dataman.ro/swagger/index.html" target="_blank"><i class="bi bi-cloud me-2"></i>API docs</a></li>
+    </ul>
 </li>
 <li class="nav-item">
     <a class="nav-link text-dark" asp-area="" asp-page="/About">About</a>
