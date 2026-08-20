@@ -1,182 +1,185 @@
-﻿@page
+@page
 @model AboutModel
 @{
     ViewData["Title"] = "About IPFees";
 }
 
-<div class="container-fluid">
-    <h1 class="display-4 text-primary mb-4">About IPFees</h1>
+<div class="py-2">
+    <h1 class="display-5 fw-bold mb-3">About IPFees</h1>
+    <p class="lead" style="max-width: 46rem;">
+        IPFees calculates official filing, examination, and renewal fees for PCT national and regional
+        phase entry across 119 patent jurisdictions. More to the point of this page: it's a working
+        demonstration of
+        <a href="https://github.com/vbocan/IPFLang" target="_blank">IPFLang</a>, the domain-specific
+        language it runs on. If you want to see what a statically-verified, currency-typed DSL for
+        regulatory fee computation looks like in practice &mdash; not in a paper, in a browser &mdash;
+        this is the tool to poke at.
+    </p>
 
-    <p class="lead mb-4">IPFees is a jurisdiction-agnostic intellectual property fee calculation system that automates complex legal fee structures with multi-currency support. The platform provides automated fee calculations across 118 global IP jurisdictions using a Domain-Specific Language approach.</p>
+    <h2 class="h4 text-uppercase text-secondary mt-5 mb-3">What it actually does</h2>
+    <div style="max-width: 46rem;">
+        <p>
+            Pick one or more jurisdictions, answer a short questionnaire &mdash; entity size, claim count,
+            filing date, whatever that jurisdiction's schedule asks for &mdash; and get a total in the
+            currency of your choice. Alongside the total you get the full rule trace: every condition the
+            engine evaluated, including the ones that didn't apply and why, so the number on screen is
+            never a black box.
+        </p>
+        <p>
+            Every fee schedule behind this is a plain-text <code>.ipf</code> script, not business logic
+            buried in C#. You can read the ones this instance ships with on
+            <a href="https://github.com/vbocan/IPFLang/tree/master/jurisdictions" target="_blank">GitHub</a>,
+            or write your own in the <a asp-page="/Admin">Backstage</a> sandbox.
+        </p>
+    </div>
 
-    <h2 class="text-secondary mt-5 mb-3 border-start border-4 border-primary ps-3">Context and Motivation</h2>
+    <h2 class="h4 text-uppercase text-secondary mt-5 mb-3">Why a language, and not a spreadsheet</h2>
+    <p style="max-width: 46rem;">
+        Government fee schedules are legal text with a lot of conditional structure &mdash; reduced rates
+        for small entities, per-claim surcharges past a threshold, examination fees that depend on how the
+        search was handled. Hardcoding that into an application means every fee change is a code change and
+        a deployment. IPFLang keeps the rules as data a non-programmer can read and edit, while still giving
+        you the two things a spreadsheet can't: proof that the rules are complete, and a type system that
+        catches currency mistakes before they reach a number.
+    </p>
 
-    <p class="mb-3">IP practitioners allocate substantial resources to fee calculations across diverse patent offices globally. Each jurisdiction implements unique fee structures with complex dependencies on entity size, claim counts, page numbers, filing types, and temporal factors. Current approaches present several limitations:</p>
-
-    <ul class="list-unstyled mb-4">
-        <li class="mb-2"><i class="bi bi-chevron-right text-primary me-2"></i><strong>Fragmented calculation tools</strong>: Government-provided calculators operate independently without programmatic interfaces or integration capabilities</li>
-        <li class="mb-2"><i class="bi bi-chevron-right text-primary me-2"></i><strong>Limited commercial solutions</strong>: Existing IP management platforms typically hardcode fee structures in proprietary systems, requiring vendor updates for fee schedule changes</li>
-        <li class="mb-2"><i class="bi bi-chevron-right text-primary me-2"></i><strong>Currency conversion complexity</strong>: International portfolios require accurate multi-currency calculations with historical exchange rates for budget planning</li>
-        <li class="mb-2"><i class="bi bi-chevron-right text-primary me-2"></i><strong>Multi-jurisdiction calculation complexity</strong>: Fee structures vary substantially across 118+ jurisdictions with different entity classifications and pricing models</li>
-        <li class="mb-2"><i class="bi bi-chevron-right text-primary me-2"></i><strong>Integration barriers</strong>: Limited connectivity between calculation tools and practice management systems</li>
-    </ul>
-
-    <p class="mb-4">The absence of a unified, extensible, open-source solution creates inefficiencies in IP practice and limits research opportunities in computational law and regulatory automation.</p>
-
-    <h2 class="text-secondary mt-5 mb-3 border-start border-4 border-primary ps-3">System Capabilities</h2>
-
-    <div class="row g-4 mb-5">
-        <div class="col-lg-6">
-            <div class="card h-100 border-0 shadow-sm">
-                <div class="card-body">
-                    <h3 class="card-title text-primary">Domain-Specific Language Approach</h3>
-                    <p class="card-text">The system implements a custom Domain-Specific Language parser that expresses complex fee structures in human-readable format rather than embedded business logic. This design separates jurisdiction-specific rules from software implementation, allowing legal professionals to define and modify fee calculation rules without programming expertise. The interpreter evaluates these rules at runtime, supporting multi-layered calculations including base fees, service fees, and conditional logic dependent on application parameters such as claim counts, page numbers, and filing types.</p>
+    <div class="row g-4 mt-1 mb-5" style="max-width: 62rem;">
+        <div class="col-md-6">
+            <div class="d-flex">
+                <div class="flex-shrink-0">
+                    <div class="rounded-circle bg-primary bg-opacity-10 text-primary d-flex align-items-center justify-content-center" style="width:52px;height:52px;">
+                        <i class="bi bi-patch-check fs-4"></i>
+                    </div>
+                </div>
+                <div class="ms-3">
+                    <h3 class="h6 fw-bold mb-1">Statically verified schedules</h3>
+                    <p class="text-secondary mb-0">
+                        A script can declare <code>VERIFY COMPLETE</code> or <code>VERIFY MONOTONIC</code>.
+                        The editor checks it on save &mdash; <code>COMPLETE</code> means every input
+                        combination is covered, <code>MONOTONIC</code> means the fee never moves the wrong
+                        way against an input you name. A schedule that fails either is refused, with the
+                        exact gap named.
+                    </p>
                 </div>
             </div>
         </div>
-
-        <div class="col-lg-6">
-            <div class="card h-100 border-0 shadow-sm">
-                <div class="card-body">
-                    <h3 class="card-title text-primary">Multi-Jurisdiction Architecture</h3>
-                    <p class="card-text">The jurisdiction-agnostic calculation engine processes multi-variable fee structures across major patent offices including USPTO, EPO, WIPO, and 118 national offices. Each jurisdiction implements distinct entity classifications, claim-based pricing models, and temporal fee obligations.</p>
-                    <p class="card-text">The modular architecture enables new countries or regions to be incorporated through configuration files alone, without modifications to core software logic. The platform provides comprehensive REST API endpoints that facilitate integration with existing IP management systems.</p>
+        <div class="col-md-6">
+            <div class="d-flex">
+                <div class="flex-shrink-0">
+                    <div class="rounded-circle bg-primary bg-opacity-10 text-primary d-flex align-items-center justify-content-center" style="width:52px;height:52px;">
+                        <i class="bi bi-currency-exchange fs-4"></i>
+                    </div>
+                </div>
+                <div class="ms-3">
+                    <h3 class="h6 fw-bold mb-1">Currency-safe by construction</h3>
+                    <p class="text-secondary mb-0">
+                        Every monetary literal carries its currency. Adding 100&nbsp;EUR to 50&nbsp;USD is a
+                        compile-time type error, not a runtime surprise &mdash; you convert explicitly, and
+                        that conversion stays visible in the script.
+                    </p>
                 </div>
             </div>
         </div>
-
-        <div class="col-lg-6">
-            <div class="card h-100 border-0 shadow-sm">
-                <div class="card-body">
-                    <h3 class="card-title text-primary">Multi-Currency System</h3>
-                    <p class="card-text">The system implements precision currency management with real-time conversion capabilities, historical rate tracking for audit compliance, and rate-lock functionality to address temporal accounting requirements.</p>
-                    <p class="card-text">A three-tier fallback mechanism (real-time API, historical database cache, manual override) ensures continuous operation when external rate services become unavailable. The currency handling system maintains 6-8 decimal precision and supports automatic conversion across 150+ currencies, with transparent status indicators for data freshness.</p>
+        <div class="col-md-6">
+            <div class="d-flex">
+                <div class="flex-shrink-0">
+                    <div class="rounded-circle bg-primary bg-opacity-10 text-primary d-flex align-items-center justify-content-center" style="width:52px;height:52px;">
+                        <i class="bi bi-list-check fs-4"></i>
+                    </div>
+                </div>
+                <div class="ms-3">
+                    <h3 class="h6 fw-bold mb-1">Full calculation provenance</h3>
+                    <p class="text-secondary mb-0">
+                        Every result ships with the complete rule trace &mdash; what fired, what didn't and
+                        why, and how each piece contributed to the total. A charge you didn't incur is shown
+                        as clearly as one you did.
+                    </p>
                 </div>
             </div>
         </div>
-
-        <div class="col-lg-6">
-            <div class="card h-100 border-0 shadow-sm">
-                <div class="card-body">
-                    <h3 class="card-title text-primary">Data Architecture</h3>
-                    <p class="card-text">The system employs MongoDB document storage for jurisdiction configurations, fee structures, and calculation history, with GridFS for versioned DSL file management. Background services maintain exchange rates at configurable intervals, while graceful degradation protocols enable continued operation using cached data during external service disruptions. This architecture maintains high availability and comprehensive audit trails for all transactions.</p>
+        <div class="col-md-6">
+            <div class="d-flex">
+                <div class="flex-shrink-0">
+                    <div class="rounded-circle bg-primary bg-opacity-10 text-primary d-flex align-items-center justify-content-center" style="width:52px;height:52px;">
+                        <i class="bi bi-unlock fs-4"></i>
+                    </div>
                 </div>
-            </div>
-        </div>
-
-        <div class="col-lg-6">
-            <div class="card h-100 border-0 shadow-sm">
-                <div class="card-body">
-                    <h3 class="card-title text-primary">User Interface</h3>
-                    <p class="card-text">The web-based interface implements a structured calculation workflow guiding users through jurisdiction selection, parameter specification, and result review. Real-time validation provides immediate feedback on parameter constraints as values are modified. The responsive design maintains functionality across desktop and mobile devices, while status indicators communicate exchange rate data currency and reliability.</p>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-lg-6">
-            <div class="card h-100 border-0 shadow-sm">
-                <div class="card-body">
-                    <h3 class="card-title text-primary">Administrative Capabilities</h3>
-                    <p class="card-text">Runtime configuration enables fee structure modifications without deployment cycles or system interruption. The administrative interface provides comprehensive module management for creating, editing, and organizing jurisdiction-specific fee definitions. Centralized configuration manages currency providers, API credentials, and system parameters, while complete audit trails document all calculations and modifications for compliance verification.</p>
+                <div class="ms-3">
+                    <h3 class="h6 fw-bold mb-1">Open by default</h3>
+                    <p class="text-secondary mb-0">
+                        The schedules, the calculator, and the REST API are all public, no key required. The
+                        <a asp-page="/Admin">Backstage</a> sandbox lets you add jurisdictions and edit fees
+                        directly against a database that resets every six hours &mdash; nothing you do there
+                        is permanent, so there's nothing to be careful about.
+                    </p>
                 </div>
             </div>
         </div>
     </div>
 
-    <h2 class="text-secondary mt-5 mb-3 border-start border-4 border-primary ps-3">Application Domains</h2>
-
-    <p class="mb-3">The system addresses requirements across multiple contexts within the intellectual property ecosystem:</p>
-
-    <ul class="list-unstyled mb-4">
-        <li class="mb-2"><i class="bi bi-chevron-right text-primary me-2"></i><strong>IP law firms and corporate legal departments</strong>: Portfolio budget planning and multi-jurisdiction cost estimation capabilities</li>
-        <li class="mb-2"><i class="bi bi-chevron-right text-primary me-2"></i><strong>Independent practitioners</strong>: Access to comprehensive fee calculation capabilities through open-source licensing</li>
-        <li class="mb-2"><i class="bi bi-chevron-right text-primary me-2"></i><strong>Patent prosecution workflows</strong>: Real-time fee estimation during application preparation phases</li>
-        <li class="mb-2"><i class="bi bi-chevron-right text-primary me-2"></i><strong>Academic technology transfer offices</strong>: Cost analysis for institutional patent programs and research commercialization</li>
-        <li class="mb-2"><i class="bi bi-chevron-right text-primary me-2"></i><strong>IP management platform developers</strong>: REST API integration for automated calculations within existing systems</li>
-        <li class="mb-2"><i class="bi bi-chevron-right text-primary me-2"></i><strong>International IP service providers</strong>: Multi-currency portfolio management and cross-border compliance tracking</li>
-    </ul>
-
-    <h3 class="text-primary mt-4 mb-3">Comparative Characteristics</h3>
-    <p class="mb-3">The system exhibits several distinguishing properties relative to government-provided calculators and commercial IP management platforms:</p>
-
-    <ul class="list-unstyled mb-4">
-        <li class="mb-2"><i class="bi bi-chevron-right text-primary me-2"></i><strong>Open-source transparency</strong>: MIT-licensed codebase with publicly accessible DSL rule definitions enabling independent verification</li>
-        <li class="mb-2"><i class="bi bi-chevron-right text-primary me-2"></i><strong>Programmatic interfaces</strong>: Comprehensive REST APIs with OpenAPI documentation for system integration</li>
-        <li class="mb-2"><i class="bi bi-chevron-right text-primary me-2"></i><strong>Portfolio processing</strong>: Bulk calculation capabilities for large-scale IP holdings across multiple jurisdictions</li>
-        <li class="mb-2"><i class="bi bi-chevron-right text-primary me-2"></i><strong>Currency precision</strong>: Multi-tier exchange rate management with configurable decimal precision and historical rate tracking</li>
-        <li class="mb-2"><i class="bi bi-chevron-right text-primary me-2"></i><strong>Rule maintenance</strong>: DSL-based fee definitions enabling updates without software deployment cycles</li>
-        <li class="mb-2"><i class="bi bi-chevron-right text-primary me-2"></i><strong>Audit capabilities</strong>: Complete transaction logging with parameter preservation for regulatory compliance verification</li>
-    </ul>
-
-    <h2 class="text-secondary mt-5 mb-3 border-start border-4 border-primary ps-3">Measured Performance Characteristics</h2>
-
-    <div class="row g-3 mb-5">
-        <div class="col-md-6 col-lg-4">
-            <div class="card border-primary h-100">
-                <div class="card-body text-center">
-                    <i class="bi bi-speedometer2 text-primary fs-1 mb-3"></i>
-                    <h4 class="card-title text-primary">Response Time</h4>
-                    <p class="card-text">Multi-jurisdiction calculations execute in under 500 milliseconds (95th percentile)</p>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-6 col-lg-4">
-            <div class="card border-primary h-100">
-                <div class="card-body text-center">
-                    <i class="bi bi-currency-exchange text-primary fs-1 mb-3"></i>
-                    <h4 class="card-title text-primary">Currency Precision</h4>
-                    <p class="card-text">Supports 150+ currencies with 6-8 decimal place precision for high-value calculations</p>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-6 col-lg-4">
-            <div class="card border-primary h-100">
-                <div class="card-body text-center">
-                    <i class="bi bi-diagram-3 text-primary fs-1 mb-3"></i>
-                    <h4 class="card-title text-primary">Concurrent Operations</h4>
-                    <p class="card-text">Architecture supports simultaneous calculations across multiple user sessions</p>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-6 col-lg-4">
-            <div class="card border-primary h-100">
-                <div class="card-body text-center">
-                    <i class="bi bi-plus-circle text-primary fs-1 mb-3"></i>
-                    <h4 class="card-title text-primary">Extensibility</h4>
-                    <p class="card-text">New jurisdictions incorporated through configuration without software modifications</p>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-6 col-lg-4">
-            <div class="card border-primary h-100">
-                <div class="card-body text-center">
-                    <i class="bi bi-gear text-primary fs-1 mb-3"></i>
-                    <h4 class="card-title text-primary">API Architecture</h4>
-                    <p class="card-text">REST endpoints with OpenAPI specification for platform integration</p>
-                </div>
-            </div>
-        </div>
+    <h2 class="h4 text-uppercase text-secondary mt-5 mb-3">How this relates to IPFLang</h2>
+    <div style="max-width: 46rem;">
+        <p>
+            The language began inside this repository as an internal calculator component. It was pulled
+            out, given a formal grammar, a currency-aware type system, and static verification, and now
+            ships separately as <a href="https://github.com/vbocan/IPFLang" target="_blank">IPFLang</a>.
+            IPFees consumes it as a versioned package &mdash; it doesn't implement the language, it's the
+            deployable layer around it: the web interface, the REST API, multi-currency conversion with
+            historical rates, and the 119-jurisdiction corpus.
+        </p>
+        <p class="mb-0">
+            Concretely, that split means the interesting engine work &mdash; the parser, the type checker,
+            the verifier &mdash; lives in a general-purpose, reusable library with its own test suite and
+            its own releases, while IPFees stays focused on being a good calculator. See the
+            <a asp-page="/Reference">language reference</a> and <a asp-page="/Grammar">formal grammar</a> for
+            what that engine actually accepts.
+        </p>
     </div>
 
-    <h2 class="text-secondary mt-5 mb-3 border-start border-4 border-primary ps-3">Validation and Verification</h2>
+    <h2 class="h4 text-uppercase text-secondary mt-5 mb-3">Try it yourself</h2>
+    <div style="max-width: 46rem;">
+        <ul class="list-unstyled">
+            <li class="mb-2"><i class="bi bi-calculator text-primary me-2"></i><a asp-area="" asp-page="/Index">Run a calculation</a> across any of the 119 jurisdictions</li>
+            <li class="mb-2"><i class="bi bi-book text-primary me-2"></i><a asp-page="/Reference">Read the language reference</a> for IPFLang's syntax, with examples for every construct</li>
+            <li class="mb-2"><i class="bi bi-diagram-2 text-primary me-2"></i><a asp-page="/Grammar">Read the formal grammar</a> if you want the EBNF instead of prose</li>
+            <li class="mb-2"><i class="bi bi-wrench-adjustable text-primary me-2"></i><a asp-page="/Admin">Explore Backstage</a>, the sandbox where you can write and run your own schedules</li>
+            <li class="mb-2"><i class="bi bi-cloud text-primary me-2"></i><a href="https://ipfeesapi.dataman.ro/swagger/index.html" target="_blank">Call the API</a> directly &mdash; it's the same data the web calculator uses</li>
+            <li class="mb-2"><i class="bi bi-github text-primary me-2"></i><a href="https://github.com/vbocan/ipfees" target="_blank">Read the source</a>, file an issue, or send a pull request for a jurisdiction that's missing</li>
+        </ul>
+    </div>
 
-    <p class="mb-3">The system has undergone independent validation by IP legal practitioners at Jet IP, confirming calculation accuracy across implemented jurisdictions. The validation methodology included:</p>
+    <h2 class="h4 text-uppercase text-secondary mt-5 mb-3">Where this honestly stands</h2>
+    <div style="max-width: 46rem;">
+        <p>
+            This is research software, not a commercial product, and it's priced accordingly &mdash; free,
+            with no SLA. IP practitioners at <strong>Jet IP</strong> reviewed a sample of calculations
+            against official fee schedules and caught real discrepancies before this went live; that's the
+            extent of external review so far, not a formal audit. Treat the hosted instance at
+            <a href="https://ipfees.dataman.ro/" target="_blank">ipfees.dataman.ro</a> as a reference
+            service, and run your own deployment if you need one as a dependency.
+        </p>
+        <p class="mb-0">
+            An earlier version of the API carried an <code>[ApiKey]</code> attribute that never actually
+            enforced anything &mdash; the validator behind it accepted every request, key or no key. Rather
+            than leave a control that looks present and isn't, it was removed; the API is documented as open
+            because that's what it is.
+        </p>
+    </div>
 
-    <ul class="list-unstyled mb-4">
-        <li class="mb-2"><i class="bi bi-chevron-right text-primary me-2"></i>Cross-verification against official patent office fee schedules for major jurisdictions</li>
-        <li class="mb-2"><i class="bi bi-chevron-right text-primary me-2"></i>Comparison with commercial IP management platform calculations</li>
-        <li class="mb-2"><i class="bi bi-chevron-right text-primary me-2"></i>Edge case testing including maximum claim counts and unusual entity classifications</li>
-        <li class="mb-2"><i class="bi bi-chevron-right text-primary me-2"></i>Currency conversion accuracy verification against established financial data sources</li>
-    </ul>
-
-    <p class="mb-4">The Domain-Specific Language approach facilitates verification by enabling legal professionals to review fee calculation rules directly without interpreting software source code.</p>
-
-    <h2 class="text-secondary mt-5 mb-3 border-start border-4 border-primary ps-3">Development and Licensing</h2>
-
-    <p class="mb-3">IPFees is developed as an open-source project under the MIT License, enabling unrestricted use, modification, and distribution. The project is maintained by Dr. Valer Bocan at Universitatea Politehnica Timișoara, Romania, with validation support from Jet IP legal practitioners.</p>
-
-    <p class="mb-3">The platform is built on .NET 9.0 with MongoDB document storage and Docker containerization for deployment portability. The codebase includes comprehensive unit tests, integration tests, and API documentation through OpenAPI/Swagger specifications.</p>
-
-    <p class="mb-4">Community contributions are facilitated through GitHub repository access, where jurisdiction definitions and DSL files can be submitted via pull requests. This collaborative model distributes maintenance responsibilities across the global IP community rather than centralizing them with a single organization.</p>
+    <h2 class="h4 text-uppercase text-secondary mt-5 mb-3">Research, licensing, and citation</h2>
+    <div style="max-width: 46rem;">
+        <p>
+            IPFees is developed by <a href="//www.bocan.ro" target="_blank">Dr. Valer Bocan</a> at
+            Politehnica University of Timișoara, as part of ongoing research into domain-specific languages
+            for regulatory computation. IPFLang itself is described in a peer-reviewed article in the
+            <em>IEEE Open Journal of the Computer Society</em>, co-authored with Dr. Valentina E. Balas.
+        </p>
+        <p>
+            Both IPFees and IPFLang are open source under the
+            <a href="https://www.gnu.org/licenses/gpl-3.0" target="_blank">GNU GPL v3.0</a>. Fork either
+            one, deploy your own instance, or send a pull request. If you use IPFees in research, citation
+            metadata is in
+            <a href="https://github.com/vbocan/ipfees/blob/master/CITATION.cff" target="_blank">CITATION.cff</a>.
+        </p>
+    </div>
 </div>
-

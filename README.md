@@ -13,7 +13,7 @@
 
 ## Overview
 
-IPFees is a jurisdiction-agnostic intellectual property fee calculation platform covering 118 global IP jurisdictions. Fee schedules are written in [IPFLang](https://github.com/vbocan/IPFLang), a domain-specific language for regulatory fee computation, so legal professionals can define and change calculation rules without software development expertise.
+IPFees is a jurisdiction-agnostic intellectual property fee calculation platform covering 119 global IP jurisdictions. Fee schedules are written in [IPFLang](https://github.com/vbocan/IPFLang), a domain-specific language for regulatory fee computation, so legal professionals can define and change calculation rules without software development expertise.
 
 IPFees does not implement the language. It consumes the IPFLang engine as a NuGet package and provides the layer around it: a REST API, a web interface where schedules are authored and **statically verified before they can be saved**, multi-currency conversion with historical rates, and portfolio-level estimation.
 
@@ -130,7 +130,7 @@ For a detailed technical architecture diagram, see [architecture.md](docs/archit
 - **DSL-Based Fee Calculation**: Define complex fee structures in human-readable format without hardcoding business logic
 - **Static Verification in the Browser**: A schedule declaring `VERIFY COMPLETE` or `VERIFY MONOTONIC` is checked on save; one that leaves input combinations unanswered, or that moves the wrong way against an input, is refused with the specific gap named
 - **Currency Type Safety**: Cross-currency arithmetic is rejected at edit time, not discovered at calculation time
-- **Multi-Jurisdiction Support**: Configurable architecture supporting USPTO, EPO, WIPO, and 118 national patent offices
+- **Multi-Jurisdiction Support**: Configurable architecture supporting USPTO, EPO, WIPO, and 119 national patent offices
 - **Real-Time Currency Management**: Multi-currency precision with real-time conversion, historical rate tracking, and three-tier fallback system
 - **API-First Design**: Comprehensive REST APIs for integration with IP management platforms. **The API is public and unauthenticated** — see [API access](#api-access) below
 - **Bulk Processing**: Portfolio-level fee estimation for large IP holdings
@@ -182,7 +182,7 @@ What that buys the platform:
 | Currency-aware type system | Cross-currency arithmetic rejected at edit time |
 | Jurisdiction composition | Shared input modules applied as an inheritance chain |
 | Provenance and counterfactuals | Calculation audit trail |
-| Embedded jurisdiction corpus | 118 reference schedules shipped with the engine |
+| Embedded jurisdiction corpus | 119 reference schedules shipped with the engine |
 
 `IPFees.Core.Tests` includes an equivalence suite that holds the current corpus accountable
 to the schedules IPFees shipped before the change: every fee definition present in both

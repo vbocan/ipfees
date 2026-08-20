@@ -107,7 +107,7 @@ The IPFees system is built using a clean, layered architecture with clear separa
   - `Analysis`: Static completeness and monotonicity verification
   - `Provenance`: Execution traces and counterfactual analysis
   - `Composition`: Jurisdiction inheritance and override resolution
-  - `Corpus`: The 118 production jurisdiction schedules, embedded in the assembly
+  - `Corpus`: The 119 production jurisdiction schedules, embedded in the assembly
 - **Note**: Has **no external dependencies** of its own
 - **Relationship**: IPFees does not implement a DSL. It stores IPFLang scripts, composes
   them, executes them, and surfaces the engine's static analysis to people who never see

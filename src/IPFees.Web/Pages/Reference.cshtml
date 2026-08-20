@@ -1,39 +1,57 @@
-﻿@page
+@page
 @model ReferenceModel
 @{
     ViewData["Title"] = "IPFLang Reference";
 }
-<h1>IPFLang Reference</h1>
-<h2>A Domain-Specific Language for Modern IP Fees Calculation</h2>
+<h1 class="display-5 fw-bold mb-1">IPFLang Reference</h1>
+<p class="text-secondary mb-4">
+    A working syntax reference for IPFLang 1.4, with a runnable example for every construct. For the
+    precise grammar instead of worked examples, see the <a asp-page="/Grammar">formal grammar</a>. To try
+    any of this against live data, head to <a asp-page="/Admin">Backstage</a>.
+</p>
 
-<div class="card mb-3" style="width: 48rem;">
+<div class="card mb-3" style="max-width: 56rem;">
     <div class="card-body">
         <h5 class="card-title">Overview</h5>
-        <h6 class="card-subtitle mb-2 text-muted">
-            Inputs and Fees
-        </h6>
+        <h6 class="card-subtitle mb-2 text-muted">Inputs, fees, and verification</h6>
         <p class="card-text">
-            The process of describing IP fees in IPFLang consists of determining what the inputs are and how the fee is composed off small amounts that accrue based on rules.<br/>
-            There are five types of inputs available:
+            Writing a fee schedule in IPFLang means declaring what the inputs are and how each fee accrues
+            from small, conditional amounts. There are six input types:
         </p>
         <ul>
-            <li>String list with individual choices</li>
-            <li>String list with multiple choices</li>
-            <li>Number (floating point), with lower and upper bounds as well as a default value</li>
-            <li>Boolean (for yes/no types of responses)</li>
-            <li>Date (for selecting the number of yers/months/days to a specific date)</li>
+            <li>String list with a single choice (<code>LIST</code>)</li>
+            <li>String list with multiple choices (<code>MULTILIST</code>)</li>
+            <li>Number, floating point, with lower and upper bounds and a default (<code>NUMBER</code>)</li>
+            <li>Yes/no (<code>BOOLEAN</code>)</li>
+            <li>Date, with temporal properties like years-to-now (<code>DATE</code>)</li>
+            <li>Currency-typed monetary value (<code>AMOUNT</code>)</li>
         </ul>
-        <p>
-            Inputs are presented as HTML controls that the user fill in and upon form submission, the values are used to compute the fee. The system displays the full list of steps taken to reach the result, to aid debugging.
+        <p class="card-text mb-0">
+            Inputs become the HTML form the user fills in; their values drive the <code>COMPUTE FEE</code>
+            blocks. A schedule can also declare <code>VERIFY COMPLETE</code> or <code>VERIFY MONOTONIC</code>
+            directives, checked statically when the schedule is saved &mdash; see
+            <a href="#verification">Verification Directives</a> below. Every calculation returns the full
+            list of steps taken to reach the result, applied or not, so the answer is auditable rather than
+            asserted.
         </p>
     </div>
 </div>
 
+<div class="card mb-3" style="max-width: 56rem;">
+    <div class="card-body">
+        <h5 class="card-title">Version Declaration</h5>
+        <h6 class="card-subtitle mb-2 text-muted">Optional, at most one, and must be the first thing in the file if present. Records when a schedule took effect and why it changed.</h6>
+        <p class="card-text">
+            VERSION '2024.1' EFFECTIVE 2024-01-15 DESCRIPTION 'Annual fee increase' REFERENCE 'Federal Register Vol. 89, No. 123'
+        </p>
+        <p class="mb-0"><code>DESCRIPTION</code> and <code>REFERENCE</code> are both optional, but recommended for auditability.</p>
+    </div>
+</div>
 
-<div class="card mb-3" style="width: 48rem;">
+<div class="card mb-3" style="max-width: 56rem;">
     <div class="card-body">
         <h5 class="card-title">Single-Selection Input</h5>
-        <h6 class="card-subtitle mb-2 text-muted">Single-selection input displays a list of string choices and allows the user to select one of those. A default choice must be specified. The group to which the input belongs can be specified (optional).</h6>
+        <h6 class="card-subtitle mb-2 text-muted">Displays a list of choices and lets the user pick one. A default choice is required; a group is optional.</h6>
         <p class="card-text">
             DEFINE LIST EntityType AS 'Select the desired entity type'<br />
             GROUP G1 <em>(optional)</em><br/>
@@ -46,10 +64,10 @@
     </div>
 </div>
 
-<div class="card mb-3" style="width: 48rem;">
+<div class="card mb-3" style="max-width: 56rem;">
     <div class="card-body">
         <h5 class="card-title">Multiple-Selection Input</h5>
-        <h6 class="card-subtitle mb-2 text-muted">Multiple-selection input displays a list of string choices and allows the user to select one or more of those. One or more default choices must be specified (separated by comma). The group to which the input belongs can be specified (optional).</h6>
+        <h6 class="card-subtitle mb-2 text-muted">Displays a list of choices and lets the user pick any number of them. One or more default choices are required (comma-separated); a group is optional.</h6>
         <p class="card-text">
             DEFINE MULTILIST EntityType AS 'Select the desired entity type'<br />
             GROUP G2 <em>(optional)</em><br />
@@ -59,15 +77,15 @@
             DEFAULT SmallEntity,NormalEntity<br />
             ENDDEFINE
         </p>
-        <p>To get the number of selected choices, use the !COUNT property, e.g. EntityType!COUNT.</p>
-        <p>To test user selection, use the IN (regular inclusion test) and NIN (not-in) operators, e.g. YIELD 100 IF MicroEntity IN EntityType or YEILD 200 IF SmallEntity NIN EntityType.</p>
+        <p>To count selected choices, use the <code>!COUNT</code> property, e.g. <code>EntityType!COUNT</code>.</p>
+        <p class="mb-0">To test what was selected, use <code>IN</code> and <code>NIN</code>, e.g. <code>YIELD 100 IF MicroEntity IN EntityType</code> or <code>YIELD 200 IF SmallEntity NIN EntityType</code>.</p>
     </div>
 </div>
 
-<div class="card mb-3" style="width: 48rem;">
+<div class="card mb-3" style="max-width: 56rem;">
     <div class="card-body">
         <h5 class="card-title">Number Input</h5>
-        <h6 class="card-subtitle mb-2 text-muted">Number inputs allow entering a numeric value (floating point), bounded by lower and upper limits. A default value must be specified. The group to which the input belongs can be specified (optional).</h6>
+        <h6 class="card-subtitle mb-2 text-muted">A floating-point value bounded by lower and upper limits. A default is required; a group is optional.</h6>
         <p class="card-text">
             DEFINE NUMBER SheetCount AS 'Enter the number of sheets'<br />
             GROUP G3 <em>(optional)</em><br />
@@ -78,10 +96,10 @@
     </div>
 </div>
 
-<div class="card mb-3" style="width: 48rem;">
+<div class="card mb-3" style="max-width: 56rem;">
     <div class="card-body">
         <h5 class="card-title">Boolean Input</h5>
-        <h6 class="card-subtitle mb-2 text-muted">Boolean inputs allow selecting a condition. The default selection can be specified. The group to which the input belongs can be specified (optional).</h6>
+        <h6 class="card-subtitle mb-2 text-muted">A yes/no selection. The default can be specified; a group is optional.</h6>
         <p class="card-text">
             DEFINE BOOLEAN ContainsDependentClaims AS 'Does this contain dependent claims?'<br />
             GROUP G4 <em>(optional)</em><br />
@@ -91,13 +109,10 @@
     </div>
 </div>
 
-<div class="card mb-3" style="width: 48rem;">
+<div class="card mb-3" style="max-width: 56rem;">
     <div class="card-body">
         <h5 class="card-title">Date Input</h5>
-        <h6 class="card-subtitle mb-2 text-muted">Date inputs allow entering a date bounded by lower and upper limits. A default date must be specified. The group to which the input belongs can be specified (optional).</h6>
-        <p class="card-test">
-            The special value TODAY is replaced at runtime with the actual value. The date format is DD.MM.YYYY.
-        </p>
+        <h6 class="card-subtitle mb-2 text-muted">A date bounded by lower and upper limits, in DD.MM.YYYY format. A default is required; a group is optional. The special value TODAY resolves at runtime.</h6>
         <p class="card-text">
             DEFINE DATE ApplicationDate AS 'Application date'<br/>
             GROUP G5 <em>(optional)</em><br />
@@ -105,20 +120,35 @@
             DEFAULT 01.03.2023<br />
             ENDDEFINE
         </p>
-        <p>The date type cannot currently be used as such, but it employs several properties, as follows:</p>
-        <ul>
-            <li>!YEARSTONOW - gets the number of years from a specific date in the past until now (a floating-point number).</li>
-            <li>!MONTHSTONOW - gets the number of months from a specific date in the past until now (a floating-point number).</li>
-            <li>!MONTHSTONOW_FROMLASTDAY - gets the number of months from the last day of the month of a specific date in the past until now (a floating-point number). For instance, if the supplied date is 01.01.2023, the last day of the month is 31.01.2023 and that will be used to compute the number of months until now.</li>
-            <li>!DAYSTONOW - gets the number of days from a specific date in the past until now (a floating-point number).</li>
+        <p>A date can't be used directly in arithmetic, but it exposes properties that can:</p>
+        <ul class="mb-0">
+            <li><code>!YEARSTONOW</code> &mdash; years from the date to today (a floating-point number).</li>
+            <li><code>!MONTHSTONOW</code> &mdash; months from the date to today.</li>
+            <li><code>!MONTHSTONOW_FROMLASTDAY</code> &mdash; months from the <em>last day of the date's month</em> to today. For 01.01.2023, that's counted from 31.01.2023.</li>
+            <li><code>!DAYSTONOW</code> &mdash; days from the date to today.</li>
         </ul>
-        </div>
+    </div>
 </div>
 
-<div class="card mb-3" style="width: 48rem;">
+<div class="card mb-3" style="max-width: 56rem;">
+    <div class="card-body">
+        <h5 class="card-title">Amount Input</h5>
+        <h6 class="card-subtitle mb-2 text-muted">A monetary value in a fixed currency &mdash; for costs that vary by filing rather than by rule, such as a translation or search fee the user supplies. A default and a currency are required; a group is optional.</h6>
+        <p class="card-text">
+            DEFINE AMOUNT TranslationCost AS 'Translation cost'<br />
+            CURRENCY USD<br />
+            DEFAULT 2000<br />
+            GROUP G6 <em>(optional)</em><br />
+            ENDDEFINE
+        </p>
+        <p class="mb-0">Like any currency-typed value, an <code>AMOUNT</code> can only be added to values in the same currency &mdash; see <a href="#currency-literals">Currency Literals</a>.</p>
+    </div>
+</div>
+
+<div class="card mb-3" style="max-width: 56rem;">
     <div class="card-body">
         <h5 class="card-title">Input Grouping</h5>
-        <h6 class="card-subtitle mb-2 text-muted">Groups assigned to inputs can be assigned individual texts and weights. Upon display on the user interface, all inputs will be grouped by their group and ordered by weight (the heavier an input is, the lower it appears in the list).<br/>Grouping definition is usually declared in an autorun module which gets executed automatically, even if it is not referenced by a fee definition.</h6>
+        <h6 class="card-subtitle mb-2 text-muted">Groups get their own display text and weight. On screen, inputs are grouped and ordered by weight &mdash; the heavier the group, the lower it appears.<br/>Groups are usually declared in an autorun module that executes even when nothing else references it.</h6>
         <p class="card-text">
             DEFINE GROUP G1 AS 'Application date inputs' WITH WEIGHT 100<br />
             DEFINE GROUP G2 AS 'Translation related inputs' WITH WEIGHT 150<br />
@@ -127,10 +157,10 @@
     </div>
 </div>
 
-<div class="card mb-3" style="width: 48rem;">
+<div class="card mb-3" style="max-width: 56rem;">
     <div class="card-body">
         <h5 class="card-title">Fee Definition</h5>
-        <h6 class="card-subtitle mb-2 text-muted">Any number of fees can be created and they all account towards the grand total. In it's simplest form, a fee yields a singe value with no condition.</h6>
+        <h6 class="card-subtitle mb-2 text-muted">Any number of fees can be defined; all of them count toward the grand total. In its simplest form, a fee yields a single unconditional value.</h6>
         <p class="card-text">
             COMPUTE FEE SimplestFee<br />
             YIELD 150<br/>
@@ -139,10 +169,10 @@
     </div>
 </div>
 
-<div class="card mb-3" style="width: 48rem;">
+<div class="card mb-3" style="max-width: 56rem;">
     <div class="card-body">
         <h5 class="card-title">Optional Fees</h5>
-        <h6 class="card-subtitle mb-2 text-muted">Fees can be declared as optional. Option fees still account towards the grand total, but they are marked as such in the final result.</h6>
+        <h6 class="card-subtitle mb-2 text-muted">A fee can be marked OPTIONAL. It still counts toward the grand total, but is reported separately so the user can see what they could avoid.</h6>
         <p class="card-text">
             COMPUTE FEE SimplestOptionalFee OPTIONAL<br />
             YIELD 150<br/>
@@ -151,11 +181,11 @@
     </div>
 </div>
 
-<div class="card mb-3" style="width: 48rem;">
+<div class="card mb-3" style="max-width: 56rem;">
     <div class="card-body">
         <h5 class="card-title">Conditional Fees</h5>
-        <h6 class="card-subtitle mb-2 text-muted">Conditions can be added to each YIELD branch. In this case, BasicNationalFee gets calculated according to the user selection in the EntityType input.</h6>
-        <p>The following operators are currently supported: EQ, NEQ, LT, LTE, GT, GTE.</p>
+        <h6 class="card-subtitle mb-2 text-muted">Add a condition to any YIELD. Here, BasicNationalFee depends on the EntityType selection.</h6>
+        <p>Comparison operators: <code>EQ</code>, <code>NEQ</code>, <code>LT</code>, <code>LTE</code>, <code>GT</code>, <code>GTE</code>.</p>
         <p class="card-text">
             COMPUTE FEE BasicNationalFee<br />
             YIELD 320 IF EntityType EQ NormalEntity<br />
@@ -166,10 +196,10 @@
     </div>
 </div>
 
-<div class="card mb-3" style="width: 48rem;">
+<div class="card mb-3" style="max-width: 56rem;">
     <div class="card-body">
-        <h5 class="card-title">Conditional Fees (More Complex)</h5>
-        <h6 class="card-subtitle mb-2 text-muted">For more complex scenarios, the CASE clause can be used. In this particular care, certain amounts are added function of the SituationType input. YIELD statements outside the CASE are evaluated normally.</h6>
+        <h5 class="card-title">Conditional Fees (CASE blocks)</h5>
+        <h6 class="card-subtitle mb-2 text-muted">For logic that branches on one input and then varies by another, use CASE. YIELD statements outside any CASE are still evaluated normally.</h6>
         <p class="card-text">
             COMPUTE FEE ExaminationFee<br />
             CASE SituationType EQ PreparedIPEA AS<br />
@@ -182,33 +212,19 @@
             YIELD 160 IF EntityType EQ MicroEntity<br />
             ENDCOMPUTE
         </p>
+        <p class="mb-0">Grouping related rules under CASE also makes completeness verification more useful &mdash; IPFLang can confirm each branch is itself complete.</p>
     </div>
 </div>
 
-<div class="card mb-3" style="width: 48rem;">
+<div class="card mb-3" style="max-width: 56rem;">
     <div class="card-body">
-        <h5 class="card-title">Complex Amounts</h5>
-        <h6 class="card-subtitle mb-2 text-muted">The YIELDed amount can be computed using a complex formula. If rounding is needed, one of the usual rounding functions can be used (see below).</h6>
-        <p class="card-text">
-            COMPUTE FEE SheetFee<br />
-            YIELD 420*((SheetCount-100)/50) IF SheetCount GT 100 AND EntityType EQ NormalEntity<br />
-            YIELD 168*((SheetCount-100)/50) IF SheetCount GT 100 AND EntityType EQ SmallEntity<br />
-            YIELD 84*((SheetCount-100)/50) IF SheetCount GT 100 AND EntityType EQ MicroEntity<br />
-            ENDCOMPUTE
+        <h5 class="card-title">Complex Amounts &amp; Rounding</h5>
+        <h6 class="card-subtitle mb-2 text-muted">A YIELDed amount can be an arbitrary formula. Rounding uses FLOOR, ROUND, or CEIL.</h6>
+        <p>
+            <code>FLOOR</code> strips the decimal part (4.7 &rarr; 4). <code>ROUND</code> rounds to the
+            nearest integer (4.7 &rarr; 5, 4.3 &rarr; 4). <code>CEIL</code> rounds up (4.3 &rarr; 5).
         </p>
-    </div>
-</div>
-
-<div class="card mb-3" style="width: 48rem;">
-    <div class="card-body">
-        <h5 class="card-title">Number Rounding Functions</h5>
-        <h6 class="card-subtitle mb-2 text-muted">Rounding is accomplished using FLOOR, ROUND, CEIL functions.</h6>
-        <p class="card-text">
-            <ul>
-                <li>FLOOR - strips off the decimal part, e.g. 4.7 -> 4</li>
-                <li>ROUND - rounds to the nearest integer, e.g. 4.7 -> 5 and 4.3 -> 4</li>
-                <li>CEIL - rounds to the largest integer, e.g. 4.3 -> 5</li>
-            </ul>
+        <p class="card-text mb-0">
             COMPUTE FEE SheetFee<br />
             YIELD ROUND(420*((SheetCount-100)/50)) IF SheetCount GT 100 AND EntityType EQ NormalEntity<br />
             YIELD FLOOR(168*((SheetCount-100)/50)) IF SheetCount GT 100 AND EntityType EQ SmallEntity<br />
@@ -218,10 +234,38 @@
     </div>
 </div>
 
-<div class="card mb-3" style="width: 48rem;">
+<div class="card mb-3" id="currency-literals" style="max-width: 56rem;">
+    <div class="card-body">
+        <h5 class="card-title">Currency Literals &amp; Conversion</h5>
+        <h6 class="card-subtitle mb-2 text-muted">A number annotated with an ISO 4217 code becomes a typed monetary value. Same-currency arithmetic is valid; mixed-currency arithmetic is a compile-time error.</h6>
+        <p class="card-text">
+            YIELD 100&lt;EUR&gt; + 50&lt;EUR&gt;&nbsp;&nbsp;<span class="text-secondary">'&nbsp;valid: 150 EUR</span><br />
+            YIELD 100&lt;EUR&gt; * 2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="text-secondary">'&nbsp;valid: 200 EUR, scalar multiplication</span><br />
+            YIELD 100&lt;EUR&gt; + 50&lt;USD&gt;&nbsp;&nbsp;<span class="text-danger">'&nbsp;type error: EUR + USD</span>
+        </p>
+        <p>To combine currencies on purpose, convert explicitly &mdash; the conversion stays visible in the script rather than happening silently:</p>
+        <p class="card-text mb-0">
+            YIELD CONVERT(TranslationCost, USD, EUR) + PriorArtSearchFee
+        </p>
+    </div>
+</div>
+
+<div class="card mb-3" style="max-width: 56rem;">
+    <div class="card-body">
+        <h5 class="card-title">Polymorphic Fees</h5>
+        <h6 class="card-subtitle mb-2 text-muted">A fee can be generic over a currency using a type parameter, so the same logic works whichever currency it's invoked with.</h6>
+        <p class="card-text mb-0">
+            COMPUTE FEE ScaledFee&lt;C&gt; RETURN C<br />
+            YIELD 100&lt;C&gt; * Multiplier<br />
+            ENDCOMPUTE
+        </p>
+    </div>
+</div>
+
+<div class="card mb-3" style="max-width: 56rem;">
     <div class="card-body">
         <h5 class="card-title">Choice Selection Test</h5>
-        <h6 class="card-subtitle mb-2 text-muted">To test for user selection, use the IN and NIN operators.</h6>
+        <h6 class="card-subtitle mb-2 text-muted">Use IN and NIN to test MULTILIST selections.</h6>
         <p class="card-text">
             COMPUTE FEE SheetFee<br />
             YIELD 100 IF Country1 IN Countries<br />
@@ -232,10 +276,10 @@
     </div>
 </div>
 
-<div class="card mb-3" style="width: 48rem;">
+<div class="card mb-3" style="max-width: 56rem;">
     <div class="card-body">
         <h5 class="card-title">Date Selection Test</h5>
-        <h6 class="card-subtitle mb-2 text-muted">Dates cannot currently be used as such, but rather via properties that compute the number of years/months/days to the current date. The properties are !YEARSTONOW, !MONTHSTONOW, and !DAYSTONOW.</h6>
+        <h6 class="card-subtitle mb-2 text-muted">Dates aren't compared directly; use their temporal properties instead.</h6>
         <p class="card-text">
             DEFINE DATE D1 AS 'My birthday'<br/>
             BETWEEN 01.01.1975 AND 31.12.1990<br />
@@ -249,10 +293,10 @@
     </div>
 </div>
 
-<div class="card mb-3" style="width: 48rem;">
+<div class="card mb-3" style="max-width: 56rem;">
     <div class="card-body">
         <h5 class="card-title">Fee Local Variables</h5>
-        <h6 class="card-subtitle mb-2 text-muted">Local variables can be defined inside the scope of a fee. This is to enhance readability and simplify fee computation.</h6>
+        <h6 class="card-subtitle mb-2 text-muted">LET names an intermediate value inside a fee, to avoid repeating an expression and to keep the rule trace readable.</h6>
         <p class="card-text">
             COMPUTE FEE SheetFee<br />
             LET A AS 20<br/>
@@ -263,21 +307,40 @@
     </div>
 </div>
 
-<div class="card mb-3" style="width: 48rem;">
+<div class="card mb-3" style="max-width: 56rem;">
     <div class="card-body">
         <h5 class="card-title">Returns</h5>
-        <h6 class="card-subtitle mb-2 text-muted">The fee computation engine conveys information back to the caller using the RETURN statements.</h6>
-        <p class="card-text">
+        <h6 class="card-subtitle mb-2 text-muted">RETURN statements name what the engine reports back to the caller &mdash; typically totals.</h6>
+        <p class="card-text mb-0">
             RETURN ClaimLimits AS '10 claims included; additional fee as of 11'<br/>
             RETURN ExReqDate AS 'Examination request due within 7 years after filing'
         </p>
     </div>
 </div>
 
-<div class="card mb-3" style="width: 48rem;">
+<div class="card mb-3" id="verification" style="max-width: 56rem;">
     <div class="card-body">
-        <h5 class="card-title">Example</h5>
-        <h6 class="card-subtitle mb-2 text-muted">Use this as a starting point to your own fee computation.</h6>
+        <h5 class="card-title">Verification Directives</h5>
+        <h6 class="card-subtitle mb-2 text-muted">Static checks, run when the schedule is saved &mdash; not at calculation time. A schedule that fails either is refused, with the specific gap named.</h6>
+        <p><strong><code>VERIFY COMPLETE</code></strong> confirms every possible input combination has a matching YIELD &mdash; no silently uncovered case:</p>
+        <p class="card-text">
+            VERIFY COMPLETE FEE BasicNationalFee
+        </p>
+        <p><strong><code>VERIFY MONOTONIC</code></strong> confirms a fee moves the right way as a named numeric input grows &mdash; e.g. more claims should never produce a smaller bill:</p>
+        <p class="card-text mb-2">
+            VERIFY MONOTONIC FEE ClaimFee WITH RESPECT TO ClaimCount DIRECTION NonDecreasing
+        </p>
+        <p class="mb-0">
+            <code>DIRECTION</code> is optional (default <code>NonDecreasing</code>) and also accepts
+            <code>NonIncreasing</code>, <code>StrictlyIncreasing</code>, and <code>StrictlyDecreasing</code>.
+        </p>
+    </div>
+</div>
+
+<div class="card mb-3" style="max-width: 56rem;">
+    <div class="card-body">
+        <h5 class="card-title">Complete Example</h5>
+        <h6 class="card-subtitle mb-2 text-muted">Use this as a starting point for your own fee schedule.</h6>
         <p class="card-text">
             DEFINE LIST EntityType AS 'Select the desired entity type'<br />
             CHOICE NormalEntity AS 'Normal'<br />
@@ -313,6 +376,8 @@
             YIELD 128 IF EntityType EQ SmallEntity<br />
             YIELD 64 IF EntityType EQ MicroEntity<br />
             ENDCOMPUTE<br />
+            <br />
+            VERIFY COMPLETE FEE BasicNationalFee<br />
             <br />
             COMPUTE FEE SearchFee<br />
             CASE SituationType EQ PreparedIPEA AS<br />
@@ -359,7 +424,16 @@
             YIELD (480*ClaimCount) IF ClaimCount GT 3 AND EntityType EQ NormalEntity<br />
             YIELD (192*ClaimCount) IF ClaimCount GT 3 AND EntityType EQ SmallEntity<br />
             YIELD (96*ClaimCount) IF ClaimCount GT 3 AND EntityType EQ MicroEntity<br />
-            ENDCOMPUTE
+            ENDCOMPUTE<br />
+            <br />
+            VERIFY MONOTONIC FEE ClaimFee WITH RESPECT TO ClaimCount
         </p>
     </div>
 </div>
+
+<p class="text-secondary mb-5" style="max-width: 56rem;">
+    This covers everyday schedule-writing. Jurisdiction composition (one <code>.ipf</code> file inheriting
+    inputs and fees from another) and the temporal helpers behind renewal and grace-period logic are
+    documented in the <a href="https://github.com/vbocan/IPFLang" target="_blank">IPFLang repository</a>,
+    along with the formal type system for anyone who wants the full typing rules.
+</p>

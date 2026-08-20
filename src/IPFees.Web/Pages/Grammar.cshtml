@@ -1,180 +1,162 @@
-﻿@page
-@model ReferenceModel
+@page
+@model GrammarModel
 @{
-    ViewData["Title"] = "IPFLang Formal Grammar in BNF";
+    ViewData["Title"] = "IPFLang Formal Grammar";
 }
-<h1>IPFLang Formal Grammar in BNF</h1>
-<h2>A Domain-Specific Language for Modern IP Fees Calculation</h2>
+<h1 class="display-5 fw-bold mb-1">IPFLang Formal Grammar</h1>
+<p class="text-secondary mb-4">
+    Extended Backus-Naur Form (EBNF). Every IPFLang program accepted by the reference parser conforms to
+    the productions below &mdash; this is the authoritative syntax, not a simplification of it. For a
+    guided walkthrough with worked examples, see the <a asp-page="/Reference">language reference</a>.
+</p>
 
-<div class="card mb-3" style="width: 48rem;">
+<div class="card mb-3" style="max-width: 56rem;">
     <div class="card-body">
-        <h5 class="card-title">Program Structure</h5>        
-        <pre><code>
-&lt;program&gt; ::= &lt;statement_list&gt;
-
-&lt;statement_list&gt; ::= &lt;statement&gt; | &lt;statement&gt; &lt;statement_list&gt;
-
-&lt;statement&gt; ::= &lt;input_definition&gt; | &lt;fee_definition&gt; | &lt;group_definition&gt; | &lt;return_statement&gt;
-    </code></pre>
+        <h5 class="card-title">Program Structure</h5>
+        <pre class="mb-0"><code>&lt;program&gt;              ::= &lt;comment&gt;* &lt;version&gt;? &lt;group&gt;* &lt;input_definition&gt;*
+                          &lt;fee_computation&gt;+ &lt;verification&gt;* &lt;return&gt;*</code></pre>
     </div>
 </div>
 
-<div class="card mb-3" style="width: 48rem;">
+<div class="card mb-3" style="max-width: 56rem;">
     <div class="card-body">
-        <h5 class="card-title">Input Definitions</h5>
-<pre><code>
-&lt;input_definition&gt; ::= &lt;list_definition&gt; | &lt;multilist_definition&gt; | &lt;number_definition&gt; | &lt;boolean_definition&gt; | &lt;date_definition&gt;
-
-&lt;list_definition&gt; ::= "DEFINE" "LIST" &lt;identifier&gt; "AS" &lt;string_literal&gt; &lt;group_clause&gt;? &lt;choice_list&gt; "DEFAULT" &lt;identifier&gt; "ENDDEFINE"
-
-&lt;multilist_definition&gt; ::= "DEFINE" "MULTILIST" &lt;identifier&gt; "AS" &lt;string_literal&gt; &lt;group_clause&gt;? &lt;choice_list&gt; "DEFAULT" &lt;identifier_list&gt; "ENDDEFINE"
-
-&lt;number_definition&gt; ::= "DEFINE" "NUMBER" &lt;identifier&gt; "AS" &lt;string_literal&gt; &lt;group_clause&gt;? "BETWEEN" &lt;number&gt; "AND" &lt;number&gt; "DEFAULT" &lt;number&gt; "ENDDEFINE"
-
-&lt;boolean_definition&gt; ::= "DEFINE" "BOOLEAN" &lt;identifier&gt; "AS" &lt;string_literal&gt; &lt;group_clause&gt;? "DEFAULT" &lt;boolean_value&gt; "ENDDEFINE"
-
-&lt;date_definition&gt; ::= "DEFINE" "DATE" &lt;identifier&gt; "AS" &lt;string_literal&gt; &lt;group_clause&gt;? "BETWEEN" &lt;date_literal&gt; "AND" &lt;date_literal&gt; "DEFAULT" &lt;date_literal&gt; "ENDDEFINE"
-
-&lt;group_clause&gt; ::= "GROUP" &lt;identifier&gt;
-
-&lt;choice_list&gt; ::= &lt;choice&gt; | &lt;choice&gt; &lt;choice_list&gt;
-
-&lt;choice&gt; ::= "CHOICE" &lt;identifier&gt; "AS" &lt;string_literal&gt;
-
-&lt;identifier_list&gt; ::= &lt;identifier&gt; | &lt;identifier&gt; "," &lt;identifier_list&gt;
-    </code></pre>
+        <h5 class="card-title">Comments</h5>
+        <pre class="mb-0"><code>&lt;comment&gt;              ::= "#" {&lt;any_char&gt; - &lt;newline&gt;} &lt;newline&gt;</code></pre>
     </div>
 </div>
 
-<div class="card mb-3" style="width: 48rem;">
+<div class="card mb-3" style="max-width: 56rem;">
+    <div class="card-body">
+        <h5 class="card-title">Version Declaration</h5>
+        <p class="card-subtitle text-muted mb-2">Optional, at most one per script, and must come first if present.</p>
+        <pre class="mb-0"><code>&lt;version&gt;              ::= "VERSION" &lt;string&gt; "EFFECTIVE" &lt;date&gt;
+                          ["DESCRIPTION" &lt;string&gt;] ["REFERENCE" &lt;string&gt;]</code></pre>
+    </div>
+</div>
+
+<div class="card mb-3" style="max-width: 56rem;">
     <div class="card-body">
         <h5 class="card-title">Group Definition</h5>
-<pre><code>
-&lt;group_definition&gt; ::= "DEFINE" "GROUP" &lt;identifier&gt; "AS" &lt;string_literal&gt; "WITH" "WEIGHT" &lt;number&gt;
-    </code></pre>
+        <p class="card-subtitle text-muted mb-2">Assigns a display label and ordering weight to a set of inputs.</p>
+        <pre class="mb-0"><code>&lt;group&gt;                ::= "DEFINE" "GROUP" &lt;identifier&gt; "AS" &lt;string&gt;
+                          "WITH" "WEIGHT" &lt;number&gt;</code></pre>
     </div>
 </div>
 
-<div class="card mb-3" style="width: 48rem;">
+<div class="card mb-3" style="max-width: 56rem;">
     <div class="card-body">
-        <h5 class="card-title">Fee Definition</h5>
-<pre><code>
-&lt;fee_definition&gt; ::= "COMPUTE" "FEE" &lt;identifier&gt; &lt;optional_clause&gt;? &lt;fee_body&gt; "ENDCOMPUTE"
-
-&lt;optional_clause&gt; ::= "OPTIONAL"
-
-&lt;fee_body&gt; ::= &lt;fee_statement_list&gt;
-
-&lt;fee_statement_list&gt; ::= &lt;fee_statement&gt; | &lt;fee_statement&gt; &lt;fee_statement_list&gt;
-
-&lt;fee_statement&gt; ::= &lt;yield_statement&gt; | &lt;case_statement&gt; | &lt;let_statement&gt;
-
-&lt;yield_statement&gt; ::= "YIELD" &lt;expression&gt; &lt;condition_clause&gt;?
-
-&lt;case_statement&gt; ::= "CASE" &lt;condition&gt; "AS" &lt;yield_statement_list&gt; "ENDCASE"
-
-&lt;let_statement&gt; ::= "LET" &lt;identifier&gt; "AS" &lt;expression&gt;
-
-&lt;yield_statement_list&gt; ::= &lt;yield_statement&gt; | &lt;yield_statement&gt; &lt;yield_statement_list&gt;
-    </code></pre>
+        <h5 class="card-title">Input Definitions</h5>
+        <p class="card-subtitle text-muted mb-2">Six input types: LIST, MULTILIST, NUMBER, BOOLEAN, DATE, AMOUNT.</p>
+        <pre class="mb-0"><code>&lt;input_definition&gt;     ::= "DEFINE" &lt;input_type&gt; &lt;identifier&gt; "AS" &lt;string&gt;
+                          &lt;type_specifics&gt; ["DEFAULT" &lt;default_value&gt;]
+                          ["GROUP" &lt;identifier&gt;] "ENDDEFINE"
+&lt;input_type&gt;           ::= "LIST" | "MULTILIST" | "NUMBER" | "BOOLEAN" | "DATE" | "AMOUNT"
+&lt;type_specifics&gt;       ::= &lt;choices&gt; | &lt;numeric_constraint&gt; | &lt;date_constraint&gt;
+                          | &lt;currency_spec&gt; | &epsilon;
+&lt;choices&gt;              ::= &lt;choice&gt;+
+&lt;choice&gt;               ::= "CHOICE" &lt;identifier&gt; "AS" &lt;string&gt;
+&lt;numeric_constraint&gt;   ::= "BETWEEN" &lt;number&gt; "AND" &lt;number&gt;
+&lt;date_constraint&gt;      ::= "BETWEEN" &lt;date&gt; "AND" (&lt;date&gt; | "TODAY")
+&lt;currency_spec&gt;        ::= "CURRENCY" &lt;currency_code&gt;
+&lt;default_value&gt;        ::= &lt;number&gt; | &lt;identifier&gt; | &lt;boolean_literal&gt; | &lt;date&gt;
+                          | &lt;currency_literal&gt; | &lt;identifier_list&gt;
+&lt;identifier_list&gt;      ::= &lt;identifier&gt; ("," &lt;identifier&gt;)*
+&lt;boolean_literal&gt;      ::= "TRUE" | "FALSE"</code></pre>
     </div>
 </div>
 
-<div class="card mb-3" style="width: 48rem;">
+<div class="card mb-3" style="max-width: 56rem;">
     <div class="card-body">
-        <h5 class="card-title">Conditions and Expressions</h5>
-<pre><code>
-&lt;condition_clause&gt; ::= "IF" &lt;condition&gt;
-
-&lt;condition&gt; ::= &lt;comparison&gt; | &lt;inclusion_test&gt; | &lt;logical_expression&gt;
-
-&lt;comparison&gt; ::= &lt;expression&gt; &lt;comparison_op&gt; &lt;expression&gt;
-
-&lt;inclusion_test&gt; ::= &lt;identifier&gt; &lt;inclusion_op&gt; &lt;identifier&gt;
-
-&lt;logical_expression&gt; ::= &lt;condition&gt; &lt;logical_op&gt; &lt;condition&gt; | "(" &lt;condition&gt; ")"
-
-&lt;comparison_op&gt; ::= "EQ" | "NEQ" | "LT" | "LTE" | "GT" | "GTE"
-
-&lt;inclusion_op&gt; ::= "IN" | "NIN"
-
-&lt;logical_op&gt; ::= "AND" | "OR"
-    </code></pre>
+        <h5 class="card-title">Fee Computation</h5>
+        <p class="card-subtitle text-muted mb-2">
+            <code>&lt;type_params&gt;</code> makes a fee polymorphic over a currency &mdash; see
+            <a asp-page="/Reference">Polymorphic Fees</a> in the reference.
+        </p>
+        <pre class="mb-0"><code>&lt;fee_computation&gt;      ::= "COMPUTE" "FEE" &lt;identifier&gt; [&lt;type_params&gt;]
+                          ["RETURN" &lt;currency_code&gt;] ["OPTIONAL"]
+                          &lt;let_statement&gt;* &lt;case_or_yield&gt;*
+                          "ENDCOMPUTE"
+&lt;type_params&gt;          ::= "&lt;" &lt;type_variable&gt; "&gt;"
+&lt;type_variable&gt;        ::= &lt;upper_letter&gt;
+&lt;let_statement&gt;        ::= "LET" &lt;identifier&gt; "AS" &lt;expression&gt;
+&lt;case_or_yield&gt;        ::= &lt;case_block&gt; | &lt;yield_statement&gt;
+&lt;case_block&gt;           ::= "CASE" &lt;condition&gt; "AS" &lt;yield_statement&gt;+ "ENDCASE"
+&lt;yield_statement&gt;      ::= "YIELD" &lt;expression&gt; ["IF" &lt;condition&gt;]</code></pre>
     </div>
 </div>
 
-<div class="card mb-3" style="width: 48rem;">
+<div class="card mb-3" style="max-width: 56rem;">
     <div class="card-body">
-        <h5 class="card-title">Expressions</h5>
-<pre><code>
-&lt;expression&gt; ::= &lt;term&gt; | &lt;expression&gt; &lt;binary_op&gt; &lt;term&gt;
-
-&lt;term&gt; ::= &lt;factor&gt; | &lt;term&gt; &lt;multiply_op&gt; &lt;factor&gt;
-
-&lt;factor&gt; ::= &lt;number&gt; | &lt;identifier&gt; | &lt;property_access&gt; | &lt;function_call&gt; | "(" &lt;expression&gt; ")"
-
-&lt;property_access&gt; ::= &lt;identifier&gt; "!" &lt;property_name&gt;
-
-&lt;property_name&gt; ::= "COUNT" | "YEARSTONOW" | "MONTHSTONOW" | "MONTHSTONOW_FROMLASTDAY" | "DAYSTONOW"
-
-&lt;function_call&gt; ::= &lt;function_name&gt; "(" &lt;expression&gt; ")"
-
-&lt;function_name&gt; ::= "FLOOR" | "ROUND" | "CEIL"
-
-&lt;binary_op&gt; ::= "+" | "-"
-
-&lt;multiply_op&gt; ::= "*" | "/"
-    </code></pre>
+        <h5 class="card-title">Verification Directives</h5>
+        <p class="card-subtitle text-muted mb-2">Checked statically when the schedule is saved &mdash; see <a asp-page="/Reference">Verification Directives</a> for what each one guarantees.</p>
+        <pre class="mb-0"><code>&lt;verification&gt;         ::= &lt;verify_complete&gt; | &lt;verify_monotonic&gt;
+&lt;verify_complete&gt;      ::= "VERIFY" "COMPLETE" "FEE" &lt;identifier&gt;
+&lt;verify_monotonic&gt;     ::= "VERIFY" "MONOTONIC" "FEE" &lt;identifier&gt;
+                          "WITH" "RESPECT" "TO" &lt;identifier&gt;
+                          ["DIRECTION" &lt;direction&gt;]
+&lt;direction&gt;            ::= "NonDecreasing" | "NonIncreasing"
+                          | "StrictlyIncreasing" | "StrictlyDecreasing"</code></pre>
     </div>
 </div>
 
-<div class="card mb-3" style="width: 48rem;">
+<div class="card mb-3" style="max-width: 56rem;">
     <div class="card-body">
         <h5 class="card-title">Return Statement</h5>
-<pre><code>
-&lt;return_statement&gt; ::= "RETURN" &lt;identifier&gt; "AS" &lt;string_literal&gt;
-    </code></pre>
+        <pre class="mb-0"><code>&lt;return&gt;               ::= "RETURN" &lt;identifier&gt; "AS" &lt;string&gt;</code></pre>
     </div>
 </div>
 
-<div class="card mb-3" style="width: 48rem;">
+<div class="card mb-3" style="max-width: 56rem;">
     <div class="card-body">
-        <h5 class="card-title">Literals and Identifiers</h5>
-<pre><code>
-&lt;identifier&gt; ::= &lt;letter&gt; | &lt;identifier&gt; &lt;letter&gt; | &lt;identifier&gt; &lt;digit&gt;
-
-&lt;string_literal&gt; ::= "'" &lt;string_content&gt; "'"
-
-&lt;string_content&gt; ::= &lt;char&gt; | &lt;char&gt; &lt;string_content&gt;
-
-&lt;number&gt; ::= &lt;integer&gt; | &lt;float&gt;
-
-&lt;integer&gt; ::= &lt;digit&gt; | &lt;integer&gt; &lt;digit&gt;
-
-&lt;float&gt; ::= &lt;integer&gt; "." &lt;integer&gt;
-
-&lt;date_literal&gt; ::= &lt;day&gt; "." &lt;month&gt; "." &lt;year&gt; | "TODAY"
-
-&lt;day&gt; ::= &lt;digit&gt; &lt;digit&gt;
-
-&lt;month&gt; ::= &lt;digit&gt; &lt;digit&gt;
-
-&lt;year&gt; ::= &lt;digit&gt; &lt;digit&gt; &lt;digit&gt; &lt;digit&gt;
-
-&lt;boolean_value&gt; ::= "TRUE" | "FALSE"
-    </code></pre>
+        <h5 class="card-title">Expressions</h5>
+        <pre class="mb-0"><code>&lt;expression&gt;           ::= &lt;term&gt; (("+" | "-") &lt;term&gt;)*
+&lt;term&gt;                 ::= &lt;factor&gt; (("*" | "/") &lt;factor&gt;)*
+&lt;factor&gt;               ::= &lt;number&gt; | &lt;currency_literal&gt; | &lt;identifier&gt;
+                          | &lt;property_access&gt; | &lt;function_call&gt; | "(" &lt;expression&gt; ")"
+&lt;property_access&gt;      ::= &lt;identifier&gt; "!" &lt;property_name&gt;
+&lt;property_name&gt;        ::= "COUNT" | "YEARSTONOW" | "MONTHSTONOW" | "DAYSTONOW"
+                          | "MONTHSTONOW_FROMLASTDAY"
+&lt;function_call&gt;        ::= ("ROUND" | "FLOOR" | "CEIL") "(" &lt;expression&gt; ")"
+                          | "CONVERT" "(" &lt;expression&gt; "," &lt;currency_code&gt; "," &lt;currency_code&gt; ")"</code></pre>
     </div>
 </div>
 
-<div class="card mb-3" style="width: 48rem;">
+<div class="card mb-3" style="max-width: 56rem;">
     <div class="card-body">
-        <h5 class="card-title">Basic Tokens</h5>
-        <pre><code>
-&lt;letter&gt; ::= "A" | "B" | "C" | "D" | "E" | "F" | "G" | "H" | "I" | "J" | "K" | "L" | "M" | "N" | "O" | "P" | "Q" | "R" | "S" | "T" | "U" | "V" | "W" | "X" | "Y" | "Z" | "a" | "b" | "c" | "d" | "e" | "f" | "g" | "h" | "i" | "j" | "k" | "l" | "m" | "n" | "o" | "p" | "q" | "r" | "s" | "t" | "u" | "v" | "w" | "x" | "y" | "z"
-
-&lt;digit&gt; ::= "0" | "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9"
-
-&lt;char&gt; ::= &lt;letter&gt; | &lt;digit&gt; | " " | "!" | "@@" | "#" | "$" | "%" | "^" | "&" | "*" | "(" | ")" | "-" | "_" | "=" | "+" | "[" | "]" | "{" | "}" | "|" | "\" | ":" | ";" | "&lt;" | "&gt;" | "?" | "," | "." | "/" | "`" | "~"
-    </code></pre>
+        <h5 class="card-title">Conditions</h5>
+        <p class="card-subtitle text-muted mb-2">A bare <code>&lt;identifier&gt;</code> in a condition must reference a BOOLEAN input; it evaluates to that variable's value.</p>
+        <pre class="mb-0"><code>&lt;condition&gt;            ::= &lt;or_condition&gt;
+&lt;or_condition&gt;         ::= &lt;and_condition&gt; ("OR" &lt;and_condition&gt;)*
+&lt;and_condition&gt;        ::= &lt;primary_condition&gt; ("AND" &lt;primary_condition&gt;)*
+&lt;primary_condition&gt;    ::= &lt;expression&gt; &lt;comparison_op&gt; &lt;expression&gt;
+                          | &lt;identifier&gt; ("IN" | "NIN") &lt;identifier&gt;
+                          | &lt;identifier&gt;
+                          | "(" &lt;condition&gt; ")"
+&lt;comparison_op&gt;        ::= "EQ" | "NEQ" | "GT" | "LT" | "GTE" | "LTE"</code></pre>
     </div>
 </div>
+
+<div class="card mb-3" style="max-width: 56rem;">
+    <div class="card-body">
+        <h5 class="card-title">Lexical Elements</h5>
+        <pre class="mb-0"><code>&lt;identifier&gt;           ::= &lt;letter&gt; (&lt;letter&gt; | &lt;digit&gt; | "_")*
+&lt;number&gt;               ::= &lt;digit&gt;+ ("." &lt;digit&gt;+)?
+&lt;string&gt;               ::= "'" {&lt;any_char&gt; - "'"} "'"
+&lt;currency_code&gt;        ::= &lt;upper_letter&gt; &lt;upper_letter&gt; &lt;upper_letter&gt;
+&lt;date&gt;                 ::= &lt;day&gt; "." &lt;month&gt; "." &lt;year&gt; | "TODAY"
+&lt;day&gt;                  ::= &lt;digit&gt; &lt;digit&gt;?
+&lt;month&gt;                ::= &lt;digit&gt; &lt;digit&gt;?
+&lt;year&gt;                 ::= &lt;digit&gt; &lt;digit&gt; &lt;digit&gt; &lt;digit&gt;
+&lt;letter&gt;               ::= "A" | ... | "Z" | "a" | ... | "z"
+&lt;upper_letter&gt;         ::= "A" | ... | "Z"
+&lt;digit&gt;                ::= "0" | ... | "9"</code></pre>
+    </div>
+</div>
+
+<p class="text-secondary" style="max-width: 56rem;">
+    Currency literals (<code>100&lt;EUR&gt;</code>) and the <code>CONVERT</code> function are documented with
+    worked examples in the <a asp-page="/Reference">reference</a>, along with jurisdiction composition
+    (inheritance between <code>.ipf</code> files), which operates above this grammar rather than inside it.
+    The engine's source lives in the <a href="https://github.com/vbocan/IPFLang" target="_blank">IPFLang
+    repository</a>.
+</p>
