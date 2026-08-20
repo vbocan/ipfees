@@ -16,10 +16,22 @@
                     <h2>Select <small class="text-muted">Jurisdictions</small></h2>
                     <!-- Jurisdictions -->
                     <div class="mb-3 col-12">
-                        <label for="@Model.SelectedJurisdictions" class="form-label">Select one or more jurisdictions to calculate fees for.</label>
-                        <select size="10" multiple class="form-select form-select-lg mb-3" asp-for="@Model.SelectedJurisdictions" asp-items="Model.SelectedJurisdictionItems" required>
-                        </select>
-                        <div class="text-muted">@Model.Jurisdictions.Count() items.</div>
+                        <label for="jurisdictionFilter" class="form-label">Select one or more jurisdictions to calculate fees for.</label>
+                        <input type="text" id="jurisdictionFilter" class="form-control mb-3" placeholder="Search by country or code&hellip;" autocomplete="off" />
+                        <div class="jurisdiction-grid" id="jurisdictionGrid">
+                            @foreach (var j in Model.JurisdictionChoices)
+                            {
+                                <label class="jurisdiction-chip" data-search="@($"{j.Code} {j.ShortName}".ToLowerInvariant())" title="@j.FullDescription">
+                                    <input type="checkbox" name="SelectedJurisdictions" value="@j.Code" class="jurisdiction-chip-input" />
+                                    <img src="@($"/flags/{j.Code.ToLowerInvariant()}.png")" alt="" class="jurisdiction-chip-flag" />
+                                    <span class="jurisdiction-chip-label">@j.ShortName</span>
+                                </label>
+                            }
+                        </div>
+                        <div class="d-flex justify-content-between mt-2">
+                            <div class="text-muted small"><span id="jurisdictionCount">0</span> of @Model.Jurisdictions.Count() selected</div>
+                            <div class="text-danger small d-none" id="jurisdictionRequiredMsg">Select at least one jurisdiction to continue.</div>
+                        </div>
                     </div>
                 </div>
                 <h2>Select <small class="text-muted">currency</small></h2>
@@ -103,3 +115,50 @@
         </div>
     </div>
 </div>
+
+@section Scripts {
+    <script>
+        (function () {
+            var grid = document.getElementById('jurisdictionGrid');
+            if (!grid) return;
+            var filter = document.getElementById('jurisdictionFilter');
+            var countEl = document.getElementById('jurisdictionCount');
+            var requiredMsg = document.getElementById('jurisdictionRequiredMsg');
+            var form = grid.closest('form');
+            var chips = Array.prototype.slice.call(grid.querySelectorAll('.jurisdiction-chip'));
+
+            function updateCount() {
+                var n = chips.filter(function (c) { return c.querySelector('input').checked; }).length;
+                countEl.textContent = n;
+                if (n > 0) requiredMsg.classList.add('d-none');
+            }
+
+            chips.forEach(function (chip) {
+                var input = chip.querySelector('input');
+                input.addEventListener('change', function () {
+                    chip.classList.toggle('selected', input.checked);
+                    updateCount();
+                });
+            });
+
+            filter.addEventListener('input', function () {
+                var q = filter.value.trim().toLowerCase();
+                chips.forEach(function (chip) {
+                    var match = !q || chip.dataset.search.indexOf(q) !== -1;
+                    chip.classList.toggle('d-none', !match);
+                });
+            });
+
+            form.addEventListener('submit', function (e) {
+                var anyChecked = chips.some(function (c) { return c.querySelector('input').checked; });
+                if (!anyChecked) {
+                    e.preventDefault();
+                    requiredMsg.classList.remove('d-none');
+                    filter.focus();
+                }
+            });
+
+            updateCount();
+        })();
+    </script>
+}
