@@ -1,22 +1,101 @@
+/* ============================================================
+   IPFees design system
+   Font self-hosted rather than a Google Fonts <link> — same reasoning as
+   the sister sites (gooblen.ro, caravana-medicala): one less third-party
+   request, no visitor IPs sent anywhere. Manrope variable file, latin +
+   latin-ext subsets, OFL-1.1 licensed — see wwwroot/fonts/OFL-Manrope.txt.
+   ============================================================ */
+@font-face {
+  font-family: 'Manrope';
+  font-style: normal;
+  font-weight: 400 800;
+  font-display: swap;
+  src: url('/fonts/manrope-variable-latin-ext.woff2') format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face {
+  font-family: 'Manrope';
+  font-style: normal;
+  font-weight: 400 800;
+  font-display: swap;
+  src: url('/fonts/manrope-variable-latin.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+:root {
+  --ink: #16233b;
+  --ink-soft: #3c4a63;
+  --muted: #64708a;
+  --line: #dfe4ee;
+  --paper: #fff;
+  --ground: #f7f8fb;
+  --accent: #0d6efd;
+  --accent-strong: #0b5ed7;
+  --accent-tint: #eaf1ff;
+  --r-sm: 8px;
+  --r-md: 12px;
+  --shadow-card: 0 3px 14px rgba(16, 35, 63, 0.08);
+  --shadow-hover: 0 10px 28px rgba(16, 35, 63, 0.12);
+}
+
 html {
-  font-size: 14px;
-}
-
-@media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
-}
-
-.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
-  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
-}
-
-html {
+  font-size: 15px;
   position: relative;
   min-height: 100%;
 }
+@media (min-width: 768px) {
+  html { font-size: 16px; }
+}
 
 body {
-  margin-bottom: 60px;
+  margin-bottom: 0;
+  font-family: 'Manrope', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  background: var(--ground);
+  color: var(--ink);
 }
+
+/* ---- Typography ---- */
+h1, h2, h3, h4, h5, h6 { font-weight: 700; letter-spacing: -0.01em; color: var(--ink); }
+.display-4, .display-5 { font-weight: 800; letter-spacing: -0.02em; }
+p { line-height: 1.7; }
+.lead { font-size: 1.2rem; line-height: 1.65; color: var(--ink-soft); font-weight: 500; }
+.text-secondary, .text-muted { color: var(--muted) !important; }
+main :not(.lead) > p, main p.card-text, .card-text { font-size: 1.02rem; line-height: 1.7; color: var(--ink-soft); }
+code, pre, .font-monospace { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+
+a { color: var(--accent); }
+a:hover { color: var(--accent-strong); }
+
+/* ---- Surfaces ---- */
+.card { border: 1px solid var(--line); box-shadow: var(--shadow-card); border-radius: var(--r-md); transition: box-shadow .2s ease, transform .2s ease; }
+.card.h-100:hover { box-shadow: var(--shadow-hover); transform: translateY(-2px); }
+.btn { border-radius: var(--r-sm); font-weight: 600; }
+.btn-primary { box-shadow: 0 8px 20px rgba(13, 110, 253, 0.22); }
+.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
+  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem var(--accent);
+}
+
+/* ---- Navbar ---- */
+.navbar { background: var(--paper) !important; box-shadow: 0 1px 0 var(--line); }
+.navbar-brand { font-weight: 800; letter-spacing: -0.02em; color: var(--ink) !important; }
+.navbar .nav-link { font-weight: 600; color: var(--ink-soft) !important; padding-top: .6rem; padding-bottom: .6rem; }
+.navbar .nav-link:hover, .navbar .nav-link.active, .navbar .dropdown-toggle:hover { color: var(--accent) !important; }
+.navbar .dropdown-menu { border: 1px solid var(--line); box-shadow: var(--shadow-hover); border-radius: var(--r-md); padding: .5rem; }
+.navbar .dropdown-item { border-radius: var(--r-sm); font-weight: 500; padding: .5rem .75rem; }
+.navbar .dropdown-item:hover, .navbar .dropdown-item:focus { background: var(--accent-tint); color: var(--accent-strong); }
+.navbar .dropdown-item small { color: var(--muted); }
+
+/* ---- Footer ---- */
+.site-footer { background: var(--paper); border-top: 1px solid var(--line); margin-top: 4rem; padding: 3rem 0 1.5rem; }
+.site-footer .footer-brand { font-weight: 800; letter-spacing: -0.02em; color: var(--ink); font-size: 1.05rem; }
+.site-footer .footer-tagline { color: var(--muted); font-size: .92rem; max-width: 26rem; margin-top: .5rem; }
+.site-footer h6 { font-size: .72rem; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); font-weight: 700; margin-bottom: .9rem; }
+.site-footer a { color: var(--ink-soft); text-decoration: none; display: block; padding: .2rem 0; font-size: .92rem; }
+.site-footer a:hover { color: var(--accent); }
+.footer-bottom { display: flex; flex-wrap: wrap; gap: .5rem 1.25rem; align-items: center; justify-content: space-between; border-top: 1px solid var(--line); margin-top: 2.5rem; padding-top: 1.25rem; color: var(--muted); font-size: .86rem; }
+.footer-bottom a { display: inline; padding: 0; color: var(--muted); }
+.footer-bottom a:hover { color: var(--accent); }
+.footer-bottom nav { display: flex; gap: 1.1rem; flex-wrap: wrap; }
+
+/* ---- Small stat / icon-tile helpers used across pages ---- */
+.stat-n { font-weight: 800; letter-spacing: -0.02em; color: var(--accent-strong); }
