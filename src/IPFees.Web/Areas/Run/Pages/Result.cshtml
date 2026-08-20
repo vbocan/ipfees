@@ -95,15 +95,17 @@
             @foreach (var explanation in Model.Explanations)
             {
                 <div class="card mb-3">
-                    <div class="card-header d-flex justify-content-between align-items-center">
+                    <div class="card-header d-flex justify-content-between align-items-center flex-wrap gap-2">
                         <span>
                             <strong>@explanation.FeeName</strong> <span class="text-secondary">@explanation.FeeDescription</span>
-                            <a asp-area="Fee" asp-page="Edit" asp-route-id="@explanation.Id" target="_blank"
-                               class="text-secondary ms-1" title="View the IPFLang source that produced this">
-                                <i class="bi bi-code-slash"></i>
-                            </a>
                         </span>
-                        <span class="text-nowrap">@($"{explanation.GrandTotal:N2}")</span>
+                        <span class="d-flex align-items-center gap-2">
+                            <a asp-area="Fee" asp-page="Edit" asp-route-id="@explanation.Id" target="_blank"
+                               class="btn btn-light btn-sm" title="View the IPFLang source that produced this">
+                                <i class="bi bi-code-slash me-1"></i>Source Code
+                            </a>
+                            <span class="text-nowrap">@($"{explanation.GrandTotal:N2}")</span>
+                        </span>
                     </div>
                     <div class="card-body p-0">
                         <table class="table table-sm mb-0">
