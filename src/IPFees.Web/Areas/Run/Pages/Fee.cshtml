@@ -26,7 +26,7 @@
                         case DslInputList:
                             var v1 = (DslInputList)Model.Inputs[i].Var;
                             <label class="form-label" for="@v1.Name">@v1.Text</label>
-                            <select class="form-select form-select-lg mb-3" asp-for="@Model.Inputs[i].StrValue">
+                            <select class="form-select mb-3" asp-for="@Model.Inputs[i].StrValue">
                                 @foreach (var item in v1.Items)
                                 {
                                     if (v1.DefaultSymbol.Equals(item.Symbol))
@@ -43,7 +43,7 @@
                         case DslInputListMultiple:
                             var v2 = (DslInputListMultiple)Model.Inputs[i].Var;
                             <label class="form-label" for="@v2.Name">@v2.Text</label>
-                            <select class="form-select form-select-lg mb-3" asp-for="@Model.Inputs[i].ListValue" multiple>
+                            <select class="form-select mb-3" asp-for="@Model.Inputs[i].ListValue" multiple>
                                 @foreach (var item in v2.Items)
                                 {
                                     if (v2.DefaultSymbols.Contains(item.Symbol))
