@@ -92,7 +92,7 @@ a:hover { color: var(--accent-strong); }
 /* ---- Footer ---- */
 .site-footer { background: var(--paper); border-top: 1px solid var(--line); margin-top: 4rem; padding: 3rem 0 1.5rem; }
 .site-footer .footer-brand { font-weight: 800; letter-spacing: -0.02em; color: var(--ink); font-size: 1.05rem; }
-.site-footer .footer-tagline { color: var(--muted); font-size: .92rem; max-width: 26rem; margin-top: .5rem; }
+.site-footer .footer-tagline { color: var(--muted); font-size: .92rem; max-width: 34rem; margin-top: .5rem; }
 .site-footer h6 { font-size: .72rem; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); font-weight: 700; margin-bottom: .9rem; }
 .site-footer a { color: var(--ink-soft); text-decoration: none; display: block; padding: .2rem 0; font-size: .92rem; }
 .site-footer a:hover { color: var(--accent); }

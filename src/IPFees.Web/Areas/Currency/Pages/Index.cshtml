@@ -1,12 +1,36 @@
-﻿@page
+@page
+@using IPFLang.CurrencyConversion
 @model IndexModel
 @{
     ViewData["Title"] = "Currency List";
+    var badgeClass = Model.DataStatus switch
+    {
+        ResponseStatus.Online => "text-bg-success",
+        ResponseStatus.Stale => "text-bg-warning",
+        _ => "text-bg-danger"
+    };
 }
 
 <h1>Currency <small class="text-muted">List</small></h1>
 
-<p>Currencies updated on: @Model.ExchangeDataLastUpdatedOn GMT</p>
+<div class="d-flex flex-wrap align-items-center gap-2 mb-4">
+    <span class="badge @badgeClass">@Model.DataStatus</span>
+    <span class="text-secondary">
+        Source:
+        @if (Model.DataSourceUrl is not null)
+        {
+            <a href="@Model.DataSourceUrl" target="_blank">@Model.DataSourceLabel</a>
+        }
+        else
+        {
+            @Model.DataSourceLabel
+        }
+    </span>
+    <span class="text-secondary">
+        &middot; Updated @Model.ExchangeDataLastUpdatedOn GMT
+        (@Model.TimeSinceUpdate)
+    </span>
+</div>
 
 <div class="row">
     <div class="col-lg-6">
@@ -17,15 +41,15 @@
                     <tr>
                         <th scope="col">Currency</th>
                         <th scope="col">Description</th>
-                        <th scope="col">Exchange Rate (to EUR)</th>                        
+                        <th scope="col">Exchange Rate (to EUR)</th>
 
                     </tr>
                 </thead>
                 <tbody>
                     @foreach (var cr in Model.Currencies)
                     {
-                        
-                        <tr>                            
+
+                        <tr>
                             <td>@cr.Item1</td>
                             <td>@cr.Item2</td>
                             <td>@cr.Item3</td>
