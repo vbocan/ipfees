@@ -12,9 +12,14 @@ namespace IPFees.Core.FeeCalculation
     /// These types restate the engine's provenance in a shape that serialises cleanly and does
     /// not oblige a client to reference the engine.
     /// </summary>
+    /// <param name="Id">
+    /// The fee document's own id, so a caller can link straight to its IPFLang source (the
+    /// Fee/Edit page) without a second lookup by name.
+    /// </param>
     /// <param name="TotalMandatory">Sum of the fees that are always incurred.</param>
     /// <param name="TotalOptional">Sum of the fees marked OPTIONAL in the schedule.</param>
     public record FeeExplanation(
+        Guid Id,
         string FeeName,
         string FeeDescription,
         decimal TotalMandatory,

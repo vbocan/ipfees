@@ -167,6 +167,7 @@ namespace IPFees.Core.FeeCalculation
                 c.Difference)).ToList();
 
             return new FeeExplanation(
+                fee.Id,
                 fee.Name,
                 fee.Description,
                 provenance.TotalMandatory,
