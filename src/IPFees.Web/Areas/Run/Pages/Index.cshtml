@@ -25,6 +25,13 @@
                                     <input type="checkbox" name="SelectedJurisdictions" value="@j.Code" class="jurisdiction-chip-input" />
                                     <img src="@($"/flags/{j.Code.ToLowerInvariant()}.png")" alt="" class="jurisdiction-chip-flag" />
                                     <span class="jurisdiction-chip-label">@j.ShortName</span>
+                                    @if (j.FeeId is not null)
+                                    {
+                                        <a asp-area="Fee" asp-page="Edit" asp-route-id="@j.FeeId" class="jurisdiction-chip-source"
+                                           target="_blank" title="View the IPFLang source for @j.ShortName" onclick="event.stopPropagation()">
+                                            <i class="bi bi-code-slash"></i>
+                                        </a>
+                                    }
                                 </label>
                             }
                         </div>
@@ -81,6 +88,19 @@
     <!-- Column #2 -->
     <div class="col-lg-5 col-md-5 d-none d-sm-block">
         <div class="ps-lg-4">
+            @if (Model.SourceSnippet is not null)
+            {
+                <h6 class="text-uppercase text-secondary small fw-bold mb-3">See the language</h6>
+                <div class="border rounded p-3 mb-2 bg-light">
+                    <pre class="mb-0 small" style="white-space: pre-wrap;"><code>@Model.SourceSnippet.Text</code></pre>
+                </div>
+                <p class="small text-secondary mb-4">
+                    An excerpt of the actual schedule for @Model.SourceSnippet.JurisdictionName, written in
+                    <a asp-page="/Reference">IPFLang</a>.
+                    <a asp-area="Fee" asp-page="Edit" asp-route-id="@Model.SourceSnippet.FeeId" target="_blank">Open it</a>,
+                    or <a asp-area="Fee" asp-page="Index">browse all @Model.Jurisdictions.Count() schedules</a>.
+                </p>
+            }
             <h6 class="text-uppercase text-secondary small fw-bold mb-3">What's powering this</h6>
             <div class="d-flex mb-3">
                 <i class="bi bi-patch-check text-primary fs-4 me-3 flex-shrink-0"></i>

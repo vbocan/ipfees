@@ -117,10 +117,11 @@ a:hover { color: var(--accent-strong); }
   border-radius: var(--r-md);
 }
 .jurisdiction-chip {
+  position: relative;
   display: flex;
   align-items: center;
   gap: .5rem;
-  padding: .45rem .6rem;
+  padding: .45rem 1.7rem .45rem .6rem;
   border: 1px solid var(--line);
   border-radius: var(--r-sm);
   cursor: pointer;
@@ -139,3 +140,18 @@ a:hover { color: var(--accent-strong); }
 .jurisdiction-chip-flag { width: 22px; height: 15px; object-fit: cover; border-radius: 2px; box-shadow: 0 0 0 1px rgba(22, 35, 59, 0.12); flex-shrink: 0; }
 .jurisdiction-chip-label { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .jurisdiction-chip:focus-within { outline: 2px solid var(--accent); outline-offset: 1px; }
+
+/* Small "view source" affordance on each chip — a reviewer can jump straight to a jurisdiction's
+   IPFLang source without it counting as selecting that jurisdiction for calculation. */
+.jurisdiction-chip-source {
+  position: absolute;
+  top: 50%;
+  right: .5rem;
+  transform: translateY(-50%);
+  display: inline-flex;
+  color: var(--muted);
+  opacity: .6;
+  transition: opacity .15s ease, color .15s ease;
+}
+.jurisdiction-chip-source:hover,
+.jurisdiction-chip-source:focus-visible { opacity: 1; color: var(--accent); }
