@@ -1,10 +1,21 @@
-name: Build and Push Docker Images
+name: deploy-app
+
+# Builds the API and Web images and pushes them to GHCR + Docker Hub, then
+# rolls both out on the shared Contabo VM (~/ipfees.dataman.ro, see
+# docker-compose.yml in the webserver-deploy repo). Single target -- like
+# gooblen.ro, unlike caravana-medicala's demo+prod split. Direct port of
+# gooblen.ro's deploy-app.yml, adapted for two images instead of one.
+#
+# Requires repo secrets: CONTABO_HOST, CONTABO_USER, CONTABO_SSH_KEY (in
+# addition to the existing DOCKERHUB_TOKEN). If the ghcr.io/vbocan/ipfees
+# package is private, `docker login ghcr.io` must already be done on the
+# server -- this workflow does not provision that. See docs/DEPLOY.md.
 
 on:
   push:
     branches: [ master ]
+  workflow_dispatch:
 
-# Add these permissions
 permissions:
   contents: read
   packages: write
@@ -55,3 +66,20 @@ jobs:
           ghcr.io/${{ github.repository_owner }}/ipfees:web
           vbocan/ipfees:web
           vbocan/ipfees:web-latest
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy over SSH
+        uses: appleboy/ssh-action@v1
+        with:
+          host: ${{ secrets.CONTABO_HOST }}
+          username: ${{ secrets.CONTABO_USER }}
+          key: ${{ secrets.CONTABO_SSH_KEY }}
+          script: |
+            set -e
+            cd ~/ipfees.dataman.ro
+            docker compose pull
+            docker compose up -d
+            docker image prune -f
