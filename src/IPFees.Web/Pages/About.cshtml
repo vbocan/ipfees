@@ -6,7 +6,7 @@
 
 <div class="py-2">
     <h1 class="display-5 fw-bold mb-3">About IPFees</h1>
-    <p class="lead" style="max-width: 42rem;">
+    <p class="lead">
         IPFees calculates official filing, examination, and renewal fees for PCT national and regional
         phase entry across 119 patent jurisdictions. More to the point of this page: it's a working
         demonstration of <a href="https://github.com/vbocan/IPFLang" target="_blank">IPFLang</a>, a
@@ -14,115 +14,125 @@
         browser, not just described in a paper.
     </p>
 
-    <h2 class="h4 text-uppercase text-secondary mt-5 mb-3">What it does</h2>
-    <div style="max-width: 42rem;">
-        <p>
-            Pick jurisdictions, answer a short questionnaire, get a total &mdash; plus the full rule trace
-            behind it, including the rules that didn't apply and why. Every fee schedule is a plain-text
-            <code>.ipf</code> script, not logic buried in C#, and the underlying data is editable straight
-            from the <strong>Explore</strong> menu above, against a database that resets every six hours.
-        </p>
-        <p>
-            Government fee schedules are legal text with real conditional structure: reduced rates for
-            small entities, per-claim surcharges, examination fees that depend on how a search was
-            handled. IPFLang keeps that as data a non-programmer can read and edit, while still giving
-            you what a spreadsheet can't &mdash; proof the rules are complete, and a type system that
-            catches currency mistakes before they reach a number.
-        </p>
+    <div class="row g-5 mt-1">
+        <div class="col-lg-6">
+            <h2 class="h4 text-uppercase text-secondary mb-3">What it does</h2>
+            <p>
+                Pick jurisdictions, answer a short questionnaire, get a total &mdash; plus the full rule
+                trace behind it, including the rules that didn't apply and why. Every fee schedule is a
+                plain-text <code>.ipf</code> script, not logic buried in C#, and the underlying data is
+                editable straight from the <strong>Explore</strong> menu above, against a database that
+                resets every six hours.
+            </p>
+            <p>
+                Government fee schedules are legal text with real conditional structure: reduced rates
+                for small entities, per-claim surcharges, examination fees that depend on how a search
+                was handled. IPFLang keeps that as data a non-programmer can read and edit, while still
+                giving you what a spreadsheet can't &mdash; proof the rules are complete, and a type
+                system that catches currency mistakes before they reach a number.
+            </p>
+        </div>
+        <div class="col-lg-6">
+            <div class="row g-4">
+                <div class="col-md-6">
+                    <div class="d-flex">
+                        <div class="flex-shrink-0">
+                            <div class="rounded-circle bg-primary bg-opacity-10 text-primary d-flex align-items-center justify-content-center" style="width:52px;height:52px;">
+                                <i class="bi bi-patch-check fs-4"></i>
+                            </div>
+                        </div>
+                        <div class="ms-3">
+                            <h3 class="h6 fw-bold mb-1">Statically verified</h3>
+                            <p class="text-secondary mb-0">
+                                A script can declare <code>VERIFY COMPLETE</code> or
+                                <code>VERIFY MONOTONIC</code>, checked on save. A schedule that fails
+                                either is refused, with the exact gap named.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="d-flex">
+                        <div class="flex-shrink-0">
+                            <div class="rounded-circle bg-primary bg-opacity-10 text-primary d-flex align-items-center justify-content-center" style="width:52px;height:52px;">
+                                <i class="bi bi-currency-exchange fs-4"></i>
+                            </div>
+                        </div>
+                        <div class="ms-3">
+                            <h3 class="h6 fw-bold mb-1">Currency-safe</h3>
+                            <p class="text-secondary mb-0">
+                                Every monetary literal carries its currency. Adding EUR to USD is a
+                                compile-time type error, not a runtime surprise.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="d-flex">
+                        <div class="flex-shrink-0">
+                            <div class="rounded-circle bg-primary bg-opacity-10 text-primary d-flex align-items-center justify-content-center" style="width:52px;height:52px;">
+                                <i class="bi bi-list-check fs-4"></i>
+                            </div>
+                        </div>
+                        <div class="ms-3">
+                            <h3 class="h6 fw-bold mb-1">Fully traceable</h3>
+                            <p class="text-secondary mb-0">
+                                Every result ships with the complete rule trace &mdash; what fired, what
+                                didn't, and why. Nothing is a black box.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="d-flex">
+                        <div class="flex-shrink-0">
+                            <div class="rounded-circle bg-primary bg-opacity-10 text-primary d-flex align-items-center justify-content-center" style="width:52px;height:52px;">
+                                <i class="bi bi-unlock fs-4"></i>
+                            </div>
+                        </div>
+                        <div class="ms-3">
+                            <h3 class="h6 fw-bold mb-1">Open by default</h3>
+                            <p class="text-secondary mb-0">
+                                Schedules, calculator, and API are all public, no key required &mdash;
+                                edit them yourself from the Explore menu.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 
-    <div class="row g-4 mt-1 mb-5" style="max-width: 62rem;">
-        <div class="col-md-6">
-            <div class="d-flex">
-                <div class="flex-shrink-0">
-                    <div class="rounded-circle bg-primary bg-opacity-10 text-primary d-flex align-items-center justify-content-center" style="width:52px;height:52px;">
-                        <i class="bi bi-patch-check fs-4"></i>
-                    </div>
-                </div>
-                <div class="ms-3">
-                    <h3 class="h6 fw-bold mb-1">Statically verified</h3>
-                    <p class="text-secondary mb-0">
-                        A script can declare <code>VERIFY COMPLETE</code> or <code>VERIFY MONOTONIC</code>,
-                        checked on save. A schedule that fails either is refused, with the exact gap named.
-                    </p>
-                </div>
-            </div>
+    <div class="row g-5 mt-1 mb-5">
+        <div class="col-lg-6">
+            <h2 class="h4 text-uppercase text-secondary mb-3">How this relates to IPFLang</h2>
+            <p>
+                The language began inside this repository, then was pulled out with a formal grammar, a
+                currency-aware type system, and static verification, and now ships separately as
+                <a href="https://github.com/vbocan/IPFLang" target="_blank">IPFLang</a>. IPFees consumes
+                it as a versioned package &mdash; it's the deployable layer around the engine: the web
+                interface, the REST API, multi-currency conversion, and the 119-jurisdiction corpus. See
+                the <a asp-page="/Reference">language reference</a> and
+                <a asp-page="/Grammar">formal grammar</a> for what the engine actually accepts.
+            </p>
         </div>
-        <div class="col-md-6">
-            <div class="d-flex">
-                <div class="flex-shrink-0">
-                    <div class="rounded-circle bg-primary bg-opacity-10 text-primary d-flex align-items-center justify-content-center" style="width:52px;height:52px;">
-                        <i class="bi bi-currency-exchange fs-4"></i>
-                    </div>
-                </div>
-                <div class="ms-3">
-                    <h3 class="h6 fw-bold mb-1">Currency-safe</h3>
-                    <p class="text-secondary mb-0">
-                        Every monetary literal carries its currency. Adding EUR to USD is a compile-time
-                        type error, not a runtime surprise.
-                    </p>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-6">
-            <div class="d-flex">
-                <div class="flex-shrink-0">
-                    <div class="rounded-circle bg-primary bg-opacity-10 text-primary d-flex align-items-center justify-content-center" style="width:52px;height:52px;">
-                        <i class="bi bi-list-check fs-4"></i>
-                    </div>
-                </div>
-                <div class="ms-3">
-                    <h3 class="h6 fw-bold mb-1">Fully traceable</h3>
-                    <p class="text-secondary mb-0">
-                        Every result ships with the complete rule trace &mdash; what fired, what didn't,
-                        and why. Nothing is a black box.
-                    </p>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-6">
-            <div class="d-flex">
-                <div class="flex-shrink-0">
-                    <div class="rounded-circle bg-primary bg-opacity-10 text-primary d-flex align-items-center justify-content-center" style="width:52px;height:52px;">
-                        <i class="bi bi-unlock fs-4"></i>
-                    </div>
-                </div>
-                <div class="ms-3">
-                    <h3 class="h6 fw-bold mb-1">Open by default</h3>
-                    <p class="text-secondary mb-0">
-                        Schedules, calculator, and API are all public, no key required &mdash; edit them
-                        yourself from the Explore menu.
-                    </p>
-                </div>
-            </div>
+        <div class="col-lg-6">
+            <h2 class="h4 text-uppercase text-secondary mb-3">Where this stands</h2>
+            <p>
+                This is research software from Politehnica University of Timișoara, not a commercial
+                product &mdash; free, with no SLA. IP practitioners at <strong>Jet IP</strong> reviewed a
+                sample of calculations against official fee schedules and caught real discrepancies
+                before this went live; that's the extent of external review so far, not a formal audit.
+            </p>
+            <p class="mb-0">
+                Both IPFees and IPFLang are open source under
+                <a href="https://www.gnu.org/licenses/gpl-3.0" target="_blank">GPL-3.0</a> &mdash; fork
+                either, or send a pull request for a jurisdiction that's missing. If you use this in
+                research, citation metadata is in
+                <a href="https://github.com/vbocan/ipfees/blob/master/CITATION.cff" target="_blank">CITATION.cff</a>,
+                alongside the peer-reviewed article on IPFLang in the <em>IEEE Open Journal of the
+                Computer Society</em>.
+            </p>
         </div>
     </div>
-
-    <h2 class="h4 text-uppercase text-secondary mt-5 mb-3">How this relates to IPFLang</h2>
-    <p style="max-width: 42rem;">
-        The language began inside this repository, then was pulled out with a formal grammar, a
-        currency-aware type system, and static verification, and now ships separately as
-        <a href="https://github.com/vbocan/IPFLang" target="_blank">IPFLang</a>. IPFees consumes it as a
-        versioned package &mdash; it's the deployable layer around the engine: the web interface, the REST
-        API, multi-currency conversion, and the 119-jurisdiction corpus. See the
-        <a asp-page="/Reference">language reference</a> and <a asp-page="/Grammar">formal grammar</a> for
-        what the engine actually accepts.
-    </p>
-
-    <h2 class="h4 text-uppercase text-secondary mt-5 mb-3">Where this stands</h2>
-    <p style="max-width: 42rem;">
-        This is research software from Politehnica University of Timișoara, not a commercial product
-        &mdash; free, with no SLA. IP practitioners at <strong>Jet IP</strong> reviewed a sample of
-        calculations against official fee schedules and caught real discrepancies before this went live;
-        that's the extent of external review so far, not a formal audit.
-    </p>
-    <p class="mb-5" style="max-width: 42rem;">
-        Both IPFees and IPFLang are open source under
-        <a href="https://www.gnu.org/licenses/gpl-3.0" target="_blank">GPL-3.0</a> &mdash; fork either, or
-        send a pull request for a jurisdiction that's missing. If you use this in research, citation
-        metadata is in
-        <a href="https://github.com/vbocan/ipfees/blob/master/CITATION.cff" target="_blank">CITATION.cff</a>,
-        alongside the peer-reviewed article on IPFLang in the <em>IEEE Open Journal of the Computer
-        Society</em>.
-    </p>
 </div>

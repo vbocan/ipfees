@@ -75,10 +75,14 @@ a:hover { color: var(--accent-strong); }
   box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem var(--accent);
 }
 
-/* ---- Navbar ---- */
+/* ---- Navbar ----
+   Sized against caravana-medicala's public site (.brand at 1.06rem, .nav-links a
+   at 0.94rem/8px vertical padding) rather than Bootstrap's own defaults
+   (navbar-brand 1.25rem, nav-link 1rem/.5rem) - the latter reads oversized
+   next to the rest of the (already-downsized) type scale below. */
 .navbar { background: var(--paper) !important; box-shadow: 0 1px 0 var(--line); }
-.navbar-brand { font-weight: 800; letter-spacing: -0.02em; color: var(--ink) !important; }
-.navbar .nav-link { font-weight: 600; color: var(--ink-soft) !important; padding-top: .6rem; padding-bottom: .6rem; }
+.navbar-brand { font-size: 1.1rem; font-weight: 800; letter-spacing: -0.02em; color: var(--ink) !important; }
+.navbar .nav-link { font-size: .94rem; font-weight: 600; color: var(--ink-soft) !important; padding-top: .5rem; padding-bottom: .5rem; }
 .navbar .nav-link:hover, .navbar .nav-link.active, .navbar .dropdown-toggle:hover { color: var(--accent) !important; }
 .navbar .dropdown-menu { border: 1px solid var(--line); box-shadow: var(--shadow-hover); border-radius: var(--r-md); padding: .5rem; }
 .navbar .dropdown-item { border-radius: var(--r-sm); font-weight: 500; padding: .5rem .75rem; }
