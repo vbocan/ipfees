@@ -1,4 +1,5 @@
 using IPFees.Core.Enum;
+using IPFees.Core.FeeCalculation;
 using IPFees.Core.Repository;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -17,16 +18,23 @@ namespace IPFees.Web.Areas.Fee.Pages
         [BindProperty] public IList<ModuleViewModel> ReferencedModules { get; set; } = null!;
         [BindProperty] public IList<string> ErrorMessages { get; set; }
 
-        public IEnumerable<SelectListItem> CategoryItems { get; set; }        
+        /// <summary>
+        /// What IPFLang made of the definition on the last save attempt. Null before any attempt.
+        /// </summary>
+        public FeeValidationReport? Validation { get; private set; }
+
+        public IEnumerable<SelectListItem> CategoryItems { get; set; }
         public IEnumerable<SelectListItem> JurisdictionNameItems { get; set; }
-        
+
         private readonly IFeeRepository feeRepository;
         private readonly IModuleRepository moduleRepository;
+        private readonly IFeeDefinitionValidator validator;
 
-        public CreateModel(IJurisdictionRepository jurisdictionRepository, IFeeRepository feeRepository, IModuleRepository moduleRepository)
-        {            
+        public CreateModel(IJurisdictionRepository jurisdictionRepository, IFeeRepository feeRepository, IModuleRepository moduleRepository, IFeeDefinitionValidator validator)
+        {
             this.feeRepository = feeRepository;
             this.moduleRepository = moduleRepository;
+            this.validator = validator;
             CategoryItems = Enum.GetValues<FeeCategory>().AsEnumerable().Select(s => new SelectListItem(s.ValueAsString(), s.ToString()));            
             JurisdictionNameItems = jurisdictionRepository.GetJurisdictions().Result.Select(s => new SelectListItem($"{s.Name} - {s.Description}", s.Name));
             ErrorMessages = new List<string>();
@@ -41,6 +49,19 @@ namespace IPFees.Web.Areas.Fee.Pages
 
         public async Task<IActionResult> OnPostAsync()
         {
+            // A new definition passes the same gate as an edited one, before anything is stored:
+            // otherwise a definition the editor would refuse could simply be created instead.
+            var selected = ReferencedModules?.Where(w => w.Checked).Select(s => s.Id).ToList() ?? new List<Guid>();
+            Validation = await validator.ValidateAsync(SourceCode, selected);
+            if (!Validation.MayBeSaved)
+            {
+                var Mods = await moduleRepository.GetModules();
+                ReferencedModules = Mods.Where(w => !w.AutoRun)
+                    .Select(s => new ModuleViewModel(s.Id, s.Name, s.Description, s.LastUpdatedOn, selected.Contains(s.Id)))
+                    .ToList();
+                return Page();
+            }
+
             var res1 = await feeRepository.AddFeeAsync(Name);
             if (!res1.Success)
             {

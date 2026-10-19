@@ -35,11 +35,16 @@ namespace IPFees.Core.FeeCalculation
     /// Every yield the engine evaluated for this fee, in the order it evaluated them, including
     /// those whose conditions did not hold.
     /// </param>
+    /// <param name="Currency">
+    /// The currency <paramref name="Amount"/> is in, which need not be the schedule's: an agent's
+    /// charge written as <c>100&lt;EUR&gt;</c> is 100 EUR in a schedule that otherwise prices in SGD.
+    /// </param>
     public record ExplainedFee(
         string Name,
         bool Optional,
         decimal Amount,
-        IReadOnlyList<ExplainedStep> Steps);
+        IReadOnlyList<ExplainedStep> Steps,
+        string? Currency = null);
 
     /// <param name="Applied">
     /// False when the step was evaluated but its conditions did not hold, so it contributed

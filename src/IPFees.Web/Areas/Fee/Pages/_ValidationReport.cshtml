@@ -78,16 +78,19 @@
 {
     <div class="alert alert-secondary" role="alert">
         <h5 class="alert-heading">Verification did not finish</h5>
-        <p class="mb-0">
-            This definition parsed and type-checked, and it was saved. Its
-            @Model.VerificationsRun <code>VERIFY</code>
+        <p class="mb-2">
+            @Model.UnfinishedDirectives.Count of @Model.VerificationsRun <code>VERIFY</code>
             @(Model.VerificationsRun == 1 ? "directive was" : "directives were") abandoned before
-            completing, so they are neither proven nor disproven. Monotonicity checking walks a
-            numeric range against every combination of the other inputs, which does not finish in
-            useful time on a schedule with many inputs. Narrowing the range a fee is checked over,
-            for instance <code>BETWEEN 1 AND 100</code> rather than <code>BETWEEN 1 AND 1000</code>,
-            usually brings it back within reach.
+            completing, so @(Model.UnfinishedDirectives.Count == 1 ? "it is" : "they are") neither
+            proven nor disproven. The others finished and are reported above.
+            @(Model.MayBeSaved ? "Nothing that finished failed, so the definition was saved." : "")
         </p>
+        <ul class="mb-0">
+            @foreach (var d in Model.UnfinishedDirectives)
+            {
+                <li><code>@d</code></li>
+            }
+        </ul>
     </div>
 }
 

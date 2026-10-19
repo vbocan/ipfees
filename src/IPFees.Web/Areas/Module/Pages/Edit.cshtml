@@ -16,9 +16,13 @@
                     @foreach(var em in Model.ErrorMessages)
                     {
                         <text>@em</text><br/>
-                    }                    
+                    }
                 </div>
             </div>
+        }
+        @if (Model.Validation is not null)
+        {
+            <partial name="_ModuleValidationReport" model="Model.Validation" />
         }
         <form method="post">
             <div class="mb-3">
