@@ -45,6 +45,34 @@ namespace IPFees.Core.Tests
             Assert.True(report.CanBeStored);
         }
 
+        /// <summary>
+        /// Each yield is well typed on its own, but the fee as a whole is in two currencies, so no
+        /// calculation could convert it. The gate refuses it instead of letting it fail later.
+        /// </summary>
+        [Fact]
+        public async Task FeeWhoseYieldsAreInTwoCurrenciesBlocksStorage()
+        {
+            var source =
+            """
+            DEFINE NUMBER ClaimCount AS 'Number of claims'
+            BETWEEN 1 AND 100
+            DEFAULT 10
+            ENDDEFINE
+
+            COMPUTE FEE OfficialFee
+            YIELD 2000<AED> IF ClaimCount LTE 10
+            YIELD 2000<EUR> IF ClaimCount GT 10
+            ENDCOMPUTE
+
+            RETURN Currency AS 'AED'
+            """;
+
+            var report = await NewValidator().ValidateAsync(source, Array.Empty<Guid>());
+
+            Assert.False(report.CanBeStored);
+            Assert.Contains(report.TypeErrors, e => e.Contains("MixedFeeCurrencies") && e.Contains("OfficialFee"));
+        }
+
         [Fact]
         public async Task DefinitionWithoutVerifyDirectivesIsReportedAsUnchecked()
         {
