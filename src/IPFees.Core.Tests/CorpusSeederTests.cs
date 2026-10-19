@@ -1,3 +1,4 @@
+using IPFees.Core.Enum;
 using IPFees.Core.FeeCalculation;
 using IPFees.Core.Tests.Fixture;
 using IPFLang.Corpus;
@@ -93,6 +94,56 @@ namespace IPFees.Core.Tests
             await NewSeeder().SeedAsync();
 
             Assert.DoesNotContain(await fixture.FeeRepository.GetFees(), f => f.Name.Equals("PCT-CN", StringComparison.OrdinalIgnoreCase));
+        }
+
+        /// <summary>
+        /// The public instance is a sandbox anyone may edit, and its reset returns it to the state
+        /// a fresh deployment starts in: what a visitor added goes, and what a visitor changed in
+        /// the reference set is put back. A copy whose name differs from a reference schedule's
+        /// only in case goes too, rather than being taken for the reference one.
+        /// </summary>
+        [Fact]
+        public async Task ResettingReturnsTheStoreToTheCorpus()
+        {
+            await NewSeeder().SeedAsync();
+
+            var added = await fixture.JurisdictionRepository.AddJurisdictionAsync("ZZ");
+            Assert.True(added.Success);
+            var schedule = await fixture.FeeRepository.AddFeeAsync("PCT-ZZ");
+            Assert.True((await fixture.FeeRepository.SetFeeJurisdictionNameAsync(schedule.Id, "ZZ")).Success);
+            var module = await fixture.ModuleRepository.AddModuleAsync("visitor_surcharge");
+            Assert.True((await fixture.ModuleRepository.SetModuleAutoRunStatusAsync(module.Id, true)).Success);
+            var lookalike = await fixture.FeeRepository.AddFeeAsync("pct-ro");
+            Assert.True((await fixture.FeeRepository.SetFeeJurisdictionNameAsync(lookalike.Id, "RO")).Success);
+
+            var romania = (await fixture.FeeRepository.GetFees()).Single(f => f.Name == "PCT-RO");
+            Assert.True((await fixture.FeeRepository.SetFeeSourceCodeAsync(romania.Id, "COMPUTE FEE Edited\nYIELD 1\nENDCOMPUTE")).Success);
+            var ro = await fixture.JurisdictionRepository.GetJurisdictionByName("RO");
+            Assert.True((await fixture.JurisdictionRepository.SetJurisdictionServiceFeeLevelAsync(ro.Id, ServiceFeeLevel.Level3)).Success);
+
+            var report = await NewSeeder().ResetAsync();
+
+            Assert.True(report.Succeeded, string.Join(" | ", report.Errors.Concat(report.Seed.Errors)));
+            Assert.True(report.Definitions >= 2, "PCT-ZZ and pct-ro should have been removed");
+            Assert.True(report.Modules >= 1, "the visitor's module should have been removed");
+            Assert.True(report.Jurisdictions >= 1, "ZZ should have been removed");
+
+            var stored = (await fixture.FeeRepository.GetFees()).ToList();
+            Assert.Equal(
+                JurisdictionCorpus.Codes.Where(c => c != "CN").Select(c => $"PCT-{c}").OrderBy(n => n, StringComparer.Ordinal),
+                stored.Select(f => f.Name).OrderBy(n => n, StringComparer.Ordinal));
+            Assert.Equal(JurisdictionCorpus.GetJurisdiction("RO"), stored.Single(f => f.Name == "PCT-RO").SourceCode);
+            Assert.Single(stored, f => f.JurisdictionName.Equals("RO", StringComparison.OrdinalIgnoreCase));
+
+            Assert.Equal(
+                JurisdictionCorpus.BaseNames.OrderBy(n => n, StringComparer.Ordinal),
+                (await fixture.ModuleRepository.GetModules()).Select(m => m.Name).OrderBy(n => n, StringComparer.Ordinal));
+
+            var jurisdictions = (await fixture.JurisdictionRepository.GetJurisdictions()).ToList();
+            Assert.Equal(
+                JurisdictionCorpus.Codes.OrderBy(n => n, StringComparer.Ordinal),
+                jurisdictions.Select(j => j.Name).OrderBy(n => n, StringComparer.Ordinal));
+            Assert.All(jurisdictions, j => Assert.Equal(ServiceFeeLevel.Level1, j.ServiceFeeLevel));
         }
 
         [Fact]
