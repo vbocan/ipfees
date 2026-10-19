@@ -316,6 +316,71 @@ namespace IPFLang.Engine.Tests
             Assert.Contains(errors, e => e.Kind == TypeErrorKind.MixedCurrencyArithmetic);
         }
 
+        // A schedule that reads an input nobody declares, as happens to a member state's schedule
+        // when its regional base drops the input, used to be told it did arithmetic on a String.
+
+        [Fact]
+        public void TestTypeCheckerUndeclaredNameInArithmeticIsReportedByName()
+        {
+            string text =
+            """
+            COMPUTE FEE ClaimFee
+            YIELD 50*(ClaimCount-10) IF ClaimCount GT 10
+            YIELD 0 IF ClaimCount LTE 10
+            ENDCOMPUTE
+            """;
+            var p = new DslParser();
+            p.Parse(text);
+
+            var errors = new CurrencyTypeChecker().Check(p.GetInputs(), p.GetFees()).ToList();
+            Assert.NotEmpty(errors);
+            Assert.All(errors, e => Assert.Equal(TypeErrorKind.UndefinedVariable, e.Kind));
+            Assert.All(errors, e => Assert.Contains("'ClaimCount' is not declared", e.Message));
+        }
+
+        [Fact]
+        public void TestTypeCheckerUndeclaredNameInsideAFunctionIsReportedOnce()
+        {
+            string text =
+            """
+            COMPUTE FEE SheetFee
+            YIELD 10*CEIL(SheetCount/10)
+            ENDCOMPUTE
+            """;
+            var p = new DslParser();
+            p.Parse(text);
+
+            var error = Assert.Single(new CurrencyTypeChecker().Check(p.GetInputs(), p.GetFees()));
+            Assert.Equal(TypeErrorKind.UndefinedVariable, error.Kind);
+            Assert.Contains("'SheetCount'", error.Message);
+        }
+
+        [Fact]
+        public void TestTypeCheckerChoiceSymbolsRemainValid()
+        {
+            string text =
+            """
+            DEFINE LIST EntitySize AS 'Entity size'
+            CHOICE Entity_Large AS 'Large'
+            CHOICE Entity_Small AS 'Small'
+            DEFAULT Entity_Large
+            ENDDEFINE
+            DEFINE DATE ApplicationDate AS 'Application date'
+            BETWEEN 01.01.2000 AND TODAY
+            DEFAULT TODAY
+            ENDDEFINE
+            COMPUTE FEE BasicFee
+            YIELD 320 IF EntitySize EQ Entity_Large
+            YIELD 128 IF EntitySize NEQ Entity_Large
+            YIELD 10 IF ApplicationDate GT 01.01.2020
+            ENDCOMPUTE
+            """;
+            var p = new DslParser();
+            Assert.True(p.Parse(text), string.Join("; ", p.GetErrors().Select(e => e.Item2)));
+
+            Assert.Empty(new CurrencyTypeChecker().Check(p.GetInputs(), p.GetFees()));
+        }
+
         #endregion
 
         #region Calculator Integration Tests

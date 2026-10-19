@@ -1,4 +1,5 @@
 ﻿@page "{id}"
+@using IPFees.Core.FeeCalculation
 @model FeeModel
 @{
     ViewData["Title"] = "Official Fee Calculation";
@@ -110,10 +111,10 @@
         {
             <div class="row">
                 <div class="col-md-4">
-                    <h4>Total: @((Model.TotalMandatoryAmount + Model.TotalOptionalAmount).ToString("0.00"))</h4>
+                    <h4>Total: @CurrencyTotal.Format(Model.Totals, t => t.Total)</h4>
                 </div>
                 <div class="col-md-8">
-                    <h6>Mandatory Fees: @Model.TotalMandatoryAmount.ToString("0.00") | Optional Fees: @Model.TotalOptionalAmount.ToString("0.00")</h6>
+                    <h6>Mandatory Fees: @CurrencyTotal.Format(Model.Totals, t => t.Mandatory) | Optional Fees: @CurrencyTotal.Format(Model.Totals, t => t.Optional)</h6>
                 </div>
             </div>
 

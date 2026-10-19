@@ -192,8 +192,7 @@ namespace IPFees.Core.FeeCalculation
                 fee.Id,
                 fee.Name,
                 fee.Description,
-                provenance.TotalMandatory,
-                provenance.TotalOptional,
+                CurrencyTotal.Of(fees.Select(f => (f.Currency, f.Amount, f.Optional))),
                 provenance.InputValues.ToDictionary(k => k.Key, v => v.Value?.ToString() ?? string.Empty),
                 fees,
                 alternatives);

@@ -29,7 +29,7 @@ namespace IPFLang.Types
 
         public static TypeError UndefinedVariable(string name, string context) =>
             new(TypeErrorKind.UndefinedVariable,
-                $"Undefined variable: '{name}'",
+                $"'{name}' is not declared as an input or a LET variable",
                 context);
 
         public static TypeError ArithmeticOnNonNumeric(IPFType type, string context) =>

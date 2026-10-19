@@ -14,9 +14,8 @@ namespace IPFees.Web.Areas.Run.Pages
         [BindProperty] public IList<InputViewModel> Inputs { get; set; } = null!;
         [BindProperty] public IList<IPFValue> CollectedValues { get; set; } = null!;
 
-        // Calculation results
-        [BindProperty] public decimal TotalMandatoryAmount { get; set; }
-        [BindProperty] public decimal TotalOptionalAmount { get; set; }
+        // Calculation results, per currency: a schedule may price its fees in several
+        [BindProperty] public IReadOnlyList<CurrencyTotal> Totals { get; set; } = [];
         // Calculation steps
         [BindProperty] public IEnumerable<string> CalculationSteps { get; set; } = null!;
         // Returns
@@ -88,12 +87,16 @@ namespace IPFees.Web.Areas.Run.Pages
             else
             {
                 var res = (FeeResultCalculation)result;
-                TotalMandatoryAmount = res.TotalMandatoryAmount;
-                TotalOptionalAmount = res.TotalOptionalAmount;
+                // The engine's totals add amounts as bare numbers; without a declared currency
+                // there is nothing better to report, otherwise total each currency on its own.
+                Totals = res.Components is null
+                    ? [new CurrencyTotal(string.Empty, res.TotalMandatoryAmount, res.TotalOptionalAmount)]
+                    : CurrencyTotal.Of(res.Components.Select(c => ((string?)c.Currency, c.Amount, c.Optional)));
                 CalculationSteps = res.CalculationSteps;
                 Returns = res.Returns;
                 // Log computation success
-                _logger.LogInformation("Success! Total mandatory amount is [{0}] and the total optional amount is [{1}]", TotalMandatoryAmount, TotalOptionalAmount);
+                _logger.LogInformation("Success! Total mandatory amount is [{0}] and the total optional amount is [{1}]",
+                    CurrencyTotal.Format(Totals, t => t.Mandatory), CurrencyTotal.Format(Totals, t => t.Optional));
                 foreach (var cs in CalculationSteps)
                 {
                     _logger.LogInformation($"> {cs}");

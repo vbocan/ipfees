@@ -104,7 +104,7 @@
                                class="btn btn-outline-primary btn-sm" title="View the IPFLang source that produced this">
                                 <i class="bi bi-code-slash me-1"></i>Source Code
                             </a>
-                            <span class="text-nowrap">@($"{explanation.GrandTotal:N2}")</span>
+                            <span class="text-nowrap" title="Fees in different currencies are totalled separately">@CurrencyTotal.Format(explanation.Totals, t => t.Total)</span>
                         </span>
                     </div>
                     <div class="card-body p-0">
@@ -144,7 +144,7 @@
                                             <td class="text-end">
                                                 @if (step.Applied)
                                                 {
-                                                    <span>@($"{step.Contribution:N2}")</span>
+                                                    <span class="text-nowrap">@($"{step.Contribution:N2} {fee.Currency}".TrimEnd())</span>
                                                 }
                                                 else
                                                 {
