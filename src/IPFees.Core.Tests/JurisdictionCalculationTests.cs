@@ -193,11 +193,55 @@ namespace IPFees.Core.Tests
             var romania = Assert.Single(explanations);
             Assert.NotEmpty(romania.Alternatives);
 
-            // Each alternative names the input it varied and states the resulting difference.
+            // Each alternative names the input it varied, starts from the explanation's own totals
+            // and states, per currency, the difference it makes, which is never nothing.
             Assert.All(romania.Alternatives, a =>
             {
                 Assert.False(string.IsNullOrWhiteSpace(a.InputName));
-                Assert.Equal(a.AlternativeTotal - a.OriginalTotal, a.Difference);
+                Assert.Equal(romania.Totals, a.OriginalTotals);
+                Assert.Equal(a.OriginalTotals.Select(t => t.Currency), a.Differences.Select(d => d.Currency));
+                Assert.All(a.Differences, d =>
+                {
+                    var before = a.OriginalTotals.Single(t => t.Currency == d.Currency);
+                    var after = a.AlternativeTotals.Single(t => t.Currency == d.Currency);
+                    Assert.Equal((after.Mandatory - before.Mandatory, after.Optional - before.Optional), (d.Mandatory, d.Optional));
+                });
+                Assert.Contains(a.Differences, d => d.Mandatory != 0 || d.Optional != 0);
+            });
+        }
+
+        [Fact]
+        public async Task AlternativesMoveOnlyTheCurrencyTheVariedInputPrices()
+        {
+            var manager = await SeedAndBuildManager();
+
+            // With the defaults (ten claims, 5,000 words) Switzerland owes 200 CHF mandatory, 500 CHF
+            // optional and 700 EUR optional. Each claim above ten costs 50 CHF, so another claim
+            // count moves the CHF total and leaves the EUR total alone; the translation is priced
+            // in EUR per hundred words, so another word count does the reverse.
+            var (inputs, _, _) = manager.GetConsolidatedInputs(new[] { "CH" });
+            var swiss = Assert.Single(manager.Explain(new[] { "CH" }, DefaultsFor(inputs), IncludeAlternatives: true));
+
+            var claims = swiss.Alternatives.Where(a => a.InputName == "ClaimCount").ToList();
+            Assert.NotEmpty(claims);
+            Assert.All(claims, a =>
+            {
+                Assert.Equal(swiss.Totals, a.OriginalTotals);
+                Assert.Equal(new[] { "CHF", "EUR" }, a.Differences.Select(d => d.Currency));
+                Assert.Equal((50m * (decimal.Parse(a.AlternativeValue) - 10), 0m), (a.Differences[0].Mandatory, a.Differences[0].Optional));
+                Assert.Equal((0m, 0m), (a.Differences[1].Mandatory, a.Differences[1].Optional));
+                Assert.Equal(swiss.Totals[1], a.AlternativeTotals[1]);
+            });
+
+            // One claim costs what ten do, so that alternative changes no total and is not reported.
+            Assert.DoesNotContain(claims, a => a.AlternativeValue == "1");
+
+            var words = swiss.Alternatives.Where(a => a.InputName == "NumberOfWords").ToList();
+            Assert.NotEmpty(words);
+            Assert.All(words, a =>
+            {
+                Assert.Equal((0m, 0m), (a.Differences[0].Mandatory, a.Differences[0].Optional));
+                Assert.Equal(12m * decimal.Parse(a.AlternativeValue) / 100 - 600m, a.Differences[1].Optional);
             });
         }
 

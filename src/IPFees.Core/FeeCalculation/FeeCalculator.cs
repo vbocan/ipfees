@@ -136,8 +136,8 @@ namespace IPFees.Core.FeeCalculation
         ///
         /// Where <see cref="Calculate"/> returns totals, this returns the reasoning behind them:
         /// which yields fired, which did not and on what condition, and what the inputs were at
-        /// each step. Asking for alternatives additionally reports what the total would have
-        /// been had a single input differed.
+        /// each step. Asking for alternatives additionally reports what the totals, per currency,
+        /// would have been had a single input differed.
         /// </summary>
         /// <param name="FeeId">Fee Id</param>
         /// <param name="InputValues">Calculation parameters</param>
@@ -149,17 +149,63 @@ namespace IPFees.Core.FeeCalculation
 
             try
             {
-                var provenance = IncludeAlternatives
-                    ? Calculator.ComputeWithCounterfactuals(InputValues)
-                    : Calculator.ComputeWithProvenance(InputValues);
+                // A fee's currency is fixed by the schedule, not by the inputs, so each is resolved
+                // once however many alternatives are computed.
+                var currencies = new Dictionary<string, string?>();
+                string? currencyOf(string feeName) =>
+                    currencies.TryGetValue(feeName, out var currency) ? currency : currencies[feeName] = CurrencyOf(feeName);
 
-                return new FeeResultExplanation(fee.Name, fee.Description, Describe(fee, provenance, CurrencyOf));
+                var explanation = Describe(fee, Calculator.ComputeWithProvenance(InputValues), currencyOf);
+                if (IncludeAlternatives)
+                {
+                    explanation = explanation with { Alternatives = Alternatives(InputValues, explanation.Totals, currencyOf) };
+                }
+
+                return new FeeResultExplanation(fee.Name, fee.Description, explanation);
             }
             catch (Exception ex)
             {
                 return new FeeResultFail(fee.Name, fee.Description, new[] { ex.Message });
             }
         }
+
+        /// <summary>
+        /// What the totals would have been had one input differed, per currency.
+        ///
+        /// The engine chooses the values worth trying, but its own counterfactuals add every fee
+        /// as a bare number and keep a variation only when that sum moves. In a schedule priced in
+        /// CHF and EUR they report 450 CHF more as a bare 450 more, and drop a variation that adds
+        /// in one currency as much as it saves in the other. Each variation is therefore recomputed
+        /// here and totalled per currency, and kept when the mandatory or the optional total of
+        /// some currency changes.
+        /// </summary>
+        private List<ExplainedAlternative> Alternatives(IList<IPFValue> InputValues, IReadOnlyList<CurrencyTotal> original, Func<string, string?> currencyOf)
+        {
+            var alternatives = new List<ExplainedAlternative>();
+
+            foreach (var candidate in CounterfactualEngine.GetCandidates(Calculator.GetInputs(), InputValues))
+            {
+                var totals = TotalsOf(Calculator.ComputeWithProvenance(candidate.Values), currencyOf);
+                var change = CurrencyTotal.Change(original, totals);
+                if (change.All(c => c.Mandatory == 0 && c.Optional == 0)) continue;
+
+                alternatives.Add(new ExplainedAlternative(
+                    candidate.InputName,
+                    candidate.OriginalValue?.ToString() ?? string.Empty,
+                    candidate.AlternativeValue?.ToString() ?? string.Empty,
+                    original,
+                    totals,
+                    change));
+            }
+
+            return alternatives;
+        }
+
+        /// <summary>
+        /// The computed fees added up in the currency each is priced in.
+        /// </summary>
+        private static IReadOnlyList<CurrencyTotal> TotalsOf(ComputationProvenance provenance, Func<string, string?> currencyOf) =>
+            CurrencyTotal.Of(provenance.FeeProvenances.Select(f => (currencyOf(f.FeeName), f.TotalAmount, f.IsOptional)));
 
         /// <summary>
         /// Restate the engine's provenance in the platform's own vocabulary.
@@ -180,22 +226,14 @@ namespace IPFees.Core.FeeCalculation
                 currencyOf(f.FeeName)))
                 .ToList();
 
-            var alternatives = provenance.Counterfactuals.Select(c => new ExplainedAlternative(
-                c.InputName,
-                c.OriginalValue?.ToString() ?? string.Empty,
-                c.AlternativeValue?.ToString() ?? string.Empty,
-                c.OriginalTotal,
-                c.AlternativeTotal,
-                c.Difference)).ToList();
-
             return new FeeExplanation(
                 fee.Id,
                 fee.Name,
                 fee.Description,
-                CurrencyTotal.Of(fees.Select(f => (f.Currency, f.Amount, f.Optional))),
+                TotalsOf(provenance, currencyOf),
                 provenance.InputValues.ToDictionary(k => k.Key, v => v.Value?.ToString() ?? string.Empty),
                 fees,
-                alternatives);
+                Array.Empty<ExplainedAlternative>());
         }
 
         /// <summary>

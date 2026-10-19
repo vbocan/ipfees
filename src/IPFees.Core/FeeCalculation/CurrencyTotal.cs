@@ -24,6 +24,24 @@ namespace IPFees.Core.FeeCalculation
                     g.Where(f => f.Optional).Sum(f => f.Amount)))
                 .ToList();
 
+        /// <summary>
+        /// How far each currency's totals moved from <paramref name="from"/> to <paramref name="to"/>,
+        /// as the second minus the first, in the order the currencies first appear. A currency
+        /// absent from one side counts as zero there.
+        /// </summary>
+        public static IReadOnlyList<CurrencyTotal> Change(IReadOnlyList<CurrencyTotal> from, IReadOnlyList<CurrencyTotal> to) =>
+            from.Concat(to).Select(t => t.Currency).Distinct()
+                .Select(currency =>
+                {
+                    var before = from.FirstOrDefault(t => t.Currency == currency);
+                    var after = to.FirstOrDefault(t => t.Currency == currency);
+                    return new CurrencyTotal(
+                        currency,
+                        (after?.Mandatory ?? 0) - (before?.Mandatory ?? 0),
+                        (after?.Optional ?? 0) - (before?.Optional ?? 0));
+                })
+                .ToList();
+
         /// <summary>Render as "1,200.00 CHF + 700.00 EUR", picking one of the amounts.</summary>
         public static string Format(IEnumerable<CurrencyTotal> totals, Func<CurrencyTotal, decimal> amount) =>
             string.Join(" + ", totals.Select(t => $"{amount(t):N2} {t.Currency}".TrimEnd()));
