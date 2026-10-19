@@ -28,35 +28,21 @@ namespace IPFLang.Provenance
         {
             var counterfactuals = new List<Counterfactual>();
             var feeList = fees.ToList();
-            var valueList = currentValues.ToList();
-            var inputList = inputs.ToList();
 
-            foreach (var input in inputList)
+            foreach (var candidate in GetCandidates(inputs, currentValues))
             {
-                var alternatives = GetAlternativeValues(input, valueList);
+                // Compute total with modified values
+                var altTotal = ComputeTotal(feeList, candidate.Values.ToList());
 
-                foreach (var (altValue, altIPFValue) in alternatives)
+                // Only include if there's a meaningful difference
+                if (altTotal != currentTotal)
                 {
-                    // Create modified input list
-                    var modifiedValues = valueList
-                        .Where(v => v.Name != input.Name)
-                        .Append(altIPFValue)
-                        .ToList();
-
-                    // Compute total with modified values
-                    var altTotal = ComputeTotal(feeList, modifiedValues);
-
-                    // Only include if there's a meaningful difference
-                    if (altTotal != currentTotal)
-                    {
-                        var currentValue = GetCurrentValue(input.Name, valueList);
-                        counterfactuals.Add(new Counterfactual(
-                            input.Name,
-                            currentValue,
-                            altValue,
-                            currentTotal,
-                            altTotal));
-                    }
+                    counterfactuals.Add(new Counterfactual(
+                        candidate.InputName,
+                        candidate.OriginalValue,
+                        candidate.AlternativeValue,
+                        currentTotal,
+                        altTotal));
                 }
             }
 
@@ -64,9 +50,40 @@ namespace IPFLang.Provenance
         }
 
         /// <summary>
+        /// The single-input variations counterfactuals are drawn from, before any is computed:
+        /// the other choices of a list, the bounds and midpoint of a number, the opposite of a
+        /// boolean, and double and half an amount, each with the input values that result.
+        /// A caller that totals fees differently from <see cref="GenerateCounterfactuals"/>
+        /// (per currency, say) computes these itself.
+        /// </summary>
+        public static IEnumerable<CounterfactualCandidate> GetCandidates(
+            IEnumerable<DslInput> inputs,
+            IEnumerable<IPFValue> currentValues)
+        {
+            var valueList = currentValues.ToList();
+
+            foreach (var input in inputs.ToList())
+            {
+                foreach (var (altValue, altIPFValue) in GetAlternativeValues(input, valueList))
+                {
+                    var modifiedValues = valueList
+                        .Where(v => v.Name != input.Name)
+                        .Append(altIPFValue)
+                        .ToList();
+
+                    yield return new CounterfactualCandidate(
+                        input.Name,
+                        GetCurrentValue(input.Name, valueList),
+                        altValue,
+                        modifiedValues);
+                }
+            }
+        }
+
+        /// <summary>
         /// Get alternative values to try for an input
         /// </summary>
-        private IEnumerable<(object Value, IPFValue IPFValue)> GetAlternativeValues(
+        private static IEnumerable<(object Value, IPFValue IPFValue)> GetAlternativeValues(
             DslInput input,
             List<IPFValue> currentValues)
         {
@@ -119,7 +136,7 @@ namespace IPFLang.Provenance
         /// <summary>
         /// Get current value for an input
         /// </summary>
-        private object GetCurrentValue(string inputName, List<IPFValue> values)
+        private static object GetCurrentValue(string inputName, List<IPFValue> values)
         {
             var value = values.FirstOrDefault(v => v.Name == inputName);
             return value switch
@@ -201,4 +218,17 @@ namespace IPFLang.Provenance
             return total;
         }
     }
+
+    /// <summary>
+    /// One input set to another value, with every other input as it was.
+    /// </summary>
+    /// <param name="InputName">The input that is varied.</param>
+    /// <param name="OriginalValue">Its value as given.</param>
+    /// <param name="AlternativeValue">The value tried in its place.</param>
+    /// <param name="Values">The input values with <paramref name="InputName"/> replaced.</param>
+    public record CounterfactualCandidate(
+        string InputName,
+        object OriginalValue,
+        object AlternativeValue,
+        IReadOnlyList<IPFValue> Values);
 }

@@ -236,8 +236,8 @@ namespace IPFees.API.Controllers
         /// <summary>
         /// Compute the given jurisdictions and return why each amount arose rather than the
         /// amounts alone: which rules fired, which did not and on what condition, and what the
-        /// inputs were worth at each step. Set <c>alternatives</c> to also report what the total
-        /// would have been had a single input differed.
+        /// inputs were worth at each step. Set <c>alternatives</c> to also report what the totals,
+        /// per currency, would have been had a single input differed.
         /// </summary>
         [HttpPost("Explain"), MapToApiVersion("1")]
         [ProducesResponseType(typeof(IEnumerable<FeeExplanation>), 200)]

@@ -28,6 +28,14 @@ This directory is the IPFLang engine and its reference corpus, carried as source
   also a second error about the failed subexpression; that is what a member state's schedule was
   told when its regional base dropped an input it reads. Tests:
   `CurrencyTypeTests.TestTypeCheckerUndeclaredName*`, `TestTypeCheckerChoiceSymbolsRemainValid`.
+- `Provenance/CounterfactualEngine.cs`: the variations a counterfactual is drawn from (each other
+  choice of a list, a number's bounds and midpoint, a boolean's opposite, double and half an
+  amount) are exposed as `GetCandidates`, each with the input values that result, and
+  `GenerateCounterfactuals` draws from it, otherwise unchanged. `GenerateCounterfactuals` adds
+  every fee as a bare number and keeps a variation only when that sum moves, which mixes
+  currencies in a schedule that prices fees in more than one; IPFees computes the candidates
+  itself and totals them per currency (`FeeCalculator.Explain`). Test:
+  `ProvenanceTests.GetCandidates_KeepsVariationsThatLeaveTheTotalUnchanged`.
 
 ### Corpus
 

@@ -60,16 +60,27 @@ namespace IPFees.Core.FeeCalculation
         IReadOnlyDictionary<string, decimal> LocalVariables);
 
     /// <summary>
-    /// What the total would have been had one input differed. Answers the question a
+    /// What the totals would have been had one input differed. Answers the question a
     /// practitioner asks after seeing a figure: what would it cost if we filed differently.
-    /// The totals are the engine's, which add fee amounts as bare numbers; they are amounts only
-    /// when every fee of the schedule is priced in one currency.
+    /// The totals are per currency, as the explanation's own are, so raising the claim count of a
+    /// schedule priced in CHF and EUR moves the CHF total and leaves the EUR total as it was. An
+    /// alternative is reported only when the mandatory or the optional total of some currency
+    /// changes.
     /// </summary>
+    /// <param name="OriginalTotals">The totals with the inputs as given, the same as the explanation's.</param>
+    /// <param name="AlternativeTotals">
+    /// The totals with <paramref name="InputName"/> set to <paramref name="AlternativeValue"/> and
+    /// every other input as given.
+    /// </param>
+    /// <param name="Differences">
+    /// Alternative minus original for each currency, in the same order as the totals; a currency
+    /// the change does not reach is listed with zeros.
+    /// </param>
     public record ExplainedAlternative(
         string InputName,
         string OriginalValue,
         string AlternativeValue,
-        decimal OriginalTotal,
-        decimal AlternativeTotal,
-        decimal Difference);
+        IReadOnlyList<CurrencyTotal> OriginalTotals,
+        IReadOnlyList<CurrencyTotal> AlternativeTotals,
+        IReadOnlyList<CurrencyTotal> Differences);
 }

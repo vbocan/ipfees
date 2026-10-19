@@ -350,6 +350,49 @@ namespace IPFLang.Engine.Tests
             Assert.Contains("100", altValues);
         }
 
+        [Fact]
+        public void GetCandidates_KeepsVariationsThatLeaveTheTotalUnchanged()
+        {
+            string dsl = """
+                DEFINE BOOLEAN IsUrgent AS 'Urgent processing'
+                DEFAULT FALSE
+                ENDDEFINE
+
+                DEFINE NUMBER ClaimCount AS 'Number of claims'
+                BETWEEN 1 AND 100
+                DEFAULT 10
+                ENDDEFINE
+
+                COMPUTE FEE ClaimFee
+                YIELD ClaimCount * 10
+                ENDCOMPUTE
+                """;
+
+            var calculator = new DslCalculator(new DslParser());
+            Assert.True(calculator.Parse(dsl));
+
+            var inputs = new List<IPFValue>
+            {
+                new IPFValueBoolean("IsUrgent", false),
+                new IPFValueNumber("ClaimCount", 50)
+            };
+
+            var candidates = CounterfactualEngine.GetCandidates(calculator.GetInputs(), inputs).ToList();
+
+            // No fee reads IsUrgent, so the counterfactuals leave it out, but it is still a
+            // variation a caller totalling fees differently may need to try.
+            var urgent = Assert.Single(candidates, c => c.InputName == "IsUrgent");
+            Assert.Equal(false, urgent.OriginalValue);
+            Assert.Equal(true, urgent.AlternativeValue);
+            Assert.DoesNotContain(calculator.ComputeWithCounterfactuals(inputs).Counterfactuals, cf => cf.InputName == "IsUrgent");
+
+            // Only the varied input changes.
+            Assert.True(urgent.Values.OfType<IPFValueBoolean>().Single(v => v.Name == "IsUrgent").Value);
+            Assert.Equal(50, urgent.Values.OfType<IPFValueNumber>().Single(v => v.Name == "ClaimCount").Value);
+
+            Assert.Contains(candidates, c => c.InputName == "ClaimCount" && c.AlternativeValue.ToString() == "100");
+        }
+
         #endregion
 
         #region Export Tests
