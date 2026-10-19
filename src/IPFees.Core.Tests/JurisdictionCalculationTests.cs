@@ -42,7 +42,8 @@ namespace IPFees.Core.Tests
 
         private async Task<JurisdictionFeeManager> SeedAndBuildManager()
         {
-            var seeder = new CorpusSeeder(fixture.JurisdictionRepository, fixture.FeeRepository, fixture.ModuleRepository);
+            var seeder = new CorpusSeeder(fixture.JurisdictionRepository, fixture.FeeRepository, fixture.ModuleRepository,
+                new FeeDefinitionValidator(fixture.ModuleRepository, new FeeScriptComposer(new DslParser()), new DslCalculator(new DslParser()), new VerificationBudget()));
             var report = await seeder.SeedAsync();
             Assert.True(report.Succeeded, string.Join(" | ", report.Errors));
 
@@ -109,7 +110,11 @@ namespace IPFees.Core.Tests
             var manager = await SeedAndBuildManager();
             var failures = new List<string>();
 
-            foreach (var code in IPFLang.Corpus.JurisdictionCorpus.Codes)
+            // Every schedule the instance serves; one the gate refused at seeding is not among them.
+            var served = (await fixture.FeeRepository.GetFees()).Select(f => f.JurisdictionName).Distinct().ToList();
+            Assert.Equal(IPFLang.Corpus.JurisdictionCorpus.Codes.Count - 1, served.Count);
+
+            foreach (var code in served)
             {
                 var (inputs, _, inputErrors) = manager.GetConsolidatedInputs(new[] { code });
                 if (inputErrors.Any())

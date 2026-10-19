@@ -23,7 +23,8 @@ namespace IPFees.Core.Tests
         }
 
         private CorpusSeeder NewSeeder() =>
-            new(fixture.JurisdictionRepository, fixture.FeeRepository, fixture.ModuleRepository);
+            new(fixture.JurisdictionRepository, fixture.FeeRepository, fixture.ModuleRepository,
+                new FeeDefinitionValidator(fixture.ModuleRepository, new FeeScriptComposer(new DslParser()), new DslCalculator(new DslParser()), new VerificationBudget()));
 
         private FeeCalculator NewCalculator(VerificationBudget? budget = null) =>
             new(fixture.FeeRepository,
@@ -56,20 +57,42 @@ namespace IPFees.Core.Tests
             Assert.Equal("PCT-RO", only.Name);
         }
 
+        /// <summary>
+        /// The corpus passes the same gate as an author's save. Every schedule but CN passes it;
+        /// CN declares completeness for three fees that price nothing when the receiving office is
+        /// the national office, so it is refused and not served until that case is settled.
+        /// </summary>
         [Fact]
-        public async Task SeedsEveryJurisdictionAndBaseFromThePackage()
+        public async Task SeedsEveryJurisdictionTheGateAcceptsAndEveryBase()
         {
             var report = await NewSeeder().SeedAsync();
 
             Assert.True(report.Succeeded, string.Join(" | ", report.Errors));
-            Assert.Equal(JurisdictionCorpus.Codes.Count, report.Jurisdictions);
+            var refused = Assert.Single(report.RefusedSchedules);
+            Assert.Equal("CN", refused.Code);
+            Assert.Equal(3, refused.Findings.Count);
+            Assert.Equal(JurisdictionCorpus.Codes.Count - 1, report.Jurisdictions);
             Assert.Equal(JurisdictionCorpus.BaseNames.Count, report.Bases);
 
             var stored = await fixture.FeeRepository.GetFees();
-            foreach (var code in JurisdictionCorpus.Codes)
+            foreach (var code in JurisdictionCorpus.Codes.Where(c => c != "CN"))
             {
                 Assert.Contains(stored, f => f.Name.Equals($"PCT-{code}", StringComparison.OrdinalIgnoreCase));
             }
+            Assert.DoesNotContain(stored, f => f.Name.Equals("PCT-CN", StringComparison.OrdinalIgnoreCase));
+        }
+
+        [Fact]
+        public async Task ACopyOfARefusedScheduleLeftFromAnEarlierLoadIsRemoved()
+        {
+            var earlier = await fixture.FeeRepository.AddFeeAsync("PCT-CN");
+            Assert.True(earlier.Success);
+            Assert.True((await fixture.FeeRepository.SetFeeJurisdictionNameAsync(earlier.Id, "CN")).Success);
+            Assert.True((await fixture.FeeRepository.SetFeeSourceCodeAsync(earlier.Id, JurisdictionCorpus.GetJurisdiction("CN"))).Success);
+
+            await NewSeeder().SeedAsync();
+
+            Assert.DoesNotContain(await fixture.FeeRepository.GetFees(), f => f.Name.Equals("PCT-CN", StringComparison.OrdinalIgnoreCase));
         }
 
         [Fact]

@@ -6,6 +6,8 @@ using IPFees.Core.Repository;
 using IPFLang.Parser;
 using IPFees.Web.Data;
 using IPFees.Web.Services;
+using IPFees.Web.Authoring;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.Extensions.Options;
 using MongoDB.Bson;
@@ -40,7 +42,36 @@ builder.Services.Configure<ForwardedHeadersOptions>(options =>
 });
 
 // Add services to the container.
-builder.Services.AddRazorPages();
+// Calculating is open to anyone; changing what the instance serves requires signing in with the
+// authoring password (Authoring:Password). Without one the instance is read-only.
+builder.Services.Configure<AuthoringSettings>(builder.Configuration.GetSection(AuthoringSettings.SectionName));
+builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+    .AddCookie(options =>
+    {
+        options.LoginPath = "/Account/Login";
+        options.LogoutPath = "/Account/Logout";
+        options.AccessDeniedPath = "/Account/Login";
+        options.Cookie.Name = "IPFees.Author";
+        options.Cookie.HttpOnly = true;
+        options.Cookie.SameSite = SameSiteMode.Strict;
+        options.ExpireTimeSpan = TimeSpan.FromHours(8);
+        options.SlidingExpiration = true;
+    });
+builder.Services.AddAuthorization();
+builder.Services.AddRazorPages(options =>
+{
+    // Pages that exist only to change what the instance serves open only after signing in. The
+    // edit pages of fee definitions and modules stay readable, because a calculation links to the
+    // IPFLang source behind it; AuthoringPostFilter refuses their forms to anonymous visitors.
+    options.Conventions.AuthorizeAreaPage("Fee", "/Create");
+    options.Conventions.AuthorizeAreaPage("Fee", "/Delete");
+    options.Conventions.AuthorizeAreaPage("Module", "/Create");
+    options.Conventions.AuthorizeAreaPage("Module", "/Delete");
+    options.Conventions.AuthorizeAreaPage("Jurisdiction", "/Create");
+    options.Conventions.AuthorizeAreaPage("Jurisdiction", "/Edit");
+    options.Conventions.AuthorizeAreaPage("Jurisdiction", "/Delete");
+    options.Conventions.AuthorizeAreaPage("Settings", "/EditServiceFee");
+}).AddMvcOptions(options => options.Filters.Add(new AuthoringPostFilter()));
 
 // Configure settings
 builder.Services.Configure<ConnectionStrings>(builder.Configuration.GetSection(ConnectionStrings.SectionName));
@@ -106,6 +137,7 @@ app.UseSerilogRequestLogging();
 
 app.UseRouting();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapRazorPages();
