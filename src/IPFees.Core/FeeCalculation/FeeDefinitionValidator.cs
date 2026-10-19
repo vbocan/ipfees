@@ -66,6 +66,25 @@ namespace IPFees.Core.FeeCalculation
             return new ModuleValidationReport(own, results);
         }
 
+        /// <summary>Fees of the loaded script whose yields resolve to more than one currency.</summary>
+        private IEnumerable<string> CurrencyErrors()
+        {
+            var scheduleCurrency = Calculator.GetReturns()
+                .Where(r => r.Symbol.Equals("Currency", StringComparison.OrdinalIgnoreCase))
+                .Select(r => r.Text)
+                .FirstOrDefault();
+            if (string.IsNullOrEmpty(scheduleCurrency)) yield break;
+
+            var inputs = Calculator.GetInputs().ToList();
+            foreach (var fee in Calculator.GetFees().GroupBy(f => f.Name).Select(g => g.Last()))
+            {
+                string? error = null;
+                try { FeeCurrency.Resolve(fee, inputs, scheduleCurrency); }
+                catch (InvalidOperationException ex) { error = $"[MixedFeeCurrencies] {ex.Message}"; }
+                if (error is not null) yield return error;
+            }
+        }
+
         private FeeValidationReport Validate(string sourceCode, string label, IEnumerable<Guid> referencedModules, IEnumerable<ModuleInfo> modules)
         {
             if (string.IsNullOrWhiteSpace(sourceCode))
@@ -83,6 +102,13 @@ namespace IPFees.Core.FeeCalculation
             Calculator.LoadParsedScript(script);
 
             var typeErrors = Calculator.GetTypeErrors().Select(e => e.ToString() ?? "Type error").ToList();
+
+            // The type checker looks at each expression on its own, so two yields of one fee may
+            // each be well typed and still be in different currencies. Calculation converts a fee
+            // from the one currency its yields are in and cannot convert such a fee at all, so it
+            // is refused here rather than failing every later calculation for the jurisdiction.
+            typeErrors.AddRange(CurrencyErrors());
+
             if (typeErrors.Count > 0)
             {
                 return new FeeValidationReport(Array.Empty<string>(), typeErrors, Array.Empty<string>(), Array.Empty<string>(), 0);
