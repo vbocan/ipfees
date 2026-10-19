@@ -10,7 +10,7 @@ graph TB
 
     subgraph "Business Logic Layer"
         Core[IPFees.Core<br/>Fee Calculation<br/>Currency Conversion<br/>Repositories]
-        Calculator["IPFLang.Engine (NuGet)<br/>Parser · Type System<br/>Static Verification<br/>Provenance · Composition"]
+        Calculator["IPFLang.Engine (vendored source)<br/>Parser · Type System<br/>Static Verification<br/>Provenance · Composition<br/>Reference corpus"]
         FeeManager[Jurisdiction Fee<br/>Manager]
     end
 
@@ -96,11 +96,13 @@ The IPFees system is built using a clean, layered architecture with clear separa
   - `FeeManager`: Jurisdiction-specific fee management
   - `Model`: Domain entities (FeeDoc, JurisdictionDoc, ModuleDoc)
   - `Data`: MongoDB data context
-- **Dependencies**: IPFLang.Engine (NuGet package), MongoDB.Driver
+- **Dependencies**: IPFLang.Engine (project reference), MongoDB.Driver
 
-#### IPFLang.Engine (external package)
-- **Purpose**: The fee calculation language and its engine, consumed as a NuGet package
-- **Source**: [github.com/vbocan/IPFLang](https://github.com/vbocan/IPFLang), GPL-3.0
+#### IPFLang.Engine (vendored source, `src/IPFLang.Engine`)
+- **Purpose**: The fee calculation language, its engine and the reference corpus, carried as
+  source so schedules and analyses are versioned with the application
+- **Upstream**: [github.com/vbocan/IPFLang](https://github.com/vbocan/IPFLang), GPL-3.0; the
+  imported commit and the local changes are listed in `src/IPFLang.Engine/VENDORED.md`
 - **Key Components**:
   - `Parser`: IPFLang syntax and semantic analysis
   - `Types`: Currency-aware type system over the 161 active ISO 4217 currencies
@@ -153,26 +155,21 @@ The IPFees system is built using a clean, layered architecture with clear separa
 ```
 IPFees.Web
   └── IPFees.Core
-      └── IPFLang.Engine  [NuGet, no dependencies of its own]
+      └── IPFLang.Engine  [project reference, no dependencies of its own]
 
 IPFees.API
   └── IPFees.Core
-      └── IPFLang.Engine  [NuGet, no dependencies of its own]
+      └── IPFLang.Engine  [project reference, no dependencies of its own]
 
 Test Projects:
-  - IPFees.Core.Tests          repositories, validation, corpus equivalence
+  - IPFees.Core.Tests          repositories, validation, verification, corpus properties
+  - IPFLang.Engine.Tests       the engine's own suite
   - IPFees.Performance.Tests   BenchmarkDotNet suite
 ```
 
-The language engine used to live in this repository as `IPFees.Calculator`. It was
-extracted into IPFLang, formalised, and published; IPFees now consumes it as a versioned
-package rather than carrying a copy. `IPFees.Core.Tests` includes an equivalence suite
-holding the current corpus accountable to the fee schedules IPFees shipped before the
-change.
-
 ## Key Architectural Benefits
 
-1. **Clean Separation**: The language is a published package, so the platform and the DSL version and evolve independently
+1. **Clean Separation**: The engine is its own project with no dependencies, and the platform reaches it only through its public API
 2. **Modular Design**: Each project has a single, well-defined responsibility
 3. **Dependency Management**: Clear dependency hierarchy prevents circular references
 4. **Testability**: Each layer can be tested independently (unit, integration, performance tests)

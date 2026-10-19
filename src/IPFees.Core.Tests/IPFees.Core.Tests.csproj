@@ -26,12 +26,6 @@
     <ProjectReference Include="..\IPFees.Core\IPFees.Core.csproj" />
   </ItemGroup>
 
-  <!-- The shipped seed corpus, so the equivalence test can read it without a path guess. -->
-  <ItemGroup>
-    <Content Include="..\IPFees.Web\wwwroot\data\fees.json" Link="SeedData\fees.json" CopyToOutputDirectory="PreserveNewest" />
-    <Content Include="..\IPFees.Web\wwwroot\data\modules.json" Link="SeedData\modules.json" CopyToOutputDirectory="PreserveNewest" />
-  </ItemGroup>
-
   <!--
     Transitive dependencies pinned to patched releases. MongoDB.Driver pulls SharpCompress
     and Snappier, Testcontainers pulls SSH.NET, and the OpenAPI stack pulls Microsoft.OpenApi;

@@ -1,0 +1,32 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <!--
+    The IPFLang engine and its reference corpus, carried as source inside IPFees so the
+    schedules and the analyses that check them are versioned with the application that serves
+    them. See VENDORED.md for where the code came from and what has changed here.
+  -->
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <RootNamespace>IPFLang</RootNamespace>
+    <AssemblyName>IPFLang.Engine</AssemblyName>
+    <Version>1.5.0</Version>
+    <Authors>Valer Bocan</Authors>
+    <Copyright>Copyright (c) 2025-2026 Valer Bocan</Copyright>
+    <IsPackable>false</IsPackable>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <!-- The engine ships XML docs; do not fail the build on undocumented public members. -->
+    <NoWarn>$(NoWarn);CS1591</NoWarn>
+  </PropertyGroup>
+
+  <!--
+    The reference corpus is embedded under the resource names the engine has always used
+    (IPFLang.Corpus.<file>.ipf and IPFLang.Corpus.bases.<file>.ipf), so JurisdictionCorpus
+    finds it unchanged.
+  -->
+  <ItemGroup>
+    <EmbeddedResource Include="Corpus\**\*.ipf" />
+  </ItemGroup>
+
+</Project>

@@ -9,7 +9,16 @@
     dependent already had are listed for information and do not block the save.
 *@
 
-<partial name="~/Areas/Fee/Pages/_ValidationReport.cshtml" model="Model.Own" />
+@* A base declares inputs, not fees, so "no VERIFY directives" is the normal case for a module
+   and is not worth a notice; the module's own report is shown only when it has something to say. *@
+@if (!Model.Own.MayBeSaved || Model.Own.VerificationsRun > 0)
+{
+    <partial name="~/Areas/Fee/Pages/_ValidationReport.cshtml" model="Model.Own" />
+}
+else
+{
+    <div class="alert alert-light border" role="alert">The module parses and type-checks.</div>
+}
 
 @if (Model.Broken.Any())
 {

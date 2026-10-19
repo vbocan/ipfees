@@ -1,6 +1,7 @@
 name: tests
 
-# Runs the unit and corpus-equivalence tests on every push and pull request.
+# Runs the engine's tests and the platform's unit, verification and corpus tests on every
+# push and pull request.
 # IPFees.Core.Tests uses Testcontainers.MongoDb, which needs a Docker daemon;
 # the ubuntu-latest runner provides one. IPFees.Performance.Tests is a
 # BenchmarkDotNet project and is deliberately not run here.
@@ -27,7 +28,12 @@ jobs:
         dotnet-version: 10.0.x
 
     - name: Restore
-      run: dotnet restore src/IPFees.Core.Tests/IPFees.Core.Tests.csproj
+      run: |
+        dotnet restore src/IPFLang.Engine.Tests/IPFLang.Engine.Tests.csproj
+        dotnet restore src/IPFees.Core.Tests/IPFees.Core.Tests.csproj
+
+    - name: Test engine
+      run: dotnet test src/IPFLang.Engine.Tests/IPFLang.Engine.Tests.csproj --no-restore
 
     - name: Test
       run: dotnet test src/IPFees.Core.Tests/IPFees.Core.Tests.csproj --no-restore --logger "trx;LogFileName=results.trx"
