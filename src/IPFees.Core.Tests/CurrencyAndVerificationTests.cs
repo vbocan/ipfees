@@ -252,14 +252,14 @@ namespace IPFees.Core.Tests
         [Fact]
         public async Task AModuleChangeIsJudgedByWhatItDoesToItsDependents()
         {
-            await new CorpusSeeder(fixture.JurisdictionRepository, fixture.FeeRepository, fixture.ModuleRepository).SeedAsync();
-
             var validator = new FeeDefinitionValidator(
                 fixture.ModuleRepository,
                 new FeeScriptComposer(new DslParser()),
                 new DslCalculator(new DslParser()),
                 new VerificationBudget(),
                 fixture.FeeRepository);
+
+            await new CorpusSeeder(fixture.JurisdictionRepository, fixture.FeeRepository, fixture.ModuleRepository, validator).SeedAsync();
 
             var baseEp = (await fixture.ModuleRepository.GetModules()).Single(m => m.Name.Equals("base_ep", StringComparison.OrdinalIgnoreCase));
 
@@ -277,6 +277,37 @@ namespace IPFees.Core.Tests
             var breaking = await validator.ValidateModuleAsync(baseEp.Id, string.Join('\n', lines), false);
             Assert.False(breaking.MayBeSaved);
             Assert.NotEmpty(breaking.Broken);
+        }
+
+        /// <summary>
+        /// Removing a module is a change to its dependents as much as editing it is. The European
+        /// base cannot be removed while its members compute with the inputs it declares; a module
+        /// nothing names can.
+        /// </summary>
+        [Fact]
+        public async Task AModuleRemovalIsJudgedByWhatItDoesToItsDependents()
+        {
+            var validator = new FeeDefinitionValidator(
+                fixture.ModuleRepository,
+                new FeeScriptComposer(new DslParser()),
+                new DslCalculator(new DslParser()),
+                new VerificationBudget(),
+                fixture.FeeRepository);
+            await new CorpusSeeder(fixture.JurisdictionRepository, fixture.FeeRepository, fixture.ModuleRepository, validator).SeedAsync();
+
+            var baseEp = (await fixture.ModuleRepository.GetModules()).Single(m => m.Name.Equals("base_ep", StringComparison.OrdinalIgnoreCase));
+            var removal = await validator.ValidateModuleRemovalAsync(baseEp.Id);
+            Assert.False(removal.MayBeSaved);
+            Assert.Equal(26, removal.Dependents.Count);
+            Assert.Contains(removal.Broken, d => d.FeeName == "PCT-RO");
+            Assert.All(removal.Broken.SelectMany(d => d.NewFailures), f => Assert.Contains("is not declared", f));
+
+            var unused = await fixture.ModuleRepository.AddModuleAsync("unused-module");
+            Assert.True(unused.Success);
+            Assert.True((await fixture.ModuleRepository.SetModuleSourceCodeAsync(unused.Id, "DEFINE NUMBER Unused AS 'Unused'\nBETWEEN 0 AND 10\nDEFAULT 0\nENDDEFINE")).Success);
+            var free = await validator.ValidateModuleRemovalAsync(unused.Id);
+            Assert.True(free.MayBeSaved);
+            Assert.Empty(free.Dependents);
         }
 
         private static string WithUnreadLists(int count, string rest)

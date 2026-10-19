@@ -23,3 +23,17 @@
 <li class="nav-item">
     <a class="nav-link text-dark" asp-area="" asp-page="/About">About</a>
 </li>
+@if (User.Identity?.IsAuthenticated == true)
+{
+    <li class="nav-item">
+        <form method="post" asp-area="" asp-page="/Account/Logout" class="d-inline">
+            <button type="submit" class="nav-link btn btn-link text-dark">Sign out</button>
+        </form>
+    </li>
+}
+else
+{
+    <li class="nav-item">
+        <a class="nav-link text-dark" asp-area="" asp-page="/Account/Login" asp-route-returnUrl="@($"{Context.Request.PathBase}{Context.Request.Path}")">Sign in</a>
+    </li>
+}

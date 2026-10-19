@@ -49,18 +49,22 @@ namespace IPFees.Web.Areas.Run.Pages
 
         public async Task<IActionResult> OnGetAsync()
         {
-            Jurisdictions = await jurisdictionRepository.GetJurisdictions();
-
-            SelectedJurisdictionItems = Jurisdictions
-                .OrderBy(o => o.Name)
-                .Select(s => new SelectListItem($"[{s.Name}] {s.Description}", s.Name, false))
-                .ToList();
-
             // One fee document per jurisdiction is the canonical schedule (see CorpusSeeder); take
             // the first if more than one is ever registered rather than fail the whole page over it.
             var feesByJurisdiction = (await feeRepository.GetFees())
                 .GroupBy(f => f.JurisdictionName, StringComparer.OrdinalIgnoreCase)
                 .ToDictionary(g => g.Key, g => g.First(), StringComparer.OrdinalIgnoreCase);
+
+            // Only jurisdictions with a schedule can be priced. One whose schedule the save gate
+            // refused at seeding keeps its entry (and its service fee level) but is not offered.
+            Jurisdictions = (await jurisdictionRepository.GetJurisdictions())
+                .Where(j => feesByJurisdiction.ContainsKey(j.Name))
+                .ToList();
+
+            SelectedJurisdictionItems = Jurisdictions
+                .OrderBy(o => o.Name)
+                .Select(s => new SelectListItem($"[{s.Name}] {s.Description}", s.Name, false))
+                .ToList();
 
             // The flag picker shows a short, human name per tile ("United States of America") rather
             // than the full sentence the corpus stores it as ("Entry of national phase in the United

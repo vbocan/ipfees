@@ -24,10 +24,19 @@ namespace IPFees.Core.FeeCalculation
     /// jurisdiction as one schedule. Leaving the old ones in place would double-count, since a
     /// calculation sums every definition registered for a jurisdiction.
     /// </param>
-    public record CorpusSeedReport(int Jurisdictions, int Bases, int Superseded, IReadOnlyList<string> Errors)
+    /// <param name="Refused">
+    /// Schedules of the corpus that the save gate refuses, with the findings that refused them.
+    /// They are not loaded, and a copy left from an earlier load is removed, so a deployment
+    /// serves only schedules that passed the same checks an author's save must pass.
+    /// </param>
+    public record CorpusSeedReport(int Jurisdictions, int Bases, int Superseded, IReadOnlyList<string> Errors, IReadOnlyList<RefusedSchedule>? Refused = null)
     {
         public bool Succeeded => Errors.Count == 0;
+        public IReadOnlyList<RefusedSchedule> RefusedSchedules => Refused ?? Array.Empty<RefusedSchedule>();
     }
+
+    /// <summary>A schedule of the corpus the save gate refused, and why.</summary>
+    public record RefusedSchedule(string Code, IReadOnlyList<string> Findings);
 
     /// <inheritdoc cref="ICorpusSeeder"/>
     public class CorpusSeeder : ICorpusSeeder
@@ -35,12 +44,14 @@ namespace IPFees.Core.FeeCalculation
         private readonly IJurisdictionRepository jurisdictions;
         private readonly IFeeRepository fees;
         private readonly IModuleRepository modules;
+        private readonly IFeeDefinitionValidator validator;
 
-        public CorpusSeeder(IJurisdictionRepository jurisdictions, IFeeRepository fees, IModuleRepository modules)
+        public CorpusSeeder(IJurisdictionRepository jurisdictions, IFeeRepository fees, IModuleRepository modules, IFeeDefinitionValidator validator)
         {
             this.jurisdictions = jurisdictions;
             this.fees = fees;
             this.modules = modules;
+            this.validator = validator;
         }
 
         public async Task<CorpusSeedReport> SeedAsync(CancellationToken cancellationToken = default)
@@ -63,6 +74,7 @@ namespace IPFees.Core.FeeCalculation
             }
 
             var seeded = 0;
+            var refused = new List<RefusedSchedule>();
             foreach (var code in JurisdictionCorpus.Codes)
             {
                 cancellationToken.ThrowIfCancellationRequested();
@@ -80,6 +92,21 @@ namespace IPFees.Core.FeeCalculation
                         referenced.Add(baseId);
                     }
 
+                    // The corpus passes the same gate as an author's save, composed with the bases
+                    // just stored. A schedule the gate refuses is not served, and neither is a
+                    // copy of it left from an earlier load.
+                    var report = await validator.ValidateAsync(source, referenced);
+                    if (!report.MayBeSaved)
+                    {
+                        refused.Add(new RefusedSchedule(code, report.ParseErrors
+                            .Concat(report.TypeErrors)
+                            .Concat(report.CompletenessFailures)
+                            .Concat(report.MonotonicityFailures)
+                            .ToList()));
+                        await RemoveSchedule(code);
+                        continue;
+                    }
+
                     await UpsertFee(code, description, source, referenced);
                     seeded++;
                 }
@@ -91,7 +118,17 @@ namespace IPFees.Core.FeeCalculation
 
             var superseded = await PruneSupersededFees(errors);
 
-            return new CorpusSeedReport(seeded, baseIds.Count, superseded, errors);
+            return new CorpusSeedReport(seeded, baseIds.Count, superseded, errors, refused);
+        }
+
+        private async Task RemoveSchedule(string code)
+        {
+            var name = $"PCT-{code}";
+            foreach (var fee in (await fees.GetFees()).Where(f => f.Name.Equals(name, StringComparison.OrdinalIgnoreCase)).ToList())
+            {
+                var result = await fees.RemoveFeeAsync(fee.Id);
+                if (!result.Success) throw new InvalidOperationException($"could not remove the refused schedule {name}: {result.Reason}");
+            }
         }
 
         /// <summary>

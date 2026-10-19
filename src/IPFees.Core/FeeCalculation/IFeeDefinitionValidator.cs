@@ -20,6 +20,14 @@ namespace IPFees.Core.FeeCalculation
         /// </summary>
         /// <param name="moduleId">The module being edited, or null for a new one.</param>
         Task<ModuleValidationReport> ValidateModuleAsync(Guid? moduleId, string sourceCode, bool autoRun);
+
+        /// <summary>
+        /// Check the removal of a module. Every fee definition that names the module (every one
+        /// at all, for a module that runs before each calculation) is validated as it stands and
+        /// as it would stand with the module gone and the reference dropped. Removing a regional
+        /// base is a change to its members as much as editing it is, and is judged the same way.
+        /// </summary>
+        Task<ModuleValidationReport> ValidateModuleRemovalAsync(Guid moduleId);
     }
 
     /// <summary>

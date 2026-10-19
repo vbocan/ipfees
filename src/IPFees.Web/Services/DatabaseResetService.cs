@@ -145,6 +145,12 @@ namespace IPFees.Web.Services
             {
                 logger.LogError("Corpus seeding: {Error}", error);
             }
+
+            foreach (var schedule in report.RefusedSchedules)
+            {
+                logger.LogWarning("Corpus seeding: PCT-{Code} is refused by the save gate and not served: {Findings}",
+                    schedule.Code, string.Join(" | ", schedule.Findings));
+            }
         }
     }
 }

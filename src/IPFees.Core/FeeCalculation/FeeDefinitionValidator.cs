@@ -66,6 +66,32 @@ namespace IPFees.Core.FeeCalculation
             return new ModuleValidationReport(own, results);
         }
 
+        public async Task<ModuleValidationReport> ValidateModuleRemovalAsync(Guid moduleId)
+        {
+            var nothing = new FeeValidationReport(Array.Empty<string>(), Array.Empty<string>(), Array.Empty<string>(), Array.Empty<string>(), 0);
+            var stored = (await ModuleRepository.GetModules()).ToList();
+            var module = stored.FirstOrDefault(m => m.Id == moduleId);
+            if (module is null || FeeRepository is null)
+            {
+                return new ModuleValidationReport(nothing, Array.Empty<DependentValidation>());
+            }
+
+            var dependents = (await FeeRepository.GetFees())
+                .Where(f => module.AutoRun || f.ReferencedModules.Contains(moduleId))
+                .ToList();
+            var remaining = stored.Where(m => m.Id != moduleId).ToList();
+
+            var results = new List<DependentValidation>();
+            foreach (var fee in dependents)
+            {
+                var before = Validate(fee.SourceCode, fee.Name, fee.ReferencedModules, stored);
+                var after = Validate(fee.SourceCode, fee.Name, fee.ReferencedModules.Where(id => id != moduleId), remaining);
+                results.Add(new DependentValidation(fee.Name, before, after));
+            }
+
+            return new ModuleValidationReport(nothing, results);
+        }
+
         /// <summary>Fees of the loaded script whose yields resolve to more than one currency.</summary>
         private IEnumerable<string> CurrencyErrors()
         {
