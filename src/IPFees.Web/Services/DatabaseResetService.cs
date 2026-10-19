@@ -126,22 +126,27 @@ namespace IPFees.Web.Services
         }
 
         /// <summary>
-        /// Load the jurisdiction corpus shipped inside the IPFLang package. Existing entries are
-        /// refreshed in place rather than dropped, so a service fee level an operator changed
-        /// survives the reset.
+        /// Return the store to the jurisdiction corpus shipped inside the IPFLang package. The
+        /// public instance is a sandbox anyone may edit, so a reset removes every fee definition,
+        /// module and jurisdiction a visitor added, puts back what a visitor changed, and returns
+        /// every jurisdiction to the default service fee level.
         /// </summary>
         private async Task SeedCorpus(CancellationToken stoppingToken)
         {
             using var scope = scopeFactory.CreateScope();
             var seeder = scope.ServiceProvider.GetRequiredService<ICorpusSeeder>();
 
-            var report = await seeder.SeedAsync(stoppingToken);
+            var reset = await seeder.ResetAsync(stoppingToken);
+            var report = reset.Seed;
 
+            logger.LogInformation(
+                "Removed {Definitions} fee definitions, {Modules} modules and {Jurisdictions} jurisdictions the IPFLang corpus does not define.",
+                reset.Definitions, reset.Modules, reset.Jurisdictions);
             logger.LogInformation(
                 "Seeded {Jurisdictions} jurisdictions and {Bases} regional bases from the IPFLang corpus; removed {Superseded} superseded fee documents.",
                 report.Jurisdictions, report.Bases, report.Superseded);
 
-            foreach (var error in report.Errors)
+            foreach (var error in reset.Errors.Concat(report.Errors))
             {
                 logger.LogError("Corpus seeding: {Error}", error);
             }

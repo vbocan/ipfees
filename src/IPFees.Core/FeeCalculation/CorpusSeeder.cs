@@ -1,4 +1,5 @@
 using System.Text.RegularExpressions;
+using IPFees.Core.Data;
 using IPFees.Core.Enum;
 using IPFees.Core.Repository;
 using IPFLang.Corpus;
@@ -16,6 +17,13 @@ namespace IPFees.Core.FeeCalculation
     public interface ICorpusSeeder
     {
         Task<CorpusSeedReport> SeedAsync(CancellationToken cancellationToken = default);
+
+        /// <summary>
+        /// Return the store to the state a fresh deployment starts in. Every fee definition,
+        /// module and jurisdiction the corpus does not define is removed, the corpus is loaded
+        /// over what remains, and every jurisdiction goes back to the default service fee level.
+        /// </summary>
+        Task<CorpusResetReport> ResetAsync(CancellationToken cancellationToken = default);
     }
 
     /// <param name="Superseded">
@@ -38,6 +46,16 @@ namespace IPFees.Core.FeeCalculation
     /// <summary>A schedule of the corpus the save gate refused, and why.</summary>
     public record RefusedSchedule(string Code, IReadOnlyList<string> Findings);
 
+    /// <summary>
+    /// What a reset removed before loading the corpus: the fee definitions, modules and
+    /// jurisdictions whose names the corpus does not define, which on a public instance are the
+    /// ones visitors added or renamed.
+    /// </summary>
+    public record CorpusResetReport(CorpusSeedReport Seed, int Definitions, int Modules, int Jurisdictions, IReadOnlyList<string> Errors)
+    {
+        public bool Succeeded => Seed.Succeeded && Errors.Count == 0;
+    }
+
     /// <inheritdoc cref="ICorpusSeeder"/>
     public class CorpusSeeder : ICorpusSeeder
     {
@@ -45,6 +63,9 @@ namespace IPFees.Core.FeeCalculation
         private readonly IFeeRepository fees;
         private readonly IModuleRepository modules;
         private readonly IFeeDefinitionValidator validator;
+
+        /// <summary>The service fee level a jurisdiction starts on.</summary>
+        private const ServiceFeeLevel DefaultServiceFeeLevel = ServiceFeeLevel.Level1;
 
         public CorpusSeeder(IJurisdictionRepository jurisdictions, IFeeRepository fees, IModuleRepository modules, IFeeDefinitionValidator validator)
         {
@@ -119,6 +140,53 @@ namespace IPFees.Core.FeeCalculation
             var superseded = await PruneSupersededFees(errors);
 
             return new CorpusSeedReport(seeded, baseIds.Count, superseded, errors, refused);
+        }
+
+        public async Task<CorpusResetReport> ResetAsync(CancellationToken cancellationToken = default)
+        {
+            var errors = new List<string>();
+
+            // Names are compared exactly, before the corpus is loaded. The load finds what it
+            // updates ignoring case, so a visitor's "pct-ro" left in place would be the copy it
+            // overwrites, and the reference "PCT-RO" would stay beside it as the visitor left it.
+            var schedules = JurisdictionCorpus.Codes.Select(code => $"PCT-{code}").ToHashSet(StringComparer.Ordinal);
+            var bases = JurisdictionCorpus.BaseNames.ToHashSet(StringComparer.Ordinal);
+            var codes = JurisdictionCorpus.Codes.ToHashSet(StringComparer.Ordinal);
+
+            // Definitions go first, since they reference modules and name jurisdictions.
+            var definitions = await RemoveEach((await fees.GetFees()).Where(f => !schedules.Contains(f.Name)),
+                f => f.Id, f => f.Name, fees.RemoveFeeAsync, "fee definition", errors);
+            cancellationToken.ThrowIfCancellationRequested();
+            var removedModules = await RemoveEach((await modules.GetModules()).Where(m => !bases.Contains(m.Name)),
+                m => m.Id, m => m.Name, modules.RemoveModuleAsync, "module", errors);
+            cancellationToken.ThrowIfCancellationRequested();
+            var removedJurisdictions = await RemoveEach((await jurisdictions.GetJurisdictions()).Where(j => !codes.Contains(j.Name)),
+                j => j.Id, j => j.Name, jurisdictions.RemoveJurisdictionAsync, "jurisdiction", errors);
+
+            // Loading the corpus puts back the source, description and references of what remains.
+            var seed = await SeedAsync(cancellationToken);
+
+            // The load keeps a jurisdiction's service fee level, which a reset does not.
+            foreach (var jurisdiction in (await jurisdictions.GetJurisdictions()).Where(j => j.ServiceFeeLevel != DefaultServiceFeeLevel).ToList())
+            {
+                var result = await jurisdictions.SetJurisdictionServiceFeeLevelAsync(jurisdiction.Id, DefaultServiceFeeLevel);
+                if (!result.Success) errors.Add($"could not restore the service fee level of '{jurisdiction.Name}': {result.Reason}");
+            }
+
+            return new CorpusResetReport(seed, definitions, removedModules, removedJurisdictions, errors);
+        }
+
+        private static async Task<int> RemoveEach<T>(IEnumerable<T> items, Func<T, Guid> idOf, Func<T, string> nameOf,
+            Func<Guid, Task<DbResult>> remove, string kind, List<string> errors)
+        {
+            var removed = 0;
+            foreach (var item in items.ToList())
+            {
+                var result = await remove(idOf(item));
+                if (result.Success) removed++;
+                else errors.Add($"could not remove {kind} '{nameOf(item)}': {result.Reason}");
+            }
+            return removed;
         }
 
         private async Task RemoveSchedule(string code)
@@ -213,7 +281,7 @@ namespace IPFees.Core.FeeCalculation
             {
                 var added = await jurisdictions.AddJurisdictionAsync(code);
                 if (!added.Success) throw new InvalidOperationException(added.Reason);
-                await jurisdictions.SetJurisdictionServiceFeeLevelAsync(added.Id, ServiceFeeLevel.Level1);
+                await jurisdictions.SetJurisdictionServiceFeeLevelAsync(added.Id, DefaultServiceFeeLevel);
                 await jurisdictions.SetJurisdictionDescriptionAsync(added.Id, description);
                 return;
             }
