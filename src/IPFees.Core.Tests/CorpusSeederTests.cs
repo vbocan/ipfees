@@ -136,8 +136,7 @@ namespace IPFees.Core.Tests
 
         /// <summary>
         /// Schedules whose directives are all VERIFY COMPLETE settle in milliseconds and must
-        /// hold. Schedules that also declare VERIFY MONOTONIC are deliberately excluded here;
-        /// see <see cref="MonotonicityCheckingDoesNotScaleToWideSchedules"/> for why.
+        /// hold.
         /// </summary>
         [Theory]
         [InlineData("PCT-RO")]
@@ -154,71 +153,52 @@ namespace IPFees.Core.Tests
             var elapsed = DateTime.UtcNow - started;
 
             var verification = Assert.IsType<FeeResultVerification>(result);
-            Assert.True(verification.Results.AllPassed, verification.Results.ToString());
+            Assert.Empty(verification.Results.Unfinished);
+            Assert.Empty(verification.Results.Errors);
+            Assert.Empty(verification.Results.CompletenessFailures);
+            Assert.Empty(verification.Results.MonotonicityFailures);
             Assert.True(elapsed < TimeSpan.FromSeconds(10), $"{name} took {elapsed.TotalSeconds:N1}s to verify");
         }
 
         /// <summary>
-        /// A standing record of a real limit in the engine, not an aspiration.
-        ///
-        /// Completeness checking finishes in single-digit milliseconds on these schedules.
-        /// Monotonicity checking walks a numeric domain crossed with every combination of the
-        /// remaining categorical inputs, and on a schedule as wide as the corpus jurisdictions
-        /// it does not finish in any usable time: measured at over 60 seconds for PCT-US,
-        /// PCT-DE, PCT-EP and PCT-MY, against 1-5 ms for the completeness-only schedules.
-        /// 46 of the 119 corpus schedules declare a MONOTONIC directive.
-        ///
-        /// The editor therefore bounds verification with <see cref="VerificationBudget"/> and
-        /// reports an unfinished run rather than blocking the author. This test pins that
-        /// behaviour: the budget must be honoured, and the result must say plainly that nothing
-        /// was proven.
-        /// </summary>
-        /// <summary>
-        /// The REST endpoint that runs verification is reachable without credentials, so a
-        /// request that never returns is not merely a broken feature. Verification through
-        /// FeeCalculator must honour the budget and say it did not finish.
+        /// The REST endpoint that runs verification is reachable without credentials, so it must
+        /// answer within the budget. PCT-US declares monotonicity directives, which overran any
+        /// budget while the checker was handed every declared input; given only the inputs each
+        /// fee reads, they finish and are reported.
         /// </summary>
         [Fact]
-        public async Task VerifyingAWideScheduleReturnsWithinTheBudget()
+        public async Task VerifyingAWideScheduleFinishesWithinTheBudget()
         {
             await NewSeeder().SeedAsync();
 
             var fee = (await fixture.FeeRepository.GetFees())
                 .Single(f => f.Name.Equals("PCT-US", StringComparison.OrdinalIgnoreCase));
 
-            var calculator = NewCalculator(new VerificationBudget { Limit = TimeSpan.FromSeconds(3) });
+            var calculator = NewCalculator(new VerificationBudget { Limit = TimeSpan.FromSeconds(5) });
 
             var started = DateTime.UtcNow;
             var result = calculator.Verify(fee.Id);
             var elapsed = DateTime.UtcNow - started;
 
             var verification = Assert.IsType<FeeResultVerification>(result);
-            Assert.True(verification.TimedOut, "expected the run to be abandoned at the budget");
-            Assert.True(elapsed < TimeSpan.FromSeconds(20), $"budget was not honoured: waited {elapsed.TotalSeconds:N1}s");
+            Assert.False(verification.TimedOut, string.Join(" | ", verification.Results.Unfinished));
+            Assert.NotEmpty(verification.Results.Monotonicity);
+            Assert.True(elapsed < TimeSpan.FromSeconds(5), $"took {elapsed.TotalSeconds:N1}s");
         }
 
         [Fact]
-        public async Task MonotonicityCheckingDoesNotScaleToWideSchedules()
+        public async Task MonotonicityCheckingFinishesOnWideSchedules()
         {
-            var budget = new VerificationBudget { Limit = TimeSpan.FromSeconds(3) };
             var validator = new FeeDefinitionValidator(
                 fixture.ModuleRepository,
                 new FeeScriptComposer(new DslParser()),
                 new DslCalculator(new DslParser()),
-                budget);
+                new VerificationBudget { Limit = TimeSpan.FromSeconds(5) });
 
-            var source = JurisdictionCorpus.GetJurisdiction("US");
-
-            var started = DateTime.UtcNow;
-            var report = await validator.ValidateAsync(source, Array.Empty<Guid>());
-            var elapsed = DateTime.UtcNow - started;
+            var report = await validator.ValidateAsync(JurisdictionCorpus.GetJurisdiction("US"), Array.Empty<Guid>());
 
             Assert.True(report.CanBeStored, "the schedule itself is well formed");
-            Assert.True(report.VerificationTimedOut, "expected verification to overrun the budget");
-            Assert.True(elapsed < TimeSpan.FromSeconds(20), $"budget was not honoured: waited {elapsed.TotalSeconds:N1}s");
-
-            // Nothing was proven, so nothing may be claimed either way.
-            Assert.Empty(report.CompletenessFailures);
+            Assert.False(report.VerificationTimedOut, string.Join(" | ", report.UnfinishedDirectives));
             Assert.Empty(report.MonotonicityFailures);
         }
 

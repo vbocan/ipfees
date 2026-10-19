@@ -1,3 +1,4 @@
+using IPFees.Core.FeeCalculation;
 using IPFees.Core.Repository;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -13,11 +14,16 @@ namespace IPFees.Web.Areas.Module.Pages
         [BindProperty] public string SourceCode { get; set; } = null!;
         [BindProperty] public IList<string> ErrorMessages { get; set; }
 
-        private readonly IModuleRepository moduleRepository;
+        /// <summary>What IPFLang made of the module on the last save attempt.</summary>
+        public ModuleValidationReport? Validation { get; private set; }
 
-        public CreateModel(IModuleRepository moduleRepository)
+        private readonly IModuleRepository moduleRepository;
+        private readonly IFeeDefinitionValidator validator;
+
+        public CreateModel(IModuleRepository moduleRepository, IFeeDefinitionValidator validator)
         {
             this.moduleRepository = moduleRepository;
+            this.validator = validator;
             ErrorMessages = new List<string>();
         }
 
@@ -27,6 +33,11 @@ namespace IPFees.Web.Areas.Module.Pages
 
         public async Task<IActionResult> OnPostAsync()
         {
+            // A new module reaches no definition yet unless it runs before every calculation, in
+            // which case it is checked against all of them.
+            Validation = await validator.ValidateModuleAsync(null, SourceCode, AutoRun);
+            if (!Validation.MayBeSaved) return Page();
+
             var res1 = await moduleRepository.AddModuleAsync(Name);
             if (!res1.Success)
             {

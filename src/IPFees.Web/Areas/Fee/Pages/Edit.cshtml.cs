@@ -76,7 +76,7 @@ namespace IPFees.Web.Areas.Fee.Pages
             // that will not parse or type-check is never written, and neither is one that fails
             // a VERIFY directive the author themselves declared.
             Validation = await validator.ValidateAsync(SourceCode, RefMod);
-            if (!Validation.CanBeStored || (!Validation.VerificationTimedOut && !Validation.VerificationsPassed))
+            if (!Validation.MayBeSaved)
             {
                 await PopulateReferencedModules(Id);
                 return Page();

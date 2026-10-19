@@ -30,10 +30,12 @@ namespace IPFees.Core.FeeManager
     /// How many VERIFY directives the definition declares. Zero means nothing was proven,
     /// which is different from everything having passed.
     /// </param>
+    /// <param name="Passed">Every declared directive finished and held.</param>
     /// <param name="TimedOut">
-    /// True when the analysis was abandoned before finishing. The directives were neither
-    /// proven nor disproven, so <paramref name="Passed"/> carries no meaning.
+    /// True when at least one directive was abandoned at the budget. The directives that
+    /// finished are still reported in the failure lists.
     /// </param>
+    /// <param name="Unfinished">The directives abandoned at the budget, neither proven nor disproven.</param>
     public record FeeVerificationInfo(
         string Jurisdiction,
         string FeeName,
@@ -43,5 +45,6 @@ namespace IPFees.Core.FeeManager
         IReadOnlyList<string> CompletenessFailures,
         IReadOnlyList<string> MonotonicityFailures,
         IReadOnlyList<string> Errors,
-        bool TimedOut = false);
+        bool TimedOut = false,
+        IReadOnlyList<string>? Unfinished = null);
 }

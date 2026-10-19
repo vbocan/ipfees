@@ -1,0 +1,63 @@
+@using IPFees.Core.FeeCalculation
+@model ModuleValidationReport
+
+@*
+    Renders what the IPFLang engine found in a module and in the fee definitions it reaches.
+
+    A module is shared, so it is judged by what it does to its dependents: a change that
+    introduces a failure into a definition that did not have one is refused. Failures a
+    dependent already had are listed for information and do not block the save.
+*@
+
+<partial name="~/Areas/Fee/Pages/_ValidationReport.cshtml" model="Model.Own" />
+
+@if (Model.Broken.Any())
+{
+    <div class="alert alert-danger" role="alert">
+        <h5 class="alert-heading">This change breaks @Model.Broken.Count() fee @(Model.Broken.Count() == 1 ? "definition" : "definitions")</h5>
+        <p class="mb-2">Nothing was saved. With the module as edited, these definitions fail checks they passed before:</p>
+        <ul class="mb-0">
+            @foreach (var d in Model.Broken)
+            {
+                <li>
+                    <strong>@d.FeeName</strong>
+                    <ul>
+                        @foreach (var f in d.NewFailures)
+                        {
+                            <li>@f</li>
+                        }
+                    </ul>
+                </li>
+            }
+        </ul>
+    </div>
+}
+
+@{
+    var preexisting = Model.Dependents.Where(d => !d.Broke && !d.After.MayBeSaved).ToList();
+}
+@if (preexisting.Any())
+{
+    <div class="alert alert-secondary" role="alert">
+        <h5 class="alert-heading">Failures that were already there</h5>
+        <p class="mb-2">
+            These definitions fail their own checks with or without this change, so they do not
+            block it. Each has to be fixed in the definition itself.
+        </p>
+        <ul class="mb-0">
+            @foreach (var d in preexisting)
+            {
+                <li><strong>@d.FeeName</strong></li>
+            }
+        </ul>
+    </div>
+}
+
+@if (Model.Dependents.Any() && !Model.Broken.Any())
+{
+    <div class="alert alert-info" role="alert">
+        Checked against the @Model.Dependents.Count fee
+        @(Model.Dependents.Count == 1 ? "definition" : "definitions") this module reaches; the change
+        introduces no new failure.
+    </div>
+}

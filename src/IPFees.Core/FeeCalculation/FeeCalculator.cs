@@ -58,12 +58,38 @@ namespace IPFees.Core.FeeCalculation
             try
             {
                 var (TotalMandatoryAmount, TotalOptionalAmount, CalculationSteps, Returns) = Calculator.Compute(InputValues);
-                return new FeeResultCalculation(fee.Name, fee.Description, TotalMandatoryAmount, TotalOptionalAmount, CalculationSteps, Returns);
+                var components = Components(InputValues, Returns);
+                return new FeeResultCalculation(fee.Name, fee.Description, TotalMandatoryAmount, TotalOptionalAmount, CalculationSteps, Returns, components);
             }
             catch (Exception ex)
             {
                 return new FeeResultFail(fee.Name, fee.Description, new[] { ex.Message });
             }
+        }
+
+        /// <summary>
+        /// Break the computed totals down by fee, each in its own currency. The totals from
+        /// <see cref="IDslCalculator.Compute"/> add amounts as bare numbers, which is only right
+        /// when every fee is priced in the schedule's currency.
+        /// </summary>
+        private IReadOnlyList<FeeComponent>? Components(IList<IPFValue> InputValues, IEnumerable<(string, string)> Returns)
+        {
+            var scheduleCurrency = Returns
+                .Where(r => r.Item1.Equals("Currency", StringComparison.OrdinalIgnoreCase))
+                .Select(r => r.Item2)
+                .FirstOrDefault();
+            if (string.IsNullOrEmpty(scheduleCurrency)) return null;
+
+            var inputs = Calculator.GetInputs().ToList();
+            var fees = Calculator.GetFees().GroupBy(f => f.Name).ToDictionary(g => g.Key, g => g.Last());
+
+            return Calculator.ComputeWithProvenance(InputValues).FeeBreakdown
+                .Select(b => new FeeComponent(
+                    b.FeeName,
+                    b.Amount,
+                    b.IsOptional,
+                    fees.TryGetValue(b.FeeName, out var dsl) ? FeeCurrency.Resolve(dsl, inputs, scheduleCurrency) : scheduleCurrency))
+                .ToList();
         }
 
         /// <summary>
@@ -92,17 +118,12 @@ namespace IPFees.Core.FeeCalculation
 
             try
             {
-                // Monotonicity checking does not finish in usable time on wide schedules, and the
-                // engine offers no cancellation, so an overrunning run is abandoned rather than
-                // stopped. Without this a caller waits forever; the REST endpoint is reachable
-                // without credentials, so forever is not an option.
-                var running = Task.Run(() => Calculator.RunVerifications());
-                if (!running.Wait(Budget.Limit))
-                {
-                    return new FeeResultVerification(fee.Name, fee.Description, new VerificationResults(), TimedOut: true);
-                }
-
-                return new FeeResultVerification(fee.Name, fee.Description, running.Result);
+                // Same verifier and budget as the save gate, so the REST endpoint and the editor
+                // reach the same verdicts. The endpoint is reachable without credentials, so an
+                // unbounded wait is not an option either.
+                var results = new ScheduleVerifier(Budget).Verify(
+                    Calculator.GetInputs(), Calculator.GetFees(), Calculator.GetVerifications());
+                return new FeeResultVerification(fee.Name, fee.Description, results);
             }
             catch (Exception ex)
             {
@@ -132,7 +153,7 @@ namespace IPFees.Core.FeeCalculation
                     ? Calculator.ComputeWithCounterfactuals(InputValues)
                     : Calculator.ComputeWithProvenance(InputValues);
 
-                return new FeeResultExplanation(fee.Name, fee.Description, Describe(fee, provenance));
+                return new FeeResultExplanation(fee.Name, fee.Description, Describe(fee, provenance, CurrencyOf));
             }
             catch (Exception ex)
             {
@@ -143,7 +164,7 @@ namespace IPFees.Core.FeeCalculation
         /// <summary>
         /// Restate the engine's provenance in the platform's own vocabulary.
         /// </summary>
-        private static FeeExplanation Describe(FeeInfo fee, ComputationProvenance provenance)
+        private static FeeExplanation Describe(FeeInfo fee, ComputationProvenance provenance, Func<string, string?> currencyOf)
         {
             var fees = provenance.FeeProvenances.Select(f => new ExplainedFee(
                 f.FeeName,
@@ -155,7 +176,8 @@ namespace IPFees.Core.FeeCalculation
                     r.DidContribute,
                     DescribeCondition(r),
                     r.ReferencedInputs.ToDictionary(k => k.Key, v => v.Value?.ToString() ?? string.Empty),
-                    new Dictionary<string, decimal>(r.LetVariables))).ToList()))
+                    new Dictionary<string, decimal>(r.LetVariables))).ToList(),
+                currencyOf(f.FeeName)))
                 .ToList();
 
             var alternatives = provenance.Counterfactuals.Select(c => new ExplainedAlternative(
@@ -175,6 +197,25 @@ namespace IPFees.Core.FeeCalculation
                 provenance.InputValues.ToDictionary(k => k.Key, v => v.Value?.ToString() ?? string.Empty),
                 fees,
                 alternatives);
+        }
+
+        /// <summary>
+        /// The currency a fee of the loaded schedule is priced in, or null when the schedule
+        /// declares no currency or the fee is not part of it.
+        /// </summary>
+        private string? CurrencyOf(string feeName)
+        {
+            var scheduleCurrency = Calculator.GetReturns()
+                .Where(r => r.Symbol.Equals("Currency", StringComparison.OrdinalIgnoreCase))
+                .Select(r => r.Text)
+                .FirstOrDefault();
+            if (string.IsNullOrEmpty(scheduleCurrency)) return null;
+
+            var fee = Calculator.GetFees().LastOrDefault(f => f.Name == feeName);
+            if (fee is null) return null;
+
+            try { return FeeCurrency.Resolve(fee, Calculator.GetInputs(), scheduleCurrency); }
+            catch (InvalidOperationException) { return null; }
         }
 
         /// <summary>
@@ -218,12 +259,22 @@ namespace IPFees.Core.FeeCalculation
 
     public abstract record FeeResult();
     public record FeeResultFail(string FeeName, string FeeDescription, IEnumerable<string> Errors) : FeeResult();
-    public record FeeResultCalculation(string FeeName, string FeeDescription, decimal TotalMandatoryAmount, decimal TotalOptionalAmount, IEnumerable<string> CalculationSteps, IEnumerable<(string, string)> Returns) : FeeResult();
-    public record FeeResultParse(string FeeName, string FeeDescription, IEnumerable<DslInput> FeeInputs, IEnumerable<DslGroup> FeeGroups) : FeeResult();
-    /// <param name="TimedOut">
-    /// True when verification was abandoned at the budget, so the directives were neither
-    /// proven nor disproven and <paramref name="Results"/> is empty.
+    /// <param name="TotalMandatoryAmount">Mandatory fees added as bare numbers; meaningful as an amount only when every fee is in the schedule's currency.</param>
+    /// <param name="TotalOptionalAmount">Optional fees added the same way.</param>
+    /// <param name="Components">
+    /// Each fee's amount with the currency it is priced in. Null when the schedule declares no
+    /// currency. Convert these, not the totals, when the schedule mixes currencies.
     /// </param>
-    public record FeeResultVerification(string FeeName, string FeeDescription, VerificationResults Results, bool TimedOut = false) : FeeResult();
+    public record FeeResultCalculation(string FeeName, string FeeDescription, decimal TotalMandatoryAmount, decimal TotalOptionalAmount, IEnumerable<string> CalculationSteps, IEnumerable<(string, string)> Returns, IReadOnlyList<FeeComponent>? Components = null) : FeeResult();
+
+    /// <summary>One fee's computed amount, in the currency it is priced in.</summary>
+    public record FeeComponent(string Name, decimal Amount, bool Optional, string Currency);
+    public record FeeResultParse(string FeeName, string FeeDescription, IEnumerable<DslInput> FeeInputs, IEnumerable<DslGroup> FeeGroups) : FeeResult();
+    /// <param name="Results">Per-directive verdicts, including those cut off by the budget.</param>
+    public record FeeResultVerification(string FeeName, string FeeDescription, ScheduleVerification Results) : FeeResult()
+    {
+        /// <summary>At least one directive was abandoned at the budget.</summary>
+        public bool TimedOut => Results.Unfinished.Count > 0;
+    }
     public record FeeResultExplanation(string FeeName, string FeeDescription, FeeExplanation Explanation) : FeeResult();
 }

@@ -1,3 +1,4 @@
+using IPFees.Core.FeeCalculation;
 using IPFees.Core.Repository;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -13,11 +14,16 @@ namespace IPFees.Web.Areas.Module.Pages
         [BindProperty] public string SourceCode { get; set; } = null!;
         [BindProperty] public IList<string> ErrorMessages { get; set; }
 
-        private readonly IModuleRepository moduleRepository;
+        /// <summary>What IPFLang made of the module and its dependents on the last save attempt.</summary>
+        public ModuleValidationReport? Validation { get; private set; }
 
-        public EditModel(IModuleRepository moduleRepository)
+        private readonly IModuleRepository moduleRepository;
+        private readonly IFeeDefinitionValidator validator;
+
+        public EditModel(IModuleRepository moduleRepository, IFeeDefinitionValidator validator)
         {
             this.moduleRepository = moduleRepository;
+            this.validator = validator;
             ErrorMessages = new List<string>();
         }
 
@@ -33,6 +39,11 @@ namespace IPFees.Web.Areas.Module.Pages
 
         public async Task<IActionResult> OnPostAsync(Guid Id)
         {
+            // A module is shared by every fee definition that names it, and a regional base is a
+            // module, so a change here is checked against all of them before it is stored.
+            Validation = await validator.ValidateModuleAsync(Id, SourceCode, AutoRun);
+            if (!Validation.MayBeSaved) return Page();
+
             var res = await moduleRepository.SetModuleNameAsync(Id, Name);
             if (!res.Success)
             {

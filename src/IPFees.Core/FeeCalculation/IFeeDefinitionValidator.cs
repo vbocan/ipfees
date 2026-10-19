@@ -12,14 +12,47 @@ namespace IPFees.Core.FeeCalculation
     public interface IFeeDefinitionValidator
     {
         Task<FeeValidationReport> ValidateAsync(string sourceCode, IEnumerable<Guid> referencedModules);
+
+        /// <summary>
+        /// Check a module before it is stored. A module is shared, so the check covers both the
+        /// module on its own and every fee definition the change reaches, composed with the
+        /// module as it is now and as it would be after the save.
+        /// </summary>
+        /// <param name="moduleId">The module being edited, or null for a new one.</param>
+        Task<ModuleValidationReport> ValidateModuleAsync(Guid? moduleId, string sourceCode, bool autoRun);
     }
 
     /// <summary>
-    /// How long the editor is willing to wait for static verification before giving the author
-    /// an answer. Completeness checking over the schedules in this corpus finishes in a few
-    /// milliseconds, but monotonicity checking walks a numeric domain crossed with every
-    /// categorical input, and on wide schedules it does not finish in any useful time. Rather
-    /// than hang the page, verification is abandoned at the budget and reported as unfinished.
+    /// Outcome of validating a module. A module change is refused when the module itself is
+    /// broken or when it introduces a failure into a fee definition that did not have it before.
+    /// Failures a dependent already had are reported but do not block: the module's author did
+    /// not cause them and cannot fix them from here.
+    /// </summary>
+    public record ModuleValidationReport(FeeValidationReport Own, IReadOnlyList<DependentValidation> Dependents)
+    {
+        public IEnumerable<DependentValidation> Broken => Dependents.Where(d => d.Broke);
+        public bool MayBeSaved => Own.MayBeSaved && !Broken.Any();
+    }
+
+    /// <summary>One fee definition reached by a module change, validated before and after it.</summary>
+    public record DependentValidation(string FeeName, FeeValidationReport Before, FeeValidationReport After)
+    {
+        /// <summary>Findings present after the change that were not there before.</summary>
+        public IReadOnlyList<string> NewFailures =>
+            Findings(After).Except(Findings(Before)).ToList();
+
+        /// <summary>The change made this definition unsaveable.</summary>
+        public bool Broke => !After.MayBeSaved && NewFailures.Count > 0;
+
+        private static IEnumerable<string> Findings(FeeValidationReport r) =>
+            r.ParseErrors.Concat(r.TypeErrors).Concat(r.CompletenessFailures).Concat(r.MonotonicityFailures);
+    }
+
+    /// <summary>
+    /// How long a save is willing to wait for static verification before giving the author an
+    /// answer. The budget covers all of a schedule's directives together; a directive still
+    /// running when it expires is abandoned and reported as unfinished, while the directives that
+    /// did finish keep their verdicts (see <see cref="ScheduleVerifier"/>).
     /// </summary>
     public class VerificationBudget
     {
@@ -34,9 +67,9 @@ namespace IPFees.Core.FeeCalculation
     /// <param name="CompletenessFailures">Fees whose CASE coverage leaves input combinations unhandled.</param>
     /// <param name="MonotonicityFailures">Fees that move the wrong way against an input they declared a direction for.</param>
     /// <param name="VerificationsRun">How many VERIFY directives the script declared.</param>
-    /// <param name="VerificationTimedOut">
-    /// True when verification was abandoned at the budget. The definition is storable, but its
-    /// directives were neither proven nor disproven.
+    /// <param name="Unfinished">
+    /// Directives abandoned at the budget, neither proven nor disproven. The others keep their
+    /// verdicts, so a coverage gap is still reported when a monotonicity check overruns.
     /// </param>
     public record FeeValidationReport(
         IReadOnlyList<string> ParseErrors,
@@ -44,10 +77,22 @@ namespace IPFees.Core.FeeCalculation
         IReadOnlyList<string> CompletenessFailures,
         IReadOnlyList<string> MonotonicityFailures,
         int VerificationsRun,
-        bool VerificationTimedOut = false)
+        IReadOnlyList<string>? Unfinished = null)
     {
+        public IReadOnlyList<string> UnfinishedDirectives => Unfinished ?? Array.Empty<string>();
+
+        /// <summary>At least one directive was abandoned at the budget.</summary>
+        public bool VerificationTimedOut => UnfinishedDirectives.Count > 0;
+
         /// <summary>A script that cannot be parsed or type-checked must not be stored.</summary>
         public bool CanBeStored => ParseErrors.Count == 0 && TypeErrors.Count == 0;
+
+        /// <summary>
+        /// The save gate: parse and type errors block, and so does any directive that finished and
+        /// failed. Directives that did not finish do not block, because nothing was established
+        /// about them either way.
+        /// </summary>
+        public bool MayBeSaved => CanBeStored && VerificationsPassed;
 
         /// <summary>Every declared VERIFY directive held.</summary>
         public bool VerificationsPassed => CompletenessFailures.Count == 0 && MonotonicityFailures.Count == 0;

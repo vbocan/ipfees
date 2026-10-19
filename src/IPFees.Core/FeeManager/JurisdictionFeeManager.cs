@@ -110,11 +110,22 @@ namespace IPFees.Core.FeeManager
                     var Declared = Returned(frc, "Language");
                     if (!string.IsNullOrEmpty(Declared)) Language = Declared;
 
-                    // Convert each definition from its own currency before accumulating, so a
-                    // jurisdiction whose components are quoted in different currencies still adds up.
+                    // Convert each fee from the currency it is priced in before accumulating, so a
+                    // schedule that quotes, say, its agent's charge in EUR and its official fees in
+                    // SGD still adds up. Fees in the same currency are summed first and converted
+                    // once, so rounding happens per currency rather than per fee.
                     try
                     {
-                        Fees = Fee.Add(Fees, ConvertCurrency(new Fee(frc.TotalMandatoryAmount, frc.TotalOptionalAmount, Currency), TargetCurrency, CurrencyMarkup));
+                        var parts = frc.Components is { Count: > 0 }
+                            ? frc.Components
+                                .GroupBy(c => c.Currency)
+                                .Select(g => new Fee(g.Where(c => !c.Optional).Sum(c => c.Amount), g.Where(c => c.Optional).Sum(c => c.Amount), g.Key))
+                            : new[] { new Fee(frc.TotalMandatoryAmount, frc.TotalOptionalAmount, Currency) };
+
+                        foreach (var part in parts)
+                        {
+                            Fees = Fee.Add(Fees, ConvertCurrency(part, TargetCurrency, CurrencyMarkup));
+                        }
                         Calculated = true;
                     }
                     catch (Exception ex)
@@ -174,30 +185,20 @@ namespace IPFees.Core.FeeManager
                     }
 
                     var verification = (FeeResultVerification)result;
-                    if (verification.TimedOut)
-                    {
-                        yield return new FeeVerificationInfo(jn, fd.Name, fd.Category.ToString(), 0, false,
-                            Array.Empty<string>(), Array.Empty<string>(), Array.Empty<string>(), TimedOut: true);
-                        continue;
-                    }
-
                     var results = verification.Results;
 
-                    var completeness = results.CompletenessReports
-                        .Where(r => !r.IsComplete)
-                        .Select(VerificationNarrative.Describe)
-                        .ToList();
+                    var completeness = results.CompletenessFailures.Select(VerificationNarrative.Describe).ToList();
+                    var monotonicity = results.MonotonicityFailures.Select(VerificationNarrative.Describe).ToList();
 
-                    var monotonicity = results.MonotonicityReports
-                        .Where(r => !r.IsMonotonic)
-                        .Select(VerificationNarrative.Describe)
-                        .ToList();
-
-                    var declared = results.CompletenessReports.Count + results.MonotonicityReports.Count;
+                    // Passed means every declared directive finished and held; a directive cut off
+                    // by the budget is reported in Unfinished and does not count as passing.
+                    var passed = completeness.Count == 0 && monotonicity.Count == 0
+                                 && results.Errors.Count == 0 && results.Unfinished.Count == 0;
 
                     yield return new FeeVerificationInfo(
-                        jn, fd.Name, fd.Category.ToString(), declared,
-                        results.AllPassed, completeness, monotonicity, results.Errors.ToList());
+                        jn, fd.Name, fd.Category.ToString(), results.Declared,
+                        passed, completeness, monotonicity, results.Errors.ToList(),
+                        verification.TimedOut, results.Unfinished.ToList());
                 }
             }
         }
