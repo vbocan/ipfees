@@ -15,7 +15,7 @@
 
 IPFees is a jurisdiction-agnostic intellectual property fee calculation platform covering 119 global IP jurisdictions. Fee schedules are written in [IPFLang](https://github.com/vbocan/IPFLang), a domain-specific language for regulatory fee computation, so legal professionals can define and change calculation rules without software development expertise.
 
-IPFees does not implement the language. It consumes the IPFLang engine as a NuGet package and provides the layer around it: a REST API, a web interface where schedules are authored and **statically verified before they can be saved**, multi-currency conversion with historical rates, and portfolio-level estimation.
+IPFees builds on the IPFLang engine, which it carries as source in `src/IPFLang.Engine` together with the reference corpus of fee schedules, and provides the layer around it: a REST API, a web interface where schedules are authored and **statically verified before they can be saved**, multi-currency conversion with historical rates, and portfolio-level estimation.
 
 ## Quick Start with Docker
 
@@ -122,7 +122,7 @@ For a detailed technical architecture diagram, see [architecture.md](docs/archit
 - **Database**: MongoDB with GridFS
 - **Containerization**: Docker & Docker Compose
 - **Background Services**: .NET BackgroundService
-- **Fee Calculation Language**: [IPFLang.Engine](https://github.com/vbocan/IPFLang) (NuGet package)
+- **Fee Calculation Language**: [IPFLang](https://github.com/vbocan/IPFLang) engine, carried as source in `src/IPFLang.Engine`
 - **Testing**: xUnit, Testcontainers
 
 ### Key Features
@@ -169,12 +169,13 @@ deploy your own instance behind a gateway that enforces it.
 
 ## Relationship to IPFLang
 
-The fee calculation language began inside this repository as `IPFees.Calculator`. It was
-extracted into a separate project, given a formal grammar, a currency-aware type system and
-static verification, and published as [IPFLang](https://github.com/vbocan/IPFLang). IPFees
-now consumes it as a versioned package rather than carrying a copy of it.
+Fee schedules are written in [IPFLang](https://github.com/vbocan/IPFLang), which has its own
+repository, grammar and article. IPFees carries the engine and the reference corpus as source
+in `src/IPFLang.Engine`, so the schedules and the analyses that check them are versioned with
+the application that serves them. `src/IPFLang.Engine/VENDORED.md` records the upstream commit
+and every change made here.
 
-What that buys the platform:
+What the engine gives the platform:
 
 | Engine capability | Where IPFees surfaces it |
 |---|---|
@@ -184,9 +185,9 @@ What that buys the platform:
 | Provenance and counterfactuals | Calculation audit trail |
 | Embedded jurisdiction corpus | 119 reference schedules shipped with the engine |
 
-`IPFees.Core.Tests` includes an equivalence suite that holds the current corpus accountable
-to the schedules IPFees shipped before the change: every fee definition present in both
-computes the same amount from the same inputs.
+`IPFees.Core.Tests` pins properties of the corpus: every completeness directive holds (three
+Chinese fees are listed as open), translation is priced in EUR, per-block charges round up, and
+every verification directive finishes within the editor's time budget.
 
 ## Citation
 
