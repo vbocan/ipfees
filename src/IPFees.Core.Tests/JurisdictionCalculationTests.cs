@@ -142,7 +142,9 @@ namespace IPFees.Core.Tests
 
             var romania = Assert.Single(explanations);
             Assert.NotEmpty(romania.Fees);
-            Assert.True(romania.GrandTotal > 0);
+            var eur = Assert.Single(romania.Totals);
+            Assert.Equal("EUR", eur.Currency);
+            Assert.True(eur.Total > 0);
 
             // A schedule reports the steps it skipped as well as those it applied; an absent
             // charge is as much a part of the explanation as a present one.
@@ -154,8 +156,30 @@ namespace IPFees.Core.Tests
             Assert.All(steps.Where(s => s.Applied), s => Assert.False(string.IsNullOrWhiteSpace(s.Expression)));
 
             // Mandatory and optional are separated, matching how the schedule declares them.
-            Assert.Equal(romania.TotalMandatory + romania.TotalOptional, romania.GrandTotal);
+            Assert.Equal(romania.Fees.Where(f => !f.Optional).Sum(f => f.Amount), eur.Mandatory);
+            Assert.Equal(romania.Fees.Where(f => f.Optional).Sum(f => f.Amount), eur.Optional);
             Assert.Contains(romania.Fees, f => f.Optional);
+        }
+
+        [Fact]
+        public async Task ExplanationTotalsEachCurrencySeparately()
+        {
+            var manager = await SeedAndBuildManager();
+
+            // Switzerland prices its official fees in CHF and translation and the agent's fee in
+            // EUR. With the defaults (ten claims, so no claim fee; 5,000 words) the schedule owes
+            // 200 CHF mandatory, 500 CHF optional examination and 700 EUR optional. Adding these as
+            // bare numbers would report 1,400 for the whole schedule.
+            var (inputs, _, _) = manager.GetConsolidatedInputs(new[] { "CH" });
+            var swiss = Assert.Single(manager.Explain(new[] { "CH" }, DefaultsFor(inputs)));
+
+            Assert.Equal(new[] { "CHF", "EUR" }, swiss.Totals.Select(t => t.Currency));
+            Assert.Equal((200m, 500m), (swiss.Totals[0].Mandatory, swiss.Totals[0].Optional));
+            Assert.Equal((0m, 700m), (swiss.Totals[1].Mandatory, swiss.Totals[1].Optional));
+
+            // Every fee carries the currency its contributions are in.
+            Assert.All(swiss.Fees, f => Assert.False(string.IsNullOrEmpty(f.Currency)));
+            Assert.Equal("EUR", swiss.Fees.Single(f => f.Name == "AgentServiceFee").Currency);
         }
 
         [Fact]

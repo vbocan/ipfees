@@ -16,20 +16,19 @@ namespace IPFees.Core.FeeCalculation
     /// The fee document's own id, so a caller can link straight to its IPFLang source (the
     /// Fee/Edit page) without a second lookup by name.
     /// </param>
-    /// <param name="TotalMandatory">Sum of the fees that are always incurred.</param>
-    /// <param name="TotalOptional">Sum of the fees marked OPTIONAL in the schedule.</param>
+    /// <param name="Totals">
+    /// The fees that are always incurred and those marked OPTIONAL, added up per currency. A
+    /// schedule whose official fees are in CHF and whose translation is in EUR has two totals; the
+    /// engine's own totals add such amounts as bare numbers and are not reported.
+    /// </param>
     public record FeeExplanation(
         Guid Id,
         string FeeName,
         string FeeDescription,
-        decimal TotalMandatory,
-        decimal TotalOptional,
+        IReadOnlyList<CurrencyTotal> Totals,
         IReadOnlyDictionary<string, string> Inputs,
         IReadOnlyList<ExplainedFee> Fees,
-        IReadOnlyList<ExplainedAlternative> Alternatives)
-    {
-        public decimal GrandTotal => TotalMandatory + TotalOptional;
-    }
+        IReadOnlyList<ExplainedAlternative> Alternatives);
 
     /// <param name="Steps">
     /// Every yield the engine evaluated for this fee, in the order it evaluated them, including
@@ -63,6 +62,8 @@ namespace IPFees.Core.FeeCalculation
     /// <summary>
     /// What the total would have been had one input differed. Answers the question a
     /// practitioner asks after seeing a figure: what would it cost if we filed differently.
+    /// The totals are the engine's, which add fee amounts as bare numbers; they are amounts only
+    /// when every fee of the schedule is priced in one currency.
     /// </summary>
     public record ExplainedAlternative(
         string InputName,

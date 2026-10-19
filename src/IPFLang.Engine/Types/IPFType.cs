@@ -28,6 +28,17 @@ namespace IPFLang.Types
     }
 
     /// <summary>
+    /// A name the type environment does not bind. Compared with a list input it is one of the
+    /// list's choice symbols (<c>EntitySize EQ Entity_Large</c>) and behaves as a string; where a
+    /// number is needed it is a name that was never declared, such as an input a base schedule no
+    /// longer provides, and is reported as undefined rather than as a string.
+    /// </summary>
+    public record IPFTypeSymbol(string Name) : IPFTypeString
+    {
+        public override string ToString() => "String";
+    }
+
+    /// <summary>
     /// Boolean type
     /// </summary>
     public record IPFTypeBoolean : IPFType

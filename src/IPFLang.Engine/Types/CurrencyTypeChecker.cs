@@ -154,6 +154,12 @@ namespace IPFLang.Types
             // Check yield value type
             var valueType = InferType(yield.Values, env, context);
 
+            // A yield is an amount; a bare name it cannot resolve was never declared
+            if (valueType is IPFTypeSymbol symbol)
+            {
+                _errors.Add(TypeError.UndefinedVariable(symbol.Name, context));
+            }
+
             // If we have an expected return type, check compatibility
             if (expectedReturnType != null && valueType is not IPFTypeError)
             {
@@ -314,9 +320,9 @@ namespace IPFLang.Types
             var argType = InferExpressionType(argTokens, env, context);
 
             // Argument must be numeric
-            if (argType is not (IPFTypeNumber or IPFTypeAmount or IPFTypeVariable))
+            if (!IsNumeric(argType))
             {
-                _errors.Add(TypeError.ArithmeticOnNonNumeric(argType, $"{tokens[0]} argument"));
+                ReportNonNumeric(argType, $"{tokens[0]} argument");
             }
 
             // If there are tokens after the function call, it's part of a larger expression
@@ -425,8 +431,9 @@ namespace IPFLang.Types
             }
 
             // Treat as string literal (for list choice symbols like EntityType EQ NormalEntity)
-            // This is a valid token that represents a choice symbol in a comparison
-            return new IPFTypeString();
+            // This is a valid token that represents a choice symbol in a comparison. It keeps its
+            // name, so that where a number is needed it is reported as undefined.
+            return new IPFTypeSymbol(token);
         }
 
         /// <summary>
@@ -455,6 +462,18 @@ namespace IPFLang.Types
             // Comparison operators - result is boolean
             if (ComparisonOperators.Contains(op))
             {
+                // A name compared with a number or an amount stands for a quantity, not a choice
+                // symbol, so it must be declared (ClaimCount GT 10 after ClaimCount was removed).
+                // Dates are left out: a date literal is itself an unbound name to this checker.
+                if (leftType is IPFTypeSymbol leftSymbol && IsNumeric(rightType))
+                {
+                    _errors.Add(TypeError.UndefinedVariable(leftSymbol.Name, context));
+                }
+                if (rightType is IPFTypeSymbol rightSymbol && IsNumeric(leftType))
+                {
+                    _errors.Add(TypeError.UndefinedVariable(rightSymbol.Name, context));
+                }
+
                 // For comparisons, both sides should be same type
                 if (!TypesCompatible(leftType, rightType, env) &&
                     leftType is IPFTypeAmount && rightType is IPFTypeAmount)
@@ -561,18 +580,39 @@ namespace IPFLang.Types
             }
 
             // Non-numeric types in arithmetic
-            if (left is not (IPFTypeNumber or IPFTypeAmount or IPFTypeVariable))
+            if (!IsNumeric(left))
             {
-                _errors.Add(TypeError.ArithmeticOnNonNumeric(left, context));
+                ReportNonNumeric(left, context);
                 return new IPFTypeError("Non-numeric operand");
             }
-            if (right is not (IPFTypeNumber or IPFTypeAmount or IPFTypeVariable))
+            if (!IsNumeric(right))
             {
-                _errors.Add(TypeError.ArithmeticOnNonNumeric(right, context));
+                ReportNonNumeric(right, context);
                 return new IPFTypeError("Non-numeric operand");
             }
 
             return new IPFTypeNumber();
+        }
+
+        private static bool IsNumeric(IPFType type) => type is IPFTypeNumber or IPFTypeAmount or IPFTypeVariable;
+
+        /// <summary>
+        /// Report an operand that cannot take part in arithmetic. An undeclared name is reported
+        /// as such, and an operand whose own error was already reported is not reported again.
+        /// </summary>
+        private void ReportNonNumeric(IPFType type, string context)
+        {
+            switch (type)
+            {
+                case IPFTypeError:
+                    break;
+                case IPFTypeSymbol symbol:
+                    _errors.Add(TypeError.UndefinedVariable(symbol.Name, context));
+                    break;
+                default:
+                    _errors.Add(TypeError.ArithmeticOnNonNumeric(type, context));
+                    break;
+            }
         }
 
         /// <summary>

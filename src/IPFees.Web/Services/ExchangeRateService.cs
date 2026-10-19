@@ -1,4 +1,5 @@
 using Microsoft.Extensions.Configuration;
+using IPFees.Core.CurrencyConversion;
 using IPFLang.CurrencyConversion;
 
 namespace IPFees.Web.Services
@@ -50,34 +51,15 @@ namespace IPFees.Web.Services
             {
                 var configDataFolder = configuration.GetValue<string>("DataFolder");
                 var csvFilePath = Path.Combine(Directory.GetCurrentDirectory(), configDataFolder ?? "wwwroot/data", "exchange_rates.csv");
-                if (!File.Exists(csvFilePath))
+                var response = FallbackExchangeRates.Load(csvFilePath, line => logger.LogWarning("Ignoring malformed exchange rate line: {Line}", line));
+                if (response.Status == ResponseStatus.Invalid)
                 {
-                    logger.LogError($"Default exchange rates CSV file not found at: {csvFilePath}");
-                    return new ExchangeRateResponse(ResponseStatus.Invalid, "Default exchange rates CSV file not found", new Dictionary<string, decimal>(), DateTime.Now);
+                    logger.LogError(response.Reason);
+                    return response;
                 }
 
-                var exchangeRates = new Dictionary<string, decimal>();
-                var lines = File.ReadAllLines(csvFilePath);
-
-                // Skip header line
-                for (int i = 1; i < lines.Length; i++)
-                {
-                    var line = lines[i].Trim();
-                    if (string.IsNullOrEmpty(line)) continue;
-
-                    var parts = line.Split(';');
-                    if (parts.Length >= 2)
-                    {
-                        var currencyCode = parts[0];
-                        if (decimal.TryParse(parts[1], out var rate))
-                        {
-                            exchangeRates[currencyCode] = rate;
-                        }
-                    }
-                }
-
-                logger.LogInformation($"Loaded {exchangeRates.Count} default exchange rates from CSV");
-                return new ExchangeRateResponse(ResponseStatus.Stale, "Loaded from default CSV file", exchangeRates, DateTime.Now);
+                logger.LogInformation($"Loaded {response.ExchangeRates.Count} default exchange rates from CSV");
+                return response;
             }
             catch (Exception ex)
             {

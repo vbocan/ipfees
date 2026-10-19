@@ -19,6 +19,15 @@ This directory is the IPFLang engine and its reference corpus, carried as source
   now take the multi-select list as the variable, as the evaluator does. The analysis used to
   take the symbol, found no input of that name, and reported any fee guarded by membership as
   having no yields. Tests: `CompletenessTests.CheckCompleteness_Membership*`.
+- `Types/CurrencyTypeChecker.cs`, `Types/IPFType.cs`, `Types/TypeError.cs`: a name the checker
+  cannot resolve is still typed as a string, so that list choice symbols compare as before, but
+  it now keeps its name (`IPFTypeSymbol`). Used in arithmetic, inside `CEIL`, `FLOOR` or `ROUND`,
+  compared with a number or an amount, or as a yield's whole value, it is reported as
+  `[UndefinedVariable] 'ClaimCount' is not declared as an input or a LET variable`. The checker
+  used to report "Cannot perform arithmetic on non-numeric type: String", and inside a function
+  also a second error about the failed subexpression; that is what a member state's schedule was
+  told when its regional base dropped an input it reads. Tests:
+  `CurrencyTypeTests.TestTypeCheckerUndeclaredName*`, `TestTypeCheckerChoiceSymbolsRemainValid`.
 
 ### Corpus
 
