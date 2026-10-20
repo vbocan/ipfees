@@ -12,7 +12,7 @@
 #
 # =============================================================================
 
-VERSION '2026.10' EFFECTIVE 2024-01-01 DESCRIPTION 'Entry of national phase in Mongolia'
+VERSION '2026.10' EFFECTIVE 2021-07-01 DESCRIPTION 'Entry of national phase in Mongolia'
 
 
 # Groups
@@ -150,13 +150,17 @@ ENDDEFINE
 
 # File name: PCT-MN-OFF
 # File content: Official fees for PCT national phase: Mongolia
-# Valid until n/a
+# Checked against the fees in force on 20 October 2026 (IPOM invention service fees; Government Resolution 151 of 2021)
 # Is newer than 30 days: False
-# Fees keywords: []
+# Fees keywords: ['claim', 'claims']
 
 COMPUTE FEE OFF_BasicNationalFee
-LET Fee1 AS 2500
+# Filing an invention application: 35,000 MNT with up to five claims, 5,000 MNT for each further claim.
+LET Fee1 AS 35000
 YIELD Fee1
+YIELD 5000*(ClaimCount-5) IF ClaimCount GT 5
+# Nothing more is due with five claims or fewer; stated so the schedule answers it.
+YIELD 0 IF ClaimCount LTE 5
 ENDCOMPUTE
 
 #annuities after grant
