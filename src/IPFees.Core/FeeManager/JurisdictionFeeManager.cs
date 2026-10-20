@@ -29,7 +29,7 @@ namespace IPFees.Core.FeeManager
 
         public (IEnumerable<DslInput>, IEnumerable<DslGroup>, IEnumerable<FeeResultFail>) GetConsolidatedInputs(IEnumerable<string> JurisdictionNames)
         {
-            var Inputs = new List<DslInput>();
+            var Inputs = new List<(DslInput Input, string Schedule)>();
             var Groups = new List<DslGroup>();
             var Errors = new List<FeeResultFail>();
             foreach (var jur in JurisdictionNames)
@@ -45,14 +45,41 @@ namespace IPFees.Core.FeeManager
                     else
                     {
                         var fps = inp as FeeResultParse;
-                        Inputs.AddRange(fps!.FeeInputs);
+                        Inputs.AddRange(fps!.FeeInputs.Select(i => (i, f.Name)));
                         Groups.AddRange(fps.FeeGroups);
                     }
                 }
             }
-            var DedupedInputs = Inputs.DistinctBy(d => d.Name);
+            // Inputs are merged by name, so a question the offices share is asked once. The first
+            // declaration is kept; a schedule that declares the same name otherwise is reported, so
+            // that a maintainer learns of it before a practitioner is asked the wrong question.
+            foreach (var byName in Inputs.GroupBy(i => i.Input.Name))
+            {
+                var first = byName.First();
+                var differing = byName.Where(i => Describe(i.Input) != Describe(first.Input)).ToList();
+                if (differing.Count == 0) continue;
+                Errors.Add(new FeeResultInputConflict(byName.Key, differing.Select(d =>
+                    $"Input '{byName.Key}' is declared by {first.Schedule} as {Describe(first.Input)} " +
+                    $"and by {d.Schedule} as {Describe(d.Input)}; the questionnaire uses {first.Schedule}'s declaration.")));
+            }
+            var DedupedInputs = Inputs.Select(i => i.Input).DistinctBy(d => d.Name);
             var DedupedGroups = Groups.DistinctBy(d => d.Name);
             return (DedupedInputs, DedupedGroups, Errors);
+        }
+
+        private static string Describe(DslInput input)
+        {
+            var kind = input switch
+            {
+                DslInputBoolean b => $"a boolean defaulting to {b.DefaultValue}",
+                DslInputList l => $"a list of {string.Join(", ", l.Items.Select(i => $"{i.Symbol} '{i.Value}'"))} defaulting to {l.DefaultSymbol}",
+                DslInputListMultiple m => $"a multi-select list of {string.Join(", ", m.Items.Select(i => $"{i.Symbol} '{i.Value}'"))} defaulting to {string.Join(", ", m.DefaultSymbols)}",
+                DslInputNumber n => $"a number between {n.MinValue} and {n.MaxValue} defaulting to {n.DefaultValue}",
+                DslInputDate d => $"a date between {d.MinValue:yyyy-MM-dd} and {d.MaxValue:yyyy-MM-dd} defaulting to {d.DefaultValue:yyyy-MM-dd}",
+                DslInputAmount a => $"an amount in {a.Currency} defaulting to {a.DefaultValue}",
+                _ => input.GetType().Name,
+            };
+            return $"'{input.Text}' in group {input.Group}, {kind}";
         }
 
         /// <summary>

@@ -1,3 +1,4 @@
+using IPFees.Core.FeeCalculation;
 using IPFees.Core.FeeManager;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -12,6 +13,7 @@ namespace IPFees.Web.Areas.Run.Pages
         public IEnumerable<GroupViewModel> Groups { get; set; } = null!;
         public int[] UncategorizedInputs { get; set; } = null!;
         public IEnumerable<string> Errors { get; set; } = null!;
+        public IEnumerable<string> Conflicts { get; set; } = new List<string>();
 
         private readonly IJurisdictionFeeManager jurisdictionFeeManager;
         private readonly ILogger<DataCollectModel> _logger;
@@ -40,7 +42,8 @@ namespace IPFees.Web.Areas.Run.Pages
                 .Select((s, index) => new { Value = s, Index = index })
                 .Where(x => x.Value.Group.Equals(string.Empty))
                 .Select(x => x.Index).ToArray();
-            Errors = errs.Select(s => $"[{s.FeeName}] - {s.FeeName} (Internal Error)");
+            Errors = errs.Where(s => s is not FeeResultInputConflict).Select(s => $"[{s.FeeName}] - {s.FeeName} (Internal Error)");
+            Conflicts = errs.OfType<FeeResultInputConflict>().SelectMany(s => s.Errors).ToList();
             return Page();
         }
     }

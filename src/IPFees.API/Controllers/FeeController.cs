@@ -51,7 +51,13 @@ namespace IPFees.API.Controllers
             }
 
             var (Inputs, Groups, Errors) = jurisdictionFeeManager.GetConsolidatedInputs(JurisdictionList);
-            // If there are any errors, there must be a serious internal server error
+            // Schedules that declare a shared input differently cannot be given one set of parameters
+            var Conflicts = Errors.OfType<FeeResultInputConflict>().SelectMany(c => c.Errors).ToList();
+            if (Conflicts.Count > 0)
+            {
+                return Conflict(Conflicts);
+            }
+            // Any other error is a serious internal server error
             if (Errors.Any())
             {
                 return StatusCode(StatusCodes.Status500InternalServerError);

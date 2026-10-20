@@ -70,5 +70,15 @@
                 }
             </ul>
         }
+        @if (Model.Conflicts.Any())
+        {
+            <p>The selected schedules declare some inputs differently:</p>
+            <ul>
+                @foreach (var c in Model.Conflicts)
+                {
+                    <li>@c</li>
+                }
+            </ul>
+        }
     </div>
 </div>
