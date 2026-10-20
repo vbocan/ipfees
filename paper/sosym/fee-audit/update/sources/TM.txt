@@ -1,0 +1,479 @@
+Source: https://pctlegal.wipo.int/eGuide/view-doc.xhtml?doc-code=TM&doc-lang=en
+Retrieved: 2026-10-20
+
+PCT Applicant's Guide Turkmenistan - Valid as from
+July 30, 2026
+Processing
+Please wait...
+GENERAL INFO
+RO
+BIO
+NATIONAL CHAPTER
+TM - Useful information TM - International Phase TM - Annex B - Information on Contracting States or Intergovernmental Organization TM - Annex C - Receiving Office TM - Annex L - Deposits of Microorganisms and Other Biological Material TM - National Phase TM - Summary of requirements for entry into the national phase TM - The procedure in the national Phase TM - Annexes
+WIPO - PCT Applicant's Guide
+TM - Turkmenistan
+State Service for Intellectual Property of the Ministry of Finance and Economy of Turkmenistan
+Information
+Please refresh this page to proceed.
+Refresh
+Error
+Information
+Warning
+Confirmation
+Cancel No Yes Ok
+All document versions available for TM - Turkmenistan
+Listed from the newest to the oldest -
+Close
+Applicable as from
+July 30, 2026
+(Last updated on July 31, 2026)
+Summary of latest changes in this version
+Useful information: National legislation
+GENERAL INFO: Contact details, National security provisions, PCT Types of protection, Provisional protection, Information of interest for DO/EO
+RO: Languages, Electronic filing, Restoration of the right of priority, RO fees, Waiver of power of attorney
+Summary of requirements for entry into the national phase: Time limits for national phase entry, Reinstatement of rights, Translation, Color drawings, National fees
+The procedure in the national Phase: New Annex
+Annexes: New Annex
+List of changes
+All available versions
+Useful information
+The PCT Applicant’s Guide is updated almost every week with information received by the International Bureau.
+In case of question, please contact the Office or the International Bureau: pct.guide@wipo.int .
+List of abbreviations used in this document:
+Office: State Service for Intellectual Property of the Ministry of Finance and Economy of Turkmenistan IPL: Law on the Legal Protection of Inventions (Law No. 629-V of November 4, 2017)
+List of currencies used in this document:
+USD (US dollar)
+Countries and Offices information:
+The list of acronyms used for Offices is no longer shown as it has been integrated in the mouseover functionality for each ST.3 code shown in this document.
+Refer to List of WIPO Standards, Recommendations and Guidelines formerly Annex K, List of country names and two-letter codes. It includes a list of short names and two-letter codes accepted for use in indicating States, other entities and intergovernmental organizations and their Offices in documents relating to international applications under the PCT. The list is as set out in WIPO Standard ST.3.
+Also refer to PCT Contracting States formerly Annex A.
+Office profile
+For more technical information about the Office, refer to ePCT Office profile .
+PCT Reservations, Declarations, Notifications and Incompatibilities
+Article 64(5) Refer to the full list .
+Office Closed dates
+The Office is closed weekly on Saturday and Sunday Additional closed dates can be consulted on the Office Closed dates page
+International Phase
+Annex B - Information on Contracting States or Intergovernmental Organization
+Contracting State:
+Turkmenistan
+Two-letter code:
+TM
+Name of Office:
+State Service for Intellectual Property of the Ministry of Finance and Economy of Turkmenistan
+Location:
+Archabil av., 156
+744000 Ashgabat c.
+Turkmenistan
+Mailing address:
+Same as above
+Telephone:
+(993-12) 39 46 86
+(993-12) 39 46 84
+E-mail:
+tmpatent@sanly.tm
+Website:
+https://fineconomic.gov.tm
+Facsimile:
+(993-12) 98 24 45
+Does the Office accept the filing of documents by facsimile or the like means (PCT Rule 92.4)?
+No
+Would the Office accept evidence of mailing a document, in case of loss or delay, where a delivery service other than the postal authorities is used (PCT Rule 82.1)?
+Yes, provided that the delivery service is: DHL , UPS
+Is the Office prepared to allow applicants to make applications available to the WIPO Digital Access Service for Priority Documents (DAS) (PCT Rule 17.1(b- bis )?
+More information about WIPO DAS is available at: https://www.wipo.int/en/web/das . No
+Competent receiving Office(s) for international applications filed by nationals or residents of this State:
+EA , IB , TM
+Does national legislation restrict the filing of international applications with foreign Offices?
+An invention created in Turkmenistan may be filed abroad or with an international organization only after four months have elapsed from the date of filing a corresponding application with the Office, provided that within that period the applicant has not been notified that the application contains information constituting a State secret (IPL Article 40(1)). If the applicant is notified that the application contains a State secret, foreign filing is not permitted and the legal protection of the invention is governed by the legislation on secret inventions (IPL Article 5(3)). The restriction does not apply if the international application is filed with the Office as Receiving Office. In that case, no prior national filing is required and no waiting period is imposed (IPL Article 40(2)). However, the State secret prohibition described above continues to apply. Further information may be obtained directly from the Office. Yes, filing restrictions apply to: Inventions created in Turkmenistan
+Competent designated (or elected) Office(s) for this State:
+National protection: TM Eurasian patent: EA
+Types of protection available via the PCT:
+National: Patents , Limited patents Eurasian: Patents
+Payment methods accepted by the Office:
+Refer to the Office
+Availability under the national law for an international-type search (PCT Article 15):
+None
+Provisional protection after international publication:
+Provisional protection is afforded only from the date the Office publishes the application details in its Bulletin. Such publication takes place after the required translation into the Turkmen language has been furnished and the relevant fees have been paid following entry into the national phase (IPL Art. 5(4) and 21(3)).
+Information of interest if this Contracting State is designated (or elected)
+For national protection
+Time when the name and address of the inventor must be given:
+Must be in the request. If the data concerning the inventor are missing at the expiry of the time limit under PCT Article 22 or 39(1)(a), the Office will invite the applicant to comply with the requirement within a time limit of three months from the date of receipt of the invitation.
+Are there special provisions concerning the deposit of microorganisms and other biological material?
+Yes, refer to Annex L.
+For a Eurasian patent
+Refer to Annex B(EA)
+Annex C - Receiving Office
+Competent receiving Office for nationals and residents of:
+Turkmenistan
+Language in which international applications may be filed:
+If the language in which the international application is filed is not accepted by the International Searching Authority (refer to Annex D), the applicant will have to furnish a translation (PCT Rule 12.3). English , Russian
+Language accepted for language-dependent free text in the sequence listing:
+English , Russian
+Language in which the request may be filed:
+English , Russian
+Number of copies required by the receiving Office if the international application is filed on paper:
+2
+Does the receiving Office accept the filing of international applications in electronic form?
+No
+Does the receiving Office accept incorporation by reference (PCT Rule 20.6)?
+Yes
+Does the receiving Office accept the submission of color drawings on an informal basis and transmit them to the International Bureau?
+Refer to the Office
+Does the receiving Office accept requests for restoration of the right of priority (PCT Rule 26 bis .3)?
+Yes, the Office applies the “unintentional” criterion to such requests
+Competent International Searching Authority:
+EP , RU EA For international applications filed on or after 4 November 2022.
+Competent International Preliminary Examining Authority:
+RU EA For international applications filed on or after 4 November 2022. EP The Office is competent only if the international search is or has been carried out by that Office.
+Fees payable to the RO:
+Transmittal fee:
+Please refer to the Office
+International filing fee:
+This fee is reduced by 90% if certain conditions apply (refer to Annex C(IB)). 1,667 USD
+Fee per sheet in excess of 30:
+19 USD
+Search fee:
+Refer to
+Annex D(EA) For international applications filed on or after 4 November 2022. Annex D(EP)
+Annex D(RU)
+Fee for priority document (PCT Rule 17.1(b)):
+Please refer to the Office
+Fee for requesting restoration of the right of priority (PCT Rule 26 bis .3(d)):
+70 USD
+Is an agent required by the receiving Office?
+No, if the applicant resides in Turkmenistan Yes, if the applicant is a non-resident
+Who can act as agent?
+Any person registered to practice before the Office as patent attorney
+Waiver of power of attorney:
+Has the Office waived the requirement that a separate power of attorney be submitted?
+No
+Has the Office waived the requirement that a copy of a general power of attorney be submitted?
+No
+Annex L - Deposits of Microorganisms and Other Biological Material
+Requirements of designated and elected Offices
+Only Offices whose applicable national law contains provisions concerning the deposits of microorganisms and other biological material are listed in Annex L. Unless otherwise indicated, deposits may be made for the purposes of patent procedure before these Offices with any depositary institution having acquired the status of international depositary authority under the Budapest Treaty on the International Recognition of the Deposit of Microorganisms for the Purposes of Patent Procedure. For a list of these institutions refer to: https://www.wipo.int/documents/d/treaties/docs-en-registration-budapest-idalist.pdf (and the detailed requirements for each institution at: https://www.wipo.int/en/web/budapest-system/guide/section_d/subsection_c Notifications related thereto may be consulted under: https://www.wipo.int/en/web/treaties/registration/budapest/index Further information concerning the requirements of international depository authorities under the Budapest Treaty is available at: https://www.wipo.int/en/web/budapest-system/guide/index
+Time (if any) earlier than 16 months from priority date by which applicant must furnish:
+— the indications prescribed in Rule 13 bis .3(a)(i) to (iii):
+None
+— any additional indications:
+None
+Additional indications (if any) which must be given besides those prescribed in Rule 13 bis .3(a)(i) to (iii) pursuant to notifications from the Office:
+To the extent available to the applicant, relevant information on the characteristics of the microorganism
+Additional information
+Deposits may also be made for the purposes of patent procedure before the State Service for Intellectual Property of the Ministry of Finance and Economy of Turkmenistan, with any depositary institution.
+National Phase
+Summary of requirements for entry into the national phase
+Time limits applicable for entry into the national phase:
+Under PCT Article 22(3): 31 months from the priority date
+Under PCT Article 39(1)(b): 31 months from the priority date
+Does the Office permit reinstatement of rights (PCT Rule 49.6)?
+Yes, the Office permits reinstatement of rights under the "unintentional" criterion. Fee for reinstatement 70 USD
+Translation of international application required into (one of) the following language(s):
+Must be furnished within the time limit applicable under PCT Article 22 or 39(1). Turkmen
+Required contents of the translation for entry into the national phase:
+Must be furnished or paid within the time limit applicable under PCT Article 22 or 39(1). Under PCT Article 22: Description, claims (if amended, as amended only, together with any statement under PCT Article 19), any text matter of drawings, abstract Under PCT Article 39(1): Description, claims, any text matter of drawings, abstract (if any of those parts has been amended, only as amended by the annexes to the international preliminary examination report)
+Is a copy of the international application required in particular circumstances?
+No
+Does the Office accept color drawings under its national law?
+Yes
+National fees:
+Filing fee (includes publication and limited examination for one independent claim)
+Must be furnished or paid within the time limit applicable under PCT Article 22 or 39(1). 100 USD
+Claim fee for each independent claim in excess of one
+Must be furnished or paid within the time limit applicable under PCT Article 22 or 39(1). 30 USD
+Maintenance fee for patent (limited patent), for the 1st year
+50 USD
+Exemptions, reductions or refunds of fees:
+Fees are reduced by 90% for applicants who are individuals permanently residing in Turkmenistan (citizens of Turkmenistan, foreign citizens and stateless persons). Additional fee exemptions or a 50% reduction of certain fees may be available upon request for citizens of Turkmenistan belonging to specific socially protected categories (war veterans, disabled persons, students, etc.) Overpaid fees, or fees paid for an action that was not performed, may be refunded upon request made within three years from the date of payment
+Special requirements of the Office (PCT Rule 51 bis ):
+If not already complied with within the time limit applicable under PCT Article 22 or 39(1), the Office will invite the applicant to comply with the requirement within a time limit fixed in the invitation. Instrument of assignment of the priority application where the applicants are not identical This requirement may be satisfied if the corresponding declaration has been made in accordance with PCT Rule 4.17. Appointment of an agent if the applicant is not resident in Turkmenistan
+Who can act as agent?
+Any person registered to practice before the Office as patent attorney
+Does the Office accept the effect of restoration of the right of priority by the receiving Office (PCT Rule 49 ter .1)?
+Yes
+Does the Office accept requests for restoration of the right of priority (PCT Rule 49 ter .2)?
+Yes, the Office applies the “unintentional” criterion to such requests
+The procedure in the national Phase
+TM.01 TRANSLATION (CORRECTION)
+Errors in the translation of the international application can be corrected with reference to the text of the international application as filed (refer to National Phase, paragraphs NP 6.002 and NP 6.003).
+TM.02 FEES (MANNER OF PAYMENT)
+The manner of payment of the fees indicated in the Summary and in this Chapter is outlined in Annex TM.I.
+TM.03 REPRESENTATION
+IPL Art. 3(4) , IPL Art. 43(2) Applicants having their residence outside Turkmenistan must appoint a patent agent/attorney registered to practice before the Office. A list of registered patent agents/attorneys is available upon request from the Office and on the Office’s website at: https://fineconomic.gov.tm/legal-act/11/425 . An agent/attorney must be appointed by filing a power of attorney.
+TM.04 DESIGNATION OF INVENTOR
+IPL Art. 17(2)(1) , IPL Art. 21(4) The name and address of the inventor should be indicated in the request. If they are not, the Office will invite the applicant to furnish them within three months from the date of the invitation. The inventor has the right to waive being mentioned in the published application and patent.
+TM.05 PRIORITY DOCUMENT (TRANSLATION)
+PCT Rule 17 .2 (a) The Office requires the applicant to furnish a translation of the priority document into the Turkmen language only in certain cases where required for the examination. If not already furnished, the Office will invite the applicant to furnish a translation of the priority document within a time limit which shall be fixed in the invitation.
+TM.06 EXAMINATION
+IPL Art. 21 , IPL Art. 22 The Office examines the application as to formal requirements. If the application contains formal defects, the Office invites the applicant to submit corrections and/or amendments within three months. If the application meets those requirements, the Office publishes it in its Bulletin (provisional protection is afforded from the date of this publication). The limited patent examination is conducted without the need for a request from the applicant. If the outcome is positive, a limited patent (10 year term) may be granted. The applicant may instead pursue a patent (20 year term) by following the procedure in TM.07.
+TM.07 REQUEST FOR EXAMINATION
+IPL Art. 22 , IPL Art. 23 A patent is granted only after substantive examination. Upon being notified that the limited patent may be granted, the applicant may request suspension of that grant (by paying the prescribed fee) and, within five years from the filing date, file a request for substantive examination accompanied by the supporting documents.
+TM.08 CONVERSION OF A LIMITED PATENT
+IPL Art. 24 A granted limited patent may be converted into a patent at any time before its expiry. Conversion requires a request, accompanied by the supporting documents and the prescribed fee.
+TM.09 AMENDMENT OF THE APPLICATION; TIME LIMITS
+PCT Article 28 , PCT Article 41 , IPL Art. 19 , IPL Art. 41 Within three months after entry into the national phase, the applicant has the right to amend or correct any element of his international application on his own initiative, without paying any fee for that purpose, provided that the amendments or corrections do not modify the subject matter of the claimed invention beyond the original disclosure. After the expiration of the said time limit, such amendments or corrections may be made only on payment of the prescribed fee and only until the decision on grant is taken.
+TM.10 ANNUAL FEES
+IPL Art. 6(3) , IPL Art. 35 After a patent or limited patent has been granted, annual fees are payable for maintaining it in force. The first annual fee should be paid simultaneously with payment of the fee for registration and for granting the patent or limited patent. All subsequent fees are to be paid before the beginning of the corresponding year. If an annual fee is not paid in time, a grace period of six months is available, subject to a surcharge. Where a patent or limited patent lapses due to non payment of an annual fee, restoration may be requested within three years from the date of lapse upon payment of the missed fees and the prescribed reinstatement fee.
+TM.11 EXCUSE OF DELAYS IN MEETING TIME LIMITS
+PCT Article 24(2) , PCT Article 48(2) , PCT Rule 82 bis , IPL Art. 25(2) Where, during the international phase or before the Office, the applicant has missed a time limit for performing any act in relation to the international application, such time limit may be extended by the Office upon request by the applicant and where justified and subject to payment of the prescribed fee. Other time limits set by the Office during the national phase may also be reinstated upon request and payment of the required fee.
+TM.12 REINSTATEMENT OF RIGHTS
+PCT Rule 49 .6 , IPL Art. 41(2) Where the applicant has failed to meet the time limit for entry into the national phase, reinstatement may be requested within three months from the removal of the cause of the failure to meet the applicable time limit or 12 months from the date of expiry of the missed time limit, upon payment of the prescribed fee.
+TM.13 REVIEW UNDER ARTICLE 25 OF THE PCT
+PCT Article 25 , PCT Rule 51 The applicable procedure is outlined in paragraphs NP 6.018 to NP 6.021 of the National Phase.
+TM.14 APPEALS
+IPL Art. 25(1) , IPL Art. 37 Any decision of the formal examination, limited patent examination or patent examination may be contested by filing an objection with the Appeals Commission within three months from the date the decision was sent, subject to payment of the prescribed fee. The decision of the Appeals Commission may be appealed to a court within six months from its approval.
+Annexes
+Annex TM.I - Fees
+Filing, publication and limited examination fee:
+— for one independent claim
+100 USD
+— for each independent claim in excess of one
+30 USD
+Fee for reinstatement of rights (PCT Rule 49.6)
+70 USD
+Fee for restoration of the right of priority
+70 USD
+Fee for correction or amendment of application (after three months from the filing date)
+30 USD
+Fee for suspension of the grant of a limited patent
+50 USD
+Fee for request for patent examination
+120 USD
+Fee for conversion of a limited patent into a patent
+120 USD
+Fee for grant, registration and patent (or limited patent) publication
+400 USD
+Annual fees:
+The annual fees shall be reduced by 50% where a notice about an open license is filed with the Office. The reduction shall apply as from the year following the year of publication of information on the notice.
+— for the 1st year
+50 USD
+— for the 2nd year
+75 USD
+— for the 3rd year
+100 USD
+— for the 4th year
+125 USD
+— for the 5th year
+150 USD
+— for the 6th year
+175 USD
+— for the 7th year
+200 USD
+— for the 8th year
+225 USD
+— for the 9th year
+250 USD
+— for the 10th year
+275 USD
+— for the 11th year
+300 USD
+— for the 12th year
+325 USD
+— for the 13th year
+350 USD
+— for the 14th year
+375 USD
+— for the 15th year
+400 USD
+— for the 16th year
+450 USD
+— for the 17th year
+500 USD
+— for the 18th year
+550 USD
+— for the 19th year
+600 USD
+— for the 20th year
+650 USD
+How can payment of fees be effected?
+Fees must be paid in US dollars (or in manats, if the applicant qualifies as a resident individual or a legal entity of Turkmenistan). All payments should indicate the application number (national, if already known; international, if the national number is not yet known), the name of the applicant and the category of fee being paid. Payment details may be obtained directly from the Office.
+Forms
+Please refer to the Office.
+Change(s) as of July 30, 2026
+Please find below in blue all the changes done in this version (including editorial changes).
+Useful information
+List of abbreviations used in this document:
+IPL: Law on the Legal Protection of Inventions (Law No. 629-V of November 4, 2017)
+Annex B - Information on Contracting States or Intergovernmental Organization
+Location:
+Archabil av., 156
+744000 Ashgabat c.
+Turkmenistan
+Mailing address:
+Same as above
+Website:
+https://fineconomic.gov.tm
+Does national legislation restrict the filing of international applications with foreign Offices?
+An invention created in Turkmenistan may be filed abroad or with an international organization only after four months have elapsed from the date of filing a corresponding application with the Office, provided that within that period the applicant has not been notified that the application contains information constituting a State secret (IPL Article 40(1)). If the applicant is notified that the application contains a State secret, foreign filing is not permitted and the legal protection of the invention is governed by the legislation on secret inventions (IPL Article 5(3)). The restriction does not apply if the international application is filed with the Office as Receiving Office. In that case, no prior national filing is required and no waiting period is imposed (IPL Article 40(2)). However, the State secret prohibition described above continues to apply. Further information may be obtained directly from the Office.
+Yes, filing restrictions apply to:
+Inventions created in Turkmenistan
+Types of protection available via the PCT:
+Limited patents
+Provisional protection after international publication:
+Provisional protection is afforded only from the date the Office publishes the application details in its Bulletin. Such publication takes place after the required translation into the Turkmen language has been furnished and the relevant fees have been paid following entry into the national phase (IPL Art. 5(4) and 21(3)).
+Time when the name and address of the inventor must be given:
+Must be in the request. If the data concerning the inventor are missing at the expiry of the time limit under PCT Article 22 or 39(1)(a), the Office will invite the applicant to comply with the requirement within a time limit of three months from the date of receipt of the invitation.
+Annex C - Receiving Office
+Language accepted for language-dependent free text in the sequence listing:
+English
+Russian
+Language in which the request may be filed:
+English
+Russian
+Does the receiving Office accept the filing of international applications in electronic form?
+No
+Does the receiving Office accept requests for restoration of the right of priority (PCT Rule 26 bis .3)?
+Yes, the Office applies the “unintentional” criterion to such requests
+Fee for requesting restoration of the right of priority (PCT Rule 26 bis .3(d)):
+70 USD
+Has the Office waived the requirement that a separate power of attorney be submitted?
+No
+Has the Office waived the requirement that a copy of a general power of attorney be submitted?
+No
+Summary of requirements for entry into the national phase
+Time limits applicable for entry into the national phase:
+Under PCT Article 22(3): 31 months from the priority date
+Under PCT Article 39(1)(b): 31 months from the priority date
+Does the Office permit reinstatement of rights (PCT Rule 49.6)?
+Yes, the Office permits reinstatement of rights under the "unintentional" criterion.
+Fee for reinstatement
+70 USD
+Translation of international application required into (one of) the following language(s):
+Must be furnished within the time limit applicable under PCT Article 22 or 39(1).
+Does the Office accept color drawings under its national law?
+Yes
+Filing fee (includes publication and limited examination for one independent claim)
+Claim fee for each independent claim in excess of one
+30 USD
+Maintenance fee for patent (limited patent), for the 1st year
+Exemptions, reductions or refunds of fees:
+Fees are reduced by 90% for applicants who are individuals permanently residing in Turkmenistan (citizens of Turkmenistan, foreign citizens and stateless persons). Additional fee exemptions or a 50% reduction of certain fees may be available upon request for citizens of Turkmenistan belonging to specific socially protected categories (war veterans, disabled persons, students, etc.)
+Overpaid fees, or fees paid for an action that was not performed, may be refunded upon request made within three years from the date of payment
+Does the Office accept requests for restoration of the right of priority (PCT Rule 49 ter .2)?
+Yes, the Office applies the “unintentional” criterion to such requests
+The procedure in the national Phase
+TM.01 TRANSLATION (CORRECTION)
+Errors in the translation of the international application can be corrected with reference to the text of the international application as filed (refer to National Phase, paragraphs NP 6.002 and NP 6.003).
+TM.02 FEES (MANNER OF PAYMENT)
+The manner of payment of the fees indicated in the Summary and in this Chapter is outlined in Annex TM.I.
+TM.03 REPRESENTATION
+IPL Art. 3(4)
+IPL Art. 43(2)
+Applicants having their residence outside Turkmenistan must appoint a patent agent/attorney registered to practice before the Office. A list of registered patent agents/attorneys is available upon request from the Office and on the Office’s website at: https://fineconomic.gov.tm/legal-act/11/425 . An agent/attorney must be appointed by filing a power of attorney.
+TM.04 DESIGNATION OF INVENTOR
+IPL Art. 17(2)(1)
+IPL Art. 21(4)
+The name and address of the inventor should be indicated in the request. If they are not, the Office will invite the applicant to furnish them within three months from the date of the invitation. The inventor has the right to waive being mentioned in the published application and patent.
+TM.05 PRIORITY DOCUMENT (TRANSLATION)
+PCT Rule 17.2(a)
+The Office requires the applicant to furnish a translation of the priority document into the Turkmen language only in certain cases where required for the examination. If not already furnished, the Office will invite the applicant to furnish a translation of the priority document within a time limit which shall be fixed in the invitation.
+TM.06 EXAMINATION
+IPL Art. 21
+IPL Art. 22
+The Office examines the application as to formal requirements. If the application contains formal defects, the Office invites the applicant to submit corrections and/or amendments within three months. If the application meets those requirements, the Office publishes it in its Bulletin (provisional protection is afforded from the date of this publication). The limited patent examination is conducted without the need for a request from the applicant. If the outcome is positive, a limited patent (10 year term) may be granted. The applicant may instead pursue a patent (20 year term) by following the procedure in TM.07.
+TM.07 REQUEST FOR EXAMINATION
+IPL Art. 22
+IPL Art. 23
+A patent is granted only after substantive examination. Upon being notified that the limited patent may be granted, the applicant may request suspension of that grant (by paying the prescribed fee) and, within five years from the filing date, file a request for substantive examination accompanied by the supporting documents.
+TM.08 CONVERSION OF A LIMITED PATENT
+IPL Art. 24
+A granted limited patent may be converted into a patent at any time before its expiry. Conversion requires a request, accompanied by the supporting documents and the prescribed fee.
+TM.09 AMENDMENT OF THE APPLICATION; TIME LIMITS
+PCT Article 28
+PCT Article 41
+IPL Art. 19
+IPL Art. 41
+Within three months after entry into the national phase, the applicant has the right to amend or correct any element of his international application on his own initiative, without paying any fee for that purpose, provided that the amendments or corrections do not modify the subject matter of the claimed invention beyond the original disclosure. After the expiration of the said time limit, such amendments or corrections may be made only on payment of the prescribed fee and only until the decision on grant is taken.
+TM.10 ANNUAL FEES
+IPL Art. 6(3)
+IPL Art. 35
+After a patent or limited patent has been granted, annual fees are payable for maintaining it in force. The first annual fee should be paid simultaneously with payment of the fee for registration and for granting the patent or limited patent. All subsequent fees are to be paid before the beginning of the corresponding year. If an annual fee is not paid in time, a grace period of six months is available, subject to a surcharge. Where a patent or limited patent lapses due to non payment of an annual fee, restoration may be requested within three years from the date of lapse upon payment of the missed fees and the prescribed reinstatement fee.
+TM.11 EXCUSE OF DELAYS IN MEETING TIME LIMITS
+PCT Article 24(2)
+PCT Article 48(2)
+PCT Rule 82 bis
+IPL Art. 25(2)
+Where, during the international phase or before the Office, the applicant has missed a time limit for performing any act in relation to the international application, such time limit may be extended by the Office upon request by the applicant and where justified and subject to payment of the prescribed fee. Other time limits set by the Office during the national phase may also be reinstated upon request and payment of the required fee.
+TM.12 REINSTATEMENT OF RIGHTS
+PCT Rule 49.6
+IPL Art. 41(2)
+Where the applicant has failed to meet the time limit for entry into the national phase, reinstatement may be requested within three months from the removal of the cause of the failure to meet the applicable time limit or 12 months from the date of expiry of the missed time limit, upon payment of the prescribed fee.
+TM.13 REVIEW UNDER ARTICLE 25 OF THE PCT
+PCT Article 25
+PCT Rule 51
+The applicable procedure is outlined in paragraphs NP 6.018 to NP 6.021 of the National Phase.
+TM.14 APPEALS
+IPL Art. 25(1)
+IPL Art. 37
+Any decision of the formal examination, limited patent examination or patent examination may be contested by filing an objection with the Appeals Commission within three months from the date the decision was sent, subject to payment of the prescribed fee. The decision of the Appeals Commission may be appealed to a court within six months from its approval.
+Annexes
+Filing, publication and limited examination fee:
+— for one independent claim
+100 USD
+— for each independent claim in excess of one
+30 USD
+Fee for reinstatement of rights (PCT Rule 49.6)
+70 USD
+Fee for restoration of the right of priority
+70 USD
+Fee for correction or amendment of application (after three months from the filing date)
+30 USD
+Fee for suspension of the grant of a limited patent
+50 USD
+Fee for request for patent examination
+120 USD
+Fee for conversion of a limited patent into a patent
+120 USD
+Fee for grant, registration and patent (or limited patent) publication
+400 USD
+Annual fees:
+The annual fees shall be reduced by 50% where a notice about an open license is filed with the Office. The reduction shall apply as from the year following the year of publication of information on the notice.
+— for the 1st year
+50 USD
+— for the 2nd year
+75 USD
+— for the 3rd year
+100 USD
+— for the 4th year
+125 USD
+— for the 5th year
+150 USD
+— for the 6th year
+175 USD
+— for the 7th year
+200 USD
+— for the 8th year
+225 USD
+— for the 9th year
+250 USD
+— for the 10th year
+275 USD
+— for the 11th year
+300 USD
+— for the 12th year
+325 USD
+— for the 13th year
+350 USD
+— for the 14th year
+375 USD
+— for the 15th year
+400 USD
+— for the 16th year
+450 USD
+— for the 17th year
+500 USD
+— for the 18th year
+550 USD
+— for the 19th year
+600 USD
+— for the 20th year
+650 USD
+How can payment of fees be effected?
+Fees must be paid in US dollars (or in manats, if the applicant qualifies as a resident individual or a legal entity of Turkmenistan). All payments should indicate the application number (national, if already known; international, if the national number is not yet known), the name of the applicant and the category of fee being paid.
+Payment details may be obtained directly from the Office.
+Close
+Current version applicable from July 30, 2026
+, printed on October 20, 2026
+100 #102 - 2026-09-28T10:28:16.882+02:00

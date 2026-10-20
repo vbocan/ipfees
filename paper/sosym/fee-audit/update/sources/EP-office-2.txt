@@ -1,0 +1,181 @@
+Source: https://www.epo.org/en/legal/official-journal/2026/01/a2
+Retrieved: 2026-10-20
+
+OJ EPO 2026, A2 - Decision of the Administrative Council of 11 December 2025 (CA/D 9/25)
+2026
+1 - January
+Overview
+Index
+1 - January
+2 - February
+3 - March
+4 - April
+5 - May
+6 - June
+7 - July
+8 - August
+9 - September
+Article 2
+Citation: OJ EPO 2026, A2
+Online publication date : 30.1.2026
+ADMINISTRATIVE COUNCIL
+Decision of the Administrative Council of 11 December 2025 ( CA/D 9/25 )
+THE ADMINISTRATIVE COUNCIL OF THE EUROPEAN PATENT ORGANISATION,
+Having regard to the European Patent Convention (hereinafter referred to as “EPC”) and in particular Article 33(1)(c) and 33(2)(d) thereof,
+On a proposal from the President of the European Patent Office,
+Having regard to the opinion of the Budget and Finance Committee,
+HAS DECIDED AS FOLLOWS:
+Article 1
+The Implementing Regulations to the EPC are amended as follows:
+The last sentence of Rule 93, paragraph 2 is deleted.
+Article 2
+Article 2, paragraphs 1 and 2 of the Rules relating to Fees reads as follows:
+"(1) The fees due to be paid to the Office under Article 1, unless otherwise provided in paragraph 2, are as follows:
+EUR
+1. Filing fee ( Article 78, paragraph 2 )
+(i) where the European patent application or, in the case of an international application, the form for entry into the European phase (EPO Form 1200) is filed online
+135
+(ii) where the European patent application or, in the case of an international application, the form for entry into the European phase (EPO Form 1200) is not filed online
+285
+1a. Additional fee for a European patent application comprising more than 35 pages (not counting pages forming part of a sequence listing) ( Rule 38, paragraph 2 )
+plus EUR 17  for the 36th and
+each subsequent page
+1b. Additional fee in the case of a divisional application filed in respect of any earlier application which is itself a divisional application ( Rule 38, paragraph 4 )
+ fee for a divisional application of second generation
+235
+ fee for a divisional application of third generation
+480
+ fee for a divisional application of fourth generation
+715
+ fee for a divisional application of fifth or any subsequent generation
+955
+2. Search fee in respect of
+a European or supplementary European search ( Article 78, paragraph 2 , Rule 62 , Rule 64, paragraph 1 , Rule 56a, paragraph 8 , Article 153, paragraph 7 , Rule 164, paragraphs 1 and 2 )
+1 595
+an international search ( Rule 16.1 PCT , Rule 40 bis PCT in conjunction with Rule 20.5 bis PCT , and Rule 158, paragraph 1 )
+1 885
+a supplementary international search ( Rule 45 bis .3(a) PCT )
+1 885
+3. Designation fee for one or more contracting states ( Article 79, paragraph 2 ) in respect of an application filed on or after 1 April 2009
+720
+4. Renewal fees for the European patent application ( Article 86, paragraph 1 ), calculated in each case from the date of filing of the application
+for the 3rd year
+725
+for the 4th year
+885
+for the 5th year
+1 050
+for the 6th year
+1 215
+for the 7th year
+1 375
+for the 8th year
+1 540
+for the 9th year
+1 700
+for the 10th and each subsequent year
+1 865
+5. Additional fee for belated payment of a renewal fee for the European patent application ( Rule 51, paragraph 2 )
+50% of the belated renewal fee
+6. Examination fee ( Article 94, paragraph 1 ) in respect of
+a European patent application or an international application for which a supplementary European search report is drawn up under Article 153, paragraph 7
+2 010
+an international application for which no supplementary European search report is drawn up under Article 153, paragraph 7
+2 240
+7. Fee for grant including fee for publication of the European patent specification ( Rule 71, paragraph 3 ), in respect of an application filed on or after 1  April 2009
+1 135
+10. Opposition fee ( Article 99, paragraph 1 , Article 105, paragraph 2 )
+880
+10a. Limitation or revocation fee ( Article 105a, paragraph 1 )
+request for limitation
+1 425
+request for revocation
+645
+11. Fee for appeal ( Article 108 ) for an appeal filed
+by any person referred to in Rule 7a, paragraph 2 (a) to (d)
+2 015
+by any other person
+2 925
+11a. Fee for petition for review ( Article 112a, paragraph 4 )
+3 570
+12. Fee for further processing ( Rule 135, paragraph 1 )
+in the event of late payment of a fee
+50% of the relevant fee
+in the event of late performance of the acts required under Rule 71, paragraph 3
+315
+other cases
+315
+13. Fee for re-establishment of rights/fee for requesting restoration/fee for reinstatement of rights ( Rule 136, paragraph 1 , Rule 26 bis .3(d) PCT , Rule 49 ter .2(d) PCT , Rule 49.6(d)(i) PCT )
+790
+14. Conversion fee ( Article 135, paragraph 3 , Article 140 )
+0
+14a. Fee for late furnishing of a sequence listing ( Rule 30, paragraph 3 )
+280
+15. Claims fee ( Rule 45, paragraph 1 , Rule 71, paragraph 4 , Rule 162, paragraph 1 ) in respect of an application filed on or after 1 April 2009
+ for the 16th and each subsequent claim up to the limit of 50
+290
+ for the 51st and each subsequent claim
+720
+16. Fee for the awarding of costs ( Rule 88, paragraph 3 )
+95
+18. Transmittal fee for an international application ( Rule 157, paragraph 4 )
+160
+19. Fee for the preliminary examination of an international application ( Rule 58 PCT and Rule 158, paragraph 2 )
+2 010
+20. Fee for a technical opinion ( Article 25 )
+4 790
+21. Protest fee ( Rule 158, paragraph 3 , Rule 40.2(e) PCT , Rule 68.3(e) PCT )
+1 070
+22. Review fee ( Rule 45 bis .6(c) PCT )
+1 070
+(2) For European patent applications filed before 1 April 2009 and international applications which entered the regional phase before that date, the amount of the fees specified in Article 2, item 3 , item 3a , item 7 and item 15 of the Rules relating to Fees as in force until 31 March 2009 are as follows:
+3. Designation fee for each contracting state designated ( Article 79, paragraph 2 ), designation fees being deemed paid for all contracting states upon payment of seven times the amount of this fee
+125
+3a. Joint designation fee for the Swiss Confederation and the Principality of Liechtenstein
+125
+7. Fee for grant including fee for printing the European patent specification ( Rule 71, paragraph 3 ), where the application documents to be printed comprise:
+7.1 not more than 35 pages
+1 135
+7.2 more than 35 pages
+the amount of item 7.1 plus EUR 19
+for the 36th and each subsequent page
+15. Claims fee for the sixteenth and each subsequent claim ( Rule 45, paragraph 1 , Rule 71, paragraph 4 , Rule 162, paragraph 1 )
+290 ”
+Article 3
+The fee for a supplementary European search on an international application for which the international search report or a supplementary international search report was drawn up by the Austrian Patent Office, or, in accordance with the Protocol on Centralisation, by the Finnish Patent and Registration Office, the Spanish Patent and Trademark Office, the Swedish Intellectual Property Office, the Turkish Patent and Trademark Office, the Nordic Patent Institute or the Visegrad Patent Institute is reduced by EUR 1 365 .
+If a reduction is granted as provided in paragraph 1, the maximum amount of the reduction in the fee for a supplementary European search is equal to the reduction granted on the basis of a single international search report or supplementary international search report drawn up by one of the authorities mentioned in paragraph 1.
+Article 4
+Without prejudice to paragraph 2, the new amounts of the fees specified in Article 2 of this decision apply to payments made on or after 1 April 2026.
+The new amount of the transmittal fee for an international application applies to applications filed on or after 1 April 2026.
+If within six months of 1 April 2026 a fee is paid in due time but only in the amount due before 1 April 2026, that fee will be deemed to have been validly paid if the deficit is made good within two months of an invitation to that effect from the European Patent Office.
+Article 3 of this decision applies to international applications filed up to and including 31 March 2028 for which the international search report or supplementary international search report was drawn up by the Austrian Patent Office, the Finnish Patent and Registration Office, the Spanish Patent and Trademark Office, the Swedish Intellectual Property Office, the Turkish Patent and Trademark Office, the Nordic Patent Institute or the Visegrad Patent Institute and for which the fee for the supplementary European search is paid on or after 1 April 2026.
+Article 5
+Article 4 of decision CA/D 16/23 of 14 December 2023 ( OJ EPO 2024, A3 ) is rescinded with effect from 1 April 2026 and replaced by Article 3 of this decision.
+This decision will enter into force on 1 April 2026.
+Done at Munich, 11 December 2025
+For the Administrative Council
+The Chairperson
+Josef KRATOCHVÍL
+Previous
+Next
+Service & support
+Website updates
+Availability of online services
+FAQ
+Publications
+Procedural communications
+Contact us
+Subscription centre
+Official holidays
+Glossary
+Jobs & careers
+Press centre
+Single Access Portal
+Procurement
+Boards of Appeal
+European Patent Office | EPO Jobs
+EuropeanPatentOffice
+European Patent Office | EPO Jobs | EPO Procurement
+EPOorg | EPOjobs
+TheEPO
+Legal notice Terms of use Data protection and privacy Accessibility

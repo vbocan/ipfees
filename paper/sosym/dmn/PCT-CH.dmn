@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  The Swiss schedule of Listing 1 in DMN 1.5. Each fee is a decision; the claim fee is a
+  decision table with one rule per yield. FEEL numbers carry no currency, so the currency of
+  each fee is recorded only in its item definition's name, and "Total" shows that nothing
+  stops francs and euros from being added.
+-->
+<definitions xmlns="https://www.omg.org/spec/DMN/20230324/MODEL/"
+             xmlns:drools="http://www.drools.org/kie/dmn/1.2"
+             id="pct_ch" name="PCT-CH"
+             namespace="https://ipfees.example/dmn/pct_ch">
+
+  <import namespace="https://ipfees.example/dmn/base_ep" name="base" drools:modelName="base_ep"
+          importType="https://www.omg.org/spec/DMN/20230324/MODEL/" locationURI="base_ep.dmn"/>
+
+  <itemDefinition name="CHF"><typeRef>number</typeRef></itemDefinition>
+  <itemDefinition name="EUR"><typeRef>number</typeRef></itemDefinition>
+
+  <inputData id="NumberOfWords" name="NumberOfWords">
+    <variable name="NumberOfWords" typeRef="number"/>
+  </inputData>
+
+  <decision id="OFF_BasicNationalFee" name="OFF_BasicNationalFee">
+    <variable name="OFF_BasicNationalFee" typeRef="CHF"/>
+    <literalExpression><text>200</text></literalExpression>
+  </decision>
+
+  <decision id="OFF_ClaimFee" name="OFF_ClaimFee">
+    <variable name="OFF_ClaimFee" typeRef="CHF"/>
+    <informationRequirement>
+      <requiredInput href="https://ipfees.example/dmn/base_ep#ClaimCount"/>
+    </informationRequirement>
+    <decisionTable id="OFF_ClaimFee_table" hitPolicy="UNIQUE">
+      <input id="OFF_ClaimFee_in" label="ClaimCount">
+        <inputExpression typeRef="number"><text>base.ClaimCount</text></inputExpression>
+      </input>
+      <output id="OFF_ClaimFee_out"/>
+      <rule id="claims_above_ten">
+        <inputEntry><text>&gt; 10</text></inputEntry>
+        <outputEntry><text>50 * (base.ClaimCount - 10)</text></outputEntry>
+      </rule>
+      <rule id="ten_or_fewer">
+        <inputEntry><text>&lt;= 10</text></inputEntry>
+        <outputEntry><text>0</text></outputEntry>
+      </rule>
+    </decisionTable>
+  </decision>
+
+  <decision id="OFF_ExaminationFee" name="OFF_ExaminationFee">
+    <variable name="OFF_ExaminationFee" typeRef="CHF"/>
+    <literalExpression><text>500</text></literalExpression>
+  </decision>
+
+  <decision id="TranslationFee" name="TranslationFee">
+    <variable name="TranslationFee" typeRef="EUR"/>
+    <informationRequirement><requiredInput href="#NumberOfWords"/></informationRequirement>
+    <literalExpression><text>12 * NumberOfWords / 100</text></literalExpression>
+  </decision>
+
+  <decision id="AgentServiceFee" name="AgentServiceFee">
+    <variable name="AgentServiceFee" typeRef="EUR"/>
+    <literalExpression><text>100</text></literalExpression>
+  </decision>
+
+  <decision id="Total" name="Total">
+    <variable name="Total" typeRef="CHF"/>
+    <informationRequirement><requiredDecision href="#OFF_BasicNationalFee"/></informationRequirement>
+    <informationRequirement><requiredDecision href="#OFF_ClaimFee"/></informationRequirement>
+    <informationRequirement><requiredDecision href="#OFF_ExaminationFee"/></informationRequirement>
+    <informationRequirement><requiredDecision href="#TranslationFee"/></informationRequirement>
+    <informationRequirement><requiredDecision href="#AgentServiceFee"/></informationRequirement>
+    <literalExpression>
+      <text>OFF_BasicNationalFee + OFF_ClaimFee + OFF_ExaminationFee + TranslationFee + AgentServiceFee</text>
+    </literalExpression>
+  </decision>
+</definitions>

@@ -1,0 +1,4036 @@
+diff --git a/src/IPFLang.Engine/Corpus/PCT-AE.ipf b/src/IPFLang.Engine/Corpus/PCT-AE.ipf
+index 5faf539..61c68c8 100644
+--- a/src/IPFLang.Engine/Corpus/PCT-AE.ipf
++++ b/src/IPFLang.Engine/Corpus/PCT-AE.ipf
+@@ -13,5 +13,5 @@
+ # =============================================================================
+ 
+-VERSION '2024.1' EFFECTIVE 2024-01-01 DESCRIPTION 'Entry of national phase in UAE'
++VERSION '2026.10' EFFECTIVE 2026-05-07 DESCRIPTION 'Entry of national phase in UAE'
+ 
+ 
+@@ -34,5 +34,5 @@ ENDDEFINE
+ 
+ # Application date
+-DEFINE DATE ApplicationDate AS 'Application date'
++DEFINE DATE ApplicationDate AS 'Application date (international filing date)'
+ GROUP ApplicationGroup
+ BETWEEN 01.01.2000 AND TODAY
+@@ -48,5 +48,5 @@ ENDDEFINE
+ 
+ # Sheets/Pages
+-DEFINE NUMBER SheetCount AS 'Number of pages'
++DEFINE NUMBER SheetCount AS 'Number of pages/sheets'
+ GROUP ApplicationGroup
+ BETWEEN 1 AND 10000
+@@ -151,5 +151,5 @@ ENDDEFINE
+ # File name: PCT-AE-OFF
+ # File content: Official fees for PCT regional phase: UAE
+-# Valid until n/a
++# Checked against the fees in force on 20 October 2026 (WIPO eGuide AE; Ministry of Economy and Tourism service pages)
+ 
+ COMPUTE FEE OFF_BasicNationalFee
+diff --git a/src/IPFLang.Engine/Corpus/PCT-AG.ipf b/src/IPFLang.Engine/Corpus/PCT-AG.ipf
+index 843f0fb..9418c3f 100644
+--- a/src/IPFLang.Engine/Corpus/PCT-AG.ipf
++++ b/src/IPFLang.Engine/Corpus/PCT-AG.ipf
+@@ -13,5 +13,5 @@
+ # =============================================================================
+ 
+-VERSION '2024.1' EFFECTIVE 2024-01-01 DESCRIPTION 'Entry of national phase in Antigua & Barbuda'
++VERSION '2026.10' EFFECTIVE 2025-03-07 DESCRIPTION 'Entry of national phase in Antigua & Barbuda'
+ 
+ 
+@@ -34,5 +34,5 @@ ENDDEFINE
+ 
+ # Application date
+-DEFINE DATE ApplicationDate AS 'Application date'
++DEFINE DATE ApplicationDate AS 'Application date (international filing date)'
+ GROUP ApplicationGroup
+ BETWEEN 01.01.2000 AND TODAY
+@@ -48,5 +48,5 @@ ENDDEFINE
+ 
+ # Sheets/Pages
+-DEFINE NUMBER SheetCount AS 'Number of pages'
++DEFINE NUMBER SheetCount AS 'Number of pages/sheets'
+ GROUP ApplicationGroup
+ BETWEEN 1 AND 10000
+@@ -151,5 +151,5 @@ ENDDEFINE
+ # File name: PCT-AG-OFF
+ # File content: Official fees for PCT national phase: Antigua & Barbuda
+-# Valid until n/a
++# Checked against the fees in force on 20 October 2026 (WIPO eGuide AG)
+ 
+ COMPUTE FEE OFF_BasicNationalFee
+diff --git a/src/IPFLang.Engine/Corpus/PCT-AL.ipf b/src/IPFLang.Engine/Corpus/PCT-AL.ipf
+index 7c84036..a14f0dc 100644
+--- a/src/IPFLang.Engine/Corpus/PCT-AL.ipf
++++ b/src/IPFLang.Engine/Corpus/PCT-AL.ipf
+@@ -14,5 +14,5 @@
+ # =============================================================================
+ 
+-VERSION '2024.1' EFFECTIVE 2024-01-01 DESCRIPTION 'Entry of national phase in Albania'
++VERSION '2026.10' EFFECTIVE 2025-12-12 DESCRIPTION 'Entry of national phase in Albania'
+ 
+ # Inputs and groups shared across this regional system are declared once in the base
+@@ -96,5 +96,5 @@ ENDDEFINE
+ # File name: PCT-AL-OFF
+ # File content: Official fees for PCT regional phase: Albania
+-# Valid until n/a
++# Checked against the fees in force on 20 October 2026 (WIPO eGuide AL)
+ 
+ COMPUTE FEE OFF_BasicNationalFee
+diff --git a/src/IPFLang.Engine/Corpus/PCT-AM.ipf b/src/IPFLang.Engine/Corpus/PCT-AM.ipf
+index 9497a03..761726e 100644
+--- a/src/IPFLang.Engine/Corpus/PCT-AM.ipf
++++ b/src/IPFLang.Engine/Corpus/PCT-AM.ipf
+@@ -14,5 +14,5 @@
+ # =============================================================================
+ 
+-VERSION '2024.1' EFFECTIVE 2024-01-01 DESCRIPTION 'Entry of national phase in Armenia'
++VERSION '2026.10' EFFECTIVE 2026-01-01 DESCRIPTION 'Entry of national phase in Armenia'
+ 
+ # Inputs and groups shared across this regional system are declared once in the base
+@@ -96,5 +96,5 @@ ENDDEFINE
+ # File name: PCT-AM-OFF
+ # File content: Official fees for PCT regional phase: Armenia
+-# Valid until n/a
++# Checked against the fees in force on 20 October 2026 (WIPO eGuide AM)
+ 
+ COMPUTE FEE OFF_BasicNationalFee
+diff --git a/src/IPFLang.Engine/Corpus/PCT-AO.ipf b/src/IPFLang.Engine/Corpus/PCT-AO.ipf
+index 67e3d12..635fcbc 100644
+--- a/src/IPFLang.Engine/Corpus/PCT-AO.ipf
++++ b/src/IPFLang.Engine/Corpus/PCT-AO.ipf
+@@ -13,5 +13,5 @@
+ # =============================================================================
+ 
+-VERSION '2024.1' EFFECTIVE 2024-01-01 DESCRIPTION 'Entry of national phase in Angola'
++VERSION '2026.10' EFFECTIVE 2025-12-04 DESCRIPTION 'Entry of national phase in Angola'
+ 
+ 
+@@ -34,5 +34,5 @@ ENDDEFINE
+ 
+ # Application date
+-DEFINE DATE ApplicationDate AS 'Application date'
++DEFINE DATE ApplicationDate AS 'Application date (international filing date)'
+ GROUP ApplicationGroup
+ BETWEEN 01.01.2000 AND TODAY
+@@ -48,5 +48,5 @@ ENDDEFINE
+ 
+ # Sheets/Pages
+-DEFINE NUMBER SheetCount AS 'Number of pages'
++DEFINE NUMBER SheetCount AS 'Number of pages/sheets'
+ GROUP ApplicationGroup
+ BETWEEN 1 AND 10000
+@@ -151,5 +151,5 @@ ENDDEFINE
+ # File name: PCT-AO-OFF
+ # File content: Official fees for PCT regional phase: Angola
+-# Valid until n/a
++# Checked against the fees in force on 20 October 2026 (WIPO eGuide AO)
+ 
+ COMPUTE FEE OFF_BasicNationalFee
+diff --git a/src/IPFLang.Engine/Corpus/PCT-AP.ipf b/src/IPFLang.Engine/Corpus/PCT-AP.ipf
+index 217274e..49c8d1f 100644
+--- a/src/IPFLang.Engine/Corpus/PCT-AP.ipf
++++ b/src/IPFLang.Engine/Corpus/PCT-AP.ipf
+@@ -13,5 +13,5 @@
+ # =============================================================================
+ 
+-VERSION '2024.1' EFFECTIVE 2024-01-01 DESCRIPTION 'Entry of regional phase in ARIPO'
++VERSION '2026.10' EFFECTIVE 2025-03-01 DESCRIPTION 'Entry of regional phase in ARIPO'
+ 
+ 
+@@ -34,5 +34,5 @@ ENDDEFINE
+ 
+ # Application date
+-DEFINE DATE ApplicationDate AS 'Application date'
++DEFINE DATE ApplicationDate AS 'Application date (international filing date)'
+ GROUP ApplicationGroup
+ BETWEEN 01.01.2000 AND TODAY
+@@ -48,5 +48,5 @@ ENDDEFINE
+ 
+ # Sheets/Pages
+-DEFINE NUMBER SheetCount AS 'Number of pages'
++DEFINE NUMBER SheetCount AS 'Number of pages/sheets'
+ GROUP ApplicationGroup
+ BETWEEN 1 AND 10000
+@@ -151,5 +151,5 @@ ENDDEFINE
+ # File name: PCT-AP-OFF
+ # File content: Official fees for PCT regional phase: ARIPO
+-# Valid until n/a
++# Checked against the fees in force on 20 October 2026 (WIPO eGuide AP; Harare Protocol 2025, Schedule I; ARIPO notice of 1 March 2025)
+ 
+ # Examination request: 3 years as of international filing date
+@@ -160,11 +160,15 @@ ENDCOMPUTE
+ 
+ COMPUTE FEE OFF_DesignationFee
+-YIELD 85*CountryCount
++YIELD 100*CountryCount
+ ENDCOMPUTE
+ 
+ COMPUTE FEE OFF_PublicationFee
+-YIELD 350<USD>
++YIELD 500<USD>
++# 20 per page from the 31st to the 100th, 30 per page from the 101st
+ YIELD 20*(SheetCount-30) IF SheetCount GT 30
+-YIELD 50*(ClaimCount-10) IF ClaimCount GT 10
++YIELD 10*(SheetCount-100) IF SheetCount GT 100
++# 100 per claim from the 11th to the 50th, 200 per claim from the 51st
++YIELD 100*(ClaimCount-10) IF ClaimCount GT 10
++YIELD 100*(ClaimCount-50) IF ClaimCount GT 50
+ ENDCOMPUTE
+ 
+@@ -175,9 +179,9 @@ ENDCOMPUTE
+ 
+ COMPUTE FEE OFF_ExaminationFee
+-YIELD 300 # 3 years as of international filing date
++YIELD 1000 # 3 years as of international filing date
+ ENDCOMPUTE
+ 
+ COMPUTE FEE OFF_GrantFee OPTIONAL
+-YIELD 350<USD>
++YIELD 500<USD>
+ ENDCOMPUTE
+ 
+diff --git a/src/IPFLang.Engine/Corpus/PCT-AT.ipf b/src/IPFLang.Engine/Corpus/PCT-AT.ipf
+index efd82f0..f74f8a2 100644
+--- a/src/IPFLang.Engine/Corpus/PCT-AT.ipf
++++ b/src/IPFLang.Engine/Corpus/PCT-AT.ipf
+@@ -14,5 +14,5 @@
+ # =============================================================================
+ 
+-VERSION '2024.1' EFFECTIVE 2024-01-01 DESCRIPTION 'Entry of national phase in Austria'
++VERSION '2026.10' EFFECTIVE 2026-04-01 DESCRIPTION 'Entry of national phase in Austria'
+ 
+ # Inputs and groups shared across this regional system are declared once in the base
+@@ -96,13 +96,14 @@ ENDDEFINE
+ # File name: PCT-AT-OFF
+ # File content: Official fees for PCT regional phase: Austria
+-# Valid until n/a
++# Checked against the fees in force on 20 October 2026 (WIPO eGuide AT; Austrian Patent Office fee page)
+ 
+ COMPUTE FEE OFF_BasicNationalFee
+ YIELD 52 #entry fee
+-YIELD 50 #document fee
++YIELD 74 #document fee
+ ENDCOMPUTE
+ 
+ COMPUTE FEE OFF_SearchExaminationFee
+ YIELD 292<EUR>
++YIELD -20 #reduction for electronic filing of the request for entry
+ YIELD 104*CEIL( ( ClaimCount - 10 ) / 10 ) IF ClaimCount GT 10
+ ENDCOMPUTE
+diff --git a/src/IPFLang.Engine/Corpus/PCT-AU.ipf b/src/IPFLang.Engine/Corpus/PCT-AU.ipf
+index ef40b82..1635e97 100644
+--- a/src/IPFLang.Engine/Corpus/PCT-AU.ipf
++++ b/src/IPFLang.Engine/Corpus/PCT-AU.ipf
+@@ -13,5 +13,5 @@
+ # =============================================================================
+ 
+-VERSION '2024.1' EFFECTIVE 2024-01-01 DESCRIPTION 'Entry of national phase in Australia'
++VERSION '2026.10' EFFECTIVE 2024-10-01 DESCRIPTION 'Entry of national phase in Australia'
+ 
+ 
+@@ -34,5 +34,5 @@ ENDDEFINE
+ 
+ # Application date
+-DEFINE DATE ApplicationDate AS 'Application date'
++DEFINE DATE ApplicationDate AS 'Application date (international filing date)'
+ GROUP ApplicationGroup
+ BETWEEN 01.01.2000 AND TODAY
+@@ -48,5 +48,5 @@ ENDDEFINE
+ 
+ # Sheets/Pages
+-DEFINE NUMBER SheetCount AS 'Number of pages'
++DEFINE NUMBER SheetCount AS 'Number of pages/sheets'
+ GROUP ApplicationGroup
+ BETWEEN 1 AND 10000
+@@ -151,13 +151,13 @@ ENDDEFINE
+ # File name: PCT-AU-OFF
+ # File content: Official fees for PCT national phase: Australia
+-# Valid until n/a
++# Checked against the fees in force on 20 October 2026 (WIPO eGuide AU; IP Australia fee page and summary of 1 October 2024 fee changes)
+ 
+ COMPUTE FEE OFF_BasicNationalFee
+-YIELD 370<AUD>
++YIELD 400<AUD>
+ ENDCOMPUTE
+ 
+ COMPUTE FEE OFF_ExaminationFee OPTIONAL #Ex Request within 5 years of IFD
+-YIELD 300<AUD> IF IPRP EQ IPRP_AU
+-YIELD 490<AUD> IF IPRP NEQ IPRP_AU
++YIELD 350<AUD> IF IPRP EQ IPRP_AU
++YIELD 550<AUD> IF IPRP NEQ IPRP_AU
+ ENDCOMPUTE
+ 
+diff --git a/src/IPFLang.Engine/Corpus/PCT-AZ.ipf b/src/IPFLang.Engine/Corpus/PCT-AZ.ipf
+index 2733599..f4edd6a 100644
+--- a/src/IPFLang.Engine/Corpus/PCT-AZ.ipf
++++ b/src/IPFLang.Engine/Corpus/PCT-AZ.ipf
+@@ -14,5 +14,5 @@
+ # =============================================================================
+ 
+-VERSION '2024.1' EFFECTIVE 2024-01-01 DESCRIPTION 'Entry of national phase in Azerbaijan'
++VERSION '2026.10' EFFECTIVE 2026-07-02 DESCRIPTION 'Entry of national phase in Azerbaijan'
+ 
+ # Inputs and groups shared across this regional system are declared once in the base
+@@ -96,5 +96,5 @@ ENDDEFINE
+ # File name: PCT-AZ-OFF
+ # File content: Official fees for PCT national phase: Azerbaijan
+-# Valid until n/a
++# Checked against the fees in force on 20 October 2026 (WIPO eGuide AZ)
+ 
+ COMPUTE FEE OFF_BasicNationalFee
+diff --git a/src/IPFLang.Engine/Corpus/PCT-BA.ipf b/src/IPFLang.Engine/Corpus/PCT-BA.ipf
+index 348de13..0e1f827 100644
+--- a/src/IPFLang.Engine/Corpus/PCT-BA.ipf
++++ b/src/IPFLang.Engine/Corpus/PCT-BA.ipf
+@@ -14,5 +14,5 @@
+ # =============================================================================
+ 
+-VERSION '2024.1' EFFECTIVE 2024-01-01 DESCRIPTION 'Entry of national phase in Bosnia & Herzegovina'
++VERSION '2026.10' EFFECTIVE 2026-01-08 DESCRIPTION 'Entry of national phase in Bosnia & Herzegovina'
+ 
+ # Inputs and groups shared across this regional system are declared once in the base
+@@ -96,5 +96,5 @@ ENDDEFINE
+ # File name: PCT-BA-OFF
+ # File content: Official fees for PCT national phase: Bosnia and Herzegovina
+-# Valid until n/a
++# Checked against the fees in force on 20 October 2026 (WIPO eGuide BA)
+ 
+ COMPUTE FEE OFF_BasicNationalFee
+diff --git a/src/IPFLang.Engine/Corpus/PCT-BB.ipf b/src/IPFLang.Engine/Corpus/PCT-BB.ipf
+index ec6fcff..2267976 100644
+--- a/src/IPFLang.Engine/Corpus/PCT-BB.ipf
++++ b/src/IPFLang.Engine/Corpus/PCT-BB.ipf
+@@ -13,5 +13,5 @@
+ # =============================================================================
+ 
+-VERSION '2024.1' EFFECTIVE 2024-01-01 DESCRIPTION 'Entry of national phase in Barbados'
++VERSION '2026.10' EFFECTIVE 2026-06-05 DESCRIPTION 'Entry of national phase in Barbados'
+ 
+ 
+@@ -34,5 +34,5 @@ ENDDEFINE
+ 
+ # Application date
+-DEFINE DATE ApplicationDate AS 'Application date'
++DEFINE DATE ApplicationDate AS 'Application date (international filing date)'
+ GROUP ApplicationGroup
+ BETWEEN 01.01.2000 AND TODAY
+@@ -48,5 +48,5 @@ ENDDEFINE
+ 
+ # Sheets/Pages
+-DEFINE NUMBER SheetCount AS 'Number of pages'
++DEFINE NUMBER SheetCount AS 'Number of pages/sheets'
+ GROUP ApplicationGroup
+ BETWEEN 1 AND 10000
+@@ -151,5 +151,5 @@ ENDDEFINE
+ # File name: PCT-BB-OFF
+ # File content: Official fees for PCT national phase: Barbados
+-# Valid until n/a
++# Checked against the fees in force on 20 October 2026 (WIPO eGuide BB)
+ 
+ COMPUTE FEE OFF_BasicNationalFee
+diff --git a/src/IPFLang.Engine/Corpus/PCT-BG.ipf b/src/IPFLang.Engine/Corpus/PCT-BG.ipf
+index e55a229..01f6e6a 100644
+--- a/src/IPFLang.Engine/Corpus/PCT-BG.ipf
++++ b/src/IPFLang.Engine/Corpus/PCT-BG.ipf
+@@ -5,5 +5,5 @@
+ #
+ # Category: OfficialFees
+-# Currency: BGN
++# Currency: EUR
+ # Phase: National Phase
+ #
+@@ -14,5 +14,5 @@
+ # =============================================================================
+ 
+-VERSION '2024.1' EFFECTIVE 2024-01-01 DESCRIPTION 'Entry of national phase in Bulgaria'
++VERSION '2026.10' EFFECTIVE 2026-01-01 DESCRIPTION 'Entry of national phase in Bulgaria'
+ 
+ # Inputs and groups shared across this regional system are declared once in the base
+@@ -96,16 +96,17 @@ ENDDEFINE
+ # File name: PCT-BG-OFF
+ # File content: Official fees for PCT national phase: Bulgaria
+-# Valid until n/a
++# Checked against the fees in force on 20 October 2026 (WIPO eGuide BG; Tariff of Fees, Decree No. 13 of 27 February 2025)
++# Bulgaria charges in euro from 1 January 2026.
+ 
+ COMPUTE FEE OFF_BasicNationalFee
+-YIELD 40+70 #filing plus publication fees
++YIELD 20.45+35.79 #filing plus publication fees
+ ENDCOMPUTE
+ 
+ COMPUTE FEE OFF_ExaminationFee
+-YIELD 180<BGN>
++YIELD 92.03<EUR>
+ ENDCOMPUTE
+ 
+ COMPUTE FEE OFF_PriorityFee
+-YIELD 20*PriorityCount
++YIELD 10.23*PriorityCount
+ ENDCOMPUTE
+ 
+@@ -147,5 +148,5 @@ VERIFY COMPLETE FEE OFF_PriorityFee
+ # =============================================================================
+ 
+-RETURN Currency AS 'BGN'
++RETURN Currency AS 'EUR'
+ RETURN Jurisdiction AS 'BG'
+ RETURN JurisdictionName AS 'Entry of national phase in Bulgaria'
+diff --git a/src/IPFLang.Engine/Corpus/PCT-BH.ipf b/src/IPFLang.Engine/Corpus/PCT-BH.ipf
+index df64636..9f1adb5 100644
+--- a/src/IPFLang.Engine/Corpus/PCT-BH.ipf
++++ b/src/IPFLang.Engine/Corpus/PCT-BH.ipf
+@@ -13,5 +13,5 @@
+ # =============================================================================
+ 
+-VERSION '2024.1' EFFECTIVE 2024-01-01 DESCRIPTION 'Entry of national phase in Bahrain'
++VERSION '2026.10' EFFECTIVE 2023-09-22 DESCRIPTION 'Entry of national phase in Bahrain'
+ 
+ 
+@@ -34,5 +34,5 @@ ENDDEFINE
+ 
+ # Application date
+-DEFINE DATE ApplicationDate AS 'Application date'
++DEFINE DATE ApplicationDate AS 'Application date (international filing date)'
+ GROUP ApplicationGroup
+ BETWEEN 01.01.2000 AND TODAY
+@@ -48,5 +48,5 @@ ENDDEFINE
+ 
+ # Sheets/Pages
+-DEFINE NUMBER SheetCount AS 'Number of pages'
++DEFINE NUMBER SheetCount AS 'Number of pages/sheets'
+ GROUP ApplicationGroup
+ BETWEEN 1 AND 10000
+@@ -151,13 +151,13 @@ ENDDEFINE
+ # File name: PCT-BH-OFF
+ # File content: Official fees for PCT national phase: Bahrain
+-# Valid until n/a
++# Checked against the fees in force on 20 October 2026 (WIPO eGuide BH; Ministerial Decision 102/2018 as amended by Order 67/2023)
+ 
+ COMPUTE FEE OFF_BasicNationalFee
+-YIELD 270<BHD> IF EntitySize EQ Entity_Person
++YIELD 40<BHD> IF EntitySize EQ Entity_Person
+ YIELD 540<BHD> IF EntitySize NEQ Entity_Person
+ ENDCOMPUTE
+ 
+ COMPUTE FEE OFF_PublicationFee
+-YIELD 160<BHD> IF EntitySize EQ Entity_Person
++YIELD 50<BHD> IF EntitySize EQ Entity_Person
+ YIELD 320<BHD> IF EntitySize NEQ Entity_Person
+ ENDCOMPUTE
+@@ -165,5 +165,6 @@ ENDCOMPUTE
+ COMPUTE FEE OFF_Renewal
+ LET RenMonth AS ROUND ( ApplicationDate!MONTHSTONOW ) #calculate difference in months to today
+-YIELD 200<BHD> IF RenMonth GTE 12 #year 2
++YIELD 100<BHD> IF RenMonth GTE 12 AND EntitySize EQ Entity_Person #year 2
++YIELD 200<BHD> IF RenMonth GTE 12 AND EntitySize NEQ Entity_Person #year 2
+ ENDCOMPUTE
+ 
+diff --git a/src/IPFLang.Engine/Corpus/PCT-BN.ipf b/src/IPFLang.Engine/Corpus/PCT-BN.ipf
+index c2ac3bf..5860c0b 100644
+--- a/src/IPFLang.Engine/Corpus/PCT-BN.ipf
++++ b/src/IPFLang.Engine/Corpus/PCT-BN.ipf
+@@ -13,5 +13,5 @@
+ # =============================================================================
+ 
+-VERSION '2024.1' EFFECTIVE 2024-01-01 DESCRIPTION 'entry of national phase in Brunei Darussalam'
++VERSION '2026.10' EFFECTIVE 2025-03-07 DESCRIPTION 'entry of national phase in Brunei Darussalam'
+ 
+ 
+@@ -34,5 +34,5 @@ ENDDEFINE
+ 
+ # Application date
+-DEFINE DATE ApplicationDate AS 'Application date'
++DEFINE DATE ApplicationDate AS 'Application date (international filing date)'
+ GROUP ApplicationGroup
+ BETWEEN 01.01.2000 AND TODAY
+@@ -48,5 +48,5 @@ ENDDEFINE
+ 
+ # Sheets/Pages
+-DEFINE NUMBER SheetCount AS 'Number of pages'
++DEFINE NUMBER SheetCount AS 'Number of pages/sheets'
+ GROUP ApplicationGroup
+ BETWEEN 1 AND 10000
+@@ -151,5 +151,5 @@ ENDDEFINE
+ # File name: PCT-BN-OFF
+ # File content: Official fees for PCT national phase: Brunei Darussalam
+-# Valid until n/a
++# Checked against the fees in force on 20 October 2026 (WIPO eGuide BN)
+ 
+ COMPUTE FEE OFF_BasicNationalFee
+diff --git a/src/IPFLang.Engine/Corpus/PCT-BR.ipf b/src/IPFLang.Engine/Corpus/PCT-BR.ipf
+index e646abf..c621c90 100644
+--- a/src/IPFLang.Engine/Corpus/PCT-BR.ipf
++++ b/src/IPFLang.Engine/Corpus/PCT-BR.ipf
+@@ -13,5 +13,5 @@
+ # =============================================================================
+ 
+-VERSION '2024.1' EFFECTIVE 2024-01-01 DESCRIPTION 'Entry of national phase in Brazil'
++VERSION '2026.10' EFFECTIVE 2025-08-07 DESCRIPTION 'Entry of national phase in Brazil'
+ 
+ 
+@@ -34,5 +34,5 @@ ENDDEFINE
+ 
+ # Application date
+-DEFINE DATE ApplicationDate AS 'Application date'
++DEFINE DATE ApplicationDate AS 'Application date (international filing date)'
+ GROUP ApplicationGroup
+ BETWEEN 01.01.2000 AND TODAY
+@@ -48,5 +48,5 @@ ENDDEFINE
+ 
+ # Sheets/Pages
+-DEFINE NUMBER SheetCount AS 'Number of pages'
++DEFINE NUMBER SheetCount AS 'Number of pages/sheets'
+ GROUP ApplicationGroup
+ BETWEEN 1 AND 10000
+@@ -151,18 +151,18 @@ ENDDEFINE
+ # File name: PCT-BR-OFF
+ # File content: Official fees for PCT national phase: Brazil
+-# Valid until n/a
++# Checked against the fees in force on 20 October 2026 (WIPO eGuide BR; INPI Tabela de Retribuicoes, Portaria INPI/PR 10/2025)
+ 
+ COMPUTE FEE OFF_BasicNationalFee
+-YIELD 175<BRL>
++YIELD 260<BRL>
+ ENDCOMPUTE
+ 
+ COMPUTE FEE OFF_ExaminationFee
+-YIELD 590  # 10 claims included; due date 36 months after IFD
++YIELD 870  # 10 claims included; due date 36 months after IFD
+ ENDCOMPUTE
+ 
+ COMPUTE FEE OFF_ClaimFee
+-LET CF1 AS 100
+-LET CF2 AS 200
+-LET CF3 AS 500
++LET CF1 AS 140
++LET CF2 AS 290
++LET CF3 AS 740
+ 
+ # between 10 and incl. 15 claims:
+@@ -183,5 +183,5 @@ LET RenMonth AS ROUND ( ApplicationDate!MONTHSTONOW ) #calculate difference in m
+ # No annuity is due for the first two years; the first falls due 24 months after the
+ # international filing date.
+-YIELD 780<BRL> IF RenMonth GTE 24 # year 3
++YIELD 400<BRL> IF RenMonth GTE 24 # first application annuity (code 220)
+ YIELD 0 IF RenMonth LT 24
+ ENDCOMPUTE
+diff --git a/src/IPFLang.Engine/Corpus/PCT-BW.ipf b/src/IPFLang.Engine/Corpus/PCT-BW.ipf
+index dc66746..aa86685 100644
+--- a/src/IPFLang.Engine/Corpus/PCT-BW.ipf
++++ b/src/IPFLang.Engine/Corpus/PCT-BW.ipf
+@@ -14,5 +14,5 @@
+ # =============================================================================
+ 
+-VERSION '2024.1' EFFECTIVE 2024-01-01 DESCRIPTION 'Entry of national phase in Botswana'
++VERSION '2026.10' EFFECTIVE 2026-08-01 DESCRIPTION 'Entry of national phase in Botswana'
+ 
+ # Inputs and groups shared across this regional system are declared once in the base
+@@ -96,5 +96,5 @@ ENDDEFINE
+ # File name: PCT-BW-OFF
+ # File content: Official fees for PCT national phase: Botswana
+-# Valid until n/a
++# Checked against the fees in force on 20 October 2026 (WIPO eGuide BW)
+ 
+ COMPUTE FEE OFF_BasicNationalFee
+diff --git a/src/IPFLang.Engine/Corpus/PCT-BY.ipf b/src/IPFLang.Engine/Corpus/PCT-BY.ipf
+index c6471bc..254f3d6 100644
+--- a/src/IPFLang.Engine/Corpus/PCT-BY.ipf
++++ b/src/IPFLang.Engine/Corpus/PCT-BY.ipf
+@@ -14,5 +14,5 @@
+ # =============================================================================
+ 
+-VERSION '2024.1' EFFECTIVE 2024-01-01 DESCRIPTION 'Entry of regional phase in Belarus'
++VERSION '2026.10' EFFECTIVE 2026-01-01 DESCRIPTION 'Entry of regional phase in Belarus'
+ 
+ # Inputs and groups shared across this regional system are declared once in the base
+@@ -96,13 +96,13 @@ ENDDEFINE
+ # File name: PCT-BY-OFF
+ # File content: Official fees for PCT national phase: Belarus
+-# Valid until n/a
++# Checked against the fees in force on 20 October 2026 (WIPO eGuide BY; Tax Code annex 23 rates in base values, base value 45 BYN from 1 January 2026)
+ 
+ COMPUTE FEE OFF_BasicNationalFee
+-LET Fee AS 90.65
++LET Fee AS 110.25
+ YIELD Fee
+ ENDCOMPUTE
+ 
+ COMPUTE FEE OFF_ClaimFee
+-LET CF AS 38.85
++LET CF AS 47.25
+ YIELD CF*(IndependentClaimCount-1) IF IndependentClaimCount GT 1
+ # Nothing is due in the remaining case; stated so the schedule answers it.
+@@ -111,7 +111,7 @@ ENDCOMPUTE
+ 
+ COMPUTE FEE OFF_ExaminationFee
+-LET Fee1 AS 440.30 
++LET Fee1 AS 535.50 
+ LET Fee2 AS 0.5 * Fee1 # 50% Discount if ISR available
+-LET IndepClaimFee AS 259 # no discount seems to apply here
++LET IndepClaimFee AS 315 # no discount seems to apply here
+ 
+ YIELD Fee1 IF ISR_AVAILABLE NEQ TRUE
+@@ -121,5 +121,5 @@ ENDCOMPUTE
+ 
+ COMPUTE FEE OFF_GrantFee OPTIONAL
+-YIELD 181.30<BYN>
++YIELD 220.50<BYN>
+ ENDCOMPUTE
+ 
+@@ -159,5 +159,5 @@ VERIFY COMPLETE FEE OFF_ClaimFee
+ VERIFY COMPLETE FEE OFF_ExaminationFee
+ VERIFY COMPLETE FEE OFF_GrantFee
+-VERIFY MONOTONIC FEE OFF_ClaimFee WITH RESPECT TO ClaimCount
++VERIFY MONOTONIC FEE OFF_ClaimFee WITH RESPECT TO IndependentClaimCount
+ 
+ # =============================================================================
+diff --git a/src/IPFLang.Engine/Corpus/PCT-BZ.ipf b/src/IPFLang.Engine/Corpus/PCT-BZ.ipf
+index fefb734..aca9565 100644
+--- a/src/IPFLang.Engine/Corpus/PCT-BZ.ipf
++++ b/src/IPFLang.Engine/Corpus/PCT-BZ.ipf
+@@ -13,5 +13,5 @@
+ # =============================================================================
+ 
+-VERSION '2024.1' EFFECTIVE 2024-01-01 DESCRIPTION 'Entry of national phase in Belize'
++VERSION '2026.10' EFFECTIVE 2022-03-01 DESCRIPTION 'Entry of national phase in Belize'
+ 
+ 
+@@ -34,5 +34,5 @@ ENDDEFINE
+ 
+ # Application date
+-DEFINE DATE ApplicationDate AS 'Application date'
++DEFINE DATE ApplicationDate AS 'Application date (international filing date)'
+ GROUP ApplicationGroup
+ BETWEEN 01.01.2000 AND TODAY
+@@ -48,5 +48,5 @@ ENDDEFINE
+ 
+ # Sheets/Pages
+-DEFINE NUMBER SheetCount AS 'Number of pages'
++DEFINE NUMBER SheetCount AS 'Number of pages/sheets'
+ GROUP ApplicationGroup
+ BETWEEN 1 AND 10000
+@@ -151,13 +151,13 @@ ENDDEFINE
+ # File name: PCT-BZ-OFF
+ # File content: Official fees for PCT national phase: Belize
+-# Valid until n/a
++# Checked against the fees in force on 20 October 2026 (WIPO eGuide BZ; Patents (Amendment) Regulations 2022, SI 26 of 2022)
+ 
+ COMPUTE FEE OFF_BasicNationalFee
+-LET Fee AS 300
++LET Fee AS 450
+ YIELD Fee
+ ENDCOMPUTE
+ 
+ COMPUTE FEE OFF_GrantFee OPTIONAL
+-LET Fee AS 300
++LET Fee AS 550
+ YIELD Fee
+ ENDCOMPUTE
+@@ -165,5 +165,5 @@ ENDCOMPUTE
+ COMPUTE FEE OFF_Renewal
+ LET RenMonth AS ROUND ( ApplicationDate!MONTHSTONOW ) #calculate difference in months to today
+-YIELD 100<BZD>
++# The first annuity is included in the 450 BZD filing fee.
+ YIELD 200<BZD> IF RenMonth GTE 12 #year 2
+ YIELD 300<BZD> IF RenMonth GTE 24 #year 3
+diff --git a/src/IPFLang.Engine/Corpus/PCT-CA.ipf b/src/IPFLang.Engine/Corpus/PCT-CA.ipf
+index cad5559..fe87da3 100644
+--- a/src/IPFLang.Engine/Corpus/PCT-CA.ipf
++++ b/src/IPFLang.Engine/Corpus/PCT-CA.ipf
+@@ -13,5 +13,5 @@
+ # =============================================================================
+ 
+-VERSION '2024.1' EFFECTIVE 2024-01-01 DESCRIPTION 'Entry of national phase in Canada'
++VERSION '2026.10' EFFECTIVE 2026-01-01 DESCRIPTION 'Entry of national phase in Canada'
+ 
+ 
+@@ -34,5 +34,5 @@ ENDDEFINE
+ 
+ # Application date
+-DEFINE DATE ApplicationDate AS 'Application date'
++DEFINE DATE ApplicationDate AS 'Application date (international filing date)'
+ GROUP ApplicationGroup
+ BETWEEN 01.01.2000 AND TODAY
+@@ -48,5 +48,5 @@ ENDDEFINE
+ 
+ # Sheets/Pages
+-DEFINE NUMBER SheetCount AS 'Number of pages'
++DEFINE NUMBER SheetCount AS 'Number of pages/sheets'
+ GROUP ApplicationGroup
+ BETWEEN 1 AND 10000
+@@ -151,9 +151,9 @@ ENDDEFINE
+ # File name: PCT-CA-OFF
+ # File content: Official fees for PCT national phase: Canada
+-# Valid until n/a
++# Checked against the fees in force on 20 October 2026 (WIPO eGuide CA; CIPO 2026 list of fees for patents)
+ 
+ COMPUTE FEE OFF_BasicNationalFee
+-YIELD 203.59<CAD> IF EntitySize EQ Entity_Small
+-YIELD 407.18<CAD> IF EntitySize NEQ Entity_Small
++YIELD 241.24<CAD> IF EntitySize EQ Entity_Small
++YIELD 595.06<CAD> IF EntitySize NEQ Entity_Small
+ ENDCOMPUTE
+ 
+@@ -162,11 +162,11 @@ COMPUTE FEE OFF_ExaminationFee OPTIONAL
+ 
+ CASE ISA EQ ISA_CA AS
+-   YIELD 100<CAD> IF EntitySize EQ Entity_Small
+-   YIELD 203.59<CAD> IF EntitySize NEQ Entity_Small
++   YIELD 117.94<CAD> IF EntitySize EQ Entity_Small
++   YIELD 297.00<CAD> IF EntitySize NEQ Entity_Small
+ ENDCASE
+ 
+ CASE ISA NEQ ISA_CA AS
+-   YIELD 407.18<CAD> IF EntitySize EQ Entity_Small
+-   YIELD 814.37<CAD> IF EntitySize NEQ Entity_Small
++   YIELD 482.48<CAD> IF EntitySize EQ Entity_Small
++   YIELD 1190.13<CAD> IF EntitySize NEQ Entity_Small
+ ENDCASE
+ 
+@@ -176,6 +176,6 @@ COMPUTE FEE OFF_Renewal
+ LET RenMonth AS ROUND ( ApplicationDate!MONTHSTONOW ) #calculate difference in months to today
+ 
+-LET AnnFeeSmall AS 50
+-LET AnnFeeLarge AS 100
++LET AnnFeeSmall AS 60.26
++LET AnnFeeLarge AS 134.02
+ 
+ CASE EntitySize EQ Entity_Small AS 
+diff --git a/src/IPFLang.Engine/Corpus/PCT-CH.ipf b/src/IPFLang.Engine/Corpus/PCT-CH.ipf
+index 25817f1..8e48a62 100644
+--- a/src/IPFLang.Engine/Corpus/PCT-CH.ipf
++++ b/src/IPFLang.Engine/Corpus/PCT-CH.ipf
+@@ -14,5 +14,5 @@
+ # =============================================================================
+ 
+-VERSION '2024.1' EFFECTIVE 2024-01-01 DESCRIPTION 'Entry of national phase in Switzerland'
++VERSION '2026.10' EFFECTIVE 2019-07-01 DESCRIPTION 'Entry of national phase in Switzerland'
+ 
+ # Inputs and groups shared across this regional system are declared once in the base
+@@ -96,5 +96,5 @@ ENDDEFINE
+ # File name: PCT-CH-OFF
+ # File content: Official fees for PCT national phase: Switzerland
+-# Valid until n/a
++# Checked against the fees in force on 20 October 2026 (WIPO eGuide CH; IPI patent fees, status per 1 July 2019)
+ 
+ COMPUTE FEE OFF_BasicNationalFee
+diff --git a/src/IPFLang.Engine/Corpus/PCT-CN.ipf b/src/IPFLang.Engine/Corpus/PCT-CN.ipf
+index fce4067..f20a72d 100644
+--- a/src/IPFLang.Engine/Corpus/PCT-CN.ipf
++++ b/src/IPFLang.Engine/Corpus/PCT-CN.ipf
+@@ -13,5 +13,5 @@
+ # =============================================================================
+ 
+-VERSION '2024.1' EFFECTIVE 2024-01-01 DESCRIPTION 'Entry of national phase in China'
++VERSION '2026.10' EFFECTIVE 2026-10-01 DESCRIPTION 'Entry of national phase in China'
+ 
+ 
+@@ -34,5 +34,5 @@ ENDDEFINE
+ 
+ # Application date
+-DEFINE DATE ApplicationDate AS 'Application date'
++DEFINE DATE ApplicationDate AS 'Application date (international filing date)'
+ GROUP ApplicationGroup
+ BETWEEN 01.01.2000 AND TODAY
+@@ -48,5 +48,5 @@ ENDDEFINE
+ 
+ # Sheets/Pages
+-DEFINE NUMBER SheetCount AS 'Number of pages'
++DEFINE NUMBER SheetCount AS 'Number of pages/sheets'
+ GROUP ApplicationGroup
+ BETWEEN 1 AND 10000
+@@ -151,5 +151,5 @@ ENDDEFINE
+ # File name: PCT-CN-OFF
+ # File content: Official fees for PCT national phase: China
+-# Valid until n/a
++# Checked against the fees in force on 20 October 2026 (WIPO eGuide CN; CNIPA Announcement 594)
+ # Is newer than 30 days: False
+ # Fees keywords: ['sheet', 'claim', 'claims', 'priority']
+@@ -157,10 +157,10 @@ ENDDEFINE
+ COMPUTE FEE OFF_BasicNationalFee
+ LET Fee1 AS 900
+-CASE RO_NP EQ FALSE AS
++CASE RO_NP EQ FALSE OR ISA NEQ ISA_CN AS
+    YIELD Fee1
+ ENDCASE
+-# Waived, with the application surcharges (claim and sheet fees), when CNIPA was the
+-# receiving office.
+-CASE RO_NP EQ TRUE AS
++# Waived, with the application surcharges (claim and sheet fees), when CNIPA was both the
++# receiving office and the International Searching Authority (CNIPA Announcement 594).
++CASE RO_NP EQ TRUE AND ISA EQ ISA_CN AS
+    YIELD 0
+ ENDCASE
+@@ -168,11 +168,11 @@ ENDCOMPUTE
+ 
+ COMPUTE FEE OFF_ClaimFee
+-CASE RO_NP EQ FALSE AS
++CASE RO_NP EQ FALSE OR ISA NEQ ISA_CN AS
+    YIELD 150*(ClaimCount-10) IF ClaimCount GT 10
+    # Nothing is due in the remaining case; stated so the schedule answers it.
+    YIELD 0 IF ClaimCount LTE 10
+ ENDCASE
+-# Waived when CNIPA was the receiving office.
+-CASE RO_NP EQ TRUE AS
++# Waived when CNIPA was both the receiving office and the ISA.
++CASE RO_NP EQ TRUE AND ISA EQ ISA_CN AS
+    YIELD 0
+ ENDCASE
+@@ -183,5 +183,5 @@ LET Fee1 AS 50
+ LET Fee2 AS 100
+ 
+-CASE RO_NP EQ FALSE AS
++CASE RO_NP EQ FALSE OR ISA NEQ ISA_CN AS
+    YIELD Fee1*(SheetCount-30) IF SheetCount GT 30 AND SheetCount LTE 300
+    YIELD (300-30)*Fee1 + Fee2*(SheetCount-300) IF SheetCount GT 300
+@@ -189,6 +189,6 @@ CASE RO_NP EQ FALSE AS
+    YIELD 0 IF SheetCount LTE 30
+ ENDCASE
+-# Waived when CNIPA was the receiving office.
+-CASE RO_NP EQ TRUE AS
++# Waived when CNIPA was both the receiving office and the ISA.
++CASE RO_NP EQ TRUE AND ISA EQ ISA_CN AS
+    YIELD 0
+ ENDCASE
+@@ -207,5 +207,4 @@ LET ExFee AS 2500
+ 
+ YIELD ExFee
+-YIELD -ExFee * 0.2 IF (ISA EQ ISA_JP OR ISA EQ ISA_SE OR ISA EQ ISA_EPO) AND IPRP NEQ IPRP_CN  #20% discount if ISA=JP,PRV,EP
+ YIELD -ExFee IF IPRP EQ IPRP_CN OR ISA EQ ISA_CN # no examination fee when CNIPA drew up the ISR or the IPRP
+ 
+diff --git a/src/IPFLang.Engine/Corpus/PCT-CO.ipf b/src/IPFLang.Engine/Corpus/PCT-CO.ipf
+index bf20497..445e8f5 100644
+--- a/src/IPFLang.Engine/Corpus/PCT-CO.ipf
++++ b/src/IPFLang.Engine/Corpus/PCT-CO.ipf
+@@ -13,5 +13,5 @@
+ # =============================================================================
+ 
+-VERSION '2024.1' EFFECTIVE 2024-01-01 DESCRIPTION 'Entry of national phase in Colombia'
++VERSION '2026.10' EFFECTIVE 2026-02-13 DESCRIPTION 'Entry of national phase in Colombia'
+ 
+ 
+@@ -34,5 +34,5 @@ ENDDEFINE
+ 
+ # Application date
+-DEFINE DATE ApplicationDate AS 'Application date'
++DEFINE DATE ApplicationDate AS 'Application date (international filing date)'
+ GROUP ApplicationGroup
+ BETWEEN 01.01.2000 AND TODAY
+@@ -48,5 +48,5 @@ ENDDEFINE
+ 
+ # Sheets/Pages
+-DEFINE NUMBER SheetCount AS 'Number of pages'
++DEFINE NUMBER SheetCount AS 'Number of pages/sheets'
+ GROUP ApplicationGroup
+ BETWEEN 1 AND 10000
+@@ -151,14 +151,14 @@ ENDDEFINE
+ # File name: PCT-CO-OFF
+ # File content: Official fees for PCT national phase: Colombia
+-# Valid until n/a
++# Checked against the fees in force on 20 October 2026 (WIPO eGuide CO; SIC Resolucion 6167 de 2026, online rates)
+ # Is newer than 30 days: False
+ # Fees keywords: []
+ 
+ COMPUTE FEE OFF_BasicNationalFee
+-YIELD 84840<COP>
++YIELD 118000<COP>
+ ENDCOMPUTE
+ 
+ COMPUTE FEE OFF_ExaminationFee OPTIONAL
+-YIELD 1151240<COP>
++YIELD 1599500<COP>
+ ENDCOMPUTE
+ 
+diff --git a/src/IPFLang.Engine/Corpus/PCT-CR.ipf b/src/IPFLang.Engine/Corpus/PCT-CR.ipf
+index 50f0ace..d864e7e 100644
+--- a/src/IPFLang.Engine/Corpus/PCT-CR.ipf
++++ b/src/IPFLang.Engine/Corpus/PCT-CR.ipf
+@@ -13,5 +13,5 @@
+ # =============================================================================
+ 
+-VERSION '2024.1' EFFECTIVE 2024-01-01 DESCRIPTION 'Entry of national phase entry in Costa Rica'
++VERSION '2026.10' EFFECTIVE 2026-01-01 DESCRIPTION 'Entry of national phase entry in Costa Rica'
+ 
+ 
+@@ -34,5 +34,5 @@ ENDDEFINE
+ 
+ # Application date
+-DEFINE DATE ApplicationDate AS 'Application date'
++DEFINE DATE ApplicationDate AS 'Application date (international filing date)'
+ GROUP ApplicationGroup
+ BETWEEN 01.01.2000 AND TODAY
+@@ -48,5 +48,5 @@ ENDDEFINE
+ 
+ # Sheets/Pages
+-DEFINE NUMBER SheetCount AS 'Number of pages'
++DEFINE NUMBER SheetCount AS 'Number of pages/sheets'
+ GROUP ApplicationGroup
+ BETWEEN 1 AND 10000
+@@ -151,5 +151,5 @@ ENDDEFINE
+ # File name: PCT-CR-OFF
+ # File content: Official fees for PCT national phase: Costa Rica
+-# Valid until n/a
++# Checked against the fees in force on 20 October 2026 (WIPO eGuide CR)
+ # Is newer than 30 days: False
+ # Fees keywords: []
+diff --git a/src/IPFLang.Engine/Corpus/PCT-CU.ipf b/src/IPFLang.Engine/Corpus/PCT-CU.ipf
+index d6c647a..726525e 100644
+--- a/src/IPFLang.Engine/Corpus/PCT-CU.ipf
++++ b/src/IPFLang.Engine/Corpus/PCT-CU.ipf
+@@ -13,5 +13,5 @@
+ # =============================================================================
+ 
+-VERSION '2024.1' EFFECTIVE 2024-01-01 DESCRIPTION 'Entry of national phase entry in Cuba'
++VERSION '2026.10' EFFECTIVE 2025-03-07 DESCRIPTION 'Entry of national phase entry in Cuba'
+ 
+ 
+@@ -34,5 +34,5 @@ ENDDEFINE
+ 
+ # Application date
+-DEFINE DATE ApplicationDate AS 'Application date'
++DEFINE DATE ApplicationDate AS 'Application date (international filing date)'
+ GROUP ApplicationGroup
+ BETWEEN 01.01.2000 AND TODAY
+@@ -48,5 +48,5 @@ ENDDEFINE
+ 
+ # Sheets/Pages
+-DEFINE NUMBER SheetCount AS 'Number of pages'
++DEFINE NUMBER SheetCount AS 'Number of pages/sheets'
+ GROUP ApplicationGroup
+ BETWEEN 1 AND 10000
+@@ -151,5 +151,5 @@ ENDDEFINE
+ # File name: PCT-CU-OFF
+ # File content: Official fees for PCT national phase: Cuba
+-# Valid until n/a
++# Checked against the fees in force on 20 October 2026 (WIPO eGuide CU)
+ # Is newer than 30 days: False
+ # Fees keywords: []
+@@ -233,5 +233,7 @@ VERIFY COMPLETE FEE OFF_ClaimFee
+ VERIFY COMPLETE FEE OFF_GrantFee
+ VERIFY MONOTONIC FEE OFF_SheetFee WITH RESPECT TO SheetCount
+-VERIFY MONOTONIC FEE OFF_ClaimFee WITH RESPECT TO ClaimCount
++VERIFY MONOTONIC FEE OFF_ClaimFee WITH RESPECT TO IndependentClaimCount
++VERIFY MONOTONIC FEE OFF_ClaimFee WITH RESPECT TO MultipleDependentClaimCount
++VERIFY MONOTONIC FEE OFF_ClaimFee WITH RESPECT TO DependentClaimCount
+ 
+ # =============================================================================
+diff --git a/src/IPFLang.Engine/Corpus/PCT-CZ.ipf b/src/IPFLang.Engine/Corpus/PCT-CZ.ipf
+index efdc8b9..39d8fed 100644
+--- a/src/IPFLang.Engine/Corpus/PCT-CZ.ipf
++++ b/src/IPFLang.Engine/Corpus/PCT-CZ.ipf
+@@ -14,5 +14,5 @@
+ # =============================================================================
+ 
+-VERSION '2024.1' EFFECTIVE 2024-01-01 DESCRIPTION 'Entry of national phase entry in Czechia'
++VERSION '2026.10' EFFECTIVE 2026-07-01 DESCRIPTION 'Entry of national phase entry in Czechia'
+ 
+ # Inputs and groups shared across this regional system are declared once in the base
+@@ -96,5 +96,5 @@ ENDDEFINE
+ # File name: PCT-CZ-OFF
+ # File content: Official fees for PCT national phase: Czechia
+-# Valid until n/a
++# Checked against the fees in force on 20 October 2026 (eGuide CZ; UPV fee overview 08/2025)
+ # Is newer than 30 days: False
+ # Fees keywords: []
+diff --git a/src/IPFLang.Engine/Corpus/PCT-DE.ipf b/src/IPFLang.Engine/Corpus/PCT-DE.ipf
+index 7188712..36fb45b 100644
+--- a/src/IPFLang.Engine/Corpus/PCT-DE.ipf
++++ b/src/IPFLang.Engine/Corpus/PCT-DE.ipf
+@@ -14,5 +14,5 @@
+ # =============================================================================
+ 
+-VERSION '2024.1' EFFECTIVE 2024-01-01 DESCRIPTION 'Entry of national phase entry in Germany'
++VERSION '2026.10' EFFECTIVE 2026-04-10 DESCRIPTION 'Entry of national phase entry in Germany'
+ 
+ # Inputs and groups shared across this regional system are declared once in the base
+@@ -96,5 +96,5 @@ ENDDEFINE
+ # File name: PCT-DE-OFF
+ # File content: Official fees for PCT national phase: Germany
+-# Valid until n/a
++# Checked against the fees in force on 20 October 2026 (eGuide DE; DPMA A 9510.1 July 2026)
+ # Is newer than 30 days: True
+ # Fees keywords: ['claims', 'claim']
+@@ -119,9 +119,9 @@ YIELD Fee2 IF ISR_AVAILABLE EQ FALSE
+ ENDCOMPUTE
+ 
+-# need to check if 3rd annuity is due (>1.5 years after filing date)
++# The renewal fee for the third year falls due at the second anniversary of the international filing date.
+ COMPUTE FEE OFF_Renewal3
+ LET RenFee AS 70
+ LET RenMonth AS ROUND ( ApplicationDate!MONTHSTONOW_FROMLASTDAY ) #calculate difference in months to today
+-YIELD RenFee IF RenMonth GTE 18
++YIELD RenFee IF RenMonth GTE 24 #due at the second anniversary of the international filing date
+ ENDCOMPUTE
+ 
+diff --git a/src/IPFLang.Engine/Corpus/PCT-DJ.ipf b/src/IPFLang.Engine/Corpus/PCT-DJ.ipf
+index 2a5fe47..ae61ec4 100644
+--- a/src/IPFLang.Engine/Corpus/PCT-DJ.ipf
++++ b/src/IPFLang.Engine/Corpus/PCT-DJ.ipf
+@@ -13,5 +13,5 @@
+ # =============================================================================
+ 
+-VERSION '2024.1' EFFECTIVE 2024-01-01 DESCRIPTION 'Entry of national phase entry in Djibouti'
++VERSION '2026.10' EFFECTIVE 2026-01-01 DESCRIPTION 'Entry of national phase entry in Djibouti'
+ 
+ 
+@@ -34,5 +34,5 @@ ENDDEFINE
+ 
+ # Application date
+-DEFINE DATE ApplicationDate AS 'Application date'
++DEFINE DATE ApplicationDate AS 'Application date (international filing date)'
+ GROUP ApplicationGroup
+ BETWEEN 01.01.2000 AND TODAY
+@@ -48,5 +48,5 @@ ENDDEFINE
+ 
+ # Sheets/Pages
+-DEFINE NUMBER SheetCount AS 'Number of pages'
++DEFINE NUMBER SheetCount AS 'Number of pages/sheets'
+ GROUP ApplicationGroup
+ BETWEEN 1 AND 10000
+@@ -151,5 +151,5 @@ ENDDEFINE
+ # File name: PCT-DJ-OFF
+ # File content: Official fees for PCT national phase: Djibouti
+-# Valid until n/a
++# Checked against the fees in force on 20 October 2026 (eGuide DJ; ODPIC fee table)
+ # Is newer than 30 days: False
+ # Fees keywords: []
+diff --git a/src/IPFLang.Engine/Corpus/PCT-DK.ipf b/src/IPFLang.Engine/Corpus/PCT-DK.ipf
+index e1312db..0013d2e 100644
+--- a/src/IPFLang.Engine/Corpus/PCT-DK.ipf
++++ b/src/IPFLang.Engine/Corpus/PCT-DK.ipf
+@@ -14,5 +14,5 @@
+ # =============================================================================
+ 
+-VERSION '2024.1' EFFECTIVE 2024-01-01 DESCRIPTION 'Entry of national phase entry in Denmark'
++VERSION '2026.10' EFFECTIVE 2026-01-01 DESCRIPTION 'Entry of national phase entry in Denmark'
+ 
+ # Inputs and groups shared across this regional system are declared once in the base
+@@ -96,15 +96,15 @@ ENDDEFINE
+ # File name: PCT-DK-OFF
+ # File content: Official fees for PCT national phase: Denmark
+-# Valid until n/a
++# Checked against the fees in force on 20 October 2026 (eGuide DK; DKPTO fees per 1 January 2026)
+ # Is newer than 30 days: False
+ # Fees keywords: ['claim']
+ 
+ COMPUTE FEE OFF_BasicNationalFee
+-LET Fee1 AS 3000
++LET Fee1 AS 3600
+ YIELD Fee1
+ ENDCOMPUTE
+ 
+ COMPUTE FEE OFF_ClaimFee
+-LET CF1 AS 300
++LET CF1 AS 360
+ YIELD CF1*(ClaimCount-10) IF ClaimCount GT 10
+ # Nothing is due in the remaining case; stated so the schedule answers it.
+@@ -113,8 +113,9 @@ ENDCOMPUTE
+ 
+ COMPUTE FEE OFF_Renewal
+-LET RenFee AS 500
++LET RenFee AS 660
+ LET RenMonth AS ROUND ( ApplicationDate!MONTHSTONOW_FROMLASTDAY ) #calculate difference in months to today
+-YIELD RenFee #for first year
+-YIELD RenFee IF RenMonth GTE 12 #for second year
++# The fees for the first three years all fall due at the second anniversary of the international filing date.
++YIELD RenFee IF RenMonth GTE 24 #for first year
++YIELD RenFee IF RenMonth GTE 24 #for second year
+ YIELD RenFee IF RenMonth GTE 24 #for third year
+ ENDCOMPUTE
+diff --git a/src/IPFLang.Engine/Corpus/PCT-DO.ipf b/src/IPFLang.Engine/Corpus/PCT-DO.ipf
+index 74571f6..9e14748 100644
+--- a/src/IPFLang.Engine/Corpus/PCT-DO.ipf
++++ b/src/IPFLang.Engine/Corpus/PCT-DO.ipf
+@@ -13,5 +13,5 @@
+ # =============================================================================
+ 
+-VERSION '2024.1' EFFECTIVE 2024-01-01 DESCRIPTION 'Entry of national phase entry in Dominican Republic'
++VERSION '2026.10' EFFECTIVE 2023-03-31 DESCRIPTION 'Entry of national phase entry in Dominican Republic'
+ 
+ 
+@@ -34,5 +34,5 @@ ENDDEFINE
+ 
+ # Application date
+-DEFINE DATE ApplicationDate AS 'Application date'
++DEFINE DATE ApplicationDate AS 'Application date (international filing date)'
+ GROUP ApplicationGroup
+ BETWEEN 01.01.2000 AND TODAY
+@@ -48,5 +48,5 @@ ENDDEFINE
+ 
+ # Sheets/Pages
+-DEFINE NUMBER SheetCount AS 'Number of pages'
++DEFINE NUMBER SheetCount AS 'Number of pages/sheets'
+ GROUP ApplicationGroup
+ BETWEEN 1 AND 10000
+@@ -151,5 +151,5 @@ ENDDEFINE
+ # File name: PCT-DO-OFF
+ # File content: Official fees for PCT national phase: Dominican Republic
+-# Valid until n/a
++# Checked against the fees in force on 20 October 2026 (eGuide DO; ONAPI tasas 31 March 2023)
+ # Is newer than 30 days: True
+ # Fees keywords: ['sheet']
+diff --git a/src/IPFLang.Engine/Corpus/PCT-DZ.ipf b/src/IPFLang.Engine/Corpus/PCT-DZ.ipf
+index 115872f..065feb9 100644
+--- a/src/IPFLang.Engine/Corpus/PCT-DZ.ipf
++++ b/src/IPFLang.Engine/Corpus/PCT-DZ.ipf
+@@ -13,5 +13,5 @@
+ # =============================================================================
+ 
+-VERSION '2024.1' EFFECTIVE 2024-01-01 DESCRIPTION 'Entry of national phase entry in Algeria'
++VERSION '2026.10' EFFECTIVE 2026-01-01 DESCRIPTION 'Entry of national phase entry in Algeria'
+ 
+ 
+@@ -34,5 +34,5 @@ ENDDEFINE
+ 
+ # Application date
+-DEFINE DATE ApplicationDate AS 'Application date'
++DEFINE DATE ApplicationDate AS 'Application date (international filing date)'
+ GROUP ApplicationGroup
+ BETWEEN 01.01.2000 AND TODAY
+@@ -48,5 +48,5 @@ ENDDEFINE
+ 
+ # Sheets/Pages
+-DEFINE NUMBER SheetCount AS 'Number of pages'
++DEFINE NUMBER SheetCount AS 'Number of pages/sheets'
+ GROUP ApplicationGroup
+ BETWEEN 1 AND 10000
+@@ -151,20 +151,20 @@ ENDDEFINE
+ # File name: PCT-DZ-OFF
+ # File content: Official fees for PCT national phase: Algeria
+-# Valid until n/a
++# Checked against the fees in force on 20 October 2026 (eGuide DZ; INAPI patent taxes)
+ # Is newer than 30 days: False
+ # Fees keywords: ['claims', 'priority']
+ 
+ COMPUTE FEE OFF_BasicNationalFee
+-LET Fee1 AS 7500
++LET Fee1 AS 15000 # company rate
+ YIELD Fee1
+ ENDCOMPUTE
+ 
+ COMPUTE FEE OFF_PriorityFee
+-LET Fee1 AS 2000
++LET Fee1 AS 10000 # company rate
+ YIELD Fee1*PriorityCount
+ ENDCOMPUTE
+ 
+ COMPUTE FEE OFF_SheetFee
+-LET Fee1 AS 1200 #per each 5 exceeding 10
++LET Fee1 AS 5000 #per each 5 exceeding 10; company rate
+ YIELD Fee1*CEIL( ( SheetCount - 10 ) / 5 ) IF SheetCount GT 10
+ # Nothing is due in the remaining case; stated so the schedule answers it.
+diff --git a/src/IPFLang.Engine/Corpus/PCT-EA.ipf b/src/IPFLang.Engine/Corpus/PCT-EA.ipf
+index c8d6ffc..0b995be 100644
+--- a/src/IPFLang.Engine/Corpus/PCT-EA.ipf
++++ b/src/IPFLang.Engine/Corpus/PCT-EA.ipf
+@@ -13,5 +13,5 @@
+ # =============================================================================
+ 
+-VERSION '2024.1' EFFECTIVE 2024-01-01 DESCRIPTION 'Entry of regional phase in Eurasia'
++VERSION '2026.10' EFFECTIVE 2026-02-01 DESCRIPTION 'Entry of regional phase in Eurasia'
+ 
+ 
+@@ -34,5 +34,5 @@ ENDDEFINE
+ 
+ # Application date
+-DEFINE DATE ApplicationDate AS 'Application date'
++DEFINE DATE ApplicationDate AS 'Application date (international filing date)'
+ GROUP ApplicationGroup
+ BETWEEN 01.01.2000 AND TODAY
+@@ -48,5 +48,5 @@ ENDDEFINE
+ 
+ # Sheets/Pages
+-DEFINE NUMBER SheetCount AS 'Number of pages'
++DEFINE NUMBER SheetCount AS 'Number of pages/sheets'
+ GROUP ApplicationGroup
+ BETWEEN 1 AND 10000
+@@ -151,10 +151,10 @@ ENDDEFINE
+ # File name: PCT-EA-OFF
+ # File content: Official fees for PCT regional phase: EAPO
+-# Valid until n/a
++# Checked against the fees in force on 20 October 2026 (eGuide EA; EAPO Statute on Fees, in force 1 February 2026)
+ 
+ # all calculations for non EAPO residents. These would be entitled to certain fee reductions.
+ 
+ COMPUTE FEE OFF_BasicNationalFee
+-LET Fee AS 36000
++LET Fee AS 70000
+ YIELD Fee*0.75 IF ISR_AVAILABLE EQ TRUE
+ YIELD Fee IF ISR_AVAILABLE EQ FALSE
+@@ -162,16 +162,16 @@ ENDCOMPUTE
+ 
+ COMPUTE FEE OFF_ExaminationFee
+-LET Fee AS 40000
+-LET IndepClaimFee AS 13000
++LET Fee AS 70000
++LET IndepClaimFee AS 25000
+ YIELD Fee
+-YIELD Fee IF IndependentClaimCount EQ 2
+-YIELD Fee  + IndepClaimFee*(IndependentClaimCount-2) IF IndependentClaimCount GT 2
++YIELD 40000 IF IndependentClaimCount EQ 2
++YIELD 40000 + IndepClaimFee*(IndependentClaimCount-2) IF IndependentClaimCount GT 2
+ ENDCOMPUTE
+ 
+ COMPUTE FEE OFF_ClaimFee
+-LET CF1 AS 6500
+-LET CF2 AS 5200
+-LET CF3 AS 4800
+-# 1-5 = none; 6-20(=15): 4800; 21-50 (=30): 5200; >50: 6500
++LET CF1 AS 8000
++LET CF2 AS 7500
++LET CF3 AS 7000
++# 1-5 = none; 6-20(=15): 7000; 21-50 (=30): 7500; >50: 8000
+ YIELD CF1*(ClaimCount-50) + CF2*30 + CF3*15 IF ClaimCount GT 50
+ YIELD CF2*(ClaimCount-20) + CF3*15 IF ClaimCount GT 20 AND ClaimCount LT 51
+@@ -182,5 +182,5 @@ ENDCOMPUTE
+ 
+ COMPUTE FEE OFF_GrantFee OPTIONAL
+-YIELD 25000<RUB>
++YIELD 45000<RUB>
+ ENDCOMPUTE
+ 
+diff --git a/src/IPFLang.Engine/Corpus/PCT-EC.ipf b/src/IPFLang.Engine/Corpus/PCT-EC.ipf
+index 6b732c2..331a1b0 100644
+--- a/src/IPFLang.Engine/Corpus/PCT-EC.ipf
++++ b/src/IPFLang.Engine/Corpus/PCT-EC.ipf
+@@ -13,5 +13,5 @@
+ # =============================================================================
+ 
+-VERSION '2024.1' EFFECTIVE 2024-01-01 DESCRIPTION 'Entry of national phase entry in Ecuador'
++VERSION '2026.10' EFFECTIVE 2026-05-28 DESCRIPTION 'Entry of national phase entry in Ecuador'
+ 
+ 
+@@ -34,5 +34,5 @@ ENDDEFINE
+ 
+ # Application date
+-DEFINE DATE ApplicationDate AS 'Application date'
++DEFINE DATE ApplicationDate AS 'Application date (international filing date)'
+ GROUP ApplicationGroup
+ BETWEEN 01.01.2000 AND TODAY
+@@ -48,5 +48,5 @@ ENDDEFINE
+ 
+ # Sheets/Pages
+-DEFINE NUMBER SheetCount AS 'Number of pages'
++DEFINE NUMBER SheetCount AS 'Number of pages/sheets'
+ GROUP ApplicationGroup
+ BETWEEN 1 AND 10000
+@@ -151,5 +151,5 @@ ENDDEFINE
+ # File name: PCT-EC-OFF
+ # File content: Official fees for PCT national phase: Ecuador
+-# Valid until n/a
++# Checked against the fees in force on 20 October 2026 (eGuide EC)
+ # Is newer than 30 days: False
+ # Fees keywords: ['claim']
+diff --git a/src/IPFLang.Engine/Corpus/PCT-EE.ipf b/src/IPFLang.Engine/Corpus/PCT-EE.ipf
+index afce71d..cc6107d 100644
+--- a/src/IPFLang.Engine/Corpus/PCT-EE.ipf
++++ b/src/IPFLang.Engine/Corpus/PCT-EE.ipf
+@@ -14,5 +14,5 @@
+ # =============================================================================
+ 
+-VERSION '2024.1' EFFECTIVE 2024-01-01 DESCRIPTION 'Entry of national phase entry in Estonia'
++VERSION '2026.10' EFFECTIVE 2026-01-01 DESCRIPTION 'Entry of national phase entry in Estonia'
+ 
+ # Inputs and groups shared across this regional system are declared once in the base
+@@ -96,5 +96,5 @@ ENDDEFINE
+ # File name: PCT-EE-OFF
+ # File content: Official fees for PCT national phase: Estonia
+-# Valid until n/a
++# Checked against the fees in force on 20 October 2026 (eGuide EE; EPA patent fees)
+ # Is newer than 30 days: True
+ # Fees keywords: ['claim']
+diff --git a/src/IPFLang.Engine/Corpus/PCT-EG.ipf b/src/IPFLang.Engine/Corpus/PCT-EG.ipf
+index ff54e6c..7014420 100644
+--- a/src/IPFLang.Engine/Corpus/PCT-EG.ipf
++++ b/src/IPFLang.Engine/Corpus/PCT-EG.ipf
+@@ -13,5 +13,5 @@
+ # =============================================================================
+ 
+-VERSION '2024.1' EFFECTIVE 2024-01-01 DESCRIPTION 'Entry of national phase in Egypt'
++VERSION '2026.10' EFFECTIVE 2026-09-01 DESCRIPTION 'Entry of national phase in Egypt'
+ 
+ 
+@@ -34,5 +34,5 @@ ENDDEFINE
+ 
+ # Application date
+-DEFINE DATE ApplicationDate AS 'Application date'
++DEFINE DATE ApplicationDate AS 'Application date (international filing date)'
+ GROUP ApplicationGroup
+ BETWEEN 01.01.2000 AND TODAY
+@@ -48,5 +48,5 @@ ENDDEFINE
+ 
+ # Sheets/Pages
+-DEFINE NUMBER SheetCount AS 'Number of pages'
++DEFINE NUMBER SheetCount AS 'Number of pages/sheets'
+ GROUP ApplicationGroup
+ BETWEEN 1 AND 10000
+@@ -151,5 +151,5 @@ ENDDEFINE
+ # File name: PCT-EG-OFF
+ # File content: Official fees for PCT national phase: Egypt
+-# Valid until n/a
++# Checked against the fees in force on 20 October 2026 (eGuide EG)
+ # Is newer than 30 days: False
+ # Fees keywords: []
+@@ -161,5 +161,5 @@ ENDCOMPUTE
+ 
+ COMPUTE FEE OFF_ExaminationFee OPTIONAL
+-LET Fee1 AS 17000
++LET Fee1 AS 50000
+ YIELD Fee1
+ ENDCOMPUTE
+diff --git a/src/IPFLang.Engine/Corpus/PCT-EP.ipf b/src/IPFLang.Engine/Corpus/PCT-EP.ipf
+index c4955c9..8086408 100644
+--- a/src/IPFLang.Engine/Corpus/PCT-EP.ipf
++++ b/src/IPFLang.Engine/Corpus/PCT-EP.ipf
+@@ -13,5 +13,5 @@
+ # =============================================================================
+ 
+-VERSION '2024.1' EFFECTIVE 2024-01-01 DESCRIPTION 'Entry of regional phase in Europe'
++VERSION '2026.10' EFFECTIVE 2026-04-01 DESCRIPTION 'Entry of regional phase in Europe'
+ 
+ 
+@@ -34,5 +34,5 @@ ENDDEFINE
+ 
+ # Application date
+-DEFINE DATE ApplicationDate AS 'Application date'
++DEFINE DATE ApplicationDate AS 'Application date (international filing date)'
+ GROUP ApplicationGroup
+ BETWEEN 01.01.2000 AND TODAY
+@@ -48,5 +48,5 @@ ENDDEFINE
+ 
+ # Sheets/Pages
+-DEFINE NUMBER SheetCount AS 'Number of pages'
++DEFINE NUMBER SheetCount AS 'Number of pages/sheets'
+ GROUP ApplicationGroup
+ BETWEEN 1 AND 10000
+@@ -159,5 +159,5 @@ ENDDEFINE
+ # File name: PCT-EP-OFF
+ # File content: Official fees for PCT regional phase: EPO
+-# Valid until 31/03/2023
++# Checked against the fees in force on 20 October 2026 (EPO RFees 1 Apr 2026, OJ EPO 2026 A2, eGuide EP)
+ 
+ COMPUTE FEE OFF_BasicNationalFee
+@@ -166,5 +166,5 @@ ENDCOMPUTE
+ 
+ COMPUTE FEE OFF_DesignationFee
+-YIELD 660<EUR>
++YIELD 720<EUR>
+ ENDCOMPUTE
+ 
+@@ -182,6 +182,6 @@ ENDCOMPUTE
+ 
+ COMPUTE FEE OFF_ClaimFee
+-LET CF1 AS 265
+-LET CF2 AS 660
++LET CF1 AS 290
++LET CF2 AS 720
+ YIELD CF1*(ClaimCount-15) IF ClaimCount GT 15 AND ClaimCount LT 51
+ YIELD CF2*(ClaimCount-50) + CF1*(ClaimCount-15-(ClaimCount-50)) IF ClaimCount GT 50
+@@ -191,6 +191,6 @@ ENDCOMPUTE
+ 
+ COMPUTE FEE OFF_SearchFee
+-LET SF1 AS 1460
+-LET SF2 AS 1185 #reduction in line with OJ EPO 2022-A2
++LET SF1 AS 1595
++LET SF2 AS 1365 #reduction in line with OJ EPO 2026, A2, Art. 3
+ 
+ YIELD 0 IF ISA EQ ISA_EPO
+@@ -200,6 +200,6 @@ ENDCOMPUTE
+ 
+ COMPUTE FEE OFF_ExaminationFee
+-LET ExFee1 AS 2055
+-LET ExFee2 AS 1840
++LET ExFee1 AS 2240
++LET ExFee2 AS 2010
+ LET Discount AS 0.25 # the fee is reduced by 75 % (Art. 14(2) RFees), so 25 % is paid
+ 
+@@ -237,9 +237,9 @@ YIELD 0 IF VAL_TN NIN VAL_CTY
+ ENDCOMPUTE
+ 
+-# need to check if 3rd annuity is due (>1.5 years after filing date)
++# The renewal fee for the third year falls due at the second anniversary of the international filing date.
+ COMPUTE FEE OFF_Renewal3
+-LET RenFee AS 530
++LET RenFee AS 725
+ LET RenMonth AS ROUND ( ApplicationDate!MONTHSTONOW_FROMLASTDAY ) #calculate difference in months to today
+-YIELD RenFee IF RenMonth GTE 18
++YIELD RenFee IF RenMonth GTE 24 #due at the second anniversary of the international filing date
+ ENDCOMPUTE
+ 
+diff --git a/src/IPFLang.Engine/Corpus/PCT-ES.ipf b/src/IPFLang.Engine/Corpus/PCT-ES.ipf
+index 9ebd768..8b3218a 100644
+--- a/src/IPFLang.Engine/Corpus/PCT-ES.ipf
++++ b/src/IPFLang.Engine/Corpus/PCT-ES.ipf
+@@ -14,5 +14,5 @@
+ # =============================================================================
+ 
+-VERSION '2024.1' EFFECTIVE 2024-01-01 DESCRIPTION 'Entry of national phase in Spain'
++VERSION '2026.10' EFFECTIVE 2026-04-01 DESCRIPTION 'Entry of national phase in Spain'
+ 
+ # Inputs and groups shared across this regional system are declared once in the base
+@@ -96,5 +96,5 @@ ENDDEFINE
+ # File name: PCT-ES-OFF
+ # File content: Official fees for PCT national phase: Spain
+-# Valid until n/a
++# Checked against the fees in force on 20 October 2026 (eGuide ES; OEPM fees for patents and utility models)
+ # Is newer than 30 days: False
+ # Fees keywords: []
+diff --git a/src/IPFLang.Engine/Corpus/PCT-FI.ipf b/src/IPFLang.Engine/Corpus/PCT-FI.ipf
+index a968790..333b2eb 100644
+--- a/src/IPFLang.Engine/Corpus/PCT-FI.ipf
++++ b/src/IPFLang.Engine/Corpus/PCT-FI.ipf
+@@ -14,5 +14,5 @@
+ # =============================================================================
+ 
+-VERSION '2024.1' EFFECTIVE 2024-01-01 DESCRIPTION 'Entry of national phase in Finland'
++VERSION '2026.10' EFFECTIVE 2026-01-01 DESCRIPTION 'Entry of national phase in Finland'
+ 
+ # Inputs and groups shared across this regional system are declared once in the base
+@@ -96,15 +96,15 @@ ENDDEFINE
+ # File name: PCT-FI-OFF
+ # File content: Official fees for PCT national phase: Finland
+-# Valid until n/a
++# Checked against the fees in force on 20 October 2026 (PRH price list; PRH notice of 1 January 2026; WIPO eGuide FI)
+ # Is newer than 30 days: False
+ # Fees keywords: ['claim']
+ 
+ COMPUTE FEE OFF_BasicNationalFee
+-LET Fee1 AS 400
++LET Fee1 AS 450 #application filed online
+ YIELD Fee1
+ ENDCOMPUTE
+ 
+ COMPUTE FEE OFF_ClaimFee
+-LET CF1 AS 50
++LET CF1 AS 60
+ YIELD CF1*(ClaimCount-15) IF ClaimCount GT 15
+ # Nothing is due in the remaining case; stated so the schedule answers it.
+@@ -113,6 +113,7 @@ ENDCOMPUTE
+ 
+ COMPUTE FEE OFF_Renewal
+-LET RenFee AS 200
++LET RenFee AS 140 #3rd year
+ LET RenMonth AS ROUND ( ApplicationDate!MONTHSTONOW_FROMLASTDAY ) #calculate difference in months to today
++YIELD 80 IF RenMonth GTE 12 #2nd year, charged from 1 January 2026
+ YIELD RenFee IF RenMonth GTE 24
+ ENDCOMPUTE
+diff --git a/src/IPFLang.Engine/Corpus/PCT-GB.ipf b/src/IPFLang.Engine/Corpus/PCT-GB.ipf
+index 6460318..07840e8 100644
+--- a/src/IPFLang.Engine/Corpus/PCT-GB.ipf
++++ b/src/IPFLang.Engine/Corpus/PCT-GB.ipf
+@@ -14,5 +14,5 @@
+ # =============================================================================
+ 
+-VERSION '2024.1' EFFECTIVE 2024-01-01 DESCRIPTION 'Entry of national phase in United Kingdom'
++VERSION '2026.10' EFFECTIVE 2026-04-01 DESCRIPTION 'Entry of national phase in United Kingdom'
+ 
+ # Inputs and groups shared across this regional system are declared once in the base
+@@ -96,15 +96,15 @@ ENDDEFINE
+ # File name: PCT-GB-OFF
+ # File content: Official fees for PCT national phase: United Kingdom
+-# Valid until n/a
++# Checked against the fees in force on 20 October 2026 (S.I. 2026/183; WIPO eGuide GB)
+ # Is newer than 30 days: False
+ # Fees keywords: ['claim', 'claims', 'page']
+ 
+ COMPUTE FEE OFF_BasicNationalFee
+-LET Fee1 AS 30
++LET Fee1 AS 40
+ YIELD Fee1
+ ENDCOMPUTE
+ 
+ COMPUTE FEE OFF_ClaimFee
+-LET CF1 AS 20
++LET CF1 AS 27
+ YIELD CF1*(ClaimCount-25) IF ClaimCount GT 25
+ # Nothing is due in the remaining case; stated so the schedule answers it.
+@@ -113,5 +113,5 @@ ENDCOMPUTE
+ 
+ COMPUTE FEE OFF_SheetFee
+-LET SF1 AS 10
++LET SF1 AS 13
+ YIELD SF1*(SheetCount-35) IF SheetCount GT 35
+ # Nothing is due in the remaining case; stated so the schedule answers it.
+@@ -120,6 +120,6 @@ ENDCOMPUTE
+ 
+ COMPUTE FEE OFF_SearchFee
+-LET SF1 AS 120 #150-30 - ISR available; electronic filing
+-LET SF2 AS 150 #180-30 - ISR not available; electronic filing
++LET SF1 AS 160 #200-40 - ISR available; electronic filing
++LET SF2 AS 200 #240-40 - ISR not available; electronic filing
+ 
+ YIELD SF1 IF ISR_AVAILABLE EQ TRUE
+@@ -129,5 +129,5 @@ ENDCOMPUTE
+ RETURN ExaminationDeadline AS '33 months after priority'
+ COMPUTE FEE OFF_ExaminationFee OPTIONAL
+-LET Fee1 AS 130
++LET Fee1 AS 130 #170-40 - electronic filing
+ YIELD Fee1
+ ENDCOMPUTE
+diff --git a/src/IPFLang.Engine/Corpus/PCT-GE.ipf b/src/IPFLang.Engine/Corpus/PCT-GE.ipf
+index 3b1386f..5a7d829 100644
+--- a/src/IPFLang.Engine/Corpus/PCT-GE.ipf
++++ b/src/IPFLang.Engine/Corpus/PCT-GE.ipf
+@@ -13,5 +13,5 @@
+ # =============================================================================
+ 
+-VERSION '2024.1' EFFECTIVE 2024-01-01 DESCRIPTION 'Entry of national phase in Georgia'
++VERSION '2026.10' EFFECTIVE 2023-06-02 DESCRIPTION 'Entry of national phase in Georgia'
+ 
+ 
+@@ -34,5 +34,5 @@ ENDDEFINE
+ 
+ # Application date
+-DEFINE DATE ApplicationDate AS 'Application date'
++DEFINE DATE ApplicationDate AS 'Application date (international filing date)'
+ GROUP ApplicationGroup
+ BETWEEN 01.01.2000 AND TODAY
+@@ -48,5 +48,5 @@ ENDDEFINE
+ 
+ # Sheets/Pages
+-DEFINE NUMBER SheetCount AS 'Number of pages'
++DEFINE NUMBER SheetCount AS 'Number of pages/sheets'
+ GROUP ApplicationGroup
+ BETWEEN 1 AND 10000
+@@ -151,23 +151,18 @@ ENDDEFINE
+ # File name: PCT-GE-OFF
+ # File content: Official fees for PCT national phase: Georgia
+-# Valid until n/a
++# Checked against the fees in force on 20 October 2026 (Sakpatenti fee table; Resolution No 182 of 3 July 2010 as amended; WIPO eGuide GE)
+ # Is newer than 30 days: False
+ # Fees keywords: ['claim']
+ 
+ COMPUTE FEE OFF_BasicNationalFee
+-LET Fee1 AS 0.8*90 #20% discount on electronic filing
+-YIELD Fee1
+-ENDCOMPUTE
+-
+-COMPUTE FEE OFF_SearchFee OPTIONAL #payable after invitation 
+-LET Fee1 AS 0.8*90 #20% discount on electronic filing
++LET Fee1 AS 0.8*100 #examination as to form and publication, up to 30 pages; 20% discount on electronic filing
+ YIELD Fee1
+ ENDCOMPUTE
+ 
+ COMPUTE FEE OFF_ExaminationFee OPTIONAL #payable after invitation
+-LET EF1 AS 0.8*180 #one independent claim
+-LET EF2 AS 0.8*120 #per each additional independent claim
++LET EF1 AS 0.8*300 #substantive examination up to 10 claims
++LET EF2 AS 0.8*30 #per each additional claim over 10
+ YIELD EF1
+-YIELD EF2*(IndependentClaimCount-1) IF IndependentClaimCount GT 1
++YIELD EF2*(ClaimCount-10) IF ClaimCount GT 10
+ ENDCOMPUTE
+ 
+@@ -202,5 +197,4 @@ ENDCOMPUTE
+ 
+ VERIFY COMPLETE FEE OFF_BasicNationalFee
+-VERIFY COMPLETE FEE OFF_SearchFee
+ VERIFY COMPLETE FEE OFF_ExaminationFee
+ 
+diff --git a/src/IPFLang.Engine/Corpus/PCT-GH.ipf b/src/IPFLang.Engine/Corpus/PCT-GH.ipf
+index 1d29d55..0d84e03 100644
+--- a/src/IPFLang.Engine/Corpus/PCT-GH.ipf
++++ b/src/IPFLang.Engine/Corpus/PCT-GH.ipf
+@@ -14,5 +14,5 @@
+ # =============================================================================
+ 
+-VERSION '2024.1' EFFECTIVE 2024-01-01 DESCRIPTION 'Entry of national phase in Ghana'
++VERSION '2026.10' EFFECTIVE 2026-01-01 DESCRIPTION 'Entry of national phase in Ghana'
+ 
+ # Inputs and groups shared across this regional system are declared once in the base
+@@ -96,5 +96,5 @@ ENDDEFINE
+ # File name: PCT-GH-OFF
+ # File content: Official fees for PCT national phase: Ghana
+-# Valid until n/a
++# Checked against the fees in force on 20 October 2026 (WIPO eGuide GH)
+ # Is newer than 30 days: False
+ # Fees keywords: []
+diff --git a/src/IPFLang.Engine/Corpus/PCT-GM.ipf b/src/IPFLang.Engine/Corpus/PCT-GM.ipf
+index 5580033..c4a345c 100644
+--- a/src/IPFLang.Engine/Corpus/PCT-GM.ipf
++++ b/src/IPFLang.Engine/Corpus/PCT-GM.ipf
+@@ -14,5 +14,5 @@
+ # =============================================================================
+ 
+-VERSION '2024.1' EFFECTIVE 2024-01-01 DESCRIPTION 'Entry of national phase in Gambia'
++VERSION '2026.10' EFFECTIVE 2025-03-13 DESCRIPTION 'Entry of national phase in Gambia'
+ 
+ # Inputs and groups shared across this regional system are declared once in the base
+@@ -96,5 +96,5 @@ ENDDEFINE
+ # File name: PCT-GM-OFF
+ # File content: Official fees for PCT national phase: Gambia
+-# Valid until n/a
++# Checked against the fees in force on 20 October 2026 (WIPO eGuide GM)
+ # Is newer than 30 days: False
+ # Fees keywords: []
+diff --git a/src/IPFLang.Engine/Corpus/PCT-GT.ipf b/src/IPFLang.Engine/Corpus/PCT-GT.ipf
+index a5316e1..93aa930 100644
+--- a/src/IPFLang.Engine/Corpus/PCT-GT.ipf
++++ b/src/IPFLang.Engine/Corpus/PCT-GT.ipf
+@@ -13,5 +13,5 @@
+ # =============================================================================
+ 
+-VERSION '2024.1' EFFECTIVE 2024-01-01 DESCRIPTION 'Entry of national phase in Guatemala'
++VERSION '2026.10' EFFECTIVE 2025-03-13 DESCRIPTION 'Entry of national phase in Guatemala'
+ 
+ 
+@@ -34,5 +34,5 @@ ENDDEFINE
+ 
+ # Application date
+-DEFINE DATE ApplicationDate AS 'Application date'
++DEFINE DATE ApplicationDate AS 'Application date (international filing date)'
+ GROUP ApplicationGroup
+ BETWEEN 01.01.2000 AND TODAY
+@@ -48,5 +48,5 @@ ENDDEFINE
+ 
+ # Sheets/Pages
+-DEFINE NUMBER SheetCount AS 'Number of pages'
++DEFINE NUMBER SheetCount AS 'Number of pages/sheets'
+ GROUP ApplicationGroup
+ BETWEEN 1 AND 10000
+@@ -151,5 +151,5 @@ ENDDEFINE
+ # File name: PCT-GT-OFF
+ # File content: Official fees for PCT national phase: Guatemala
+-# Valid until n/a
++# Checked against the fees in force on 20 October 2026 (WIPO eGuide GT)
+ # Is newer than 30 days: False
+ # Fees keywords: []
+diff --git a/src/IPFLang.Engine/Corpus/PCT-HN.ipf b/src/IPFLang.Engine/Corpus/PCT-HN.ipf
+index 9bae271..10015d8 100644
+--- a/src/IPFLang.Engine/Corpus/PCT-HN.ipf
++++ b/src/IPFLang.Engine/Corpus/PCT-HN.ipf
+@@ -13,5 +13,5 @@
+ # =============================================================================
+ 
+-VERSION '2024.1' EFFECTIVE 2024-01-01 DESCRIPTION 'Entry of national phase in Honduras'
++VERSION '2026.10' EFFECTIVE 2026-06-11 DESCRIPTION 'Entry of national phase in Honduras'
+ 
+ 
+@@ -34,5 +34,5 @@ ENDDEFINE
+ 
+ # Application date
+-DEFINE DATE ApplicationDate AS 'Application date'
++DEFINE DATE ApplicationDate AS 'Application date (international filing date)'
+ GROUP ApplicationGroup
+ BETWEEN 01.01.2000 AND TODAY
+@@ -48,5 +48,5 @@ ENDDEFINE
+ 
+ # Sheets/Pages
+-DEFINE NUMBER SheetCount AS 'Number of pages'
++DEFINE NUMBER SheetCount AS 'Number of pages/sheets'
+ GROUP ApplicationGroup
+ BETWEEN 1 AND 10000
+@@ -151,5 +151,5 @@ ENDDEFINE
+ # File name: PCT-HN-OFF
+ # File content: Official fees for PCT national phase: Honduras
+-# Valid until n/a
++# Checked against the fees in force on 20 October 2026 (WIPO eGuide HN)
+ # Is newer than 30 days: False
+ # Fees keywords: []
+diff --git a/src/IPFLang.Engine/Corpus/PCT-HR.ipf b/src/IPFLang.Engine/Corpus/PCT-HR.ipf
+index 73a21cc..9671ab8 100644
+--- a/src/IPFLang.Engine/Corpus/PCT-HR.ipf
++++ b/src/IPFLang.Engine/Corpus/PCT-HR.ipf
+@@ -14,5 +14,5 @@
+ # =============================================================================
+ 
+-VERSION '2024.1' EFFECTIVE 2024-01-01 DESCRIPTION 'Entry of national phase in Croatia'
++VERSION '2026.10' EFFECTIVE 2021-11-13 DESCRIPTION 'Entry of national phase in Croatia'
+ 
+ # Inputs and groups shared across this regional system are declared once in the base
+@@ -96,15 +96,15 @@ ENDDEFINE
+ # File name: PCT-HR-OFF
+ # File content: Official fees for PCT national phase: Croatia
+-# Valid until n/a
++# Checked against the fees in force on 20 October 2026 (DZIV fee regulation NN 119/2021; WIPO eGuide HR)
+ # Is newer than 30 days: False
+ # Fees keywords: ['claims', 'sheet', 'claim']
+ 
+ COMPUTE FEE OFF_BasicNationalFee
+-LET Fee1 AS 159.27
++LET Fee1 AS 0.5*159.27 #50% reduction for electronic filing
+ YIELD Fee1
+ ENDCOMPUTE
+ 
+ COMPUTE FEE OFF_SheetFee
+-LET Fee1 AS 0.66
++LET Fee1 AS 0.5*0.66 #50% reduction for electronic filing
+ YIELD Fee1*(SheetCount-30) IF SheetCount GT 30
+ # Nothing is due in the remaining case; stated so the schedule answers it.
+@@ -113,5 +113,5 @@ ENDCOMPUTE
+ 
+ COMPUTE FEE OFF_ClaimFee
+-LET CF1 AS 1.33
++LET CF1 AS 0.5*1.33 #50% reduction for electronic filing
+ YIELD CF1*(ClaimCount-10) IF ClaimCount GT 10
+ # Nothing is due in the remaining case; stated so the schedule answers it.
+diff --git a/src/IPFLang.Engine/Corpus/PCT-HU.ipf b/src/IPFLang.Engine/Corpus/PCT-HU.ipf
+index fdd88b0..d756e61 100644
+--- a/src/IPFLang.Engine/Corpus/PCT-HU.ipf
++++ b/src/IPFLang.Engine/Corpus/PCT-HU.ipf
+@@ -14,5 +14,5 @@
+ # =============================================================================
+ 
+-VERSION '2024.1' EFFECTIVE 2024-01-01 DESCRIPTION 'Entry of national phase in Hungary'
++VERSION '2026.10' EFFECTIVE 2025-04-13 DESCRIPTION 'Entry of national phase in Hungary'
+ 
+ # Inputs and groups shared across this regional system are declared once in the base
+@@ -96,10 +96,10 @@ ENDDEFINE
+ # File name: PCT-HU-OFF
+ # File content: Official fees for PCT national phase: Hungary
+-# Valid until n/a
++# Checked against the fees in force on 20 October 2026 (Decree 19/2005 GKM, consolidated 13.04.2025; WIPO eGuide HU)
+ # Is newer than 30 days: True
+ # Fees keywords: ['claim']
+ 
+ COMPUTE FEE OFF_BasicNationalFee
+-LET Fee1 AS 37400
++LET Fee1 AS 50000
+ YIELD Fee1 IF OfficeElected EQ FALSE
+ YIELD 0.5*Fee1 IF OfficeElected EQ TRUE
+@@ -107,7 +107,7 @@ ENDCOMPUTE
+ 
+ COMPUTE FEE OFF_ClaimFee
+-LET CF1 AS 1900 #11-20
+-LET CF2 AS 3800 #21-30
+-LET CF3 AS 5600 #>30
++LET CF1 AS 2500 #11-20
++LET CF2 AS 5000 #21-30
++LET CF3 AS 7500 #>30
+ 
+ CASE OfficeElected EQ FALSE AS
+diff --git a/src/IPFLang.Engine/Corpus/PCT-ID.ipf b/src/IPFLang.Engine/Corpus/PCT-ID.ipf
+index 67f4a10..a9e3d92 100644
+--- a/src/IPFLang.Engine/Corpus/PCT-ID.ipf
++++ b/src/IPFLang.Engine/Corpus/PCT-ID.ipf
+@@ -13,5 +13,5 @@
+ # =============================================================================
+ 
+-VERSION '2024.1' EFFECTIVE 2024-01-01 DESCRIPTION 'Entry of national phase in Indonesia'
++VERSION '2026.10' EFFECTIVE 2024-11-12 DESCRIPTION 'Entry of national phase in Indonesia'
+ 
+ 
+@@ -34,5 +34,5 @@ ENDDEFINE
+ 
+ # Application date
+-DEFINE DATE ApplicationDate AS 'Application date'
++DEFINE DATE ApplicationDate AS 'Application date (international filing date)'
+ GROUP ApplicationGroup
+ BETWEEN 01.01.2000 AND TODAY
+@@ -48,5 +48,5 @@ ENDDEFINE
+ 
+ # Sheets/Pages
+-DEFINE NUMBER SheetCount AS 'Number of pages'
++DEFINE NUMBER SheetCount AS 'Number of pages/sheets'
+ GROUP ApplicationGroup
+ BETWEEN 1 AND 10000
+@@ -151,5 +151,5 @@ ENDDEFINE
+ # File name: PCT-ID-OFF
+ # File content: Official fees for PCT national phase: Indonesia
+-# Valid until n/a
++# Checked against the fees in force on 20 October 2026 (WIPO eGuide ID)
+ # Is newer than 30 days: False
+ # Fees keywords: ['page', 'claim']
+diff --git a/src/IPFLang.Engine/Corpus/PCT-IL.ipf b/src/IPFLang.Engine/Corpus/PCT-IL.ipf
+index 35c9c2d..db484f5 100644
+--- a/src/IPFLang.Engine/Corpus/PCT-IL.ipf
++++ b/src/IPFLang.Engine/Corpus/PCT-IL.ipf
+@@ -13,5 +13,5 @@
+ # =============================================================================
+ 
+-VERSION '2024.1' EFFECTIVE 2024-01-01 DESCRIPTION 'Entry of national phase in Israel'
++VERSION '2026.10' EFFECTIVE 2026-08-01 DESCRIPTION 'Entry of national phase in Israel'
+ 
+ 
+@@ -34,5 +34,5 @@ ENDDEFINE
+ 
+ # Application date
+-DEFINE DATE ApplicationDate AS 'Application date'
++DEFINE DATE ApplicationDate AS 'Application date (international filing date)'
+ GROUP ApplicationGroup
+ BETWEEN 01.01.2000 AND TODAY
+@@ -48,5 +48,5 @@ ENDDEFINE
+ 
+ # Sheets/Pages
+-DEFINE NUMBER SheetCount AS 'Number of pages'
++DEFINE NUMBER SheetCount AS 'Number of pages/sheets'
+ GROUP ApplicationGroup
+ BETWEEN 1 AND 10000
+@@ -151,15 +151,15 @@ ENDDEFINE
+ # File name: PCT-IL-OFF
+ # File content: Official fees for PCT national phase: Israel
+-# Valid until n/a
++# Checked against the fees in force on 20 October 2026 (WIPO eGuide IL)
+ # Is newer than 30 days: False
+ # Fees keywords: []
+ 
+ COMPUTE FEE OFF_BasicNationalFee
+-LET Fee1 AS 2183
++LET Fee1 AS 2402
+ YIELD Fee1
+ ENDCOMPUTE
+ 
+ COMPUTE FEE OFF_SheetFee
+-LET Fee1 AS 273
++LET Fee1 AS 300
+ YIELD Fee1*CEIL( ( SheetCount - 100 ) / 50 ) IF SheetCount GT 100
+ # Nothing is due in the remaining case; stated so the schedule answers it.
+@@ -168,5 +168,5 @@ ENDCOMPUTE
+ 
+ COMPUTE FEE OFF_ClaimFee
+-LET Fee1 AS 560
++LET Fee1 AS 616
+ YIELD Fee1*(ClaimCount-50) IF ClaimCount GT 50
+ # Nothing is due in the remaining case; stated so the schedule answers it.
+diff --git a/src/IPFLang.Engine/Corpus/PCT-IN.ipf b/src/IPFLang.Engine/Corpus/PCT-IN.ipf
+index c91dc8d..895e3f2 100644
+--- a/src/IPFLang.Engine/Corpus/PCT-IN.ipf
++++ b/src/IPFLang.Engine/Corpus/PCT-IN.ipf
+@@ -13,5 +13,5 @@
+ # =============================================================================
+ 
+-VERSION '2024.1' EFFECTIVE 2024-01-01 DESCRIPTION 'Entry of national phase in India'
++VERSION '2026.10' EFFECTIVE 2026-07-01 DESCRIPTION 'Entry of national phase in India'
+ 
+ 
+@@ -34,5 +34,5 @@ ENDDEFINE
+ 
+ # Application date
+-DEFINE DATE ApplicationDate AS 'Application date'
++DEFINE DATE ApplicationDate AS 'Application date (international filing date)'
+ GROUP ApplicationGroup
+ BETWEEN 01.01.2000 AND TODAY
+@@ -48,5 +48,5 @@ ENDDEFINE
+ 
+ # Sheets/Pages
+-DEFINE NUMBER SheetCount AS 'Number of pages'
++DEFINE NUMBER SheetCount AS 'Number of pages/sheets'
+ GROUP ApplicationGroup
+ BETWEEN 1 AND 10000
+@@ -151,5 +151,5 @@ ENDDEFINE
+ # File name: PCT-IN-OFF
+ # File content: Official fees for PCT national phase: India
+-# Valid until n/a
++# Checked against the fees in force on 20 October 2026 (IP India Schedule 1; WIPO eGuide IN)
+ # Is newer than 30 days: False
+ # Fees keywords: ['claims', 'priority', 'sheet', 'claim', 'page']
+@@ -191,5 +191,5 @@ YIELD 0 IF PriorityCount LTE 1
+ ENDCOMPUTE
+ 
+-COMPUTE FEE OFF_ExaminationFee OPTIONAL #48 months of priority
++COMPUTE FEE OFF_ExaminationFee OPTIONAL #31 months from priority (eGuide IN.12)
+ LET Fee1 AS 4000
+ LET Fee2 AS 20000
+diff --git a/src/IPFLang.Engine/Corpus/PCT-IQ.ipf b/src/IPFLang.Engine/Corpus/PCT-IQ.ipf
+index 6f4e151..e9a47a5 100644
+--- a/src/IPFLang.Engine/Corpus/PCT-IQ.ipf
++++ b/src/IPFLang.Engine/Corpus/PCT-IQ.ipf
+@@ -13,5 +13,5 @@
+ # =============================================================================
+ 
+-VERSION '2024.1' EFFECTIVE 2024-01-01 DESCRIPTION 'Entry of national phase in Iraq'
++VERSION '2026.10' EFFECTIVE 2026-01-01 DESCRIPTION 'Entry of national phase in Iraq'
+ 
+ 
+@@ -34,5 +34,5 @@ ENDDEFINE
+ 
+ # Application date
+-DEFINE DATE ApplicationDate AS 'Application date'
++DEFINE DATE ApplicationDate AS 'Application date (international filing date)'
+ GROUP ApplicationGroup
+ BETWEEN 01.01.2000 AND TODAY
+@@ -48,5 +48,5 @@ ENDDEFINE
+ 
+ # Sheets/Pages
+-DEFINE NUMBER SheetCount AS 'Number of pages'
++DEFINE NUMBER SheetCount AS 'Number of pages/sheets'
+ GROUP ApplicationGroup
+ BETWEEN 1 AND 10000
+@@ -151,10 +151,10 @@ ENDDEFINE
+ # File name: PCT-IQ-OFF
+ # File content: Official fees for PCT national phase: Iraq
+-# Valid until n/a
++# Checked against the fees in force on 20 October 2026 (eGuide IQ)
+ # Is newer than 30 days: False
+ # Fees keywords: []
+ 
+ COMPUTE FEE OFF_BasicNationalFee
+-LET Fee AS 77.075
++LET Fee AS 77075
+ 
+ YIELD Fee
+diff --git a/src/IPFLang.Engine/Corpus/PCT-IR.ipf b/src/IPFLang.Engine/Corpus/PCT-IR.ipf
+index f66af7d..f5e3080 100644
+--- a/src/IPFLang.Engine/Corpus/PCT-IR.ipf
++++ b/src/IPFLang.Engine/Corpus/PCT-IR.ipf
+@@ -13,5 +13,5 @@
+ # =============================================================================
+ 
+-VERSION '2024.1' EFFECTIVE 2024-01-01 DESCRIPTION 'Entry of national phase in Iran'
++VERSION '2026.10' EFFECTIVE 2026-01-01 DESCRIPTION 'Entry of national phase in Iran'
+ 
+ 
+@@ -34,5 +34,5 @@ ENDDEFINE
+ 
+ # Application date
+-DEFINE DATE ApplicationDate AS 'Application date'
++DEFINE DATE ApplicationDate AS 'Application date (international filing date)'
+ GROUP ApplicationGroup
+ BETWEEN 01.01.2000 AND TODAY
+@@ -48,5 +48,5 @@ ENDDEFINE
+ 
+ # Sheets/Pages
+-DEFINE NUMBER SheetCount AS 'Number of pages'
++DEFINE NUMBER SheetCount AS 'Number of pages/sheets'
+ GROUP ApplicationGroup
+ BETWEEN 1 AND 10000
+@@ -151,11 +151,11 @@ ENDDEFINE
+ # File name: PCT-IR-OFF
+ # File content: Official fees for PCT national phase: Iran (Islamic Republic of)
+-# Valid until n/a
++# Checked against the fees in force on 20 October 2026 (eGuide IR)
+ # Is newer than 30 days: False
+ # Fees keywords: []
+ 
+ COMPUTE FEE OFF_BasicNationalFee
+-LET Fee1 AS 100000
+-LET Fee2 AS 10000
++LET Fee1 AS 2500000
++LET Fee2 AS 500000
+ 
+ YIELD Fee1 IF EntitySize NEQ Entity_Person
+diff --git a/src/IPFLang.Engine/Corpus/PCT-IS.ipf b/src/IPFLang.Engine/Corpus/PCT-IS.ipf
+index 2539cce..bf5054b 100644
+--- a/src/IPFLang.Engine/Corpus/PCT-IS.ipf
++++ b/src/IPFLang.Engine/Corpus/PCT-IS.ipf
+@@ -14,5 +14,5 @@
+ # =============================================================================
+ 
+-VERSION '2024.1' EFFECTIVE 2024-01-01 DESCRIPTION 'Entry of national phase in Iceland'
++VERSION '2026.10' EFFECTIVE 2025-02-15 DESCRIPTION 'Entry of national phase in Iceland'
+ 
+ # Inputs and groups shared across this regional system are declared once in the base
+@@ -96,15 +96,15 @@ ENDDEFINE
+ # File name: PCT-IS-OFF
+ # File content: Official fees for PCT national phase: Iceland
+-# Valid until n/a
++# Checked against the fees in force on 20 October 2026 (eGuide IS, Regulation 1279/2024)
+ # Is newer than 30 days: False
+ # Fees keywords: ['claim']
+ 
+ COMPUTE FEE OFF_BasicNationalFee
+-LET Fee1 AS 67800
++LET Fee1 AS 76000
+ YIELD Fee1
+ ENDCOMPUTE
+ 
+ COMPUTE FEE OFF_ClaimFee
+-LET CF1 AS 4400
++LET CF1 AS 4900
+ YIELD CF1*(ClaimCount-10) IF ClaimCount GT 10
+ # Nothing is due in the remaining case; stated so the schedule answers it.
+@@ -113,5 +113,5 @@ ENDCOMPUTE
+ 
+ COMPUTE FEE OFF_Renewal3
+-LET RenFee AS 11600*3
++LET RenFee AS 13000*3
+ LET RenMonth AS ROUND ( ApplicationDate!MONTHSTONOW ) #calculate difference in months to today
+ YIELD RenFee IF RenMonth GTE 24
+diff --git a/src/IPFLang.Engine/Corpus/PCT-IT.ipf b/src/IPFLang.Engine/Corpus/PCT-IT.ipf
+index b7c735c..e209bc9 100644
+--- a/src/IPFLang.Engine/Corpus/PCT-IT.ipf
++++ b/src/IPFLang.Engine/Corpus/PCT-IT.ipf
+@@ -14,5 +14,5 @@
+ # =============================================================================
+ 
+-VERSION '2024.1' EFFECTIVE 2024-01-01 DESCRIPTION 'Entry of national phase in Italy'
++VERSION '2026.10' EFFECTIVE 2026-01-01 DESCRIPTION 'Entry of national phase in Italy'
+ 
+ # Inputs and groups shared across this regional system are declared once in the base
+@@ -96,5 +96,5 @@ ENDDEFINE
+ # File name: PCT-IT-OFF
+ # File content: Official fees for PCT national phase: Italy
+-# Valid until n/a
++# Checked against the fees in force on 20 October 2026 (eGuide IT)
+ # Is newer than 30 days: False
+ # Fees keywords: ['claim']
+@@ -112,15 +112,5 @@ YIELD 0 IF ClaimCount LTE 10
+ ENDCOMPUTE
+ 
+-COMPUTE FEE OFF_SheetFee
+-LET SF1 AS 50 #11-20
+-LET SF2 AS 50 #21-50
+-LET SF3 AS 50 #>50
+-
+-YIELD SF1*(SheetCount-10) IF SheetCount GTE 11 AND SheetCount LTE 20
+-YIELD SF1*10 + SF2*(SheetCount-20) IF SheetCount GTE 21 AND SheetCount LTE 50
+-YIELD SF1*10 + SF2*30 + SF3*(SheetCount-50) IF SheetCount GTE 51 
+-# Nothing is due in the remaining case; stated so the schedule answers it.
+-YIELD 0 IF SheetCount LTE 10
+-ENDCOMPUTE
++#filed online, the filing fee is 50 EUR whatever the number of pages; the page bands apply only on paper
+ 
+ #annuities after grant 
+@@ -157,7 +147,5 @@ ENDCOMPUTE
+ VERIFY COMPLETE FEE OFF_BasicNationalFee
+ VERIFY COMPLETE FEE OFF_ClaimFee
+-VERIFY COMPLETE FEE OFF_SheetFee
+ VERIFY MONOTONIC FEE OFF_ClaimFee WITH RESPECT TO ClaimCount
+-VERIFY MONOTONIC FEE OFF_SheetFee WITH RESPECT TO SheetCount
+ 
+ # =============================================================================
+diff --git a/src/IPFLang.Engine/Corpus/PCT-JM.ipf b/src/IPFLang.Engine/Corpus/PCT-JM.ipf
+index 13e14a3..ca5c046 100644
+--- a/src/IPFLang.Engine/Corpus/PCT-JM.ipf
++++ b/src/IPFLang.Engine/Corpus/PCT-JM.ipf
+@@ -13,5 +13,5 @@
+ # =============================================================================
+ 
+-VERSION '2024.1' EFFECTIVE 2024-01-01 DESCRIPTION 'Entry of national phase in Jamaica'
++VERSION '2026.10' EFFECTIVE 2026-01-01 DESCRIPTION 'Entry of national phase in Jamaica'
+ 
+ 
+@@ -34,5 +34,5 @@ ENDDEFINE
+ 
+ # Application date
+-DEFINE DATE ApplicationDate AS 'Application date'
++DEFINE DATE ApplicationDate AS 'Application date (international filing date)'
+ GROUP ApplicationGroup
+ BETWEEN 01.01.2000 AND TODAY
+@@ -48,5 +48,5 @@ ENDDEFINE
+ 
+ # Sheets/Pages
+-DEFINE NUMBER SheetCount AS 'Number of pages'
++DEFINE NUMBER SheetCount AS 'Number of pages/sheets'
+ GROUP ApplicationGroup
+ BETWEEN 1 AND 10000
+@@ -151,5 +151,5 @@ ENDDEFINE
+ # File name: PCT-JM-OFF
+ # File content: Official fees for PCT national phase: Jamaica
+-# Valid until n/a
++# Checked against the fees in force on 20 October 2026 (eGuide JM)
+ # Is newer than 30 days: False
+ # Fees keywords: []
+diff --git a/src/IPFLang.Engine/Corpus/PCT-JO.ipf b/src/IPFLang.Engine/Corpus/PCT-JO.ipf
+index bdd5dbb..2e775b1 100644
+--- a/src/IPFLang.Engine/Corpus/PCT-JO.ipf
++++ b/src/IPFLang.Engine/Corpus/PCT-JO.ipf
+@@ -13,5 +13,5 @@
+ # =============================================================================
+ 
+-VERSION '2024.1' EFFECTIVE 2024-01-01 DESCRIPTION 'Entry of national phase in Jordan'
++VERSION '2026.10' EFFECTIVE 2026-05-28 DESCRIPTION 'Entry of national phase in Jordan'
+ 
+ 
+@@ -34,5 +34,5 @@ ENDDEFINE
+ 
+ # Application date
+-DEFINE DATE ApplicationDate AS 'Application date'
++DEFINE DATE ApplicationDate AS 'Application date (international filing date)'
+ GROUP ApplicationGroup
+ BETWEEN 01.01.2000 AND TODAY
+@@ -48,5 +48,5 @@ ENDDEFINE
+ 
+ # Sheets/Pages
+-DEFINE NUMBER SheetCount AS 'Number of pages'
++DEFINE NUMBER SheetCount AS 'Number of pages/sheets'
+ GROUP ApplicationGroup
+ BETWEEN 1 AND 10000
+@@ -151,5 +151,5 @@ ENDDEFINE
+ # File name: PCT-JO-OFF
+ # File content: Official fees for PCT national phase: Jordan
+-# Valid until n/a
++# Checked against the fees in force on 20 October 2026 (eGuide JO)
+ # Is newer than 30 days: False
+ # Fees keywords: []
+diff --git a/src/IPFLang.Engine/Corpus/PCT-JP.ipf b/src/IPFLang.Engine/Corpus/PCT-JP.ipf
+index 5c631d4..8b014d6 100644
+--- a/src/IPFLang.Engine/Corpus/PCT-JP.ipf
++++ b/src/IPFLang.Engine/Corpus/PCT-JP.ipf
+@@ -13,5 +13,5 @@
+ # =============================================================================
+ 
+-VERSION '2024.1' EFFECTIVE 2024-01-01 DESCRIPTION 'Entry of national phase in Japan'
++VERSION '2026.10' EFFECTIVE 2022-04-01 DESCRIPTION 'Entry of national phase in Japan'
+ 
+ 
+@@ -34,5 +34,5 @@ ENDDEFINE
+ 
+ # Application date
+-DEFINE DATE ApplicationDate AS 'Application date'
++DEFINE DATE ApplicationDate AS 'Application date (international filing date)'
+ GROUP ApplicationGroup
+ BETWEEN 01.01.2000 AND TODAY
+@@ -48,5 +48,5 @@ ENDDEFINE
+ 
+ # Sheets/Pages
+-DEFINE NUMBER SheetCount AS 'Number of pages'
++DEFINE NUMBER SheetCount AS 'Number of pages/sheets'
+ GROUP ApplicationGroup
+ BETWEEN 1 AND 10000
+@@ -151,5 +151,5 @@ ENDDEFINE
+ # File name: PCT-JP-OFF
+ # File content: Official fees for PCT national phase: Japan
+-# Valid until n/a
++# Checked against the fees in force on 20 October 2026 (eGuide JP, JPO fee schedule)
+ # Is newer than 30 days: False
+ # Fees keywords: []
+@@ -167,5 +167,5 @@ LET CF2 AS 2400
+ LET ExFee3 AS 124000 #ISA <> JP
+ LET CF3 AS 3600
+-LET ExFee4 AS 111000 #ISA be search organization designated by JPO; no clue  what cases these are -> omitting 
++LET ExFee4 AS 110000 #ISA be search organization designated by JPO; no clue  what cases these are -> omitting 
+ LET CF4 AS 3200
+ 
+diff --git a/src/IPFLang.Engine/Corpus/PCT-KE.ipf b/src/IPFLang.Engine/Corpus/PCT-KE.ipf
+index 93972be..2627925 100644
+--- a/src/IPFLang.Engine/Corpus/PCT-KE.ipf
++++ b/src/IPFLang.Engine/Corpus/PCT-KE.ipf
+@@ -14,5 +14,5 @@
+ # =============================================================================
+ 
+-VERSION '2024.1' EFFECTIVE 2024-01-01 DESCRIPTION 'Entry of national phase in Kenya'
++VERSION '2026.10' EFFECTIVE 2026-01-01 DESCRIPTION 'Entry of national phase in Kenya'
+ 
+ # Inputs and groups shared across this regional system are declared once in the base
+@@ -96,5 +96,5 @@ ENDDEFINE
+ # File name: PCT-KE-OFF
+ # File content: Official fees for PCT national phase: Kenya
+-# Valid until n/a
++# Checked against the fees in force on 20 October 2026 (eGuide KE)
+ # Is newer than 30 days: False
+ # Fees keywords: []
+diff --git a/src/IPFLang.Engine/Corpus/PCT-KG.ipf b/src/IPFLang.Engine/Corpus/PCT-KG.ipf
+index 463f050..a54c567 100644
+--- a/src/IPFLang.Engine/Corpus/PCT-KG.ipf
++++ b/src/IPFLang.Engine/Corpus/PCT-KG.ipf
+@@ -14,5 +14,5 @@
+ # =============================================================================
+ 
+-VERSION '2024.1' EFFECTIVE 2024-01-01 DESCRIPTION 'Entry of national phase in Kyrgyzstan'
++VERSION '2026.10' EFFECTIVE 2026-05-28 DESCRIPTION 'Entry of national phase in Kyrgyzstan'
+ 
+ # Inputs and groups shared across this regional system are declared once in the base
+@@ -96,5 +96,5 @@ ENDDEFINE
+ # File name: PCT-KG-OFF
+ # File content: Official fees for PCT national phase: Kyrgyzstan
+-# Valid until n/a
++# Checked against the fees in force on 20 October 2026 (eGuide KG)
+ # Is newer than 30 days: False
+ # Fees keywords: ['claim']
+@@ -157,5 +157,5 @@ VERIFY COMPLETE FEE OFF_BasicNationalFee
+ VERIFY COMPLETE FEE OFF_IndependentClaimFee
+ VERIFY COMPLETE FEE OFF_ExaminationFee
+-VERIFY MONOTONIC FEE OFF_IndependentClaimFee WITH RESPECT TO ClaimCount
++VERIFY MONOTONIC FEE OFF_IndependentClaimFee WITH RESPECT TO IndependentClaimCount
+ 
+ # =============================================================================
+diff --git a/src/IPFLang.Engine/Corpus/PCT-KH.ipf b/src/IPFLang.Engine/Corpus/PCT-KH.ipf
+index 27cce16..7e247a5 100644
+--- a/src/IPFLang.Engine/Corpus/PCT-KH.ipf
++++ b/src/IPFLang.Engine/Corpus/PCT-KH.ipf
+@@ -13,5 +13,5 @@
+ # =============================================================================
+ 
+-VERSION '2024.1' EFFECTIVE 2024-01-01 DESCRIPTION 'Entry of national phase in Cambodia'
++VERSION '2026.10' EFFECTIVE 2026-01-01 DESCRIPTION 'Entry of national phase in Cambodia'
+ 
+ 
+@@ -34,5 +34,5 @@ ENDDEFINE
+ 
+ # Application date
+-DEFINE DATE ApplicationDate AS 'Application date'
++DEFINE DATE ApplicationDate AS 'Application date (international filing date)'
+ GROUP ApplicationGroup
+ BETWEEN 01.01.2000 AND TODAY
+@@ -48,5 +48,5 @@ ENDDEFINE
+ 
+ # Sheets/Pages
+-DEFINE NUMBER SheetCount AS 'Number of pages'
++DEFINE NUMBER SheetCount AS 'Number of pages/sheets'
+ GROUP ApplicationGroup
+ BETWEEN 1 AND 10000
+@@ -151,5 +151,5 @@ ENDDEFINE
+ # File name: PCT-KH-OFF
+ # File content: Official fees for PCT national phase: Cambodia
+-# Valid until n/a
++# Checked against the fees in force on 20 October 2026 (eGuide KH)
+ # Is newer than 30 days: False
+ # Fees keywords: ['claim']
+diff --git a/src/IPFLang.Engine/Corpus/PCT-KN.ipf b/src/IPFLang.Engine/Corpus/PCT-KN.ipf
+index 5e32886..afe1c27 100644
+--- a/src/IPFLang.Engine/Corpus/PCT-KN.ipf
++++ b/src/IPFLang.Engine/Corpus/PCT-KN.ipf
+@@ -13,5 +13,5 @@
+ # =============================================================================
+ 
+-VERSION '2024.1' EFFECTIVE 2024-01-01 DESCRIPTION 'Entry of national phase in Saint Kitts and Nevis'
++VERSION '2026.10' EFFECTIVE 2025-03-13 DESCRIPTION 'Entry of national phase in Saint Kitts and Nevis'
+ 
+ 
+@@ -34,5 +34,5 @@ ENDDEFINE
+ 
+ # Application date
+-DEFINE DATE ApplicationDate AS 'Application date'
++DEFINE DATE ApplicationDate AS 'Application date (international filing date)'
+ GROUP ApplicationGroup
+ BETWEEN 01.01.2000 AND TODAY
+@@ -48,5 +48,5 @@ ENDDEFINE
+ 
+ # Sheets/Pages
+-DEFINE NUMBER SheetCount AS 'Number of pages'
++DEFINE NUMBER SheetCount AS 'Number of pages/sheets'
+ GROUP ApplicationGroup
+ BETWEEN 1 AND 10000
+@@ -151,5 +151,5 @@ ENDDEFINE
+ # File name: PCT-KN-OFF
+ # File content: Official fees for PCT national phase: Saint Kitts and Nevis
+-# Valid until n/a
++# Checked against the fees in force on 20 October 2026 (eGuide KN)
+ # Is newer than 30 days: False
+ # Fees keywords: []
+diff --git a/src/IPFLang.Engine/Corpus/PCT-KP.ipf b/src/IPFLang.Engine/Corpus/PCT-KP.ipf
+index 7624c7b..1810486 100644
+--- a/src/IPFLang.Engine/Corpus/PCT-KP.ipf
++++ b/src/IPFLang.Engine/Corpus/PCT-KP.ipf
+@@ -13,5 +13,5 @@
+ # =============================================================================
+ 
+-VERSION '2024.1' EFFECTIVE 2024-01-01 DESCRIPTION 'Entry of national phase in Democratic People’s Republic of Korea'
++VERSION '2026.10' EFFECTIVE 2025-03-13 DESCRIPTION 'Entry of national phase in Democratic People’s Republic of Korea'
+ 
+ 
+@@ -34,5 +34,5 @@ ENDDEFINE
+ 
+ # Application date
+-DEFINE DATE ApplicationDate AS 'Application date'
++DEFINE DATE ApplicationDate AS 'Application date (international filing date)'
+ GROUP ApplicationGroup
+ BETWEEN 01.01.2000 AND TODAY
+@@ -48,5 +48,5 @@ ENDDEFINE
+ 
+ # Sheets/Pages
+-DEFINE NUMBER SheetCount AS 'Number of pages'
++DEFINE NUMBER SheetCount AS 'Number of pages/sheets'
+ GROUP ApplicationGroup
+ BETWEEN 1 AND 10000
+@@ -151,5 +151,5 @@ ENDDEFINE
+ # File name: PCT-KP-OFF
+ # File content: Official fees for PCT national phase: Democratic People’s Republic of Korea
+-# Valid until n/a
++# Checked against the fees in force on 20 October 2026 (eGuide KP)
+ # Is newer than 30 days: False
+ # Fees keywords: []
+diff --git a/src/IPFLang.Engine/Corpus/PCT-KR.ipf b/src/IPFLang.Engine/Corpus/PCT-KR.ipf
+index b81853f..62fae47 100644
+--- a/src/IPFLang.Engine/Corpus/PCT-KR.ipf
++++ b/src/IPFLang.Engine/Corpus/PCT-KR.ipf
+@@ -13,5 +13,5 @@
+ # =============================================================================
+ 
+-VERSION '2024.1' EFFECTIVE 2024-01-01 DESCRIPTION 'Entry of national phase in Republic of Korea'
++VERSION '2026.10' EFFECTIVE 2023-08-01 DESCRIPTION 'Entry of national phase in Republic of Korea'
+ 
+ 
+@@ -34,5 +34,5 @@ ENDDEFINE
+ 
+ # Application date
+-DEFINE DATE ApplicationDate AS 'Application date'
++DEFINE DATE ApplicationDate AS 'Application date (international filing date)'
+ GROUP ApplicationGroup
+ BETWEEN 01.01.2000 AND TODAY
+@@ -48,5 +48,5 @@ ENDDEFINE
+ 
+ # Sheets/Pages
+-DEFINE NUMBER SheetCount AS 'Number of pages'
++DEFINE NUMBER SheetCount AS 'Number of pages/sheets'
+ GROUP ApplicationGroup
+ BETWEEN 1 AND 10000
+@@ -151,5 +151,5 @@ ENDDEFINE
+ # File name: PCT-KR-OFF
+ # File content: Official fees for PCT national phase: Republic of Korea
+-# Valid until n/a
++# Checked against the fees in force on 20 October 2026 (MOIP fee page; WIPO eGuide KR)
+ # Is newer than 30 days: False
+ # Fees keywords: ['sheet', 'claim']
+@@ -168,6 +168,6 @@ ENDCOMPUTE
+ 
+ COMPUTE FEE OFF_ExaminationFee OPTIONAL #3 years of IFD
+-LET Fee1 AS 143000
+-LET FeeClaim AS 44000
++LET Fee1 AS 166000
++LET FeeClaim AS 51000
+ LET Discount AS 0.7
+ YIELD Fee1 + FeeClaim*ClaimCount
+diff --git a/src/IPFLang.Engine/Corpus/PCT-KW.ipf b/src/IPFLang.Engine/Corpus/PCT-KW.ipf
+index 812cc2e..7bb4d5c 100644
+--- a/src/IPFLang.Engine/Corpus/PCT-KW.ipf
++++ b/src/IPFLang.Engine/Corpus/PCT-KW.ipf
+@@ -13,5 +13,5 @@
+ # =============================================================================
+ 
+-VERSION '2024.1' EFFECTIVE 2024-01-01 DESCRIPTION 'Entry of national phase in Kuwait'
++VERSION '2026.10' EFFECTIVE 2025-03-13 DESCRIPTION 'Entry of national phase in Kuwait'
+ 
+ 
+@@ -34,5 +34,5 @@ ENDDEFINE
+ 
+ # Application date
+-DEFINE DATE ApplicationDate AS 'Application date'
++DEFINE DATE ApplicationDate AS 'Application date (international filing date)'
+ GROUP ApplicationGroup
+ BETWEEN 01.01.2000 AND TODAY
+@@ -48,5 +48,5 @@ ENDDEFINE
+ 
+ # Sheets/Pages
+-DEFINE NUMBER SheetCount AS 'Number of pages'
++DEFINE NUMBER SheetCount AS 'Number of pages/sheets'
+ GROUP ApplicationGroup
+ BETWEEN 1 AND 10000
+@@ -151,5 +151,5 @@ ENDDEFINE
+ # File name: PCT-KW-OFF
+ # File content: Official fees for PCT national phase: Kuwait
+-# Valid until n/a
++# Checked against the fees in force on 20 October 2026 (WIPO eGuide KW)
+ # Is newer than 30 days: False
+ # Fees keywords: []
+diff --git a/src/IPFLang.Engine/Corpus/PCT-KZ.ipf b/src/IPFLang.Engine/Corpus/PCT-KZ.ipf
+index db84632..0b31851 100644
+--- a/src/IPFLang.Engine/Corpus/PCT-KZ.ipf
++++ b/src/IPFLang.Engine/Corpus/PCT-KZ.ipf
+@@ -14,5 +14,5 @@
+ # =============================================================================
+ 
+-VERSION '2024.1' EFFECTIVE 2024-01-01 DESCRIPTION 'Entry of national phase in Kazakhstan'
++VERSION '2026.10' EFFECTIVE 2026-10-01 DESCRIPTION 'Entry of national phase in Kazakhstan'
+ 
+ # Inputs and groups shared across this regional system are declared once in the base
+@@ -96,17 +96,17 @@ ENDDEFINE
+ # File name: PCT-KZ-OFF
+ # File content: Official fees for PCT national phase: Kazakhstan
+-# Valid until n/a
++# Checked against the fees in force on 20 October 2026 (Qazpatent invention fee page; WIPO eGuide KZ)
+ # Is newer than 30 days: False
+ # Fees keywords: []
+ 
+ COMPUTE FEE OFF_BasicNationalFee
+-LET Fee1 AS 20320.16
++LET Fee1 AS 21045.88
+ YIELD Fee1
+ ENDCOMPUTE
+ 
+ COMPUTE FEE OFF_ExaminationFee OPTIONAL #3 months after invite
+-LET Fee1 AS 66959.20 
++LET Fee1 AS 69350.60 
+ LET Discount1 AS 0.2
+-LET ICFee AS 53519.20
++LET ICFee AS 55430.60
+ LET ICDiscount AS 0.15
+ YIELD Fee1
+diff --git a/src/IPFLang.Engine/Corpus/PCT-LA.ipf b/src/IPFLang.Engine/Corpus/PCT-LA.ipf
+index e3eb7b5..02e2f17 100644
+--- a/src/IPFLang.Engine/Corpus/PCT-LA.ipf
++++ b/src/IPFLang.Engine/Corpus/PCT-LA.ipf
+@@ -13,5 +13,5 @@
+ # =============================================================================
+ 
+-VERSION '2024.1' EFFECTIVE 2024-01-01 DESCRIPTION 'Entry of national phase in Lao People’s Democratic Republic '
++VERSION '2026.10' EFFECTIVE 2025-04-01 DESCRIPTION 'Entry of national phase in Lao People’s Democratic Republic '
+ 
+ 
+@@ -34,5 +34,5 @@ ENDDEFINE
+ 
+ # Application date
+-DEFINE DATE ApplicationDate AS 'Application date'
++DEFINE DATE ApplicationDate AS 'Application date (international filing date)'
+ GROUP ApplicationGroup
+ BETWEEN 01.01.2000 AND TODAY
+@@ -48,5 +48,5 @@ ENDDEFINE
+ 
+ # Sheets/Pages
+-DEFINE NUMBER SheetCount AS 'Number of pages'
++DEFINE NUMBER SheetCount AS 'Number of pages/sheets'
+ GROUP ApplicationGroup
+ BETWEEN 1 AND 10000
+@@ -151,5 +151,5 @@ ENDDEFINE
+ # File name: PCT-LA-OFF
+ # File content: Official fees for PCT national phase: Lao People’s Democratic Republic
+-# Valid until n/a
++# Checked against the fees in force on 20 October 2026 (WIPO eGuide LA)
+ # Is newer than 30 days: False
+ # Fees keywords: []
+diff --git a/src/IPFLang.Engine/Corpus/PCT-LK.ipf b/src/IPFLang.Engine/Corpus/PCT-LK.ipf
+index e7273cf..f030921 100644
+--- a/src/IPFLang.Engine/Corpus/PCT-LK.ipf
++++ b/src/IPFLang.Engine/Corpus/PCT-LK.ipf
+@@ -13,5 +13,5 @@
+ # =============================================================================
+ 
+-VERSION '2024.1' EFFECTIVE 2024-01-01 DESCRIPTION 'Entry of national phase in Sri Lanka'
++VERSION '2026.10' EFFECTIVE 2026-06-04 DESCRIPTION 'Entry of national phase in Sri Lanka'
+ 
+ 
+@@ -34,5 +34,5 @@ ENDDEFINE
+ 
+ # Application date
+-DEFINE DATE ApplicationDate AS 'Application date'
++DEFINE DATE ApplicationDate AS 'Application date (international filing date)'
+ GROUP ApplicationGroup
+ BETWEEN 01.01.2000 AND TODAY
+@@ -48,5 +48,5 @@ ENDDEFINE
+ 
+ # Sheets/Pages
+-DEFINE NUMBER SheetCount AS 'Number of pages'
++DEFINE NUMBER SheetCount AS 'Number of pages/sheets'
+ GROUP ApplicationGroup
+ BETWEEN 1 AND 10000
+@@ -151,5 +151,5 @@ ENDDEFINE
+ # File name: PCT-LK-OFF
+ # File content: Official fees for PCT national phase: Sri Lanka
+-# Valid until n/a
++# Checked against the fees in force on 20 October 2026 (WIPO eGuide LK)
+ # Is newer than 30 days: True
+ # Fees keywords: []
+diff --git a/src/IPFLang.Engine/Corpus/PCT-LR.ipf b/src/IPFLang.Engine/Corpus/PCT-LR.ipf
+index 6a0f0aa..411218a 100644
+--- a/src/IPFLang.Engine/Corpus/PCT-LR.ipf
++++ b/src/IPFLang.Engine/Corpus/PCT-LR.ipf
+@@ -14,5 +14,5 @@
+ # =============================================================================
+ 
+-VERSION '2024.1' EFFECTIVE 2024-01-01 DESCRIPTION 'Entry of national phase in Liberia'
++VERSION '2026.10' EFFECTIVE 2026-01-01 DESCRIPTION 'Entry of national phase in Liberia'
+ 
+ # Inputs and groups shared across this regional system are declared once in the base
+@@ -96,5 +96,5 @@ ENDDEFINE
+ # File name: PCT-LR-OFF
+ # File content: Official fees for PCT national phase: Liberia
+-# Valid until n/a
++# Checked against the fees in force on 20 October 2026 (WIPO eGuide LR)
+ # Is newer than 30 days: False
+ # Fees keywords: []
+diff --git a/src/IPFLang.Engine/Corpus/PCT-LS.ipf b/src/IPFLang.Engine/Corpus/PCT-LS.ipf
+index 85441ab..f07862e 100644
+--- a/src/IPFLang.Engine/Corpus/PCT-LS.ipf
++++ b/src/IPFLang.Engine/Corpus/PCT-LS.ipf
+@@ -14,5 +14,5 @@
+ # =============================================================================
+ 
+-VERSION '2024.1' EFFECTIVE 2024-01-01 DESCRIPTION 'Entry of national phase in Lesotho'
++VERSION '2026.10' EFFECTIVE 2026-01-05 DESCRIPTION 'Entry of national phase in Lesotho'
+ 
+ # Inputs and groups shared across this regional system are declared once in the base
+@@ -96,5 +96,5 @@ ENDDEFINE
+ # File name: PCT-LS-OFF
+ # File content: Official fees for PCT national phase: Lesotho
+-# Valid until n/a
++# Checked against the fees in force on 20 October 2026 (WIPO eGuide LS)
+ # Is newer than 30 days: False
+ # Fees keywords: []
+diff --git a/src/IPFLang.Engine/Corpus/PCT-LU.ipf b/src/IPFLang.Engine/Corpus/PCT-LU.ipf
+index 15c4171..6882846 100644
+--- a/src/IPFLang.Engine/Corpus/PCT-LU.ipf
++++ b/src/IPFLang.Engine/Corpus/PCT-LU.ipf
+@@ -14,5 +14,5 @@
+ # =============================================================================
+ 
+-VERSION '2024.1' EFFECTIVE 2024-01-01 DESCRIPTION 'Entry of national phase in Luxemburg'
++VERSION '2026.10' EFFECTIVE 2026-04-24 DESCRIPTION 'Entry of national phase in Luxemburg'
+ 
+ # Inputs and groups shared across this regional system are declared once in the base
+@@ -96,5 +96,5 @@ ENDDEFINE
+ # File name: PCT-LU-OFF
+ # File content: Official fees for PCT national phase: Luxembourg
+-# Valid until n/a
++# Checked against the fees in force on 20 October 2026 (OPI Annexe 1 Taxes; WIPO eGuide LU)
+ # Is newer than 30 days: False
+ # Fees keywords: []
+diff --git a/src/IPFLang.Engine/Corpus/PCT-MA.ipf b/src/IPFLang.Engine/Corpus/PCT-MA.ipf
+index 4913c6e..b3da8ea 100644
+--- a/src/IPFLang.Engine/Corpus/PCT-MA.ipf
++++ b/src/IPFLang.Engine/Corpus/PCT-MA.ipf
+@@ -13,5 +13,5 @@
+ # =============================================================================
+ 
+-VERSION '2024.1' EFFECTIVE 2024-01-01 DESCRIPTION 'Entry of national phase in Morocco'
++VERSION '2026.10' EFFECTIVE 2024-04-25 DESCRIPTION 'Entry of national phase in Morocco'
+ 
+ 
+@@ -34,5 +34,5 @@ ENDDEFINE
+ 
+ # Application date
+-DEFINE DATE ApplicationDate AS 'Application date'
++DEFINE DATE ApplicationDate AS 'Application date (international filing date)'
+ GROUP ApplicationGroup
+ BETWEEN 01.01.2000 AND TODAY
+@@ -48,5 +48,5 @@ ENDDEFINE
+ 
+ # Sheets/Pages
+-DEFINE NUMBER SheetCount AS 'Number of pages'
++DEFINE NUMBER SheetCount AS 'Number of pages/sheets'
+ GROUP ApplicationGroup
+ BETWEEN 1 AND 10000
+@@ -151,5 +151,5 @@ ENDDEFINE
+ # File name: PCT-MA-OFF
+ # File content: Official fees for PCT national phase: Morocco
+-# Valid until n/a
++# Checked against the fees in force on 20 October 2026 (WIPO eGuide MA)
+ # Is newer than 30 days: False
+ # Fees keywords: ['claims']
+diff --git a/src/IPFLang.Engine/Corpus/PCT-MD.ipf b/src/IPFLang.Engine/Corpus/PCT-MD.ipf
+index 7bbf5a4..e40681a 100644
+--- a/src/IPFLang.Engine/Corpus/PCT-MD.ipf
++++ b/src/IPFLang.Engine/Corpus/PCT-MD.ipf
+@@ -14,5 +14,5 @@
+ # =============================================================================
+ 
+-VERSION '2024.1' EFFECTIVE 2024-01-01 DESCRIPTION 'Entry of national phase in Moldova'
++VERSION '2026.10' EFFECTIVE 2026-06-01 DESCRIPTION 'Entry of national phase in Moldova'
+ 
+ # Inputs and groups shared across this regional system are declared once in the base
+@@ -96,5 +96,5 @@ ENDDEFINE
+ # File name: PCT-MD-OFF
+ # File content: Official fees for PCT national phase: Republic of Moldova
+-# Valid until n/a
++# Checked against the fees in force on 20 October 2026 (AGEPI fee list; WIPO eGuide MD)
+ # Is newer than 30 days: False
+ # Fees keywords: ['priority']
+diff --git a/src/IPFLang.Engine/Corpus/PCT-MG.ipf b/src/IPFLang.Engine/Corpus/PCT-MG.ipf
+index f8b06d9..14973d5 100644
+--- a/src/IPFLang.Engine/Corpus/PCT-MG.ipf
++++ b/src/IPFLang.Engine/Corpus/PCT-MG.ipf
+@@ -13,5 +13,5 @@
+ # =============================================================================
+ 
+-VERSION '2024.1' EFFECTIVE 2024-01-01 DESCRIPTION 'Entry of national phase in Madagascar'
++VERSION '2026.10' EFFECTIVE 2026-05-07 DESCRIPTION 'Entry of national phase in Madagascar'
+ 
+ 
+@@ -34,5 +34,5 @@ ENDDEFINE
+ 
+ # Application date
+-DEFINE DATE ApplicationDate AS 'Application date'
++DEFINE DATE ApplicationDate AS 'Application date (international filing date)'
+ GROUP ApplicationGroup
+ BETWEEN 01.01.2000 AND TODAY
+@@ -48,5 +48,5 @@ ENDDEFINE
+ 
+ # Sheets/Pages
+-DEFINE NUMBER SheetCount AS 'Number of pages'
++DEFINE NUMBER SheetCount AS 'Number of pages/sheets'
+ GROUP ApplicationGroup
+ BETWEEN 1 AND 10000
+@@ -151,5 +151,5 @@ ENDDEFINE
+ # File name: PCT-MG-OFF
+ # File content: Official fees for PCT national phase: Madagascar
+-# Valid until n/a
++# Checked against the fees in force on 20 October 2026 (OMAPI Arrete 12285/2013; WIPO eGuide MG)
+ # Is newer than 30 days: False
+ # Fees keywords: []
+diff --git a/src/IPFLang.Engine/Corpus/PCT-MK.ipf b/src/IPFLang.Engine/Corpus/PCT-MK.ipf
+index 302ce57..ae5b507 100644
+--- a/src/IPFLang.Engine/Corpus/PCT-MK.ipf
++++ b/src/IPFLang.Engine/Corpus/PCT-MK.ipf
+@@ -14,5 +14,5 @@
+ # =============================================================================
+ 
+-VERSION '2024.1' EFFECTIVE 2024-01-01 DESCRIPTION 'Entry of national phase in North Macedonia'
++VERSION '2026.10' EFFECTIVE 2025-03-13 DESCRIPTION 'Entry of national phase in North Macedonia'
+ 
+ # Inputs and groups shared across this regional system are declared once in the base
+@@ -96,5 +96,5 @@ ENDDEFINE
+ # File name: PCT-MK-OFF
+ # File content: Official fees for PCT national phase: North Macedonia
+-# Valid until n/a
++# Checked against the fees in force on 20 October 2026 (WIPO eGuide MK)
+ # Is newer than 30 days: False
+ # Fees keywords: []
+diff --git a/src/IPFLang.Engine/Corpus/PCT-MN.ipf b/src/IPFLang.Engine/Corpus/PCT-MN.ipf
+index be597a4..2258467 100644
+--- a/src/IPFLang.Engine/Corpus/PCT-MN.ipf
++++ b/src/IPFLang.Engine/Corpus/PCT-MN.ipf
+@@ -34,5 +34,5 @@ ENDDEFINE
+ 
+ # Application date
+-DEFINE DATE ApplicationDate AS 'Application date'
++DEFINE DATE ApplicationDate AS 'Application date (international filing date)'
+ GROUP ApplicationGroup
+ BETWEEN 01.01.2000 AND TODAY
+@@ -48,5 +48,5 @@ ENDDEFINE
+ 
+ # Sheets/Pages
+-DEFINE NUMBER SheetCount AS 'Number of pages'
++DEFINE NUMBER SheetCount AS 'Number of pages/sheets'
+ GROUP ApplicationGroup
+ BETWEEN 1 AND 10000
+diff --git a/src/IPFLang.Engine/Corpus/PCT-MX.ipf b/src/IPFLang.Engine/Corpus/PCT-MX.ipf
+index 6e16591..8c4391b 100644
+--- a/src/IPFLang.Engine/Corpus/PCT-MX.ipf
++++ b/src/IPFLang.Engine/Corpus/PCT-MX.ipf
+@@ -13,5 +13,5 @@
+ # =============================================================================
+ 
+-VERSION '2024.1' EFFECTIVE 2024-01-01 DESCRIPTION 'Entry of national phase in Mexico'
++VERSION '2026.10' EFFECTIVE 2026-01-01 DESCRIPTION 'Entry of national phase in Mexico'
+ 
+ 
+@@ -34,5 +34,5 @@ ENDDEFINE
+ 
+ # Application date
+-DEFINE DATE ApplicationDate AS 'Application date'
++DEFINE DATE ApplicationDate AS 'Application date (international filing date)'
+ GROUP ApplicationGroup
+ BETWEEN 01.01.2000 AND TODAY
+@@ -48,5 +48,5 @@ ENDDEFINE
+ 
+ # Sheets/Pages
+-DEFINE NUMBER SheetCount AS 'Number of pages'
++DEFINE NUMBER SheetCount AS 'Number of pages/sheets'
+ GROUP ApplicationGroup
+ BETWEEN 1 AND 10000
+@@ -151,5 +151,5 @@ ENDDEFINE
+ # File name: PCT-MX-OFF
+ # File content: Official fees for PCT national phase: Mexico
+-# Valid until n/a
++# Checked against the fees in force on 20 October 2026 (IMPI Tarifa, DOF 15-03-2024; WIPO eGuide MX)
+ # Is newer than 30 days: False
+ # Fees keywords: ['sheet']
+diff --git a/src/IPFLang.Engine/Corpus/PCT-MZ.ipf b/src/IPFLang.Engine/Corpus/PCT-MZ.ipf
+index 6072962..9197384 100644
+--- a/src/IPFLang.Engine/Corpus/PCT-MZ.ipf
++++ b/src/IPFLang.Engine/Corpus/PCT-MZ.ipf
+@@ -14,5 +14,5 @@
+ # =============================================================================
+ 
+-VERSION '2024.1' EFFECTIVE 2024-01-01 DESCRIPTION 'Entry of national phase in Mozambique'
++VERSION '2026.10' EFFECTIVE 2017-07-14 DESCRIPTION 'Entry of national phase in Mozambique'
+ 
+ # Inputs and groups shared across this regional system are declared once in the base
+@@ -96,5 +96,5 @@ ENDDEFINE
+ # File name: PCT-MZ-OFF
+ # File content: Official fees for PCT national phase: Mozambique
+-# Valid until n/a
++# Checked against the fees in force on 20 October 2026 (IPI Diploma Ministerial 39/2017; WIPO eGuide MZ)
+ # Is newer than 30 days: False
+  #WIPO mentions MZM which has been replaced in 2008
+diff --git a/src/IPFLang.Engine/Corpus/PCT-NG.ipf b/src/IPFLang.Engine/Corpus/PCT-NG.ipf
+index d9b89bf..36f21f5 100644
+--- a/src/IPFLang.Engine/Corpus/PCT-NG.ipf
++++ b/src/IPFLang.Engine/Corpus/PCT-NG.ipf
+@@ -13,5 +13,5 @@
+ # =============================================================================
+ 
+-VERSION '2024.1' EFFECTIVE 2024-01-01 DESCRIPTION 'Entry of national phase in Nigeria'
++VERSION '2026.10' EFFECTIVE 2023-09-15 DESCRIPTION 'Entry of national phase in Nigeria'
+ 
+ 
+@@ -34,5 +34,5 @@ ENDDEFINE
+ 
+ # Application date
+-DEFINE DATE ApplicationDate AS 'Application date'
++DEFINE DATE ApplicationDate AS 'Application date (international filing date)'
+ GROUP ApplicationGroup
+ BETWEEN 01.01.2000 AND TODAY
+@@ -48,5 +48,5 @@ ENDDEFINE
+ 
+ # Sheets/Pages
+-DEFINE NUMBER SheetCount AS 'Number of pages'
++DEFINE NUMBER SheetCount AS 'Number of pages/sheets'
+ GROUP ApplicationGroup
+ BETWEEN 1 AND 10000
+@@ -151,5 +151,5 @@ ENDDEFINE
+ # File name: PCT-NG-OFF
+ # File content: Official fees for PCT national phase: Nigeria
+-# Valid until n/a
++# Checked against the fees in force on 20 October 2026 (WIPO eGuide NG)
+ # Is newer than 30 days: False
+ # Fees keywords: []
+diff --git a/src/IPFLang.Engine/Corpus/PCT-NI.ipf b/src/IPFLang.Engine/Corpus/PCT-NI.ipf
+index b8957e6..c90810d 100644
+--- a/src/IPFLang.Engine/Corpus/PCT-NI.ipf
++++ b/src/IPFLang.Engine/Corpus/PCT-NI.ipf
+@@ -5,5 +5,5 @@
+ #
+ # Category: OfficialFees
+-# Currency: NIO
++# Currency: USD
+ # Phase: National Phase
+ #
+@@ -13,5 +13,5 @@
+ # =============================================================================
+ 
+-VERSION '2024.1' EFFECTIVE 2024-01-01 DESCRIPTION 'Entry of national phase in Nicaragua'
++VERSION '2026.10' EFFECTIVE 2020-04-03 DESCRIPTION 'Entry of national phase in Nicaragua'
+ 
+ 
+@@ -34,5 +34,5 @@ ENDDEFINE
+ 
+ # Application date
+-DEFINE DATE ApplicationDate AS 'Application date'
++DEFINE DATE ApplicationDate AS 'Application date (international filing date)'
+ GROUP ApplicationGroup
+ BETWEEN 01.01.2000 AND TODAY
+@@ -48,5 +48,5 @@ ENDDEFINE
+ 
+ # Sheets/Pages
+-DEFINE NUMBER SheetCount AS 'Number of pages'
++DEFINE NUMBER SheetCount AS 'Number of pages/sheets'
+ GROUP ApplicationGroup
+ BETWEEN 1 AND 10000
+@@ -151,10 +151,11 @@ ENDDEFINE
+ # File name: PCT-NI-OFF
+ # File content: Official fees for PCT national phase: Nicaragua
+-# Valid until n/a
++# Checked against the fees in force on 20 October 2026 (Ley No. 1025, La Gaceta 3 April 2020)
++# Fees are set in Central American pesos (CA$, at par with the US dollar) and paid in cordobas.
+ # Is newer than 30 days: False
+ # Fees keywords: []
+ 
+ COMPUTE FEE OFF_BasicNationalFee
+-LET Fee1 AS 200
++LET Fee1 AS 240 #first 20 claims
+ YIELD Fee1
+ ENDCOMPUTE
+@@ -197,5 +198,5 @@ VERIFY COMPLETE FEE OFF_BasicNationalFee
+ # =============================================================================
+ 
+-RETURN Currency AS 'NIO'
++RETURN Currency AS 'USD'
+ RETURN Jurisdiction AS 'NI'
+ RETURN JurisdictionName AS 'Entry of national phase in Nicaragua'
+diff --git a/src/IPFLang.Engine/Corpus/PCT-NO.ipf b/src/IPFLang.Engine/Corpus/PCT-NO.ipf
+index 244c51a..64d19e3 100644
+--- a/src/IPFLang.Engine/Corpus/PCT-NO.ipf
++++ b/src/IPFLang.Engine/Corpus/PCT-NO.ipf
+@@ -14,5 +14,5 @@
+ # =============================================================================
+ 
+-VERSION '2024.1' EFFECTIVE 2024-01-01 DESCRIPTION 'Entry of national phase in Norway'
++VERSION '2026.10' EFFECTIVE 2026-08-01 DESCRIPTION 'Entry of national phase in Norway'
+ 
+ # Inputs and groups shared across this regional system are declared once in the base
+@@ -96,15 +96,15 @@ ENDDEFINE
+ # File name: PCT-NO-OFF
+ # File content: Official fees for PCT national phase: Norway
+-# Valid until n/a
++# Checked against the fees in force on 20 October 2026 (Patentstyret price list; WIPO eGuide NO)
+ # Is newer than 30 days: False
+ # Fees keywords: ['claim']
+ 
+ COMPUTE FEE OFF_BasicNationalFee
+-LET Fee1 AS 4650
++LET Fee1 AS 6050
+ YIELD Fee1
+ ENDCOMPUTE
+ 
+ COMPUTE FEE OFF_ClaimFee
+-LET Fee1 AS 250
++LET Fee1 AS 330
+ YIELD Fee1*(ClaimCount-10) IF ClaimCount GT 10
+ # Nothing is due in the remaining case; stated so the schedule answers it.
+@@ -113,5 +113,5 @@ ENDCOMPUTE
+ 
+ COMPUTE FEE OFF_Renewal
+-LET RenFee AS 700
++LET RenFee AS 910
+ LET RenMonth AS ROUND ( ApplicationDate!MONTHSTONOW ) #calculate difference in months to today
+ YIELD RenFee
+diff --git a/src/IPFLang.Engine/Corpus/PCT-NZ.ipf b/src/IPFLang.Engine/Corpus/PCT-NZ.ipf
+index 6b3e1e2..a28afbc 100644
+--- a/src/IPFLang.Engine/Corpus/PCT-NZ.ipf
++++ b/src/IPFLang.Engine/Corpus/PCT-NZ.ipf
+@@ -13,5 +13,5 @@
+ # =============================================================================
+ 
+-VERSION '2024.1' EFFECTIVE 2024-01-01 DESCRIPTION 'Entry of national phase in New Zealand'
++VERSION '2026.10' EFFECTIVE 2020-02-13 DESCRIPTION 'Entry of national phase in New Zealand'
+ 
+ 
+@@ -34,5 +34,5 @@ ENDDEFINE
+ 
+ # Application date
+-DEFINE DATE ApplicationDate AS 'Application date'
++DEFINE DATE ApplicationDate AS 'Application date (international filing date)'
+ GROUP ApplicationGroup
+ BETWEEN 01.01.2000 AND TODAY
+@@ -48,5 +48,5 @@ ENDDEFINE
+ 
+ # Sheets/Pages
+-DEFINE NUMBER SheetCount AS 'Number of pages'
++DEFINE NUMBER SheetCount AS 'Number of pages/sheets'
+ GROUP ApplicationGroup
+ BETWEEN 1 AND 10000
+@@ -151,5 +151,5 @@ ENDDEFINE
+ # File name: PCT-NZ-OFF
+ # File content: Official fees for PCT national phase: New Zealand
+-# Valid until n/a
++# Checked against the fees in force on 20 October 2026 (IPONZ patent fees; WIPO eGuide NZ)
+ # Is newer than 30 days: False
+ # Fees keywords: []
+diff --git a/src/IPFLang.Engine/Corpus/PCT-OA.ipf b/src/IPFLang.Engine/Corpus/PCT-OA.ipf
+index 9e2f00b..4098d2e 100644
+--- a/src/IPFLang.Engine/Corpus/PCT-OA.ipf
++++ b/src/IPFLang.Engine/Corpus/PCT-OA.ipf
+@@ -13,5 +13,5 @@
+ # =============================================================================
+ 
+-VERSION '2024.1' EFFECTIVE 2024-01-01 DESCRIPTION 'Entry of regional phase in OAPI'
++VERSION '2026.10' EFFECTIVE 2025-01-01 DESCRIPTION 'Entry of regional phase in OAPI'
+ 
+ 
+@@ -34,5 +34,5 @@ ENDDEFINE
+ 
+ # Application date
+-DEFINE DATE ApplicationDate AS 'Application date'
++DEFINE DATE ApplicationDate AS 'Application date (international filing date)'
+ GROUP ApplicationGroup
+ BETWEEN 01.01.2000 AND TODAY
+@@ -48,5 +48,5 @@ ENDDEFINE
+ 
+ # Sheets/Pages
+-DEFINE NUMBER SheetCount AS 'Number of pages'
++DEFINE NUMBER SheetCount AS 'Number of pages/sheets'
+ GROUP ApplicationGroup
+ BETWEEN 1 AND 10000
+@@ -151,5 +151,5 @@ ENDDEFINE
+ # File name: PCT-OA-OFF
+ # File content: Official fees for PCT regional phase: OAPI
+-# Valid until n/a
++# Checked against the fees in force on 20 October 2026 (OAPI patent fee table; WIPO eGuide OA)
+ 
+ COMPUTE FEE OFF_BasicNationalFee
+@@ -162,9 +162,9 @@ ENDCOMPUTE
+ 
+ COMPUTE FEE OFF_PriorityFee
+-YIELD 63000 * PriorityCount
++YIELD 75000 * PriorityCount
+ ENDCOMPUTE
+ 
+ COMPUTE FEE OFF_ClaimFee
+-YIELD 45000 * (ClaimCount-10) IF ClaimCount GT 10
++YIELD 65000 * (ClaimCount-10) IF ClaimCount GT 10
+ # Nothing is due in the remaining case; stated so the schedule answers it.
+ YIELD 0 IF ClaimCount LTE 10
+@@ -191,6 +191,6 @@ COMPUTE FEE OFF_Renewal
+ LET RenMonth AS ROUND ( ApplicationDate!MONTHSTONOW ) #calculate difference in months to today
+ 
+-YIELD 220000<XAF> IF RenMonth GTE 12
+-YIELD 220000<XAF> IF RenMonth GTE 24
++YIELD 270000<XAF> IF RenMonth GTE 12
++YIELD 270000<XAF> IF RenMonth GTE 24
+ 
+ ENDCOMPUTE
+diff --git a/src/IPFLang.Engine/Corpus/PCT-OM.ipf b/src/IPFLang.Engine/Corpus/PCT-OM.ipf
+index eb99620..d058c5f 100644
+--- a/src/IPFLang.Engine/Corpus/PCT-OM.ipf
++++ b/src/IPFLang.Engine/Corpus/PCT-OM.ipf
+@@ -13,5 +13,5 @@
+ # =============================================================================
+ 
+-VERSION '2024.1' EFFECTIVE 2024-01-01 DESCRIPTION 'Entry of national phase in Oman'
++VERSION '2026.10' EFFECTIVE 2026-01-01 DESCRIPTION 'Entry of national phase in Oman'
+ 
+ 
+@@ -34,5 +34,5 @@ ENDDEFINE
+ 
+ # Application date
+-DEFINE DATE ApplicationDate AS 'Application date'
++DEFINE DATE ApplicationDate AS 'Application date (international filing date)'
+ GROUP ApplicationGroup
+ BETWEEN 01.01.2000 AND TODAY
+@@ -48,5 +48,5 @@ ENDDEFINE
+ 
+ # Sheets/Pages
+-DEFINE NUMBER SheetCount AS 'Number of pages'
++DEFINE NUMBER SheetCount AS 'Number of pages/sheets'
+ GROUP ApplicationGroup
+ BETWEEN 1 AND 10000
+@@ -151,5 +151,5 @@ ENDDEFINE
+ # File name: PCT-OM-OFF
+ # File content: Official fees for PCT national phase: Oman
+-# Valid until n/a
++# Checked against the fees in force on 20 October 2026 (WIPO eGuide OM)
+ # Is newer than 30 days: False
+ # Fees keywords: []
+diff --git a/src/IPFLang.Engine/Corpus/PCT-PA.ipf b/src/IPFLang.Engine/Corpus/PCT-PA.ipf
+index f61e4cf..15156ed 100644
+--- a/src/IPFLang.Engine/Corpus/PCT-PA.ipf
++++ b/src/IPFLang.Engine/Corpus/PCT-PA.ipf
+@@ -13,5 +13,5 @@
+ # =============================================================================
+ 
+-VERSION '2024.1' EFFECTIVE 2024-01-01 DESCRIPTION 'Entry of national phase in Panama'
++VERSION '2026.10' EFFECTIVE 2026-01-01 DESCRIPTION 'Entry of national phase in Panama'
+ 
+ 
+@@ -34,5 +34,5 @@ ENDDEFINE
+ 
+ # Application date
+-DEFINE DATE ApplicationDate AS 'Application date'
++DEFINE DATE ApplicationDate AS 'Application date (international filing date)'
+ GROUP ApplicationGroup
+ BETWEEN 01.01.2000 AND TODAY
+@@ -48,5 +48,5 @@ ENDDEFINE
+ 
+ # Sheets/Pages
+-DEFINE NUMBER SheetCount AS 'Number of pages'
++DEFINE NUMBER SheetCount AS 'Number of pages/sheets'
+ GROUP ApplicationGroup
+ BETWEEN 1 AND 10000
+@@ -151,5 +151,5 @@ ENDDEFINE
+ # File name: PCT-PA-OFF
+ # File content: Official fees for PCT national phase: Panama
+-# Valid until n/a
++# Checked against the fees in force on 20 October 2026 (WIPO eGuide PA)
+ # Is newer than 30 days: False
+ # Fees keywords: []
+diff --git a/src/IPFLang.Engine/Corpus/PCT-PE.ipf b/src/IPFLang.Engine/Corpus/PCT-PE.ipf
+index 74dbc84..f29f0f7 100644
+--- a/src/IPFLang.Engine/Corpus/PCT-PE.ipf
++++ b/src/IPFLang.Engine/Corpus/PCT-PE.ipf
+@@ -13,5 +13,5 @@
+ # =============================================================================
+ 
+-VERSION '2024.1' EFFECTIVE 2024-01-01 DESCRIPTION 'Entry of national phase in Peru'
++VERSION '2026.10' EFFECTIVE 2026-01-01 DESCRIPTION 'Entry of national phase in Peru'
+ 
+ 
+@@ -34,5 +34,5 @@ ENDDEFINE
+ 
+ # Application date
+-DEFINE DATE ApplicationDate AS 'Application date'
++DEFINE DATE ApplicationDate AS 'Application date (international filing date)'
+ GROUP ApplicationGroup
+ BETWEEN 01.01.2000 AND TODAY
+@@ -48,5 +48,5 @@ ENDDEFINE
+ 
+ # Sheets/Pages
+-DEFINE NUMBER SheetCount AS 'Number of pages'
++DEFINE NUMBER SheetCount AS 'Number of pages/sheets'
+ GROUP ApplicationGroup
+ BETWEEN 1 AND 10000
+@@ -151,5 +151,5 @@ ENDDEFINE
+ # File name: PCT-PE-OFF
+ # File content: Official fees for PCT national phase: Peru
+-# Valid until n/a
++# Checked against the fees in force on 20 October 2026 (eGuide PE)
+ # Is newer than 30 days: False
+ # Fees keywords: ['claim']
+diff --git a/src/IPFLang.Engine/Corpus/PCT-PG.ipf b/src/IPFLang.Engine/Corpus/PCT-PG.ipf
+index ff43cca..aaf56fe 100644
+--- a/src/IPFLang.Engine/Corpus/PCT-PG.ipf
++++ b/src/IPFLang.Engine/Corpus/PCT-PG.ipf
+@@ -13,5 +13,5 @@
+ # =============================================================================
+ 
+-VERSION '2024.1' EFFECTIVE 2024-01-01 DESCRIPTION 'Entry of national phase in Papua New Guinea'
++VERSION '2026.10' EFFECTIVE 2026-01-01 DESCRIPTION 'Entry of national phase in Papua New Guinea'
+ 
+ 
+@@ -34,5 +34,5 @@ ENDDEFINE
+ 
+ # Application date
+-DEFINE DATE ApplicationDate AS 'Application date'
++DEFINE DATE ApplicationDate AS 'Application date (international filing date)'
+ GROUP ApplicationGroup
+ BETWEEN 01.01.2000 AND TODAY
+@@ -48,5 +48,5 @@ ENDDEFINE
+ 
+ # Sheets/Pages
+-DEFINE NUMBER SheetCount AS 'Number of pages'
++DEFINE NUMBER SheetCount AS 'Number of pages/sheets'
+ GROUP ApplicationGroup
+ BETWEEN 1 AND 10000
+@@ -151,5 +151,5 @@ ENDDEFINE
+ # File name: PCT-PG-OFF
+ # File content: Official fees for PCT national phase: Papua New Guinea
+-# Valid until n/a
++# Checked against the fees in force on 20 October 2026 (eGuide PG)
+ # Is newer than 30 days: False
+ # Fees keywords: []
+diff --git a/src/IPFLang.Engine/Corpus/PCT-PH.ipf b/src/IPFLang.Engine/Corpus/PCT-PH.ipf
+index fa3e394..798daaf 100644
+--- a/src/IPFLang.Engine/Corpus/PCT-PH.ipf
++++ b/src/IPFLang.Engine/Corpus/PCT-PH.ipf
+@@ -13,5 +13,5 @@
+ # =============================================================================
+ 
+-VERSION '2024.1' EFFECTIVE 2024-01-01 DESCRIPTION 'Entry of national phase in Philippines'
++VERSION '2026.10' EFFECTIVE 2026-01-01 DESCRIPTION 'Entry of national phase in Philippines'
+ 
+ 
+@@ -34,5 +34,5 @@ ENDDEFINE
+ 
+ # Application date
+-DEFINE DATE ApplicationDate AS 'Application date'
++DEFINE DATE ApplicationDate AS 'Application date (international filing date)'
+ GROUP ApplicationGroup
+ BETWEEN 01.01.2000 AND TODAY
+@@ -48,5 +48,5 @@ ENDDEFINE
+ 
+ # Sheets/Pages
+-DEFINE NUMBER SheetCount AS 'Number of pages'
++DEFINE NUMBER SheetCount AS 'Number of pages/sheets'
+ GROUP ApplicationGroup
+ BETWEEN 1 AND 10000
+@@ -151,5 +151,5 @@ ENDDEFINE
+ # File name: PCT-PH-OFF
+ # File content: Official fees for PCT national phase: Philippines
+-# Valid until n/a
++# Checked against the fees in force on 20 October 2026 (eGuide PH)
+ # Is newer than 30 days: False
+ # Fees keywords: []
+diff --git a/src/IPFLang.Engine/Corpus/PCT-PL.ipf b/src/IPFLang.Engine/Corpus/PCT-PL.ipf
+index 9cfc4f8..eae6a43 100644
+--- a/src/IPFLang.Engine/Corpus/PCT-PL.ipf
++++ b/src/IPFLang.Engine/Corpus/PCT-PL.ipf
+@@ -14,5 +14,5 @@
+ # =============================================================================
+ 
+-VERSION '2024.1' EFFECTIVE 2024-01-01 DESCRIPTION 'Entry of national phase in Poland'
++VERSION '2026.10' EFFECTIVE 2026-08-01 DESCRIPTION 'Entry of national phase in Poland'
+ 
+ # Inputs and groups shared across this regional system are declared once in the base
+@@ -96,5 +96,5 @@ ENDDEFINE
+ # File name: PCT-PL-OFF
+ # File content: Official fees for PCT national phase: Poland
+-# Valid until n/a
++# Checked against the fees in force on 20 October 2026 (eGuide PL)
+ # Is newer than 30 days: False
+ # Fees keywords: ['sheet', 'claims', 'priority']
+diff --git a/src/IPFLang.Engine/Corpus/PCT-PT.ipf b/src/IPFLang.Engine/Corpus/PCT-PT.ipf
+index 1a28167..c5c2883 100644
+--- a/src/IPFLang.Engine/Corpus/PCT-PT.ipf
++++ b/src/IPFLang.Engine/Corpus/PCT-PT.ipf
+@@ -14,5 +14,5 @@
+ # =============================================================================
+ 
+-VERSION '2024.1' EFFECTIVE 2024-01-01 DESCRIPTION 'Entry of national phase in Portugal'
++VERSION '2026.10' EFFECTIVE 2026-07-01 DESCRIPTION 'Entry of national phase in Portugal'
+ 
+ # Inputs and groups shared across this regional system are declared once in the base
+@@ -96,10 +96,10 @@ ENDDEFINE
+ # File name: PCT-PT-OFF
+ # File content: Official fees for PCT national phase: Portugal
+-# Valid until n/a
++# Checked against the fees in force on 20 October 2026 (INPI Deliberacao 334/2026; eGuide PT)
+ # Is newer than 30 days: False
+ # Fees keywords: []
+ 
+ COMPUTE FEE OFF_BasicNationalFee
+-LET Fee1 AS 54.54
++LET Fee1 AS 64.21
+ YIELD Fee1
+ ENDCOMPUTE
+diff --git a/src/IPFLang.Engine/Corpus/PCT-QA.ipf b/src/IPFLang.Engine/Corpus/PCT-QA.ipf
+index 82ed849..7ec63cc 100644
+--- a/src/IPFLang.Engine/Corpus/PCT-QA.ipf
++++ b/src/IPFLang.Engine/Corpus/PCT-QA.ipf
+@@ -13,5 +13,5 @@
+ # =============================================================================
+ 
+-VERSION '2024.1' EFFECTIVE 2024-01-01 DESCRIPTION 'Entry of national phase in Qatar'
++VERSION '2026.10' EFFECTIVE 2026-06-26 DESCRIPTION 'Entry of national phase in Qatar'
+ 
+ 
+@@ -34,5 +34,5 @@ ENDDEFINE
+ 
+ # Application date
+-DEFINE DATE ApplicationDate AS 'Application date'
++DEFINE DATE ApplicationDate AS 'Application date (international filing date)'
+ GROUP ApplicationGroup
+ BETWEEN 01.01.2000 AND TODAY
+@@ -48,5 +48,5 @@ ENDDEFINE
+ 
+ # Sheets/Pages
+-DEFINE NUMBER SheetCount AS 'Number of pages'
++DEFINE NUMBER SheetCount AS 'Number of pages/sheets'
+ GROUP ApplicationGroup
+ BETWEEN 1 AND 10000
+@@ -151,11 +151,11 @@ ENDDEFINE
+ # File name: PCT-QA-OFF
+ # File content: Official fees for PCT national phase: Qatar
+-# Valid until n/a
++# Checked against the fees in force on 20 October 2026 (eGuide QA)
+ # Is newer than 30 days: False
+ # Fees keywords: []
+ 
+ COMPUTE FEE OFF_BasicNationalFee
+-LET Fee1 AS 2000
+-LET Fee2 AS 1000
++LET Fee1 AS 5000
++LET Fee2 AS 2500
+ YIELD Fee1 IF EntitySize NEQ Entity_Person
+ YIELD Fee2 IF EntitySize EQ Entity_Person
+diff --git a/src/IPFLang.Engine/Corpus/PCT-RO.ipf b/src/IPFLang.Engine/Corpus/PCT-RO.ipf
+index 9b0a670..4a5be44 100644
+--- a/src/IPFLang.Engine/Corpus/PCT-RO.ipf
++++ b/src/IPFLang.Engine/Corpus/PCT-RO.ipf
+@@ -14,5 +14,5 @@
+ # =============================================================================
+ 
+-VERSION '2024.1' EFFECTIVE 2024-01-01 DESCRIPTION 'Entry of national phase in Romania'
++VERSION '2026.10' EFFECTIVE 2026-01-01 DESCRIPTION 'Entry of national phase in Romania'
+ 
+ # Inputs and groups shared across this regional system are declared once in the base
+@@ -96,5 +96,5 @@ ENDDEFINE
+ # File name: PCT-RO-OFF
+ # File content: Official fees for PCT national phase: Romania
+-# Valid until n/a
++# Checked against the fees in force on 20 October 2026 (OSIM Order 79/2025; eGuide RO)
+ # Is newer than 30 days: False
+ # Fees keywords: ['claims', 'priority']
+diff --git a/src/IPFLang.Engine/Corpus/PCT-RS.ipf b/src/IPFLang.Engine/Corpus/PCT-RS.ipf
+index a77c1dd..2ee097a 100644
+--- a/src/IPFLang.Engine/Corpus/PCT-RS.ipf
++++ b/src/IPFLang.Engine/Corpus/PCT-RS.ipf
+@@ -14,5 +14,5 @@
+ # =============================================================================
+ 
+-VERSION '2024.1' EFFECTIVE 2024-01-01 DESCRIPTION 'Entry of national phase in Serbia'
++VERSION '2026.10' EFFECTIVE 2026-07-01 DESCRIPTION 'Entry of national phase in Serbia'
+ 
+ # Inputs and groups shared across this regional system are declared once in the base
+@@ -96,10 +96,10 @@ ENDDEFINE
+ # File name: PCT-RS-OFF
+ # File content: Official fees for PCT national phase: Serbia
+-# Valid until n/a
++# Checked against the fees in force on 20 October 2026 (ZIS fee tariff, amounts of 1 July 2026; eGuide RS)
+ # Is newer than 30 days: False
+ # Fees keywords: ['claim']
+ 
+ COMPUTE FEE OFF_BasicNationalFee
+-LET Fee1 AS 8210
++LET Fee1 AS 10660
+ YIELD Fee1
+ YIELD -Fee1*0.5 IF EntitySize EQ Entity_Person
+@@ -107,5 +107,5 @@ ENDCOMPUTE
+ 
+ COMPUTE FEE OFF_ClaimFee
+-LET CF1 AS 800
++LET CF1 AS 1040
+ YIELD CF1*(ClaimCount-10) IF ClaimCount GT 10
+ YIELD -CF1*(ClaimCount-10)*0.5 IF ClaimCount GT 10 AND EntitySize EQ Entity_Person
+@@ -115,5 +115,5 @@ ENDCOMPUTE
+ 
+ COMPUTE FEE OFF_SearchFee
+-LET Fee1 AS 16470
++LET Fee1 AS 21390
+ YIELD Fee1 IF ISR_AVAILABLE EQ FALSE
+ YIELD -Fee1*0.5 IF ISR_AVAILABLE EQ FALSE AND EntitySize EQ Entity_Person
+@@ -123,5 +123,5 @@ ENDCOMPUTE
+ 
+ COMPUTE FEE OFF_Renewal3
+-LET RenFee AS 11510
++LET RenFee AS 14950
+ LET RenMonth AS ROUND ( ApplicationDate!MONTHSTONOW ) #calculate difference in months to today
+ YIELD RenFee IF RenMonth GTE 24
+diff --git a/src/IPFLang.Engine/Corpus/PCT-RU.ipf b/src/IPFLang.Engine/Corpus/PCT-RU.ipf
+index 3480055..1044e21 100644
+--- a/src/IPFLang.Engine/Corpus/PCT-RU.ipf
++++ b/src/IPFLang.Engine/Corpus/PCT-RU.ipf
+@@ -14,5 +14,5 @@
+ # =============================================================================
+ 
+-VERSION '2024.1' EFFECTIVE 2024-01-01 DESCRIPTION 'Entry of national phase in Russian Federation'
++VERSION '2026.10' EFFECTIVE 2024-10-05 DESCRIPTION 'Entry of national phase in Russian Federation'
+ 
+ # Inputs and groups shared across this regional system are declared once in the base
+@@ -96,16 +96,16 @@ ENDDEFINE
+ # File name: PCT-RU-OFF
+ # File content: Official fees for PCT national phase: Russian Federation
+-# Valid until n/a
++# Checked against the fees in force on 20 October 2026 (Rospatent Regulation 941 as amended; eGuide RU)
+ # Is newer than 30 days: True
+ # Fees keywords: ['claim']
+ 
+ COMPUTE FEE OFF_BasicNationalFee
+-LET Fee1 AS 3300
++LET Fee1 AS 4000
+ YIELD Fee1
+ ENDCOMPUTE
+ 
+-COMPUTE FEE OFF_ClaimFee #reduction by 30% when filed online
+-LET Fee1 AS 700
+-YIELD Fee1*(ClaimCount-10)*0.7 IF ClaimCount GT 10
++COMPUTE FEE OFF_ClaimFee #the 30% reduction for online filing was abolished on 5 October 2024
++LET Fee1 AS 1000
++YIELD Fee1*(ClaimCount-10) IF ClaimCount GT 10
+ # Nothing is due in the remaining case; stated so the schedule answers it.
+ YIELD 0 IF ClaimCount LTE 10
+@@ -113,6 +113,6 @@ ENDCOMPUTE
+ 
+ COMPUTE FEE OFF_ExaminationFee
+-LET Fee1 AS 12500
+-LET Fee2 AS 9200
++LET Fee1 AS 14000
++LET Fee2 AS 10000
+ YIELD Fee1
+ YIELD -Fee1*0.5 IF ISA EQ ISA_RU #50% off if ROSPAT=ISA
+diff --git a/src/IPFLang.Engine/Corpus/PCT-SA.ipf b/src/IPFLang.Engine/Corpus/PCT-SA.ipf
+index 7a2445b..06a7df7 100644
+--- a/src/IPFLang.Engine/Corpus/PCT-SA.ipf
++++ b/src/IPFLang.Engine/Corpus/PCT-SA.ipf
+@@ -13,5 +13,5 @@
+ # =============================================================================
+ 
+-VERSION '2024.1' EFFECTIVE 2024-01-01 DESCRIPTION 'Entry of national phase in Saudi Arabia'
++VERSION '2026.10' EFFECTIVE 2026-02-01 DESCRIPTION 'Entry of national phase in Saudi Arabia'
+ 
+ 
+@@ -34,5 +34,5 @@ ENDDEFINE
+ 
+ # Application date
+-DEFINE DATE ApplicationDate AS 'Application date'
++DEFINE DATE ApplicationDate AS 'Application date (international filing date)'
+ GROUP ApplicationGroup
+ BETWEEN 01.01.2000 AND TODAY
+@@ -48,5 +48,5 @@ ENDDEFINE
+ 
+ # Sheets/Pages
+-DEFINE NUMBER SheetCount AS 'Number of pages'
++DEFINE NUMBER SheetCount AS 'Number of pages/sheets'
+ GROUP ApplicationGroup
+ BETWEEN 1 AND 10000
+@@ -151,5 +151,5 @@ ENDDEFINE
+ # File name: PCT-SA-OFF
+ # File content: Official fees for PCT national phase: Saudi Arabia
+-# Valid until n/a
++# Checked against the fees in force on 20 October 2026 (eGuide SA)
+ # Is newer than 30 days: True
+ # Fees keywords: []
+diff --git a/src/IPFLang.Engine/Corpus/PCT-SC.ipf b/src/IPFLang.Engine/Corpus/PCT-SC.ipf
+index 959638b..dc63cc1 100644
+--- a/src/IPFLang.Engine/Corpus/PCT-SC.ipf
++++ b/src/IPFLang.Engine/Corpus/PCT-SC.ipf
+@@ -14,5 +14,5 @@
+ # =============================================================================
+ 
+-VERSION '2024.1' EFFECTIVE 2024-01-01 DESCRIPTION 'Entry of national phase in Seychelles'
++VERSION '2026.10' EFFECTIVE 2026-01-01 DESCRIPTION 'Entry of national phase in Seychelles'
+ 
+ # Inputs and groups shared across this regional system are declared once in the base
+@@ -96,5 +96,5 @@ ENDDEFINE
+ # File name: PCT-SC-OFF
+ # File content: Official fees for PCT national phase: Seychelles
+-# Valid until n/a
++# Checked against the fees in force on 20 October 2026 (eGuide SC)
+ # Is newer than 30 days: False
+ # Fees keywords: []
+diff --git a/src/IPFLang.Engine/Corpus/PCT-SD.ipf b/src/IPFLang.Engine/Corpus/PCT-SD.ipf
+index 5f6bcb9..86541d1 100644
+--- a/src/IPFLang.Engine/Corpus/PCT-SD.ipf
++++ b/src/IPFLang.Engine/Corpus/PCT-SD.ipf
+@@ -14,5 +14,5 @@
+ # =============================================================================
+ 
+-VERSION '2024.1' EFFECTIVE 2024-01-01 DESCRIPTION 'Entry of national phase in Sudan'
++VERSION '2026.10' EFFECTIVE 2025-03-20 DESCRIPTION 'Entry of national phase in Sudan'
+ 
+ # Inputs and groups shared across this regional system are declared once in the base
+@@ -96,5 +96,5 @@ ENDDEFINE
+ # File name: PCT-SD-OFF
+ # File content: Official fees for PCT national phase: Sudan
+-# Valid until n/a
++# Checked against the fees in force on 20 October 2026 (eGuide SD)
+ # Is newer than 30 days: False
+ # Fees keywords: []
+diff --git a/src/IPFLang.Engine/Corpus/PCT-SE.ipf b/src/IPFLang.Engine/Corpus/PCT-SE.ipf
+index 2031deb..b114332 100644
+--- a/src/IPFLang.Engine/Corpus/PCT-SE.ipf
++++ b/src/IPFLang.Engine/Corpus/PCT-SE.ipf
+@@ -14,5 +14,5 @@
+ # =============================================================================
+ 
+-VERSION '2024.1' EFFECTIVE 2024-01-01 DESCRIPTION 'Entry of national phase in Sweden'
++VERSION '2026.10' EFFECTIVE 2026-08-01 DESCRIPTION 'Entry of national phase in Sweden'
+ 
+ # Inputs and groups shared across this regional system are declared once in the base
+@@ -96,5 +96,5 @@ ENDDEFINE
+ # File name: PCT-SE-OFF
+ # File content: Official fees for PCT national phase: Sweden
+-# Valid until n/a
++# Checked against the fees in force on 20 October 2026 (WIPO PCT Applicant's Guide SE; PRV fees and payment)
+ # Is newer than 30 days: False
+ # Fees keywords: ['claim']
+@@ -118,5 +118,5 @@ ENDCOMPUTE
+ 
+ COMPUTE FEE OFF_Renewal3
+-LET RenFee AS 1500
++LET RenFee AS 1600
+ LET RenMonth AS ROUND ( ApplicationDate!MONTHSTONOW_FROMLASTDAY ) #calculate difference in months to today
+ YIELD RenFee IF RenMonth GTE 24
+diff --git a/src/IPFLang.Engine/Corpus/PCT-SG.ipf b/src/IPFLang.Engine/Corpus/PCT-SG.ipf
+index 44d9de4..2a632ca 100644
+--- a/src/IPFLang.Engine/Corpus/PCT-SG.ipf
++++ b/src/IPFLang.Engine/Corpus/PCT-SG.ipf
+@@ -13,5 +13,5 @@
+ # =============================================================================
+ 
+-VERSION '2024.1' EFFECTIVE 2024-01-01 DESCRIPTION 'Entry of national phase in Singapore'
++VERSION '2026.10' EFFECTIVE 2025-09-01 DESCRIPTION 'Entry of national phase in Singapore'
+ 
+ 
+@@ -34,5 +34,5 @@ ENDDEFINE
+ 
+ # Application date
+-DEFINE DATE ApplicationDate AS 'Application date'
++DEFINE DATE ApplicationDate AS 'Application date (international filing date)'
+ GROUP ApplicationGroup
+ BETWEEN 01.01.2000 AND TODAY
+@@ -48,5 +48,5 @@ ENDDEFINE
+ 
+ # Sheets/Pages
+-DEFINE NUMBER SheetCount AS 'Number of pages'
++DEFINE NUMBER SheetCount AS 'Number of pages/sheets'
+ GROUP ApplicationGroup
+ BETWEEN 1 AND 10000
+@@ -151,18 +151,18 @@ ENDDEFINE
+ # File name: PCT-SG-OFF
+ # File content: Official fees for PCT national phase: Singapore
+-# Valid until n/a
++# Checked against the fees in force on 20 October 2026 (WIPO PCT Applicant's Guide SG; IPOS forms and fees)
+ # Is newer than 30 days: False
+ # Fees keywords: []
+ 
+ COMPUTE FEE OFF_BasicNationalFee
+-LET Fee1 AS 200
++LET Fee1 AS 210
+ YIELD Fee1
+ ENDCOMPUTE
+ 
+ COMPUTE FEE OFF_ExaminationFee OPTIONAL
+-LET Fee1 AS 1350
+-LET CFee AS 40
++LET Fee1 AS 1420
++LET CFee AS 80
+ YIELD Fee1
+-YIELD CFee*(ClaimCount-20) IF ClaimCount GT 20
++YIELD CFee*(ClaimCount-15) IF ClaimCount GT 15
+ ENDCOMPUTE
+ 
+diff --git a/src/IPFLang.Engine/Corpus/PCT-SK.ipf b/src/IPFLang.Engine/Corpus/PCT-SK.ipf
+index 1e98b20..d8b6266 100644
+--- a/src/IPFLang.Engine/Corpus/PCT-SK.ipf
++++ b/src/IPFLang.Engine/Corpus/PCT-SK.ipf
+@@ -14,5 +14,5 @@
+ # =============================================================================
+ 
+-VERSION '2024.1' EFFECTIVE 2024-01-01 DESCRIPTION 'Entry of national phase in Slovakia'
++VERSION '2026.10' EFFECTIVE 2026-06-11 DESCRIPTION 'Entry of national phase in Slovakia'
+ 
+ # Inputs and groups shared across this regional system are declared once in the base
+@@ -96,16 +96,16 @@ ENDDEFINE
+ # File name: PCT-SK-OFF
+ # File content: Official fees for PCT national phase: Slovakia
+-# Valid until n/a
++# Checked against the fees in force on 20 October 2026 (WIPO PCT Applicant's Guide SK; UPV SR administrative fees 2025)
+ # Is newer than 30 days: False
+ # Fees keywords: []
+ 
+ COMPUTE FEE OFF_BasicNationalFee #50% discount if filed by the inventor
+-LET Fee1 AS 60
++LET Fee1 AS 50
+ YIELD Fee1
+ ENDCOMPUTE
+ 
+ COMPUTE FEE OFF_ExaminationFee OPTIONAL #36 months after IFD
+-LET Fee1 AS 116
+-LET CFee AS 20 #as of 11th claim
++LET Fee1 AS 170
++LET CFee AS 30 #as of 11th claim
+ YIELD Fee1
+ YIELD CFee*(ClaimCount-10) IF ClaimCount GT 10
+diff --git a/src/IPFLang.Engine/Corpus/PCT-SV.ipf b/src/IPFLang.Engine/Corpus/PCT-SV.ipf
+index 013ecf1..de3b214 100644
+--- a/src/IPFLang.Engine/Corpus/PCT-SV.ipf
++++ b/src/IPFLang.Engine/Corpus/PCT-SV.ipf
+@@ -13,5 +13,5 @@
+ # =============================================================================
+ 
+-VERSION '2024.1' EFFECTIVE 2024-01-01 DESCRIPTION 'Entry of national phase in El Salvador'
++VERSION '2026.10' EFFECTIVE 2026-01-09 DESCRIPTION 'Entry of national phase in El Salvador'
+ 
+ 
+@@ -34,5 +34,5 @@ ENDDEFINE
+ 
+ # Application date
+-DEFINE DATE ApplicationDate AS 'Application date'
++DEFINE DATE ApplicationDate AS 'Application date (international filing date)'
+ GROUP ApplicationGroup
+ BETWEEN 01.01.2000 AND TODAY
+@@ -48,5 +48,5 @@ ENDDEFINE
+ 
+ # Sheets/Pages
+-DEFINE NUMBER SheetCount AS 'Number of pages'
++DEFINE NUMBER SheetCount AS 'Number of pages/sheets'
+ GROUP ApplicationGroup
+ BETWEEN 1 AND 10000
+@@ -151,10 +151,10 @@ ENDDEFINE
+ # File name: PCT-SV-OFF
+ # File content: Official fees for PCT national phase: El Salvador
+-# Valid until n/a
++# Checked against the fees in force on 20 October 2026 (WIPO PCT Applicant's Guide SV)
+ # Is newer than 30 days: False
+ # Fees keywords: []
+ 
+ COMPUTE FEE OFF_BasicNationalFee
+-LET Fee1 AS 57.14
++LET Fee1 AS 50
+ YIELD Fee1
+ ENDCOMPUTE
+diff --git a/src/IPFLang.Engine/Corpus/PCT-SY.ipf b/src/IPFLang.Engine/Corpus/PCT-SY.ipf
+index 31af978..a61d42e 100644
+--- a/src/IPFLang.Engine/Corpus/PCT-SY.ipf
++++ b/src/IPFLang.Engine/Corpus/PCT-SY.ipf
+@@ -13,5 +13,5 @@
+ # =============================================================================
+ 
+-VERSION '2024.1' EFFECTIVE 2024-01-01 DESCRIPTION 'Entry of national phase in Syrian Arab Republic'
++VERSION '2026.10' EFFECTIVE 2026-10-15 DESCRIPTION 'Entry of national phase in Syrian Arab Republic'
+ 
+ 
+@@ -34,5 +34,5 @@ ENDDEFINE
+ 
+ # Application date
+-DEFINE DATE ApplicationDate AS 'Application date'
++DEFINE DATE ApplicationDate AS 'Application date (international filing date)'
+ GROUP ApplicationGroup
+ BETWEEN 01.01.2000 AND TODAY
+@@ -48,5 +48,5 @@ ENDDEFINE
+ 
+ # Sheets/Pages
+-DEFINE NUMBER SheetCount AS 'Number of pages'
++DEFINE NUMBER SheetCount AS 'Number of pages/sheets'
+ GROUP ApplicationGroup
+ BETWEEN 1 AND 10000
+@@ -151,5 +151,5 @@ ENDDEFINE
+ # File name: PCT-SY-OFF
+ # File content: Official fees for PCT national phase: Syrian Arab Republic
+-# Valid until n/a
++# Checked against the fees in force on 20 October 2026 (WIPO PCT Applicant's Guide SY)
+ # Is newer than 30 days: False
+ # Fees keywords: ['page', 'claim', 'claims']
+@@ -183,6 +183,6 @@ ENDCOMPUTE
+ 
+ COMPUTE FEE OFF_ExaminationFee
+-LET Fee1 AS 10000
+-LET Fee2 AS 1000
++LET Fee1 AS 20000
++LET Fee2 AS 2000
+ YIELD Fee1 IF EntitySize NEQ Entity_Person
+ YIELD Fee2 IF EntitySize EQ Entity_Person
+@@ -190,8 +190,8 @@ ENDCOMPUTE
+ 
+ COMPUTE FEE OFF_Renewal
+-LET RenFee2 AS 4500
+-LET RenFee3 AS 5000
+-LET RenFee2P AS 250
+-LET RenFee3P AS 300
++LET RenFee2 AS 5500
++LET RenFee3 AS 6000
++LET RenFee2P AS 300
++LET RenFee3P AS 350
+ 
+ LET RenMonth AS ROUND ( ApplicationDate!MONTHSTONOW ) #calculate difference in months to today
+diff --git a/src/IPFLang.Engine/Corpus/PCT-TH.ipf b/src/IPFLang.Engine/Corpus/PCT-TH.ipf
+index fc34c6b..7466cbb 100644
+--- a/src/IPFLang.Engine/Corpus/PCT-TH.ipf
++++ b/src/IPFLang.Engine/Corpus/PCT-TH.ipf
+@@ -13,5 +13,5 @@
+ # =============================================================================
+ 
+-VERSION '2024.1' EFFECTIVE 2024-01-01 DESCRIPTION 'Entry of national phase in Thailand'
++VERSION '2026.10' EFFECTIVE 2024-08-15 DESCRIPTION 'Entry of national phase in Thailand'
+ 
+ 
+@@ -34,5 +34,5 @@ ENDDEFINE
+ 
+ # Application date
+-DEFINE DATE ApplicationDate AS 'Application date'
++DEFINE DATE ApplicationDate AS 'Application date (international filing date)'
+ GROUP ApplicationGroup
+ BETWEEN 01.01.2000 AND TODAY
+@@ -48,5 +48,5 @@ ENDDEFINE
+ 
+ # Sheets/Pages
+-DEFINE NUMBER SheetCount AS 'Number of pages'
++DEFINE NUMBER SheetCount AS 'Number of pages/sheets'
+ GROUP ApplicationGroup
+ BETWEEN 1 AND 10000
+@@ -151,5 +151,5 @@ ENDDEFINE
+ # File name: PCT-TH-OFF
+ # File content: Official fees for PCT national phase: Thailand
+-# Valid until n/a
++# Checked against the fees in force on 20 October 2026 (WIPO PCT Applicant's Guide TH)
+ # Is newer than 30 days: False
+ # Fees keywords: []
+diff --git a/src/IPFLang.Engine/Corpus/PCT-TJ.ipf b/src/IPFLang.Engine/Corpus/PCT-TJ.ipf
+index e0c2008..4f4f215 100644
+--- a/src/IPFLang.Engine/Corpus/PCT-TJ.ipf
++++ b/src/IPFLang.Engine/Corpus/PCT-TJ.ipf
+@@ -14,5 +14,5 @@
+ # =============================================================================
+ 
+-VERSION '2024.1' EFFECTIVE 2024-01-01 DESCRIPTION 'Entry of national phase in Tajikistan'
++VERSION '2026.10' EFFECTIVE 2026-01-01 DESCRIPTION 'Entry of national phase in Tajikistan'
+ 
+ # Inputs and groups shared across this regional system are declared once in the base
+@@ -96,5 +96,5 @@ ENDDEFINE
+ # File name: PCT-TJ-OFF
+ # File content: Official fees for PCT national phase: Tajikistan
+-# Valid until n/a
++# Checked against the fees in force on 20 October 2026 (WIPO PCT Applicant's Guide TJ)
+ # Is newer than 30 days: False
+ # Fees keywords: []
+diff --git a/src/IPFLang.Engine/Corpus/PCT-TM.ipf b/src/IPFLang.Engine/Corpus/PCT-TM.ipf
+index acb8a1b..465c816 100644
+--- a/src/IPFLang.Engine/Corpus/PCT-TM.ipf
++++ b/src/IPFLang.Engine/Corpus/PCT-TM.ipf
+@@ -14,5 +14,5 @@
+ # =============================================================================
+ 
+-VERSION '2024.1' EFFECTIVE 2024-01-01 DESCRIPTION 'Entry of national phase in Turkmenistan'
++VERSION '2026.10' EFFECTIVE 2026-07-30 DESCRIPTION 'Entry of national phase in Turkmenistan'
+ 
+ # Inputs and groups shared across this regional system are declared once in the base
+@@ -96,5 +96,5 @@ ENDDEFINE
+ # File name: PCT-TM-OFF
+ # File content: Official fees for PCT national phase: Turkmenistan
+-# Valid until n/a
++# Checked against the fees in force on 20 October 2026 (WIPO PCT Applicant's Guide TM)
+ # Is newer than 30 days: False
+ # Fees keywords: ['claim']
+@@ -106,5 +106,5 @@ ENDCOMPUTE
+ 
+ COMPUTE FEE OFF_ClaimFee
+-LET Fee1 AS 25
++LET Fee1 AS 30
+ YIELD Fee1*(IndependentClaimCount -1)
+ ENDCOMPUTE
+@@ -147,5 +147,5 @@ ENDCOMPUTE
+ VERIFY COMPLETE FEE OFF_BasicNationalFee
+ VERIFY COMPLETE FEE OFF_ClaimFee
+-VERIFY MONOTONIC FEE OFF_ClaimFee WITH RESPECT TO ClaimCount
++VERIFY MONOTONIC FEE OFF_ClaimFee WITH RESPECT TO IndependentClaimCount
+ 
+ # =============================================================================
+diff --git a/src/IPFLang.Engine/Corpus/PCT-TN.ipf b/src/IPFLang.Engine/Corpus/PCT-TN.ipf
+index 84751f5..01930c9 100644
+--- a/src/IPFLang.Engine/Corpus/PCT-TN.ipf
++++ b/src/IPFLang.Engine/Corpus/PCT-TN.ipf
+@@ -13,5 +13,5 @@
+ # =============================================================================
+ 
+-VERSION '2024.1' EFFECTIVE 2024-01-01 DESCRIPTION 'Entry of national phase in Tunisia'
++VERSION '2026.10' EFFECTIVE 2026-03-19 DESCRIPTION 'Entry of national phase in Tunisia'
+ 
+ 
+@@ -34,5 +34,5 @@ ENDDEFINE
+ 
+ # Application date
+-DEFINE DATE ApplicationDate AS 'Application date'
++DEFINE DATE ApplicationDate AS 'Application date (international filing date)'
+ GROUP ApplicationGroup
+ BETWEEN 01.01.2000 AND TODAY
+@@ -48,5 +48,5 @@ ENDDEFINE
+ 
+ # Sheets/Pages
+-DEFINE NUMBER SheetCount AS 'Number of pages'
++DEFINE NUMBER SheetCount AS 'Number of pages/sheets'
+ GROUP ApplicationGroup
+ BETWEEN 1 AND 10000
+@@ -151,5 +151,5 @@ ENDDEFINE
+ # File name: PCT-TN-OFF
+ # File content: Official fees for PCT national phase: Tunisia
+-# Valid until n/a
++# Checked against the fees in force on 20 October 2026 (WIPO PCT Applicant's Guide TN)
+ # Is newer than 30 days: False
+ # Fees keywords: ['claim']
+diff --git a/src/IPFLang.Engine/Corpus/PCT-TR.ipf b/src/IPFLang.Engine/Corpus/PCT-TR.ipf
+index 59fb486..4c8803d 100644
+--- a/src/IPFLang.Engine/Corpus/PCT-TR.ipf
++++ b/src/IPFLang.Engine/Corpus/PCT-TR.ipf
+@@ -14,5 +14,5 @@
+ # =============================================================================
+ 
+-VERSION '2024.1' EFFECTIVE 2024-01-01 DESCRIPTION 'Entry of national phase in Turkey'
++VERSION '2026.10' EFFECTIVE 2026-01-01 DESCRIPTION 'Entry of national phase in Turkey'
+ 
+ # Inputs and groups shared across this regional system are declared once in the base
+@@ -96,16 +96,16 @@ ENDDEFINE
+ # File name: PCT-TR-OFF
+ # File content: Official fees for PCT national phase: Türkiye
+-# Valid until n/a
++# Checked against the fees in force on 20 October 2026 (WIPO PCT Applicant's Guide TR)
+ # Is newer than 30 days: False
+ # Fees keywords: []
+ 
+ COMPUTE FEE OFF_BasicNationalFee
+-LET Fee1 AS 2015
++LET Fee1 AS 16890
+ YIELD Fee1
+ ENDCOMPUTE
+ 
+ COMPUTE FEE OFF_SearchFee
+-LET Fee1 AS 805
+-LET Fee2 AS 400 #Persons
++LET Fee1 AS 5180
++LET Fee2 AS 2530 #Persons
+ 
+ CASE ISR_AVAILABLE EQ FALSE AS
+@@ -121,5 +121,5 @@ ENDCOMPUTE
+ 
+ COMPUTE FEE OFF_Renewal3
+-LET RenFee AS 400
++LET RenFee AS 3800
+ LET RenMonth AS ROUND ( ApplicationDate!MONTHSTONOW ) #calculate difference in months to today
+ YIELD RenFee IF RenMonth GTE 24
+diff --git a/src/IPFLang.Engine/Corpus/PCT-TT.ipf b/src/IPFLang.Engine/Corpus/PCT-TT.ipf
+index 668675d..7889c61 100644
+--- a/src/IPFLang.Engine/Corpus/PCT-TT.ipf
++++ b/src/IPFLang.Engine/Corpus/PCT-TT.ipf
+@@ -13,5 +13,5 @@
+ # =============================================================================
+ 
+-VERSION '2024.1' EFFECTIVE 2024-01-01 DESCRIPTION 'Entry of national phase in Trinidad and Tobago'
++VERSION '2026.10' EFFECTIVE 2026-05-21 DESCRIPTION 'Entry of national phase in Trinidad and Tobago'
+ 
+ 
+@@ -34,5 +34,5 @@ ENDDEFINE
+ 
+ # Application date
+-DEFINE DATE ApplicationDate AS 'Application date'
++DEFINE DATE ApplicationDate AS 'Application date (international filing date)'
+ GROUP ApplicationGroup
+ BETWEEN 01.01.2000 AND TODAY
+@@ -48,5 +48,5 @@ ENDDEFINE
+ 
+ # Sheets/Pages
+-DEFINE NUMBER SheetCount AS 'Number of pages'
++DEFINE NUMBER SheetCount AS 'Number of pages/sheets'
+ GROUP ApplicationGroup
+ BETWEEN 1 AND 10000
+@@ -151,5 +151,5 @@ ENDDEFINE
+ # File name: PCT-TT-OFF
+ # File content: Official fees for PCT national phase: Trinidad and Tobago
+-# Valid until n/a
++# Checked against the fees in force on 20 October 2026 (WIPO PCT Applicant's Guide TT; TTIPO Patent Application Manual)
+ # Is newer than 30 days: False
+ # Fees keywords: []
+diff --git a/src/IPFLang.Engine/Corpus/PCT-TZ.ipf b/src/IPFLang.Engine/Corpus/PCT-TZ.ipf
+index 646a8a0..65004bc 100644
+--- a/src/IPFLang.Engine/Corpus/PCT-TZ.ipf
++++ b/src/IPFLang.Engine/Corpus/PCT-TZ.ipf
+@@ -14,5 +14,5 @@
+ # =============================================================================
+ 
+-VERSION '2024.1' EFFECTIVE 2024-01-01 DESCRIPTION 'Entry of national phase in United Republic of Tanzania'
++VERSION '2026.10' EFFECTIVE 2025-03-20 DESCRIPTION 'Entry of national phase in United Republic of Tanzania'
+ 
+ # Inputs and groups shared across this regional system are declared once in the base
+@@ -96,5 +96,5 @@ ENDDEFINE
+ # File name: PCT-TZ-OFF
+ # File content: Official fees for PCT national phase: United Republic of Tanzania
+-# Valid until n/a
++# Checked against the fees in force on 20 October 2026 (WIPO PCT Applicant's Guide TZ)
+ # Is newer than 30 days: False
+ # Fees keywords: []
+diff --git a/src/IPFLang.Engine/Corpus/PCT-UA.ipf b/src/IPFLang.Engine/Corpus/PCT-UA.ipf
+index 30f599b..46ee2f6 100644
+--- a/src/IPFLang.Engine/Corpus/PCT-UA.ipf
++++ b/src/IPFLang.Engine/Corpus/PCT-UA.ipf
+@@ -13,5 +13,5 @@
+ # =============================================================================
+ 
+-VERSION '2024.1' EFFECTIVE 2024-01-01 DESCRIPTION 'Entry of national phase in Ukraine'
++VERSION '2026.10' EFFECTIVE 2026-01-01 DESCRIPTION 'Entry of national phase in Ukraine'
+ 
+ 
+@@ -34,5 +34,5 @@ ENDDEFINE
+ 
+ # Application date
+-DEFINE DATE ApplicationDate AS 'Application date'
++DEFINE DATE ApplicationDate AS 'Application date (international filing date)'
+ GROUP ApplicationGroup
+ BETWEEN 01.01.2000 AND TODAY
+@@ -48,5 +48,5 @@ ENDDEFINE
+ 
+ # Sheets/Pages
+-DEFINE NUMBER SheetCount AS 'Number of pages'
++DEFINE NUMBER SheetCount AS 'Number of pages/sheets'
+ GROUP ApplicationGroup
+ BETWEEN 1 AND 10000
+@@ -151,5 +151,5 @@ ENDDEFINE
+ # File name: PCT-UA-OFF
+ # File content: Official fees for PCT national phase: Ukraine
+-# Valid until n/a
++# Checked against the fees in force on 20 October 2026 (eGuide UA)
+ # Is newer than 30 days: False
+ # Fees keywords: ['claim']
+diff --git a/src/IPFLang.Engine/Corpus/PCT-UG.ipf b/src/IPFLang.Engine/Corpus/PCT-UG.ipf
+index 85185b1..6a41ea2 100644
+--- a/src/IPFLang.Engine/Corpus/PCT-UG.ipf
++++ b/src/IPFLang.Engine/Corpus/PCT-UG.ipf
+@@ -14,5 +14,5 @@
+ # =============================================================================
+ 
+-VERSION '2024.1' EFFECTIVE 2024-01-01 DESCRIPTION 'Entry of national phase in Uganda'
++VERSION '2026.10' EFFECTIVE 2026-01-01 DESCRIPTION 'Entry of national phase in Uganda'
+ 
+ # Inputs and groups shared across this regional system are declared once in the base
+@@ -96,5 +96,5 @@ ENDDEFINE
+ # File name: PCT-UG-OFF
+ # File content: Official fees for PCT national phase: Uganda
+-# Valid until n/a
++# Checked against the fees in force on 20 October 2026 (eGuide UG)
+ # Is newer than 30 days: False
+ # Fees keywords: []
+diff --git a/src/IPFLang.Engine/Corpus/PCT-US.ipf b/src/IPFLang.Engine/Corpus/PCT-US.ipf
+index 8ed5b81..9f5e14b 100644
+--- a/src/IPFLang.Engine/Corpus/PCT-US.ipf
++++ b/src/IPFLang.Engine/Corpus/PCT-US.ipf
+@@ -13,5 +13,5 @@
+ # =============================================================================
+ 
+-VERSION '2024.1' EFFECTIVE 2024-01-01 DESCRIPTION 'Entry of national phase in the United States of America'
++VERSION '2026.10' EFFECTIVE 2025-01-19 DESCRIPTION 'Entry of national phase in the United States of America'
+ 
+ 
+@@ -34,5 +34,5 @@ ENDDEFINE
+ 
+ # Application date
+-DEFINE DATE ApplicationDate AS 'Application date'
++DEFINE DATE ApplicationDate AS 'Application date (international filing date)'
+ GROUP ApplicationGroup
+ BETWEEN 01.01.2000 AND TODAY
+@@ -48,5 +48,5 @@ ENDDEFINE
+ 
+ # Sheets/Pages
+-DEFINE NUMBER SheetCount AS 'Number of pages'
++DEFINE NUMBER SheetCount AS 'Number of pages/sheets'
+ GROUP ApplicationGroup
+ BETWEEN 1 AND 10000
+@@ -151,12 +151,12 @@ ENDDEFINE
+ # File name: PCT-US-OFF
+ # File content: Official fees for PCT national phase: United States of America
+-# Valid until n/a
++# Checked against the fees in force on 20 October 2026 (USPTO fee schedule eff. 19 Jan 2025, eGuide US)
+ # Is newer than 30 days: False
+ # Fees keywords: ['claims', 'claim']
+ 
+ COMPUTE FEE OFF_BasicNationalFee
+-LET Fee1 AS 320
+-LET Fee2 AS 128
+-LET Fee3 AS 64
++LET Fee1 AS 350
++LET Fee2 AS 140
++LET Fee3 AS 70
+ 
+ YIELD Fee1 IF EntitySize NEQ Entity_Small AND EntitySize NEQ Entity_Micro
+@@ -171,20 +171,20 @@ YIELD 0
+ ENDCASE
+ 
+-CASE ISA EQ ISA_US AS
+-YIELD 140<USD> IF EntitySize NEQ Entity_Small AND EntitySize NEQ Entity_Micro
+-YIELD 56<USD> IF EntitySize EQ Entity_Small
+-YIELD 28<USD> IF EntitySize EQ Entity_Micro
++CASE ISA EQ ISA_US AND ISR_AVAILABLE EQ TRUE AND IPRP NEQ IPRP_US AS
++YIELD 150<USD> IF EntitySize NEQ Entity_Small AND EntitySize NEQ Entity_Micro
++YIELD 60<USD> IF EntitySize EQ Entity_Small
++YIELD 30<USD> IF EntitySize EQ Entity_Micro
+ ENDCASE
+ 
+ CASE ISR_AVAILABLE EQ TRUE AND ISA NEQ ISA_US AND IPRP NEQ IPRP_US AS
+-YIELD 540<USD> IF EntitySize NEQ Entity_Small AND EntitySize NEQ Entity_Micro
+-YIELD 216<USD> IF EntitySize EQ Entity_Small
+-YIELD 108<USD> IF EntitySize EQ Entity_Micro
++YIELD 580<USD> IF EntitySize NEQ Entity_Small AND EntitySize NEQ Entity_Micro
++YIELD 232<USD> IF EntitySize EQ Entity_Small
++YIELD 116<USD> IF EntitySize EQ Entity_Micro
+ ENDCASE
+ 
+-CASE ISR_AVAILABLE EQ FALSE AS
+-YIELD 700<USD> IF EntitySize NEQ Entity_Small AND EntitySize NEQ Entity_Micro
+-YIELD 280<USD> IF EntitySize EQ Entity_Small
+-YIELD 140<USD> IF EntitySize EQ Entity_Micro
++CASE ISR_AVAILABLE EQ FALSE AND IPRP NEQ IPRP_US AS
++YIELD 770<USD> IF EntitySize NEQ Entity_Small AND EntitySize NEQ Entity_Micro
++YIELD 308<USD> IF EntitySize EQ Entity_Small
++YIELD 154<USD> IF EntitySize EQ Entity_Micro
+ ENDCASE
+ 
+@@ -198,7 +198,7 @@ ENDCASE
+ 
+ CASE IPRP NEQ IPRP_US AS
+-YIELD 800<USD> IF EntitySize NEQ Entity_Small AND EntitySize NEQ Entity_Micro
+-YIELD 320<USD> IF EntitySize EQ Entity_Small
+-YIELD 160<USD> IF EntitySize EQ Entity_Micro
++YIELD 880<USD> IF EntitySize NEQ Entity_Small AND EntitySize NEQ Entity_Micro
++YIELD 352<USD> IF EntitySize EQ Entity_Small
++YIELD 176<USD> IF EntitySize EQ Entity_Micro
+ ENDCASE
+ 
+@@ -206,7 +206,7 @@ ENDCOMPUTE
+ 
+ COMPUTE FEE OFF_SheetFee
+-YIELD 420*CEIL( ( SheetCount - 100 ) / 50 ) IF SheetCount GT 100 AND EntitySize NEQ Entity_Small AND EntitySize NEQ Entity_Micro
+-YIELD 168*CEIL( ( SheetCount - 100 ) / 50 ) IF SheetCount GT 100 AND EntitySize EQ Entity_Small
+-YIELD 84*CEIL( ( SheetCount - 100 ) / 50 ) IF SheetCount GT 100 AND EntitySize EQ Entity_Micro
++YIELD 450*CEIL( ( SheetCount - 100 ) / 50 ) IF SheetCount GT 100 AND EntitySize NEQ Entity_Small AND EntitySize NEQ Entity_Micro
++YIELD 180*CEIL( ( SheetCount - 100 ) / 50 ) IF SheetCount GT 100 AND EntitySize EQ Entity_Small
++YIELD 90*CEIL( ( SheetCount - 100 ) / 50 ) IF SheetCount GT 100 AND EntitySize EQ Entity_Micro
+ # Nothing is due in the remaining case; stated so the schedule answers it.
+ YIELD 0 IF SheetCount LTE 100
+@@ -214,7 +214,7 @@ ENDCOMPUTE
+ 
+ COMPUTE FEE OFF_IndependentClaimFee
+-YIELD 480*(IndependentClaimCount-3) IF IndependentClaimCount GT 3 AND EntitySize NEQ Entity_Small AND EntitySize NEQ Entity_Micro
+-YIELD 192*(IndependentClaimCount-3) IF IndependentClaimCount GT 3 AND EntitySize EQ Entity_Small
+-YIELD 96*(IndependentClaimCount-3) IF IndependentClaimCount GT 3 AND EntitySize EQ Entity_Micro
++YIELD 600*(IndependentClaimCount-3) IF IndependentClaimCount GT 3 AND EntitySize NEQ Entity_Small AND EntitySize NEQ Entity_Micro
++YIELD 240*(IndependentClaimCount-3) IF IndependentClaimCount GT 3 AND EntitySize EQ Entity_Small
++YIELD 120*(IndependentClaimCount-3) IF IndependentClaimCount GT 3 AND EntitySize EQ Entity_Micro
+ # Nothing is due in the remaining case; stated so the schedule answers it.
+ YIELD 0 IF IndependentClaimCount LTE 3
+@@ -222,7 +222,7 @@ ENDCOMPUTE
+ 
+ COMPUTE FEE OFF_ClaimFee
+-YIELD 100*(ClaimCount-20) IF ClaimCount GT 20 AND EntitySize NEQ Entity_Small AND EntitySize NEQ Entity_Micro
+-YIELD 40*(ClaimCount-20) IF ClaimCount GT 20 AND EntitySize EQ Entity_Small
+-YIELD 20*(ClaimCount-20) IF ClaimCount GT 20 AND EntitySize EQ Entity_Micro
++YIELD 200*(ClaimCount-20) IF ClaimCount GT 20 AND EntitySize NEQ Entity_Small AND EntitySize NEQ Entity_Micro
++YIELD 80*(ClaimCount-20) IF ClaimCount GT 20 AND EntitySize EQ Entity_Small
++YIELD 40*(ClaimCount-20) IF ClaimCount GT 20 AND EntitySize EQ Entity_Micro
+ # Nothing is due in the remaining case; stated so the schedule answers it.
+ YIELD 0 IF ClaimCount LTE 20
+@@ -231,7 +231,7 @@ ENDCOMPUTE
+ COMPUTE FEE OFF_MultipleDependentClaimFee
+ # Charged once for an application that contains a multiple dependent claim, not per claim.
+-YIELD 860 IF MultipleDependentClaimCount GT 0 AND EntitySize NEQ Entity_Small AND EntitySize NEQ Entity_Micro
+-YIELD 344 IF MultipleDependentClaimCount GT 0 AND EntitySize EQ Entity_Small
+-YIELD 172 IF MultipleDependentClaimCount GT 0 AND EntitySize EQ Entity_Micro
++YIELD 925 IF MultipleDependentClaimCount GT 0 AND EntitySize NEQ Entity_Small AND EntitySize NEQ Entity_Micro
++YIELD 370 IF MultipleDependentClaimCount GT 0 AND EntitySize EQ Entity_Small
++YIELD 185 IF MultipleDependentClaimCount GT 0 AND EntitySize EQ Entity_Micro
+ # Nothing is due in the remaining case; stated so the schedule answers it.
+ YIELD 0 IF MultipleDependentClaimCount EQ 0
+@@ -277,7 +277,7 @@ VERIFY COMPLETE FEE OFF_ClaimFee
+ VERIFY COMPLETE FEE OFF_MultipleDependentClaimFee
+ VERIFY MONOTONIC FEE OFF_SheetFee WITH RESPECT TO SheetCount
+-VERIFY MONOTONIC FEE OFF_IndependentClaimFee WITH RESPECT TO ClaimCount
++VERIFY MONOTONIC FEE OFF_IndependentClaimFee WITH RESPECT TO IndependentClaimCount
+ VERIFY MONOTONIC FEE OFF_ClaimFee WITH RESPECT TO ClaimCount
+-VERIFY MONOTONIC FEE OFF_MultipleDependentClaimFee WITH RESPECT TO ClaimCount
++VERIFY MONOTONIC FEE OFF_MultipleDependentClaimFee WITH RESPECT TO MultipleDependentClaimCount
+ 
+ # =============================================================================
+diff --git a/src/IPFLang.Engine/Corpus/PCT-UZ.ipf b/src/IPFLang.Engine/Corpus/PCT-UZ.ipf
+index 5e5935f..cc9a5f4 100644
+--- a/src/IPFLang.Engine/Corpus/PCT-UZ.ipf
++++ b/src/IPFLang.Engine/Corpus/PCT-UZ.ipf
+@@ -13,5 +13,5 @@
+ # =============================================================================
+ 
+-VERSION '2024.1' EFFECTIVE 2024-01-01 DESCRIPTION 'Entry of national phase in Uzbekistan'
++VERSION '2026.10' EFFECTIVE 2026-01-01 DESCRIPTION 'Entry of national phase in Uzbekistan'
+ 
+ 
+@@ -34,5 +34,5 @@ ENDDEFINE
+ 
+ # Application date
+-DEFINE DATE ApplicationDate AS 'Application date'
++DEFINE DATE ApplicationDate AS 'Application date (international filing date)'
+ GROUP ApplicationGroup
+ BETWEEN 01.01.2000 AND TODAY
+@@ -48,5 +48,5 @@ ENDDEFINE
+ 
+ # Sheets/Pages
+-DEFINE NUMBER SheetCount AS 'Number of pages'
++DEFINE NUMBER SheetCount AS 'Number of pages/sheets'
+ GROUP ApplicationGroup
+ BETWEEN 1 AND 10000
+@@ -151,5 +151,5 @@ ENDDEFINE
+ # File name: PCT-UZ-OFF
+ # File content: Official fees for PCT national phase: Uzbekistan
+-# Valid until n/a
++# Checked against the fees in force on 20 October 2026 (eGuide UZ)
+ # Is newer than 30 days: False
+ # Fees keywords: ['claim']
+@@ -215,6 +215,6 @@ VERIFY COMPLETE FEE OFF_BasicNationalFee
+ VERIFY COMPLETE FEE OFF_IndependentClaimFee
+ VERIFY COMPLETE FEE OFF_DependentClaimFee
+-VERIFY MONOTONIC FEE OFF_IndependentClaimFee WITH RESPECT TO ClaimCount
+-VERIFY MONOTONIC FEE OFF_DependentClaimFee WITH RESPECT TO ClaimCount
++VERIFY MONOTONIC FEE OFF_IndependentClaimFee WITH RESPECT TO IndependentClaimCount
++VERIFY MONOTONIC FEE OFF_DependentClaimFee WITH RESPECT TO DependentClaimCount
+ 
+ # =============================================================================
+diff --git a/src/IPFLang.Engine/Corpus/PCT-VC.ipf b/src/IPFLang.Engine/Corpus/PCT-VC.ipf
+index 3f123b4..4a2a567 100644
+--- a/src/IPFLang.Engine/Corpus/PCT-VC.ipf
++++ b/src/IPFLang.Engine/Corpus/PCT-VC.ipf
+@@ -13,5 +13,5 @@
+ # =============================================================================
+ 
+-VERSION '2024.1' EFFECTIVE 2024-01-01 DESCRIPTION 'Entry of national phase in Saint Vincent and the Grenadines'
++VERSION '2026.10' EFFECTIVE 2025-03-20 DESCRIPTION 'Entry of national phase in Saint Vincent and the Grenadines'
+ 
+ 
+@@ -34,5 +34,5 @@ ENDDEFINE
+ 
+ # Application date
+-DEFINE DATE ApplicationDate AS 'Application date'
++DEFINE DATE ApplicationDate AS 'Application date (international filing date)'
+ GROUP ApplicationGroup
+ BETWEEN 01.01.2000 AND TODAY
+@@ -48,5 +48,5 @@ ENDDEFINE
+ 
+ # Sheets/Pages
+-DEFINE NUMBER SheetCount AS 'Number of pages'
++DEFINE NUMBER SheetCount AS 'Number of pages/sheets'
+ GROUP ApplicationGroup
+ BETWEEN 1 AND 10000
+@@ -151,5 +151,5 @@ ENDDEFINE
+ # File name: PCT-VC-OFF
+ # File content: Official fees for PCT national phase: Saint Vincent and the Grenadines
+-# Valid until n/a
++# Checked against the fees in force on 20 October 2026 (eGuide VC)
+ # Is newer than 30 days: False
+ # Fees keywords: []
+diff --git a/src/IPFLang.Engine/Corpus/PCT-VN.ipf b/src/IPFLang.Engine/Corpus/PCT-VN.ipf
+index b4a14e5..7384b0c 100644
+--- a/src/IPFLang.Engine/Corpus/PCT-VN.ipf
++++ b/src/IPFLang.Engine/Corpus/PCT-VN.ipf
+@@ -13,5 +13,5 @@
+ # =============================================================================
+ 
+-VERSION '2024.1' EFFECTIVE 2024-01-01 DESCRIPTION 'Entry of national phase in Vietnam'
++VERSION '2026.10' EFFECTIVE 2026-05-28 DESCRIPTION 'Entry of national phase in Vietnam'
+ 
+ 
+@@ -34,5 +34,5 @@ ENDDEFINE
+ 
+ # Application date
+-DEFINE DATE ApplicationDate AS 'Application date'
++DEFINE DATE ApplicationDate AS 'Application date (international filing date)'
+ GROUP ApplicationGroup
+ BETWEEN 01.01.2000 AND TODAY
+@@ -48,5 +48,5 @@ ENDDEFINE
+ 
+ # Sheets/Pages
+-DEFINE NUMBER SheetCount AS 'Number of pages'
++DEFINE NUMBER SheetCount AS 'Number of pages/sheets'
+ GROUP ApplicationGroup
+ BETWEEN 1 AND 10000
+@@ -151,5 +151,5 @@ ENDDEFINE
+ # File name: PCT-VN-OFF
+ # File content: Official fees for PCT national phase: Viet Nam
+-# Valid until n/a
++# Checked against the fees in force on 20 October 2026 (eGuide VN)
+ # Is newer than 30 days: False
+ # Fees keywords: ['claims', 'priority', 'sheet']
+diff --git a/src/IPFLang.Engine/Corpus/PCT-WS.ipf b/src/IPFLang.Engine/Corpus/PCT-WS.ipf
+index 7880530..ea123a1 100644
+--- a/src/IPFLang.Engine/Corpus/PCT-WS.ipf
++++ b/src/IPFLang.Engine/Corpus/PCT-WS.ipf
+@@ -13,5 +13,5 @@
+ # =============================================================================
+ 
+-VERSION '2024.1' EFFECTIVE 2024-01-01 DESCRIPTION 'Entry of national phase in Samoa'
++VERSION '2026.10' EFFECTIVE 2026-01-01 DESCRIPTION 'Entry of national phase in Samoa'
+ 
+ 
+@@ -34,5 +34,5 @@ ENDDEFINE
+ 
+ # Application date
+-DEFINE DATE ApplicationDate AS 'Application date'
++DEFINE DATE ApplicationDate AS 'Application date (international filing date)'
+ GROUP ApplicationGroup
+ BETWEEN 01.01.2000 AND TODAY
+@@ -48,5 +48,5 @@ ENDDEFINE
+ 
+ # Sheets/Pages
+-DEFINE NUMBER SheetCount AS 'Number of pages'
++DEFINE NUMBER SheetCount AS 'Number of pages/sheets'
+ GROUP ApplicationGroup
+ BETWEEN 1 AND 10000
+@@ -151,5 +151,5 @@ ENDDEFINE
+ # File name: PCT-WS-OFF
+ # File content: Official fees for PCT national phase: Samoa
+-# Valid until n/a
++# Checked against the fees in force on 20 October 2026 (eGuide WS)
+ # Is newer than 30 days: False
+  # WIPO says SAT which is an older alternative
+diff --git a/src/IPFLang.Engine/Corpus/PCT-ZA.ipf b/src/IPFLang.Engine/Corpus/PCT-ZA.ipf
+index ac97cae..9ec8cb1 100644
+--- a/src/IPFLang.Engine/Corpus/PCT-ZA.ipf
++++ b/src/IPFLang.Engine/Corpus/PCT-ZA.ipf
+@@ -13,5 +13,5 @@
+ # =============================================================================
+ 
+-VERSION '2024.1' EFFECTIVE 2024-01-01 DESCRIPTION 'Entry of national phase in South Africa'
++VERSION '2026.10' EFFECTIVE 2026-09-01 DESCRIPTION 'Entry of national phase in South Africa'
+ 
+ 
+@@ -34,5 +34,5 @@ ENDDEFINE
+ 
+ # Application date
+-DEFINE DATE ApplicationDate AS 'Application date'
++DEFINE DATE ApplicationDate AS 'Application date (international filing date)'
+ GROUP ApplicationGroup
+ BETWEEN 01.01.2000 AND TODAY
+@@ -48,5 +48,5 @@ ENDDEFINE
+ 
+ # Sheets/Pages
+-DEFINE NUMBER SheetCount AS 'Number of pages'
++DEFINE NUMBER SheetCount AS 'Number of pages/sheets'
+ GROUP ApplicationGroup
+ BETWEEN 1 AND 10000
+@@ -151,5 +151,5 @@ ENDDEFINE
+ # File name: PCT-ZA-OFF
+ # File content: Official fees for PCT national phase: South Africa
+-# Valid until n/a
++# Checked against the fees in force on 20 October 2026 (eGuide ZA)
+ # Is newer than 30 days: False
+ # Fees keywords: []
+diff --git a/src/IPFLang.Engine/Corpus/PCT-ZM.ipf b/src/IPFLang.Engine/Corpus/PCT-ZM.ipf
+index d51806f..d3ed227 100644
+--- a/src/IPFLang.Engine/Corpus/PCT-ZM.ipf
++++ b/src/IPFLang.Engine/Corpus/PCT-ZM.ipf
+@@ -14,5 +14,5 @@
+ # =============================================================================
+ 
+-VERSION '2024.1' EFFECTIVE 2024-01-01 DESCRIPTION 'Entry of national phase in Zambia'
++VERSION '2026.10' EFFECTIVE 2026-05-28 DESCRIPTION 'Entry of national phase in Zambia'
+ 
+ # Inputs and groups shared across this regional system are declared once in the base
+@@ -96,5 +96,5 @@ ENDDEFINE
+ # File name: PCT-ZM-OFF
+ # File content: Official fees for PCT national phase: Zambia
+-# Valid until n/a
++# Checked against the fees in force on 20 October 2026 (eGuide ZM)
+ # Is newer than 30 days: False
+ # Fees keywords: []
+diff --git a/src/IPFLang.Engine/Corpus/PCT-ZW.ipf b/src/IPFLang.Engine/Corpus/PCT-ZW.ipf
+index bf4d900..b6dc920 100644
+--- a/src/IPFLang.Engine/Corpus/PCT-ZW.ipf
++++ b/src/IPFLang.Engine/Corpus/PCT-ZW.ipf
+@@ -14,5 +14,5 @@
+ # =============================================================================
+ 
+-VERSION '2024.1' EFFECTIVE 2024-01-01 DESCRIPTION 'Entry of national phase in Zimbabwe'
++VERSION '2026.10' EFFECTIVE 2026-01-01 DESCRIPTION 'Entry of national phase in Zimbabwe'
+ 
+ # Inputs and groups shared across this regional system are declared once in the base
+@@ -96,5 +96,5 @@ ENDDEFINE
+ # File name: PCT-ZW-OFF
+ # File content: Official fees for PCT national phase: Zimbabwe
+-# Valid until n/a
++# Checked against the fees in force on 20 October 2026 (eGuide ZW)
+ # Is newer than 30 days: False
+  #ZWD is on WIPO site but doesn't seem to be internationally accepted.

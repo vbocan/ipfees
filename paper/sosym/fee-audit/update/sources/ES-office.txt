@@ -1,0 +1,414 @@
+Source: https://www.oepm.es/en/tasas-y-precios-publicos/tasas-de-invenciones/
+Retrieved: 2026-10-20
+
+Portal OEPM
+mercury=function(){var n=function(){var n=[];return{ready:function(t){n.push(t)},load:function(t){n.push(t)},getInitFunctions:function(){return n}}}(),t=function(t){if("function"!=typeof t)return n;n.ready(t)};return t.getInitFunctions=function(){return n.getInitFunctions()},t.load=function(n){this(n)},t.ready=function(n){this(n)},t}();
+var __isOnline=true,
+__scriptPath="/export/system/modules/alkacon.mercury.theme/js/mercury.js"
+-->
+About SPTO
+Industrial Property
+Training
+News
+Contact
+Desplegar navegación -->
+en ▾
+en
+en
+eu - Euskara
+gl - Galego
+en - English
+es - Castellano
+ca - Català
+BOPI
+Electronic site
+¿Qué estás buscando?
+BUSCAR
+About SPTO
+Industrial Property
+Training
+News
+Contact
+Sede electrónica
+BOPI
+Inicio
+Trademarks and Trade names
+Inventions
+Designs
+Geographical indications
+Technological information
+SMES
+MENÚ PRINCIPAL
+Trademarks and Trade names
+Trademarks and Trade Names
+If you want to distinguish your goods, services or both from those of another company, you may need a trademark or trade name. Find out what they are, what their registration procedure is and what it involves.
+Information on the deadlines for filing applications for transformation of European Union trademarks into Spanish national trademarks. See more
+-->
+How to protect trademarks and trade names
+Conceptos básicos
+Beneficios de proteger las marcas y nombres comerciales
+Trademark and trade name information brochures
+Regulations and practice
+Fees for trademarks and trade names
+Who can help you?
+Apply for a trademark or a trade name
+What to do before applying
+Registration procedure
+Protect your trademark in other countries
+Quality
+Management of registered trademarks and trade names
+Maintenance and protection
+Invalidity and revocation proceedings
+Noticias de marcas y nombres comerciales
+Search for trademarks and trade names
+Trademark and trade name information brochures
+Frequently asked questions on trademarks and trade names
+Trademark and trade name fees
+Trademark and trade name forms
+Manuals and guides
+MENÚ PRINCIPAL
+Inventions
+Inventions
+If you have a new device, product or procedure that solves a technical problem or has a practical advantage, there are different ways to protect it in Spain and other countries. Find out how.
+-->
+How to protect inventions
+Basic concepts
+Benefits of protecting inventions
+Information brochures on inventions
+Regulations and practice
+Invention rates
+Who can help you?
+Quality
+Technological information
+Submit an application
+Apply for a national patent
+Applying for a utility model
+Applying for a supplementary protection certificate (SPC) and extension
+Apply for and protect a European patent in Spain
+Filing an international PCT application
+Registering a topography of a semiconductor product
+Invenciones biotecnológicas
+Management of inventions
+Maintenance of invention titles
+Transfers and licensing
+Other procedures
+Noticias de invenciones
+IV Edición de los Premios OEPM a las Mejores Invenciones
+Convocadas las subvenciones de la OEPM de 2025 para el fomento de solicitudes de patentes y modelos de utilidad
+Search for inventions
+Information brochures on inventions
+Frequently asked questions on inventions
+Invention fees
+Inventions forms
+Manuals and guides
+MENÚ PRINCIPAL
+Designs
+Designs
+Does your innovation lie in the aesthetics, ornamentation or appearance of your product? Protect it through industrial design. Find out what rights registration confers and how to proceed.
+-->
+How to protect designs
+Basic concepts
+Benefits of protecting designs
+Design information brochures
+Regulations and practice
+Industrial design fees
+Who can help you?
+Quality
+Process an industrial design application
+What to do before applying
+Application process
+Registration in other countries
+Industrial design news
+Industrial design management
+Maintenance and protection
+Transfers and licensing
+Expiry procedure
+Search for designs
+Design information brochures
+Frequently asked questions on design
+Design fees
+Design forms
+Manuals and guides
+MENÚ PRINCIPAL
+Geographical indications
+Geographical indications
+Geographical indications protect the name of a product that has a specific geographical origin and owes its qualities, characteristics or reputation to its particular origin. Find out what they are, how the registration process works and what benefits they provide.
+-->
+How to protect geographical indications
+Basic concepts
+Benefits of geographical indication protection
+Information brochures
+Regulations and practices
+Who can help you?
+Apply for a geographical indication
+Solicitar una indicación geográfica supraautonómica
+Solicitar una indicación geográfica autonómica
+Geographical indications news
+Buscar indicaciones geográficas
+Folletos informativos de indicaciones geográficas
+Formularios de indicaciones geográficas
+Preguntas frecuentes de indicaciones geográficas
+Manuales y guías
+MENÚ PRINCIPAL
+Technological information
+Technological information
+Patents published worldwide are a valuable source of scientific, technical and commercial information.
+El Bono 3 del Fondo para PYMEs 2025, que cubre la elaboración de Informes Tecnológicos de Patentes (ITP) y Búsquedas Retrospectivas se cerrará el lunes 10 de febrero de 2025 al cierre de la jornada laboral. Próximamente se informará sobre su reapertura. Puede consultar más información aquí .
+-->
+Free technological surveillance
+Technological alerts
+Technological surveillance bulletins
+Other case studies
+Why use our services?
+Quality
+Public prices
+Informative brochures on technological information
+Database search engine
+Custom consultation
+Patent Technological Report (PTR)
+Retrospective searches
+Custom technology surveillance reports
+Other services
+MENÚ PRINCIPAL
+SMES
+SMES
+If you are an entrepreneur or a company and you want to boost and improve the profitability of your business by adequately protecting the intangible assets of your organisation, in this space you will find what you need.
+-->
+All you need to know
+What and how to protect
+How to obtain grants and subsidies
+How to grow your business in other countries
+How to benefit from IP titles
+We help you
+Contact the SPTO business support service
+Other support services for small and medium-sized enterprises
+Industrial Property Success Stories
+Formación en propiedad industrial e intelectual para asesores de pymes
+-->
+Trademarks and Trade names
+-->
+Trademarks and Trade Names
+If you want to distinguish your goods, services or both from those of another company, you may need a trademark or trade name. Find out what they are, what their registration procedure is and what it involves.
+Information on the deadlines for filing applications for transformation of European Union trademarks into Spanish national trademarks. See more
+How to protect trademarks and trade names
+Conceptos básicos
+Beneficios de proteger las marcas y nombres comerciales
+Trademark and trade name information brochures
+Regulations and practice
+Fees for trademarks and trade names
+Who can help you?
+Apply for a trademark or a trade name
+What to do before applying
+Registration procedure
+Protect your trademark in other countries
+Quality
+Management of registered trademarks and trade names
+Maintenance and protection
+Invalidity and revocation proceedings
+Noticias de marcas y nombres comerciales
+Search for trademarks and trade names
+Trademark and trade name information brochures
+Frequently asked questions on trademarks and trade names
+Trademark and trade name fees
+Trademark and trade name forms
+Manuals and guides
+-->
+Inventions
+-->
+Inventions
+If you have a new device, product or procedure that solves a technical problem or has a practical advantage, there are different ways to protect it in Spain and other countries. Find out how.
+How to protect inventions
+Basic concepts
+Benefits of protecting inventions
+Information brochures on inventions
+Regulations and practice
+Invention rates
+Who can help you?
+Quality
+Technological information
+Submit an application
+Apply for a national patent
+Applying for a utility model
+Applying for a supplementary protection certificate (SPC) and extension
+Apply for and protect a European patent in Spain
+Filing an international PCT application
+Registering a topography of a semiconductor product
+Invenciones biotecnológicas
+Management of inventions
+Maintenance of invention titles
+Transfers and licensing
+Other procedures
+Noticias de invenciones
+IV Edición de los Premios OEPM a las Mejores Invenciones
+Convocadas las subvenciones de la OEPM de 2025 para el fomento de solicitudes de patentes y modelos de utilidad
+Search for inventions
+Information brochures on inventions
+Frequently asked questions on inventions
+Invention fees
+Inventions forms
+Manuals and guides
+-->
+Designs
+-->
+Designs
+Does your innovation lie in the aesthetics, ornamentation or appearance of your product? Protect it through industrial design. Find out what rights registration confers and how to proceed.
+How to protect designs
+Basic concepts
+Benefits of protecting designs
+Design information brochures
+Regulations and practice
+Industrial design fees
+Who can help you?
+Quality
+Process an industrial design application
+What to do before applying
+Application process
+Registration in other countries
+Industrial design news
+Industrial design management
+Maintenance and protection
+Transfers and licensing
+Expiry procedure
+Search for designs
+Design information brochures
+Frequently asked questions on design
+Design fees
+Design forms
+Manuals and guides
+-->
+Geographical indications
+-->
+Geographical indications
+Geographical indications protect the name of a product that has a specific geographical origin and owes its qualities, characteristics or reputation to its particular origin. Find out what they are, how the registration process works and what benefits they provide.
+How to protect geographical indications
+Basic concepts
+Benefits of geographical indication protection
+Information brochures
+Regulations and practices
+Who can help you?
+Apply for a geographical indication
+Solicitar una indicación geográfica supraautonómica
+Solicitar una indicación geográfica autonómica
+Geographical indications news
+Buscar indicaciones geográficas
+Folletos informativos de indicaciones geográficas
+Formularios de indicaciones geográficas
+Preguntas frecuentes de indicaciones geográficas
+Manuales y guías
+-->
+Technological information
+-->
+Technological information
+Patents published worldwide are a valuable source of scientific, technical and commercial information.
+El Bono 3 del Fondo para PYMEs 2025, que cubre la elaboración de Informes Tecnológicos de Patentes (ITP) y Búsquedas Retrospectivas se cerrará el lunes 10 de febrero de 2025 al cierre de la jornada laboral. Próximamente se informará sobre su reapertura. Puede consultar más información aquí .
+Free technological surveillance
+Technological alerts
+Technological surveillance bulletins
+Other case studies
+Why use our services?
+Quality
+Public prices
+Informative brochures on technological information
+Database search engine
+Custom consultation
+Patent Technological Report (PTR)
+Retrospective searches
+Custom technology surveillance reports
+Other services
+-->
+SMES
+-->
+SMES
+If you are an entrepreneur or a company and you want to boost and improve the profitability of your business by adequately protecting the intangible assets of your organisation, in this space you will find what you need.
+All you need to know
+What and how to protect
+How to obtain grants and subsidies
+How to grow your business in other countries
+How to benefit from IP titles
+We help you
+Contact the SPTO business support service
+Other support services for small and medium-sized enterprises
+Industrial Property Success Stories
+Formación en propiedad industrial e intelectual para asesores de pymes
+Home
+Fees and public prices
+Inventions fees
+Mostrar menú
+Fees and public prices
+Rates of trademarks and commercial names
+Inventions fees
+Designs fees
+Public prices
+Inventions fees
+Thu Nov 24 16:20:41 CET 2022
+Here you can consult the fees related to the procedures for the different types of protection of inventions.
+When submitting the application and during the granting procedure, as well as in other administrative procedures related to inventions, you will have to pay different fees depending on the type of application filed; these may be reduced in the case of Spanish public universities or entrepreneurs.
+You can use the instalment calculators to help you pay your fees on time.
+2025 e-Application fees
+Thu Nov 24 16:24:37 CET 2022
+Tasas de patente y modelo de utilidad
+Tasas de certificado complementario de protección (CCP)
+Tasas de solicitud de patente europea
+Tasas de protección en España de patente Europea
+Tasas de solicitud internacional PCT
+Tasas de topografía de un producto semiconductor
+Supplementary information
+Fri Nov 25 08:30:38 CET 2022
+All SPTO public fees and prices 2026
+Inventions
+Methods of payment
+Electronic payment
+Documents for in-person payment
+Instructions for the payment of patent and utility model annuities
+Previous automatic controls in the payment of annuities
+Fri Nov 25 09:33:37 CET 2022
+History of fee amounts
+Historical annuity amounts and patent and utility model grant fees
+Historical amounts of fees for the maintenance of supplementary protection certificates
+Fri Nov 25 09:33:37 CET 2022
+Información sobre reducción de tasas
+Invention fee reductions for small and medium-sized enterprise and Entrepreneurs
+Instruction on the reimbursement of State-of-the-Art Report (SAR) fees, substantive examination and waiver of SAR (04/03/2019)
+Relevant information for the entry into the European regional phase of an international PCT application
+Reduction in PCT international search fees applicable to nationals from certain states
+Twitter
+Linkedin
+Youtube
+Instagram
+Blog oepm
+rss
+Info PI
+OEPM
+About us
+News & Events
+Training
+Quality and certifications
+Services
+Technological information
+Payment services
+Free services
+Statistics
+General information
+Contact
+Frequently asked questions
+Fees and public prices
+Methods of payment
+Site map
+© Office spanish patents and trademarks, 2021
+Accessibility
+Accessibility
+-->
+Legal Notice
+Legal Notice
+-->
+Cookie policy
+Cookie policy
+-->
+Data protection
+Data protection
+-->
+We use our own and third-party cookies to analyse the website traffic regarding your preferences based on a profile of your browsing habits. Do you accept these cookies?
+Más información
+RECHAZAR
+CONFIGURAR
+ACEPTAR

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  The regional base for the European Patent Organisation, reduced to the inputs the Swiss
+  schedule reads. In IPFLang the base also declares the presentation groups and the currency
+  EUR, which a member overrides by redeclaring it; DMN has no counterpart for either.
+-->
+<definitions xmlns="https://www.omg.org/spec/DMN/20230324/MODEL/"
+             id="base_ep" name="base_ep"
+             namespace="https://ipfees.example/dmn/base_ep">
+  <inputData id="ClaimCount" name="ClaimCount">
+    <variable name="ClaimCount" typeRef="number"/>
+  </inputData>
+</definitions>

@@ -1,0 +1,990 @@
+Source: https://www.dpma.de/docs/english/formulare/allg_eng/a9510_1.pdf
+Retrieved: 2026-10-20
+
+         Information Concerning Costs, Fees and Expenses
+                of the German Patent and Trade Mark Office and of the Federal Patent Court
+                                                     (Edition July 2026)
+
+
+
+
+Information and forms on the Internet at: https://www.dpma.de/english/services/forms/index.html
+
+                                                  Address                  Telephone                   Fax
+Dienststelle München                              Central mailing address: Customer Care and Services: Central fax number:
+Dienststelle Jena                                 80297 München            +49 89 2195-1000            +49 89 2195-2221
+Informations- und Dienstleistungszentrum Berlin
+Beneficiary:           Bundeskasse
+                       IBAN: DE84 7000 0000 0070 0010 54, BIC (SWIFT-Code): MARKDEF1700               Internet:
+Address of the bank:   Bundesbankfiliale München, Leopoldstraße 234, 80807 München                    https://www.dpma.de
+
+A 9510.1/7.26
+                                                                                                    2
+
+
+
+
+Contents
+
+1 – General remarks .............................................................................................................................................................................. 4
+2 – Extract from the Act Concerning the Costs of the German Patent and Trade Mark Office and of the Federal Patent Court ......... 5
+       A.     Fees of the German Patent and Trade Mark Office ................................................................................................................. 5
+              I.       Patents ............................................................................................................................................................................ 5
+                       1. Grant procedure ....................................................................................................................................................... 5
+                       2. Maintenance of a patent or an application .............................................................................................................. 5
+                       3. Other requests ......................................................................................................................................................... 7
+                       4. Requests in connection with the extension of industrial property rights ................................................................ 8
+                       5. Requests in connection with supplementary protection certificates ....................................................................... 8
+              II.      Utility models.................................................................................................................................................................. 8
+                       1. Registration procedure ............................................................................................................................................. 8
+                       2. Maintenance of a utility model ................................................................................................................................ 8
+                       3. Other requests ......................................................................................................................................................... 9
+              III.     Trade marks, geographical indications and indications of origin .................................................................................... 9
+                       1. Registration procedure ............................................................................................................................................. 9
+                       2. Renewal of the period of protection ........................................................................................................................ 9
+                       3. Other requests ....................................................................................................................................................... 10
+                       4. International registrations of marks ....................................................................................................................... 10
+                       5. European Union trade marks ................................................................................................................................. 10
+                       6. Geographical indications and indications of origin................................................................................................. 11
+              IV.      Designs.......................................................................................................................................................................... 11
+                       1. Application procedure ............................................................................................................................................ 11
+                       2. Maintenance of the term of protection ................................................................................................................. 11
+                       3. Maintenance of registered designs for which an embodiment of the design was deposited under
+                          section 7 (6) of the Design Act in the version applicable before 1 June 2004 ........................................................ 12
+                       4. Community designs ................................................................................................................................................ 12
+                       5. Designs under the Hague Agreement..................................................................................................................... 12
+                       6. Other requests ....................................................................................................................................................... 12
+              V.       Topographies ................................................................................................................................................................ 13
+                       1. Application procedure ............................................................................................................................................ 13
+                       2. Other requests ....................................................................................................................................................... 13
+       B.     Fees of the Federal Patent Court ........................................................................................................................................... 14
+              I.       Appeal proceedings ...................................................................................................................................................... 14
+              II.      Legal action proceedings .............................................................................................................................................. 14
+                       1. Legal action proceedings under section 81 of the Patent Act, section 85a in conjunction with
+                          section 81 of the Patent Act and section 20 of the Utility Model Act in conjunction with section 81
+                          of the Patent Act .................................................................................................................................................... 14
+                       2. Other legal action proceedings .............................................................................................................................. 15
+                       3. Issue of a provisional order due to grant of compulsory licence (section 85 of the Patent Act,
+                          section 85a in conjunction with section 85 of the Patent Act and section 20 of the Utility Model Act
+                          in conjunction with section 81 of the Patent Act) .................................................................................................. 15
+              III.     Reprimand due to violation of the right to be heard .................................................................................................... 15
+                                                                                                  3
+
+
+
+
+3 – Extract from the Ordinance Concerning the Administrative Costs of the German Patent and Trade Mark Office ....................... 16
+     Part A. Fees .................................................................................................................................................................................... 16
+            I.       Extracts from the register and registration certificates ................................................................................................ 16
+            II.      Authentication .............................................................................................................................................................. 16
+            III.     Certificates, written information .................................................................................................................................. 16
+            IV.      File inspection, issue of photocopies and hardcopies .................................................................................................. 16
+            V.       Refund .......................................................................................................................................................................... 17
+     Part B. Expenses ............................................................................................................................................................................ 18
+            I.       Flat rate fees for documents and data carriers............................................................................................................. 18
+            II.      Expenses for photos, graphic representations ............................................................................................................. 18
+            III.     Publication, reprinting costs ......................................................................................................................................... 18
+            IV.      Other expenses ............................................................................................................................................................. 18
+4 – Extract from the Ordinance of 9 December 1997 on the Issuing of the Certificate under Article 3 of the Hague Convention
+    of 5 October 1961 Abolishing the Requirement of Legalisation for Foreign Public Documents (Federal Law Gazette I,
+    page 2872), as last amended by Article 1 of the Ordinance of 1 December 2022 (Federal Law Gazette I, page 2131) ................ 19
+                                                              4
+
+
+
+
+1 – General remarks
+(1) Unless otherwise provided for by law or by virtue of legal authorisation the amount of the costs results in particular
+    from
+      - the Act Concerning the Costs of the German Patent and Trade Mark Office and of the Federal Patent Court (Patent
+        Costs Act - Patentkostengesetz) – form A 9514.1 – of 13 December 2001 (Federal Law Gazette * I, page 3656), as
+        last amended by Article 11 of the Act of 11 January 2026 (Federal Law Gazette 2026 I, number 9) – extracts from the
+        act, see number 2,
+      - the Ordinance Concerning the Administrative Costs at the German Patent and Trade Mark Office (DPMA-Verwal-
+        tungskostenverordnung) – form A 9516 (in German) – of 14 July 2006 (Federal Law Gazette I, page 1586), as last
+        amended by Article 4 of the Ordinance of 7 February 2022 (Federal Law Gazette I, page 171) – extracts of the text,
+        see number 3,
+      - the Court Costs Act (Gerichtskostengesetz) in its version published on 27 February 2014 (Federal Law Gazette I,
+        page 154), as last amended by Article 11 of the Act of 20 May 2026 (Federal Law Gazette 2026 I, number 152),
+      - the Ordinance on the Issuing of the Certificate under Article 3 of the Hague Convention of 5 October 1961
+        Abolishing the Requirement of Legalisation for Foreign Public Documents of 9 December 1997 (Verordnung über
+        die Ausstellung der Apostille nach Artikel 3 des Haager Übereinkommens zur Befreiung ausländischer öffentlicher
+        Urkunden von der Legalisation) (Federal Law Gazette I, page 2872), as last amended by Article 1 of the Ordinance
+        of 1 December 2022 (Federal Law Gazette I, page 2131) – extracts from the text, see number 4.
+(2) Provisions concerning modes of payment are indicated in the Ordinance on Payment of Costs of the German Patent
+    and Trade Mark Office and of the Federal Patent Court (Patent Costs Payment Ordinance – (Patentkosten-
+    zahlungsverordnung) – form A 9511.1 – of 15 October 2003 (Federal Law Gazette I, page 2083), as last amended by
+    Article 2 of the Ordinance of 24 June 2026 (Federal Law Gazette I, number 193).
+
+      Note: If a bank transfer is made with bank or savings bank payment orders, the day on which the amount is
+            credited to the account of the branch of the federal cash office (Bundeskasse) in charge of the German
+            Patent and Trade Mark Office (DPMA) is deemed to be the day of payment.
+                In case of a cash deposit into the account of the branch of the federal cash office (Bundeskasse)in charge
+                of the German Patent and Trade Mark Office, the day of paying in is deemed to be the day of payment.
+                Since bank processing times may vary considerably, the day of paying in needs to be communicated to the
+                German Patent and Trade Mark Office by sending a copy of the deposit receipt to
+                zahlungsverkehr@dpma.de immediately.
+
+
+
+
+*
+    Bundesgesetzblatt (BGBl.)
+                                                                                        5
+
+
+
+
+     2 – Extract from the Act Concerning the Costs of the German Patent and Trade Mark Office and
+                                        of the Federal Patent Court
+                  Annex concerning section 2 (1) of the Patent Costs Act (Schedule of Fees)
+
+  Number                                                                   Statement of fees                                                                               €
+
+
+           A. Fees of the German Patent and Trade Mark Office
+
+           (1) If the fee specified for electronic filing is lower than the fee for filing on paper, the lower fee is to be
+               charged only where electronic filing is admissible under the respective ordinance of the German
+               Patent and Trade Mark Office.
+           (2) As regards fee numbers 313 600, 323 100, 331 600, 331 610, 333 000, 333 300, 333 350, 333 400, 333
+               450, 346 100 and 362 100, each person filing a request will be charged separately.
+                 As regards fee numbers 331 600, 331 610, 333 000, 333 300, 333 350 and 346 100, joint proprietors
+                 or joint applicants of an IP right are also deemed to be one person if they file a joint request based
+                 on that IP right.
+
+           I. Patents
+
+           1. Grant procedure
+           Application procedure for national applications (section 34 of the Patent Act [Patentgesetz])
+           - for electronic filing
+311 000      - containing up to ten patent claims ......................................................................................................                       40
+311 050      - containing more than ten patent claims: fee 311 000 plus .................................................................                                      20
+               for each additional claim
+311 100    - for filing on paper: 150 % of fee amounts 311 000 and 311 050
+
+           International application (Article III section 4 (2) sentence 1 of the Act on International Patent
+           Conventions [Gesetz über internationale Patentübereinkommen])
+311 150    - containing up to ten patent claims .........................................................................................................                      60
+311 160    - containing more than ten patent claims: fee 311 150 plus ....................................................................                                     30
+             for each additional claim
+
+311 200    Search (section 43 of the Patent Act) .......................................................................................................                       300
+
+           Examination procedure (section 44 of the Patent Act)
+311 300    - when a request under section 43 has already been filed .......................................................................                                    150
+311 400    - when a request under section 43 has not been filed .............................................................................                                  350
+
+311 500    Application procedure relating to a supplementary protection certificate (section 49a of
+           the Patent Act)..........................................................................................................................................           300
+
+           Extension of duration of a supplementary protection certificate (section 49a (3) of the Patent Act)
+311 600    - if the request is filed together with the request for grant of a supplementary protection
+             certificate ...............................................................................................................................................       100
+311 610    - if the request is filed after the request for grant of a supplementary protection certificate .................                                                   200
+
+
+           2. Maintenance of a patent or an application
+           Annual fees pursuant to section 17 (1) of the Patent Act
+
+312 030    for the 3rd year of the patent ..................................................................................................................                   70
+312 031    - in case of declaration of willingness to license (section 23 (1) of the Patent Act)..................................                                             35
+312 032    - surcharge for late payment (section 7 (1) sentence 2) ...........................................................................                                 50
+
+312 040    for the 4th year of the patent ...................................................................................................................                  70
+312 041    - in case of declaration of willingness to license (section 23 (1) of the Patent Act)..................................                                             35
+                                                                                  6
+
+
+
+
+  Number                                                               Statement of fees                                                                        €
+
+
+312 042    - surcharge for late payment (section 7 (1) sentence 2) ...........................................................................                       50
+312 050    for the 5th year of the patent ...................................................................................................................       100
+312 051    - in case of declaration of willingness to license (section 23 (1) of the Patent Act)..................................                                  50
+312 052    - surcharge for late payment (section 7 (1) sentence 2) ...........................................................................                      50
+
+312 060    for the 6th year of the patent ...................................................................................................................       150
+312 061    - in case of declaration of willingness to license (section 23 (1) of the Patent Act)..................................                                  75
+312 062    - surcharge for late payment (section 7 (1) sentence 2) ...........................................................................                      50
+
+312 070    for the 7th year of the patent ...................................................................................................................       210
+312 071    - in case of declaration of willingness to license (section 23 (1) of the Patent Act)..................................                                  105
+312 072    - surcharge for late payment (section 7 (1) sentence 2) ...........................................................................                      50
+
+312 080    for the 8th year of the patent ...................................................................................................................       280
+312 081    - in case of declaration of willingness to license (section 23 (1) of the Patent Act)..................................                                  140
+312 082    - surcharge for late payment (section 7 (1) sentence 2) ...........................................................................                      50
+
+312 090    for the 9th year of the patent ...................................................................................................................       350
+312 091    - in case of declaration of willingness to license (section 23 (1) of the Patent Act)..................................                                  175
+312 092    - surcharge for late payment (section 7 (1) sentence 2) ...........................................................................                      50
+
+312 100    for the 10th year of the patent .................................................................................................................        430
+312 101    - in case of declaration of willingness to license (section 23 (1) of the Patent Act)..................................                                  215
+312 102    - surcharge for late payment (section 7 (1) sentence 2) ...........................................................................                      50
+
+312 110    for the 11th year of the patent .................................................................................................................        540
+312 111    - in case of declaration of willingness to license (section 23 (1) of the Patent Act)..................................                                  270
+312 112    - surcharge for late payment (section 7 (1) sentence 2) ...........................................................................                      50
+
+312 120    for the 12th year of the patent .................................................................................................................        680
+312 121    - in case of declaration of willingness to license (section 23 (1) of the Patent Act)..................................                                  340
+312 122    - surcharge for late payment (section 7 (1) sentence 2) ...........................................................................                      50
+
+312 130    for the 13th year of the patent .................................................................................................................        830
+312 131    - in case of declaration of willingness to license (section 23 (1) of the Patent Act)..................................                                  415
+312 132    - surcharge for late payment (section 7 (1) sentence 2) ...........................................................................                      50
+
+312 140    for the 14th year of the patent .................................................................................................................        980
+312 141    - in case of declaration of willingness to license (section 23 (1) of the Patent Act)..................................                                  490
+312 142    - surcharge for late payment (section 7 (1) sentence 2) ...........................................................................                      50
+
+312 150    for the 15th year of the patent .................................................................................................................    1 130
+312 151    - in case of declaration of willingness to license (section 23 (1) of the Patent Act)..................................                                  565
+312 152    - surcharge for late payment (section 7 (1) sentence 2) ...........................................................................                      50
+
+312 160    for the 16th year of the patent .................................................................................................................    1 310
+312 161    - in case of declaration of willingness to license (section 23 (1) of the Patent Act)..................................                                  655
+312 162    - surcharge for late payment (section 7 (1) sentence 2) ...........................................................................                      50
+
+312 170    for the 17th year of the patent .................................................................................................................    1 490
+312 171    - in case of declaration of willingness to license (section 23 (1) of the Patent Act)..................................                                  745
+312 172    - surcharge for late payment (section 7 (1) sentence 2) ...........................................................................                      50
+                                                                                  7
+
+
+
+
+  Number                                                              Statement of fees                                                                        €
+
+
+312 180    for the 18th year of the patent .................................................................................................................   1 670
+312 181    - in case of declaration of willingness to license (section 23 (1) of the Patent Act)..................................                                 835
+312 182    - surcharge for late payment (section 7 (1) sentence 2) ...........................................................................                     50
+
+312 190    for the 19th year of the patent .................................................................................................................   1 840
+312 191    - in case of declaration of willingness to license (section 23 (1) of the Patent Act)..................................                                 920
+312 192    - surcharge for late payment (section 7 (1) sentence 2) ...........................................................................                     50
+
+312 200    for the 20th year of the patent .................................................................................................................   2 030
+312 201    - in case of declaration of willingness to license (section 23 (1) of the Patent Act)..................................                             1 015
+312 202    - surcharge for late payment (section 7 (1) sentence 2) ...........................................................................                     50
+
+           Payment of the 3rd to 5th annual fee on the due date for the 3rd annual fee:
+312 205    Reduced fees for numbers 312 030 to 312 050........................................................................................                     210
+312 206    - in case of declaration of willingness to license (section 23 (1) of the Patent Act)..................................                                 105
+312 207    - surcharge for late payment (section 7 (1) sentence 2) ...........................................................................                     50
+
+           Annual fees pursuant to section 16a of the Patent Act
+
+312 210    for the 1st year of supplementary protection .........................................................................................              2 920
+312 211    - in case of declaration of willingness to license (section 23 (1) of the Patent Act)..................................                             1 460
+312 212    - surcharge for late payment (section 7 (1) sentence 2) ...........................................................................                     50
+
+312 220    for the 2nd year of supplementary protection ........................................................................................               3 240
+312 221    - in case of declaration of willingness to license (section 23 (1) of the Patent Act)..................................                             1 620
+312 222    - surcharge for late payment (section 7 (1) sentence 2) ...........................................................................                     50
+
+312 230    for the 3rd year of supplementary protection .........................................................................................              3 620
+312 231    - in case of declaration of willingness to license (section 23 (1) of the Patent Act)..................................                             1 810
+312 232    - surcharge for late payment (section 7 (1) sentence 2) ...........................................................................                     50
+
+312 240    for the 4th year of supplementary protection .........................................................................................              4 020
+312 241    - in case of declaration of willingness to license (section 23 (1) of the Patent Act)..................................                             2 010
+312 242    - surcharge for late payment (section 7 (1) sentence 2) ...........................................................................                     50
+
+312 250    for the 5th year of supplementary protection .........................................................................................              4 540
+312 251    - in case of declaration of willingness to license (section 23 (1) of the Patent Act)..................................                             2 270
+312 252    - surcharge for late payment (section 7 (1) sentence 2) ...........................................................................                     50
+
+312 260    for the 6th year of supplementary protection .........................................................................................              4 980
+312 261    - in case of declaration of willingness to licence (section 23 (1) of the Patent Act) .................................                             2 490
+312 262    - surcharge for late payment (section 7 (1) sentence 2) ...........................................................................                     50
+
+
+           3. Other requests
+
+313 000    - Further processing (section 123a of the Patent Act) ..............................................................................                    100
+
+           Compensation for inventors
+313 200    - Assessment procedure (section 23 (4) of the Patent Act) ......................................................................                        60
+313 300    - Procedure for alteration of the assessment (section 23 (5) of the Patent Act) ......................................                                  120
+                                                                                            8
+
+
+
+
+   Number                                                                       Statement of fees                                                                            €
+
+
+                 Right to exclusive use of the invention
+ 313 400         - Entry of grant of licence (section 30 (4) sentence 1 of the Patent Act) ..................................................                                     25
+ 313 500         - Cancellation of the entry of such grant (section 30 (4) sentence 3 of the Patent Act) ...........................                                              25
+
+ 313 600         Opposition proceedings (section 59 (1) and (2) of the Patent Act) ..........................................................                                    200
+
+ 313 700         Procedure to limit or revoke the patent (section 64 of the Patent Act) ...................................................                                      120
+
+                 Publication of translations or corrections of translations
+ 313 800         - of patent claims of European patent applications (Article II section 2 (1) of the Act on
+                   International Patent Conventions) .........................................................................................................                    60
+ 313 810         - of patent claims of European patent applications, designating the Member States of the
+                   Community Patent Convention (Article 4 (2) sentence 2 of the Second Act on the
+                   Community Patent [Zweites Gesetz über das Gemeinschaftspatent]) ...................................................                                            60
+ 313 820         - of European patent specifications (Article II section 3 (1), (4) of the Act on International
+                   Patent Conventions) ...............................................................................................................................           150*
+
+ 313 900         Transmission of the international application (Article III section 1 (2) of the Act on International
+                 Patent Conventions) .................................................................................................................................            90
+
+
+                 4. Requests in connection with the extension of industrial property rights
+
+ 314 100         For the publication of translations or corrected translations of extended patents
+                 (section 8 (1) and (3) of the Extension Act [Erstreckungsgesetz]) ............................................................                                  150
+
+ 314 200         Search regarding an extended patent (section 11 of the Extension Act) .................................................                                         250
+
+
+                 5. Requests in connection with supplementary protection certificates
+
+ 315 100         Request for rectification of duration ........................................................................................................                  150
+
+ 315 200         Request for revocation of extension of duration .....................................................................................                           200
+
+
+                 II. Utility models
+
+                 1. Registration procedure
+
+                 Application procedure for national applications (section 4 of the Utility Model Act
+                 [Gebrauchsmustergesetz])
+ 321 000         - for electronic filing .................................................................................................................................        30
+ 321 100         - for filing on paper ...................................................................................................................................        40
+
+ 321 150         International application (Article III section 4 (2) sentence 1 of the Act on International
+                 Patent Conventions) ..................................................................................................................................           40
+
+ 321 200         Search (section 7 of the Utility Model Act) ...............................................................................................                     250
+
+
+                 2. Maintenance of a utility model
+
+                 Maintenance fees pursuant to (section 23 (2) of the Utility Model Act)
+
+ 322 100         for the 4th to the 6th year of protection ..................................................................................................                    210
+ 322 101         - surcharge for late payment (section 7 (1) sentence 2) ...........................................................................                              50
+
+ 322 200         for the 7th to the 8th year of protection ..................................................................................................                    350
+ 322 201         - surcharge for late payment (section 7 (1) sentence 2) ...........................................................................                              50
+
+
+* Note: Number 313 820 was abolished by Article 8b, number 1 of the act of 7 July 2008 (Federal Law Gazette I, page 1191) but remains applicable in
+  relation to European patents for which the mention of grant was published in the European Patent Bulletin before 1 May 2008.
+                                                                                     9
+
+
+
+
+  Number                                                                 Statement of fees                                                                            €
+
+
+322 300    for the 9th to the 10th year of protection ................................................................................................                    530
+322 301    - surcharge for late payment (section 7 (1) sentence 2) ...........................................................................                            50
+
+
+           3. Other requests
+
+323 000    Further processing (section 21 (1) of the Utility Model Act in conjunction with section 123a
+           of the Patent Act) .....................................................................................................................................       100
+
+323 100    Cancellation procedure (section 16 of the Utility Model Act) ..................................................................                                300
+
+
+           III. Trade marks, geographical indications and indications of origin
+
+           1. Registration procedure
+
+           Application procedure including the class fee for up to three classes
+           - for a trade mark (section 32 of the Trade Mark Act [Markengesetz])
+331 000     - for electronic filing ..............................................................................................................................        290
+331 100     - for filing on paper .................................................................................................................................       300
+331 200    - for a collective or certification mark (sections 97 and 106a of the Trade Mark Act) .............................                                            900
+
+           Class fee, for the fourth class and each additional class, per class
+331 300    - for a trade mark (section 32 of the Trade Mark Act) ..............................................................................                           100
+331 400    - for a collective or certification mark (sections 97 and 106a of the Trade Mark Act) .............................                                            150
+
+331 500    Accelerated examination of application (section 38 of the Trade Mark Act) ...........................................                                          200
+
+           Opposition proceedings (section 42 of the Trade Mark Act)
+331 600    - basic amount for an opposing sign .........................................................................................................                  250
+331 610    - for each additional opposing sign...........................................................................................................                 50
+
+331 700    Procedure regarding the division of an application (section 40 of the Trade Mark Act) ..........................                                               300
+
+331 800    Procedure regarding transfer in part of an application (section 27 (4), section 31 of the
+           Trade Mark Act) ........................................................................................................................................       300
+
+
+           2. Renewal of the period of protection
+
+           Renewal fee including the class fee for up to three classes
+332 100    - for a trade mark (section 47 (2) and (3) of the Trade Mark Act) ............................................................                                 750
+332 101    - surcharge for late payment (section 7 (3) sentence 2) ...........................................................................                            50
+
+332 200    - for a collective or certification mark (sections 97 and 106a of the Trade Mark Act) .............................                                        1 800
+332 201    - surcharge for late payment (section 7 (3) sentence 2) ...........................................................................                            50
+
+           Class fee for renewal of the period of protection for the fourth class and each additional class,
+           for each class
+332 300    - for a trade mark, collective or certification mark (section 47 (2) and (3), sections 97, 106a
+             of the Trade Mark Act) ...........................................................................................................................           260
+332 301    - surcharge for late payment (section 7 (3) sentence 2) ...........................................................................                            50
+                                                                                        10
+
+
+
+
+  Number                                                                    Statement of fees                                                                                 €
+
+
+           3. Other requests
+
+333 000    Objection procedure (section 64 of the Trade Mark Act) ........................................................................                                        150
+
+333 050    Further processing (section 91a of the Trade Mark Act) .........................................................................                                       100
+
+333 100    Procedure regarding the division of a registration (section 46 of the Trade Mark Act) ...........................                                                      300
+
+333 200    Procedure regarding the transfer in part of a registration (sections 46 and 27 (4) of the Trade Mark
+           Act) ...........................................................................................................................................................       300
+
+
+           Revocation and invalidity proceedings (section 53 of the Trade Mark Act)
+333 300    - invalidity because of absolute grounds for refusal (section 50 of the Trade Mark Act) and
+             earlier rights (section 51 of the Trade Mark Act) ...................................................................................                                400
+333 350    - if the request under section 51 of the Trade Mark Act is based on more than one earlier right, the
+             fee for each additional asserted right under number 333 300 is increased in each case by ..................                                                          100
+333 400    - revocation (section 49 of the Trade Mark Act) .......................................................................................                                100
+333 450    - pursuing the application for revocation further after opposition by the trade mark
+             proprietor ...............................................................................................................................................           300
+
+
+           Right to use the trade mark
+333 500    - registration of a licence (section 30 (6) sentence 1 of the Trade Mark Act)...........................................                                                50
+333 600    - modification of a licence (section 30 (6) sentence 2 of the Trade Mark Act) .........................................                                                 50
+333 700    - cancellation of a licence (section 30 (6) sentence 3 of the Trade Mark Act) ..........................................                                                50
+
+
+           4. International registrations of marks
+
+334 100    National fee for international registration under the Protocol Relating to the Madrid Agreement
+           (section 108 of the Trade Mark Act) .........................................................................................................                          180
+
+334 300    National fee for the subsequent extension of protection under Article 3ter (2) of Protocol Relating to the
+           Madrid Agreement (section 111 (1) of the Trade Mark Act) ...........................................................................                                   120
+
+
+           Conversion procedure including the class fee for up to three classes (section 118 (1) of the
+           Trade Mark Act)
+334 500    - for a trade mark (section 32 of the Trade Mark Act) ..............................................................................                                   300
+334 600    - for a collective or certification mark (sections 97 and 106a of the Trade Mark Act) .............................                                                    900
+
+
+           Class fee for the conversion of the fourth class and each additional class, for each class
+334 700    - for a trade mark (section 32 of the Trade Mark Act) ..............................................................................                                   100
+334 800    - for a collective or certification mark (sections 97 and 106a of the Trade Mark Act) .............................                                                    150
+
+
+           5. European Union trade marks
+
+           Conversion procedure (section 122 (1) of the Trade Mark Act)
+335 200    - for a trade mark (section 32 of the Trade Mark Act) ..............................................................................                                   300
+335 300    - for a collective or certification mark (sections 97 and 106a of the Trade Mark Act) .............................                                                    900
+
+           Class fee for conversion for each class from the fourth class onwards
+335 400    - for a trade mark (section 32 of the Trade Mark Act) ..............................................................................                                   100
+335 500    - for a collective or certification mark (sections 97 and 106a of the Trade Mark Act) .............................                                                    150
+                                                                                            11
+
+
+
+
+   Number                                                                        Statement of fees                                                                            €
+
+
+                  6. Geographical indications and indications of origin
+
+ 336 100          Registration procedure (section 130 of the Trade Mark Act) ...................................................................                                  900
+
+ 336 150          National opposition procedure (section 130 (4) of the Trade Mark Act) .................................................                                         120
+
+ 336 200          Intergovernmental opposition procedure (section 131 of the Trade Mark Act) ......................................                                               120
+
+ 336 250          Request for a change to the product specification (section 132 (1) of the Trade Mark Act) ....................                                                  200
+
+ 336 300          Cancellation procedure (section 132 (3) of the Trade Mark Act) .............................................................                                    120
+
+
+                  IV. Designs
+
+                  1. Application procedure
+
+                  A set of typefaces is regarded as a design.
+
+                  Application procedure
+                  - for one design (section 11 of the Design Act)
+ 341 000           - for electronic filing ...............................................................................................................................        60
+ 341 100           - for filing on paper ................................................................................................................................         70
+
+                  - for each design of a multiple application (section 12 (1) of the Design Act)
+ 341 200           - for electronic filing
+                     for two to ten designs ..........................................................................................................................            60
+                     for each additional design ....................................................................................................................               6
+ 341 300           - for filing on paper
+                     for two to ten designs ..........................................................................................................................            70
+                     for each additional design ....................................................................................................................               7
+
+ 341 400          - for one design in event of deferred publication (section 21 of the Design Act) ....................................                                           30
+
+                  - for each design of a multiple application in the event of deferred publication (sections 12,
+ 341 500
+                    21 of the Design Act)
+                    for two to ten designs ............................................................................................................................           30
+                    for each additional design ......................................................................................................................              3
+
+                  Extension of protection to term of protection of section 27 (2) of the Design Act in the event of
+                  deferred publication of a reproduction (section 21 (2) of the Design Act)
+
+                  Extension fee
+ 341 600          - for one design ........................................................................................................................................       40
+ 341 700          - for each design of a multiple application to be registered
+                    for two to ten designs ............................................................................................................................           40
+                    for each additional design ......................................................................................................................              4
+
+
+                  2. Maintenance of the term of protection
+
+                  Maintenance fees (section 28 (1) of the Design Act)
+
+                  for the 6th to the 10th year of protection
+ 342 100          - for each registered design, also in a multiple application ......................................................................                             90
+ 342 101          - surcharge for late payment for each registered design, also in a multiple application
+                    (section 7 (1) sentence 2 of the Design Act)*.........................................................................................                        50
+
+
+
+
+* Note: The correct legal basis is: (section 7 (1) sentence 2 of the Patent Costs Act)
+                                                                                           12
+
+
+
+
+   Number                                                                       Statement of fees                                                                           €
+
+
+                  for the 11th to the 15th year of protection
+ 342 200          - for each registered design, also in a multiple application ......................................................................                           120
+ 342 201          - surcharge for late payment for each registered design, also in a multiple application
+                    (section 7 (1) sentence 2 of the Design Act)*.........................................................................................                      50
+
+                  for the 16th to the 20th year of protection
+ 342 300          - for each registered design, also in a multiple application ......................................................................                           150
+ 342 301          - surcharge for late payment for each registered design, also in a multiple application
+                    (section 7 (1) sentence 2 of the Design Act)*.........................................................................................                      50
+
+                  for the 21st to the 25th year of protection
+ 342 400          - for each registered design, also in a multiple application ......................................................................                           180
+ 342 401          - surcharge for late payment for each registered design, also in a multiple application
+                    (section 7 (1) sentence 2 of the Design Act)*.........................................................................................                      50
+
+                  3. Maintenance of registered designs for which an embodiment of the design was
+                     deposited under section 7 (6) of the Design Act in the version applicable before
+                     1 June 2004
+
+ 343 100          Maintenance fees for the 6th to the 10th year of protection ..................................................................                                330
+ 343 101          - surcharge for late payment for each registered design, also in a multiple application
+                    (section 7 (1) sentence 2 of the Design Act)*.........................................................................................                      50
+
+ 343 200          Maintenance fees for the 11th to the 15th year of protection ................................................................                                 360
+ 343 201          - surcharge for late payment for each registered design, also in a multiple application
+                    (section 7 (1) sentence 2 of the Design Act)*.........................................................................................                      50
+
+ 343 300          Maintenance fees for the 16th to the 20th year of protection ................................................................                                 390
+ 343 301          - surcharge for late payment for each registered design, also in a multiple application
+                    (section 7 (1) sentence 2 of the Design Act)*.........................................................................................                      50
+
+ 343 400          Maintenance fees for the 21st to the 25th year of protection .................................................................                                420
+ 343 401          - surcharge for late payment for each registered design, also in a multiple application
+                    (section 7 (1) sentence 2 of the Design Act)*.........................................................................................                      50
+
+
+                  4. Community designs
+
+                  Forwarding a Community design application (section 62 of the Design Act)
+
+ 344 100          for each application ..................................................................................................................................       25
+                  A multiple application is regarded as one application.
+
+
+                  5. Designs under the Hague Agreement
+
+                  Forwarding a design application under the Hague Agreement (section 68 of the Design Act)
+
+ 345 100          for each application ..................................................................................................................................       25
+                  A multiple application is regarded as one application.
+
+
+                  6. Other requests
+
+ 346 000          Further processing (section 17 of the Design Act) ....................................................................................                        100
+
+ 346 100          Invalidity proceedings (section 34a of the Design Act) for each registered design ..................................                                          300
+
+
+
+
+* Note: The correct legal basis is: (section 7 (1) sentence 2 of the Patent Costs Act)
+                                                                                13
+
+
+
+
+  Number                                                              Statement of fees                                                                       €
+
+
+           V. Topographies
+
+           1. Application procedure
+
+           Application procedure (section 3 of the Semiconductor Protection Act [Halbleiterschutzgesetz])
+361 000    - electronic filing                                                                                                                                    290
+361 100    - filing on paper                                                                                                                                      300
+
+
+           2. Other requests
+
+362 000    Further processing (section 11 (1) of the Semiconductor Protection Act in conjunction with
+           section 123a of the Patent Act) ................................................................................................................       100
+
+362 100    Cancellation procedure (section 8 of the Semiconductor Protection Act) ...............................................                                 300
+                                                                                           14
+
+
+
+
+                                                                                                                                     Fee amount/fee rate pursuant to
+   Number                                                 Statement of fees                                                       section 2 (2) in conjunction with section
+                                                                                                                                        2 (1) of the Patent Costs Act*
+
+                 B. Fees of the Federal Patent Court
+
+                 (1) As regards fees numbers 400 000 to 401 300, each person lodging an appeal will be charged
+                     separately.
+                     Joint proprietors or joint applicants of an IP right concerned are deemed to be one person, if they
+                     file a joint appeal in the cases mentioned in sentence 1.
+                 (2) As regards fee number 400 000 must be paid in addition to the fee for the opposition procedure be-
+                     fore the German Patent and Trade Mark Office (number 313 600).
+ 400 000         Request for a court decision pursuant to section 61 (2) of the Patent Act ..............................................                                     € 300
+
+                 I. Appeal proceedings
+                 Appeal proceedings
+                 1. under section 73 (1) of the Patent Act against the decision of the patent division on the opposition,
+                 2. under section 18 (1) of the Utility Model Act against the decision of the utility model division on
+                    the request for cancellation,
+                 3. under section 66 of the Trade Mark Act in revocation and invalidity proceedings
+                 4. under section 4 (4) sentence 3 of the Semiconductor Protection Act in conjunction with section
+ 401 100            18 (1) of the Utility Model Act against the decision of the topographies division
+                 5. under section 34 (1) of the Plant Varieties Protection Act (Sortenschutzgesetz) against the decision
+                    by the opposition committee in the cases of section 18 (2) numbers 1, 2, 5 and 6 of the Plant Varie-
+                    ties Protection Act
+                 6. under section 23 (4) sentence 1 of the Design Act against the decision of the design division on the
+                    request to establish or declare invalidity .............................................................................................                  € 500
+
+ 401 200         against a decision on costs .......................................................................................................................           € 50
+
+ 401 300         in other cases............................................................................................................................................   € 200
+                 Appeals are free in matters concerning legal aid, appeals under section 11 (2) of the Patent Costs Act and under
+                 section 11 (2) of the Ordinance Concerning the Administrative Costs at the DPMA.
+
+                 II. Legal action proceedings
+                 1. Legal action proceedings under section 81 of the Patent Act, section 85a in
+                    conjunction with section 81 of the Patent Act and section 20 of the Utility
+                    Model Act in conjunction with section 81 of the Patent Act
+ 402 100         Proceedings in general .............................................................................................................................           4.5
+
+ 402 110         Conclusion of entire proceedings by
+                 a) withdrawal of the action
+                    - before the end of the hearing
+                    - in case of section 83 (2) sentence 2 of the Patent Act in conjunction with section 81 of the
+                      Patent Act, in which a hearing does not take place before the expiry of the day on which the
+                      summons for the date of the pronouncement of the judgement have been served or the written
+                      judgement has been handed over to the registrar's office at the Federal Patent Court,
+                    - in case of section 82 (2) of the Patent Act in conjunction with section 81 of the Patent Act,
+                      before the expiry of the day, on which the judgement is handed over to the registrar's office
+                      at the Federal Patent Court,
+                 b) judgement of acknowledgement and renunciation,
+                 c) settlement in court,
+                 provided there was no prior judgement:
+                 The fee for 402 100 is reduced to .............................................................................................................                1.5
+                 Declarations on the settlement of the issue are not equivalent to withdrawal. The fee will also be reduced if more
+                 than one of the above reasons for reduction are fulfilled.
+
+* Note: Under section 2 of the Patent Costs Act, the fees for filing an action and applying for an injunction before the Federal Patent Court are
+  calculated on the basis of the value in dispute. The amount of the fee is governed by section 34 of the Court Costs Act (Gerichtskostengesetz); the
+  minimum fee is 121 euros. For the assessment of the value in dispute, the provisions of the Court Costs Act apply accordingly.
+                                                                                  15
+
+
+
+
+                                                                                                                           Fee amount/fee rate pursuant to
+  Number                                          Statement of fees                                                     section 2 (2) in conjunction with section
+                                                                                                                              2 (1) of the Patent Costs Act
+
+           2. Other legal action proceedings
+
+402 200    Proceedings in general .............................................................................................................................    4.5
+
+402 210    Conclusion of entire proceedings by
+           a) withdrawal of the action before the end of the hearing,
+           b) judgement of acknowledgement and renunciation,
+           c) settlement in court,
+           provided there was no prior judgement:
+           The fee for 402 200 is reduced to .............................................................................................................         1.5
+           Declarations on the settlement of the issue are not equivalent to withdrawal. The fee will also be reduced if more
+           than one of the above reasons for reduction are fulfilled.
+
+
+           3. Issue of a provisional order due to grant of compulsory licence (section 85 of the
+              Patent Act, section 85a in conjunction with section 85 of the Patent Act and
+              section 20 of the Utility Model Act in conjunction with section 81 of the Patent Act)
+402 300    Proceedings dealing with the request ......................................................................................................             1.5
+
+402 310    The proceedings include a hearing:
+           The fee for 402 300 is raised to ................................................................................................................       4.5
+
+402 320    Conclusion of entire proceedings by
+           a) withdrawal of the request before the end of the hearing
+           b) judgement of acknowledgement and renunciation,
+           c) settlement in court,
+           provided there was no prior judgement:
+           The fee for 402 310 is reduced to .............................................................................................................         1.5
+           Declarations on the settlement of the issue are not equivalent to withdrawal. The fee will also be reduced if more
+           than one of the above reasons for reduction are fulfilled.
+
+
+           III. Reprimand due to violation of the right to be heard
+403 100    Proceedings on the reprimand due to violation of the right to be heard pursuant to section 321a
+           of the Code of Civil Procedure (Zivilprozessordnung) in conjunction with section 99 (1) of the Patent
+           Act, section 82 (1) of the Trade Mark Act
+           The reprimand is entirely dismissed or rejected ......................................................................................                 € 50
+                                                                                       16
+
+
+
+
+     3 – Extract from the Ordinance Concerning the Administrative Costs of the German Patent and
+                                           Trade Mark Office
+
+          Annex to section 2 (1) of the Ordinance Concerning the Administrative Costs at the DPMA
+                                               (Costs Schedule)
+
+ Number                                                               Statement of fees                                                                          €
+
+
+              Part A. Fees
+
+              I. Extracts from the register and registration certificates
+
+              Issue of
+301 100       - certified extracts from the register ..........................................................................................                         20
+301 110       - uncertified extracts from the register and registration certificates pursuant to section 4 of
+                the Ordinance on the Register of Anonymous and Pseudonymous Works (Verordnung über
+                das Register anonymer und pseudonymer Werke) ...................................................................                                        15
+              The data carrier flat rate is charged separately.
+
+
+              II. Authentication
+301 200       Authentication of photocopies and hardcopies for every new page..........................................                                                0.50
+                                                                                                                                                            - minimum fee 5
+              (1) For authentication of photocopies and hardcopies of decisions and official replies issued by the
+                  German Patent and Trade Mark Office no fees are charged.
+              (2) Expenses are charged in addition.
+
+
+              III. Certificates, written information
+
+301 300       Priority document .......................................................................................................................                 20
+              Expenses are charged in addition.
+
+301 310       Another certificate or written information ................................................................................                               10
+              Expenses are charged in addition.
+
+301 320       Decorative certificate (section 25 (2) of the DPMA Ordinance [DPMA-Verordnung])................                                                            15
+              (1) the following is free of charge:
+                  - Granting patent certificates, utility model certificates, topography certificates, trade mark
+                    certificates and design certificates (section 25 (1) of the DPMA Ordinance) and
+                  - affixing documents to the decorative certificate.
+              (2) Expenses are charged in addition.
+
+301 330       Certificate of origin .....................................................................................................................               15
+              Expenses are charged in addition.
+
+
+              IV. File inspection, issue of photocopies and hardcopies
+
+301 400       Procedures concerning requests for the inspection of files .......................................................                                        90
+              Inspection of files which may be inspected by any person, files of the applicant‘s own application or the
+              proprietor‘s own industrial property right, is free of charge.
+                                                                         17
+
+
+
+
+ Number                                                   Statement of fees                                                         €
+
+
+301 410   Procedures concerning requests for the issue of photocopies and hardcopies of files .............                             90
+          (1) The following is free of charge:
+             - Issue of photocopies and hardcopies of files which may be inspected by any person, files of the
+               applicant's own application or the proprietor's own industrial property right,
+             - or if the request has been submitted subsequent to a procedure concerning the inspection of
+               files for which the fee was paid according to number 301 400,
+          (2) Expenses are charged in addition.
+
+
+          V. Refund
+
+301 500   Refund of amounts paid without legal ground ...........................................................................       10
+                                                                                     18
+
+
+
+
+ Number                                                                   Expenses                                                                         Amount/€
+
+
+          Part B. Expenses
+
+          I. Flat rate fees for documents and data carriers
+
+302 100   Flat rate fee for the production and supply of documents
+          1. Official copies, photocopies and hardcopies which are made on request, transmitted by
+             telefax or have been made, because the parties concerned did not attach the necessary
+             number of copies, photocopies or hardcopies (flat rate fee for documents):
+             for the first 50 pages ..............................................................................................................                    0.50
+              for each additional page ........................................................................................................                       0.15
+
+          2. Flat rate fee for the supply of electronic data on a data carrier (flat rate fee for data carriers):
+              for each data carrier ..............................................................................................................                      5
+
+          (1) Each of the parties to the procedure and their authorised representatives receive
+              1. one complete execution or photocopy or complete hardcopy of the decision and the official
+                 communications by the German Patent and Trade Mark Office,
+              2. one photocopy or hardcopy of the minutes of each meeting without having to pay the flat rate fee
+                 for documents.
+          (2) The flat rate fee for data carriers will not be charged if the electronic data are only electronically
+              transferable.
+          (3) No flat rate fees for documents or data carriers will be charged for provision of IP data via the
+              DPMAdatenabgabe service and DEPATISconnect service.
+          (4) Section 191a (1) sentence 5 of the Courts Constitution Act (Gerichtsverfassungsgesetz) remains
+              unaffected.
+
+
+          II. Expenses for photos, graphic representations
+
+302 200   Production of photos or copies of photos or coloured copies
+          for the first print or the first page ..............................................................................................                          2
+          for each print or page in excess of one.......................................................................................                              0.50
+
+302 210   Production of photos or graphic representations by a third party by order of the
+          German Patent and Trade Mark Office ......................................................................................                       the full amount
+
+
+          III. Publication, reprinting costs
+
+302 340   Expenses for the publication in copyright procedures ...............................................................                             the full amount
+
+302 360   Costs for the reprint or the amendment of a patent application (Offenlegungsschrift) or
+          patent specification if they are caused by the applicant ............................................................                                        80
+
+
+          IV. Other expenses
+
+          Further expenses are
+302 400   - Expenses for delivery with official certificate of delivery or registered mail with advice
+            of delivery ................................................................................................................................   the full amount
+
+302 410   - Expenses for telegrams............................................................................................................             the full amount
+                                                                                        19
+
+
+
+
+   Number                                                                     Expenses                                                                          Amount
+
+
+ 302 420         - Amounts to be paid under the Judicial Remuneration and Compensation Act (Justizver-
+                   gütungs- und -entschädigungsgesetz), subject to the following provisions:
+                   1. Expenses to fulfil the rights of the blind or visually impaired (section 191a (1) of the
+                      Courts Constitution Act) and of people with hearing or speech impairments (section
+                      186 (1) of the Courts Constitution Act) are exempt from this provision .............................                                     the full amount
+
+                   2. if by virtue of section 1 (2) sentence 2 of the Judicial Remuneration and Compensation
+                      Act, an expert does not receive any compensation, such amount is to be raised which,
+                      without this provision, would have to be paid under the Judicial Remuneration and
+                      Compensation Act ...............................................................................................................         the full amount
+
+                   3. where expenses were caused by several proceedings, expenses are to be adequately
+                      distributed to these various proceedings............................................................................                     the full amount
+
+ 302 430         - Remunerations (reimbursement of travel expenses, and other expenses) granted by virtue
+                   of legal provisions in transactions outside the German Patent and Trade Mark Office to staff
+                   members and costs for providing premises; where expenses were caused by several
+                   proceedings, expenses are to be adequately distributed to these various proceedings .........                                               the full amount
+
+ 302 440         - Travel expenses for persons ....................................................................................................            the full amount
+                 - Expenses for allowances granted to destitute persons for travelling to the place of,
+                   a court hearing, questioning or investigation and back...........................................................                         not exceeding the
+                                                                                                                                                              amounts payable
+                                                                                                                                                            to witnesses under
+                                                                                                                                                                    the Judicial
+                                                                                                                                                            Remuneration and
+                                                                                                                                                             Compensation Act
+
+ 302 450         - Expenses for the transportation of animals and objects, with the exception of postage rates
+                   hereby incurred, the keeping of objects as well as the keeping and feeding of animals ........                                              the full amount
+
+ 302 460         - Amounts being due to other national authorities, public institutions or staff by way of                                                      limited by the
+                   compensation for expenses of the kind specified in numbers 302 420 to 302 450; the amounts                                               maximum rates for
+                   will be charged, even if, for reasons of reciprocity, administrative rationalisation or                                                    the expenses of
+                   comparable reasons no payments have to be made ....................................................................                       numbers 302 420
+
+ 302 470         - Amounts to which foreign authorities, institutions or persons abroad are entitled, as well as
+                   costs of judicial assistance with foreign countries; the amounts will be charged, even if, for
+                   reasons of reciprocity, administrative rationalisation or comparable reasons no payments
+                   have to be made ......................................................................................................................      the full amount
+
+
+
+
+4 – Extract from the Ordinance of 9 December 1997 on the Issuing of the Certificate under Article 3 of the
+     Hague Convention of 5 October 1961 Abolishing the Requirement of Legalisation for Foreign Public
+       Documents (Federal Law Gazette I, page 2872), as last amended by Article 1 of the Ordinance of
+                            1 December 2022 (Federal Law Gazette I, page 2131)
+
+                                                                                  Section 2
+The fee for issuing the certificate and for the examination under Article 7 (2) of the Convention amounts to 25 euros
+each.*
+
+
+
+
+* Note: The fee number for issuing the certificate and for the examination under Article 7 (2) of the Convention is 301 900.
+
