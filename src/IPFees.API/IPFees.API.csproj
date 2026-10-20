@@ -20,6 +20,11 @@
     <ProjectReference Include="..\IPFees.Core\IPFees.Core.csproj" />
   </ItemGroup>
 
+  <!-- The fallback exchange-rate table is the web project's, shipped with the service as well. -->
+  <ItemGroup>
+    <Content Include="..\IPFees.Web\wwwroot\data\exchange_rates.csv" Link="data\exchange_rates.csv" CopyToOutputDirectory="PreserveNewest" CopyToPublishDirectory="PreserveNewest" />
+  </ItemGroup>
+
   <!--
     Transitive dependencies pinned to patched releases. MongoDB.Driver pulls SharpCompress
     and Snappier, Testcontainers pulls SSH.NET, and the OpenAPI stack pulls Microsoft.OpenApi;
