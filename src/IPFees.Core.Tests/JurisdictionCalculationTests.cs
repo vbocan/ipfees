@@ -40,7 +40,7 @@ namespace IPFees.Core.Tests
             public IEnumerable<(string Code, string Name)> GetCurrencies() => Array.Empty<(string, string)>();
         }
 
-        private async Task<JurisdictionFeeManager> SeedAndBuildManager()
+        private async Task<JurisdictionFeeManager> SeedAndBuildManager(Func<Task>? afterSeeding = null)
         {
             var seeder = new CorpusSeeder(fixture.JurisdictionRepository, fixture.FeeRepository, fixture.ModuleRepository,
                 new FeeDefinitionValidator(fixture.ModuleRepository, new FeeScriptComposer(new DslParser()), new DslCalculator(new DslParser()), new VerificationBudget()));
@@ -48,6 +48,7 @@ namespace IPFees.Core.Tests
             Assert.True(report.Succeeded, string.Join(" | ", report.Errors));
 
             Assert.True((await fixture.SettingsRepository.SetServiceFeeAsync(ServiceFeeLevel.Level1, 250M, "EUR")).Success);
+            if (afterSeeding is not null) await afterSeeding();
 
             var calculator = new FeeCalculator(
                 fixture.FeeRepository,
@@ -248,6 +249,46 @@ namespace IPFees.Core.Tests
                 Assert.Equal((0m, 0m), (a.Differences[0].Mandatory, a.Differences[0].Optional));
                 Assert.Equal(12m * decimal.Parse(a.AlternativeValue) / 100 - 600m, a.Differences[1].Optional);
             });
+        }
+
+        [Fact]
+        public async Task EveryInputTheCorpusSharesIsDeclaredAlike()
+        {
+            // One questionnaire covers any selection of offices only because a name means the
+            // same question wherever it is declared.
+            var manager = await SeedAndBuildManager();
+            var served = (await fixture.FeeRepository.GetFees()).Select(f => f.JurisdictionName).Distinct().ToList();
+
+            var (inputs, _, errors) = manager.GetConsolidatedInputs(served);
+
+            Assert.True(!errors.Any(), string.Join(Environment.NewLine, errors.SelectMany(e => e.Errors).Take(10)));
+            Assert.NotEmpty(inputs);
+        }
+
+        [Fact]
+        public async Task AnInputDeclaredDifferentlyIsReportedAndTheFirstDeclarationKept()
+        {
+            // The calculator reads the stored schedules when it is built, so the second schedule is
+            // stored first.
+            var other = new IPFees.Core.Data.DbResult();
+            var manager = await SeedAndBuildManager(async () =>
+            {
+                other = await fixture.FeeRepository.AddFeeAsync("PCT-ZY");
+                Assert.True(other.Success);
+                Assert.True((await fixture.FeeRepository.SetFeeJurisdictionNameAsync(other.Id, "ZY")).Success);
+                Assert.True((await fixture.FeeRepository.SetFeeSourceCodeAsync(other.Id,
+                    "DEFINE NUMBER ClaimCount AS 'Number of claims'\nGROUP ApplicationGroup\nBETWEEN 0 AND 50\nDEFAULT 3\nENDDEFINE\n" +
+                    "COMPUTE FEE OFF_ClaimFee\nYIELD 10 * ClaimCount\nENDCOMPUTE\nRETURN Currency AS 'EUR'")).Success);
+            });
+
+            var (inputs, _, errors) = manager.GetConsolidatedInputs(new[] { "CH", "ZY" });
+            await fixture.FeeRepository.RemoveFeeAsync(other.Id);
+
+            var conflict = Assert.IsType<FeeResultInputConflict>(Assert.Single(errors));
+            Assert.Equal("ClaimCount", conflict.InputName);
+            Assert.Contains("PCT-ZY", Assert.Single(conflict.Errors));
+            var claims = Assert.IsType<DslInputNumber>(Assert.Single(inputs, i => i.Name == "ClaimCount"));
+            Assert.NotEqual(50, claims.MaxValue);
         }
 
         private static List<IPFValue> DefaultsFor(IEnumerable<DslInput> inputs)

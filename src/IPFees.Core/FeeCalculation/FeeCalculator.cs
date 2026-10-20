@@ -296,6 +296,13 @@ namespace IPFees.Core.FeeCalculation
 
     public abstract record FeeResult();
     public record FeeResultFail(string FeeName, string FeeDescription, IEnumerable<string> Errors) : FeeResult();
+    /// <summary>
+    /// Two schedules priced together declare an input of the same name differently. The
+    /// questionnaire keeps the first declaration, so the other schedule may be asked a question
+    /// it does not expect.
+    /// </summary>
+    public record FeeResultInputConflict(string InputName, IEnumerable<string> Errors)
+        : FeeResultFail(InputName, "Conflicting input declarations", Errors);
     /// <param name="TotalMandatoryAmount">Mandatory fees added as bare numbers; meaningful as an amount only when every fee is in the schedule's currency.</param>
     /// <param name="TotalOptionalAmount">Optional fees added the same way.</param>
     /// <param name="Components">
