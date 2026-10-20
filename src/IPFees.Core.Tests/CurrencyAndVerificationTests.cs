@@ -242,7 +242,7 @@ namespace IPFees.Core.Tests
             }
 
             Assert.True(unfinished.Count == 0, string.Join(Environment.NewLine, unfinished));
-            Assert.Equal(63, monotonicityChecked);
+            Assert.Equal(62, monotonicityChecked);
         }
 
         /// <summary>

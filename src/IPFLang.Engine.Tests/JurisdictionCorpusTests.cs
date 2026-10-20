@@ -22,11 +22,11 @@ namespace IPFLang.Engine.Tests
         [Fact]
         public void CorpusIsEmbeddedAndDiscoverable()
         {
-            Assert.Equal(119, JurisdictionCorpus.Codes.Count);
+            // The 118 schedules whose expert validation the IPFLang article reports.
+            Assert.Equal(118, JurisdictionCorpus.Codes.Count);
             Assert.Equal(4, JurisdictionCorpus.BaseNames.Count);
             Assert.Contains("RO", JurisdictionCorpus.Codes);
             Assert.Contains("US", JurisdictionCorpus.Codes);
-            Assert.Contains("MY", JurisdictionCorpus.Codes);
             Assert.Contains("BASE_EP", JurisdictionCorpus.BaseNames);
         }
 
