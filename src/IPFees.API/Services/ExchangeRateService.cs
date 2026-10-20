@@ -46,7 +46,9 @@ namespace IPFees.API.Services
         {
             try
             {
-                var csvFilePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "..", "IPFees.Web", "wwwroot", "data", "exchange_rates.csv");
+                // The web project's table is copied next to the service when it is built, so the
+                // service finds it in its own container.
+                var csvFilePath = Path.Combine(AppContext.BaseDirectory, "data", "exchange_rates.csv");
                 var response = FallbackExchangeRates.Load(csvFilePath, line => logger.LogWarning("Ignoring malformed exchange rate line: {Line}", line));
                 if (response.Status == ResponseStatus.Invalid)
                 {

@@ -80,12 +80,14 @@ builder.Services.AddSwaggerGen(c =>
         Description =
             "Computes intellectual property fees for supported jurisdictions and currencies.\n\n" +
             "**This API is public and requires no authentication.** It serves the same fee " +
-            "schedules as the web calculator, all of which are published by the patent offices " +
-            "themselves. There is no rate limiting, so treat it as a reference service rather " +
-            "than a dependency for production workloads.\n\n" +
-            "Note that `/Fee/Verify` runs static analysis over a fee schedule and is far more " +
-            "expensive than the other endpoints; a schedule declaring a monotonicity directive " +
-            "will consume the full verification budget before responding.",
+            "schedules as the web calculator, which encode the fee tables the patent offices " +
+            "themselves publish. There is no rate limiting, so treat it as a reference service " +
+            "rather than a dependency for production workloads; a firm that relies on it should " +
+            "run its own deployment.\n\n" +
+            "`/Fee/Verify` checks the `VERIFY` directives of the schedules named. Each directive " +
+            "is verified on its own against a five-second budget, and a directive that overruns " +
+            "it is reported as unfinished rather than passed. For the schedules of the reference " +
+            "corpus every directive finishes in milliseconds.",
         Contact = new Microsoft.OpenApi.OpenApiContact
         {
             Name = "Valer Bocan, PhD, CSSLP",
