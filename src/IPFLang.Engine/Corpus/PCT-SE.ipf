@@ -13,7 +13,7 @@
 #
 # =============================================================================
 
-VERSION '2024.1' EFFECTIVE 2024-01-01 DESCRIPTION 'Entry of national phase in Sweden'
+VERSION '2026.10' EFFECTIVE 2026-08-01 DESCRIPTION 'Entry of national phase in Sweden'
 
 # Inputs and groups shared across this regional system are declared once in the base
 # and inherited here. Redeclaring one below overrides the base for this jurisdiction only.
@@ -95,7 +95,7 @@ ENDDEFINE
 
 # File name: PCT-SE-OFF
 # File content: Official fees for PCT national phase: Sweden
-# Valid until n/a
+# Checked against the fees in force on 20 October 2026 (WIPO PCT Applicant's Guide SE; PRV fees and payment)
 # Is newer than 30 days: False
 # Fees keywords: ['claim']
 
@@ -117,7 +117,7 @@ YIELD 0 IF ClaimCount LTE 10
 ENDCOMPUTE
 
 COMPUTE FEE OFF_Renewal3
-LET RenFee AS 1500
+LET RenFee AS 1600
 LET RenMonth AS ROUND ( ApplicationDate!MONTHSTONOW_FROMLASTDAY ) #calculate difference in months to today
 YIELD RenFee IF RenMonth GTE 24
 ENDCOMPUTE

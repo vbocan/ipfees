@@ -13,7 +13,7 @@
 #
 # =============================================================================
 
-VERSION '2024.1' EFFECTIVE 2024-01-01 DESCRIPTION 'Entry of national phase in Turkey'
+VERSION '2026.10' EFFECTIVE 2026-01-01 DESCRIPTION 'Entry of national phase in Turkey'
 
 # Inputs and groups shared across this regional system are declared once in the base
 # and inherited here. Redeclaring one below overrides the base for this jurisdiction only.
@@ -95,18 +95,18 @@ ENDDEFINE
 
 # File name: PCT-TR-OFF
 # File content: Official fees for PCT national phase: Türkiye
-# Valid until n/a
+# Checked against the fees in force on 20 October 2026 (WIPO PCT Applicant's Guide TR)
 # Is newer than 30 days: False
 # Fees keywords: []
 
 COMPUTE FEE OFF_BasicNationalFee
-LET Fee1 AS 2015
+LET Fee1 AS 16890
 YIELD Fee1
 ENDCOMPUTE
 
 COMPUTE FEE OFF_SearchFee
-LET Fee1 AS 805
-LET Fee2 AS 400 #Persons
+LET Fee1 AS 5180
+LET Fee2 AS 2530 #Persons
 
 CASE ISR_AVAILABLE EQ FALSE AS
    YIELD Fee1 IF EntitySize NEQ Entity_Person
@@ -120,7 +120,7 @@ ENDCASE
 ENDCOMPUTE
 
 COMPUTE FEE OFF_Renewal3
-LET RenFee AS 400
+LET RenFee AS 3800
 LET RenMonth AS ROUND ( ApplicationDate!MONTHSTONOW ) #calculate difference in months to today
 YIELD RenFee IF RenMonth GTE 24
 ENDCOMPUTE

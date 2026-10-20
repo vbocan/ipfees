@@ -13,7 +13,7 @@
 #
 # =============================================================================
 
-VERSION '2024.1' EFFECTIVE 2024-01-01 DESCRIPTION 'Entry of national phase in Italy'
+VERSION '2026.10' EFFECTIVE 2026-01-01 DESCRIPTION 'Entry of national phase in Italy'
 
 # Inputs and groups shared across this regional system are declared once in the base
 # and inherited here. Redeclaring one below overrides the base for this jurisdiction only.
@@ -95,7 +95,7 @@ ENDDEFINE
 
 # File name: PCT-IT-OFF
 # File content: Official fees for PCT national phase: Italy
-# Valid until n/a
+# Checked against the fees in force on 20 October 2026 (eGuide IT)
 # Is newer than 30 days: False
 # Fees keywords: ['claim']
 
@@ -111,17 +111,7 @@ YIELD CF1*(ClaimCount-10) IF ClaimCount GT 10
 YIELD 0 IF ClaimCount LTE 10
 ENDCOMPUTE
 
-COMPUTE FEE OFF_SheetFee
-LET SF1 AS 50 #11-20
-LET SF2 AS 50 #21-50
-LET SF3 AS 50 #>50
-
-YIELD SF1*(SheetCount-10) IF SheetCount GTE 11 AND SheetCount LTE 20
-YIELD SF1*10 + SF2*(SheetCount-20) IF SheetCount GTE 21 AND SheetCount LTE 50
-YIELD SF1*10 + SF2*30 + SF3*(SheetCount-50) IF SheetCount GTE 51 
-# Nothing is due in the remaining case; stated so the schedule answers it.
-YIELD 0 IF SheetCount LTE 10
-ENDCOMPUTE
+#filed online, the filing fee is 50 EUR whatever the number of pages; the page bands apply only on paper
 
 #annuities after grant 
 
@@ -156,9 +146,7 @@ ENDCOMPUTE
 
 VERIFY COMPLETE FEE OFF_BasicNationalFee
 VERIFY COMPLETE FEE OFF_ClaimFee
-VERIFY COMPLETE FEE OFF_SheetFee
 VERIFY MONOTONIC FEE OFF_ClaimFee WITH RESPECT TO ClaimCount
-VERIFY MONOTONIC FEE OFF_SheetFee WITH RESPECT TO SheetCount
 
 # =============================================================================
 # Returns

@@ -33,7 +33,7 @@ DEFAULT Entity_Large
 ENDDEFINE
 
 # Application date
-DEFINE DATE ApplicationDate AS 'Application date'
+DEFINE DATE ApplicationDate AS 'Application date (international filing date)'
 GROUP ApplicationGroup
 BETWEEN 01.01.2000 AND TODAY
 DEFAULT TODAY
@@ -47,7 +47,7 @@ DEFAULT 10
 ENDDEFINE
 
 # Sheets/Pages
-DEFINE NUMBER SheetCount AS 'Number of pages'
+DEFINE NUMBER SheetCount AS 'Number of pages/sheets'
 GROUP ApplicationGroup
 BETWEEN 1 AND 10000
 DEFAULT 30

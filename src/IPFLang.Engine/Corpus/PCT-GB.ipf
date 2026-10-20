@@ -13,7 +13,7 @@
 #
 # =============================================================================
 
-VERSION '2024.1' EFFECTIVE 2024-01-01 DESCRIPTION 'Entry of national phase in United Kingdom'
+VERSION '2026.10' EFFECTIVE 2026-04-01 DESCRIPTION 'Entry of national phase in United Kingdom'
 
 # Inputs and groups shared across this regional system are declared once in the base
 # and inherited here. Redeclaring one below overrides the base for this jurisdiction only.
@@ -95,32 +95,32 @@ ENDDEFINE
 
 # File name: PCT-GB-OFF
 # File content: Official fees for PCT national phase: United Kingdom
-# Valid until n/a
+# Checked against the fees in force on 20 October 2026 (S.I. 2026/183; WIPO eGuide GB)
 # Is newer than 30 days: False
 # Fees keywords: ['claim', 'claims', 'page']
 
 COMPUTE FEE OFF_BasicNationalFee
-LET Fee1 AS 30
+LET Fee1 AS 40
 YIELD Fee1
 ENDCOMPUTE
 
 COMPUTE FEE OFF_ClaimFee
-LET CF1 AS 20
+LET CF1 AS 27
 YIELD CF1*(ClaimCount-25) IF ClaimCount GT 25
 # Nothing is due in the remaining case; stated so the schedule answers it.
 YIELD 0 IF ClaimCount LTE 25
 ENDCOMPUTE
 
 COMPUTE FEE OFF_SheetFee
-LET SF1 AS 10
+LET SF1 AS 13
 YIELD SF1*(SheetCount-35) IF SheetCount GT 35
 # Nothing is due in the remaining case; stated so the schedule answers it.
 YIELD 0 IF SheetCount LTE 35
 ENDCOMPUTE
 
 COMPUTE FEE OFF_SearchFee
-LET SF1 AS 120 #150-30 - ISR available; electronic filing
-LET SF2 AS 150 #180-30 - ISR not available; electronic filing
+LET SF1 AS 160 #200-40 - ISR available; electronic filing
+LET SF2 AS 200 #240-40 - ISR not available; electronic filing
 
 YIELD SF1 IF ISR_AVAILABLE EQ TRUE
 YIELD SF2 IF ISR_AVAILABLE EQ FALSE
@@ -128,7 +128,7 @@ ENDCOMPUTE
 
 RETURN ExaminationDeadline AS '33 months after priority'
 COMPUTE FEE OFF_ExaminationFee OPTIONAL
-LET Fee1 AS 130
+LET Fee1 AS 130 #170-40 - electronic filing
 YIELD Fee1
 ENDCOMPUTE
 

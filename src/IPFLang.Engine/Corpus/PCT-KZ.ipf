@@ -13,7 +13,7 @@
 #
 # =============================================================================
 
-VERSION '2024.1' EFFECTIVE 2024-01-01 DESCRIPTION 'Entry of national phase in Kazakhstan'
+VERSION '2026.10' EFFECTIVE 2026-10-01 DESCRIPTION 'Entry of national phase in Kazakhstan'
 
 # Inputs and groups shared across this regional system are declared once in the base
 # and inherited here. Redeclaring one below overrides the base for this jurisdiction only.
@@ -95,19 +95,19 @@ ENDDEFINE
 
 # File name: PCT-KZ-OFF
 # File content: Official fees for PCT national phase: Kazakhstan
-# Valid until n/a
+# Checked against the fees in force on 20 October 2026 (Qazpatent invention fee page; WIPO eGuide KZ)
 # Is newer than 30 days: False
 # Fees keywords: []
 
 COMPUTE FEE OFF_BasicNationalFee
-LET Fee1 AS 20320.16
+LET Fee1 AS 21045.88
 YIELD Fee1
 ENDCOMPUTE
 
 COMPUTE FEE OFF_ExaminationFee OPTIONAL #3 months after invite
-LET Fee1 AS 66959.20 
+LET Fee1 AS 69350.60 
 LET Discount1 AS 0.2
-LET ICFee AS 53519.20
+LET ICFee AS 55430.60
 LET ICDiscount AS 0.15
 YIELD Fee1
 YIELD -Discount1*Fee1 IF ISR_AVAILABLE EQ TRUE OR IPRP NEQ IPRP_NONE

@@ -12,7 +12,7 @@
 #
 # =============================================================================
 
-VERSION '2024.1' EFFECTIVE 2024-01-01 DESCRIPTION 'entry of national phase in Brunei Darussalam'
+VERSION '2026.10' EFFECTIVE 2025-03-07 DESCRIPTION 'entry of national phase in Brunei Darussalam'
 
 
 # Groups
@@ -33,7 +33,7 @@ DEFAULT Entity_Large
 ENDDEFINE
 
 # Application date
-DEFINE DATE ApplicationDate AS 'Application date'
+DEFINE DATE ApplicationDate AS 'Application date (international filing date)'
 GROUP ApplicationGroup
 BETWEEN 01.01.2000 AND TODAY
 DEFAULT TODAY
@@ -47,7 +47,7 @@ DEFAULT 10
 ENDDEFINE
 
 # Sheets/Pages
-DEFINE NUMBER SheetCount AS 'Number of pages'
+DEFINE NUMBER SheetCount AS 'Number of pages/sheets'
 GROUP ApplicationGroup
 BETWEEN 1 AND 10000
 DEFAULT 30
@@ -150,7 +150,7 @@ ENDDEFINE
 
 # File name: PCT-BN-OFF
 # File content: Official fees for PCT national phase: Brunei Darussalam
-# Valid until n/a
+# Checked against the fees in force on 20 October 2026 (WIPO eGuide BN)
 
 COMPUTE FEE OFF_BasicNationalFee
 YIELD 160<BND>

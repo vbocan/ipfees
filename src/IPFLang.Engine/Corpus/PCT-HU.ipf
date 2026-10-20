@@ -13,7 +13,7 @@
 #
 # =============================================================================
 
-VERSION '2024.1' EFFECTIVE 2024-01-01 DESCRIPTION 'Entry of national phase in Hungary'
+VERSION '2026.10' EFFECTIVE 2025-04-13 DESCRIPTION 'Entry of national phase in Hungary'
 
 # Inputs and groups shared across this regional system are declared once in the base
 # and inherited here. Redeclaring one below overrides the base for this jurisdiction only.
@@ -95,20 +95,20 @@ ENDDEFINE
 
 # File name: PCT-HU-OFF
 # File content: Official fees for PCT national phase: Hungary
-# Valid until n/a
+# Checked against the fees in force on 20 October 2026 (Decree 19/2005 GKM, consolidated 13.04.2025; WIPO eGuide HU)
 # Is newer than 30 days: True
 # Fees keywords: ['claim']
 
 COMPUTE FEE OFF_BasicNationalFee
-LET Fee1 AS 37400
+LET Fee1 AS 50000
 YIELD Fee1 IF OfficeElected EQ FALSE
 YIELD 0.5*Fee1 IF OfficeElected EQ TRUE
 ENDCOMPUTE
 
 COMPUTE FEE OFF_ClaimFee
-LET CF1 AS 1900 #11-20
-LET CF2 AS 3800 #21-30
-LET CF3 AS 5600 #>30
+LET CF1 AS 2500 #11-20
+LET CF2 AS 5000 #21-30
+LET CF3 AS 7500 #>30
 
 CASE OfficeElected EQ FALSE AS
 YIELD CF1*(ClaimCount-10) IF ClaimCount GTE 11 AND ClaimCount LTE 20

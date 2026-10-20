@@ -13,7 +13,7 @@
 #
 # =============================================================================
 
-VERSION '2024.1' EFFECTIVE 2024-01-01 DESCRIPTION 'Entry of national phase in Norway'
+VERSION '2026.10' EFFECTIVE 2026-08-01 DESCRIPTION 'Entry of national phase in Norway'
 
 # Inputs and groups shared across this regional system are declared once in the base
 # and inherited here. Redeclaring one below overrides the base for this jurisdiction only.
@@ -95,24 +95,24 @@ ENDDEFINE
 
 # File name: PCT-NO-OFF
 # File content: Official fees for PCT national phase: Norway
-# Valid until n/a
+# Checked against the fees in force on 20 October 2026 (Patentstyret price list; WIPO eGuide NO)
 # Is newer than 30 days: False
 # Fees keywords: ['claim']
 
 COMPUTE FEE OFF_BasicNationalFee
-LET Fee1 AS 4650
+LET Fee1 AS 6050
 YIELD Fee1
 ENDCOMPUTE
 
 COMPUTE FEE OFF_ClaimFee
-LET Fee1 AS 250
+LET Fee1 AS 330
 YIELD Fee1*(ClaimCount-10) IF ClaimCount GT 10
 # Nothing is due in the remaining case; stated so the schedule answers it.
 YIELD 0 IF ClaimCount LTE 10
 ENDCOMPUTE
 
 COMPUTE FEE OFF_Renewal
-LET RenFee AS 700
+LET RenFee AS 910
 LET RenMonth AS ROUND ( ApplicationDate!MONTHSTONOW ) #calculate difference in months to today
 YIELD RenFee
 YIELD RenFee IF RenMonth GTE 12

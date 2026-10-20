@@ -12,7 +12,7 @@
 #
 # =============================================================================
 
-VERSION '2024.1' EFFECTIVE 2024-01-01 DESCRIPTION 'Entry of national phase entry in Algeria'
+VERSION '2026.10' EFFECTIVE 2026-01-01 DESCRIPTION 'Entry of national phase entry in Algeria'
 
 
 # Groups
@@ -33,7 +33,7 @@ DEFAULT Entity_Large
 ENDDEFINE
 
 # Application date
-DEFINE DATE ApplicationDate AS 'Application date'
+DEFINE DATE ApplicationDate AS 'Application date (international filing date)'
 GROUP ApplicationGroup
 BETWEEN 01.01.2000 AND TODAY
 DEFAULT TODAY
@@ -47,7 +47,7 @@ DEFAULT 10
 ENDDEFINE
 
 # Sheets/Pages
-DEFINE NUMBER SheetCount AS 'Number of pages'
+DEFINE NUMBER SheetCount AS 'Number of pages/sheets'
 GROUP ApplicationGroup
 BETWEEN 1 AND 10000
 DEFAULT 30
@@ -150,22 +150,22 @@ ENDDEFINE
 
 # File name: PCT-DZ-OFF
 # File content: Official fees for PCT national phase: Algeria
-# Valid until n/a
+# Checked against the fees in force on 20 October 2026 (eGuide DZ; INAPI patent taxes)
 # Is newer than 30 days: False
 # Fees keywords: ['claims', 'priority']
 
 COMPUTE FEE OFF_BasicNationalFee
-LET Fee1 AS 7500
+LET Fee1 AS 15000 # company rate
 YIELD Fee1
 ENDCOMPUTE
 
 COMPUTE FEE OFF_PriorityFee
-LET Fee1 AS 2000
+LET Fee1 AS 10000 # company rate
 YIELD Fee1*PriorityCount
 ENDCOMPUTE
 
 COMPUTE FEE OFF_SheetFee
-LET Fee1 AS 1200 #per each 5 exceeding 10
+LET Fee1 AS 5000 #per each 5 exceeding 10; company rate
 YIELD Fee1*CEIL( ( SheetCount - 10 ) / 5 ) IF SheetCount GT 10
 # Nothing is due in the remaining case; stated so the schedule answers it.
 YIELD 0 IF SheetCount LTE 10

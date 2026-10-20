@@ -12,7 +12,7 @@
 #
 # =============================================================================
 
-VERSION '2024.1' EFFECTIVE 2024-01-01 DESCRIPTION 'Entry of national phase in Barbados'
+VERSION '2026.10' EFFECTIVE 2026-06-05 DESCRIPTION 'Entry of national phase in Barbados'
 
 
 # Groups
@@ -33,7 +33,7 @@ DEFAULT Entity_Large
 ENDDEFINE
 
 # Application date
-DEFINE DATE ApplicationDate AS 'Application date'
+DEFINE DATE ApplicationDate AS 'Application date (international filing date)'
 GROUP ApplicationGroup
 BETWEEN 01.01.2000 AND TODAY
 DEFAULT TODAY
@@ -47,7 +47,7 @@ DEFAULT 10
 ENDDEFINE
 
 # Sheets/Pages
-DEFINE NUMBER SheetCount AS 'Number of pages'
+DEFINE NUMBER SheetCount AS 'Number of pages/sheets'
 GROUP ApplicationGroup
 BETWEEN 1 AND 10000
 DEFAULT 30
@@ -150,7 +150,7 @@ ENDDEFINE
 
 # File name: PCT-BB-OFF
 # File content: Official fees for PCT national phase: Barbados
-# Valid until n/a
+# Checked against the fees in force on 20 October 2026 (WIPO eGuide BB)
 
 COMPUTE FEE OFF_BasicNationalFee
 YIELD 300<BBD>

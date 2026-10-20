@@ -13,7 +13,7 @@
 #
 # =============================================================================
 
-VERSION '2024.1' EFFECTIVE 2024-01-01 DESCRIPTION 'Entry of national phase entry in Germany'
+VERSION '2026.10' EFFECTIVE 2026-04-10 DESCRIPTION 'Entry of national phase entry in Germany'
 
 # Inputs and groups shared across this regional system are declared once in the base
 # and inherited here. Redeclaring one below overrides the base for this jurisdiction only.
@@ -95,7 +95,7 @@ ENDDEFINE
 
 # File name: PCT-DE-OFF
 # File content: Official fees for PCT national phase: Germany
-# Valid until n/a
+# Checked against the fees in force on 20 October 2026 (eGuide DE; DPMA A 9510.1 July 2026)
 # Is newer than 30 days: True
 # Fees keywords: ['claims', 'claim']
 
@@ -118,11 +118,11 @@ YIELD Fee1 IF ISR_AVAILABLE EQ TRUE
 YIELD Fee2 IF ISR_AVAILABLE EQ FALSE
 ENDCOMPUTE
 
-# need to check if 3rd annuity is due (>1.5 years after filing date)
+# The renewal fee for the third year falls due at the second anniversary of the international filing date.
 COMPUTE FEE OFF_Renewal3
 LET RenFee AS 70
 LET RenMonth AS ROUND ( ApplicationDate!MONTHSTONOW_FROMLASTDAY ) #calculate difference in months to today
-YIELD RenFee IF RenMonth GTE 18
+YIELD RenFee IF RenMonth GTE 24 #due at the second anniversary of the international filing date
 ENDCOMPUTE
 
 # =============================================================================

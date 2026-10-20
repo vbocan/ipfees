@@ -13,7 +13,7 @@
 #
 # =============================================================================
 
-VERSION '2024.1' EFFECTIVE 2024-01-01 DESCRIPTION 'Entry of national phase in Iceland'
+VERSION '2026.10' EFFECTIVE 2025-02-15 DESCRIPTION 'Entry of national phase in Iceland'
 
 # Inputs and groups shared across this regional system are declared once in the base
 # and inherited here. Redeclaring one below overrides the base for this jurisdiction only.
@@ -95,24 +95,24 @@ ENDDEFINE
 
 # File name: PCT-IS-OFF
 # File content: Official fees for PCT national phase: Iceland
-# Valid until n/a
+# Checked against the fees in force on 20 October 2026 (eGuide IS, Regulation 1279/2024)
 # Is newer than 30 days: False
 # Fees keywords: ['claim']
 
 COMPUTE FEE OFF_BasicNationalFee
-LET Fee1 AS 67800
+LET Fee1 AS 76000
 YIELD Fee1
 ENDCOMPUTE
 
 COMPUTE FEE OFF_ClaimFee
-LET CF1 AS 4400
+LET CF1 AS 4900
 YIELD CF1*(ClaimCount-10) IF ClaimCount GT 10
 # Nothing is due in the remaining case; stated so the schedule answers it.
 YIELD 0 IF ClaimCount LTE 10
 ENDCOMPUTE
 
 COMPUTE FEE OFF_Renewal3
-LET RenFee AS 11600*3
+LET RenFee AS 13000*3
 LET RenMonth AS ROUND ( ApplicationDate!MONTHSTONOW ) #calculate difference in months to today
 YIELD RenFee IF RenMonth GTE 24
 ENDCOMPUTE

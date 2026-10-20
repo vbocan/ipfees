@@ -12,7 +12,7 @@
 #
 # =============================================================================
 
-VERSION '2024.1' EFFECTIVE 2024-01-01 DESCRIPTION 'Entry of national phase in Republic of Korea'
+VERSION '2026.10' EFFECTIVE 2023-08-01 DESCRIPTION 'Entry of national phase in Republic of Korea'
 
 
 # Groups
@@ -33,7 +33,7 @@ DEFAULT Entity_Large
 ENDDEFINE
 
 # Application date
-DEFINE DATE ApplicationDate AS 'Application date'
+DEFINE DATE ApplicationDate AS 'Application date (international filing date)'
 GROUP ApplicationGroup
 BETWEEN 01.01.2000 AND TODAY
 DEFAULT TODAY
@@ -47,7 +47,7 @@ DEFAULT 10
 ENDDEFINE
 
 # Sheets/Pages
-DEFINE NUMBER SheetCount AS 'Number of pages'
+DEFINE NUMBER SheetCount AS 'Number of pages/sheets'
 GROUP ApplicationGroup
 BETWEEN 1 AND 10000
 DEFAULT 30
@@ -150,7 +150,7 @@ ENDDEFINE
 
 # File name: PCT-KR-OFF
 # File content: Official fees for PCT national phase: Republic of Korea
-# Valid until n/a
+# Checked against the fees in force on 20 October 2026 (MOIP fee page; WIPO eGuide KR)
 # Is newer than 30 days: False
 # Fees keywords: ['sheet', 'claim']
 
@@ -167,8 +167,8 @@ YIELD Fee1*PriorityCount
 ENDCOMPUTE
 
 COMPUTE FEE OFF_ExaminationFee OPTIONAL #3 years of IFD
-LET Fee1 AS 143000
-LET FeeClaim AS 44000
+LET Fee1 AS 166000
+LET FeeClaim AS 51000
 LET Discount AS 0.7
 YIELD Fee1 + FeeClaim*ClaimCount
 YIELD -Discount * (Fee1 + FeeClaim*ClaimCount) IF EntitySize EQ Entity_Person

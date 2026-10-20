@@ -13,7 +13,7 @@
 #
 # =============================================================================
 
-VERSION '2024.1' EFFECTIVE 2024-01-01 DESCRIPTION 'Entry of regional phase in Belarus'
+VERSION '2026.10' EFFECTIVE 2026-01-01 DESCRIPTION 'Entry of regional phase in Belarus'
 
 # Inputs and groups shared across this regional system are declared once in the base
 # and inherited here. Redeclaring one below overrides the base for this jurisdiction only.
@@ -95,24 +95,24 @@ ENDDEFINE
 
 # File name: PCT-BY-OFF
 # File content: Official fees for PCT national phase: Belarus
-# Valid until n/a
+# Checked against the fees in force on 20 October 2026 (WIPO eGuide BY; Tax Code annex 23 rates in base values, base value 45 BYN from 1 January 2026)
 
 COMPUTE FEE OFF_BasicNationalFee
-LET Fee AS 90.65
+LET Fee AS 110.25
 YIELD Fee
 ENDCOMPUTE
 
 COMPUTE FEE OFF_ClaimFee
-LET CF AS 38.85
+LET CF AS 47.25
 YIELD CF*(IndependentClaimCount-1) IF IndependentClaimCount GT 1
 # Nothing is due in the remaining case; stated so the schedule answers it.
 YIELD 0 IF IndependentClaimCount LTE 1
 ENDCOMPUTE
 
 COMPUTE FEE OFF_ExaminationFee
-LET Fee1 AS 440.30 
+LET Fee1 AS 535.50 
 LET Fee2 AS 0.5 * Fee1 # 50% Discount if ISR available
-LET IndepClaimFee AS 259 # no discount seems to apply here
+LET IndepClaimFee AS 315 # no discount seems to apply here
 
 YIELD Fee1 IF ISR_AVAILABLE NEQ TRUE
 YIELD Fee2 IF ISR_AVAILABLE EQ TRUE
@@ -120,7 +120,7 @@ YIELD IndepClaimFee*(IndependentClaimCount-1) IF IndependentClaimCount GT 1
 ENDCOMPUTE
 
 COMPUTE FEE OFF_GrantFee OPTIONAL
-YIELD 181.30<BYN>
+YIELD 220.50<BYN>
 ENDCOMPUTE
 
 # no annuities before grant
@@ -158,7 +158,7 @@ VERIFY COMPLETE FEE OFF_BasicNationalFee
 VERIFY COMPLETE FEE OFF_ClaimFee
 VERIFY COMPLETE FEE OFF_ExaminationFee
 VERIFY COMPLETE FEE OFF_GrantFee
-VERIFY MONOTONIC FEE OFF_ClaimFee WITH RESPECT TO ClaimCount
+VERIFY MONOTONIC FEE OFF_ClaimFee WITH RESPECT TO IndependentClaimCount
 
 # =============================================================================
 # Returns

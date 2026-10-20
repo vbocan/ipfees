@@ -13,7 +13,7 @@
 #
 # =============================================================================
 
-VERSION '2024.1' EFFECTIVE 2024-01-01 DESCRIPTION 'Entry of national phase in Turkmenistan'
+VERSION '2026.10' EFFECTIVE 2026-07-30 DESCRIPTION 'Entry of national phase in Turkmenistan'
 
 # Inputs and groups shared across this regional system are declared once in the base
 # and inherited here. Redeclaring one below overrides the base for this jurisdiction only.
@@ -95,7 +95,7 @@ ENDDEFINE
 
 # File name: PCT-TM-OFF
 # File content: Official fees for PCT national phase: Turkmenistan
-# Valid until n/a
+# Checked against the fees in force on 20 October 2026 (WIPO PCT Applicant's Guide TM)
 # Is newer than 30 days: False
 # Fees keywords: ['claim']
 
@@ -105,7 +105,7 @@ YIELD Fee1
 ENDCOMPUTE
 
 COMPUTE FEE OFF_ClaimFee
-LET Fee1 AS 25
+LET Fee1 AS 30
 YIELD Fee1*(IndependentClaimCount -1)
 ENDCOMPUTE
 
@@ -146,7 +146,7 @@ ENDCOMPUTE
 
 VERIFY COMPLETE FEE OFF_BasicNationalFee
 VERIFY COMPLETE FEE OFF_ClaimFee
-VERIFY MONOTONIC FEE OFF_ClaimFee WITH RESPECT TO ClaimCount
+VERIFY MONOTONIC FEE OFF_ClaimFee WITH RESPECT TO IndependentClaimCount
 
 # =============================================================================
 # Returns

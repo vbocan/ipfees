@@ -12,7 +12,7 @@
 #
 # =============================================================================
 
-VERSION '2024.1' EFFECTIVE 2024-01-01 DESCRIPTION 'Entry of national phase in China'
+VERSION '2026.10' EFFECTIVE 2026-10-01 DESCRIPTION 'Entry of national phase in China'
 
 
 # Groups
@@ -33,7 +33,7 @@ DEFAULT Entity_Large
 ENDDEFINE
 
 # Application date
-DEFINE DATE ApplicationDate AS 'Application date'
+DEFINE DATE ApplicationDate AS 'Application date (international filing date)'
 GROUP ApplicationGroup
 BETWEEN 01.01.2000 AND TODAY
 DEFAULT TODAY
@@ -47,7 +47,7 @@ DEFAULT 10
 ENDDEFINE
 
 # Sheets/Pages
-DEFINE NUMBER SheetCount AS 'Number of pages'
+DEFINE NUMBER SheetCount AS 'Number of pages/sheets'
 GROUP ApplicationGroup
 BETWEEN 1 AND 10000
 DEFAULT 30
@@ -150,30 +150,30 @@ ENDDEFINE
 
 # File name: PCT-CN-OFF
 # File content: Official fees for PCT national phase: China
-# Valid until n/a
+# Checked against the fees in force on 20 October 2026 (WIPO eGuide CN; CNIPA Announcement 594)
 # Is newer than 30 days: False
 # Fees keywords: ['sheet', 'claim', 'claims', 'priority']
 
 COMPUTE FEE OFF_BasicNationalFee
 LET Fee1 AS 900
-CASE RO_NP EQ FALSE AS
+CASE RO_NP EQ FALSE OR ISA NEQ ISA_CN AS
    YIELD Fee1
 ENDCASE
-# Waived, with the application surcharges (claim and sheet fees), when CNIPA was the
-# receiving office.
-CASE RO_NP EQ TRUE AS
+# Waived, with the application surcharges (claim and sheet fees), when CNIPA was both the
+# receiving office and the International Searching Authority (CNIPA Announcement 594).
+CASE RO_NP EQ TRUE AND ISA EQ ISA_CN AS
    YIELD 0
 ENDCASE
 ENDCOMPUTE
 
 COMPUTE FEE OFF_ClaimFee
-CASE RO_NP EQ FALSE AS
+CASE RO_NP EQ FALSE OR ISA NEQ ISA_CN AS
    YIELD 150*(ClaimCount-10) IF ClaimCount GT 10
    # Nothing is due in the remaining case; stated so the schedule answers it.
    YIELD 0 IF ClaimCount LTE 10
 ENDCASE
-# Waived when CNIPA was the receiving office.
-CASE RO_NP EQ TRUE AS
+# Waived when CNIPA was both the receiving office and the ISA.
+CASE RO_NP EQ TRUE AND ISA EQ ISA_CN AS
    YIELD 0
 ENDCASE
 ENDCOMPUTE
@@ -182,14 +182,14 @@ COMPUTE FEE OFF_SheetFee
 LET Fee1 AS 50
 LET Fee2 AS 100
 
-CASE RO_NP EQ FALSE AS
+CASE RO_NP EQ FALSE OR ISA NEQ ISA_CN AS
    YIELD Fee1*(SheetCount-30) IF SheetCount GT 30 AND SheetCount LTE 300
    YIELD (300-30)*Fee1 + Fee2*(SheetCount-300) IF SheetCount GT 300
    # Nothing is due in the remaining case; stated so the schedule answers it.
    YIELD 0 IF SheetCount LTE 30
 ENDCASE
-# Waived when CNIPA was the receiving office.
-CASE RO_NP EQ TRUE AS
+# Waived when CNIPA was both the receiving office and the ISA.
+CASE RO_NP EQ TRUE AND ISA EQ ISA_CN AS
    YIELD 0
 ENDCASE
 ENDCOMPUTE
@@ -206,7 +206,6 @@ COMPUTE FEE OFF_ExaminationFee OPTIONAL #due within 3 years of priority date
 LET ExFee AS 2500
 
 YIELD ExFee
-YIELD -ExFee * 0.2 IF (ISA EQ ISA_JP OR ISA EQ ISA_SE OR ISA EQ ISA_EPO) AND IPRP NEQ IPRP_CN  #20% discount if ISA=JP,PRV,EP
 YIELD -ExFee IF IPRP EQ IPRP_CN OR ISA EQ ISA_CN # no examination fee when CNIPA drew up the ISR or the IPRP
 
 ENDCOMPUTE

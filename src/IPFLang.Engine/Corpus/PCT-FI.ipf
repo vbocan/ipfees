@@ -13,7 +13,7 @@
 #
 # =============================================================================
 
-VERSION '2024.1' EFFECTIVE 2024-01-01 DESCRIPTION 'Entry of national phase in Finland'
+VERSION '2026.10' EFFECTIVE 2026-01-01 DESCRIPTION 'Entry of national phase in Finland'
 
 # Inputs and groups shared across this regional system are declared once in the base
 # and inherited here. Redeclaring one below overrides the base for this jurisdiction only.
@@ -95,25 +95,26 @@ ENDDEFINE
 
 # File name: PCT-FI-OFF
 # File content: Official fees for PCT national phase: Finland
-# Valid until n/a
+# Checked against the fees in force on 20 October 2026 (PRH price list; PRH notice of 1 January 2026; WIPO eGuide FI)
 # Is newer than 30 days: False
 # Fees keywords: ['claim']
 
 COMPUTE FEE OFF_BasicNationalFee
-LET Fee1 AS 400
+LET Fee1 AS 450 #application filed online
 YIELD Fee1
 ENDCOMPUTE
 
 COMPUTE FEE OFF_ClaimFee
-LET CF1 AS 50
+LET CF1 AS 60
 YIELD CF1*(ClaimCount-15) IF ClaimCount GT 15
 # Nothing is due in the remaining case; stated so the schedule answers it.
 YIELD 0 IF ClaimCount LTE 15
 ENDCOMPUTE
 
 COMPUTE FEE OFF_Renewal
-LET RenFee AS 200
+LET RenFee AS 140 #3rd year
 LET RenMonth AS ROUND ( ApplicationDate!MONTHSTONOW_FROMLASTDAY ) #calculate difference in months to today
+YIELD 80 IF RenMonth GTE 12 #2nd year, charged from 1 January 2026
 YIELD RenFee IF RenMonth GTE 24
 ENDCOMPUTE
 

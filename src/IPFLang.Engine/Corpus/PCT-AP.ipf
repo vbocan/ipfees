@@ -12,7 +12,7 @@
 #
 # =============================================================================
 
-VERSION '2024.1' EFFECTIVE 2024-01-01 DESCRIPTION 'Entry of regional phase in ARIPO'
+VERSION '2026.10' EFFECTIVE 2025-03-01 DESCRIPTION 'Entry of regional phase in ARIPO'
 
 
 # Groups
@@ -33,7 +33,7 @@ DEFAULT Entity_Large
 ENDDEFINE
 
 # Application date
-DEFINE DATE ApplicationDate AS 'Application date'
+DEFINE DATE ApplicationDate AS 'Application date (international filing date)'
 GROUP ApplicationGroup
 BETWEEN 01.01.2000 AND TODAY
 DEFAULT TODAY
@@ -47,7 +47,7 @@ DEFAULT 10
 ENDDEFINE
 
 # Sheets/Pages
-DEFINE NUMBER SheetCount AS 'Number of pages'
+DEFINE NUMBER SheetCount AS 'Number of pages/sheets'
 GROUP ApplicationGroup
 BETWEEN 1 AND 10000
 DEFAULT 30
@@ -150,7 +150,7 @@ ENDDEFINE
 
 # File name: PCT-AP-OFF
 # File content: Official fees for PCT regional phase: ARIPO
-# Valid until n/a
+# Checked against the fees in force on 20 October 2026 (WIPO eGuide AP; Harare Protocol 2025, Schedule I; ARIPO notice of 1 March 2025)
 
 # Examination request: 3 years as of international filing date
 
@@ -159,13 +159,17 @@ YIELD 232<USD>
 ENDCOMPUTE
 
 COMPUTE FEE OFF_DesignationFee
-YIELD 85*CountryCount
+YIELD 100*CountryCount
 ENDCOMPUTE
 
 COMPUTE FEE OFF_PublicationFee
-YIELD 350<USD>
+YIELD 500<USD>
+# 20 per page from the 31st to the 100th, 30 per page from the 101st
 YIELD 20*(SheetCount-30) IF SheetCount GT 30
-YIELD 50*(ClaimCount-10) IF ClaimCount GT 10
+YIELD 10*(SheetCount-100) IF SheetCount GT 100
+# 100 per claim from the 11th to the 50th, 200 per claim from the 51st
+YIELD 100*(ClaimCount-10) IF ClaimCount GT 10
+YIELD 100*(ClaimCount-50) IF ClaimCount GT 50
 ENDCOMPUTE
 
 COMPUTE FEE OFF_SearchFee
@@ -174,11 +178,11 @@ YIELD 300<USD> IF ISR_AVAILABLE EQ FALSE
 ENDCOMPUTE
 
 COMPUTE FEE OFF_ExaminationFee
-YIELD 300 # 3 years as of international filing date
+YIELD 1000 # 3 years as of international filing date
 ENDCOMPUTE
 
 COMPUTE FEE OFF_GrantFee OPTIONAL
-YIELD 350<USD>
+YIELD 500<USD>
 ENDCOMPUTE
 
 # need to check if due (1-3 years after filing date)

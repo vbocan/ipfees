@@ -12,7 +12,7 @@
 #
 # =============================================================================
 
-VERSION '2024.1' EFFECTIVE 2024-01-01 DESCRIPTION 'Entry of national phase in Brazil'
+VERSION '2026.10' EFFECTIVE 2025-08-07 DESCRIPTION 'Entry of national phase in Brazil'
 
 
 # Groups
@@ -33,7 +33,7 @@ DEFAULT Entity_Large
 ENDDEFINE
 
 # Application date
-DEFINE DATE ApplicationDate AS 'Application date'
+DEFINE DATE ApplicationDate AS 'Application date (international filing date)'
 GROUP ApplicationGroup
 BETWEEN 01.01.2000 AND TODAY
 DEFAULT TODAY
@@ -47,7 +47,7 @@ DEFAULT 10
 ENDDEFINE
 
 # Sheets/Pages
-DEFINE NUMBER SheetCount AS 'Number of pages'
+DEFINE NUMBER SheetCount AS 'Number of pages/sheets'
 GROUP ApplicationGroup
 BETWEEN 1 AND 10000
 DEFAULT 30
@@ -150,20 +150,20 @@ ENDDEFINE
 
 # File name: PCT-BR-OFF
 # File content: Official fees for PCT national phase: Brazil
-# Valid until n/a
+# Checked against the fees in force on 20 October 2026 (WIPO eGuide BR; INPI Tabela de Retribuicoes, Portaria INPI/PR 10/2025)
 
 COMPUTE FEE OFF_BasicNationalFee
-YIELD 175<BRL>
+YIELD 260<BRL>
 ENDCOMPUTE
 
 COMPUTE FEE OFF_ExaminationFee
-YIELD 590  # 10 claims included; due date 36 months after IFD
+YIELD 870  # 10 claims included; due date 36 months after IFD
 ENDCOMPUTE
 
 COMPUTE FEE OFF_ClaimFee
-LET CF1 AS 100
-LET CF2 AS 200
-LET CF3 AS 500
+LET CF1 AS 140
+LET CF2 AS 290
+LET CF3 AS 740
 
 # between 10 and incl. 15 claims:
 YIELD CF1*(ClaimCount-10) IF ClaimCount GT 10 AND ClaimCount LTE 15
@@ -182,7 +182,7 @@ COMPUTE FEE OFF_Renewal
 LET RenMonth AS ROUND ( ApplicationDate!MONTHSTONOW ) #calculate difference in months to today
 # No annuity is due for the first two years; the first falls due 24 months after the
 # international filing date.
-YIELD 780<BRL> IF RenMonth GTE 24 # year 3
+YIELD 400<BRL> IF RenMonth GTE 24 # first application annuity (code 220)
 YIELD 0 IF RenMonth LT 24
 ENDCOMPUTE
 

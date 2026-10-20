@@ -12,7 +12,7 @@
 #
 # =============================================================================
 
-VERSION '2024.1' EFFECTIVE 2024-01-01 DESCRIPTION 'Entry of national phase in Bahrain'
+VERSION '2026.10' EFFECTIVE 2023-09-22 DESCRIPTION 'Entry of national phase in Bahrain'
 
 
 # Groups
@@ -33,7 +33,7 @@ DEFAULT Entity_Large
 ENDDEFINE
 
 # Application date
-DEFINE DATE ApplicationDate AS 'Application date'
+DEFINE DATE ApplicationDate AS 'Application date (international filing date)'
 GROUP ApplicationGroup
 BETWEEN 01.01.2000 AND TODAY
 DEFAULT TODAY
@@ -47,7 +47,7 @@ DEFAULT 10
 ENDDEFINE
 
 # Sheets/Pages
-DEFINE NUMBER SheetCount AS 'Number of pages'
+DEFINE NUMBER SheetCount AS 'Number of pages/sheets'
 GROUP ApplicationGroup
 BETWEEN 1 AND 10000
 DEFAULT 30
@@ -150,21 +150,22 @@ ENDDEFINE
 
 # File name: PCT-BH-OFF
 # File content: Official fees for PCT national phase: Bahrain
-# Valid until n/a
+# Checked against the fees in force on 20 October 2026 (WIPO eGuide BH; Ministerial Decision 102/2018 as amended by Order 67/2023)
 
 COMPUTE FEE OFF_BasicNationalFee
-YIELD 270<BHD> IF EntitySize EQ Entity_Person
+YIELD 40<BHD> IF EntitySize EQ Entity_Person
 YIELD 540<BHD> IF EntitySize NEQ Entity_Person
 ENDCOMPUTE
 
 COMPUTE FEE OFF_PublicationFee
-YIELD 160<BHD> IF EntitySize EQ Entity_Person
+YIELD 50<BHD> IF EntitySize EQ Entity_Person
 YIELD 320<BHD> IF EntitySize NEQ Entity_Person
 ENDCOMPUTE
 
 COMPUTE FEE OFF_Renewal
 LET RenMonth AS ROUND ( ApplicationDate!MONTHSTONOW ) #calculate difference in months to today
-YIELD 200<BHD> IF RenMonth GTE 12 #year 2
+YIELD 100<BHD> IF RenMonth GTE 12 AND EntitySize EQ Entity_Person #year 2
+YIELD 200<BHD> IF RenMonth GTE 12 AND EntitySize NEQ Entity_Person #year 2
 ENDCOMPUTE
 
 # =============================================================================

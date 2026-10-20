@@ -13,7 +13,7 @@
 #
 # =============================================================================
 
-VERSION '2024.1' EFFECTIVE 2024-01-01 DESCRIPTION 'Entry of national phase in Russian Federation'
+VERSION '2026.10' EFFECTIVE 2024-10-05 DESCRIPTION 'Entry of national phase in Russian Federation'
 
 # Inputs and groups shared across this regional system are declared once in the base
 # and inherited here. Redeclaring one below overrides the base for this jurisdiction only.
@@ -95,25 +95,25 @@ ENDDEFINE
 
 # File name: PCT-RU-OFF
 # File content: Official fees for PCT national phase: Russian Federation
-# Valid until n/a
+# Checked against the fees in force on 20 October 2026 (Rospatent Regulation 941 as amended; eGuide RU)
 # Is newer than 30 days: True
 # Fees keywords: ['claim']
 
 COMPUTE FEE OFF_BasicNationalFee
-LET Fee1 AS 3300
+LET Fee1 AS 4000
 YIELD Fee1
 ENDCOMPUTE
 
-COMPUTE FEE OFF_ClaimFee #reduction by 30% when filed online
-LET Fee1 AS 700
-YIELD Fee1*(ClaimCount-10)*0.7 IF ClaimCount GT 10
+COMPUTE FEE OFF_ClaimFee #the 30% reduction for online filing was abolished on 5 October 2024
+LET Fee1 AS 1000
+YIELD Fee1*(ClaimCount-10) IF ClaimCount GT 10
 # Nothing is due in the remaining case; stated so the schedule answers it.
 YIELD 0 IF ClaimCount LTE 10
 ENDCOMPUTE
 
 COMPUTE FEE OFF_ExaminationFee
-LET Fee1 AS 12500
-LET Fee2 AS 9200
+LET Fee1 AS 14000
+LET Fee2 AS 10000
 YIELD Fee1
 YIELD -Fee1*0.5 IF ISA EQ ISA_RU #50% off if ROSPAT=ISA
 YIELD -Fee1*0.1 IF ISA NEQ ISA_RU AND ISA NEQ ISA_NONE #10% off if any other ISA

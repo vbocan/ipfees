@@ -4,7 +4,7 @@
 # Entry of national phase in Bulgaria
 #
 # Category: OfficialFees
-# Currency: BGN
+# Currency: EUR
 # Phase: National Phase
 #
 # Inherits from: bases/base_ep.ipf
@@ -13,7 +13,7 @@
 #
 # =============================================================================
 
-VERSION '2024.1' EFFECTIVE 2024-01-01 DESCRIPTION 'Entry of national phase in Bulgaria'
+VERSION '2026.10' EFFECTIVE 2026-01-01 DESCRIPTION 'Entry of national phase in Bulgaria'
 
 # Inputs and groups shared across this regional system are declared once in the base
 # and inherited here. Redeclaring one below overrides the base for this jurisdiction only.
@@ -95,18 +95,19 @@ ENDDEFINE
 
 # File name: PCT-BG-OFF
 # File content: Official fees for PCT national phase: Bulgaria
-# Valid until n/a
+# Checked against the fees in force on 20 October 2026 (WIPO eGuide BG; Tariff of Fees, Decree No. 13 of 27 February 2025)
+# Bulgaria charges in euro from 1 January 2026.
 
 COMPUTE FEE OFF_BasicNationalFee
-YIELD 40+70 #filing plus publication fees
+YIELD 20.45+35.79 #filing plus publication fees
 ENDCOMPUTE
 
 COMPUTE FEE OFF_ExaminationFee
-YIELD 180<BGN>
+YIELD 92.03<EUR>
 ENDCOMPUTE
 
 COMPUTE FEE OFF_PriorityFee
-YIELD 20*PriorityCount
+YIELD 10.23*PriorityCount
 ENDCOMPUTE
 
 # =============================================================================
@@ -146,6 +147,6 @@ VERIFY COMPLETE FEE OFF_PriorityFee
 # Returns
 # =============================================================================
 
-RETURN Currency AS 'BGN'
+RETURN Currency AS 'EUR'
 RETURN Jurisdiction AS 'BG'
 RETURN JurisdictionName AS 'Entry of national phase in Bulgaria'

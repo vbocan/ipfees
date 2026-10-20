@@ -242,7 +242,9 @@ namespace IPFees.Core.Tests
             }
 
             Assert.True(unfinished.Count == 0, string.Join(Environment.NewLine, unfinished));
-            Assert.Equal(62, monotonicityChecked);
+            // October 2026: Italy's sheet fee went with its directive (filed online, the Italian filing
+            // fee is flat), and Cuba's claim fee is checked against each of the three counts it reads.
+            Assert.Equal(63, monotonicityChecked);
         }
 
         /// <summary>

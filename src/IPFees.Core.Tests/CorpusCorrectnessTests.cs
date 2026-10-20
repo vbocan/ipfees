@@ -73,12 +73,12 @@ namespace IPFees.Core.Tests
             }
         }
 
-        /// <summary>The USPTO charges 420 USD for each 50 sheets or part thereof above 100.</summary>
+        /// <summary>The USPTO charges 450 USD for each 50 sheets or part thereof above 100.</summary>
         [Theory]
         [InlineData(100, 0)]
-        [InlineData(101, 420)]
-        [InlineData(150, 420)]
-        [InlineData(151, 840)]
+        [InlineData(101, 450)]
+        [InlineData(150, 450)]
+        [InlineData(151, 900)]
         public void PerBlockChargesRoundUp(int sheets, decimal expected)
         {
             var amount = FeeAmount("US", "OFF_SheetFee", new IPFValue[]
@@ -96,8 +96,8 @@ namespace IPFees.Core.Tests
         /// </summary>
         [Theory]
         [InlineData("ISA_EPO", 0)]
-        [InlineData("ISA_AT", 275)]
-        [InlineData("ISA_NONE", 1460)]
+        [InlineData("ISA_AT", 230)]
+        [InlineData("ISA_NONE", 1595)]
         public void EuropeanSupplementarySearchFee(string isa, decimal expected)
         {
             Assert.Equal(expected, FeeAmount("EP", "OFF_SearchFee", new IPFValue[] { new IPFValueString("ISA", isa) }));

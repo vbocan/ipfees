@@ -12,7 +12,7 @@
 #
 # =============================================================================
 
-VERSION '2024.1' EFFECTIVE 2024-01-01 DESCRIPTION 'Entry of national phase in Canada'
+VERSION '2026.10' EFFECTIVE 2026-01-01 DESCRIPTION 'Entry of national phase in Canada'
 
 
 # Groups
@@ -33,7 +33,7 @@ DEFAULT Entity_Large
 ENDDEFINE
 
 # Application date
-DEFINE DATE ApplicationDate AS 'Application date'
+DEFINE DATE ApplicationDate AS 'Application date (international filing date)'
 GROUP ApplicationGroup
 BETWEEN 01.01.2000 AND TODAY
 DEFAULT TODAY
@@ -47,7 +47,7 @@ DEFAULT 10
 ENDDEFINE
 
 # Sheets/Pages
-DEFINE NUMBER SheetCount AS 'Number of pages'
+DEFINE NUMBER SheetCount AS 'Number of pages/sheets'
 GROUP ApplicationGroup
 BETWEEN 1 AND 10000
 DEFAULT 30
@@ -150,24 +150,24 @@ ENDDEFINE
 
 # File name: PCT-CA-OFF
 # File content: Official fees for PCT national phase: Canada
-# Valid until n/a
+# Checked against the fees in force on 20 October 2026 (WIPO eGuide CA; CIPO 2026 list of fees for patents)
 
 COMPUTE FEE OFF_BasicNationalFee
-YIELD 203.59<CAD> IF EntitySize EQ Entity_Small
-YIELD 407.18<CAD> IF EntitySize NEQ Entity_Small
+YIELD 241.24<CAD> IF EntitySize EQ Entity_Small
+YIELD 595.06<CAD> IF EntitySize NEQ Entity_Small
 ENDCOMPUTE
 
 # ExReq 4 years after IFD
 COMPUTE FEE OFF_ExaminationFee OPTIONAL
 
 CASE ISA EQ ISA_CA AS
-   YIELD 100<CAD> IF EntitySize EQ Entity_Small
-   YIELD 203.59<CAD> IF EntitySize NEQ Entity_Small
+   YIELD 117.94<CAD> IF EntitySize EQ Entity_Small
+   YIELD 297.00<CAD> IF EntitySize NEQ Entity_Small
 ENDCASE
 
 CASE ISA NEQ ISA_CA AS
-   YIELD 407.18<CAD> IF EntitySize EQ Entity_Small
-   YIELD 814.37<CAD> IF EntitySize NEQ Entity_Small
+   YIELD 482.48<CAD> IF EntitySize EQ Entity_Small
+   YIELD 1190.13<CAD> IF EntitySize NEQ Entity_Small
 ENDCASE
 
 ENDCOMPUTE
@@ -175,8 +175,8 @@ ENDCOMPUTE
 COMPUTE FEE OFF_Renewal
 LET RenMonth AS ROUND ( ApplicationDate!MONTHSTONOW ) #calculate difference in months to today
 
-LET AnnFeeSmall AS 50
-LET AnnFeeLarge AS 100
+LET AnnFeeSmall AS 60.26
+LET AnnFeeLarge AS 134.02
 
 CASE EntitySize EQ Entity_Small AS 
    YIELD AnnFeeSmall #year 2

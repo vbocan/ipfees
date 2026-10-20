@@ -7,9 +7,8 @@ using IPFLang.Parser;
 namespace IPFLang.Engine.Tests
 {
     /// <summary>
-    /// Corrections to the corpus that change an amount, each pinned at the inputs it concerns. The
-    /// amounts are those of the corpus baseline (January 2024); the corrections fix how a fee is
-    /// charged, not what it costs.
+    /// Corrections to how the corpus charges a fee, each pinned at the inputs it concerns, at the
+    /// amounts in force when the corpus was last checked against the offices' tables (October 2026).
     /// </summary>
     public class CorpusCorrectionsTests
     {
@@ -18,27 +17,27 @@ namespace IPFLang.Engine.Tests
         [InlineData(3)]
         public void UsMultipleDependentClaimFeeIsChargedOncePerApplication(int claims)
         {
-            Assert.Equal(860m, Fee("US", "OFF_MultipleDependentClaimFee", ("MultipleDependentClaimCount", claims)));
-            Assert.Equal(172m, Fee("US", "OFF_MultipleDependentClaimFee", ("MultipleDependentClaimCount", claims), ("EntitySize", "Entity_Micro")));
+            Assert.Equal(925m, Fee("US", "OFF_MultipleDependentClaimFee", ("MultipleDependentClaimCount", claims)));
+            Assert.Equal(185m, Fee("US", "OFF_MultipleDependentClaimFee", ("MultipleDependentClaimCount", claims), ("EntitySize", "Entity_Micro")));
             Assert.Equal(0m, Fee("US", "OFF_MultipleDependentClaimFee", ("MultipleDependentClaimCount", 0)));
         }
 
         [Fact]
         public void EpExaminationFeeIsReducedBy75PercentWhenTheEpoDrewUpTheIper()
         {
-            Assert.Equal(2055m * 0.25m, Fee("EP", "OFF_ExaminationFee", ("IPRP", "IPRP_EPO"), ("ISA", "ISA_EPO")));
-            Assert.Equal(2055m, Fee("EP", "OFF_ExaminationFee", ("IPRP", "IPRP_NONE"), ("ISA", "ISA_EPO")));
+            Assert.Equal(2240m * 0.25m, Fee("EP", "OFF_ExaminationFee", ("IPRP", "IPRP_EPO"), ("ISA", "ISA_EPO")));
+            Assert.Equal(2240m, Fee("EP", "OFF_ExaminationFee", ("IPRP", "IPRP_NONE"), ("ISA", "ISA_EPO")));
         }
 
         [Fact]
-        public void CnFilingFeeAndSurchargesAreWaivedWhenCnipaWasTheReceivingOffice()
+        public void CnFilingFeeAndSurchargesAreWaivedWhenCnipaWasTheReceivingOfficeAndTheSearchingAuthority()
         {
-            var waived = new (string, object)[] { ("RO_NP", true), ("ClaimCount", 20), ("SheetCount", 40) };
+            var waived = new (string, object)[] { ("RO_NP", true), ("ISA", "ISA_CN"), ("ClaimCount", 20), ("SheetCount", 40) };
             Assert.Equal(0m, Fee("CN", "OFF_BasicNationalFee", waived));
             Assert.Equal(0m, Fee("CN", "OFF_ClaimFee", waived));
             Assert.Equal(0m, Fee("CN", "OFF_SheetFee", waived));
 
-            var charged = new (string, object)[] { ("RO_NP", false), ("ClaimCount", 20), ("SheetCount", 40) };
+            var charged = new (string, object)[] { ("RO_NP", true), ("ISA", "ISA_EPO"), ("ClaimCount", 20), ("SheetCount", 40) };
             Assert.Equal(900m, Fee("CN", "OFF_BasicNationalFee", charged));
             Assert.Equal(1500m, Fee("CN", "OFF_ClaimFee", charged));
             Assert.Equal(500m, Fee("CN", "OFF_SheetFee", charged));
@@ -49,7 +48,8 @@ namespace IPFLang.Engine.Tests
         {
             Assert.Equal(0m, Fee("CN", "OFF_ExaminationFee", ("ISA", "ISA_CN")));
             Assert.Equal(0m, Fee("CN", "OFF_ExaminationFee", ("ISA", "ISA_EPO"), ("IPRP", "IPRP_CN")));
-            Assert.Equal(2000m, Fee("CN", "OFF_ExaminationFee", ("ISA", "ISA_EPO")));
+            // The 20 % reduction for an EPO, JPO or Swedish search ended with Announcement 594.
+            Assert.Equal(2500m, Fee("CN", "OFF_ExaminationFee", ("ISA", "ISA_EPO")));
             Assert.Equal(2500m, Fee("CN", "OFF_ExaminationFee", ("ISA", "ISA_US")));
         }
 
@@ -59,7 +59,7 @@ namespace IPFLang.Engine.Tests
             var today = DateOnly.FromDateTime(DateTime.Today);
             Assert.Equal(0m, Fee("BR", "OFF_Renewal", ("ApplicationDate", today)));
             Assert.Equal(0m, Fee("BR", "OFF_Renewal", ("ApplicationDate", today.AddMonths(-18))));
-            Assert.Equal(780m, Fee("BR", "OFF_Renewal", ("ApplicationDate", today.AddMonths(-30))));
+            Assert.Equal(400m, Fee("BR", "OFF_Renewal", ("ApplicationDate", today.AddMonths(-30))));
         }
 
         [Theory]

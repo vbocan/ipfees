@@ -12,7 +12,7 @@
 #
 # =============================================================================
 
-VERSION '2024.1' EFFECTIVE 2024-01-01 DESCRIPTION 'Entry of national phase in Colombia'
+VERSION '2026.10' EFFECTIVE 2026-02-13 DESCRIPTION 'Entry of national phase in Colombia'
 
 
 # Groups
@@ -33,7 +33,7 @@ DEFAULT Entity_Large
 ENDDEFINE
 
 # Application date
-DEFINE DATE ApplicationDate AS 'Application date'
+DEFINE DATE ApplicationDate AS 'Application date (international filing date)'
 GROUP ApplicationGroup
 BETWEEN 01.01.2000 AND TODAY
 DEFAULT TODAY
@@ -47,7 +47,7 @@ DEFAULT 10
 ENDDEFINE
 
 # Sheets/Pages
-DEFINE NUMBER SheetCount AS 'Number of pages'
+DEFINE NUMBER SheetCount AS 'Number of pages/sheets'
 GROUP ApplicationGroup
 BETWEEN 1 AND 10000
 DEFAULT 30
@@ -150,16 +150,16 @@ ENDDEFINE
 
 # File name: PCT-CO-OFF
 # File content: Official fees for PCT national phase: Colombia
-# Valid until n/a
+# Checked against the fees in force on 20 October 2026 (WIPO eGuide CO; SIC Resolucion 6167 de 2026, online rates)
 # Is newer than 30 days: False
 # Fees keywords: []
 
 COMPUTE FEE OFF_BasicNationalFee
-YIELD 84840<COP>
+YIELD 118000<COP>
 ENDCOMPUTE
 
 COMPUTE FEE OFF_ExaminationFee OPTIONAL
-YIELD 1151240<COP>
+YIELD 1599500<COP>
 ENDCOMPUTE
 
 #annuities only payable after grant

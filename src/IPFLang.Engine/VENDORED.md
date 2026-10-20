@@ -56,8 +56,8 @@ This directory is the IPFLang engine and its reference corpus, carried as source
   an application searched by the EPO paid 0 + 1,460 EUR and one searched by an unlisted authority
   paid nothing. It now excludes `ISA_EPO`.
 
-The corrections below fix how a fee is charged and keep the amounts of the corpus baseline
-(January 2024). Each is pinned by `CorpusCorrectionsTests`.
+The corrections below fix how a fee is charged. They were made at the amounts of the corpus
+baseline (January 2024); `CorpusCorrectionsTests` pins each at the amounts now in force.
 
 - **EP examination fee after an EPO preliminary report.** Art. 14(2) RFees reduces the fee by
   75 % when the EPO drew up the international preliminary examination report; the schedule
@@ -80,3 +80,32 @@ The corrections below fix how a fee is charged and keep the amounts of the corpu
   the sheets fall in (11 to 20, 21 to 30, 31 to 40) and above 40 sheets a further fee for each
   set of 10 sheets. The schedule multiplied each band's fee by the number of sheets in it, so 35
   sheets cost 7,200,000 XAF instead of 600,000, and it did not round the sets of 10 up.
+
+### The fees in force (October 2026)
+
+Every schedule was compared fee by fee with the official fees in force on 20 October 2026 (the
+office's own table where it could be reached, and the WIPO PCT Applicant's Guide national chapter)
+and edited to carry them. Amounts, per-unit rates, thresholds and conditions changed where the
+office's rule says otherwise today; no fee, input or reduction was added. The record of every row,
+with the source of each figure, is archived with the IPFees paper.
+
+- **Version lines.** Each schedule whose fees could be confirmed now reads
+  `VERSION '2026.10' EFFECTIVE <date>`, where the date is the day from which its amounts apply.
+  Mongolia, Malawi and Namibia, where nothing could be confirmed, keep the 2024 line.
+- **Currencies.** Bulgaria charges in euro since 1 January 2026, and Nicaragua's fee is set in
+  Central American pesos, at par with the US dollar; PCT-BG and PCT-NI follow.
+- **Fees no longer charged.** Georgia's subject-matter determination fee, Italy's sheet fee (the
+  online filing fee is flat) and China's 20 % examination reduction for an EPO, JPO or Swedish
+  search are removed.
+- **When fees fall due.** The European and German third-year renewal fees and the Danish fees for
+  the first three years fall due at the second anniversary of the international filing date, not
+  at 12 or 18 months. Belize's first annuity is part of its filing fee and is no longer charged
+  again.
+- **US search fee.** No search fee is charged when the USPTO drew up the international
+  preliminary report; the schedule used to add the fee for a US search on top.
+- **Monotonicity directives.** Eight directives in BY, CU, KG, TM, US and UZ named `ClaimCount` for
+  fees that read another count, and could never fail. Each names the count its fee reads, and
+  `ScheduleVerifier` now refuses a directive on an input the fee does not read.
+- **Labels.** The national schedules label the application date and the number of pages as the
+  regional bases do ("Application date (international filing date)", "Number of pages/sheets"),
+  so that a quotation across both kinds of schedule asks one question for each.
