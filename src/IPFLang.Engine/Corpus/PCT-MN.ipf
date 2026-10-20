@@ -12,7 +12,7 @@
 #
 # =============================================================================
 
-VERSION '2024.1' EFFECTIVE 2024-01-01 DESCRIPTION 'Entry of national phase in Mongolia'
+VERSION '2026.10' EFFECTIVE 2024-01-01 DESCRIPTION 'Entry of national phase in Mongolia'
 
 
 # Groups
