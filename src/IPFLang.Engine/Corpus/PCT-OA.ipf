@@ -176,10 +176,12 @@ LET SF2 AS 300000
 LET SF3 AS 600000
 LET SF4 AS 80000
 
-YIELD SF1*10 + SF2*10 + SF3*10 + SF4*((SheetCount-40)/10) IF SheetCount GT 40            # each additional set of 10 sheets > 40
-YIELD SF1*10 + SF2*10 + SF3*(SheetCount-30) IF SheetCount GT 30 AND SheetCount LT 41  # 31-40 sheets 
-YIELD SF1*10 + SF2*(SheetCount-20) IF SheetCount GT 20 AND SheetCount LT 31           # 21-30 sheets
-YIELD SF1*(SheetCount-10) IF SheetCount GT 10 AND SheetCount LT 21                    # 11-20 sheets
+# One flat fee for the band the description and drawings fall in, and above 40 sheets a further
+# fee for each set of 10 sheets or part of one.
+YIELD SF3 + SF4*CEIL( ( SheetCount - 40 ) / 10 ) IF SheetCount GT 40  # each additional set of 10 sheets > 40
+YIELD SF3 IF SheetCount GT 30 AND SheetCount LTE 40                   # 31-40 sheets
+YIELD SF2 IF SheetCount GT 20 AND SheetCount LTE 30                   # 21-30 sheets
+YIELD SF1 IF SheetCount GT 10 AND SheetCount LTE 20                   # 11-20 sheets
 # Nothing is due in the remaining case; stated so the schedule answers it.
 YIELD 0 IF SheetCount LTE 10
 ENDCOMPUTE

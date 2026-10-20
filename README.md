@@ -185,9 +185,10 @@ What the engine gives the platform:
 | Provenance and counterfactuals | Calculation audit trail |
 | Embedded jurisdiction corpus | 118 reference schedules shipped with the engine |
 
-`IPFees.Core.Tests` pins properties of the corpus: every completeness directive holds (three
-Chinese fees are listed as open), translation is priced in EUR, per-block charges round up, and
-every verification directive finishes within the editor's time budget.
+`IPFees.Core.Tests` pins properties of the corpus: every completeness directive holds,
+translation is priced in EUR, per-block charges round up, and every verification directive
+finishes within the editor's time budget. The engine's `CorpusCorrectionsTests` pins each fee
+corrected in IPFees (listed in `src/IPFLang.Engine/VENDORED.md`).
 
 ## Citation
 

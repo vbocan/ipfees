@@ -229,9 +229,12 @@ YIELD 0 IF ClaimCount LTE 20
 ENDCOMPUTE
 
 COMPUTE FEE OFF_MultipleDependentClaimFee
-YIELD 860*MultipleDependentClaimCount IF EntitySize NEQ Entity_Small AND EntitySize NEQ Entity_Micro
-YIELD 344*MultipleDependentClaimCount IF EntitySize EQ Entity_Small
-YIELD 172*MultipleDependentClaimCount IF EntitySize EQ Entity_Micro
+# Charged once for an application that contains a multiple dependent claim, not per claim.
+YIELD 860 IF MultipleDependentClaimCount GT 0 AND EntitySize NEQ Entity_Small AND EntitySize NEQ Entity_Micro
+YIELD 344 IF MultipleDependentClaimCount GT 0 AND EntitySize EQ Entity_Small
+YIELD 172 IF MultipleDependentClaimCount GT 0 AND EntitySize EQ Entity_Micro
+# Nothing is due in the remaining case; stated so the schedule answers it.
+YIELD 0 IF MultipleDependentClaimCount EQ 0
 ENDCOMPUTE
 
 #annuities after grant

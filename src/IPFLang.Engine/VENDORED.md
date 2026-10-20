@@ -56,13 +56,27 @@ This directory is the IPFLang engine and its reference corpus, carried as source
   an application searched by the EPO paid 0 + 1,460 EUR and one searched by an unlisted authority
   paid nothing. It now excludes `ISA_EPO`.
 
-### Open in the corpus
+The corrections below fix how a fee is charged and keep the amounts of the corpus baseline
+(January 2024). Each is pinned by `CorpusCorrectionsTests`.
 
-- **CN** `OFF_BasicNationalFee`, `OFF_ClaimFee`, `OFF_SheetFee` are guarded on `RO_NP EQ FALSE`
-  ("receiving office same as national phase office") and price nothing when it is `TRUE`.
-  Whether that is right is for the schedule's author to confirm; the three completeness
-  directives fail until it is settled.
-- **PH** `OFF_SheetFee` charges `Fee * (SheetCount - 5)` only above 30 sheets; the offset and
-  the threshold disagree.
-- **OA** `Off_AcceptanceFee` charges `SF4 * ((SheetCount - 40) / 10)` above 40 sheets without
-  rounding the block count up.
+- **EP examination fee after an EPO preliminary report.** Art. 14(2) RFees reduces the fee by
+  75 % when the EPO drew up the international preliminary examination report; the schedule
+  multiplied it by 0.75, charging 75 % instead of 25 %. The factor is now 0.25.
+- **US multiple dependent claim fee.** 37 CFR 1.492(j) charges it once for an application that
+  contains a multiple dependent claim; the schedule charged it per such claim.
+- **CN.** CNIPA waives the filing fee and the application surcharges (claim and sheet fees) for an
+  application it received as receiving office. The three fees priced nothing in that case without
+  saying so, and the claim and sheet fees had no zero case below their thresholds either, so
+  their completeness directives failed and the gate refused the schedule. Each now states those
+  cases. The examination fee is also waived when CNIPA drew up the international search report,
+  not only the preliminary report, and the 20 % reduction for an EPO, JPO or Swedish search no
+  longer combines with the waiver into a negative amount.
+- **BR annuities.** The schedule charged the annuities of the first and second years at entry,
+  and the first of them unconditionally. None falls due before the 24-month point from the
+  international filing date, so only the third-year annuity remains.
+- **PH sheet fee.** IPOPHL charges per sheet in excess of thirty; the schedule charged from the
+  sixth sheet once the thirtieth was passed (`Fee * (SheetCount - 5)` above 30).
+- **OA acceptance fee for description and drawings.** OAPI charges one flat fee for the band
+  the sheets fall in (11 to 20, 21 to 30, 31 to 40) and above 40 sheets a further fee for each
+  set of 10 sheets. The schedule multiplied each band's fee by the number of sheets in it, so 35
+  sheets cost 7,200,000 XAF instead of 600,000, and it did not round the sets of 10 up.

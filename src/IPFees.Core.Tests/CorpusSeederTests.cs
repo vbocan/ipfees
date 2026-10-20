@@ -23,9 +23,32 @@ namespace IPFees.Core.Tests
             this.fixture = fixture;
         }
 
-        private CorpusSeeder NewSeeder() =>
-            new(fixture.JurisdictionRepository, fixture.FeeRepository, fixture.ModuleRepository,
-                new FeeDefinitionValidator(fixture.ModuleRepository, new FeeScriptComposer(new DslParser()), new DslCalculator(new DslParser()), new VerificationBudget()));
+        private CorpusSeeder NewSeeder(Func<IFeeDefinitionValidator, IFeeDefinitionValidator>? wrap = null)
+        {
+            IFeeDefinitionValidator validator = new FeeDefinitionValidator(fixture.ModuleRepository, new FeeScriptComposer(new DslParser()), new DslCalculator(new DslParser()), new VerificationBudget());
+            return new(fixture.JurisdictionRepository, fixture.FeeRepository, fixture.ModuleRepository, wrap is null ? validator : wrap(validator));
+        }
+
+        /// <summary>
+        /// Refuses one jurisdiction's schedule as if a directive had failed. Every schedule in the
+        /// corpus passes the gate, so this is how the seeder's handling of a refusal is exercised.
+        /// </summary>
+        private sealed class RefusingValidator(IFeeDefinitionValidator inner, string code) : IFeeDefinitionValidator
+        {
+            public async Task<FeeValidationReport> ValidateAsync(string sourceCode, IEnumerable<Guid> referencedModules)
+            {
+                var report = await inner.ValidateAsync(sourceCode, referencedModules);
+                return sourceCode.Contains($"RETURN Jurisdiction AS '{code}'")
+                    ? report with { CompletenessFailures = report.CompletenessFailures.Append($"'{code}' refused by the test").ToList() }
+                    : report;
+            }
+
+            public Task<ModuleValidationReport> ValidateModuleAsync(Guid? moduleId, string sourceCode, bool autoRun) =>
+                inner.ValidateModuleAsync(moduleId, sourceCode, autoRun);
+
+            public Task<ModuleValidationReport> ValidateModuleRemovalAsync(Guid moduleId) =>
+                inner.ValidateModuleRemovalAsync(moduleId);
+        }
 
         private FeeCalculator NewCalculator(VerificationBudget? budget = null) =>
             new(fixture.FeeRepository,
@@ -59,9 +82,7 @@ namespace IPFees.Core.Tests
         }
 
         /// <summary>
-        /// The corpus passes the same gate as an author's save. Every schedule but CN passes it;
-        /// CN declares completeness for three fees that price nothing when the receiving office is
-        /// the national office, so it is refused and not served until that case is settled.
+        /// The corpus passes the same gate as an author's save, and every schedule in it passes.
         /// </summary>
         [Fact]
         public async Task SeedsEveryJurisdictionTheGateAcceptsAndEveryBase()
@@ -69,31 +90,39 @@ namespace IPFees.Core.Tests
             var report = await NewSeeder().SeedAsync();
 
             Assert.True(report.Succeeded, string.Join(" | ", report.Errors));
-            var refused = Assert.Single(report.RefusedSchedules);
-            Assert.Equal("CN", refused.Code);
-            Assert.Equal(3, refused.Findings.Count);
-            Assert.Equal(JurisdictionCorpus.Codes.Count - 1, report.Jurisdictions);
+            Assert.Empty(report.RefusedSchedules);
+            Assert.Equal(JurisdictionCorpus.Codes.Count, report.Jurisdictions);
             Assert.Equal(JurisdictionCorpus.BaseNames.Count, report.Bases);
 
             var stored = await fixture.FeeRepository.GetFees();
-            foreach (var code in JurisdictionCorpus.Codes.Where(c => c != "CN"))
+            foreach (var code in JurisdictionCorpus.Codes)
             {
                 Assert.Contains(stored, f => f.Name.Equals($"PCT-{code}", StringComparison.OrdinalIgnoreCase));
             }
-            Assert.DoesNotContain(stored, f => f.Name.Equals("PCT-CN", StringComparison.OrdinalIgnoreCase));
         }
 
+        /// <summary>
+        /// A schedule the gate refuses is not served, and neither is a copy of it left from an
+        /// earlier load.
+        /// </summary>
         [Fact]
-        public async Task ACopyOfARefusedScheduleLeftFromAnEarlierLoadIsRemoved()
+        public async Task ARefusedScheduleIsNotServedAndAnEarlierCopyIsRemoved()
         {
             var earlier = await fixture.FeeRepository.AddFeeAsync("PCT-CN");
             Assert.True(earlier.Success);
             Assert.True((await fixture.FeeRepository.SetFeeJurisdictionNameAsync(earlier.Id, "CN")).Success);
             Assert.True((await fixture.FeeRepository.SetFeeSourceCodeAsync(earlier.Id, JurisdictionCorpus.GetJurisdiction("CN"))).Success);
 
-            await NewSeeder().SeedAsync();
+            var report = await NewSeeder(inner => new RefusingValidator(inner, "CN")).SeedAsync();
 
+            var refused = Assert.Single(report.RefusedSchedules);
+            Assert.Equal("CN", refused.Code);
+            Assert.Equal(JurisdictionCorpus.Codes.Count - 1, report.Jurisdictions);
             Assert.DoesNotContain(await fixture.FeeRepository.GetFees(), f => f.Name.Equals("PCT-CN", StringComparison.OrdinalIgnoreCase));
+
+            // Seeding again with the real gate serves it once more.
+            await NewSeeder().SeedAsync();
+            Assert.Contains(await fixture.FeeRepository.GetFees(), f => f.Name.Equals("PCT-CN", StringComparison.OrdinalIgnoreCase));
         }
 
         /// <summary>
@@ -130,7 +159,7 @@ namespace IPFees.Core.Tests
 
             var stored = (await fixture.FeeRepository.GetFees()).ToList();
             Assert.Equal(
-                JurisdictionCorpus.Codes.Where(c => c != "CN").Select(c => $"PCT-{c}").OrderBy(n => n, StringComparer.Ordinal),
+                JurisdictionCorpus.Codes.Select(c => $"PCT-{c}").OrderBy(n => n, StringComparer.Ordinal),
                 stored.Select(f => f.Name).OrderBy(n => n, StringComparer.Ordinal));
             Assert.Equal(JurisdictionCorpus.GetJurisdiction("RO"), stored.Single(f => f.Name == "PCT-RO").SourceCode);
             Assert.Single(stored, f => f.JurisdictionName.Equals("RO", StringComparison.OrdinalIgnoreCase));

@@ -184,8 +184,9 @@ COMPUTE FEE OFF_SheetFee
 LET Fee1 AS 36
 LET Fee2 AS 18
 
-YIELD Fee1*(SheetCount-5) IF SheetCount GT 30 AND (EntitySize NEQ Entity_Small AND EntitySize NEQ Entity_Person)
-YIELD Fee2*(SheetCount-5) IF SheetCount GT 30 AND (EntitySize EQ Entity_Small OR EntitySize EQ Entity_Person)
+# Per sheet in excess of thirty.
+YIELD Fee1*(SheetCount-30) IF SheetCount GT 30 AND (EntitySize NEQ Entity_Small AND EntitySize NEQ Entity_Person)
+YIELD Fee2*(SheetCount-30) IF SheetCount GT 30 AND (EntitySize EQ Entity_Small OR EntitySize EQ Entity_Person)
 # Nothing is due in the remaining case; stated so the schedule answers it.
 YIELD 0 IF SheetCount LTE 30
 ENDCOMPUTE

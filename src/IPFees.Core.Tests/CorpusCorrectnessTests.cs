@@ -41,13 +41,13 @@ namespace IPFees.Core.Tests
         }
 
         /// <summary>
-        /// Every VERIFY COMPLETE in the corpus holds, except the three Chinese fees that are
-        /// guarded on the receiving office being a different office. Whether nothing is due when
-        /// it is the same office is a question for the schedule's author, not one the checker can
-        /// settle, so they are listed here rather than given a zero case by guesswork.
+        /// Every VERIFY COMPLETE in the corpus holds. The last three to do so were the Chinese
+        /// fees guarded on the receiving office being a different office: CNIPA waives the filing
+        /// fee and the application surcharges when it was the receiving office, and the schedule
+        /// now says so.
         /// </summary>
         [Fact]
-        public void EveryCompletenessDirectiveHoldsExceptTheOpenChineseCases()
+        public void EveryCompletenessDirectiveHolds()
         {
             var verifier = new ScheduleVerifier();
             var failing = new List<string>();
@@ -58,7 +58,7 @@ namespace IPFees.Core.Tests
                 failing.AddRange(result.CompletenessFailures.Select(f => $"{code}/{f.FeeName}"));
             }
 
-            Assert.Equal(new[] { "CN/OFF_BasicNationalFee", "CN/OFF_ClaimFee", "CN/OFF_SheetFee" }, failing.OrderBy(f => f));
+            Assert.Empty(failing);
         }
 
         [Fact]
