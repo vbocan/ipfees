@@ -9,7 +9,7 @@
 #
 # =============================================================================
 
-VERSION '2024.1' EFFECTIVE 2024-01-01 DESCRIPTION 'EA Base Fee Schedule'
+VERSION '2026.10' EFFECTIVE 2024-01-01 DESCRIPTION 'EA Base Fee Schedule'
 
 # Groups for organizing inputs
 DEFINE GROUP GeneralGroup AS 'General Settings' WITH WEIGHT 1
