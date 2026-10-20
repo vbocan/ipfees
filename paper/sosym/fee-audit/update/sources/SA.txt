@@ -1,0 +1,378 @@
+Source: https://pctlegal.wipo.int/eGuide/view-doc.xhtml?doc-code=SA&doc-lang=en
+Retrieved: 2026-10-20
+
+PCT Applicant's Guide Saudi Arabia - Valid as from
+February 1, 2026
+Processing
+Please wait...
+GENERAL INFO
+RO
+ISA
+IPEA
+NATIONAL CHAPTER
+SA - Useful information SA - International Phase SA - Annex B - Information on Contracting States or Intergovernmental Organization SA - Annex C - Receiving Office SA - Annex D - International Searching Authority SA - Annex E - International Preliminary Examining Authority SA - National Phase SA - Summary of requirements for entry into the national phase SA - The procedure in the national Phase SA - Annexes
+WIPO - PCT Applicant's Guide
+SA - Saudi Arabia
+Saudi Authority for Intellectual Property (SAIP)
+Information
+Please refresh this page to proceed.
+Refresh
+Error
+Information
+Warning
+Confirmation
+Cancel No Yes Ok
+All document versions available for SA - Saudi Arabia
+Listed from the newest to the oldest -
+Close
+Applicable as from
+February 1, 2026
+(Last updated on February 6, 2026)
+Summary of latest changes in this version
+ISA: ISA competency
+IPEA: IPEA competency
+List of changes
+All available versions
+Useful information
+The PCT Applicant’s Guide is updated almost every week with information received by the International Bureau.
+In case of question, please contact the Office or the International Bureau: pct.guide@wipo.int .
+List of abbreviations used in this document:
+Office: Saudi Authority for Intellectual Property (SAIP) Law: Law of July 16, 2004 on Patents, Layout Designs of Integrated Circuits, Plant Varieties, and Industrial Designs Regulations: Implementing Regulations of the Law of July 16, 2004
+List of currencies used in this document:
+SAR (Saudi Riyal), USD (US dollar)
+Countries and Offices information:
+The list of acronyms used for Offices is no longer shown as it has been integrated in the mouseover functionality for each ST.3 code shown in this document.
+Refer to List of WIPO Standards, Recommendations and Guidelines formerly Annex K, List of country names and two-letter codes. It includes a list of short names and two-letter codes accepted for use in indicating States, other entities and intergovernmental organizations and their Offices in documents relating to international applications under the PCT. The list is as set out in WIPO Standard ST.3.
+Also refer to PCT Contracting States formerly Annex A.
+Office profile
+For more technical information about the Office, refer to ePCT Office profile .
+PCT Reservations, Declarations, Notifications and Incompatibilities
+The Office does not have any reservations, declarations, notifications or incompatibilities.
+Refer to the full list .
+Office Closed dates
+The Office is closed weekly on Friday and Saturday Additional closed dates can be consulted on the Office Closed dates page
+International Phase
+Annex B - Information on Contracting States or Intergovernmental Organization
+Contracting State:
+Saudi Arabia
+Two-letter code:
+SA
+Name of Office:
+Saudi Authority for Intellectual Property (SAIP)
+Location:
+As Sahafah
+Olaya St. 6531
+3059
+Riyadh 13321
+Saudi Arabia
+Mailing address:
+Same as above
+Telephone:
+(966-11) 280 59 76
+(966-11) 280 59 84
+(966-11) 280 63 22
+E-mail:
+pct@saip.gov.sa
+Website:
+http://www.saip.gov.sa
+Facsimile:
+None
+Does the Office accept the filing of documents by facsimile or the like means (PCT Rule 92.4)?
+Yes, by e-mail
+Which kinds of documents may be so transmitted?
+All kinds of documents
+Must the original of the document be furnished in all cases?
+Yes , within 14 days from the date of the invitation
+Does the Office send notifications via e-mail in respect of international applications?
+Yes
+Would the Office accept evidence of mailing a document, in case of loss or delay, where a delivery service other than the postal authorities is used (PCT Rule 82.1)?
+Yes, provided that the delivery service is: Aramex , DHL , Federal Express , TNT , UPS , Another registered delivery service
+Is the Office prepared to allow applicants to make applications available to the WIPO Digital Access Service for Priority Documents (DAS) (PCT Rule 17.1(b- bis )?
+More information about WIPO DAS is available at: https://www.wipo.int/en/web/das . No
+Competent receiving Office(s) for international applications filed by nationals or residents of this State:
+IB , SA
+Does national legislation restrict the filing of international applications with foreign Offices?
+Refer to the Office
+Competent designated (or elected) Office(s) for this State:
+Refer to corresponding National Phase. SA
+Types of protection available via the PCT:
+Patents
+Payment methods accepted by the Office:
+The payment of fees should be effected in Saudi riyal. All payments must indicate the application number (national, if already known; international, if the national application number is not yet known), the name of the applicant and the type of fee being paid Payments should be made by bank transfer to the following bank: ALINMA BANK
+Riyadh
+Saudi Arabia IBAN
+SA8105000068224248888000
+Availability under the national law for an international-type search (PCT Article 15):
+None
+Provisional protection after international publication:
+None
+Information of interest if this Contracting State is designated (or elected)
+Time when the name and address of the inventor must be given:
+May be in the request or may be furnished later. If the indications concerning the inventor are missing at the expiration of the time limit under PCT Article 22 or 39(1), the Office will invite the applicant to comply with the requirement within a time limit of 90 days from the date of the invitation.
+Are there special provisions concerning the deposit of microorganisms and other biological material?
+No
+Annex C - Receiving Office
+Competent receiving Office for nationals and residents of:
+Saudi Arabia
+Language in which international applications may be filed:
+Depending on the applicant’s choice of competent International Searching Authority, a translation into a corresponding language (refer to Annex D) may have to be furnished by the applicant (PCT Rule 12.3). Arabic , English
+Language accepted for language-dependent free text in the sequence listing:
+Same language as the international application (Arabic or English)
+Language in which the request may be filed:
+Arabic , English
+Number of copies required by the receiving Office if the international application is filed on paper:
+Not applicable, as the Office accepts the filing of international applications only in electronic form or by electronic means (PCT Rule 89 bis .1(d- bis ))
+Does the receiving Office accept the filing of international applications in electronic form?
+Where the international application is filed in electronic form in accordance with and to the extent provided for in Part 7 and Annex F of the Administrative Instructions, the total amount of the international filing fee is reduced (refer to “Fees payable to the RO”). Where the international application contains a sequence listing as a separate part of the description, this must be furnished in accordance with Annex C of the Administrative Instructions, that is, in compliance with WIPO Standard ST.26 XML format; no fees are due for sequence listings filed in this format. For the relevant notifications by the Office, refer to Official Notices (PCT Gazette) dated 22 January 2015, pages 13 et seq. , 4 August 2022, page 209 and 24 July 2025, page 121. Yes, the Office accepts electronic filing via ePCT-Filing. Note that the Office will not accept the filing of international applications on paper (PCT Rule 89 bis .1(d- bis ))
+Does the receiving Office accept the submission of pre-conversion documents and, if yes, in which format (Section 706 of the PCT Administrative Instructions)?
+Yes, any format
+Does the receiving Office accept incorporation by reference (PCT Rule 20.6)?
+Yes
+Does the receiving Office accept the submission of color drawings on an informal basis and transmit them to the International Bureau?
+No
+Does the receiving Office accept requests for restoration of the right of priority (PCT Rule 26 bis .3)?
+Yes, the Office applies both the “due care” and the “unintentional” criteria to such requests
+Competent International Searching Authority:
+CA , CN , EG , EP , JP , KR , RU , SA , SG , US
+Competent International Preliminary Examining Authority:
+EG , KR , RU , SA CA , CN , EP , JP , SG , US The Office is competent only if the international search is or has been carried out by that Office.
+Fees payable to the RO:
+Transmittal fee:
+100 USD
+International filing fee:
+This fee is reduced by 90% if certain conditions apply (refer to Annex C(IB)). 6,250 SAR
+Fee per sheet in excess of 30:
+70 SAR
+Reductions (under Schedule of Fees, item 4):
+Electronic filing (the request in character coded format):
+940 SAR
+Electronic filing (the request, description, claims and abstract in character coded format):
+1,410 SAR
+Search fee:
+Refer to
+Annex D(CA)
+Annex D(EG)
+Annex D(EP)
+Annex D(JP)
+Annex D(KR)
+Annex D(RU)
+Annex D(SG)
+Annex D(US)
+Fee for priority document (PCT Rule 17.1(b)):
+100 USD
+Fee for requesting restoration of the right of priority (PCT Rule 26 bis .3(d)):
+534 USD
+— applicable in case of filing by an individual
+276 USD
+Is an agent required by the receiving Office?
+No, if the applicant resides in Saudi Arabia
+Yes, if the applicant is a non-resident
+Who can act as agent?
+Any attorney or lawyer registered in Saudi Arabia
+Waiver of power of attorney:
+Waivers of powers of attorney do not apply (PCT Rule 90.4(e) and 90.5(d)) where the agent or common representative submits any notice of withdrawal during the international phase (PCT Rule 90 bis .1 to 90 bis .4, also refer to International Phase, paragraph IP 11.048 ).
+Has the Office waived the requirement that a separate power of attorney be submitted?
+No
+Has the Office waived the requirement that a copy of a general power of attorney be submitted?
+No
+Annex D - International Searching Authority
+International Searching Authority competent for the following Receiving Offices:
+BH , OM , QA , RU , SA
+Fees payable to the ISA:
+Search fee (PCT Rule 16):
+This fee is payable to the receiving Office in the currency or one of the currencies accepted by it. 213 CHF 228 EUR 1,000 SAR 267 USD
+Additional search fee (PCT Rule 40.2):
+This fee is payable to the International Searching Authority and only in particular circumstances. 1,000 SAR
+Fee for copies of documents cited in the international search report (PCT Rule 44.3):
+per page 3 SAR
+How to obtain copies:
+The applicant receives, together with the international search report, a copy of each document cited in the report, free of charge. Designated (elected) Offices also receive a first set of copies, upon request, free of charge. Additional copies are available to applicants and designated (elected) Offices by e-mail at:
+pct@saip.gov.sa
+Fee for copies of documents contained in the file of the international application (PCT Rule 94.1 ter ):
+per page 3 SAR
+Protest fee (PCT Rule 40.2(e)):
+400 SAR
+Late furnishing fee (PCT Rule 13 ter .1(c)):
+100 SAR
+Conditions for refund and amount of refund of the search fee:
+Money paid by mistake, without cause, or in excess, will be refunded Where the international application is withdrawn or is considered withdrawn, under PCT Article 14(1), (3) or (4), before the start of the international search:
+refund of 100% Where the Authority benefits from an earlier search:
+refund of 25 to 75%, depending on the extent to which the Authority benefits from the earlier search
+Languages accepted for international search:
+Arabic , English
+Types of physical media accepted for the furnishing of nucleotide and/or amino acid sequence listings :
+None. Physical media are not accepted. Sequence listings must be filed in electronic form (refer to the Administrative Instructions under the PCT, Annex C)
+Subject matter that will not be searched:
+The subject matter specified in items (i) to (vi) of PCT Rule 39.1, with the exception of any subject matter searched under the patent grant procedure in accordance with the provisions of Saudi Arabian Patent Law
+Waiver of power of attorney:
+Waivers of powers of attorney do not apply (PCT Rule 90.4(e) and 90.5(d)) where the agent or common representative submits any notice of withdrawal during the international phase (PCT Rule 90 bis .1 to 90 bis .4, also refer to International Phase, paragraph IP 11.048 ).
+Has the Authority waived the requirement that a separate power of attorney be submitted?
+No
+Has the Authority waived the requirement that a copy of a general power of attorney be submitted?
+No
+Annex E - International Preliminary Examining Authority
+International Preliminary Examining Authority competent for the following Receiving Offices:
+BH , OM , QA , RU , SA
+Are there any restrictions with regard to the competence of the Authority acting as an International Preliminary Examining Authority?
+No
+Fees payable to the IPEA:
+Preliminary examination fee (PCT Rule 58):
+This fee is payable to the International Preliminary Examining Authority. 600 SAR
+Additional preliminary examination fee (PCT Rule 68.3):
+This fee is payable to the International Preliminary Examining Authority and only in particular circumstances. 600 SAR
+Handling fee (PCT Rule 57.1):
+This fee is payable to the International Preliminary Examining Authority. It is reduced by 90% if certain conditions apply (refer to Annex C(IB)). 940 SAR
+Fee for copies of documents cited in the international preliminary examination report (PCT Rule 71.2):
+per page 3 SAR
+How to obtain copies:
+The applicant receives, together with the international preliminary examination report, a copy of each additional document not cited in the international search report, free of charge. Additional copies are available to applicants and elected Offices by e-mail at:
+pct@saip.gov.sa
+Fee for copies of documents contained in the file of the international application (PCT Rule 94.2):
+per page 3 SAR
+Protest fee (PCT Rule 68.3(e)):
+400 SAR
+Late furnishing fee (PCT Rule 13 ter .2):
+100 SAR
+Conditions for refund and amount of refund of the preliminary examination fee:
+Money paid by mistake, without cause, or in excess, will be refunded. In the cases provided for under PCT Rule 58.3:
+refund of 100% If the international application or the demand is withdrawn before the start of the international preliminary examination:
+refund of 100%
+Languages accepted for international preliminary examination:
+Arabic , English
+Subject matter that will not be examined:
+The subject matter specified in items (i) to (vi) of PCT Rule 67.1, with the exception of any subject matter examined under the patent grant procedure in accordance with the provisions of Saudi Arabian Patent Law
+Waiver of power of attorney:
+Waivers of powers of attorney do not apply (PCT Rule 90.4(e) and 90.5(d)) where the agent or common representative submits any notice of withdrawal during the international phase (PCT Rule 90 bis .1 to 90 bis .4, also refer to International Phase, paragraph IP 11.048 ).
+Has the Authority waived the requirement that a separate power of attorney be submitted?
+No
+Has the Authority waived the requirement that a copy of a general power of attorney be submitted?
+No
+National Phase
+Summary of requirements for entry into the national phase
+Time limits applicable for entry into the national phase:
+Under PCT Article 22(1): 30 months from the priority date
+Under PCT Article 39(1)(a): 30 months from the priority date
+Does the Office permit reinstatement of rights (PCT Rule 49.6)?
+Yes, the Office permits reinstatement under the “due care” and the “unintentional” criteria Fee for reinstatement The amount in parentheses is applicable in case of filing by individuals. 2,000 SAR (1,000 SAR) The applicant must submit a petition which includes justifications for non-compliance and payment of the fee.
+Translation of international application required into (one of) the following language(s):
+Must be furnished within the time limit applicable under PCT Article 22 or 39(1). Arabic
+Required contents of the translation for entry into the national phase:
+Must be furnished within the time limit applicable under PCT Article 22 or 39(1). Under PCT Article 22: Description, claims (if amended, both as originally filed and as amended, together with any statement under PCT Article 19), any text matter of drawings, abstract Under PCT Article 39(1): Description, claims, any text matter of drawings, abstract (if any of those parts has been amended, both as originally filed and as amended by the annexes to the international preliminary examination report)
+Is a copy of the international application required in particular circumstances?
+A copy is required only if the Office has not received a copy of the international application from the International Bureau under PCT Article 20. This may be the case where the applicant expressly requests an earlier start of the national phase under PCT Article 23(2) or 40(2).
+Does the Office accept color drawings under its national law?
+Yes, the Office accepts color drawings under its national law. Drawings shall be clear and of high quality for duplication.
+National fees:
+Must be furnished within the time limit applicable under PCT Article 22 or 39(1). The amount in parentheses is applicable in case of filing by individuals.
+Filing fee
+800 SAR (400) SAR
+Exemptions, reductions or refunds of fees:
+Reductions of the national fee are indicated under “National fee” above.
+Special requirements of the Office (PCT Rule 51 bis ):
+Name and address of the inventor if not indicated in the “Request” part of the international application If not already complied with within the time limit applicable under PCT Article 22 or 39(1), the Office will invite the applicant to comply with the requirement within a time limit of three months from the date of receipt of the invitation. This requirement may be satisfied if the corresponding declaration has been made in accordance with PCT Rule 4.17. Declaration as to the applicant’s entitlement to apply for and be granted a patent If not already complied with within the time limit applicable under PCT Article 22 or 39(1), the Office will invite the applicant to comply with the requirement within a time limit of three months from the date of receipt of the invitation. This requirement may be satisfied if the corresponding declaration has been made in accordance with PCT Rule 4.17. Declaration as to the applicant’s entitlement to claim priority of the earlier application If not already complied with within the time limit applicable under PCT Article 22 or 39(1), the Office will invite the applicant to comply with the requirement within a time limit of three months from the date of receipt of the invitation. This requirement may be satisfied if the corresponding declaration has been made in accordance with PCT Rule 4.17. Document evidencing a change of name of the applicant if the change occurred after the international filing date and has not been reflected in a notification from the International Bureau (Form PCT/IB/306) If not already complied with within the time limit applicable under PCT Article 22 or 39(1), the Office will invite the applicant to comply with the requirement within a time limit of three months from the date of receipt of the invitation. Representation by an agent if the applicant is not resident in Saudi Arabia If not already complied with within the time limit applicable under PCT Article 22 or 39(1), the Office will invite the applicant to comply with the requirement within a time limit of three months from the date of receipt of the invitation. Instrument appointing the agent (authorization or power of attorney) If not already complied with within the time limit applicable under PCT Article 22 or 39(1), the Office will invite the applicant to comply with the requirement within a time limit of three months from the date of receipt of the invitation. Furnishing, where applicable, of a nucleotide and/or amino acid sequence listing in electronic form
+Who can act as agent?
+Any attorney or lawyer registered in Saudi Arabia
+Does the Office accept the effect of restoration of the right of priority by the receiving Office (PCT Rule 49 ter .1)?
+Yes
+Does the Office accept requests for restoration of the right of priority (PCT Rule 49 ter .2)?
+Yes, the Office applies both the “unintentional” and the “due care” criteria to such requests
+The procedure in the national Phase
+SA.01 FORM FOR ENTERING THE NATIONAL PHASE
+There is no special form for entry into the national phase. It is strongly recommended that the national phase application be filed through the Office’s electronic filing system at: https://eservices.saip.gov.sa/ .
+SA.02 LANGUAGE OF PROCEEDINGS
+The language of proceedings is Arabic.
+SA.03 TRANSLATION (CORRECTION)
+Errors in the translation of the international application can be corrected with reference to the text of the international application as originally filed (refer to National Phase, paragraphs NP 6.002 and NP 6.003 ).
+SA.04 TRANSLATION (CONTENTS)
+Regulations Art. 12 Any scientific terms should be expressed in the original language of the international application together with the Arabic translation when used for the first time. Subsequently, the Arabic only should be included, except for the claims, where the term shall be indicated in both languages. For abbreviations in foreign languages, the full name, in both Arabic and English, shall be indicated when used for the first time in the text. Subsequently, the abbreviation only shall be used. The same Arabic term for a Latin word shall be used when the Latin term recurs in the text. Symbols, units, names and basic physical constants approved by the International Union for Pure and Applied Physics (IUPAP), the SUNAMCO Commission, published in the Union Document No. 25 shall be used. Latin letters shall be used in accordance with the International Union for Pure and Applied Chemistry (IUPAC) System for writing structural figures and chemical formulae, symbols of chemical elements, compounds and names. If a chemical name appears in the title it shall be written in both Arabic and Latin. References, research papers, articles and scientific books shall be written in their original language.
+SA.05 FEES (MANNER OF PAYMENT)
+The manner of payment of the fees indicated in the Summary and in this Chapter is outlined in Annex SA.I.
+SA.06 ANNUAL FEES
+Law Art. 18 Annual fees are payable at the beginning of each year starting from the year following the filing date. In case of failure to pay a fee within the required time limit, the payment may be made within an additional time limit of three months, in which case, however, the fee is doubled. If the fee is not paid within the additional time limit of three months, the application or the patent will cease to have effect and this will be published in the Gazette. The amounts of the annual fees are indicated in Annex SA.I.
+SA.07 APPOINTMENT OF AN AGENT
+If the applicant is not resident in Saudi Arabia, an agent shall be appointed by filing a power of attorney, signed by the applicant.
+SA.08 EXAMINATION
+Regulations Art. 35(2) Substantive examination must be requested and fees must be paid within three months.
+SA.09 AMENDMENT OF THE APPLICATION
+Law Art. 9 The applicant may, at any time before the patent is granted, make amendments to his application, provided that the amendment does not go beyond the original disclosure. The amount of the fee for amendment is indicated in Annex SA.I.
+SA.10 EXCUSE OF DELAYS IN MEETING TIME LIMITS
+PCT Article 24(2) , PCT Article 48(2) , PCT Rule 82 bis Reference is made to paragraphs NP 6.022 to NP 6.027 of the National Phase.
+SA.11 REVIEW UNDER ARTICLE 25 OF THE PCT
+The applicable procedure is outlined in paragraphs NP 6.018 to NP 6.021 of the National Phase.
+SA.12 REINSTATEMENT OF RIGHTS
+PCT Rule 49 .6 Reinstatement of rights may be requested where the applicant unintentionally or in spite of due care required by the circumstances having been taken, failed to perform the acts referred to in Article 22 within the applicable time limit. A request for reinstatement must be presented in writing within two months from the removal of the cause of the failure to observe the time limit or 12 months from the date of expiration of the applicable time limit, whichever time limit expires earlier. Within the said two months, the omitted action must be completed.
+Annexes
+Annex SA.I - Fees
+The amount in parentheses is applicable in case of filing by individuals.
+Filing fee
+800 SAR (400 SAR)
+Examination fee
+Please refer to the Office
+Fee for amendment
+200 SAR (100 SAR)
+Grant and publication fee
+1,000 SAR (500 SAR)
+Fee for reinstatement of rights
+2,000 SAR (1,000 SAR)
+Fee for restoration of the right of priority
+2,000 SAR (1,000 SAR)
+Annual fees:
+— for the 1st year
+500 SAR (250 SAR)
+— for the 2nd year
+1,000 SAR (500 SAR)
+— for the 3rd year
+1,500 SAR (750 SAR)
+— for the 4th year
+2,000 SAR (1,000 SAR)
+— for the 5th year
+2,500 SAR (1,250 SAR)
+— for the 6th year
+3,000 SAR (1,500 SAR)
+— for the 7th year
+3,500 SAR (1,750 SAR)
+— for the 8th year
+4,000 SAR (2,000 SAR)
+— for the 9th year
+4,500 SAR (2,250 SAR)
+— for the 10th year
+5,000 SAR (2,500 SAR)
+— for the 11th year
+5,500 SAR (2,750 SAR)
+— for the 12th year
+6,000 SAR (3,000 SAR)
+— for the 13th year
+6,500 SAR (3,250 SAR)
+— for the 14th year
+7,000 SAR (3,500 SAR)
+— for the 15th year
+7,500 SAR (3,750 SAR)
+— for the 16th year
+8,000 SAR (4,000 SAR)
+— for the 17th year
+8,500 SAR (4,250 SAR)
+— for the 18th year
+9,000 SAR (4,500 SAR)
+— for the 19th year
+9,500 SAR (4,750 SAR)
+— for the 20th year
+10,000 SAR (5,000 SAR)
+How can payment of fees be effected?
+The payment of fees should be effected in Saudi riyal. All payments must indicate the application number (national, if already known; international, if the national application number is not yet known), the name of the applicant and the type of fee being paid Payments should be made by bank transfer to the following bank: ALINMA BANK
+Riyadh
+Saudi Arabia IBAN
+SA8105000068224248888000
+Forms
+Please refer to the Office.
+Change(s) as of February 1, 2026
+Please find below in blue all the changes done in this version (including editorial changes).
+Annex D - International Searching Authority
+International Searching Authority competent for the following Receiving Offices:
+RU
+Annex E - International Preliminary Examining Authority
+International Preliminary Examining Authority competent for the following Receiving Offices:
+RU
+Close
+Current version applicable from February 1, 2026
+, printed on October 20, 2026
+100 #102 - 2026-09-28T10:28:16.882+02:00

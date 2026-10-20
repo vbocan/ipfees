@@ -1,0 +1,22 @@
+[main] ERROR org.kie.dmn.core.compiler.ImportDMNResolverUtil - DMN Model with name=https://ipfees.example/dmn/pct_ch and namespace=PCT-CH failed to import a DMN with namespace=https://ipfees.example/dmn/base_ep name=base locationURI=base_ep.dmn, modelName=null.
+model https://ipfees.example/dmn/base_ep base_ep messages []
+model https://ipfees.example/dmn/pct_ch PCT-CH messages []
+--- 20 claims, 5000 words
+decision table OFF_ClaimFee: matched rules [1], selected [1]
+AgentServiceFee = 100 (SUCCEEDED)
+OFF_BasicNationalFee = 200 (SUCCEEDED)
+OFF_ClaimFee = 500 (SUCCEEDED)
+OFF_ExaminationFee = 500 (SUCCEEDED)
+Total = 1900 (SUCCEEDED)
+TranslationFee = 600 (SUCCEEDED)
+--- 8 claims, 5000 words
+decision table OFF_ClaimFee: matched rules [2], selected [2]
+AgentServiceFee = 100 (SUCCEEDED)
+OFF_BasicNationalFee = 200 (SUCCEEDED)
+OFF_ClaimFee = 0 (SUCCEEDED)
+OFF_ExaminationFee = 500 (SUCCEEDED)
+Total = 1400 (SUCCEEDED)
+TranslationFee = 600 (SUCCEEDED)
+[main] ERROR org.kie.dmn.core.compiler.ImportDMNResolverUtil - DMN Model with name=https://ipfees.example/dmn/pct_ch and namespace=PCT-CH failed to import a DMN with namespace=https://ipfees.example/dmn/base_ep name=base locationURI=base_ep.dmn, modelName=null.
+validator: 1 message(s)
+  INFO DMN: Decision Table Analysis of table 'OFF_ClaimFee' finished with no messages to be reported. (DMN id: OFF_ClaimFee_table, DMN Validation, Decision Table Analysis) 

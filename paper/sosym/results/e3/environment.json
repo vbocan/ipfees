@@ -1,0 +1,13 @@
+{
+  "measured": "2026-10-20 15:03",
+  "os": "Microsoft Windows 10.0.26300",
+  "framework": ".NET 10.0.11",
+  "architecture": "X64",
+  "logicalProcessors": 32,
+  "cpu": "Intel64 Family 6 Model 183 Stepping 1, GenuineIntel",
+  "engine": "1.5.0.0",
+  "platform": "platform_rev=68b21e4061f9e0be7206d675b54feb947bdc561e",
+  "budgetSeconds": 5,
+  "repetitions": 5,
+  "note": "each measurement runs in a fresh process, sequentially; the gate\u0027s first run includes JIT"
+}

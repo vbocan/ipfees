@@ -1,0 +1,54 @@
+Source: https://www.ige.ch/fileadmin/user_upload/schuetzen/patente/e/UEbersicht_neue_Gebuehren_CH-Patent_2027_en.pdf
+Retrieved: 2026-10-20
+
+20 May 2026
+
+
+Overview of the new fees for Swiss patents
+
+Fees for the granting procedure
+    Fee for                                   Fee in CHF until 31 December 2026         Fee in CHF from 1 January 2027
+    Application                               200                                       200
+    Additional patent claims                  50 (from the 11th claim)                  50 (from the 16th claim)
+    Search                                    500 (optional)                            5001 (mandatory)
+    Examination                               500                                       400
+    Full substantive examination              -                                         300 (in addition to the examination
+                                                                                        fee)
+    Early start of the full substantive       -                                         800 (includes all examination fees
+    examination                                                                         and the supplement for accelerated
+                                                                                        examination)
+    Acceleration of the patent granting       -                                         200 (in addition to the examination
+    procedure                                                                           fees)
+1
+    Please note the information on transitional provisions at www.ipi.ch/patents2027.
+
+
+Renewal fees for maintaining a patent
+
+    Year after filing                         Fee in CHF if due by 28 February 2027     Fee in CHF if due after 1 March 2027
+    3                                         -                                         90
+    4                                         100                                       110
+    5                                         120                                       130
+    6                                         140                                       150
+    7                                         160                                       170
+    8                                         180                                       190
+    9                                         220                                       230
+    10                                        260                                       270
+    11                                        300                                       310
+    12                                        340                                       370
+    13                                        400                                       430
+    14                                        460                                       490
+    15                                        520                                       570
+    16                                        600                                       650
+    17                                        680                                       730
+    18                                        760                                       820
+    19                                        860                                       910
+    20                                        960                                       1,000
+    Total renewal fees over the entire        7,060                                     7,620
+    maximum term
+
+
+Swiss Federal Institute of Intellectual Property
+Stauffacherstrasse 65/59 g, 3003 Bern, Switzerland
++41 31 377 77 77, info@ipi.ch, www.ipi.ch
+

@@ -1,0 +1,456 @@
+Source: https://pctlegal.wipo.int/eGuide/view-doc.xhtml?doc-code=AP&doc-lang=en
+Retrieved: 2026-10-20
+
+PCT Applicant's Guide African Regional Intellectual Property Organization - Valid as from
+February 27, 2026
+Processing
+Please wait...
+GENERAL INFO
+RO
+BIO
+NATIONAL CHAPTER
+AP - Useful information AP - International Phase AP - Annex B - Information on Contracting States or Intergovernmental Organization AP - Annex C - Receiving Office AP - Annex L - Deposits of Microorganisms and Other Biological Material AP - National Phase AP - Summary of requirements for entry into the national phase AP - The procedure in the national Phase AP - Annexes
+WIPO - PCT Applicant's Guide
+AP - African Regional Intellectual Property Organization
+African Regional Intellectual Property Organization (ARIPO)
+Information
+Please refresh this page to proceed.
+Refresh
+Error
+Information
+Warning
+Confirmation
+Cancel No Yes Ok
+All document versions available for AP - African Regional Intellectual Property Organization
+Listed from the newest to the oldest -
+Close
+Applicable as from
+February 27, 2026
+(Last updated on October 14, 2026)
+Summary of latest changes in this version
+Applicable since 27 August 2025:
+GENERAL INFO: RO Competency, DO/EO Competency
+RO: RO competency
+Applicable since 1 March 2025:
+The procedure in the national Phase: Various
+List of changes
+All available versions
+Useful information
+The PCT Applicant’s Guide is updated almost every week with information received by the International Bureau.
+In case of question, please contact the Office or the International Bureau: pct.guide@wipo.int .
+List of abbreviations used in this document:
+Office: African Regional Intellectual Property Organization (ARIPO) HP: Protocol on Patents and Industrial Designs within the Framework of the African Regional Intellectual Property Organization (ARIPO) (Harare Protocol) HR: Regulations for Implementing the Harare Protocol HAI: Administrative Instructions under the Regulations for Implementing the Harare Protocol
+List of currencies used in this document:
+USD (US dollar)
+Countries and Offices information:
+The list of acronyms used for Offices is no longer shown as it has been integrated in the mouseover functionality for each ST.3 code shown in this document.
+Refer to List of WIPO Standards, Recommendations and Guidelines formerly Annex K, List of country names and two-letter codes. It includes a list of short names and two-letter codes accepted for use in indicating States, other entities and intergovernmental organizations and their Offices in documents relating to international applications under the PCT. The list is as set out in WIPO Standard ST.3.
+Also refer to PCT Contracting States formerly Annex A.
+Office profile
+For more technical information about the Office, refer to ePCT Office profile .
+PCT Reservations, Declarations, Notifications and Incompatibilities
+The Office does not have any reservations, declarations, notifications or incompatibilities.
+Refer to the full list .
+Office Closed dates
+The Office is closed weekly on Saturday and Sunday Additional closed dates can be consulted on the Office Closed dates page
+International Phase
+Annex B - Information on Contracting States or Intergovernmental Organization
+Organization:
+African Regional Intellectual Property Organization
+Two-letter code:
+AP
+Name of Office:
+African Regional Intellectual Property Organization (ARIPO)
+Location:
+11 Natal Road
+Belgravia
+Harare
+Zimbabwe
+Mailing address:
+P.O. Box 4228
+Harare
+Zimbabwe
+Telephone:
+(263-242) 79 40 54
+(263-242) 79 40 65
+(263-242) 79 40 68
+E-mail:
+mail@aripo.org for filing of documents only:
+registry@aripo.org
+Online contact service:
+http://eservice.aripo.org
+Website:
+http://www.aripo.org/
+Facsimile:
+None
+Does the Office accept the filing of documents by facsimile or the like means (PCT Rule 92.4)?
+No
+Does the Office send notifications via e-mail in respect of international applications?
+No
+Would the Office accept evidence of mailing a document, in case of loss or delay, where a delivery service other than the postal authorities is used (PCT Rule 82.1)?
+Yes
+Is the Office prepared to allow applicants to make applications available to the WIPO Digital Access Service for Priority Documents (DAS) (PCT Rule 17.1(b- bis )?
+More information about WIPO DAS is available at: https://www.wipo.int/en/web/das . No
+Competent receiving Office(s) for international applications filed by nationals or residents of the following States:
+The applicant may also choose to file with the national Office of the country (except GM, MZ, NA, SL, ST, SZ, TZ) of which he is a national or resident or with the IB (Refer to Annex C). BW , CV , GH , GM , KE , LR , LS , MU , MW , MZ , NA , RW , SC , SD , SL , ST , SZ , TZ , UG , ZM , ZW
+Competent designated and elected Office for:
+Refer to National Phase AP. BW , CV , GH , GM , KE , LR , LS , MU , MW , MZ , NA , RW , SC , SD , SL , ST , SZ , TZ , UG , ZM , ZW
+Types of protection available via the PCT:
+ARIPO patents , ARIPO utility models (a utility model may be sought instead of or in addition to a patent)
+Payment methods accepted by the Office:
+Refer to the Office
+Availability under the national law for an international-type search (PCT Article 15):
+None
+Provisional protection after international publication:
+Refer to Annex B for provisional protection available under the national law of each State party to both the PCT and the Harare Protocol
+Information of interest if this Contracting State is designated (or elected)
+Time when the name and address of the inventor must be given:
+May be in the request or may be furnished later. If not already complied with within the time limit applicable under PCT Article 22 or 39(1), the Office will invite the applicant to comply with the requirement within two months from the date of the invitation.
+Are there special provisions concerning the deposit of microorganisms and other biological material?
+Yes, refer to Annex L.
+Annex C - Receiving Office
+Competent receiving Office for nationals and residents of:
+BW , CV , GH , GM , KE , LR , LS , MU , MW , MZ , NA , RW , SC , SD , SL , ST , SZ , TZ , UG , ZM , ZW
+Language in which international applications may be filed:
+English
+Language accepted for language-dependent free text in the sequence listing:
+Same as above
+Language in which the request may be filed:
+English
+Number of copies required by the receiving Office if the international application is filed on paper:
+3
+Does the receiving Office accept the filing of international applications in electronic form?
+Where the international application is filed in electronic form in accordance with and to the extent provided for in Part 7 and Annex F of the Administrative Instructions, the total amount of the international filing fee is reduced (refer to “Fees payable to the RO”). Where the international application contains a sequence listing as a separate part of the description, this should be furnished in accordance with Annex C of the Administrative Instructions, that is, in compliance with WIPO Standard ST.26 XML format; no fees are due for sequence listings filed in this format. If the receiving Office does not accept international applications in electronic form in such format, the international application will be transmitted to the International Bureau as receiving Office (PCT Rule 19.4(a)(ii- bis )). For the relevant notifications by the Office, refer to the Official Notices (PCT Gazette) dated 9 July 2020, pages 150 et seq. and 6 October 2022, page 277. Yes, the Office accepts electronic filing via ePCT-Filing
+Does the receiving Office accept the submission of pre-conversion documents and, if yes, in which format (Section 706 of the PCT Administrative Instructions)?
+Yes, any format
+Does the receiving Office accept incorporation by reference (PCT Rule 20.6)?
+Yes
+Does the receiving Office accept the submission of color drawings on an informal basis and transmit them to the International Bureau?
+Yes
+Does the receiving Office accept requests for restoration of the right of priority (PCT Rule 26 bis .3)?
+Yes, please refer to the Office for the applicable criteria and/or any fee payable for such requests
+Competent International Searching Authority:
+AT , EP , SE
+Competent International Preliminary Examining Authority:
+AT , EP , SE
+Fees payable to the RO:
+Transmittal fee:
+100 USD or equivalent in the local currency of any ARIPO Contracting State where the applicant is resident
+International filing fee:
+This fee is reduced by 90% if certain conditions apply (refer to Annex C(IB)). 1,667 USD
+Fee per sheet in excess of 30:
+This fee is reduced by 90% if certain conditions apply (refer to Annex C(IB)). 19 USD
+Reductions (under Schedule of Fees, item 4):
+Electronic filing (the request in character coded format):
+251 USD
+Electronic filing (the request, description, claims and abstract in character coded format):
+376 USD
+Search fee:
+Refer to
+Annex D(AT)
+Annex D(EP)
+Annex D(SE)
+Fee for priority document (PCT Rule 17.1(b)):
+500 USD or equivalent in local currency of any ARIPO Contracting State where applicant is resident
+Is an agent required by the receiving Office?
+No, if the applicant resides in or has his principal place of business in an ARIPO Contracting State Yes, if neither his residence nor his principal place of business is within the territory of one of the ARIPO Contracting States
+Who can act as agent?
+Any agent authorized to represent applicants before the national Office of an ARIPO Contracting State
+Waiver of power of attorney:
+Has the Office waived the requirement that a separate power of attorney be submitted?
+Refer to the Office
+Has the Office waived the requirement that a copy of a general power of attorney be submitted?
+Refer to the Office
+Annex L - Deposits of Microorganisms and Other Biological Material
+Requirements of designated and elected Offices
+Only Offices whose applicable national law contains provisions concerning the deposits of microorganisms and other biological material are listed in Annex L. Unless otherwise indicated, deposits may be made for the purposes of patent procedure before these Offices with any depositary institution having acquired the status of international depositary authority under the Budapest Treaty on the International Recognition of the Deposit of Microorganisms for the Purposes of Patent Procedure. For a list of these institutions refer to: https://www.wipo.int/documents/d/treaties/docs-en-registration-budapest-idalist.pdf (and the detailed requirements for each institution at: https://www.wipo.int/en/web/budapest-system/guide/section_d/subsection_c Notifications related thereto may be consulted under: https://www.wipo.int/en/web/treaties/registration/budapest/index Further information concerning the requirements of international depository authorities under the Budapest Treaty is available at: https://www.wipo.int/en/web/budapest-system/guide/index
+Time (if any) earlier than 16 months from priority date by which applicant must furnish:
+— the indications prescribed in Rule 13 bis .3(a)(i) to (iii):
+None
+— any additional indications:
+At the time of filing
+Additional indications (if any) which must be given besides those prescribed in Rule 13 bis .3(a)(i) to (iii) pursuant to notifications from the Office:
+To the extent available to the applicant, relevant information on the characteristics of the microorganism
+Additional information
+Deposits may also be made for the purposes of patent procedure before ARIPO with any depositary institution.
+National Phase
+Summary of requirements for entry into the national phase
+Time limits applicable for entry into the national phase:
+Under PCT Article 22(3): 31 months from the priority date
+Under PCT Article 39(1)(b): 31 months from the priority date
+Does the Office permit reinstatement of rights (PCT Rule 49.6)?
+The national legislation of this Office refers to “restoration of rights”. Yes, the Office permits reinstatement of rights under the “due care" criterion. Fee for reinstatement of rights 600 USD
+Translation of international application required into (one of) the following language(s):
+Must be furnished within the time limit applicable under PCT Article 22 or 39(1). English
+Required contents of the translation for entry into the national phase:
+Must be furnished within the time limit applicable under PCT Article 22 or 39(1). Under PCT Article 22: Description, claims (if amended, as amended only), any text matter of drawings, abstract Under PCT Article 39(1): Description, claims, any text matter of drawings, abstract (if any of those parts has been amended, only as amended by the annexes to the international preliminary examination report)
+Is a copy of the international application required in particular circumstances?
+Yes
+Does the Office accept color drawings under its national law?
+Refer to the Office
+National fees:
+Patents
+Filing fee
+Must be paid within 14 days from the expiration of the time limit applicable under PCT Article 22 or 39(1). online 232 USD on paper 290 USD
+Designation fee
+per country 100 USD
+Annual fees:
+The Office should be consulted for the time limit applicable for the payment of this fee.
+— for the 1st year
+50 USD
+— for the 2nd year
+70 USD
+— for the 3rd year
+90 USD
+Utility models
+Filing fee
+Must be paid within 14 days from the expiration of the time limit applicable under PCT Article 22 or 39(1). online 80 USD on paper 100 USD
+Designation fee
+per country 20 USD
+Maintenance fees:
+— for the 1st year
+20 USD
+— for the 2nd year
+25 USD
+— for the 3rd year
+30 USD
+Exemptions, reductions or refunds of fees:
+For applications filed on or before 1 January 2017, no search or examination fee is payable, if an international search report or preliminary examination report has been established for the international application.
+Special requirements of the Office (PCT Rule 51 bis ):
+If not complied with within the time limit applicable under PCT Article 22 or 39(1), the Office will invite the applicant to comply with the requirement within a time limit fixed in the invitation. Appointment of an agent if the applicant is not resident in an ARIPO Contracting State Assignment deed of the priority right where the applicants are not identical This requirement may be satisfied if the corresponding declaration has been made in accordance with PCT Rule 4.17.
+Who can act as agent?
+Any agent authorized to represent applicants before the national Office of an ARIPO Contracting State
+Does the Office accept the effect of restoration of the right of priority by the receiving Office (PCT Rule 49 ter .1)?
+Yes
+Does the Office accept requests for restoration of the right of priority (PCT Rule 49 ter .2)?
+Yes, please refer to the Office for the applicable criteria and/or any fee payable for such requests
+The procedure in the national Phase
+AP.01 TRANSLATION (CORRECTION)
+Errors in the translation of the international application can be corrected with reference to the text of the international application as filed (refer to National Phase, paragraphs NP 6.002 and NP 6.003 ).
+AP.02 FEES (MANNER OF PAYMENT)
+HP Sec. 4 , HR 25 , HR 36 , HR 44 , HR 45 , HR 46 , HR 48 , HR 57 , HR 76(1)(b) , HR 92 , HR 93 , HR 94 , HR 95 , HR 96 , HR 97 The manner of payment of the fees indicated in the Summary and this Chapter is outlined in Annex AP.I.
+AP.03 EXAMINATION
+HP Sec. 4 , HR 44 , HR 45 , HR 46 , HR 47 , HR 48 , HR 49 , HR 50 , HR 51 , HR 52 , HR 53 The Office will examine or arrange the examination of patent applications as to substance. A request for examination must be filed within three years from the international filing date or priority date, whichever is earlier. The request is subject to the payment of a fee which is indicated in Annex AP.I. Failure to make the request within the prescribed time limit will cause the application to lapse.
+AP.04 POWER OF ATTORNEY
+HR 28.2)(i) , HR 72 , HR 73 An agent must be appointed by filing a power of attorney if the applicant is not a resident in a State member of ARIPO. A model is given in Annex AP.II. If the power of attorney is not filed at the time of entry into the national phase, it may be filed within two months from the expiration of that time limit.
+AP.05 AMENDMENT OF THE APPLICATION; TIME LIMITS
+PCT Article 28 , PCT Article 41 , HP Sec. 47 , HR 55 The applicant may amend or correct the claims, description and drawings in the international application provided that the scope of the subject matter of the application is not broadened thereby. The applicant may file voluntary amendments during the processing of the international application and after grant. Such amendments are subject to the payment of a fee as indicated in Annex AP.I.
+AP.06
+HP Sec. 45.4) , HR 50 Where, after taking due account of the international search and international preliminary examination reports, the Office concludes that the application does not comply with the criteria for patentability, it will notify the applicant accordingly and invite him to submit his observations and, where needed, amendments to the application together with a request that the matter be reconsidered. The Office will allow four months for the submission of the observations and amendments.
+AP.07 CONVERSION INTO NATIONAL APPLICATION
+HP Sec. 53 , HR 74 If notwithstanding the request for reconsideration referred to in paragraph AP.06, the Office refuses the application, the applicant may, within three months from the date of the refusal of the request for reconsideration, request that his application be treated, in any designated member State, as an application according to the national law of that State. The request must specify the designated States in which the procedure for the grant of a national patent is desired, and must be submitted in the number of copies which should correspond to the number of the designated States specified, plus one copy for the Office. The Office will transmit copies of the application and all relevant documents to the national Offices of the designated States specified by the applicant. The request for the conversion of an ARIPO application to a national application is subject to the payment of a fee indicated in Annex AP.I.
+AP.08 ANNUAL FEES
+HP Sec. 21 , HR 36 , HR 76(1)(b) Annual fees are due on or before each anniversary of the international filing date. The Office will issue a reminder to the applicant concerning payment of the annual fee at least one month prior to the date on which the annual fee is due. Subject to the payment of a surcharge (for the amount, refer to Annex AP.I), annual fees may be paid up to six months after the date. Any annual fee that falls due during the international phase need not be paid until the expiration of the applicable time limit for the entry into the national phase.
+AP.09 ARIPO DESIGNATION FEES
+HR 25(2) , HAI 17(2) The applicant must pay one ARIPO designation fee (indicated in Annex AP.I.) for each State designated in the international application for an ARIPO patent for which he, at the time the payment is made, continues to seek ARIPO patent protection. Where the ARIPO designation fees are not paid for all the States designated for an ARIPO patent, the applicant must indicate the States to which the designation fees are to be applied. Where the amount of designation fees paid is not sufficient to cover all the States designated in the application, the amount paid shall be applied in respect of the States designated in the order in which they are designated and to the extent to which they are covered by the fee paid; the late payment in full of a designation fee shall be subject to the payment of the surcharge indicated in Annex AP.I.
+AP.10 REVIEW UNDER ARTICLE 25 OF THE PCT
+PCT Article 25 , PCT Rule 51 , HP Sec. 45(4) , HP Sec. 48(4)(a) The applicable procedure is outlined in paragraphs NP 6.018 to NP 6.021 of the National Phase. If, upon review under PCT Article 25, the Office denies an error or omission on the part of the receiving Office or the International Bureau, an appeal against this decision may be lodged with the Office.
+AP.11 EXCUSE OF DELAYS IN MEETING TIME LIMITS
+PCT Article 24(2) , PCT Article 48(2) , PCT Rule 82 bis , HR 65 Reference is made to paragraphs NP 6.022 to NP 6.027 of the National Phase. At the Director General’s discretion, the applicant may be given an extension of any time limit prescribed by the Regulations and the Administrative Instructions. Such extension may be granted even if the time limit has already expired.
+AP.12
+HP Sec. 55 , HR 66 The national legislation of this Office refers to “restoration of rights”. Reinstatement of rights may be requested where the applicant lost any right because, in spite of all due care required by the circumstances having been taken, failed to comply with a time limit before the office. A request for reinstatement of rights must be filed within two months after the removal of the cause of the failure to perform the action, but not later than one year from the expiration of the time limit which has not been observed. Within the said time limits, the omitted act must be completed, the fee for reinstatement (refer to Annex AP.I) must be paid, and the request must state the grounds on which it is based and must set out the facts on which it relies. Reinstatement of rights is not applicable to the time limit for claiming priority.
+AP.13 UTILITY MODEL
+PCT Rule 49 bis .1 , PCT Rule 49 bis .1 (a) , PCT Rule 49 bis .1 (b) , PCT Rule 76 .5 If the applicant wishes to obtain a utility model registration in ARIPO on the basis of an international application (i) instead of a patent, or (ii) in addition to a patent, the applicant, when performing the acts referred to in Article 22 or Article 39, shall so indicate to the Office.
+AP.14
+If the international application is for a utility model instead of a patent, the requirements are basically the same as for patents. The time limit applicable for entry into the national phase is 31 months under PCT Article 22 or 39(1), however, the term of protection of utility models is 10 years from the international filing date.
+AP.15
+If the international application is for both a utility model and a patent, the applicant must, within the time limit applicable for entry into the national phase, comply with the following requirements: (i) pay two filing fees for both the patent and the utility model within 14 days from entry into the national phase; (ii) where the international application was not filed in English, furnish a translation into English in two copies, including the description and at least one claim.
+AP.16 CONVERSION
+HP Sec. 54 , HR 74 , HAI 52(2) , HAI 52(3) An international application for a patent may be converted into a utility model application and vice versa . Conversion from a patent application into a utility model application must be undertaken within three months from the date of entry into the national phase. However, the applicant can still apply to the ARIPO if the three months time limit has expired for the conversion, as long as the patent application has not yet been examined as to substance. A fee for requesting conversion is due (refer to Annex AP.I).
+Annexes
+Annex AP.I - Fees
+Patents
+National fee, comprising:
+— basic fee (application fee)
+online filing 232 USD paper filing 290 USD
+— designation fee for each ARIPO Contracting State designated
+100 USD
+Prior art search fee
+300 USD
+Request for substantive examination
+1,000 USD
+Publication or republication
+500 USD
+— surcharge for each additional page from 31 to 100 pages
+20 USD
+— surcharge for each additional page from 101
+30 USD
+— surcharge for each additional claim from 11 to 50 claims
+100 USD
+— surcharge for each additional claim from 51
+200 USD
+Grant fee
+500 USD
+Request for early grant and publication
+1,000 USD
+Fee for certified copy of ARIPO patent application or granted patent
+— electronic format
+200 USD
+— paper copy, up to 30 pages
+500 USD
+— in addition, from page 31 (paper copy)
+per page 20 USD
+Fee for registration of assignments, transmissions, amendments, etc
+200 USD
+Fee for conversion of an ARIPO patent application to a national application
+200 USD
+Fee for conversion of an ARIPO patent application to an ARIPO utility model application
+200 USD
+Request for reinstatement of rights
+The national legislation of this Office refers to “restoration of rights”. 600 USD
+Annual fees in respect of each designated State (payable on each anniversary of the international filing date):
+— for the 1st anniversary
+50 USD
+— for the 2nd anniversary
+70 USD
+— for the 3rd anniversary
+90 USD
+— for the 4th anniversary
+110 USD
+— for the 5th anniversary
+130 USD
+— for the 6th anniversary
+150 USD
+— for the 7th anniversary
+170 USD
+— for the 8th anniversary
+190 USD
+— for the 9th anniversary
+210 USD
+— for the 10th anniversary
+230 USD
+— for the 11th anniversary
+250 USD
+— for the 12th anniversary
+270 USD
+— for the 13th anniversary
+290 USD
+— for the 14th anniversary
+310 USD
+— for the 15th anniversary
+330 USD
+— for the 16th anniversary
+380 USD
+— for the 17th anniversary
+430 USD
+— for the 18th anniversary
+480 USD
+— for the 19th anniversary
+530 USD
+— for the 20th anniversary
+580 USD
+Surcharge for late payment of annual fees
+40% of the fee to be paid
+Surcharge for late payment of any outstanding amount
+40% of the fee to be paid
+Request for alteration of name or address or for correction of error(s)
+— 1st request
+100 USD
+— 2nd request and subsequently thereafter
+per request 200 USD
+Fee for voluntary amendment during processing
+300 USD
+Request for post-grant amendment
+1,000 USD
+Request for copies of extracts from files (electronic copy)
+150 USD
+— additional fee for paper copy
+per page 50 USD
+Preparation of abstract
+200 USD
+Request for any extension
+— 1st request for extension
+200 USD
+— 2nd request for extension of the same case
+300 USD
+— 3rd request for extension of the same case
+400 USD
+— further requests for extensions of the same case
+per request 500 USD
+Search request fee (Status, Validity)
+200 USD
+Search request fee (Freedom to Operate, etc.)
+300 USD
+Change of representative
+per application 200 USD
+Request for replacement of lost or destroyed certificate
+300 USD
+Request for expedited or delayed examination
+1,000 USD
+Request for addition of designated States (per State)
+100 USD
+Request for reduction of designated States (per State)
+100 USD
+Re-examination after decision to grant
+1,000 USD
+Request for notification in non-electronic format
+per page 100 USD
+Appeal
+500 USD
+Fee for technical opinion
+3,000 USD
+Certificate of grant (paper copy)
+200 USD
+Utility models
+National fee, comprising:
+— basic fee (application fee):
+online filing 80 USD paper filing 100 USD
+— designation fee for each ARIPO member State designated
+20 USD
+Registration and publication fee
+50 USD
+Fee for certified copy of ARIPO utility model application
+per page 2 USD
+— and for every page in excess of 10
+1 USD
+Fee for registration of assignments, transmissions, amendments, etc
+30 USD
+— and for every page in excess of 10
+1 USD
+Fee for conversion of an ARIPO utility model application to a national application
+300 USD
+Maintenance fees in respect of each designated State:
+— for the 1st year
+20 USD
+— for the 2nd year
+25 USD
+— for the 3rd year
+30 USD
+— for the 4th year
+35 USD
+— for the 5th year
+40 USD
+— for the 6th year
+45 USD
+— for the 7th year
+50 USD
+— for the 8th year to the 10th year
+per year 10 USD
+Surcharge for late payment of maintenance fees
+30 USD
+— and for every month or fraction thereof that the fee remains unpaid
+5 USD
+How can payment of fees be effected?
+HR 92 , HR 93 , HR 94 , HR 95 , HR 96 , HR 97 The payment of fees to ARIPO must be effected in US dollars. All payments must give the application number (national if already known; international if the national number is not yet known). Payment of fees may be made by bank check or telegraphic transfer.
+Forms
+The following documents are maintained by the Office. Refer to the Office website (Annex B) for latest version and other languages. Annex AP.II - Power of attorney
+Change(s) as of February 27, 2026
+Please find below in blue all the changes done in this version (including editorial changes).
+Annex B - Information on Contracting States or Intergovernmental Organization
+Competent receiving Office(s) for international applications filed by nationals or residents of the following States:
+The applicant may also choose to file with the national Office of the country (except GM, MZ, NA, SL, ST, SZ, TZ) of which he is a national or resident or with the IB (Refer to Annex C).
+MU
+Competent designated and elected Office for:
+MU
+Annex C - Receiving Office
+Competent receiving Office for nationals and residents of:
+MU
+Language in which the request may be filed:
+English
+The procedure in the national Phase
+AP.03 EXAMINATION
+The Office will examine or arrange the examination of patent applications as to substance. A request for examination must be filed within three years from the international filing date or priority date, whichever is earlier. The request is subject to the payment of a fee which is indicated in Annex AP.I. Failure to make the request within the prescribed time limit will cause the application to lapse.
+Close
+Current version applicable from February 27, 2026
+, printed on October 20, 2026
+100 #102 - 2026-09-28T10:28:16.882+02:00

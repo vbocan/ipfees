@@ -1,0 +1,672 @@
+Source: https://www.epo.org/en/legal/epc/2020/EPC_rfees_20260401_en_20260326.pdf
+Retrieved: 2026-10-20
+
+Rules relating to Fees
+of 20 October 1977
+as adopted by decision of the Administrative Council of the European
+Patent Organisation of 7 December 2006 and as last amended by
+decision of the Administrative Council of 11 December 20251
+
+as in force as from 1 April 2026
+
+
+
+
+Footnotes and cross-references are added for the convenience of the
+reader; they do not form part of the official text.
+
+
+
+
+1   Consolidated version of the Rules relating to Fees applicable as from 1 April 2026.
+
+
+                                              1
+Rules relating to Fees                                                         April 2026
+
+
+
+Article 1 General                                                                      3
+Article 2 Fees provided for in the Convention and in the Implementing Regulations      3
+Article 3 Fees, expenses and prices laid down by the President of the Office           9
+Article 4 Due date for fees                                                            9
+Article 5 Payment of fees                                                             10
+Article 6 Particulars concerning payments                                             10
+Article 7 Date to be considered as the date on which payment is made                  10
+Article 8 Insufficiency of the amount paid                                            11
+Article 9 Refund of search fees                                                       11
+Article 10 Refund of the fee for a technical opinion                                  12
+Article 11 Refund of examination fee                                                  12
+Article 12 Refund of insignificant amounts                                            12
+Article 13 Termination of financial obligations                                       13
+Article 14 Reduction of fees                                                          13
+Article 15 Entry into force                                                           14
+
+
+
+
+                                            2
+Rules relating to Fees                                                       April 2026
+
+THE ADMINISTRATIVE COUNCIL OF THE EUROPEAN PATENT
+ORGANISATION,
+
+HAVING REGARD to the European Patent Convention and in particular
+Article 33, paragraph 2(d), thereof,
+
+HAS ADOPTED THE FOLLOWING RULES RELATING TO FEES:
+
+Article 1
+General
+
+The following shall be levied in accordance with the provisions contained in
+these Rules:
+
+(a) fees due to be paid to the European Patent Office (hereinafter
+referred to as the Office) as provided for in the Convention and in the
+Implementing Regulations and the fees and expenses which the President
+of the Office lays down pursuant to Article 3, paragraph 1;
+
+(b) fees and expenses pursuant to the Patent Cooperation Treaty
+(hereinafter referred to as the PCT), the amounts of which may be fixed by
+the Office.
+
+Article 22
+Fees provided for in the Convention and in the Implementing
+Regulations
+
+(1) The fees due to be paid to the Office under Article 1, unless otherwise
+provided in paragraph 2, are as follows:
+
+1. Filing fee
+(Article 78, paragraph 2)
+
+(i) where the European patent application or, in the case of an
+international application, the form for entry into the European
+phase (EPO Form 1200) is filed online                                           135
+
+(ii) where the European patent application or, in the case of an
+international application, the form for entry into the European
+phase (EPO Form 1200) is not filed online                                       285
+
+
+
+
+2  Last amended by decision of the Administrative Council CA/D 9/25 of 11.12.2025
+(OJ EPO 2026, A2), which entered into force on 01.04.2026.
+
+
+                                           3
+Rules relating to Fees                                                           April 2026
+
+
+1a.3 Additional fee
+for a European patent application comprising more than 35 pages
+(not counting pages forming part of a sequence listing) (Rule 38,
+paragraph 2)                                                 plus EUR 17
+                                 for the 36th and each subsequent page
+
+1b.4 Additional fee
+in the case of a divisional application filed in respect of any earlier
+application which is itself a divisional application (Rule 38,
+paragraph 4)
+
+- fee for a divisional application of second generation                             235
+
+- fee for a divisional application of third generation                              480
+
+- fee for a divisional application of fourth generation                             715
+
+- fee for a divisional application of fifth or any subsequent
+generation                                                                          955
+
+2. Search fee in respect of
+- a European or supplementary European search (Article 78,
+paragraph 2, Rule 62, Rule 64, paragraph 1, Rule 56a,
+paragraph 85, Article 153, paragraph 7, Rule 164, paragraphs 16
+and 2)                                                                            1 595
+
+
+
+- an international search (Rule 16.1 PCT, Rule 40bis PCT in
+conjunction with Rule 20.5bis PCT,7 and Rule 158, paragraph 1)8                   1 885
+
+- a supplementary international search (Rule 45bis.3(a) PCT)9                     1 885
+
+3  Inserted by decision of the Administrative Council CA/D 15/07 of 14.12.2007 (OJ EPO
+2008, 10) and amended by decision of the Administrative Council CA/D 5/08 of 09.12.2008
+(OJ EPO 2009, 7), which entered into force on 01.04.2009. See notice from the EPO of
+26.01.2009 concerning the 2009 fee structure (OJ EPO 2009, 118 and 2009, 338).
+4  Inserted by decision of the Administrative Council CA/D 14/13 of 13.12.2013 (OJ EPO
+2014, A5), which entered into force on 01.04.2014.
+5  Inserted by decision of the Administrative Council CA/D 2/21 of 14.12.2021 (OJ EPO
+2022, A3), which entered into force on 01.11.2022.
+6  Inserted by decision of the Administrative Council CA/D 14/13 of 13.12.2013 (OJ EPO
+2014, A5), which entered into force on 01.11.2014.
+7   Inserted by decision of the Administrative Council CA/D 2/20 of 27.03.2020 (OJ EPO
+2020, A36), which entered into force on 01.07.2020.
+    See notice from the EPO of 14.06.2020 concerning new Rule 20.5bis PCT on the
+correction of erroneous filings in the procedures before the EPO (OJ EPO 2020, A81).
+8  See decision of the Administrative Council CA/D 13/19 of 12.12.2019 concerning the
+reduction of this fee in favour of nationals of certain states (OJ EPO 2020, A4) and notice
+from the EPO of 03.07.2025 concerning the reduction of the fees for the international search
+and the international preliminary examination carried out on international applications in
+favour of nationals of certain states – revised list of states (OJ EPO 2025, A54).
+9  Inserted by decision of the Administrative Council CA/D 10/09 of 28.10.2009 (OJ EPO
+2009, 593), which entered into force on 01.07.2010.
+
+
+                                             4
+Rules relating to Fees                                                        April 2026
+
+
+3.10 Designation fee
+for one or more Contracting States (Article 79, paragraph 2) in
+respect of an application filed on or after 1 April 2009                         720
+
+4. Renewal fees
+For the European patent application (Article 86, paragraph 1),
+calculated in each case from the date of filing of the application
+
+- for the 3rd year                                                               725
+
+- for the 4th year                                                               885
+
+- for the 5th year                                                             1 050
+
+- for the 6th year                                                             1 215
+
+- for the 7th year                                                             1 375
+
+- for the 8th year                                                             1 540
+
+- for the 9th year                                                             1 700
+
+- for the 10th and each subsequent year                                        1 865
+
+5. Additional fee
+for belated payment of a renewal fee for the European patent
+application (Rule 51, paragraph 2)                                  50%
+                                               of the belated renewal fee
+
+6. Examination fee
+(Article 94, paragraph 1) in respect of
+
+– a European patent application or an international application for
+which a supplementary European search report is drawn up under
+Article 153, paragraph 7                                            2 010
+
+– an international application for which no supplementary
+European search report is drawn up under Article 153,
+paragraph 7                                                                    2 240
+
+
+
+
+10 Amended by decision of the Administrative Council CA/D 15/07 of 14.12.2007 (OJ EPO
+2008, 10), which entered into force on 01.04.2009. See notice from the EPO of 26.01.2009
+concerning the 2009 fee structure (OJ EPO 2009, 118).
+
+
+                                            5
+Rules relating to Fees                                                        April 2026
+
+
+7.11 Fee for grant
+including fee for publication of the European patent specification
+(Rule 71, paragraph 3), in respect of an application filed on or after
+1 April 2009                                                           1 135
+
+10. Opposition fee
+(Article 99, paragraph 1, Article 105, paragraph 2)                              880
+
+10a. Limitation or revocation fee
+(Article 105a, paragraph 1)
+
+- request for limitation                                                       1 425
+
+- request for revocation                                                         645
+
+11. Fee for appeal12
+(Article 108) for an appeal filed
+
+- by any person referred to in Rule 7a, paragraph 2 (a) to (d)                 2 015
+
+- by any other person                                                          2 925
+
+11a. Fee for petition for review
+(Article 112a, paragraph 4)                                                    3 570
+
+12. Fee for further processing
+(Rule 135, paragraph 1)
+
+- in the event of late payment of a fee                                       50%
+                                                                of the relevant fee
+
+- in the event of late performance of the acts required under
+Rule 71, paragraph 3                                                             315
+
+- other cases                                                                    315
+
+
+
+
+11 Amended by decision of the Administrative Council CA/D 15/07 of 14.12.2007 (OJ EPO
+2008, 10), which entered into force on 01.04.2009. See notice from the EPO of 26.01.2009
+concerning the 2009 fee structure (OJ EPO 2009, 118).
+   Amended by decision of the Administrative Council CA/D 17/17 of 13.12.2017 (OJ EPO
+2018, A4), which entered into force on 01.04.2018. See decision of the Administrative
+Council CA/D 11/18 of 12.12.2018 (OJ EPO 2019, A3) in conjunction with notice from the
+EPO of 24.01.2019 concerning the application of these fee levels (OJ EPO 2019, A6).
+12  Last amended by decision of the Administrative Council CA/D 17/17 of 13.12.2017
+(OJ EPO 2018, A4), which entered into force on 01.04.2018.
+    See notice from the EPO of 18.12.2017 concerning the reduced fee for appeal
+(Article 108 EPC) (OJ EPO 2018, A5).
+    See the possibility of reimbursement of the appeal fee (Rule 103 EPC) amended by
+decision of the Administrative Council CA/D 14/19 of 12.12.2019 (OJ EPO 2020, A5), which
+entered into force on 01.04.2020.
+
+
+                                            6
+Rules relating to Fees                                                        April 2026
+
+
+13.13 Fee for re-establishment of rights/fee for requesting
+restoration/fee for reinstatement of rights
+(Rule 136, paragraph 1, Rule 26bis.3(d) PCT, Rule 49ter.2(d)
+PCT, Rule 49.6(d)(i) PCT)                                                        790
+
+14. Conversion fee
+(Article 135, paragraph 3, Article 140)                                             0
+
+14a. Fee for late furnishing of a sequence listing
+(Rule 30, paragraph 3)                                                           280
+
+15.14 Claims fee
+(Rule 45, paragraph 1, Rule 71, paragraph 4, Rule 162,
+paragraph 1) in respect of an application filed on or after 1 April
+2009
+
+- for the 16th and each subsequent claim up to the limit of 50                   290
+
+- for the 51st and each subsequent claim                                         720
+
+
+
+
+13 Amended by decision of the Administrative Council CA/D 17/07 of 25.10.2007 (OJ EPO
+2007, 533), which entered into force on 13.12.2007.
+14 Amended by decision of the Administrative Council CA/D 15/07 of 14.12.2007 (OJ EPO
+2008, 10), which entered into force on 01.04.2009. See notice from the EPO of 26.01.2009
+concerning the 2009 fee structure (OJ EPO 2009, 118).
+
+
+                                            7
+Rules relating to Fees                                                           April 2026
+
+
+16. Fee for the awarding of costs
+(Rule 88, paragraph 3)                                                               95
+
+18.15 Transmittal fee for an international application
+(Rule 157, paragraph 4)                                                             160
+
+19. Fee for the preliminary examination of an international application
+(Rule 58 PCT and Rule 158, paragraph 2)16                                         2 010
+
+20. Fee for a technical opinion
+(Article 25)                                                                      4 790
+
+21.17 Protest fee
+(Rule 158, paragraph 3, Rule 40.2(e) PCT, Rule 68.3(e) PCT)                       1 070
+
+22.18 Review fee
+(Rule 45bis.6(c) PCT)                                                             1 070
+
+(2)19 For European patent applications filed before 1 April 2009 and
+international applications which entered the regional phase before that
+date, the amount of the fees specified in Article 2, item 3, item 3a, item 7
+and item 15 of the Rules relating to Fees as in force until 31 March 2009
+shall be as follows:
+
+
+
+
+15 Amended by decision of the Administrative Council CA/D 17/17 of 13.12.2017 (OJ EPO
+2018, A4), which entered into force on 01.04.2018. See decision of the Administrative
+Council CA/D 11/18 of 12.12.2018 (OJ EPO 2019, A3) in conjunction with notice from the
+EPO of 24.01.2019 concerning the application of these fees (OJ EPO 2019, A6).
+16 Last amended by decision of the Administrative Council CA/D 17/17 of 13.12.2017
+(OJ EPO 2018, A4), which entered into force on 01.04.2018.
+   See decision of the Administrative Council CA/D 13/19 of 12.12.2019 concerning the
+reduction of this fee in favour of nationals of certain states (OJ EPO 2020, A4) and notice
+from the EPO of 03.07.2025 concerning the reduction of the fees for the international search
+and the international preliminary examination carried out on international applications in
+favour of nationals of certain states – revised list of states (OJ EPO 2025, A54).
+17 Amended by decision of the Administrative Council CA/D 6/11 of 27.10.2011 (OJ EPO
+2011, 616), which entered into force on 01.04.2012.
+18 Inserted by decision of the Administrative Council CA/D 10/09 of 28.10.2009 (OJ EPO
+2009, 593), which entered into force on 01.07.2010.
+19 Inserted by decision of the Administrative Council CA/D 19/09 of 28.10.2009 (OJ EPO
+2009, 587), which entered into force on 01.04.2010.
+
+
+                                             8
+Rules relating to Fees                                                           April 2026
+
+
+3. Designation fee
+for each contracting state designated (Article 79, paragraph 2),
+designation fees being deemed paid for all contracting states upon
+payment of seven times the amount of this fee                                       125
+
+3a. Joint designation fee
+for the Swiss Confederation and the Principality of Liechtenstein                   125
+
+7.20 Fee for grant
+including fee for printing the European patent specification
+(Rule 71, paragraph 3), where the application documents to be
+printed comprise:
+
+7.1 not more than 35 pages                                                        1 135
+
+7.2 more than 35 pages
+The amount of item 7.1                                             plus EUR 19
+                                         for the 36th and each subsequent page
+
+15. Claims fee
+for the sixteenth and each subsequent claim (Rule 45,
+paragraph 1, Rule 71, paragraph 4, Rule 162, paragraph 1)                           290
+
+Article 321
+Fees, expenses and prices laid down by the President of the Office
+
+(1) The President of the Office shall lay down the amount of the
+administrative fees provided for in the Implementing Regulations and,
+where appropriate, the amount of the fees and expenses for any services
+rendered by the Office other than those specified in Article 2.
+
+(2) He shall also lay down the prices of the publications referred to in
+Articles 93, 98, 103 and 129 of the Convention.
+
+(3) The amounts of the fees provided for in Article 2 and of the fees and
+expenses laid down in accordance with paragraph 1 shall be published in
+the Official Journal and on the website of the European Patent Office.
+
+Article 4
+Due date for fees
+
+(1) Fees in respect of which the due date is not specified in the
+provisions of the Convention or of the PCT or of the Implementing Regula-
+
+
+20  Amended by decision of the Administrative Council CA/D 17/17 of 13.12.2017 (OJ EPO
+2018, A4), which entered into force on 01.04.2018.
+    See decision of the Administrative Council CA/D 11/18 of 12.12.2018 (OJ EPO
+2019, A3) in conjunction with notice from the EPO of 24.01.2019 concerning the application
+of these fees (OJ EPO 2019, A6).
+21  See decision of the President of the EPO of 15.01.2026 revising the Office's fees and
+expenses (OJ EPO 2026, A3) and decision of the President of the EPO of 02.02.2012
+revising the basic fee for the European qualifying examination (OJ EPO 2012, 210).
+
+
+                                             9
+Rules relating to Fees                                                             April 2026
+
+tions thereto shall be due on the date of receipt of the request for the
+service incurring the fee concerned.
+
+(2) The President of the Office may decide not to make services within
+the meaning of paragraph 1 dependent upon the advance payment of the
+corresponding fee.
+
+Article 522
+Payment of fees
+
+(1)23 The fees due to the Office shall be paid in euro by payment or
+transfer to a bank account held by the Office.
+
+(2)24 The President of the Office may allow other methods of paying fees
+than those set out in paragraph 1.
+
+Article 6
+Particulars concerning payments
+
+(1) Every payment must indicate the name of the person making the
+payment and must contain the necessary particulars to enable the Office to
+establish immediately the purpose of the payment.
+
+(2) If the purpose of the payment cannot immediately be established, the
+Office shall require the person making the payment to notify it in writing of
+this purpose within such period as it may specify. If he does not comply
+with this request in due time the payment shall be considered not to have
+been made.
+
+Article 725
+Date to be considered as the date on which payment is made
+
+(1) The date on which any payment shall be considered to have been
+made to the Office shall be the date on which the amount of the payment or
+of the transfer is actually entered in a bank account held by the Office.
+
+
+
+22 Amended by decision of the Administrative Council CA/D 17/07 of 25.10.2007 (OJ EPO
+2007, 533), in particular Article 1, point 2 thereof, which entered into force on 01.04.2008.
+23  See notice from the EPO of 19.07.2022 concerning Central Fee Payment (OJ EPO
+2022, A81).
+    See notice from the EPO of 15.02.2024 concerning the further digitalisation of the fee
+refund procedure (OJ EPO 2024, A23).
+    See notices from the EPO of 25.09.2024 concerning the repayment of renewal fees not
+due and additional fees not due for European patent applications (OJ EPO 2024, A82) and
+of 12.02.2025 concerning improvements to the automatic debiting procedure (OJ EPO
+2025, A18).
+24 See arrangements for deposit accounts valid as of 01.04.2024 (supplementary
+publication 2, OJ EPO 2024), amended by decisions of the President of the EPO of
+25.09.2024 (OJ EPO 2024, A81) and of 12.02.2025 (OJ EPO 2025, A17).
+   See decision of the President of the EPO of 22.08.2017 (OJ EPO 2017, A72) and notice
+from the EPO of 16.02.2022 (OJ EPO 2022, A18) concerning the payment of fees by credit
+card.
+25 Amended by decision of the Administrative Council CA/D 12/19 of 12.12.2019 (OJ EPO
+2020, A3), in particular Article 2 thereof, which entered into force on 01.04.2020.
+
+
+                                             10
+Rules relating to Fees                                                           April 2026
+
+(2) Where the President of the Office allows, in accordance with the
+provisions of Article 5, paragraph 2, other methods of paying fees than
+those set out in Article 5, paragraph 1, he shall also lay down the date on
+which such payments shall be considered to have been made.
+
+(3) Where, under the provisions of paragraphs 1 and 2, payment of a fee
+is not considered to have been made until after the expiry of the period in
+which it should have been made, it shall be considered that this period has
+been observed if evidence is provided to the Office that the person who
+made the payment fulfilled one of the following conditions in a Contracting
+State within the period within which the payment should have been made:
+
+(i)    he effected the payment through a banking establishment;
+
+(ii) he duly gave an order to a banking establishment to transfer the
+amount of the payment.
+
+(4) The Office may request the person who made the payment to
+produce evidence as to the date on which a condition according to
+paragraph 3 was fulfilled within a period to be specified by it. If he fails to
+comply with this request or if the evidence is insufficient, the period for
+payment shall be considered not to have been observed.
+
+Article 826
+Insufficiency of the amount paid
+
+A time limit for payment shall in principle be deemed to have been
+observed only if the full amount of the fee has been paid in due time. If the
+fee is not paid in full, the amount which has been paid shall be refunded
+after the period for payment has expired. The Office may, however, in so
+far as this is possible within the time remaining before the end of the period,
+give the person making the payment the opportunity to pay the amount
+lacking. It may also, where this is considered justified, overlook any small
+amounts lacking without prejudice to the rights of the person making the
+payment.
+
+Article 9
+Refund of search fees
+
+(1)27 The search fee paid for a European or supplementary European
+search shall be fully refunded if the European patent application is
+withdrawn or refused or deemed to be withdrawn at a time when the Office
+has not yet begun to draw up the search report.
+
+(2)28 Where the European search report is based on an earlier search
+report prepared by the Office on an application whose priority is claimed or
+
+26 Amended by decision of the Administrative Council CA/D 5/08 of 09.12.2008 (OJ EPO
+2009, 7), which entered into force on 01.04.2009.
+27 See notice from the EPO of 29.01.2013 concerning adjustments to the system for search
+and examination fee refunds (Articles 9(1) and 11(b) of the Rules relating to Fees) following
+decisions J 25/10 and J 9/10 of the Legal Board of Appeal (OJ EPO 2013, 153).
+28 See decision of the President of the EPO of 27.02.2025 concerning the refund of the
+search fee under Article 9(2) of the Rules relating to Fees (OJ EPO 2025, A25) and notice
+from the EPO of 09.01.2009 concerning the criteria for the refund of search fees (OJ EPO
+
+                                             11
+Rules relating to Fees                                                            April 2026
+
+an earlier application within the meaning of Article 76 of the Convention or
+of Rule 17 of the Convention, the Office shall refund to the applicant, in
+accordance with a decision of its President, an amount which shall depend
+on the type of earlier search and the extent to which the Office benefits
+from the earlier search report when carrying out the subsequent search.
+
+Article 10
+Refund of the fee for a technical opinion
+
+An amount of 75% of the fee for a technical opinion under Article 25 of the
+Convention shall be refunded if the request for a technical opinion is
+withdrawn at a time when the Office has not yet begun to draw up the
+technical opinion.
+
+Article 1129, 30
+Refund of examination fee
+
+The examination fee provided for in Article 94, paragraph 1, of the
+Convention shall be refunded:
+
+(a) in full if the European patent application is withdrawn, refused or
+deemed to be withdrawn before the substantive examination has begun;
+
+(b) at a rate of 50% if the European patent application is withdrawn after
+substantive examination has begun and
+
+-      before expiry of the time limit for replying to the first invitation under
+Article 94, paragraph 3, of the Convention issued by the Examining Division
+proper or,
+
+-     if no such invitation has been issued by the Examining Division,
+before the date of the communication under Rule 71, paragraph 3, of the
+Convention.
+
+Article 1231
+Refund of insignificant amounts
+
+Where too large a sum is paid to cover a fee, the excess shall not be
+refunded if the amount is insignificant and the party concerned has not
+expressly requested a refund. The President of the Office shall determine
+what constitutes an insignificant amount.
+
+
+
+
+2009, 99), as well as decision of the President of the EPO of 27.02.2025 concerning the
+refund of the international search fee by the EPO acting as International Searching Authority
+(OJ EPO 2025, A26).
+29 Amended by decision of the Administrative Council CA/D 4/16 of 29.06.2016 (OJ EPO
+2016, A48), which entered into force on 01.07.2016.
+30  See notice from the EPO of 30.06.2016 concerning refunds of the examination fee
+(Article 11 of the Rules relating to Fees) (OJ EPO 2016, A49).
+31 See decision of the President of the EPO of 07.03.2023 implementing Article 12 RFees
+(OJ EPO 2023, A27).
+
+
+                                             12
+Rules relating to Fees                                                             April 2026
+
+Article 1332
+Termination of financial obligations
+
+(1) Rights of the Organisation to the payment of a fee to the European
+Patent Office shall be extinguished after four years from the end of the
+calendar year in which the fee was due.
+
+(2) Rights against the Organisation for the refunding by the European
+Patent Office of fees or sums of money paid in excess of a fee shall be
+extinguished after four years from the end of the calendar year in which the
+right arose.
+
+(3) The period laid down in paragraphs 1 and 2 shall be interrupted in the
+case covered by paragraph 1 by a request for payment of the fee and in the
+case covered by paragraph 2 by a reasoned claim in writing. On
+interruption it shall begin again immediately and shall end at the latest six
+years after the end of the year in which it originally began, unless, in the
+meantime, judicial proceedings to enforce the right have begun; in this case
+the period shall end at the earliest one year after the judgment enters into
+force.
+
+(4) The President of the European Patent Office may waive action for the
+enforced recovery of any sum due if the sum to be recovered is minimal or
+if such recovery is too uncertain.
+
+Article 14
+Reduction of fees
+
+(1)33 The reduction laid down in Rule 7a, paragraphs 1 and 3, of the
+Convention shall be 30% of the relevant fee.
+
+(2)34 Where the European Patent Office has drawn up an international
+preliminary examination report, the examination fee shall be reduced by
+75%. If the report was established on certain parts of the international
+application in accordance with Article 34, paragraph 3(c), PCT, the fee shall
+not be reduced if subject-matter not covered by the report is to be exam-
+ined.
+
+(3)35 If more than one reduction applies to the same fee for the same
+application, the reductions shall be calculated sequentially.
+
+
+
+
+32 Amended by decision of the Administrative Council CA/D 17/07 of 25.10.2007 (OJ EPO
+2007, 533), in particular Article 1, point 4 thereof, which entered into force on 13.12.2007.
+33 Last amended by decision of the Administrative Council CA/D 16/23 of 14.12.2023
+(OJ EPO 2024, A3), which entered into force on 01.04.2024.
+   See notice from the EPO of 25.01.2024 concerning fee-related support measures for
+small entities (OJ EPO 2024, A8).
+34 Last amended by decision of the Administrative Council CA/D 17/17 of 13.12.2017
+(OJ EPO 2018, A4), which entered into force on 01.04.2018.
+35 Inserted by decision of the Administrative Council CA/D 16/23 of 14.12.2023 (OJ EPO
+2024, A3), which entered into force on 01.04.2024.
+
+
+                                             13
+Rules relating to Fees                                                        April 2026
+
+Article 15
+Entry into force
+
+These Rules shall enter into force on 20 October 1977.36
+
+DONE at Munich, 20 October 1977
+
+For the Administrative Council
+
+The Chairman
+
+
+
+
+36   Amended by decision of the Administrative Council of 7 December 2006 (CA/D 11/06).
+
+
+                                            14
+

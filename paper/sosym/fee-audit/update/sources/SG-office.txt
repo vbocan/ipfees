@@ -1,0 +1,553 @@
+Source: https://www.ipos.gov.sg/about-ip/patents/managing-patents/forms-fees
+Retrieved: 2026-10-20
+
+Forms and Fees | Intellectual Property Office of Singapore
+Skip to main content
+A Singapore Government Agency Website How to identify
+Official website links end with .gov.sg
+Government agencies communicate via .gov.sg websites (e.g. go.gov.sg/open). Trusted websites (opens in new tab)
+Secure websites use HTTPS
+Look for a lock ( ) or https:// as an added precaution. Share sensitive information only on official, secure websites.
+Beware of Impersonation Scams
+Government officials will NEVER ask you to transfer money or disclose bank log-in details over a phone call. Call the 24/7 ScamShield Helpline at 1799 if you are unsure if something is a scam. Learn about the latest scam updates at scamshield.gov.sg ↗ (opens in new tab) .
+About IP
+Manage IP
+Global IP Hub
+eServices
+FAQs ↗ (opens in new tab)
+Home
+About IP Overview
+Patents Overview
+Forms and Fees
+Forms and Fees
+View form description and relevant fees.
+Last updated on 9 October 2026
+On this page
+Filing a Singapore application
+Filing a PCT application
+Filing a Singapore application
+Please proceed to our e-services portal, IPOS Digital Hub ↗ (opens in new tab) , to file your forms online. The acceptable modes of payment can be found here .
+The Intellectual Property Office of Singapore has issued circulars on upcoming fee updates. In general, the majority of the fee updates will take effect on 1 September 2025, and the other fee updates will take effect on 1 April 2026. Please refer to our News ↗ (opens in new tab) page for more information.
+General forms
+List of general forms
+Description
+Form
+Standard List of Country Codes
+Country Codes [PDF, 89 KB] ↗ (opens in new tab)
+Application For Clearance Under S34
+Section 34 [PDf, 164 KB] ↗ (opens in new tab)
+Please file the application for clearance under S34 via IPOS Digital Hub ↗ (opens in new tab) .
+GST Form (wef 1 Apr 2017)
+GST [PDF, 7 KB] ↗ (opens in new tab)
+Patent forms
+List of forms for filing for a patent in Singapore
+Form
+Description
+Fee
+PF1
+Request for the Grant of a Patent
+S$170
+PF2
+Reference to Registrar on Determination of Entitlement to Patent Before or After Grant
+S$450
+NA
+Application for Authorisation by Registrar to Carry out Act on Behalf of Person to whom Directions were Given
+S$50
+NA
+Request for Directions on Handling of Dispute Between Joint Applicants
+S$450
+NA
+Reference to Registrar to determine the question of a licence
+S$450
+PF7
+Application to Add and/or Remove Inventors
+S$450
+PF8
+Statement of Inventorship and of Right to Grant of Patent
+No fee
+PF9
+Request for Early Publication
+S$50
+PF10
+Request for Search Report or Supplementary
+S$1,735
+PF11
+Request for Search and Examination Report
+(a) In a case where the International Search Report/International Preliminary Report on Patentability has been established by IPOS (for PCT application entering national phase)
+S$1,750 plus S$80 for each claim over 15 claims
+(b) In any other case
+Save on official search and examination fees under the PPH pilot. Find out more ↗ (opens in new tab)
+S$2,050 plus S$80 for each claim over 15 claims
+Additional fee for request for patent acceleration
+i. SG Patents Fast 4
+ii. SG Patents Fast 8
+$1800.00
+$900.00
+PF12
+Request for Examination Report
+Save on official examination fees under the PPH pilot. Find out more ↗ (opens in new tab)
+Additional fee for request for patent acceleration
+i. SG Patents Fast 4
+ii. SG Patents Fast 8
+S$1,420 plus S$80 for each claim over 15 claims
+$1200.00
+$600.00
+PF12A
+Request for Supplementary Examination Report
+No Fee
+PF12B
+Request for an Examination Review Report with the Request to Amend Application Before Grant
+S$3,200
+PF13
+Request to Amend Application Before Grant
+No Fee
+PF13A
+Response to written opinion or a response to an invitation to amend (whether amending the specification of the application or rejecting the invitation)
+For PF11, PF12 or PF12A filed on or after 1 September 2025; and
+the number of claims in the specification of the patent application, as amended by the response, exceeds the greatest of the following numbers of claims (called in this item X ):
+(i) 15;
+(ii) if a request for PF11 or PF12 — the number of claims in the specification of the patent application when the request was filed;
+(iii) if one or more PF13A previously filed under section 29(7C) or 29(9) contained amendments of the specification of the patent application — the highest number of claims in the specification, as amended by any previous response.
+S$80 for each claim in excess of X claims
+Additional fee for request for patent acceleration SG Patents Fast 4/8
+$150
+PF14
+Payment of Fee for Grant of Patent
+(a) For PF11, PF12 or PF12A filed before 1 September 2025
+(i) the specification of the patent application has 20 claims or less when rule 47(3) is complied with; or
+(a)(i) S$210
+For PF12A requests
+(ii) the specification of the patent application has more than 20 claims when rule 47(3) is complied with;
+(a)(ii) S$210 plus S$40 for each claim in excess of 20 claims
+For PF11 or PF12 requests
+(iii) the specification of the patent application has more than 20 claims when rule 47(3) is complied with; and
+A. the specification of the patent application had 20 claims or less when the PF11 or PF12 report was requested; or
+(a)(iii)(A) S$210 plus S$40 for each claim in excess of 20 claims
+B. the specification of the patent application had more than 20 claims when the PF11 or PF12 report was requested.
+(a)(iii)(B) S$210 plus S$40 for each claim in excess of the number of claims of the specification when that report was requested
+(b) For PF11, PF12 or PF12A requests filed on or after 1 September 2025
+(b) S$210
+PF15
+Payment of Renewal Fee and Any Additional Fee
+Renewal Fee
+(a) For each year of renewal in respect of the 5th, 6th or 7th year of the patent
+S$176
+(b) For each year of renewal in respect of the 8th, 9th or 10th year of the patent
+S$460
+(c) For each year of renewal in respect of the 11th, 12th or 13th year of the patent
+S$640
+(d) For each year of renewal in respect of the 14th, 15th or 16th year of the patent
+S$830
+(e) For each year of renewal in respect of the 17th, 18th or 19th year of the patent
+S$1,010
+(f) For renewal of the 20th year of the patent
+S$1,200
+(g) For each year of renewal after the 20th year of the patent
+S$1,470
+Additional Fee
+(a) For late payment of renewal fee not exceeding one month
+S$50
+(b) For late payment of renewal fee for each succeeding month (but not exceeding 6 months)
+S$100
+PF17
+Application Amend Specification After Grant
+S$1,250
+PF19
+Application for Restoration of Patent
+S$500
+PF20
+Payment of Additional Fee and Renewal Fee for Restoration of Patent
+S$300 plus
+(a) For each year of renewal in respect of the 5th, 6th or 7th year of the patent
+S$176
+(b) For each year of renewal in respect of the 8th, 9th or 10th year of the patent
+S$460
+(c) For each year of renewal in respect of the 11th, 12th or 13th year of the patent
+S$640
+(d) For each year of renewal in respect of the 14th, 15th or 16th year of the patent
+S$830
+(e) For each year of renewal in respect of the 17th, 18th or 19th year of the patent
+S$1,010
+(f) For renewal of the 20th year of the patent
+S$1,200
+(g) For each year of renewal after the 20th year of the patent
+S$1,470
+PF28
+Application for Entry to be Made, or for Cancellation of Entry, in Register to Effect that Licences under Patent are to be Available as of Right
+S$40
+NA
+Application for Settlement of Terms of Licence of Right
+S$380
+NA
+Application for Information on Corresponding Applications for Patent
+S$100
+PF35
+Application for Revocation of Patent
+S$500
+PF36
+Request for Re-examination of Patent
+(a) In Response to Direction of Registrar
+S$900
+(b) Request for Re-examination after Grant
+S$3,200
+PF37
+Entry into National Phase
+S$210
+PF38
+Payment of Fee for Publication of Translation of International Application and/ or any Amendment to International Application
+(Applicable for national phase entry made before 29 April 2022)
+S$70
+NA
+Application to Registrar for International Application to be Treated as Application under Act
+S$160
+NA
+Payment of Additional Fee for Advertisement of Proposed Correction
+NA
+PF45/46/47
+Request for Extension of Time or Period
+For an application for a patent lodged before 14 February 2014
+(a) Request under rule 108(3)
+S$200 for each time or period, and each month or part of a month
+(b) Request under rule 108(4) or (4A)
+S$200
+(c) Payment of additional fee under 108(6)
+S$200 for each time or period, and each month or part of a month
+For an application for a patent lodged on or after 14 February 2014
+(a) Request under rule 108(3) or (4)
+S$200 for each time or period, and each month or part of a month
+(b) Request under rule 108(5)
+S$200 for each time or period, and each month or part of a month
+NA
+Payment of Transmittal Fee under Patent Co‑operation Treaty
+S$150
+NA
+Request for Certificate Authorising Release of Sample of Micro-organism
+NA
+NA
+Notice of Intention to Restrict Availability of Samples of Micro-organisms to Experts
+NA
+NA
+Notice of objection to Release of Sample of Micro-organism to Expert
+S$100
+PF15
+Payment of Renewal Fee and Any Additional Fee after Entry is Made in Register to Effect that Licences under Patent are to be Available as of Right
+Renewal Fee
+(a) For each year of renewal in respect of the 5th, 6th or 7th year of the patent
+S$88
+(b) For each year of renewal in respect of the 8th, 9th or 10th year of the patent
+S$230
+(c) For each year of renewal in respect of the 11th, 12th or 13th year of the patent
+S$320
+(d) For each year of renewal in respect of the 14th, 15th or 16th year of the patent
+S$415
+(e) For each year of renewal in respect of the 17th, 18th or 19th year of the patent
+S$505
+(f) For renewal of the 20th year of the patent
+S$600
+(g) For each year of renewal after the 20th year of the patent
+S$735
+Additional Fee
+(a) For late payment of renewal fee not exceeding one month
+S$50
+(b) For late payment of renewal fee for each succeeding month (but not exceeding 6 months)
+S$100
+PF54
+Application for Extension of Term of Patent
+S$950
+PF56
+Filing of Drawing(s), Description or Part of Description
+No Fee
+PF57
+Addition, Correction or Late Declaration of Priority
+(a) For declaration under rule 9(2) or request under rule 9(3)
+S$120
+(b) For request under rule 9A(2)
+S$250
+PF58
+Notice of Opposition –
+(a) To an application under section 24
+S$40
+(b) To an amendment of a specification after grant
+S$480
+(c) To an application under section 54(1) or (3) for cancellation of an entry in the register
+S$90
+(d) To the correction of an error, clerical error or mistake
+S$100
+CM1
+Request to Appoint, Change or Remove Agent
+Notice of Intention to Cease to Act as Agent
+No Fee
+CM2 (Only e-filing available)
+Request to Change Name, or Other Particular of Any Person
+For the correction of name or other particular of any person, please file Form CM4.
+No Fee
+CM3
+Request to Surrender Patent
+No Fee
+CM4
+Request for Correction of Error
+(a) For the correction of form, correction of register of Patents, or correction of documents other than form or specification of a patent or of an application for a patent
+S$50
+(b) For the correction of error in name or other particular of a person in the register or other document
+S$50
+(c) For the correction of specification of a patent or of an application for a patent
+S$120
+CM6
+Application to Register, Amend or Terminate Licence
+S$60 per application number
+CM7
+Application to Register, Amend or Terminate Security Interest
+S$50 per application number
+CM8
+Application to Register Transfer of Ownership
+S$70 per application number
+CM9
+Request for Withdrawal of Application
+No Fee
+CM10 (Only e-filing available)
+Request for File Inspection
+S$30
+NA
+Application to Record Order of Court
+NA
+CM12
+Request for Certified Copy of Entry in Register or Certified Extract from Register/ Request for Certified Document Relating to Patent or Application for Patent
+(a) For certificate in electronic form (i.e. soft copy)
+S$28 per copy
+(b) For certificate in paper form (i.e. hard copy)
+S$35 per copy
+HC1
+Hearing and decision
+S$1,000
+HC3
+Request for Extension of Time
+(a) first extension of that period
+(b) second or subsequent extension of that period
+No Fee for 1st Request
+S$130 for each Subsequent Request
+HC4
+Request for Hearing at which Only the Party Making the Request is Present (Ex Parte Hearing)
+S$100
+HC5
+Request for Grounds of Decision
+S$700
+HC6
+Counter-Statement
+S$360
+Forms and procedures for other requests
+List of other forms
+Description
+Fee
+Composition of Offence
+Please submit your request via IPOS Digital Hub ↗ (opens in new tab) .
+Purchase of a copy of the Patents Journal
+Click here ↗ (opens in new tab) for more details.
+Submit your request via FormSG ↗ (opens in new tab) .
+Each past issue will be charged at $10 for Journal A and $36 for Journal B and produced in CD-Roms only
+Refund
+Refund is generally not allowed. However, these exceptions may apply:
+You have made duplicate payment for a form.
+You have filed duplicate forms.
+You have submitted a form which cannot be processed.
+The IPOS examiner has not started work on your request for a search and/or examination report for a patent application.
+You are advised to check your forms carefully before submitting them.
+Submit your request via IPOS Digital Hub ↗ (opens in new tab) .
+Please note that forms which have been processed are generally not refundable.
+Request for refund is subject to approval. Submission of a request does not guarantee a refund.
+You are advised to check your forms carefully before submitting them.
+Filing a PCT application
+The PCT Request Form can be downloaded from the World Intellectual Property Organisation (WIPO) website ↗ (opens in new tab) .
+Applicants can file their international applications with Singapore as the receiving Office via an electronic application through ePCT - an e-filing server service that is hosted by the International Bureau. New ePCT users have to register with WIPO as an ePCT user, create an account and upload a digital certificate. You can do so by accessing the ePCT homepage ↗ (opens in new tab)
+Please note that electronic filing of international applications via ePCT is not available via IPOS Digital Hub ↗ (opens in new tab) or at IPOS computer terminals.
+Applicant can refer to the Administrative instructions under the PCT ↗ (opens in new tab) for instructions relating to the international application, the receiving Office, the International Bureau, the International Searching Authority and the International Preliminary Examining Authority.
+PCT Updates
+From 1 January 2017, applicants intending to have their international application searched and examined by Singapore, can file the international application and PCT Request Form (PCT/RO/101), through Singapore or the IB as the receiving Office using Chinese as a language. There is no need to file a translation of the international application in English.
+However, a translation of the international application in English, or in whichever language that is accepted, would have to be furnished in accordance with PCT Rule 12.3, if an International Searching Authority other than Singapore is chosen.
+Contact
+If you have any queries, please contact us via:
+pct@ipos.gov.sg (for enquiries relating to specific international applications filing through Singapore as the receiving Office or selecting Singapore as the International Searching Authority/International Preliminary Examining Authority)
+Enquiry form (for general enquiries relating to international applications)
+More information can be found at the WIPO Website. ↗ (opens in new tab)
+The Intellectual Property Office of Singapore has issued circulars on upcoming fee updates. In general, the majority of the fee updates will take effect on 1 September 2025, and the other fee updates will take effect on 1 April 2026. Please refer to our News ↗ (opens in new tab) page for more information.
+Fees for filing a PCT application
+By the International Bureau
+Fees prescribed by the International Bureau
+Fees
+Amount in Singapore Dollars (SGD)
+(a) if the international application contains not more than 30 sheets
+SGD 2,026
+SGD 2,156 (wef 01/01/2026)
+(b) if the international application contains more than 30 sheets
+SGD 2,026
+SGD 2,156 (wef 01/01/2026)
+plus 23 SGD for each sheet in excess of 30 sheets
+plus 24 SGD for each sheet in excess of 30 sheets (wef 01/01/2026)
+Electronic filing discounts for using ePCT
+Electronic filing in PDF format will be given SGD 305 (CHF 200)
+Electronic filing in PDF format will be given SGD 324 (CHF 200) (wef 01/01/2026)
+Electronic filing in XML format will be given SGD 457 (CHF 300)
+Electronic filing in XML format will be given SGD 486 (CHF 300) (wef 01/01/2026)
+By Singapore Receiving Office
+Fees prescribed by Singapore Receiving Office
+Matter or Proceeding
+Amount in Singapore Dollars (SGD)
+Form
+Transmittal Fee
+150
+Fee calculation sheet
+Priority Document
+28
+Form CM12
+Late Payment Fee
+50% of unpaid fee, but the amount shall not be less than $150 (transmittal fee) and not more than 50% of the total international filing fee (not taking into account any fee for each sheet of the international application in excess of 30 sheets).
+-
+Restoration of Right of Priority
+250
+-
+Fees for copies of documents cited in the file of the international application (Rule 94.1bis)
+30 per document
+-
+International search fees
+International Search Fees and their Equivalent Amounts
+International Searching Authority
+Currency and Amount fixed by Authority
+Amount in Singapore Dollars (SGD)
+AT-Austrian Patent Office (APO)
+EUR 1,845 2
+EUR 1,885 wef 01/04/2026
+SGD 2,787
+SGD 2,842 (wef 01/04/2026)
+AU-Australian Patent Office (AIPO)
+AUD 2,200
+SGD 1,878
+SGD 2,016 (wef 01/07/2026)
+EP-European Patent Office (EPO)
+EUR 1,845
+EUR 1,885 wef 01/04/2026
+SGD 2,787
+SGD 2,842 (wef 01/04/2026)
+KR-Korean Intellectual Property Office (KIPO)
+KRW 1,200,000
+SGD 1,024
+SGD 1,117 (wef 01/11/2026)
+JP-Japan Patent Office (JPO)
+JPY 169,000
+SGD 1,455
+SGD 1,358 (wef 01/06/2026)
+Intellectual Property Office of Singapore (IPOS)
+Search fee (PCT Rule 16)
+SGD 2,350
+Additional search fee (PCT Rule 40.2)
+SGD 2,350
+Protest fee [PCT Rule 40.2(e)]
+SGD 650
+Fee for copies of documents cited in the international search report (PCT Rule 44.3)
+SGD 30 per document
+2 This search fee is reduced by 75% if the international application is filed by an applicant, or, if there are two or more applicants, each applicant is a natural person and who is a national of and resides in a State for which the Austrian Patent Office is an International Search Authority. More information can be found here ↗ (opens in new tab)
+3 Where IPOS benefits from an earlier search, 25% to 75% of the search fees may be refunded, depending on the extent to which IPOS benefits from the earlier search. This information can also be found in Annex D of the PCT Applicant’s Guide ↗ (opens in new tab)
+In order to rely on an earlier search report, it is mandatory for the relevant information to be furnished when filing for the PCT international application.
+(1) For electronic filing via ePCT, please refer to pages 31-32 of the ePCT-Filing guidelines ↗ (opens in new tab) .
+(2) For manual filing, please fill in the relevant information in Box No. VII of the PCT/RO/101 ↗ (opens in new tab) form.
+International Searching Authority fees
+International Searching Authority (Supplementary Search)
+Currency and Amount
+Intellectual Property Office of Singapore (IPOS)
+In operation 1 September 2015
+Amount in Swiss franc (CHF) payable to the International Bureau
+Supplementary search fee
+CHF 1,470
+Supplementary search handling fee
+CHF 200
+Late payment fee
+CHF 100
+Amount payable to IPOS
+Review fee [PCT Rule 45bis.6(c)]
+SGD 650
+Fees for copies of documents cited in the supplementary international search report
+SGD 30 per document
+International Preliminary Examining Authority fees
+International Preliminary Examining Authority
+Currency and Amount
+Intellectual Property Office of Singapore (IPOS)
+In operation 1 September 2015
+Handling fee (PCT Rule 57.1)
+SGD 305
+SGD 324 (wef 01/01/2026)
+Preliminary examination fee (PCT Rule 58)
+SGD 900
+Additional preliminary examination fee (PCT Rule 68.3)
+SGD 900
+Protest fee [PCT Rule 68.3(e)]
+SGD 650
+Fee for copies of documents cited in the international preliminary examination report (PCT Rule 71.2)
+SGD 30 per document
+Fee for copies of documents contained in the file of the international application (PCT Rule 94.2)
+SGD 30 per document
+Other fees
+Receiving Offices that could appoint Intellectual Property Office of Singapore (IPOS) as competent International Searching Authority and International Preliminary Examining Authority
+Filing information
+Brunei Darussalam
+Accept filing via ePCT
+Cambodia
+Accept paper filing only
+Indonesia
+Accept filing via ePCT
+International Bureau of World Intellectual Property Office
+Accept filing via ePCT
+Japan
+Office accepts XML files with JPEG as well as TIFFs for the drawings filed using JPO PAS. Offline filings are not accepted.
+Lao People’s Democratic Republic
+Accept filing via ePCT
+Mexico
+Accept filing via ePCT
+Republic of Korea
+Accept filing via ePCT
+Saudi Arabia
+Accept filing via ePCT
+Thailand
+Accept paper filing only
+Trinidad and Tobago
+Accept filing via ePCT
+Uganda
+Accept filing via ePCT
+United States of America
+Accept filing via ePCT, US-EFS Web and Patent Center
+For more information, please refer to www.uspto.gov/patents-application-process/applying-online/about-efs-web.
+Vietnam
+Accept filing via ePCT
+For currency and amount to select Intellectual Property Office of Singapore (IPOS) as competent International Searching Authority, please refer to Fees and Payments-PCT System ↗ (opens in new tab) .
+Compilation of Forms (For Reference)
+To preview the forms on IPOS Digital Hub ↗ (opens in new tab) in Word/PDF format, please click here .
+Back to
+Patents Overview
+Other pages in Patents Overview
+Introduction to Patents
+How to Register Patent Overview
+Managing Patents
+Guides
+Patent Agents
+Circulars and Practice Directions
+See all pages
+Back to top
+Intellectual Property Office of Singapore
+About IPOS Global IP Hub Resources News Events Careers FAQs (opens in new tab)
+About IP Trade Marks Patents Copyright Resolve IP eServices Data Protection Policy Subscribe (opens in new tab)
+Reach us
+Contact
+© 2026 Government of Singapore, last updated on 20 October 2026
+Report Vulnerability (opens in new tab) Privacy Statement (opens in new tab) Terms of Use REACH (opens in new tab)
+Made with Isomer
+(opens in new tab)
+Built by Open Government Products
+(opens in new tab)
+Intellectual Property Office of Singapore
+About IPOS Global IP Hub Resources News Events Careers FAQs (opens in new tab)
+About IP Trade Marks Patents Copyright Resolve IP eServices Data Protection Policy Subscribe (opens in new tab)
+Reach us
+Contact
+© 2026 Government of Singapore, last updated on 20 October 2026
+Report Vulnerability (opens in new tab) Privacy Statement (opens in new tab) Terms of Use REACH (opens in new tab)
+Made with Isomer
+(opens in new tab)
+Built by Open Government Products
+(opens in new tab)

@@ -1,0 +1,31 @@
+name: ipfees-quotation
+services:
+  ipfees.web:
+    build:
+      context: ./src
+      dockerfile: IPFees.Web/Dockerfile
+    depends_on:
+      - ipfees-mongodb
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Production
+      - ASPNETCORE_HTTP_PORTS=8080
+      - CurrencySettings__CurrencyMarkup=0
+    ports:
+      - "18080:8080"
+  ipfees.api:
+    build:
+      context: ./src
+      dockerfile: IPFees.API/Dockerfile
+    depends_on:
+      - ipfees-mongodb
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Production
+      - ASPNETCORE_HTTP_PORTS=8080
+      - CurrencySettings__CurrencyMarkup=0
+    ports:
+      - "18090:8080"
+  ipfees-mongodb:
+    image: mongo:latest
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: pA55w0rd

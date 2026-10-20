@@ -1,0 +1,324 @@
+Source: https://www.inapi.dz/patentTaxes
+Retrieved: 2026-10-20
+
+section of your master layout (aboutMaster.blade.php) -->
+INAPI
+INAPI - Accueil
+INAPI
+Présentation
+Historique
+Législations
+Missions
+SMQ
+NOS SERVICES
+Brevets
+Qu'est-ce qu'un
+brevet ?
+Pourquoi c’est
+important
+Déposer un
+brevet
+Inscriptions
+Taxes
+Rédiger un brevet
+Marques
+Recherche
+d'antériorité
+À propos
+Déposer une
+marque
+Inscriptions
+Base de données
+Marques international
+enregistrées en Algérie via Madrid
+Marques international
+enregistrées à l'étranger via Madrid
+Appellation d'origine
+Deposer une appellation d'origine
+Baréme des Taxes Appellations
+d'origines
+Baréme des Taxes Marque
+Dessins & Modèles
+Qu’est-ce
+que c’est ?
+Déposer un
+dessin/modèle
+Inscriptions
+Formulaires
+Conditions
+Taxes
+ÉCOUTE CLIENT
+Fiche
+de réclamation
+Satisfaction client
+Demande de rendez-vous
+STATISTIQUES
+BOPI
+MANDATAIRES
+EMBLEMES
+Français
+Français
+English
+العربية
+INSCRIPTION
+CONNEXION
+Menu
+INAPI
+Présentation
+Historique
+Législations
+Mission
+SMQ
+Nos Services
+Brevets
+Qu'est-ce qu'un brevet ?
+Pourquoi c’est important
+Déposer un brevet
+Inscriptions
+Taxes
+Rédiger un brevet
+Marques
+Recherche d'antériorité
+À propos
+Déposer une marque
+Inscriptions
+Base de données
+Marques international enregistrées en Algérie via
+Madrid
+Marques international enregistrées à l'étranger via
+Madrid
+Appellations d'origines
+Deposer une appellations d'origines
+Baréme des Taxes Appellations d'origines
+Baréme des Taxes Marque
+Dessins & Modèles
+Qu’est-ce que c’est ?
+Déposer un dessin
+Inscriptions
+Formulaires
+Conditions
+Taxes
+Écoute Client
+Fiche de réclamation
+Satisfaction client
+Demande de rendez-vous
+Statistiques
+BOPI
+Mandataire
+EMBLEMES
+Français
+English
+العربية
+INSCRIPTION
+CONNEXION
+Brevet
+Taxes relatives aux brevets d’invention et aux certificats d’addition
+Code
+Libellé tarifaire
+Tarif en DA
+Taxes pour les demandes de brevets et
+certificats d'addition
+762-01
+Taxe de dépôt et de première annuité
+Entreprise
+Université, centre de recherches
+particuliers,start-up et incubateurs en projet
+15000
+7000
+6500
+762-02
+Taxe de dépôt de certificat d'addition
+Entreprise
+Université, centre de recherches
+particuliers, start-up et incubateurs en projet
+15000
+6500
+5000
+762-03
+Taxe de revendication de priorité
+Entreprise
+Université, centre de recherches,
+particuliers,start-up et incubateurs en projet
+10000
+5000
+2000
+762-04
+Taxe de publication de brevet d'invention et des certificats d'addition :
+Entreprise
+Université, centre de recherches,
+particuliers ,start-up et incubateurs en projet
+10000
+5000
+3000
+Taxes d'annuités
+762-11
+de la 2ème à la 5ème annuité
+Entreprise
+Université, centre de recherches,
+particuliers, start-up et incubateurs en projet
+5000
+4000
+3000
+762-12
+de la 6ème à la 10ème annuité
+Entreprise
+Université, centre de recherches,
+particuliers, start-up et incubateurs en projet
+10000
+7000
+6000
+762-13
+de la 11ème à la 15ème annuité
+Entreprise
+Université, centre de recherches
+particuliers,start-up et incubateurs en projet
+20000
+10000
+8000
+762-14
+de la 16ème à la 20ème annuité
+Entreprise
+Université, centre de recherches,
+particuliers,start-up et incubateurs en projet
+50000
+18000
+16000
+Taxes supplémentaires
+762-21
+Taxe de publication des brevets d’invention ou des certificats d’addition pour chaque 5 pages supplémentaires au-delà des 10 premières :
+Entreprises ;
+Universités, centres de recherches,
+Startup et particuliers.
+5000
+2000
+1200
+762-22
+Taxe de publication des dessins :
+- Pour les formats réduits, par page au-delà de trois pages.
+Entreprises ;
+Universités, centres de recherches,
+Startup et particuliers.
+Pour les formats grands, par page au-delà de deux pages
+Entreprises ;
+Universités, centres de recherches,
+Startup et personnes physiques.
+5000
+3000
+1000
+10000
+5000
+2000
+762-23
+Taxe de rectification autorisée d'erreur matérielle pour la première
+750
+762-23
+Taxe de rectification autorisée d'erreur matérielle pour les suivantes
+1400
+762-24
+Taxe de transformation en brevet d'invention d'un certificat d'addition non délivrée
+1500
+762-25
+Taxe d'inscription relative à une demande de brevet
+2500
+762-26
+Taxe d'inscription de cession ou concession d'un brevet
+2500
+762-27
+Surtaxe de retard pour le paiement des annuités dans le délai de grâce de 6 mois
+Égale au montant de l'annuité
+762-28
+Taxe de restauration de licence d’exploitation d’un brevet ou d’un certificat d’addition :
+- Entreprises ;
+- Universités, centres de recherches,
+- Startup et particuliers.
+50000
+30000
+10000
+762-29
+Taxe de recours contre le résultat d’examen :
+- Entreprises ;
+- Universités, centres de recherches,
+- Startup et particuliers
+5000
+1000
+1000
+Taxes pour l'obtention de renseignements
+762-31
+Taxe de délivrance d'une copie officielle par feuille
+400
+762-32
+Taxe d'authentification d'un fascicule imprimé d'un brevet d'invention ou de certificat
+d'addition
+400
+762-33
+Taxe de délivrance d'un état des annuités d'un brevet d'invention
+500
+762-34
+Taxe de délivrance d'une copie certifiée d'inscription
+au registre spécial des brevets
+600
+762-35
+Taxe de recherche d'antériorité par titre
+2400
+762-35
+Taxe de recherche d'antériorité par déposant /
+titulaire
+5000
+762-35
+Taxe de recherche sur l’état d’un brevet ou d’une demande de brevet
+5000
+762-35
+Taxe de recherche par description
+5000
+762-35
+Taxe pour chaque mot clé
+Taxe pour chaque molécule chimique
+1000
+2000
+762-36
+Taxe indépendante pour la protection à l'internationale en conterpartie du montant dû et retenu à la source au profit de l'organisation mondiale de la propriéte intellectuelle
+10000
+Voir Aussi
+Qu'est-ce qu'une invention / un brevet?
+Pourquoi les brevets sont-ils importants?
+Déposer un brevet
+Inscription brevet
+Taxe brevets
+Comment Rédiger un brevet ?
+Algerian National Institute of Industrial Property - INAPI
+📝 Donnez votre avis
+Aidez-nous à rendre ce site meilleur ! Partagez vos impressions, idées ou suggestions en cliquant ici.
+NOS SERVICES
+Recherche d'Antériorité marque
+Dépot de Marques
+Dépot de Brevets
+Dépot de Dessins et Modèles
+Réseau Internationale CATI
+Centre d'Arbitrage et Médiation
+Bulletin Officiel
+Base de Données
+CONTACTEZ NOUS
+Alger: 044 19 68 66 / 044 19 64 24
+Boumerdes: 024 79 57 59
+Setif: 036 37 04 82
+Oran: 042 24 59 21
+Fax: 021 73 96 44 / 021 73 55 81
+twitter.com/inapi_dz
+facebook.com/inapi.dz
+linkedin.com/company/INAPI-DZ
+info-dpitt@inapi.dz
+TROUVEZ NOUS
+42, Rue Larbi Ben M'hidi Alger centre
+Rue 1er novembre B.P 103. Boumerdés
+160 locaux Hai el Bez Chouf Lekdad, Sétif
+Boulanger, 08 Rue Ferh el Hadj, Oran
+COORDONNEES FISCALES
+RC: 11 B 0987968-16/00
+ARTICLE D’IMPOSITION: 16014251066
+NIF: 001116098796838
+NIS: 099816010652625
+RIB: 01100103 1000013733 12 CNEP BANQUE
+POUR VIREMENT: 01100103 1000013733 12 CNEP BANQUE
+POUR VERSEMENT: 100 00 13733 clé 7 CODE D'AGENCE CNEP 103
+Certifié ISO 9001:2015
+© Tous droits réservés par l'Institut National Algérien de la Propriété Industrielle 2023

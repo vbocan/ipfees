@@ -1,0 +1,594 @@
+Source: https://pctlegal.wipo.int/eGuide/view-doc.xhtml?doc-code=RU&doc-lang=en
+Retrieved: 2026-10-20
+
+PCT Applicant's Guide Russian Federation - Valid as from
+August 1, 2026
+Processing
+Please wait...
+GENERAL INFO
+RO
+ISA
+SISA
+IPEA
+BIO
+NATIONAL CHAPTER
+RU - Useful information RU - International Phase RU - Annex B - Information on Contracting States or Intergovernmental Organization RU - Annex C - Receiving Office RU - Annex D - International Searching Authority RU - Annex SISA - International Searching Authority (Supplementary Search) RU - Annex E - International Preliminary Examining Authority RU - Annex L - Deposits of Microorganisms and Other Biological Material RU - National Phase RU - Summary of requirements for entry into the national phase RU - The procedure in the national Phase RU - Annexes
+WIPO - PCT Applicant's Guide
+RU - Russian Federation
+Federal Service for Intellectual Property (Rospatent) (Russian Federation)
+Information
+Please refresh this page to proceed.
+Refresh
+Error
+Information
+Warning
+Confirmation
+Cancel No Yes Ok
+All document versions available for RU - Russian Federation
+Listed from the newest to the oldest -
+Close
+Applicable as from
+August 1, 2026
+(Last updated on June 11, 2026)
+Summary of latest changes in this version
+ISA: ISA fees
+List of changes
+All available versions
+(Advance notice The Office has notified the IB of changes entering into force soon )
+Useful information
+The PCT Applicant’s Guide is updated almost every week with information received by the International Bureau.
+In case of question, please contact the Office or the International Bureau: pct.guide@wipo.int .
+List of abbreviations used in this document:
+These texts are available at:
+https://rospatent.gov.ru/ru/documents/grazhdanskiy-kodeks-rossiyskoy-federacii-chast-chetvertaya (Russian)
+https://rospatent.gov.ru/en/documents/grazhdanskiy-kodeks-rossiyskoy-federacii-chast-chetvertaya (English)
+https://rospatent.gov.ru/ru/documents/941-postanovlenie-pravitelstva-rf-ot-10-dekabrya-2008-g-941#1 (Russian)
+https://rospatent.gov.ru/en/activities/dues (English)
+and https://rospatent.gov.ru/ru/docs/regulations (Russian) Office: Federal Service for Intellectual Property (Rospatent) (Russian Federation) RCC: Civil Code of the Russian Federation Rules: Rules for the preparation, filing and examination of documents that are the basis for carrying out legally significant actions on the State registration of inventions, and their forms REQ: Requirements for patent application documents for an invention SF: Statute on Fees for Patents, Utility Models, Industrial Designs, Trademarks, Service Marks, Appellations of Origin
+List of currencies used in this document:
+CHF (Swiss franc), EUR (Euro), RUB (Russian rouble), USD (US dollar)
+Countries and Offices information:
+The list of acronyms used for Offices is no longer shown as it has been integrated in the mouseover functionality for each ST.3 code shown in this document.
+Refer to List of WIPO Standards, Recommendations and Guidelines formerly Annex K, List of country names and two-letter codes. It includes a list of short names and two-letter codes accepted for use in indicating States, other entities and intergovernmental organizations and their Offices in documents relating to international applications under the PCT. The list is as set out in WIPO Standard ST.3.
+Also refer to PCT Contracting States formerly Annex A.
+Office profile
+For more technical information about the Office, refer to ePCT Office profile .
+PCT Reservations, Declarations, Notifications and Incompatibilities
+Article 64(5) Refer to the full list .
+Office Closed dates
+The Office is closed weekly on Saturday and Sunday Additional closed dates can be consulted on the Office Closed dates page
+International Phase
+Annex B - Information on Contracting States or Intergovernmental Organization
+Contracting State:
+Russian Federation
+Two-letter code:
+RU
+Name of Office:
+Federal Service for Intellectual Property (Rospatent) (Russian Federation)
+Location:
+General :
+Federal Service for Intellectual Property (Rospatent)
+Berezhkovskaya nab. 30-1
+Moscow, G-59, GSP-3, 121059
+Russian Federation Application processing :
+Federal Institute of Industrial Property (FIPS)
+Berezhkovskaya nab. 30-1
+Moscow, GSP-1, 119991
+Russian Federation
+Mailing address:
+Same as above
+Telephone:
+General :
+(7-499) 240 60 15 Application processing :
+(7-499) 240 58 88
+(7-495) 531 64 81
+E-mail:
+General :
+icd@rospatent.gov.ru RO :
+ro-ru@rupto.ru ISA/SISA/IPEA :
+pct-peo@rupto.ru
+Website:
+https://www.rospatent.gov.ru
+https://new.fips.ru/
+Facsimile:
+(7-495) 531 63 18
+Does the Office accept the filing of documents by facsimile or the like means (PCT Rule 92.4)?
+Yes, by facsimile
+Which kinds of documents may be so transmitted?
+All kinds of documents
+Must the original of the document be furnished in all cases?
+Yes, within 14 days from the date of the transmission, if the transmitted document is the international application or a replacement sheet containing corrections or amendments of the international application No, only upon invitation in the case of other documents
+Does the Office send notifications via e-mail in respect of international applications?
+Yes
+Would the Office accept evidence of mailing a document, in case of loss or delay, where a delivery service other than the postal authorities is used (PCT Rule 82.1)?
+Yes, provided that the delivery service is: DHL , Federal Express or any other service which is recognized worldwide and is available in the Russian Federation
+Is the Office prepared to allow applicants to make applications available to the WIPO Digital Access Service for Priority Documents (DAS) (PCT Rule 17.1(b- bis )?
+More information about WIPO DAS is available at: https://www.wipo.int/en/web/das . No
+Competent receiving Office(s) for international applications filed by nationals or residents of this State:
+EA , IB , RU
+Does national legislation restrict the filing of international applications with foreign Offices?
+Civil Code of the Russian Federation, Article 1395, available at:
+https://rospatent.gov.ru/ru/documents/grazhdanskiy-kodeks-rossiyskoy-federacii-chast-chetvertaya (Russian)
+https://rospatent.gov.ru/en/documents/grazhdanskiy-kodeks-rossiyskoy-federacii-chast-chetvertaya (English) Yes, filing restrictions apply to: Inventions made in the Russian Federation
+Competent designated (or elected) Office(s) for this State:
+National protection: RU Eurasian patent: EA
+Types of protection available via the PCT:
+National: Patents , Utility models Eurasian: Patents
+Payment methods accepted by the Office:
+1. Account for payment of RO/RU fees: 1.1. Transmittal fee, search fee for ISA/RU, additional search fee for ISA/RU, fee for priority document (PCT Rule 17.1(b)), fee for requesting restoration of the right of priority (PCT Rule 26 bis .3(d)) Payments should be effected in Russian roubles (RUB) to the account: Beneficiary Bank: Operational Department of the Russian Bank, Interregional Operation Office of the Federal Treasury, Moscow;
+Beneficiary BIC (Bank Identifier Code) Number: 024501901;
+Beneficiary's Bank Correspondent Account: 40102810045370000002;
+Beneficiary Name: Interregional Operation Office of the Federal Treasury, Federal Service for Intellectual Property;
+Beneficiary's Bank Account Number: 03100643000000019500;
+Beneficiary Taxpayer Identification Number (INN): 7730176088;
+Beneficiary Tax Registration Reason Code (KPP): 773001001;
+Budgetary Classification Code (BCC): 16811505020016000140;
+Russian National Classification of Municipal Territories (OKTMO): 45318000 1.2. International filing fee, search fee for ISA/EA, ISA/EP Payments shall be effected in Russian roubles (RUB) to the account: Beneficiary: Moscow UFK (Federal State Budget Institution “Federal Institute of Industrial Property”, account number: 20736Ц83140);
+Taxpayer Identification Number (INN): 7730036073;
+Beneficiary Tax Registration Reason Code (KPP): 773001001;
+Beneficiary's Bank Account (Treasury): 03214643000000017300;
+Beneficiary’s bank: Bank of Russia Main Branch for the Central Federal District // Federal Treasury Office for Moscow;
+Bank Identification Code (BIC): 004525988;
+Correspondent account (Single Treasury Account): 40102810545370000003;
+Russian National Classification of Municipal Territories (OKTMO): 45318000;
+Budgetary Classification Code (BCC): 000 000 000 000 000 00 510 2. Account for payment of ISA/RU fees: 2.1. Search fee (PCT Rule 16), additional search fee (PCT Rule 40.2), protest fee (PCT Rule 40.2(e)), late furnishing fee (PCT Rule 13 ter .1(c)) Payments should be effected in Russian roubles (RUB) to the account:
+Refer to item 1.1 2.2 Fee for copies of documents cited in the international search report (PCT Rule 44.3), fee for copies of documents contained in the file of the international application (PCT Rule 94.1 ter ) Payments should be effected in Russian roubles (RUB) to the account: Beneficiary: Moscow UFK (Federal State Budget Institution “Federal Institute of Industrial Property”, account number: 20736Ц83140);
+Taxpayer Identification Number (INN): 7730036073;
+Beneficiary Tax Registration Reason Code (KPP): 773001001;
+Beneficiary's Bank Account (Treasury): 03214643000000017300;
+Beneficiary’s bank: Bank of Russia Main Branch for the Central Federal District // Federal Treasury Office for Moscow;
+Bank Identification Code (BIC): 004525988;
+Correspondent account (Single Treasury Account): 40102810545370000003;
+Russian National Classification of Municipal Territories (OKTMO): 45318000;
+Budgetary Classification Code (BCC): 000 000 000 000 000 00 130 3. Account for payment of SISA/RU fees: 3.1. Review fee (PCT Rule 45 bis .6(c)), fee for copies of documents cited in the supplementary international search report (PCT Rule 45 bis .7(c)), fee for copies of documents contained in the file of the international application (PCT Rule 94.1 ter ), late furnishing fee (PCT Rules 13 ter .1(c) and 45 bis .5(c)) Payments should be effected in Russian roubles (RUB) to the account:
+Refer to item 2.2 4. Account for payment of IPEA/RU fees: 4.1. Preliminary examination fee (PCT Rule 58), additional preliminary examination fee (PCT Rule 68.3), protest fee (PCT Rule 68.3(e)) Payments should be effected in Russian roubles (RUB) to the account:
+Refer to item 1.1 4.2. Handling fee (PCT Rule 57.1) Payments should be effected in Russian roubles (RUB) to the account:
+Refer to item 1.2 4.3. Fee for copies of documents cited in the international preliminary examination report (PCT Rule 71.2), fee for copies of documents contained in the file of the international application (PCT Rule 94.2), fee for late furnishing (PCT Rule 13 ter .2) Payments should be effected in Russian roubles (RUB) to the account:
+Refer to item 2.2 5. Account for payment of fees for National phase: Payments should be effected in Russian roubles (RUB) to the account:
+Refer to item 1.1 For further details, refer to “How can payment of fees be effected” at:
+https://rospatent.gov.ru/content/uploadfiles/eng/international_duties_PCT.pdf (English)
+https://rospatent.gov.ru/en/activities/dues/tables#4 (English)
+Availability under the national law for an international-type search (PCT Article 15):
+Paragraph 14.13, Annex 1 of the Regulations on Patent and other fees for committing legally significant actions related to a patent for an invention, utility model, industrial design, state registration of a trademark and service mark, state registration and grant of the exclusive right to appellation of origin, as well as state registration of alienation of the exclusive right to a result of intellectual activity or means of individualization, pledge of the exclusive right, granting the right to use such result or such means under a contract, non-contracted transfer of the exclusive right to such result or such means (refer to https://rospatent.gov.ru/content/uploadfiles/pril_1_2_941.pdf ) (Russian)
+Provisional protection after international publication:
+Where the designation is made for the purposes of a national patent: From the time of the international publication (if in Russian) or, where that publication was in a language other than Russian, then from the time of the publication of the translation of that application into Russian by the Federal Service for Intellectual Property (Rospatent) (Russian Federation), the applicant is entitled to provisional protection in conformity with the national legislation (refer to Articles 1392 and 1396(3) of the Civil Code). The Civil Code of the Russian Federation is available at:
+https://rospatent.gov.ru/ru/documents/grazhdanskiy-kodeks-rossiyskoy-federacii-chast-chetvertaya (Russian)
+https://rospatent.gov.ru/en/documents/grazhdanskiy-kodeks-rossiyskoy-federacii-chast-chetvertaya (English) Where the designation is made for the purposes of a Eurasian patent: After the international publication (if in Russian) or, where that publication was in a language other than Russian, after the publication by the EAPO of the translation into Russian of the international application, the applicant is entitled to provisional protection in conformity with the national legislation.
+Information of interest if this Contracting State is designated (or elected)
+For national protection
+Time when the name and address of the inventor must be given:
+Must be in the request. If the data concerning the inventor are missing at the expiration of the time limit under PCT Article 22 or 39(1), the Office will invite the applicant to comply with the requirement within a time limit of two months from the date of receipt of the invitation.
+Are there special provisions concerning the deposit of microorganisms and other biological material?
+Yes, refer to Annex L.
+For a Eurasian patent
+Refer to Annex B(EA)
+Annex C - Receiving Office
+Competent receiving Office for nationals and residents of:
+Russian Federation
+Language in which international applications may be filed:
+If the language in which the international application is filed is not accepted by the International Searching Authority (refer to Annex D), the applicant will have to furnish a translation (PCT Rule 12.3). English , Russian
+Language accepted for language-dependent free text in the sequence listing:
+The Office has not specifically notified the International Bureau of the language that it accepts under PCT Rule 12.1(d). Same as above
+Language in which the request may be filed:
+English , Russian
+Number of copies required by the receiving Office if the international application is filed on paper:
+2
+Does the receiving Office accept the filing of international applications in electronic form?
+For the relevant notification by the Office, refer to the Official Notices (PCT Gazette) dated 7 January 2016, pages 4 et seq. Where the international application is filed in electronic form in accordance with and to the extent provided for in Part 7 and Annex F of the Administrative Instructions, the total amount of the international filing fee is reduced (refer to “Fees payable to the RO”). Where the international application contains a sequence listing as a separate part of the description, this should be furnished in accordance with Annex C of the Administrative Instructions, that is, in compliance with WIPO Standard ST.26 XML format; no fees are due for sequence listings filed in this format. If the receiving Office does not accept international applications in electronic form in such format, the international application will be transmitted to the International Bureau as receiving Office (PCT Rule 19.4(a)(ii- bis )). Yes, the Office accepts electronic filing via ePCT-Filing
+Does the receiving Office accept the submission of pre-conversion documents and, if yes, in which format (Section 706 of the PCT Administrative Instructions)?
+Yes, any format
+Does the receiving Office accept incorporation by reference (PCT Rule 20.6)?
+Yes
+Does the receiving Office accept the submission of color drawings on an informal basis and transmit them to the International Bureau?
+Yes, if an applicant submits color drawings in an application filed in electronic format via ePCT, the receiving Office transmits them to the International Bureau also via ePCT as the drawings were submitted by the applicant and these color drawings will be visible in PatentScope under the “Application Body as Filed” tab.
+Does the receiving Office accept requests for restoration of the right of priority (PCT Rule 26 bis .3)?
+Yes, the Office applies both the “unintentional” and the “due care” criteria to such requests
+Competent International Searching Authority:
+EA , EP , RU , SA
+Competent International Preliminary Examining Authority:
+EA , RU , SA EP The Office is competent only if the international search is or has been carried out by that Office.
+Fees payable to the RO:
+Transmittal fee:
+This fee is payable to the receiving Office. For further details, refer to the Rospatent website at: https://rospatent.gov.ru/ru/activities/inter/coop/wipo/pct/phase/duties . 2,000 RUB
+International filing fee:
+This fee is payable to the receiving Office. For further details, refer to the Rospatent website at: https://rospatent.gov.ru/ru/activities/inter/coop/wipo/pct/phase/duties . This fee is reduced by 90% if certain conditions apply (refer to Annex C(IB)). 1,667 USD
+Fee per sheet in excess of 30:
+This fee is payable to the receiving Office. For further details, refer to the Rospatent website at: https://rospatent.gov.ru/ru/activities/inter/coop/wipo/pct/phase/duties . 19 USD
+Reductions (under Schedule of Fees, item 4):
+Electronic filing (the request in character coded format):
+251 USD
+Electronic filing (the request, description, claims and abstract in character coded format):
+376 USD
+Search fee:
+Refer to
+Annex D(EA)
+Annex D(EP)
+Annex D(RU)
+Annex D(SA)
+Fee for priority document (PCT Rule 17.1(b)):
+This fee is payable to the receiving Office. For further details, refer to item 4.9 in the table at https://rospatent.gov.ru/ru/activities/dues/table (Russian)
+https://rospatent.gov.ru/en/activities/dues/tables#4 (English) and the bank account details at https://rospatent.gov.ru/ru/activities/dues/req (Russian) https://rospatent.gov.ru/en/news/izm-rekvizitov-01012021 (English) 3,000 RUB
+Fee for requesting restoration of the right of priority (PCT Rule 26 bis .3(d)):
+This fee is payable to the receiving Office. For further details, refer to item 4.11 in the table at https://rospatent.gov.ru/ru/activities/dues/table (Russian)
+https://rospatent.gov.ru/en/activities/dues/tables#4 (English) and the bank account details at https://rospatent.gov.ru/ru/activities/dues/req (Russian) https://rospatent.gov.ru/en/news/izm-rekvizitov-01012021 (English) 2,000 RUB
+Is an agent required by the receiving Office?
+No
+Who can act as agent?
+Any natural or legal person resident in the Russian Federation
+Waiver of power of attorney:
+Waivers of powers of attorney do not apply (PCT Rule 90.4(e) and 90.5(d)) where the agent or common representative submits any notice of withdrawal during the international phase (PCT Rule 90 bis .1 to 90 bis .4, also refer to International Phase, paragraph IP 11.048 ).
+Has the Office waived the requirement that a separate power of attorney be submitted?
+Yes
+Particular instances in which a separate power of attorney is required:
+Where an agent or a common representative who is not indicated on the request form at the time of filing performs any action after filing; or in case of doubt as to the agent’s entitlement to act.
+Has the Office waived the requirement that a copy of a general power of attorney be submitted?
+Yes
+Particular instances in which a copy of a general power of attorney is required:
+Where an agent or a common representative who is not indicated in the request form at the time of filing performs any action after filing; or in case of doubt as to the agent’s entitlement to act.
+Annex D - International Searching Authority
+International Searching Authority competent for the following Receiving Offices:
+AM , AZ , BG , BY , CO , CU , EA , GE , ID , IR , KG , KP , KZ , MA , MD , MN , OA , RO , RU , SA , SY , TJ , TM , UZ , VN , ZW
+Fees payable to the ISA:
+Search fee (PCT Rule 16):
+This fee is payable to the receiving Office in the currency or one of the currencies accepted by it.
+— This fee applies to searches carried out in Russian
+93 CHF 106 EUR 9,000 RUB 116 USD
+— This fee applies to searches carried out in English
+467 CHF 531 EUR 45,000 RUB 580 USD
+Additional search fee (PCT Rule 40.2):
+This fee is payable to the International Searching Authority and only in particular circumstances. For further details, refer to “How can payment of fees be effected” at https://rospatent.gov.ru/content/uploadfiles/eng/international_duties_PCT.pdf .
+— This fee applies to searches carried out in Russian
+9,000 RUB
+— This fee applies to searches carried out in English
+45,000 RUB
+Fee for copies of documents cited in the international search report (PCT Rule 44.3):
+This fee is payable to the Authority. For further details, refer to http://new.fips.ru/vse-uslugi/uslugi-predostavlyaemye-fips-na-platnoy-osnove-.php (paragraph 20.7) and the bank account details at http://new.fips.ru/vse-uslugi/rekvizity-fips-dlya-oplaty-uslug-fips-okazyvaemykh-na-platnoy-osnove.php (Russian).
+— for a patent document, per page
+27 RUB
+— for a non-patent document, per page
+65 RUB
+How to obtain copies:
+The applicant receives, together with the international search report, a copy of each document containing non-patent literature cited in the report, free of charge. Applicants and designated (elected) Offices can request copies by e-mail at:
+pct-peo@rupto.ru
+Fee for copies of documents contained in the file of the international application (PCT Rule 94.1 ter ):
+This fee is payable to the Authority. For further details, refer to http://new.fips.ru/vse-uslugi/uslugi-predostavlyaemye-fips-na-platnoy-osnove-.php (paragraph 20.8) and the bank account details at http://new.fips.ru/vse-uslugi/rekvizity-fips-dlya-oplaty-uslug-fips-okazyvaemykh-na-platnoy-osnove.php (Russian). per page 106 RUB
+Protest fee (PCT Rule 40.2(e)):
+This fee is payable to the International Searching Authority and only in particular circumstances. For further details, refer to “How can payment of fees be effected” at https://rospatent.gov.ru/content/uploadfiles/eng/international_duties_PCT.pdf . 4,000 RUB
+Late furnishing fee (PCT Rule 13 ter .1(c)):
+This fee is payable to the International Searching Authority and only in particular circumstances. For further details, refer to “How can payment of fees be effected” at https://rospatent.gov.ru/content/uploadfiles/eng/international_duties_PCT.pdf . 5,000 RUB
+Conditions for refund and amount of refund of the search fee:
+Money paid by mistake, without cause, or in excess, will be refunded Where the international application is withdrawn or is considered withdrawn, under PCT Article 14(1), (3) or (4), before the start of the international search:
+refund of 100% Where the Authority benefits from an earlier search, carried out in respect of an earlier application by the Authority itself or by another International Searching Authority, depending upon the extent to which the Authority benefits from that earlier search:
+refund of 25% to 75%
+Languages accepted for international search:
+English , Russian
+Does the Authority accept informal comments on earlier search results where an international application claims priority from an earlier application already searched by this Authority?
+No
+Types of physical media accepted for the furnishing of nucleotide and/or amino acid sequence listings:
+CD-ROM, CD-R, DVD, DVD-R
+Subject matter that will not be searched:
+The subject matter specified in items (i) to (vi) of PCT Rule 39.1 with the exception of any subject matter searched under the patent grant procedure in accordance with the provisions of the patent law of the Russian Federation
+Waiver of power of attorney:
+Waivers of powers of attorney do not apply (PCT Rule 90.4(e) and 90.5(d)) where the agent or common representative submits any notice of withdrawal during the international phase (PCT Rule 90 bis .1 to 90 bis .4, also refer to International Phase, paragraph IP 11.048 ).
+Has the Authority waived the requirement that a separate power of attorney be submitted?
+Yes
+Particular instances in which a separate power of attorney is required:
+Where an agent or a common representative who is not indicated on the request form at the time of filing performs any action after filing; or in case of doubt as to the agent’s entitlement to act.
+Has the Authority waived the requirement that a copy of a general power of attorney be submitted?
+Yes
+Particular instances in which a copy of a general power of attorney is required:
+Where an agent or a common representative who is not indicated in the request form at the time of filing performs any action after filing; or in case of doubt as to the agent’s entitlement to act.
+Annex SISA - International Searching Authority (Supplementary Search)
+Fees payable to the International Bureau:
+For further details on the payment of fees to the International Bureau, refer to the WIPO website at: https://www.wipo.int/en/web/pct-system/fees/index .
+Supplementary search fee (PCT Rule 45 bis .3):
+This fee is fixed by the Authority in RUB and will be revised from time to time to reflect currency fluctuations between RUB and CHF. 125 CHF
+— where a declaration referred to in PCT Article 17(2)(a) has been made by the International Searching Authority because of subject matter referred to in PCT Rule 39.1(iv) (methods of treatment)
+197 CHF
+Supplementary search handling fee (PCT Rule 45 bis .2):
+200 CHF
+Late payment fee (PCT Rule 45 bis .4(c)):
+100 CHF
+Fees payable to the Authority:
+For further details on the payment of fees to the Authority, refer to the Rospatent website at: http://new.fips.ru/vse-uslugi/uslugi-predostavlyaemye-fips-na-platnoy-osnove-.php and the bank account details at http://new.fips.ru/vse-uslugi/rekvizity-fips-dlya-oplaty-uslug-fips-okazyvaemykh-na-platnoy-osnove.php .
+Fee for copies of documents cited in the supplementary international search report (PCT Rule 45 bis .7(c)):
+— for a patent document, per page
+27 RUB
+— for a non-patent document, per page
+65 RUB The applicant receives, together with the supplementary international search report, a copy of each document cited therein, free of charge Applicants and designated (elected) Offices can request copies by e-mail at:
+pct-peo@rupto.ru
+Review fee (PCT Rule 45 bis .6(c)):
+4,620 RUB
+Fee for copies of documents contained in the file of the international application (PCT Rule 94.1 ter ):
+per page 106 RUB
+Late furnishing fee (PCT Rules 13 ter .1(c) and 45 bis .5(c)):
+5,000 RUB
+Conditions for refund and amount of refund of the supplementary search fee:
+Money paid by mistake, without cause, or in excess, will be refunded The International Bureau shall refund this fee where the supplementary search request has not yet been transmitted to the Authority and the international application is withdrawn or considered withdrawn, or the supplementary search request is withdrawn or considered not to have been submitted (refer to PCT Rule 45 bis .3(d)):
+refund of 100% The Authority shall refund this fee where work has not yet started and the supplementary search request is considered not to have been submitted (refer to PCT Rule 45 bis .3(e)):
+refund of 100%
+Languages accepted for supplementary international search:
+English , Russian
+Subject matter that will not be searched:
+The subject matter specified in items (i) to (vi) of PCT Rule 39.1, with the exception of any subject matter searched under the patent grant procedure in accordance with the provisions of the patent law of the Russian Federation
+Scope of documentation included in the supplementary international search:
+The exact scope of the searches is subject to confirmation by the Authority. The Authority shall include at least the Russian-language and certain other patent documents of the former Soviet Union and CIS States held in its search collection Where a declaration referred to in PCT Article 17(2)(a) has been made by the International Searching Authority because of subject matter referred to in PCT Rule 39.1(iv) (methods of treatment), the Authority shall include PCT minimum documentation and at least the Russian-language and certain other patent documents of the former Soviet Union and CIS States held in its search collection
+Limitations on supplementary international search:
+None
+Types of physical media accepted for the furnishing of nucleotide and/or amino acid sequence listings:
+CD-ROM, CD-R, DVD, DVD-R
+Waiver of power of attorney:
+Waivers of powers of attorney do not apply (PCT Rule 90.4(e) and 90.5(d)) where the agent or common representative submits any notice of withdrawal during the international phase (PCT Rule 90 bis .1 to 90 bis .4, also refer to International Phase, paragraph IP 11.048 ).
+Has the Authority waived the requirement that a separate power of attorney be submitted?
+Yes
+Particular instances in which a separate power of attorney is required:
+Where an agent or a common representative who is not indicated on the request form at the time of filing performs any action after filing; or in case of doubt as to the agent’s entitlement to act
+Has the Authority waived the requirement that a copy of a general power of attorney be submitted?
+Yes
+Particular instances in which a copy of a general power of attorney is required:
+Where an agent or a common representative who is not indicated on the request form at the time of filing performs any action after filing; or in case of doubt as to the agent’s entitlement to act
+Annex E - International Preliminary Examining Authority
+International Preliminary Examining Authority competent for the following Receiving Offices:
+AM , AZ , BG , BY , CO , CU , EA , GE , ID , IR , KG , KP , KZ , MA , MD , MN , OA , RO , RU , SA , SY , TJ , TM , UZ , VN , ZW
+Are there any restrictions with regard to the competence of the Authority acting as an International Preliminary Examining Authority?
+No
+Fees payable to the IPEA:
+Preliminary examination fee (PCT Rule 58):
+This fee is payable to the International Preliminary Examining Authority. For further details, refer to “How can payment of fees be effected” at: https://rospatent.gov.ru/content/uploadfiles/eng/international_duties_PCT.pdf .
+— examination carried out in Russian
+7,000 RUB
+— examination carried out in English
+26,000 RUB
+Where the international search report was prepared by the Federal Service for Intellectual Property (Rospatent) (Russian Federation)
+— examination carried out in Russian
+5,000 RUB
+— examination carried out in English
+18,000 RUB
+Additional preliminary examination fee (PCT Rule 68.3):
+This fee is payable to the International Preliminary Examining Authority and only in particular circumstances. For further details, refer to “How can payment of fees be effected” at https://rospatent.gov.ru/content/uploadfiles/eng/international_duties_PCT.pdf .
+— examination carried out in Russian
+7,000 RUB
+— examination carried out in English
+25,000 RUB
+Where the international search report was prepared by the Federal Service for Intellectual Property (Rospatent) (Russian Federation)
+— examination carried out in Russian
+6,000 RUB
+— examination carried out in English
+21,000 RUB
+Handling fee (PCT Rule 57.1):
+This fee is payable to the International Preliminary Examining Authority. It is reduced by 90% if certain conditions apply (refer to Annex C(IB)). For further details, refer to “How can payment of fees be effected” at: https://rospatent.gov.ru/content/uploadfiles/eng/international_duties_PCT.pdf . 251 USD
+Fee for copies of documents cited in the international preliminary examination report (PCT Rule 71.2):
+This fee is payable to the Authority. For further details, refer to http://new.fips.ru/vse-uslugi/uslugi-predostavlyaemye-fips-na-platnoy-osnove-.php (paragraph 20.7) and the bank account details at http://new.fips.ru/vse-uslugi/rekvizity-fips-dlya-oplaty-uslug-fips-okazyvaemykh-na-platnoy-osnove.php (Russian).
+— for a patent document, per page
+27 RUB
+— for a non-patent document, per page
+65 RUB
+How to obtain copies:
+The applicant receives, together with the international preliminary examination report a copy of each document containing non-patent literature not cited in the international search report, free of charge Applicants and elected Offices can request copies by e-mail at:
+pct-peo@rupto.ru
+Fee for copies of documents contained in the file of the international application (PCT Rule 94.2):
+This fee is payable to the Authority. For further details, refer to http://new.fips.ru/vse-uslugi/uslugi-predostavlyaemye-fips-na-platnoy-osnove-.php (paragraph 20.8) and the bank account details at http://new.fips.ru/vse-uslugi/rekvizity-fips-dlya-oplaty-uslug-fips-okazyvaemykh-na-platnoy-osnove.php (Russian). per page 106 RUB
+Protest fee (PCT Rule 68.3(e)):
+This fee is payable to the International Preliminary Examining Authority and only in particular circumstances. For further details, refer to “How can payment of fees be effected” at: https://rospatent.gov.ru/content/uploadfiles/eng/international_duties_PCT.pdf . 4,000 RUB
+Late furnishing fee (PCT Rule 13 ter .2):
+This fee is payable to the International Preliminary Examining Authority and only in particular circumstances. For further details, refer to “How can payment of fees be effected” at: https://rospatent.gov.ru/content/uploadfiles/eng/international_duties_PCT.pdf . 5,000 RUB
+Conditions for refund and amount of refund of the preliminary examination fee:
+Money paid by mistake, without cause, or in excess, will be refunded In the cases provided for under PCT Rule 58.3:
+refund of 100% If the international application or the demand is withdrawn before the start of the international preliminary examination:
+refund of 100%
+Does the Office accept the filing of demands (PCT Chapter II) in electronic form?
+For the relevant notification by the Office refer to the Official Notices (PCT Gazette) dated January 7, 2016, pages 4 et seq. Yes, the Office accepts electronic filing via ePCT-Filing
+Languages accepted for international preliminary examination:
+English , Russian
+Subject matter that will not be examined:
+The subject matter specified in items (i) to (vi) of PCT Rule 67.1 with the exception of any subject matter examined under the patent grant procedure in accordance with the provisions of the patent law of the Russian Federation
+Waiver of power of attorney:
+Waivers of powers of attorney do not apply (PCT Rule 90.4(e) and 90.5(d)) where the agent or common representative submits any notice of withdrawal during the international phase (PCT Rule 90 bis .1 to 90 bis .4, also refer to International Phase, paragraph IP 11.048 ).
+Has the Authority waived the requirement that a separate power of attorney be submitted?
+Yes
+Particular instances in which a separate power of attorney is required:
+Where an agent or a common representative who is not indicated on the request form at the time of filing performs any action after filing; or in case of doubt as to the agent’s entitlement to act.
+Has the Authority waived the requirement that a copy of a general power of attorney be submitted?
+Yes
+Particular instances in which a copy of a general power of attorney is required:
+Where an agent or a common representative who is not indicated in the request form at the time of filing performs any action after filing; or in case of doubt as to the agent’s entitlement to act.
+Annex L - Deposits of Microorganisms and Other Biological Material
+Requirements of designated and elected Offices
+Only Offices whose applicable national law contains provisions concerning the deposits of microorganisms and other biological material are listed in Annex L. Unless otherwise indicated, deposits may be made for the purposes of patent procedure before these Offices with any depositary institution having acquired the status of international depositary authority under the Budapest Treaty on the International Recognition of the Deposit of Microorganisms for the Purposes of Patent Procedure. For a list of these institutions refer to: https://www.wipo.int/documents/d/treaties/docs-en-registration-budapest-idalist.pdf (and the detailed requirements for each institution at: https://www.wipo.int/en/web/budapest-system/guide/section_d/subsection_c Notifications related thereto may be consulted under: https://www.wipo.int/en/web/treaties/registration/budapest/index Further information concerning the requirements of international depository authorities under the Budapest Treaty is available at: https://www.wipo.int/en/web/budapest-system/guide/index
+Time (if any) earlier than 16 months from priority date by which applicant must furnish:
+— the indications prescribed in Rule 13 bis .3(a)(i) to (iii):
+None
+— any additional indications:
+None
+Additional indications (if any) which must be given besides those prescribed in Rule 13 bis .3(a)(i) to (iii) pursuant to notifications from the Office:
+To the extent available to the applicant, relevant information on the characteristics of the microorganism
+Additional information
+Deposits may also be made for the purposes of patent procedure before the Federal Service for Intellectual Property (Rospatent) (Russian Federation) with any depositary institution.
+National Phase
+Summary of requirements for entry into the national phase
+Time limits applicable for entry into the national phase:
+Under PCT Article 22(3): 31 months from the priority date
+Under PCT Article 39(1)(b): 31 months from the priority date
+Does the Office permit reinstatement of rights (PCT Rule 49.6)?
+Yes, the Office permits reinstatement of rights under the “due care" criterion.
+Fee for reinstatement
+6,000 RUB
+Translation of international application required into (one of) the following language(s):
+Must be furnished within the time limit applicable under PCT Article 22 or 39(1). If not already complied with within this time limit, the Office will invite the applicant to comply with the requirement within a time limit fixed in the invitation. Russian
+Required contents of the translation for entry into the national phase:
+Must be furnished within the time limit applicable under PCT Article 22 or 39(1). If not already complied with within this time limit, the Office will invite the applicant to comply with the requirement within a time limit fixed in the invitation. In certain circumstances, the Office is entitled to require both the translation of the international application as originally filed and as amended; in such a case, the Office will invite the applicant to supply the missing translation. Under PCT Article 22: Description, claims (if amended, as originally filed or as amended, if the applicant wishes the amendments to form the basis for the proceedings, together with any statement under PCT Article 19 ), any text matter of drawings, abstract Under PCT Article 39(1): Description, claims, any text matter of drawings, abstract (if any of those parts has been amended, as originally filed or as amended by the annexes to the international preliminary examination report, if the applicant wishes the amendments to form the basis for the proceedings)
+Is a copy of the international application required in particular circumstances?
+No
+Does the Office accept color drawings under its national law?
+No
+National fees:
+Patents
+Filing fee
+If not already complied with within the time limit applicable under PCT Article 22 or 39(1), the Office will invite the applicant to comply with the requirement within a time limit fixed in the invitation. 4,000 RUB
+Examination fee:
+Where the request for substantive examination is filed upon entry into the national phase.
+— for one independent claim
+14,000 RUB
+— for each independent claim in excess of one
+10,000 RUB
+Annual fee for the 6th year
+3,000 RUB
+Utility models
+Filing fee
+If not already complied with within the time limit applicable under PCT Article 22 or 39(1), the Office will invite the applicant to comply with the requirement within a time limit fixed in the invitation. 2,000 RUB
+Annual fee for the 6th year
+3,000 RUB
+Exemptions, reductions or refunds of fees:
+The examination fee shall be reduced by :
+— 50% where the international search report has been established by the Federal Service for Intellectual Property (Rospatent) (Russian Federation), or
+— 10% where the international search report has been established by any of the other International Searching Authorities The annual fees shall be reduced by:
+— 50% where a notice about an open license is filed with the Office
+The reduction shall apply as from the year following the year of publication of information on the notice
+Special requirements of the Office (PCT Rule 51 bis ):
+Appointment of an agent if the applicant is not resident in the Russian Federation
+Who can act as agent?
+Any patent attorney registered to practice before the Office
+Does the Office accept the effect of restoration of the right of priority by the receiving Office (PCT Rule 49 ter .1)?
+Yes
+Does the Office accept requests for restoration of the right of priority (PCT Rule 49 ter .2)?
+Yes, the Office applies the “due care” criterion to such requests
+The procedure in the national Phase
+RU.01 FORMS FOR ENTERING THE NATIONAL PHASE
+The Office has available two special forms for entering the national phase (refer to Annexes RU.II and RU.III). These forms should preferably (but need not) be used. If they are used, the translation of the PCT request is not required.
+RU.02 TRANSLATION (CORRECTION)
+Errors in the translation of the international application can be corrected with reference to the text of the international application as filed (refer to National Phase, paragraphs NP 6.002 and NP 6.003 ).
+RU.03 REPRESENTATION
+RCC Art. 1247 Applicants having their residence outside the territory of the Russian Federation must appoint patent agents registered to practice with the Office. A list of registered patent agents is available upon request from the Office.
+RU.04 FEES (MANNER OF PAYMENT)
+RCC Art. 1249 , SF 1 The manner of payment of the fees indicated in the Summary and in this Chapter is outlined in Annex RU.I.
+RU.05 REQUEST FOR EXAMINATION
+RCC Art. 1386 , RCC Art. 1389 , Rules Rule 31 , SF 1.8 A patent is granted only after examination as to patentability which may be requested by the applicant or by a third party. There is no special form for the request. Examination must be requested within three years from the international filing date. The time limit may be extended for not more than two months on filing a request prior to the expiration of three years from the international filing date. The request for examination is only effective if a fee for requesting examination has been paid. The expired time limit for the request for examination may be reinstated within 12 months on payment of the reinstatement fee accompanied by a statement on the valid excuse for expiration. The amount of the said fee is indicated in Annex RU.I. It is reduced where an international search report has been established.
+RU.06 FEE FOR GRANT
+RCC Art. 1393 , SF 1.17 , SF 1.18 A fee for grant must be paid within two months after dispatch to the applicant of the decision to grant the patent. The annual fee from the first to the fifth year must be paid jointly with the grant fee. Where the applicant fails to pay the fees within that time limit, he can make this payment, together with a 100% surcharge for late payment, within 12 months from the date of expiration of the above mentioned time limit.
+RU.07 AMENDMENT OF THE APPLICATION; TIME LIMITS
+PCT Article 28 , PCT Article 41 , PCT Rule 78 .1 , RCC Art. 1378 Within a month after entry into the national phase the applicant has the right to amend any element of his application, including claims, without paying any fee for that purpose, provided that the amendments do not modify the subject matter of the application beyond the original disclosure. After the expiration of the said time limit claims may be amended on the applicant’s own initiative after the receipt of the search report and the payment of the prescribed fees (refer to Annex RU.I) or when specifically required by the examiner. All amendments shall be made prior to the final decision on a patent application.
+RU.08 ANNUAL FEES
+SF 1.20 After a patent has been granted, annual fees must be paid for maintaining the patent in force. They are payable for the sixth and each subsequent year following the international filing date for patents and for the sixth and each subsequent year for utility models. For the due date of the payment of the first annual fees, refer to the Summary. After that, annual fees become due every year on the anniversary of the international filing date. Payment can still be made, upon payment of a 50% surcharge for late payment, within six months from the date of expiration of the prescribed time limit. If the patent lapses following failure to pay the annual fee within the prescribed time limit, the reinstatement of rights is permitted within three years from the date of the expiry of this time limit if the applicant makes a written request for the reinstatement of rights and pays the reinstatement fee. The amount of the reinstatement fee is 2.5 times greater than the amount of the annual fee for the year of the submission of the request. The amounts of annual fees are indicated in Annex RU.I.
+RU.09 REVIEW UNDER ARTICLE 25 OF THE PCT
+PCT Article 25 , PCT Rule 51 The applicable procedure is outlined in paragraphs NP 6.018 to NP 6.021 of the National Phase. If, upon review under PCT Article 25, the Office denies an error or omission on the part of the receiving Office or the International Bureau, an appeal against this decision may be lodged with the Office.
+RU.10 EXCUSE OF DELAYS IN MEETING TIME LIMITS
+PCT Article 24(2) , PCT Article 48(2) , PCT Rule 82 bis , RCC Art. 1382 , RCC Art. 1396 Reference is made to paragraphs NP 6.022 to NP 6.027 of the National Phase. Where, during the international phase or before the Office, the applicant has missed a time limit for performing any act in relation to the international application, such time limit may be extended by the Office upon request by the applicant and subject to payment of the reinstatement fee (refer to Annex RU.I).
+RU.11
+PCT Rule 49 .6 , SF 4.12 Reinstatement may be requested where the applicant failed to comply with the time limit applicable under PCT Article 22 or 39(1) for entering the national phase The application may be reinstated if the Office finds that the failure to meet that time limit occurred in spite of due care required by the circumstances having been taken. A request for reinstatement must be presented within 12 months from the expiry of the time limit and is subject to the payment of a fee (refer to Annex RU.I).
+RU.12 UTILITY MODEL
+PCT Rule 49 bis .1 , PCT Rule 49 bis .1 (a) , PCT Rule 49 bis .1 (b) , PCT Rule 76 .5 , RCC Art. 1390 If the applicant wishes to obtain a utility model registration instead of a patent on the basis of an international application, subject to what is said in paragraph 13, the applicant, when performing the acts referred to in PCT Article 22 or 39, shall so indicate to the Office. If the international application is for a utility model instead of a patent, the requirements are basically the same as for an invention except that the applicant is not required to make a request for substantive examination.
+RU.13
+SF 1.17 , SF 1.18 , SF 1.20.2 The annual fee for the first to the fifth years must be paid jointly with the grant fee (refer to Annex RU.I).
+RU.14 CONVERSION
+RCC Art. 1379 , Rules Rule 3(15) , SF 1.11 , SF 1.12 The applicant may, prior to publication of a patent application, but not later than the decision to grant is taken, convert the said application into a utility model application by filing a request to that effect. The utility model application may be converted into a patent application at any time before the decision to grant is taken. The conversion is subject to payment of a fee. The converted application shall have the priority date of the initial application.
+RU.15 NUCLEOTIDE AND AMINO ACID SEQUENCES
+REQ Rule 11 Where the international application contains disclosure of one or more nucleotide and/or amino acid sequences, the applicant must furnish a sequence listing presented as a separate part of the description and a sequence listing in electronic form.
+RU.16 INTERNATIONAL-TYPE SEARCH
+SF 4.13 The Authority conducts an international-type search for national applications at the applicant’s request.
+Annexes
+Annex RU.I - Fees
+Patents
+Filing fee
+4,000 RUB
+— claims fee for each claim in excess of ten
+1,000 RUB
+— claims fee for each claim that has not been searched by the International Searching Authority
+1,000 RUB
+Fee for international-type search for a national application
+— for one independent claim:
+11,000 RUB
+— for each independent claim in excess of one
+7,000 RUB
+Examination fee:
+— for one independent claim:
+14,000 RUB
+— for each independent claim in excess of one
+10,000 RUB
+Fee for reinstatement of rights of the applicant with respect to an international application where the applicant failed to comply with the requirement of Article 22 or 39(1)
+6,000 RUB
+Reinstatement fee in other cases
+3,000 RUB
+Fee for new claims:
+— for each new claim before the start of substantive examination
+1,000 RUB
+— for each new independent claim after the start of substantive examination
+5,000 RUB
+Grant fee
+— for a patent on paper
+3,000 RUB
+— for a patent in the form of an electronic document
+10,000 RUB
+Annual fees:
+The annual fees shall be reduced by 50% where a notice about an open license is filed with the Office. The reduction shall apply as from the year following the year of publication of information on the notice.
+— for the 6th year
+3,000 RUB
+— for the 7th year
+4,000 RUB
+— for the 8th year
+4,000 RUB
+— for the 9th year
+6,000 RUB
+— for the 10th year
+6,000 RUB
+— for the 11th year
+8,000 RUB
+— for the 12th year
+8,000 RUB
+— for the 13th year
+11,000 RUB
+— for the 14th year
+11,000 RUB
+— for the 15th to the 18th year
+per year 14,000 RUB
+— for the 19th year
+18,000 RUB
+— for the 20th year
+18,000 RUB
+— for the 21st to the 25th years
+27,000 RUB
+Fee for restoration of the right of priority
+2,000 RUB
+Utility models
+Filing fee
+2,000 RUB
+— claim fee for each claim in excess of 10
+1,000 RUB
+Examination fee
+3,000 RUB
+Grant fee
+— for a patent on paper
+3,000 RUB
+— for a patent in the form of an electronic document
+10,000 RUB
+Annual fees:
+The annual fees shall be reduced by 50% where a notice about an open license is filed with the Office. The reduction shall apply as from the year following the year of publication of information on the notice.
+— for the 6th year
+3,000 RUB
+— for the 7th and 8th years
+4,000 RUB
+— for the 9th and 10th years
+6,000 RUB
+How can payment of fees be effected?
+Payments should be effected in Russian roubles (RUB) to the account: Beneficiary Bank: Operational Department of the Russian Bank, Interregional Operation Office of the Federal Treasury, Moscow;
+Beneficiary BIC (Bank Identifier Code) Number: 024501901;
+Beneficiary's Bank Correspondent Account: 40102810045370000002;
+Beneficiary Name: Interregional Operation Office of the Federal Treasury, Federal Service for Intellectual Property;
+Beneficiary's Bank Account Number: 03100643000000019500;
+Beneficiary Taxpayer Identification Number (INN): 7730176088;
+Beneficiary Tax Registration Reason Code (KPP): 773001001;
+Budgetary Classification Code (BCC): 16811505020016000140;
+Russian National Classification of Municipal Territories (OKTMO): 45318000 For further details on the payment of fees, refer to the Rospatent website at:
+https://rospatent.gov.ru/en/activities/dues
+Forms
+The following documents are maintained by the Office. Refer to the Office website (Annex B) for latest version and other languages. Annex RU.II - National processing request form for patents Annex RU.III - National processing request form for utility models
+Change(s) as of August 1, 2026
+Please find below in blue all the changes done in this version (including editorial changes).
+Annex D - International Searching Authority
+— This fee applies to searches carried out in Russian
+106 EUR
+— This fee applies to searches carried out in English
+531 EUR
+Close
+Current version applicable from August 1, 2026
+, printed on October 20, 2026
+100 #102 - 2026-09-28T10:28:16.882+02:00

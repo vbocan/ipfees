@@ -1,0 +1,649 @@
+Source: http://ipo.gov.tt/downloads/Patents/Patent_Application_Manual.pdf
+Retrieved: 2026-10-20
+
+Trinidad and Tobago
+Intellectual Property Office
+PATENT APPLICATION MANUAL
+WHAT IS INTELLECTUAL PROPERTY?
+ Intellectual Property (IP) refers to the expressed creation of the human mind; inventions; literary
+ and artistic works; and symbols, names and images used in commerce. Like all types of property, IP
+ is owned and can generate income, hence for this reason IP is considered an asset.
+
+
+
+TYPES OF INTELLECTUAL PROPERTY:
+ Intellectual property is divided into two categories:
+
+    1. Industrial property which includes;
+             Industrial Design
+             Trademarks and Service Marks
+             Geographical Indications
+             Integrated Circuits Designs
+             New Plant Varieties
+             Trade Secret
+             Patents
+
+
+
+
+    2. Copyright and Related Rights which covers literary works (such as novels, poems and plays),
+        films, music, artistic works (e.g., drawings, paintings, photographs and sculptures) and
+        architectural design.
+
+
+
+
+                          OVERVIEW OF THE PATENT SYSTEM
+
+WHAT IS A PATENT?
+ A Patent is an exclusive right granted for an invention, which is a product or a process that either
+ provides a new way of doing something, or offers a new technical solution to a problem. It provides
+ protection for the invention, preventing others from manufacturing, using, offering for sale, selling
+ or importing the patented invention.
+
+
+
+
+                                                                                                         1
+               Trinidad and Tobago Intellectual Property Office - PATENTS APPLICATION MANUAL
+HOW SOCIETY BENEFITS FROM PATENTS
+
+       The owner is required to disclose technical information to the public sufficient for
+        persons with average skill in the art to manufacture and use the technology. Society
+        gains disclosure of the invention and free use of it after the patent expires.
+       Innovation is encouraged – better products can be made and improved production
+        methods can be used for the benefit of all since engineers and scientists can learn the
+        details of the invention.
+       New innovative companies are protected – they can compete with large established
+        companies, in order to maintain a competitive economy.
+       Technology transfer is promoted, for example from universities to industry.
+
+
+
+CONDITIONS FOR OBTAINING A PATENT
+ An invention must first meet several criteria if it is to be eligible for patent protection. These are:
+
+     Novelty – it must be new, with nothing like it in existence in the world or in the
+        literature, including other patent documents.
+     Inventive step – it must be non-obvious to someone with average skill in that particular
+        field.
+     Industrially applicable – it must be useful or have a technical effect. In short, it must work
+        and comply with the laws of nature.
+
+
+WHAT CANNOT BE PATENTED?
+ Patents are open to most areas of science and technology but some areas are excluded from
+ patentability. These are: -
+
+     Ideas, hypotheses, discoveries (of things already existing in nature), scientific theories and
+        mathematical methods.
+     Rules of games, lottery systems, methods for performing mental acts, teaching methods
+        and organizational procedures.
+       Diagnostic, therapeutic and surgical methods used on the human and animal body.
+       Literary, dramatic, musical or artistic works or any aesthetic creation whatsoever.
+       The presentation of information.
+       Inventions, the exploitation of which would be contrary to public order or morality, also cannot
+        be patented.
+
+
+
+
+                                                                                                           2
+                 Trinidad and Tobago Intellectual Property Office - PATENTS APPLICATION MANUAL
+RELEVANT PATENT LAWS AND TREATIES
+ Patent legislation is in force in Trinidad and Tobago: The Patents Act, 1996, (Act No. 21 of 1996). The
+ Patents Rules, 1996. The required forms are in the Rules. International Treaties to which Trinidad and
+ Tobago is a party, related to patents, are:
+
+    1. The Paris Convention for the Protection of Industrial Property (1883). Trinidad and Tobago
+       joined on 1st August 1964.
+    2. The Patent Corporation Treaty (PCT) (1970). Trinidad and Tobago joined on 10th March
+       1994.
+    3. The Strasbourg Agreement concerning the International Patent Classification (1971).
+       Trinidad and Tobago joined on the 20th December 1996.
+    4. The Budapest Treaty of the International Recognition of the Deposit of Microorganisms
+       for the Purpose of Patent Procedure (1977). Trinidad and Tobago joined on 10th March
+       1994.
+
+
+
+PATENT INFORMATION SERVICES OFFERED BY THE OFFICE
+ At this Office one can find what granted patents are in force in the country, who owns and the details
+ therein. Conversely, one can find what patents are not in force and therefore may be public domain
+ due to expiry or simply not registered here. The IPO has a collection of patents dating back to 1902.
+
+ In addition to the nationally registered patents, the IPO also has collections of CD-ROMs and DVDs
+ containing abstracts and/or full texts of international applications made under the PCT from 1978 to
+ the present. There is also a collection of US full-text granted patents from 1790 to present as well as
+ the Japanese Patent Abstracts from 1994 to the present. The IPO also has access to numerous online
+ patent information sources via the internet.
+
+ There is a vast quantity of obvious information in patent documents as well as that which can be
+ derived:
+
+     Enough up-to-date, first-hand and often only technical data to inform and provide solutions to
+        someone in that field of technology
+     Avoiding possible infringement of someone else’s patent
+     Opportunities for seeking expertise, licensing partners, consumers of your technology and
+        the number of players in the field to better inform negotiating positions
+     Monitor competitor’s activities
+     Obtaining patent family data, seminal patents and their owners
+
+
+
+
+                                                                                                           3
+               Trinidad and Tobago Intellectual Property Office - PATENTS APPLICATION MANUAL
+WHEN TO FILE A PATENT APPLICATION
+ Filing should be done as soon as possible, most importantly, before public disclosure of the invention.
+ In Trinidad and Tobago, disclosure of the subject matter of the invention will not be taken into
+ consideration if such disclosure occurred not more than one year before the filing date and the
+ disclosure was due to acts committed by the applicant or predecessor or by an abuse committed by
+ third parties.
+
+ Therefore, if you are thinking of applying for a patent you should not, as far as possible, publicly disclose
+ the invention more than a year before you file an application because this could be counted as
+ prior publication of your invention. Any type of disclosure (whether by word of mouth,
+ demonstration, advertisement or article in a journal), by the applicant or anyone acting for
+ them, could prevent the applicant from getting a patent. It is essential that the applicant only make
+ any disclosure under conditions of strict confidence.
+
+
+
+
+WHO CAN FILE FOR A PATENT AT THE IPO
+ An applicant is any party or parties entitled to file a patent application. This includes:
+
+      Inventor(s) – a person or persons who made the invention;
+      Employer of the invention (depends on the legislation and contractual arrangement with
+         the employee);
+      A person who owns the rights to the invention (assignee).
+
+
+
+
+HOW LONG DOES REGISTRATION OFFER PROTECTION?
+ The patent will be valid for 20 years from the date of filing, if annual fees are paid and if not, the
+ application may be withdrawn or revoked.
+
+
+
+
+                                                                                                                 4
+                Trinidad and Tobago Intellectual Property Office - PATENTS APPLICATION MANUAL
+                             APPLICATION PROCEDURE FOR A PATENT
+
+
+WHERE DO I APPLY?
+Applications may be filed at the Intellectual Property Office; 3rd Floor, Capital Plaza, 11-13 Frederick
+Street, Port Of Spain, Trinidad & Tobago or at our website:
+http://ipo.gov.tt/downloads/Patents/Forms/patent_app_form.pdf
+
+
+
+PATENT APPLICATION PROCESSING STEPS:
+     1. Reception of the application
+     2. Payment of fees
+     3. Formalities Examination
+     4. Substantive Examination
+     5. Grant and Publication
+     6. Certificate issued
+     7. Patent Maintenance (Payment of Annuities)
+
+  1. OVERVIEW OF THE PATENT APPLICATION
+ When a national or resident of Trinidad and Tobago files a patent application the formal requirements
+ under the Patent Rules and Regulations are:
+
+     1) The Patent Request Form No. 1.
+     2) A disclosure of the invention must accompany the application. This is the specifications of
+        the invention, which include: Descriptions, Claims, Abstract & Drawings (If necessary).
+
+         This gives details about the invention such as the technical field to which the invention
+         relates and also gives information relating to the background art which can be regarded as
+         useful for understanding, searching and examining the patent applications. This is
+         followed by the claims which define the invention in terms of the technical features of the
+         invention. The abstract then follows and this is a summary of the disclosure contained in the
+         description. Any drawings mentioned in the description are placed behind the abstract.
+
+ The application must be submitted in triplicate on A4 size paper as outlines in Rule 16 of the Patents
+ Rules and Regulations together with the application fee of $2000 TT. Once these formal requirements
+ have been met, the person in the receiving office will stamp the application and a filing date will be
+ issued, a file number will be issued and the processing of the application will begin.
+
+
+
+
+                                                                                                           5
+                Trinidad and Tobago Intellectual Property Office - PATENTS APPLICATION MANUAL
+ 2. HOW ARE PAYMENTS MADE TO THE INTELLECTUAL PROPERTY OFFICE?
+Once an application is made, the prescribed application fee ($2000 TT) must be paid. Maintenance
+fees (annuities) must be paid yearly from the filing date, commencing on the start of the second
+year.
+
+All payments are due in advance, payable by certified cheque with the Payee as the Controller,
+Intellectual Property Office or by Linx or through the District Revenue Office, upon presentation of
+the prescribed voucher issued by the Intellectual Property Office.
+
+
+
+ 3. FORMALITY EXAMINATION
+        The application will undergo Formalities Examination as set out by the Patent Act 1996 and
+         Patent Rules 1996. This is the preliminary examination that begins at the time that a filing
+         date is issued to the patent. Formal examination concerns the requirements that the
+         applications must meet in order to proceed to substantive examination.
+
+
+        The tasks of the formalities examiner include ensuring that the application has been
+         correctly made (reference to Form No. 1), checking such items as dates and inventors’
+         details, ensuring that the description and any drawings are correctly presented
+         according to the rules so that they can be published, checking priority details, and so
+         on.
+
+
+        If the application does not comply with all formalities requirements as set out by the
+         Patent Act 1996 Section 23 and the Patent Rules 1996, the applicant will be notified and
+         given the opportunity to correct any deficiency, so as to further process the application.
+
+
+        If the application does not comply with all formalities requirements, the applicant will be
+         asked to amend the application. Amendments must be accompanied with the prescribed
+         fee.
+
+
+        Once in compliance, the applicant will then be asked to pay Search and Examination fees.
+
+
+
+    Formal Requirements for an application
+
+      The local patent application may be filed by the applicant himself or through his
+         attorney. If it is filed by his attorney, the attorney will also be required to file an ‘Authorization
+         of Agent’ signed by the applicant.
+
+
+
+                                                                                                                  6
+              Trinidad and Tobago Intellectual Property Office - PATENTS APPLICATION MANUAL
+    If the applicant is not the inventor he will need to file a ‘statement justifying his right’
+      to the application. This can take the form of an assignment document or a statutory
+      declaration.
+
+
+
+
+4. SUBSTANTIVE EXAMINATION
+    The document will be examined for patentability based on the Patent Act and Rules. The 3
+       criteria of novelty, industrial applicability and inventive step must be met.
+    If any amendments are required, the applicant will be asked to do so. Amendments
+       must be accompanied with the prescribed fee.
+    Once the application complies with the Act and Rules the application will be granted.
+
+
+
+
+5. PUBLICATION
+    Once the application complies with the Act and Rules, and is granted, the applicant will be
+       requested to pay the grant and publication fee within 3 months.
+    If the applicant fails to respond within the 3 months, the application will be taken to be
+       withdrawn under Section 25(2), and the applicant would be so informed.
+    If the fee is paid, then under Section 28(1) and (2), as soon as is practicable, a notice of
+       grant should be published in a periodical and the granted patent should be published.
+    The notice of grant will proceed for publication in the Newsday Newspaper. The cost of
+       publication must be paid by the applicant.
+
+
+
+
+6. ISSUANCE OF CERTIFICATE
+    The certificate of grant and register will be prepared by the office.
+    Under Section 25(5) the patent shall be deemed to have been granted on the date that the
+       notice of grant is published under Section 28(1).
+    The certificate is issued and together with the granted specifications, it will be given to
+       applicant.
+
+
+
+
+                                                                                                    7
+           Trinidad and Tobago Intellectual Property Office - PATENTS APPLICATION MANUAL
+  7. PATENT MAINTENANCE (PAYMENT OF ANNUITIES)
+     Maintenance fees or annuities are fees that are paid to retain a patent and such fees increase in
+     amount during the course of the patent term. It must be paid yearly from the filing date,
+     commencing on the start of the second year. The patent would be valid for 20 years from the
+     filing date once annual fees are paid. However, if it is not paid, the application may be withdrawn
+     or revoked. A listing of the annual fees for each year can be seen in the fees section of this
+     manual.
+
+
+
+
+ROUTES FOR INTERNATIONAL APPLICATION:
+
+
+PARIS CONVENTION
+   Trinidad and Tobago is a member of the international treaty called the Paris Convention for
+      the Protection of Industrial Property.
+
+
+   One of the articles of the Paris Convention allows nationals and residents of member
+      states to file a patent application in their home country and within Twelve 12 months of the
+      initial application. This is known as the right of priority.
+
+
+   Similar to the local application, the requirements for application are the Request Form 1
+      accompanied by a disclosure of the invention, submitted on A4 size paper in triplicate together
+      with the application fee. Once the basic formal requirements have been met, the person at the
+      Receiving Office will receive the application, issue a filing date and processing of the
+      application will begin.
+
+
+   Applications must be filed through a local attorney as all applicants outside of Trinidad and
+      Tobago must have a local address for service and must therefore appoint a representative.
+
+
+   A certified copy of the priority application must be submitted to the office together with
+      an authorization of agent and a statement justifying the applicant’s right.
+
+
+
+
+                                                                                                           8
+               Trinidad and Tobago Intellectual Property Office - PATENTS APPLICATION MANUAL
+PATENT CORPORATION TREATY (PCT)
+   The Patent Corporation Treaty offers the possibility to simultaneously seek patent protection for
+      an invention in a large number of countries by filing a single international application.
+
+
+   Trinidad and Tobago is a member of the Patent Cooperation Treaty, an international treaty
+      administered by the World Intellectual Property Organization (WIPO).
+
+
+   The PCT is an international filing system geared towards applicants who want to obtain patent
+      protection in several countries. Before the PCT, such an applicant would have to file
+      individual applications in each of the countries where he wanted patent protection. But the
+      PCT has made filing an application in several countries easier in that nationals of PCT member
+      stated can file one patent application under PCT and designate as several or all member states
+      of the PCT where he wants the application to be effective in.
+   An application can be made into the national phase Thirty (30) months from the priority date
+      through PCT.
+
+
+   This office is the Receiving Office for PCT International Applications filed by nationals and
+      residents of Trinidad and Tobago. The applicant will also have the option to file his application
+      directly at the WIPO (International Bureau) rather than with the Office.
+
+
+   Each individual state that an application is made will be required based on their laws, to decide
+      on whether it will grant a patent to the applicant for his invention.
+
+
+ It offers several benefits to those seeking broad protection in their target markets:
+
+   Evaluate chances of being granted a patent before incurring major costs with an International
+      Search Report which contains a list of relevant prior art documents
+
+
+   Option of receiving an International Preliminary Examination Report where an examination
+      is done, much as it would be for a direct application, and an opinion is given as to whether or
+      not it meets the examining criteria
+
+
+   Options can be kept open for a longer time during which, markets, conditions and agents can
+      be sought
+
+  It has become the preferred means of application for those seeking international coverage.
+  Roughly 86% of the patent applications entering Trinidad and Tobago are PCT applications.
+
+
+
+
+                                                                                                          9
+               Trinidad and Tobago Intellectual Property Office - PATENTS APPLICATION MANUAL
+             FIGURE 1: OVERVIEW OF THE PCT SYSTEM
+
+
+
+
+       FIGURE 2: COMPARISON OF PARIS AND PCT ROUTE
+
+
+                                                                                10
+Trinidad and Tobago Intellectual Property Office - PATENTS APPLICATION MANUAL
+PATENT DRAFTING
+  A patent application should be written in consultation with a patent expert, namely a patent
+  attorney or a patent agent who has a good knowledge of understanding technical aspects of a
+  technology and has had experience in drafting applications. It should be carefully written so that an
+  individual skilled in the same field would know how to reproduce the invention.
+
+
+
+DETAILS OF THE PATENT DOCUMENT
+
+
+ABSTRACT
+      This contains a concise summary of the disclosure to allow a clear understanding of the
+         technical problem.
+      It should not contain statements on the alleged merits or value of the invention or its
+         speculative application
+      When appropriate, the abstract should be accompanied by an indication of the figure or
+         exceptionally more than one figure of the drawings.
+
+
+TITLE
+
+      The title of the invention shall be short (preferably from two to seven words when in English
+         or translated into English) and precise.
+      The title must clearly state the technical designation of the invention.
+
+
+TECHNICAL FIELD
+
+      Usually defined by reproducing the first ("prior art") portion of the independent claims in
+         full or in substance or by simply referring to it.
+
+
+BACKGROUND ART
+
+      Any background art of which the applicant is aware, and which can be regarded as useful
+         for understanding the invention and its relationship to the prior art; identification of
+         documents reflecting such art, especially patent specifications, should preferably be
+         included.
+
+
+
+
+                                                                                                          11
+                Trinidad and Tobago Intellectual Property Office - PATENTS APPLICATION MANUAL
+SUMMARY OF THE INVENTION
+
+     A very short recap of the invention, many times referring to the independent claim(s).
+
+
+DISCLOSURE OF INVENTION
+
+     Disclosure in such a way that the technical problem, or problems, with which it deals, can be
+         appreciated and the solution can be understood.
+     Must include the substance and language used in the claims with extra explanation ifnecessary.
+
+
+
+BEST OR ANY MODE OF CARRYING OUT THE INVENTION
+
+     At least the best mode contemplated by the applicant (or depending on applicable law –
+         any mode) for carrying out the invention claimed; this should be done in terms of
+         examples.
+
+
+
+BRIEF DESCRIPTION OF DRAWINGS
+
+     If drawings are included they should be briefly described,
+     The description and drawings should be consistent with one another, especially in the
+         matter of reference numbers and other signs.
+
+
+
+CLAIMS
+     The claim(s) defines the subject matter for which protection is sought, in terms of the technical
+         features of the invention.
+        The extent of the protection conferred by the patent is determined by the terms of the claims.
+        The description and drawings are used to interpret the claims.
+        The claim(s) must be clear and concise.
+        It must be fully supported by the description.
+        It must include technical feature(s) necessary for the definition of the claimed subject- matter
+         that distinguishes from the prior art.
+     It must relate to one invention or to a group of inventions which are so linked as to form a
+         single general inventive concept.
+
+
+
+
+                                                                                                            12
+                Trinidad and Tobago Intellectual Property Office - PATENTS APPLICATION MANUAL
+FEES:
+
+
+
+          Application for a patent [section       $2,000.00 TT
+          18(1) and (2); rule 9]
+
+          Correction of application to comply     $250.00 TT
+          with formal requirements [section
+          23(3); rule 25(2)]
+
+          Amendment of application at             $500.00 TT
+          instance of applicant (Voluntary
+          Amendment) [section 26(1)]
+
+          Amendment of application on             $250.00 TT
+          invitation of Controller [section
+          25(1); rule 26(2)]
+
+          Fee for search and examination          $1,500.00 TT
+          carried out by an examining
+          authority [section 24(1); rule 26(1)]
+
+          Grant & Publication fee (Rule 27)       $500.00 TT plus amount payable to
+                                                  publisher (determined by Newsday
+                                                  Newspaper)
+
+          Request for conversion of a patent      $200.00 TT
+          application into an application for a
+          utility certificate and vice versa
+          [section 68; rule 43(2)]
+
+          Request for recordal of change in       $150.00 TT
+          ownership (section 35; rule 33)
+
+          Inspection of register (for every       $20.00 TT
+          quarter of an hour or part
+          thereof) (rule 34)
+
+          Certified copies of documents (rule     $50.00 TT
+          35)                                     plus $5.00 TT
+                                                  per page
+          Request for correction of an error      $150.00 TT
+          (rule 36)
+
+          Request for extension of time           $150.00 TT
+          limit (rule 48)
+
+          Request for hearing (rule 46)           $150.00 TT
+
+
+
+                                                                                        13
+        Trinidad and Tobago Intellectual Property Office - PATENTS APPLICATION MANUAL
+ANNUAL FEES FOR PATENTS: [SECTIONS 29, 30(1)]
+
+
+           2nd year                                $200.00 TT
+           3rd year                                $400.00 TT
+           4th year                                $400.00 TT
+           5th year                                $600.00 TT
+           6th year                                $900.00 TT
+           7th year                                $1,200.00 TT
+           8th year                                $1,600.00 TT
+           9th year                                $2,000.00 TT
+           10th year                               $2,400.00 TT
+           11th year                               $3,200.00 TT
+           12th year                               $4,200.00 TT
+           13th year                               $5,200.00 TT
+           14th year                               $6,200.00 TT
+           15th year                               $7,200.00 TT
+           16th year                               $8,400.00 TT
+           17th year                               $9,600.00 TT
+           18th year                               $10,800.00 TT
+           19th year                               $12,000.00 TT
+           20th year                               $13,200.00 TT
+         *Surcharge for late payment of annual fee according to section 30(1) would
+         result in an additional 10% of the overdue fee.
+
+
+
+
+                                                                                             14
+             Trinidad and Tobago Intellectual Property Office - PATENTS APPLICATION MANUAL
+                                           UTILITY CERTIFICATE
+
+
+
+WHAT IS A UTILITY CERTIFICATE?
+  A second form of protection for inventions is the patent for a “utility certificate”. In fact, they are
+  sometimes referred to as “petty patents” or “innovation patents." If an invention cannot meet all the
+  requirements of a patent, an applicant can apply for a utility certificate if the invention can be shown to
+  have an inventive step and can be industrially applicable.
+
+
+
+DIFFERENCE BETWEEN A PATENT AND A UTILITY CERTIFICATE
+  Utility certificates differ from patents mainly in three respects:
+
+    The inventive step required is smaller
+    The maximum term of protection provided by law is generally much shorter (ten years in Trinidad
+       and Tobago)
+    The fees required for obtaining and maintaining the rights are generally lower
+
+
+The procedure for obtaining a utility certificate is generally shorter and simpler than the procedure
+for obtaining a patent. Other than those points, the rights under the utility certificate are similar to
+those under a patent.
+
+
+
+REQUIREMENTS FOR A UTILITY CERTIFICATE
+  Utility certificate applications are usually filed by local applicants and the formal requirements
+  are the same as that of a local patent application;
+
+      The Request Form 1
+      A disclosure
+      Authorization of Agent, if filed through an attorney
+      Statement justifying the applicant’s right if the applicant is not the inventor
+      Application fee ($1000 TT)
+
+
+
+
+                                                                                                                15
+                 Trinidad and Tobago Intellectual Property Office - PATENTS APPLICATION MANUAL
+                                                                                16
+Trinidad and Tobago Intellectual Property Office - PATENTS APPLICATION MANUAL
+                         ISSUED BY
+           THE INTELLECTUAL PROPERTY OFFICE
+Office of the Attorney General and Ministry of Legal Affairs
+                 3rd Floor, Capital Plaza,
+11-13 Frederick Street, Port of Spain, Trinidad, West Indies
+               Tel: (868) 226-4IPO (4476)
+                    Fax: (868) 226-5160
+                   Email: info@ipo.gov.tt
+                  Website: www.ipo.gov.tt
+
+                            FOLLOW US @
+                             IPOTrinbago
+
+
+
+
+                                                                                17
+Trinidad and Tobago Intellectual Property Office - PATENTS APPLICATION MANUAL
+

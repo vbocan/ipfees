@@ -1,0 +1,43 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <!--
+    One executable for E2 and E3. It links:
+      - the IPFLang engine and jurisdiction corpus IPFees carries as source (src/IPFLang.Engine);
+      - the IPFees save gate (FeeDefinitionValidator, ScheduleVerifier, FeeScriptComposer) and
+        per-fee currency resolution (FeeCurrency), compiled from the same ipfees commit
+        (work/platform), so every measurement goes through production code.
+    Run scripts/prepare.sh first to populate work/.
+  -->
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net10.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <InvariantGlobalization>true</InvariantGlobalization>
+    <ServerGarbageCollection>false</ServerGarbageCollection>
+    <WorkDir>$(MSBuildThisFileDirectory)..\work\</WorkDir>
+    <NoWarn>$(NoWarn);CS8618;CS8600;CS8602;CS8604</NoWarn>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="$(WorkDir)platform\src\IPFLang.Engine\IPFLang.Engine.csproj" />
+  </ItemGroup>
+
+  <ItemGroup Label="IPFees save gate, compiled from the same ipfees commit">
+    <Compile Include="$(WorkDir)platform\src\IPFees.Core\FeeCalculation\FeeDefinitionValidator.cs" Link="Platform\FeeDefinitionValidator.cs" />
+    <Compile Include="$(WorkDir)platform\src\IPFees.Core\FeeCalculation\IFeeDefinitionValidator.cs" Link="Platform\IFeeDefinitionValidator.cs" />
+    <Compile Include="$(WorkDir)platform\src\IPFees.Core\FeeCalculation\FeeScriptComposer.cs" Link="Platform\FeeScriptComposer.cs" />
+    <Compile Include="$(WorkDir)platform\src\IPFees.Core\FeeCalculation\IFeeScriptComposer.cs" Link="Platform\IFeeScriptComposer.cs" />
+    <Compile Include="$(WorkDir)platform\src\IPFees.Core\FeeCalculation\VerificationNarrative.cs" Link="Platform\VerificationNarrative.cs" />
+    <Compile Include="$(WorkDir)platform\src\IPFees.Core\FeeCalculation\ScheduleVerifier.cs" Link="Platform\ScheduleVerifier.cs" />
+    <Compile Include="$(WorkDir)platform\src\IPFees.Core\FeeCalculation\FeeCurrency.cs" Link="Platform\FeeCurrency.cs" />
+    <Compile Include="$(WorkDir)platform\src\IPFees.Core\Model\FeeInfo.cs" Link="Platform\FeeInfo.cs" />
+    <Compile Include="$(WorkDir)platform\src\IPFees.Core\Enum\FeeCategory.cs" Link="Platform\FeeCategory.cs" />
+    <Compile Include="$(WorkDir)platform\src\IPFees.Core\Repository\IFeeRepository.cs" Link="Platform\IFeeRepository.cs" />
+    <Compile Include="$(WorkDir)platform\src\IPFees.Core\Model\ModuleInfo.cs" Link="Platform\ModuleInfo.cs" />
+    <Compile Include="$(WorkDir)platform\src\IPFees.Core\Repository\IModuleRepository.cs" Link="Platform\IModuleRepository.cs" />
+    <Compile Include="$(WorkDir)platform\src\IPFees.Core\Data\DbResult.cs" Link="Platform\DbResult.cs" />
+  </ItemGroup>
+
+</Project>

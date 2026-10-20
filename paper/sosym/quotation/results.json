@@ -1,0 +1,587 @@
+{
+ "api": "http://localhost:18090/api/v1",
+ "inputs": {
+  "EntitySize": "Entity_Large",
+  "ApplicationDate": "2026-10-16",
+  "ClaimCount": "20",
+  "SheetCount": "35",
+  "PriorityCount": "1",
+  "IndependentClaimCount": "3",
+  "MultipleDependentClaimCount": "0",
+  "DependentClaimCount": "17",
+  "CountryCount": "1",
+  "ISA": "ISA_EPO",
+  "IPRP": "IPRP_NONE",
+  "ISR_AVAILABLE": "true",
+  "RO_NP": "false",
+  "OfficeElected": "false",
+  "Extension": "false",
+  "NumberOfWords": "5000",
+  "VAL_CTY": "None"
+ },
+ "offices_registered": 118,
+ "offices_served": 118,
+ "not_served": [],
+ "questionnaire_inputs_all_served": 17,
+ "quote20": {
+  "offices": [
+   "US",
+   "EP",
+   "JP",
+   "KR",
+   "CA",
+   "AU",
+   "IN",
+   "BR",
+   "MX",
+   "IL",
+   "SG",
+   "ZA",
+   "NZ",
+   "EA",
+   "CO",
+   "ID",
+   "SA",
+   "AE",
+   "TH",
+   "CN"
+  ],
+  "timing": {
+   "runs": 30,
+   "median_ms": 41.5,
+   "p95_ms": 45.9,
+   "max_ms": 50.7
+  },
+  "response": {
+   "jurisdictionFees": [
+    {
+     "jurisdiction": "US",
+     "language": "N/A",
+     "fees": {
+      "mandatoryAmount": 1612,
+      "optionalAmount": 700,
+      "currency": "EUR"
+     },
+     "serviceFee": {
+      "mandatoryAmount": 100,
+      "optionalAmount": 0,
+      "currency": "EUR"
+     },
+     "totalFee": {
+      "mandatoryAmount": 1712,
+      "optionalAmount": 700,
+      "currency": "EUR"
+     }
+    },
+    {
+     "jurisdiction": "EP",
+     "language": "N/A",
+     "fees": {
+      "mandatoryAmount": 4545,
+      "optionalAmount": 700,
+      "currency": "EUR"
+     },
+     "serviceFee": {
+      "mandatoryAmount": 100,
+      "optionalAmount": 0,
+      "currency": "EUR"
+     },
+     "totalFee": {
+      "mandatoryAmount": 4645,
+      "optionalAmount": 700,
+      "currency": "EUR"
+     }
+    },
+    {
+     "jurisdiction": "JP",
+     "language": "N/A",
+     "fees": {
+      "mandatoryAmount": 1185,
+      "optionalAmount": 700,
+      "currency": "EUR"
+     },
+     "serviceFee": {
+      "mandatoryAmount": 100,
+      "optionalAmount": 0,
+      "currency": "EUR"
+     },
+     "totalFee": {
+      "mandatoryAmount": 1285,
+      "optionalAmount": 700,
+      "currency": "EUR"
+     }
+    },
+    {
+     "jurisdiction": "KR",
+     "language": "N/A",
+     "fees": {
+      "mandatoryAmount": 43,
+      "optionalAmount": 1492,
+      "currency": "EUR"
+     },
+     "serviceFee": {
+      "mandatoryAmount": 100,
+      "optionalAmount": 0,
+      "currency": "EUR"
+     },
+     "totalFee": {
+      "mandatoryAmount": 143,
+      "optionalAmount": 1492,
+      "currency": "EUR"
+     }
+    },
+    {
+     "jurisdiction": "CA",
+     "language": "N/A",
+     "fees": {
+      "mandatoryAmount": 460,
+      "optionalAmount": 1450,
+      "currency": "EUR"
+     },
+     "serviceFee": {
+      "mandatoryAmount": 100,
+      "optionalAmount": 0,
+      "currency": "EUR"
+     },
+     "totalFee": {
+      "mandatoryAmount": 560,
+      "optionalAmount": 1450,
+      "currency": "EUR"
+     }
+    },
+    {
+     "jurisdiction": "AU",
+     "language": "N/A",
+     "fees": {
+      "mandatoryAmount": 248,
+      "optionalAmount": 1041,
+      "currency": "EUR"
+     },
+     "serviceFee": {
+      "mandatoryAmount": 100,
+      "optionalAmount": 0,
+      "currency": "EUR"
+     },
+     "totalFee": {
+      "mandatoryAmount": 348,
+      "optionalAmount": 1041,
+      "currency": "EUR"
+     }
+    },
+    {
+     "jurisdiction": "IN",
+     "language": "N/A",
+     "fees": {
+      "mandatoryAmount": 262,
+      "optionalAmount": 887,
+      "currency": "EUR"
+     },
+     "serviceFee": {
+      "mandatoryAmount": 100,
+      "optionalAmount": 0,
+      "currency": "EUR"
+     },
+     "totalFee": {
+      "mandatoryAmount": 362,
+      "optionalAmount": 887,
+      "currency": "EUR"
+     }
+    },
+    {
+     "jurisdiction": "BR",
+     "language": "N/A",
+     "fees": {
+      "mandatoryAmount": 574,
+      "optionalAmount": 700,
+      "currency": "EUR"
+     },
+     "serviceFee": {
+      "mandatoryAmount": 100,
+      "optionalAmount": 0,
+      "currency": "EUR"
+     },
+     "totalFee": {
+      "mandatoryAmount": 674,
+      "optionalAmount": 700,
+      "currency": "EUR"
+     }
+    },
+    {
+     "jurisdiction": "MX",
+     "language": "N/A",
+     "fees": {
+      "mandatoryAmount": 218,
+      "optionalAmount": 700,
+      "currency": "EUR"
+     },
+     "serviceFee": {
+      "mandatoryAmount": 100,
+      "optionalAmount": 0,
+      "currency": "EUR"
+     },
+     "totalFee": {
+      "mandatoryAmount": 318,
+      "optionalAmount": 700,
+      "currency": "EUR"
+     }
+    },
+    {
+     "jurisdiction": "IL",
+     "language": "N/A",
+     "fees": {
+      "mandatoryAmount": 688,
+      "optionalAmount": 700,
+      "currency": "EUR"
+     },
+     "serviceFee": {
+      "mandatoryAmount": 100,
+      "optionalAmount": 0,
+      "currency": "EUR"
+     },
+     "totalFee": {
+      "mandatoryAmount": 788,
+      "optionalAmount": 700,
+      "currency": "EUR"
+     }
+    },
+    {
+     "jurisdiction": "SG",
+     "language": "N/A",
+     "fees": {
+      "mandatoryAmount": 146,
+      "optionalAmount": 1967,
+      "currency": "EUR"
+     },
+     "serviceFee": {
+      "mandatoryAmount": 100,
+      "optionalAmount": 0,
+      "currency": "EUR"
+     },
+     "totalFee": {
+      "mandatoryAmount": 246,
+      "optionalAmount": 1967,
+      "currency": "EUR"
+     }
+    },
+    {
+     "jurisdiction": "ZA",
+     "language": "N/A",
+     "fees": {
+      "mandatoryAmount": 32,
+      "optionalAmount": 700,
+      "currency": "EUR"
+     },
+     "serviceFee": {
+      "mandatoryAmount": 100,
+      "optionalAmount": 0,
+      "currency": "EUR"
+     },
+     "totalFee": {
+      "mandatoryAmount": 132,
+      "optionalAmount": 700,
+      "currency": "EUR"
+     }
+    },
+    {
+     "jurisdiction": "NZ",
+     "language": "N/A",
+     "fees": {
+      "mandatoryAmount": 126,
+      "optionalAmount": 700,
+      "currency": "EUR"
+     },
+     "serviceFee": {
+      "mandatoryAmount": 100,
+      "optionalAmount": 0,
+      "currency": "EUR"
+     },
+     "totalFee": {
+      "mandatoryAmount": 226,
+      "optionalAmount": 700,
+      "currency": "EUR"
+     }
+    },
+    {
+     "jurisdiction": "EA",
+     "language": "N/A",
+     "fees": {
+      "mandatoryAmount": 3116,
+      "optionalAmount": 1179,
+      "currency": "EUR"
+     },
+     "serviceFee": {
+      "mandatoryAmount": 100,
+      "optionalAmount": 0,
+      "currency": "EUR"
+     },
+     "totalFee": {
+      "mandatoryAmount": 3216,
+      "optionalAmount": 1179,
+      "currency": "EUR"
+     }
+    },
+    {
+     "jurisdiction": "CO",
+     "language": "N/A",
+     "fees": {
+      "mandatoryAmount": 33,
+      "optionalAmount": 1148,
+      "currency": "EUR"
+     },
+     "serviceFee": {
+      "mandatoryAmount": 100,
+      "optionalAmount": 0,
+      "currency": "EUR"
+     },
+     "totalFee": {
+      "mandatoryAmount": 133,
+      "optionalAmount": 1148,
+      "currency": "EUR"
+     }
+    },
+    {
+     "jurisdiction": "ID",
+     "language": "N/A",
+     "fees": {
+      "mandatoryAmount": 103,
+      "optionalAmount": 848,
+      "currency": "EUR"
+     },
+     "serviceFee": {
+      "mandatoryAmount": 100,
+      "optionalAmount": 0,
+      "currency": "EUR"
+     },
+     "totalFee": {
+      "mandatoryAmount": 203,
+      "optionalAmount": 848,
+      "currency": "EUR"
+     }
+    },
+    {
+     "jurisdiction": "SA",
+     "language": "N/A",
+     "fees": {
+      "mandatoryAmount": 309,
+      "optionalAmount": 700,
+      "currency": "EUR"
+     },
+     "serviceFee": {
+      "mandatoryAmount": 100,
+      "optionalAmount": 0,
+      "currency": "EUR"
+     },
+     "totalFee": {
+      "mandatoryAmount": 409,
+      "optionalAmount": 700,
+      "currency": "EUR"
+     }
+    },
+    {
+     "jurisdiction": "AE",
+     "language": "N/A",
+     "fees": {
+      "mandatoryAmount": 679,
+      "optionalAmount": 894,
+      "currency": "EUR"
+     },
+     "serviceFee": {
+      "mandatoryAmount": 100,
+      "optionalAmount": 0,
+      "currency": "EUR"
+     },
+     "totalFee": {
+      "mandatoryAmount": 779,
+      "optionalAmount": 894,
+      "currency": "EUR"
+     }
+    },
+    {
+     "jurisdiction": "TH",
+     "language": "N/A",
+     "fees": {
+      "mandatoryAmount": 13,
+      "optionalAmount": 713,
+      "currency": "EUR"
+     },
+     "serviceFee": {
+      "mandatoryAmount": 100,
+      "optionalAmount": 0,
+      "currency": "EUR"
+     },
+     "totalFee": {
+      "mandatoryAmount": 113,
+      "optionalAmount": 713,
+      "currency": "EUR"
+     }
+    },
+    {
+     "jurisdiction": "CN",
+     "language": "N/A",
+     "fees": {
+      "mandatoryAmount": 370,
+      "optionalAmount": 1033,
+      "currency": "EUR"
+     },
+     "serviceFee": {
+      "mandatoryAmount": 100,
+      "optionalAmount": 0,
+      "currency": "EUR"
+     },
+     "totalFee": {
+      "mandatoryAmount": 470,
+      "optionalAmount": 1033,
+      "currency": "EUR"
+     }
+    }
+   ],
+   "totalFees": {
+    "mandatoryAmount": 14762,
+    "optionalAmount": 18952,
+    "currency": "EUR"
+   },
+   "totalServiceFee": {
+    "mandatoryAmount": 2000,
+    "optionalAmount": 0,
+    "currency": "EUR"
+   },
+   "grandTotalFee": {
+    "mandatoryAmount": 16762,
+    "optionalAmount": 18952,
+    "currency": "EUR"
+   },
+   "errors": []
+  }
+ },
+ "quoteAll": {
+  "offices": 118,
+  "timing": {
+   "runs": 30,
+   "median_ms": 238.9,
+   "p95_ms": 248.4,
+   "max_ms": 252.1
+  },
+  "grand_total": {
+   "mandatoryAmount": 71076.285,
+   "optionalAmount": 97885.45,
+   "currency": "EUR"
+  }
+ },
+ "explain20": {
+  "timing": {
+   "runs": 30,
+   "median_ms": 73.9,
+   "p95_ms": 83.4,
+   "max_ms": 86.5
+  },
+  "explanations": 20,
+  "alternatives": 156
+ },
+ "scaling": [
+  {
+   "offices": 1,
+   "quote": {
+    "runs": 30,
+    "median_ms": 5.3,
+    "p95_ms": 7.2,
+    "max_ms": 7.5
+   },
+   "explain": {
+    "runs": 30,
+    "median_ms": 5.0,
+    "p95_ms": 6.1,
+    "max_ms": 7.0
+   }
+  },
+  {
+   "offices": 5,
+   "quote": {
+    "runs": 30,
+    "median_ms": 12.1,
+    "p95_ms": 14.3,
+    "max_ms": 17.1
+   },
+   "explain": {
+    "runs": 30,
+    "median_ms": 10.6,
+    "p95_ms": 12.7,
+    "max_ms": 13.3
+   }
+  },
+  {
+   "offices": 10,
+   "quote": {
+    "runs": 30,
+    "median_ms": 20.9,
+    "p95_ms": 23.5,
+    "max_ms": 24.8
+   },
+   "explain": {
+    "runs": 30,
+    "median_ms": 16.8,
+    "p95_ms": 18.8,
+    "max_ms": 21.1
+   }
+  },
+  {
+   "offices": 20,
+   "quote": {
+    "runs": 30,
+    "median_ms": 36.9,
+    "p95_ms": 41.2,
+    "max_ms": 46.2
+   },
+   "explain": {
+    "runs": 30,
+    "median_ms": 27.9,
+    "p95_ms": 30.6,
+    "max_ms": 31.8
+   }
+  },
+  {
+   "offices": 40,
+   "quote": {
+    "runs": 30,
+    "median_ms": 70.2,
+    "p95_ms": 74.2,
+    "max_ms": 79.9
+   },
+   "explain": {
+    "runs": 30,
+    "median_ms": 56.8,
+    "p95_ms": 75.6,
+    "max_ms": 79.0
+   }
+  },
+  {
+   "offices": 80,
+   "quote": {
+    "runs": 30,
+    "median_ms": 136.5,
+    "p95_ms": 146.2,
+    "max_ms": 153.9
+   },
+   "explain": {
+    "runs": 30,
+    "median_ms": 103.8,
+    "p95_ms": 119.6,
+    "max_ms": 125.7
+   }
+  },
+  {
+   "offices": 118,
+   "quote": {
+    "runs": 30,
+    "median_ms": 201.3,
+    "p95_ms": 222.7,
+    "max_ms": 236.7
+   },
+   "explain": {
+    "runs": 30,
+    "median_ms": 141.5,
+    "p95_ms": 152.2,
+    "max_ms": 158.4
+   }
+  }
+ ]
+}

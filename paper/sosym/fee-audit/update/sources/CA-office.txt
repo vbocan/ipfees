@@ -1,0 +1,636 @@
+Source: https://ised-isde.canada.ca/site/canadian-intellectual-property-office/en/node/39
+Retrieved: 2026-10-20
+
+Patent fees
+Skip to main content
+Skip to "About this site"
+Language selection
+WxT Language switcher
+Français fr
+/
+Gouvernement du Canada
+WxT Search form
+Search
+Search
+Menu
+Main Menu
+Home
+You are here
+Canada.ca
+Canadian Intellectual Property Office
+Patents
+Patent fees
+Different fees must be paid during the patent application process, and after a patent is granted. The amount of those fees is shown in the lists below.
+Fee adjustments – what fee do I pay?
+For fees subject to an adjustment, the fee amount you must pay depends on the date which the fee is received by the Commissioner Footnote 1 , not the date which the service was originally requested, nor the prescribed date to pay the fee.
+How to determine what fee to pay
+For all fees subject to an adjustment:
+If payment is received before January 1 of next year, you will need to pay the prescribed fee for the current year.
+If payment is received on or after January 1 of next year, you will need to pay the adjusted prescribed fee for next year.
+For example, if, after you have filed a Canadian application and obtained a filing date, but have not paid the application fee and a notice was sent prior to January of the next year, the amount you should pay will depend on when you pay it. If, in response to the notice, you pay the full amount prior to January, then you must pay the prescribed amount for the current year. If you have paid on or after January 1 of the next year, then you must pay the adjusted prescribed fee for next year.
+Similarly, the amount due for a maintenance fee depends on the date which your payment is received, not the prescribed date to pay the fee. This applies whether the fee is paid early, during the late fee period, or during the reinstatement period.
+2026 list of fees
+2026 list of fees for patents
+Below are the up-to-date fee amounts for 2026 . All amounts are in Canadian dollars (CAD) .
+Annual fee adjustment – 2026
+On January 1, 2026 , certain fees related to patent applications and patents increased by 2.7%, in accordance with the Service Fees Act
+As a result, the amounts shown in the Tariff of Fees of the Patent Rules , made available to the public by the Department of Justice Canada, may not be up to date. However, the fee amounts shown on this page are up to date.
+Please note that not all fees are subject to an annual adjustment. To view fee amounts that were in effect prior to 2026, consult our list of historical patent fees .
+Small entity vs. standard fees
+Patent fees are shown in 2 categories:
+Small entity fees – Available to applicants and patentees that meet the small entity condition and who submit a valid small entity declaration within the prescribed time. Eligible applicants include entities with fewer than 100 employees and universities.
+Standard fees – Applies in all other cases
+To learn more, consult section 10.02 of the Manual of Patent Office Practice.
+Note: Certain fees are not reduced for small entities and therefore their fee amounts appear the same in both the small entity and standard fee columns
+On this page
+Fee for applying for an extension of time
+Fees respecting applications
+Fees in respect of international applications
+Fees in respect of patents
+Fee for applying for an extension of time
+Fee for applying for an extension of time
+Fee type
+Additional description
+Small entity fee – 2026 ($)
+Standard fee – 2026 ($)
+Fee for applying for an extension of time
+Fee for applying for an extension of time, in respect of each period of time referred to in the application for extension
+297.00
+297.00
+Fees respecting applications
+Fees respecting applications
+Fee type
+Additional description
+Small entity fee – 2026 ($)
+Standard fee – 2026 ($)
+Application fee
+Application fee
+241.24
+595.06
+Late fee
+Late fee under subsection 27(7), subsection 27.1(2) or subsection 35(3) of the Patent Act under subsection 27(7), subsection 27.1(2) or subsection 35(3) of the Patent Act
+150.00
+150.00
+Maintenance fees – Fee for maintaining an application in effect
+For the dates of each of the second, third and fourth anniversaries of the filing date of the application
+60.26
+134.02
+For the dates of each of the fifth, sixth, seventh, eighth and ninth anniversaries of the filing date of the application
+107.22
+297.00
+For the dates of each of the 10th, 11th, 12th, 13th and 14th anniversaries of the filing date of the application
+134.02
+372.05
+For the dates of each of the 15th, 16th, 17th, 18th and 19th anniversaries of the filing date of the application
+271.26
+669.05
+For the dates of the 20th and each subsequent anniversary of the filing date of the application
+410.80
+1,027.00
+Request for examination fee – Fee for examination of an application for a patent
+Basic Fee – If the application for a patent has been the subject of an international search by the Commissioner in the Commissioner's capacity as an International Search Authority
+117.94
+297.00
+Basic Fee – In any other case (other than the situation listed in the row above)
+482.48
+1,190.13
+Fee for each claim in excess of 20 that is included in the application
+58.97
+117.94
+Advanced examination fee
+Fee to advance an application for a patent out of its routine order
+744.10
+744.10
+Fee for continued examination of an application
+Fee for continued examination of an application
+482.48
+1,190.13
+Final fee
+Basic Fee
+181.20
+446.03
+For each page of specification and drawings, other than pages of a sequence listing submitted in electronic form, in excess of 100 pages
+8.58
+8.58
+Fee for each claim in excess of 20 included in the application in respect of which the fee set out in paragraph 10(b) of Schedule 2 to the Patent Rules was not paid
+58.97
+117.94
+Reinstatement fee
+Fee for reinstatement of an application deemed to be abandoned, in respect of each failure to take action
+297.00
+297.00
+Fees in respect of international applications
+In respect of international applications during the international phase, some fees are payable to CIPO for its own benefit and some fees are collected by CIPO for the benefit of the World Intellectual Property Organization (WIPO).
+Fees in respect of international applications
+Fee type
+Additional description
+Small entity fee – 2026 ($)
+Standard fee – 2026 ($)
+Transmittal fee
+Transmittal fee for the performance of the tasks referred to in Rule 14 of the Regulations under the PCT
+446.03
+446.03
+International filing fee
+International filing Fee Rule referred to in Rule 15.1 of the Regulations under the PCT
+For the calculation of the fee (including the base fee, the additional fee for excess sheets and reductions for electronic filing), please refer to Annex C CA of the PCT Applicant's Guide .
+See description
+See description
+Search fee
+Search fee for the performance of the tasks referred to in Rule 16 of the Regulations under the PCT
+2,380.26
+2,380.26
+Additional fee for search
+Additional fee for conducting a search under Article 17(3)(a) of the Patent Cooperation Treaty, in respect of each invention other than the main invention
+2,380.26
+2,380.26
+Fee for Late Payment of the International Filing Fee, the Transmittal fee, or the Search Fee
+Fee for late payment of fees referred to in Rule 16bis.1 of the Regulations under the PCT.
+For the calculation of the fee, please refer to Rule 16bis.2 of the Regulations under the PCT.
+See description
+See description
+Preliminary examination fee
+Preliminary examination fee for the performance of the tasks referred to in Rule 58 of the Regulations under the PCT
+1,190.13
+1,190.13
+Handling Fee
+Handling fee referred to in Rule 57.1 of the Regulations Under the PCT
+For the current fee, please refer to Annex E CA of the Applicant's Guide (PDF)
+See description
+See description
+Additional fee for examination
+Additional fee for an international preliminary examination under Article 34(3)(a) of the Patent Cooperation Treaty, in respect of each invention other than the main invention
+1,190.13
+1,190.13
+Fee for Late Payment of the Handling Fee or the Preliminary Examination
+Fee for late payment of fees referred to in Rule 58bis.1 of the Regulations under the PCT.
+For the calculation of the fee, please refer to Rule 58bis.2 of the Regulations under the PCT.
+See description
+See description
+Basic national fee
+Fee for entering national phase in Canada
+241.24
+595.06
+Fee for reinstatement of rights
+Fee for requesting reinstatement of rights under subsection 154(3) of the Patent Rules
+297.00
+297.00
+Late Fee
+Additional fee for late payment under subsection 154(4) of the Patent Rules
+150.00
+150.00
+Fees in respect of patents
+Fees in respect of patents
+Fee type
+Additional description
+Small entity fee – 2026 ($)
+Standard fee – 2026 ($)
+Fee for requesting correction of an error
+Fee for requesting the correction of an error under subsection 109(1) of the Patent Rules , for each patent referred to in the request for correction
+297.00
+297.00
+Maintenance fees – Fee for maintaining the rights accorded by a patent in effect
+For the dates of each of the second, third and fourth anniversaries of the filing date of the application on the basis of which the patent was granted
+60.26
+134.02
+For the dates of each of the fifth, sixth, seventh, eighth and ninth anniversaries of the filing date of the application on the basis of which the patent was granted
+107.22
+297.00
+For the dates of each of the 10th, 11th, 12th, 13th and 14th anniversaries of the filing date of the application on the basis of which the patent was granted
+134.02
+372.05
+For the dates of each of the 15th, 16th, 17th, 18th and 19th anniversaries of the filing date of the application on the basis of which the patent was granted
+271.26
+669.05
+Maintenance fees – Fee for maintaining in effect, under subsection 46.2(1) of the Patent Act, the rights accorded by a patent during an additional term.
+For the dates of the 20th and each subsequent anniversary of the filing date of the application on the basis of which the patent was granted.
+410.80
+1,027.00
+Maintenance fees – Fee for maintaining in effect the rights accorded by a patent granted on the basis of a category 1 application
+For the dates of each of the second, third and fourth anniversaries of the day on which the patent was issued
+53.61
+134.02
+For the dates of each of the fifth, sixth, seventh, eighth and ninth anniversaries of the day on which the patent was issued
+107.22
+297.00
+For the dates of each of the 10th, 11th, 12th, 13th and 14th anniversaries of the day on which the patent was issued
+134.02
+372.05
+For the dates of each of the 15th and 16th anniversaries of the day on which the patent was issued
+271.26
+669.05
+Late fee
+Late fee under subsection 46(2) of the Patent Act
+150.00
+150.00
+Late fee under subsection 46.2(2) of the Patent Act
+150.00
+150.00
+Fee for requesting reversal of deemed expiry of a patent
+Additional fee under subparagraph 46(5)(a)(iii) of the Patent Act
+297.00
+297.00
+Additional fee under subsection 46.2(5)(a)(iii) of the Patent Act
+297.00
+297.00
+Reissue fee
+Fee for filing an application to reissue a patent
+2,380.26
+2,380.26
+Disclaimer fee
+Fee for making a disclaimer to a patent
+125.00
+125.00
+Re-examination fee
+Fee for re-examination of one or more claims of a patent
+1,205.14
+2,975.32
+Fees in respect of an additional term Footnote 2
+Fee to apply for additional term as required under paragraph 46.1(1)(c) of the Patent Act
+1,027.00
+2,567.50
+Fee to apply for reconsideration of additional term as required under subsection 46.3(2) of the Patent Act
+1,027.00
+2,567.50
+Fee for presenting an application under section 65 or 127 of the Patent Act
+For the first patent or certificate of supplementary protection to which the application relates
+3,718.35
+3,718.35
+For each additional patent or certificate to which the application relates
+372.05
+372.05
+Fee to advertise an application
+Fee to advertise an application under section 65 or 127 of the Patent Act on the website of the Canadian Intellectual Property Office
+297.00
+297.00
+Registration of a document
+Fee for requesting the registration of a document relating to a patent or an application for a patent, for each patent or application for a patent to which the document relates.
+125.00
+125.00
+Recording of a change of name
+Fee for requesting the recording of a change of name, for each patent or application for a patent to which the change of name relates
+125.00
+125.00
+Recording of a transfer
+Fee for requesting that a transfer be recorded under section 49 of the Patent Act , for each patent or application for a patent to which the transfer relates
+125.00
+125.00
+Fees in respect of information or copies – Fees for requesting a certified copy in paper
+For each certification
+44.00
+44.00
+For each page
+1.00
+1.00
+Fees in respect of information or copies – Fees for requesting a certified copy in electronic form
+For each certification
+44.00
+44.00
+For each patent or application to which the request relates
+13.00
+13.00
+Fees in respect of information or copies – Fee for requesting a non-certified copy in paper form, for each page
+If the person requesting makes the copy using Patent Office equipment
+1.00
+1.00
+If the Patent Office makes the copy
+1.00
+1.00
+Fees in respect of information or copies – Fees for requesting a non-certified copy in electronic form
+For each request
+13.00
+13.00
+For each patent or application for a patent to which the request relates
+13.00
+13.00
+If the copy is requested on more than one physical medium, for each additional physical medium requested
+13.00
+13.00
+Fee for requesting that the Patent Office provide information concerning the status of a patent or an application for a patent, for each patent or application for a patent
+19.00
+19.00
+2027 list of fees
+2027 list of fees for patents
+Below are the up-to-date fee amounts for 2027 . All amounts are in Canadian dollars (CAD) .
+Note: all fee amounts for 2027 are subject to change.
+Annual fee adjustment – 2027
+On January 1, 2027 , certain fees related to patent applications and patents will increase by 1.7%, in accordance with the Service Fees Act
+As a result, the amounts shown in the Tariff of Fees of the Patent Rules , made available to the public by the Department of Justice Canada, may not be up to date. However, the fee amounts shown on this page are up to date.
+Please note that not all fees are subject to an annual adjustment. To view fee amounts that were in effect prior to 2026, consult our list of historical patent fees .
+Small entity vs. standard fees
+Patent fees are shown in 2 categories:
+Small entity fees – Available to applicants and patentees that meet the small entity condition and who submit a valid small entity declaration within the prescribed time. Eligible applicants include entities with fewer than 100 employees and universities.
+Standard fees – Applies in all other cases
+To learn more, consult section 10.02 of the Manual of Patent Office Practice.
+Note: Certain fees are not reduced for small entities and therefore their fee amounts appear the same in both the small entity and standard fee columns
+On this page
+Fee for applying for an extension of time
+Fees respecting applications
+Fees in respect of international applications
+Fees in respect of patents
+Fee for applying for an extension of time
+Fee for applying for an extension of time
+Fee type
+Additional description
+Small entity fee – 2027 ($)
+Standard fee – 2027 ($)
+Fee for applying for an extension of time
+Fee for applying for an extension of time, in respect of each period of time referred to in the application for extension
+302.05
+302.05
+Fees respecting applications
+Fees respecting applications
+Fee type
+Additional description
+Small entity fee – 2027 ($)
+Standard fee – 2027 ($)
+Application fee
+Application fee
+245.34
+605.18
+Late fee
+Late fee under subsection 27(7), subsection 27.1(2) or subsection 35(3) of the Patent Act under subsection 27(7), subsection 27.1(2) or subsection 35(3) of the Patent Act
+150.00
+150.00
+Maintenance fees – Fee for maintaining an application in effect
+For the dates of each of the second, third and fourth anniversaries of the filing date of the application
+61.28
+136.30
+For the dates of each of the fifth, sixth, seventh, eighth and ninth anniversaries of the filing date of the application
+109.04
+302.05
+For the dates of each of the 10th, 11th, 12th, 13th and 14th anniversaries of the filing date of the application
+136.30
+378.37
+For the dates of each of the 15th, 16th, 17th, 18th and 19th anniversaries of the filing date of the application
+275.87
+680.42
+For the dates of the 20th and each subsequent anniversary of the filing date of the application
+417.78
+1,044.46
+Request for examination fee – Fee for examination of an application for a patent
+Basic Fee – If the application for a patent has been the subject of an international search by the Commissioner in the Commissioner's capacity as an International Search Authority
+119.94
+302.05
+Basic Fee – In any other case (other than the situation listed in the row above)
+490.68
+1,210.36
+Fee for each claim in excess of 20 that is included in the application
+59.97
+119.94
+Advanced examination fee
+Fee to advance an application for a patent out of its routine order
+756.75
+756.75
+Fee for continued examination of an application
+Fee for continued examination of an application
+490.68
+1,210.36
+Final fee
+Basic Fee
+184.28
+453.61
+For each page of specification and drawings, other than pages of a sequence listing submitted in electronic form, in excess of 100 pages
+8.73
+8.73
+Fee for each claim in excess of 20 included in the application in respect of which the fee set out in paragraph 10(b) of Schedule 2 to the Patent Rules was not paid
+59.97
+119.94
+Reinstatement fee
+Fee for reinstatement of an application deemed to be abandoned, in respect of each failure to take action
+302.05
+302.05
+Fees in respect of international applications
+In respect of international applications during the international phase, some fees are payable to CIPO for its own benefit and some fees are collected by CIPO for the benefit of the World Intellectual Property Organization (WIPO).
+Fees in respect of international applications
+Fee type
+Additional description
+Small entity fee – 2027 ($)
+Standard fee – 2027 ($)
+Transmittal fee
+Transmittal fee for the performance of the tasks referred to in Rule 14 of the Regulations under the PCT
+453.61
+453.61
+International filing fee
+International filing Fee Rule referred to in Rule 15.1 of the Regulations under the PCT
+For the calculation of the fee (including the base fee, the additional fee for excess sheets and reductions for electronic filing), please refer to Annex C CA of the PCT Applicant's Guide .
+See description
+See description
+Search fee
+Search fee for the performance of the tasks referred to in Rule 16 of the Regulations under the PCT
+2,420.72
+2,420.72
+Additional fee for search
+Additional fee for conducting a search under Article 17(3)(a) of the Patent Cooperation Treaty, in respect of each invention other than the main invention
+2,420.72
+2,420.72
+Fee for Late Payment of the International Filing Fee, the Transmittal fee, or the Search Fee
+Fee for late payment of fees referred to in Rule 16bis.1 of the Regulations under the PCT.
+For the calculation of the fee, please refer to Rule 16bis.2 of the Regulations under the PCT.
+See description
+See description
+Preliminary examination fee
+Preliminary examination fee for the performance of the tasks referred to in Rule 58 of the Regulations under the PCT
+1,210.36
+1,210.36
+Handling Fee
+Handling fee referred to in Rule 57.1 of the Regulations Under the PCT
+For the current fee, please refer to Annex E CA of the Applicant's Guide (PDF)
+See description
+See description
+Additional fee for examination
+Additional fee for an international preliminary examination under Article 34(3)(a) of the Patent Cooperation Treaty, in respect of each invention other than the main invention
+1,210.36
+1,210.36
+Fee for Late Payment of the Handling Fee or the Preliminary Examination
+Fee for late payment of fees referred to in Rule 58bis.1 of the Regulations under the PCT.
+For the calculation of the fee, please refer to Rule 58bis.2 of the Regulations under the PCT.
+See description
+See description
+Basic national fee
+Fee for entering national phase in Canada
+245.34
+605.18
+Fee for reinstatement of rights
+Fee for requesting reinstatement of rights under subsection 154(3) of the Patent Rules
+302.05
+302.05
+Late Fee
+Additional fee for late payment under subsection 154(4) of the Patent Rules
+150.00
+150.00
+Fees in respect of patents
+Fees in respect of patents
+Fee type
+Additional description
+Small entity fee – 2027 ($)
+Standard fee – 2027 ($)
+Fee for requesting correction of an error
+Fee for requesting the correction of an error under subsection 109(1) of the Patent Rules , for each patent referred to in the request for correction
+302.05
+302.05
+Maintenance fees – Fee for maintaining the rights accorded by a patent in effect
+For the dates of each of the second, third and fourth anniversaries of the filing date of the application on the basis of which the patent was granted
+61.28
+136.30
+For the dates of each of the fifth, sixth, seventh, eighth and ninth anniversaries of the filing date of the application on the basis of which the patent was granted
+109.04
+302.05
+For the dates of each of the 10th, 11th, 12th, 13th and 14th anniversaries of the filing date of the application on the basis of which the patent was granted
+136.30
+378.37
+For the dates of each of the 15th, 16th, 17th, 18th and 19th anniversaries of the filing date of the application on the basis of which the patent was granted
+275.87
+680.42
+Maintenance fees – Fee for maintaining in effect, under subsection 46.2(1) of the Patent Act, the rights accorded by a patent during an additional term.
+For the dates of the 20th and each subsequent anniversary of the filing date of the application on the basis of which the patent was granted.
+417.78
+1,044.46
+Maintenance fees – Fee for maintaining in effect the rights accorded by a patent granted on the basis of a category 1 application
+For the dates of each of the second, third and fourth anniversaries of the day on which the patent was issued
+54.52
+302.05
+For the dates of each of the fifth, sixth, seventh, eighth and ninth anniversaries of the day on which the patent was issued
+109.04
+302.05
+For the dates of each of the 10th, 11th, 12th, 13th and 14th anniversaries of the day on which the patent was issued
+136.30
+378.37
+For the dates of each of the 15th and 16th anniversaries of the day on which the patent was issued
+275.87
+680.42
+Late fee
+Late fee under subsection 46(2) of the Patent Act
+150.00
+150.00
+Late fee under subsection 46.2(2) of the Patent Act
+150.00
+150.00
+Fee for requesting reversal of deemed expiry of a patent
+Additional fee under subparagraph 46(5)(a)(iii) of the Patent Act
+302.05
+302.05
+Additional fee under subsection 46.2(5)(a)(iii) of the Patent Act
+302.05
+302.05
+Reissue fee
+Fee for filing an application to reissue a patent
+2,420.72
+2,420.72
+Disclaimer fee
+Fee for making a disclaimer to a patent
+125.00
+125.00
+Re-examination fee
+Fee for re-examination of one or more claims of a patent
+1,225.63
+3,025.90
+Fees in respect of an additional term Footnote 2
+Fee to apply for additional term as required under paragraph 46.1(1)(c) of the Patent Act
+1,044.46
+2,611.15
+Fee to apply for reconsideration of additional term as required under subsection 46.3(2) of the Patent Act
+1,044.46
+2,611.15
+Fee for presenting an application under section 65 or 127 of the Patent Act
+For the first patent or certificate of supplementary protection to which the application relates
+3,781.56
+3,781.56
+For each additional patent or certificate to which the application relates
+378.37
+378.37
+Fee to advertise an application
+Fee to advertise an application under section 65 or 127 of the Patent Act on the website of the Canadian Intellectual Property Office
+302.05
+302.05
+Registration of a document
+Fee for requesting the registration of a document relating to a patent or an application for a patent, for each patent or application for a patent to which the document relates.
+125.00
+125.00
+Recording of a change of name
+Fee for requesting the recording of a change of name, for each patent or application for a patent to which the change of name relates
+125.00
+125.00
+Recording of a transfer
+Fee for requesting that a transfer be recorded under section 49 of the Patent Act , for each patent or application for a patent to which the transfer relates
+125.00
+125.00
+Fees in respect of information or copies – Fees for requesting a certified copy in paper
+For each certification
+44.00
+44.00
+For each page
+1.00
+1.00
+Fees in respect of information or copies – Fees for requesting a certified copy in electronic form
+For each certification
+44.00
+44.00
+For each patent or application to which the request relates
+13.00
+13.00
+Fees in respect of information or copies – Fee for requesting a non-certified copy in paper form, for each page
+If the person requesting makes the copy using Patent Office equipment
+1.00
+1.00
+If the Patent Office makes the copy
+1.00
+1.00
+Fees in respect of information or copies – Fees for requesting a non-certified copy in electronic form
+For each request
+13.00
+13.00
+For each patent or application for a patent to which the request relates
+13.00
+13.00
+If the copy is requested on more than one physical medium, for each additional physical medium requested
+13.00
+13.00
+Fee for requesting that the Patent Office provide information concerning the status of a patent or an application for a patent, for each patent or application for a patent
+19.00
+19.00
+Related information
+Methods of payment
+Apply for a patent
+List of historical patent fees
+Footnotes
+Footnote 1
+Exception: the fee amount for international applications is the date of receipt of the international application for the following fees:
+the transmittal fee,
+the international filing fee (including associated excess page fees and fee reductions for electronic filing); and
+the search fee
+Return to footnote 1 referrer
+Footnote 2
+The fees set out for additional term only apply to patent applications filed on or after December 1, 2020 ( see Patent Rules , section 236)
+Return to footnote 2 referrer
+Date modified:
+2026-07-20
+Government of Canada
+All contacts
+Departments and agencies
+About government
+Themes and topics
+Jobs
+Immigration and citizenship
+Travel and tourism
+Business
+Benefits
+Health
+Taxes
+Environment and natural resources
+National security and defence
+Culture, history and sport
+Policing, justice and emergencies
+Transport and infrastructure
+Canada and the world
+Money and finance
+Science and innovation
+Indigenous peoples
+Veterans and military
+Youth
+Brand
+Social media
+Mobile applications
+About Canada.ca
+Terms and conditions
+Privacy
+Top of Page
