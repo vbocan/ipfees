@@ -96,6 +96,14 @@ namespace IPFees.Core.FeeCalculation
                         return $"VERIFY MONOTONIC on '{m.FeeName}' names an unknown direction '{m.Direction}'.";
                     }
                     var read = InputsReadBy(fee);
+                    // A fee that never reads the input cannot change with it, so the directive
+                    // would hold whatever the fee computes. It is refused rather than reported as
+                    // passed: it most likely names the wrong input.
+                    if (!read.Contains(m.WithRespectTo))
+                    {
+                        var candidates = read.Where(n => inputs.Any(i => i.Name == n)).OrderBy(n => n);
+                        return $"VERIFY MONOTONIC on '{m.FeeName}' is with respect to '{m.WithRespectTo}', which the fee does not read, so it could never fail. The fee reads {string.Join(", ", candidates)}.";
+                    }
                     var relevant = inputs.Where(i => i.Name == m.WithRespectTo || read.Contains(i.Name)).ToList();
                     return new MonotonicityChecker().CheckMonotonicity(fee, relevant, m.WithRespectTo, direction);
 

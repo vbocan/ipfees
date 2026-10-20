@@ -169,6 +169,42 @@ namespace IPFees.Core.Tests
         }
 
         /// <summary>
+        /// A monotonicity directive on an input the fee never reads would hold whatever the fee
+        /// computes. Eight such directives sat in the corpus, each naming ClaimCount for a fee that
+        /// reads another count; the check refuses them instead of passing them.
+        /// </summary>
+        [Fact]
+        public void AMonotonicityDirectiveOnAnInputTheFeeDoesNotReadIsRefused()
+        {
+            var script = Parse("""
+                DEFINE NUMBER ClaimCount AS 'Number of claims'
+                BETWEEN 1 AND 100
+                DEFAULT 10
+                ENDDEFINE
+
+                DEFINE NUMBER IndependentClaimCount AS 'Number of independent claims'
+                BETWEEN 1 AND 100
+                DEFAULT 1
+                ENDDEFINE
+
+                COMPUTE FEE OFF_IndependentClaimFee
+                YIELD 100 * (IndependentClaimCount - 3) IF IndependentClaimCount GT 3
+                YIELD 0 IF IndependentClaimCount LTE 3
+                ENDCOMPUTE
+
+                VERIFY MONOTONIC FEE OFF_IndependentClaimFee WITH RESPECT TO ClaimCount
+                RETURN Currency AS 'EUR'
+                """);
+
+            var result = new ScheduleVerifier().Verify(script.Inputs, script.Fees, script.Verifications);
+
+            var error = Assert.Single(result.Errors);
+            Assert.Contains("does not read", error);
+            Assert.Contains("IndependentClaimCount", error);
+            Assert.Empty(result.Monotonicity);
+        }
+
+        /// <summary>
         /// A monotonicity check that overruns the budget must not discard the completeness
         /// verdicts computed before it. The slow fee reads eight ten-way lists, so its check
         /// cannot finish in a second; the incomplete fee is still reported.
