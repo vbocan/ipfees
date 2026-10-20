@@ -12,7 +12,7 @@
 #
 # =============================================================================
 
-VERSION '2024.1' EFFECTIVE 2024-01-01 DESCRIPTION 'Entry of national phase in the United States of America'
+VERSION '2026.10' EFFECTIVE 2025-01-19 DESCRIPTION 'Entry of national phase in the United States of America'
 
 
 # Groups
@@ -33,7 +33,7 @@ DEFAULT Entity_Large
 ENDDEFINE
 
 # Application date
-DEFINE DATE ApplicationDate AS 'Application date'
+DEFINE DATE ApplicationDate AS 'Application date (international filing date)'
 GROUP ApplicationGroup
 BETWEEN 01.01.2000 AND TODAY
 DEFAULT TODAY
@@ -47,7 +47,7 @@ DEFAULT 10
 ENDDEFINE
 
 # Sheets/Pages
-DEFINE NUMBER SheetCount AS 'Number of pages'
+DEFINE NUMBER SheetCount AS 'Number of pages/sheets'
 GROUP ApplicationGroup
 BETWEEN 1 AND 10000
 DEFAULT 30
@@ -150,14 +150,14 @@ ENDDEFINE
 
 # File name: PCT-US-OFF
 # File content: Official fees for PCT national phase: United States of America
-# Valid until n/a
+# Checked against the fees in force on 20 October 2026 (USPTO fee schedule eff. 19 Jan 2025, eGuide US)
 # Is newer than 30 days: False
 # Fees keywords: ['claims', 'claim']
 
 COMPUTE FEE OFF_BasicNationalFee
-LET Fee1 AS 320
-LET Fee2 AS 128
-LET Fee3 AS 64
+LET Fee1 AS 350
+LET Fee2 AS 140
+LET Fee3 AS 70
 
 YIELD Fee1 IF EntitySize NEQ Entity_Small AND EntitySize NEQ Entity_Micro
 YIELD Fee2 IF EntitySize EQ Entity_Small
@@ -170,22 +170,22 @@ CASE IPRP EQ IPRP_US AS
 YIELD 0
 ENDCASE
 
-CASE ISA EQ ISA_US AS
-YIELD 140<USD> IF EntitySize NEQ Entity_Small AND EntitySize NEQ Entity_Micro
-YIELD 56<USD> IF EntitySize EQ Entity_Small
-YIELD 28<USD> IF EntitySize EQ Entity_Micro
+CASE ISA EQ ISA_US AND ISR_AVAILABLE EQ TRUE AND IPRP NEQ IPRP_US AS
+YIELD 150<USD> IF EntitySize NEQ Entity_Small AND EntitySize NEQ Entity_Micro
+YIELD 60<USD> IF EntitySize EQ Entity_Small
+YIELD 30<USD> IF EntitySize EQ Entity_Micro
 ENDCASE
 
 CASE ISR_AVAILABLE EQ TRUE AND ISA NEQ ISA_US AND IPRP NEQ IPRP_US AS
-YIELD 540<USD> IF EntitySize NEQ Entity_Small AND EntitySize NEQ Entity_Micro
-YIELD 216<USD> IF EntitySize EQ Entity_Small
-YIELD 108<USD> IF EntitySize EQ Entity_Micro
+YIELD 580<USD> IF EntitySize NEQ Entity_Small AND EntitySize NEQ Entity_Micro
+YIELD 232<USD> IF EntitySize EQ Entity_Small
+YIELD 116<USD> IF EntitySize EQ Entity_Micro
 ENDCASE
 
-CASE ISR_AVAILABLE EQ FALSE AS
-YIELD 700<USD> IF EntitySize NEQ Entity_Small AND EntitySize NEQ Entity_Micro
-YIELD 280<USD> IF EntitySize EQ Entity_Small
-YIELD 140<USD> IF EntitySize EQ Entity_Micro
+CASE ISR_AVAILABLE EQ FALSE AND IPRP NEQ IPRP_US AS
+YIELD 770<USD> IF EntitySize NEQ Entity_Small AND EntitySize NEQ Entity_Micro
+YIELD 308<USD> IF EntitySize EQ Entity_Small
+YIELD 154<USD> IF EntitySize EQ Entity_Micro
 ENDCASE
 
 ENDCOMPUTE
@@ -197,42 +197,42 @@ YIELD 0
 ENDCASE
 
 CASE IPRP NEQ IPRP_US AS
-YIELD 800<USD> IF EntitySize NEQ Entity_Small AND EntitySize NEQ Entity_Micro
-YIELD 320<USD> IF EntitySize EQ Entity_Small
-YIELD 160<USD> IF EntitySize EQ Entity_Micro
+YIELD 880<USD> IF EntitySize NEQ Entity_Small AND EntitySize NEQ Entity_Micro
+YIELD 352<USD> IF EntitySize EQ Entity_Small
+YIELD 176<USD> IF EntitySize EQ Entity_Micro
 ENDCASE
 
 ENDCOMPUTE
 
 COMPUTE FEE OFF_SheetFee
-YIELD 420*CEIL( ( SheetCount - 100 ) / 50 ) IF SheetCount GT 100 AND EntitySize NEQ Entity_Small AND EntitySize NEQ Entity_Micro
-YIELD 168*CEIL( ( SheetCount - 100 ) / 50 ) IF SheetCount GT 100 AND EntitySize EQ Entity_Small
-YIELD 84*CEIL( ( SheetCount - 100 ) / 50 ) IF SheetCount GT 100 AND EntitySize EQ Entity_Micro
+YIELD 450*CEIL( ( SheetCount - 100 ) / 50 ) IF SheetCount GT 100 AND EntitySize NEQ Entity_Small AND EntitySize NEQ Entity_Micro
+YIELD 180*CEIL( ( SheetCount - 100 ) / 50 ) IF SheetCount GT 100 AND EntitySize EQ Entity_Small
+YIELD 90*CEIL( ( SheetCount - 100 ) / 50 ) IF SheetCount GT 100 AND EntitySize EQ Entity_Micro
 # Nothing is due in the remaining case; stated so the schedule answers it.
 YIELD 0 IF SheetCount LTE 100
 ENDCOMPUTE
 
 COMPUTE FEE OFF_IndependentClaimFee
-YIELD 480*(IndependentClaimCount-3) IF IndependentClaimCount GT 3 AND EntitySize NEQ Entity_Small AND EntitySize NEQ Entity_Micro
-YIELD 192*(IndependentClaimCount-3) IF IndependentClaimCount GT 3 AND EntitySize EQ Entity_Small
-YIELD 96*(IndependentClaimCount-3) IF IndependentClaimCount GT 3 AND EntitySize EQ Entity_Micro
+YIELD 600*(IndependentClaimCount-3) IF IndependentClaimCount GT 3 AND EntitySize NEQ Entity_Small AND EntitySize NEQ Entity_Micro
+YIELD 240*(IndependentClaimCount-3) IF IndependentClaimCount GT 3 AND EntitySize EQ Entity_Small
+YIELD 120*(IndependentClaimCount-3) IF IndependentClaimCount GT 3 AND EntitySize EQ Entity_Micro
 # Nothing is due in the remaining case; stated so the schedule answers it.
 YIELD 0 IF IndependentClaimCount LTE 3
 ENDCOMPUTE
 
 COMPUTE FEE OFF_ClaimFee
-YIELD 100*(ClaimCount-20) IF ClaimCount GT 20 AND EntitySize NEQ Entity_Small AND EntitySize NEQ Entity_Micro
-YIELD 40*(ClaimCount-20) IF ClaimCount GT 20 AND EntitySize EQ Entity_Small
-YIELD 20*(ClaimCount-20) IF ClaimCount GT 20 AND EntitySize EQ Entity_Micro
+YIELD 200*(ClaimCount-20) IF ClaimCount GT 20 AND EntitySize NEQ Entity_Small AND EntitySize NEQ Entity_Micro
+YIELD 80*(ClaimCount-20) IF ClaimCount GT 20 AND EntitySize EQ Entity_Small
+YIELD 40*(ClaimCount-20) IF ClaimCount GT 20 AND EntitySize EQ Entity_Micro
 # Nothing is due in the remaining case; stated so the schedule answers it.
 YIELD 0 IF ClaimCount LTE 20
 ENDCOMPUTE
 
 COMPUTE FEE OFF_MultipleDependentClaimFee
 # Charged once for an application that contains a multiple dependent claim, not per claim.
-YIELD 860 IF MultipleDependentClaimCount GT 0 AND EntitySize NEQ Entity_Small AND EntitySize NEQ Entity_Micro
-YIELD 344 IF MultipleDependentClaimCount GT 0 AND EntitySize EQ Entity_Small
-YIELD 172 IF MultipleDependentClaimCount GT 0 AND EntitySize EQ Entity_Micro
+YIELD 925 IF MultipleDependentClaimCount GT 0 AND EntitySize NEQ Entity_Small AND EntitySize NEQ Entity_Micro
+YIELD 370 IF MultipleDependentClaimCount GT 0 AND EntitySize EQ Entity_Small
+YIELD 185 IF MultipleDependentClaimCount GT 0 AND EntitySize EQ Entity_Micro
 # Nothing is due in the remaining case; stated so the schedule answers it.
 YIELD 0 IF MultipleDependentClaimCount EQ 0
 ENDCOMPUTE
@@ -276,9 +276,9 @@ VERIFY COMPLETE FEE OFF_IndependentClaimFee
 VERIFY COMPLETE FEE OFF_ClaimFee
 VERIFY COMPLETE FEE OFF_MultipleDependentClaimFee
 VERIFY MONOTONIC FEE OFF_SheetFee WITH RESPECT TO SheetCount
-VERIFY MONOTONIC FEE OFF_IndependentClaimFee WITH RESPECT TO ClaimCount
+VERIFY MONOTONIC FEE OFF_IndependentClaimFee WITH RESPECT TO IndependentClaimCount
 VERIFY MONOTONIC FEE OFF_ClaimFee WITH RESPECT TO ClaimCount
-VERIFY MONOTONIC FEE OFF_MultipleDependentClaimFee WITH RESPECT TO ClaimCount
+VERIFY MONOTONIC FEE OFF_MultipleDependentClaimFee WITH RESPECT TO MultipleDependentClaimCount
 
 # =============================================================================
 # Returns

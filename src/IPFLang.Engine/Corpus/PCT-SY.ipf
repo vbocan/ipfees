@@ -12,7 +12,7 @@
 #
 # =============================================================================
 
-VERSION '2024.1' EFFECTIVE 2024-01-01 DESCRIPTION 'Entry of national phase in Syrian Arab Republic'
+VERSION '2026.10' EFFECTIVE 2026-10-15 DESCRIPTION 'Entry of national phase in Syrian Arab Republic'
 
 
 # Groups
@@ -33,7 +33,7 @@ DEFAULT Entity_Large
 ENDDEFINE
 
 # Application date
-DEFINE DATE ApplicationDate AS 'Application date'
+DEFINE DATE ApplicationDate AS 'Application date (international filing date)'
 GROUP ApplicationGroup
 BETWEEN 01.01.2000 AND TODAY
 DEFAULT TODAY
@@ -47,7 +47,7 @@ DEFAULT 10
 ENDDEFINE
 
 # Sheets/Pages
-DEFINE NUMBER SheetCount AS 'Number of pages'
+DEFINE NUMBER SheetCount AS 'Number of pages/sheets'
 GROUP ApplicationGroup
 BETWEEN 1 AND 10000
 DEFAULT 30
@@ -150,7 +150,7 @@ ENDDEFINE
 
 # File name: PCT-SY-OFF
 # File content: Official fees for PCT national phase: Syrian Arab Republic
-# Valid until n/a
+# Checked against the fees in force on 20 October 2026 (WIPO PCT Applicant's Guide SY)
 # Is newer than 30 days: False
 # Fees keywords: ['page', 'claim', 'claims']
 
@@ -182,17 +182,17 @@ YIELD 0 IF ClaimCount LTE 10
 ENDCOMPUTE
 
 COMPUTE FEE OFF_ExaminationFee
-LET Fee1 AS 10000
-LET Fee2 AS 1000
+LET Fee1 AS 20000
+LET Fee2 AS 2000
 YIELD Fee1 IF EntitySize NEQ Entity_Person
 YIELD Fee2 IF EntitySize EQ Entity_Person
 ENDCOMPUTE
 
 COMPUTE FEE OFF_Renewal
-LET RenFee2 AS 4500
-LET RenFee3 AS 5000
-LET RenFee2P AS 250
-LET RenFee3P AS 300
+LET RenFee2 AS 5500
+LET RenFee3 AS 6000
+LET RenFee2P AS 300
+LET RenFee3P AS 350
 
 LET RenMonth AS ROUND ( ApplicationDate!MONTHSTONOW ) #calculate difference in months to today
 CASE EntitySize NEQ Entity_Person AS

@@ -13,7 +13,7 @@
 #
 # =============================================================================
 
-VERSION '2024.1' EFFECTIVE 2024-01-01 DESCRIPTION 'Entry of national phase entry in Denmark'
+VERSION '2026.10' EFFECTIVE 2026-01-01 DESCRIPTION 'Entry of national phase entry in Denmark'
 
 # Inputs and groups shared across this regional system are declared once in the base
 # and inherited here. Redeclaring one below overrides the base for this jurisdiction only.
@@ -95,27 +95,28 @@ ENDDEFINE
 
 # File name: PCT-DK-OFF
 # File content: Official fees for PCT national phase: Denmark
-# Valid until n/a
+# Checked against the fees in force on 20 October 2026 (eGuide DK; DKPTO fees per 1 January 2026)
 # Is newer than 30 days: False
 # Fees keywords: ['claim']
 
 COMPUTE FEE OFF_BasicNationalFee
-LET Fee1 AS 3000
+LET Fee1 AS 3600
 YIELD Fee1
 ENDCOMPUTE
 
 COMPUTE FEE OFF_ClaimFee
-LET CF1 AS 300
+LET CF1 AS 360
 YIELD CF1*(ClaimCount-10) IF ClaimCount GT 10
 # Nothing is due in the remaining case; stated so the schedule answers it.
 YIELD 0 IF ClaimCount LTE 10
 ENDCOMPUTE
 
 COMPUTE FEE OFF_Renewal
-LET RenFee AS 500
+LET RenFee AS 660
 LET RenMonth AS ROUND ( ApplicationDate!MONTHSTONOW_FROMLASTDAY ) #calculate difference in months to today
-YIELD RenFee #for first year
-YIELD RenFee IF RenMonth GTE 12 #for second year
+# The fees for the first three years all fall due at the second anniversary of the international filing date.
+YIELD RenFee IF RenMonth GTE 24 #for first year
+YIELD RenFee IF RenMonth GTE 24 #for second year
 YIELD RenFee IF RenMonth GTE 24 #for third year
 ENDCOMPUTE
 

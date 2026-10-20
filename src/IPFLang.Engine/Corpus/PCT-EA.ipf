@@ -12,7 +12,7 @@
 #
 # =============================================================================
 
-VERSION '2024.1' EFFECTIVE 2024-01-01 DESCRIPTION 'Entry of regional phase in Eurasia'
+VERSION '2026.10' EFFECTIVE 2026-02-01 DESCRIPTION 'Entry of regional phase in Eurasia'
 
 
 # Groups
@@ -33,7 +33,7 @@ DEFAULT Entity_Large
 ENDDEFINE
 
 # Application date
-DEFINE DATE ApplicationDate AS 'Application date'
+DEFINE DATE ApplicationDate AS 'Application date (international filing date)'
 GROUP ApplicationGroup
 BETWEEN 01.01.2000 AND TODAY
 DEFAULT TODAY
@@ -47,7 +47,7 @@ DEFAULT 10
 ENDDEFINE
 
 # Sheets/Pages
-DEFINE NUMBER SheetCount AS 'Number of pages'
+DEFINE NUMBER SheetCount AS 'Number of pages/sheets'
 GROUP ApplicationGroup
 BETWEEN 1 AND 10000
 DEFAULT 30
@@ -150,29 +150,29 @@ ENDDEFINE
 
 # File name: PCT-EA-OFF
 # File content: Official fees for PCT regional phase: EAPO
-# Valid until n/a
+# Checked against the fees in force on 20 October 2026 (eGuide EA; EAPO Statute on Fees, in force 1 February 2026)
 
 # all calculations for non EAPO residents. These would be entitled to certain fee reductions.
 
 COMPUTE FEE OFF_BasicNationalFee
-LET Fee AS 36000
+LET Fee AS 70000
 YIELD Fee*0.75 IF ISR_AVAILABLE EQ TRUE
 YIELD Fee IF ISR_AVAILABLE EQ FALSE
 ENDCOMPUTE
 
 COMPUTE FEE OFF_ExaminationFee
-LET Fee AS 40000
-LET IndepClaimFee AS 13000
+LET Fee AS 70000
+LET IndepClaimFee AS 25000
 YIELD Fee
-YIELD Fee IF IndependentClaimCount EQ 2
-YIELD Fee  + IndepClaimFee*(IndependentClaimCount-2) IF IndependentClaimCount GT 2
+YIELD 40000 IF IndependentClaimCount EQ 2
+YIELD 40000 + IndepClaimFee*(IndependentClaimCount-2) IF IndependentClaimCount GT 2
 ENDCOMPUTE
 
 COMPUTE FEE OFF_ClaimFee
-LET CF1 AS 6500
-LET CF2 AS 5200
-LET CF3 AS 4800
-# 1-5 = none; 6-20(=15): 4800; 21-50 (=30): 5200; >50: 6500
+LET CF1 AS 8000
+LET CF2 AS 7500
+LET CF3 AS 7000
+# 1-5 = none; 6-20(=15): 7000; 21-50 (=30): 7500; >50: 8000
 YIELD CF1*(ClaimCount-50) + CF2*30 + CF3*15 IF ClaimCount GT 50
 YIELD CF2*(ClaimCount-20) + CF3*15 IF ClaimCount GT 20 AND ClaimCount LT 51
 YIELD CF3*(ClaimCount-5) IF ClaimCount GT 5 AND ClaimCount LT 21
@@ -181,7 +181,7 @@ YIELD 0 IF ClaimCount LTE 5
 ENDCOMPUTE
 
 COMPUTE FEE OFF_GrantFee OPTIONAL
-YIELD 25000<RUB>
+YIELD 45000<RUB>
 ENDCOMPUTE
 
 # =============================================================================

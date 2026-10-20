@@ -12,7 +12,7 @@
 #
 # =============================================================================
 
-VERSION '2024.1' EFFECTIVE 2024-01-01 DESCRIPTION 'Entry of regional phase in Europe'
+VERSION '2026.10' EFFECTIVE 2026-04-01 DESCRIPTION 'Entry of regional phase in Europe'
 
 
 # Groups
@@ -33,7 +33,7 @@ DEFAULT Entity_Large
 ENDDEFINE
 
 # Application date
-DEFINE DATE ApplicationDate AS 'Application date'
+DEFINE DATE ApplicationDate AS 'Application date (international filing date)'
 GROUP ApplicationGroup
 BETWEEN 01.01.2000 AND TODAY
 DEFAULT TODAY
@@ -47,7 +47,7 @@ DEFAULT 10
 ENDDEFINE
 
 # Sheets/Pages
-DEFINE NUMBER SheetCount AS 'Number of pages'
+DEFINE NUMBER SheetCount AS 'Number of pages/sheets'
 GROUP ApplicationGroup
 BETWEEN 1 AND 10000
 DEFAULT 30
@@ -158,14 +158,14 @@ ENDDEFINE
 
 # File name: PCT-EP-OFF
 # File content: Official fees for PCT regional phase: EPO
-# Valid until 31/03/2023
+# Checked against the fees in force on 20 October 2026 (EPO RFees 1 Apr 2026, OJ EPO 2026 A2, eGuide EP)
 
 COMPUTE FEE OFF_BasicNationalFee
 YIELD 135<EUR>
 ENDCOMPUTE
 
 COMPUTE FEE OFF_DesignationFee
-YIELD 660<EUR>
+YIELD 720<EUR>
 ENDCOMPUTE
 
 COMPUTE FEE OFF_ExtensionFee OPTIONAL
@@ -181,8 +181,8 @@ YIELD 0 IF SheetCount LTE 35
 ENDCOMPUTE
 
 COMPUTE FEE OFF_ClaimFee
-LET CF1 AS 265
-LET CF2 AS 660
+LET CF1 AS 290
+LET CF2 AS 720
 YIELD CF1*(ClaimCount-15) IF ClaimCount GT 15 AND ClaimCount LT 51
 YIELD CF2*(ClaimCount-50) + CF1*(ClaimCount-15-(ClaimCount-50)) IF ClaimCount GT 50
 # Nothing is due in the remaining case; stated so the schedule answers it.
@@ -190,8 +190,8 @@ YIELD 0 IF ClaimCount LTE 15
 ENDCOMPUTE
 
 COMPUTE FEE OFF_SearchFee
-LET SF1 AS 1460
-LET SF2 AS 1185 #reduction in line with OJ EPO 2022-A2
+LET SF1 AS 1595
+LET SF2 AS 1365 #reduction in line with OJ EPO 2026, A2, Art. 3
 
 YIELD 0 IF ISA EQ ISA_EPO
 YIELD SF1-SF2 IF ISA EQ ISA_AT OR ISA EQ ISA_FI OR ISA EQ ISA_NPI OR ISA EQ ISA_ES OR ISA EQ ISA_SE OR ISA EQ ISA_TR OR ISA EQ ISA_VI
@@ -199,8 +199,8 @@ YIELD SF1 IF ISA NEQ ISA_AT AND ISA NEQ ISA_FI AND ISA NEQ ISA_NPI AND ISA NEQ I
 ENDCOMPUTE
 
 COMPUTE FEE OFF_ExaminationFee
-LET ExFee1 AS 2055
-LET ExFee2 AS 1840
+LET ExFee1 AS 2240
+LET ExFee2 AS 2010
 LET Discount AS 0.25 # the fee is reduced by 75 % (Art. 14(2) RFees), so 25 % is paid
 
 CASE IPRP EQ IPRP_EPO AS # discount scheme if EPO has prepared IPRP (Chapter II)
@@ -236,11 +236,11 @@ YIELD 180<EUR> IF VAL_TN IN VAL_CTY
 YIELD 0 IF VAL_TN NIN VAL_CTY
 ENDCOMPUTE
 
-# need to check if 3rd annuity is due (>1.5 years after filing date)
+# The renewal fee for the third year falls due at the second anniversary of the international filing date.
 COMPUTE FEE OFF_Renewal3
-LET RenFee AS 530
+LET RenFee AS 725
 LET RenMonth AS ROUND ( ApplicationDate!MONTHSTONOW_FROMLASTDAY ) #calculate difference in months to today
-YIELD RenFee IF RenMonth GTE 18
+YIELD RenFee IF RenMonth GTE 24 #due at the second anniversary of the international filing date
 ENDCOMPUTE
 
 # =============================================================================

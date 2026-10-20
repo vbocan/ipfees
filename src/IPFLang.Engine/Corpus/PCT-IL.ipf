@@ -12,7 +12,7 @@
 #
 # =============================================================================
 
-VERSION '2024.1' EFFECTIVE 2024-01-01 DESCRIPTION 'Entry of national phase in Israel'
+VERSION '2026.10' EFFECTIVE 2026-08-01 DESCRIPTION 'Entry of national phase in Israel'
 
 
 # Groups
@@ -33,7 +33,7 @@ DEFAULT Entity_Large
 ENDDEFINE
 
 # Application date
-DEFINE DATE ApplicationDate AS 'Application date'
+DEFINE DATE ApplicationDate AS 'Application date (international filing date)'
 GROUP ApplicationGroup
 BETWEEN 01.01.2000 AND TODAY
 DEFAULT TODAY
@@ -47,7 +47,7 @@ DEFAULT 10
 ENDDEFINE
 
 # Sheets/Pages
-DEFINE NUMBER SheetCount AS 'Number of pages'
+DEFINE NUMBER SheetCount AS 'Number of pages/sheets'
 GROUP ApplicationGroup
 BETWEEN 1 AND 10000
 DEFAULT 30
@@ -150,24 +150,24 @@ ENDDEFINE
 
 # File name: PCT-IL-OFF
 # File content: Official fees for PCT national phase: Israel
-# Valid until n/a
+# Checked against the fees in force on 20 October 2026 (WIPO eGuide IL)
 # Is newer than 30 days: False
 # Fees keywords: []
 
 COMPUTE FEE OFF_BasicNationalFee
-LET Fee1 AS 2183
+LET Fee1 AS 2402
 YIELD Fee1
 ENDCOMPUTE
 
 COMPUTE FEE OFF_SheetFee
-LET Fee1 AS 273
+LET Fee1 AS 300
 YIELD Fee1*CEIL( ( SheetCount - 100 ) / 50 ) IF SheetCount GT 100
 # Nothing is due in the remaining case; stated so the schedule answers it.
 YIELD 0 IF SheetCount LTE 100
 ENDCOMPUTE
 
 COMPUTE FEE OFF_ClaimFee
-LET Fee1 AS 560
+LET Fee1 AS 616
 YIELD Fee1*(ClaimCount-50) IF ClaimCount GT 50
 # Nothing is due in the remaining case; stated so the schedule answers it.
 YIELD 0 IF ClaimCount LTE 50

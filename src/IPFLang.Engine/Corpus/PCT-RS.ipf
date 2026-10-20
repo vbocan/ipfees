@@ -13,7 +13,7 @@
 #
 # =============================================================================
 
-VERSION '2024.1' EFFECTIVE 2024-01-01 DESCRIPTION 'Entry of national phase in Serbia'
+VERSION '2026.10' EFFECTIVE 2026-07-01 DESCRIPTION 'Entry of national phase in Serbia'
 
 # Inputs and groups shared across this regional system are declared once in the base
 # and inherited here. Redeclaring one below overrides the base for this jurisdiction only.
@@ -95,18 +95,18 @@ ENDDEFINE
 
 # File name: PCT-RS-OFF
 # File content: Official fees for PCT national phase: Serbia
-# Valid until n/a
+# Checked against the fees in force on 20 October 2026 (ZIS fee tariff, amounts of 1 July 2026; eGuide RS)
 # Is newer than 30 days: False
 # Fees keywords: ['claim']
 
 COMPUTE FEE OFF_BasicNationalFee
-LET Fee1 AS 8210
+LET Fee1 AS 10660
 YIELD Fee1
 YIELD -Fee1*0.5 IF EntitySize EQ Entity_Person
 ENDCOMPUTE
 
 COMPUTE FEE OFF_ClaimFee
-LET CF1 AS 800
+LET CF1 AS 1040
 YIELD CF1*(ClaimCount-10) IF ClaimCount GT 10
 YIELD -CF1*(ClaimCount-10)*0.5 IF ClaimCount GT 10 AND EntitySize EQ Entity_Person
 # Nothing is due in the remaining case; stated so the schedule answers it.
@@ -114,7 +114,7 @@ YIELD 0 IF ClaimCount LTE 10
 ENDCOMPUTE
 
 COMPUTE FEE OFF_SearchFee
-LET Fee1 AS 16470
+LET Fee1 AS 21390
 YIELD Fee1 IF ISR_AVAILABLE EQ FALSE
 YIELD -Fee1*0.5 IF ISR_AVAILABLE EQ FALSE AND EntitySize EQ Entity_Person
 # Nothing is due in the remaining case; stated so the schedule answers it.
@@ -122,7 +122,7 @@ YIELD 0 IF ISR_AVAILABLE EQ TRUE
 ENDCOMPUTE
 
 COMPUTE FEE OFF_Renewal3
-LET RenFee AS 11510
+LET RenFee AS 14950
 LET RenMonth AS ROUND ( ApplicationDate!MONTHSTONOW ) #calculate difference in months to today
 YIELD RenFee IF RenMonth GTE 24
 YIELD -RenFee*0.5 IF RenMonth GTE 24 AND EntitySize EQ Entity_Person

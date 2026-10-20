@@ -12,7 +12,7 @@
 #
 # =============================================================================
 
-VERSION '2024.1' EFFECTIVE 2024-01-01 DESCRIPTION 'Entry of national phase in Belize'
+VERSION '2026.10' EFFECTIVE 2022-03-01 DESCRIPTION 'Entry of national phase in Belize'
 
 
 # Groups
@@ -33,7 +33,7 @@ DEFAULT Entity_Large
 ENDDEFINE
 
 # Application date
-DEFINE DATE ApplicationDate AS 'Application date'
+DEFINE DATE ApplicationDate AS 'Application date (international filing date)'
 GROUP ApplicationGroup
 BETWEEN 01.01.2000 AND TODAY
 DEFAULT TODAY
@@ -47,7 +47,7 @@ DEFAULT 10
 ENDDEFINE
 
 # Sheets/Pages
-DEFINE NUMBER SheetCount AS 'Number of pages'
+DEFINE NUMBER SheetCount AS 'Number of pages/sheets'
 GROUP ApplicationGroup
 BETWEEN 1 AND 10000
 DEFAULT 30
@@ -150,21 +150,21 @@ ENDDEFINE
 
 # File name: PCT-BZ-OFF
 # File content: Official fees for PCT national phase: Belize
-# Valid until n/a
+# Checked against the fees in force on 20 October 2026 (WIPO eGuide BZ; Patents (Amendment) Regulations 2022, SI 26 of 2022)
 
 COMPUTE FEE OFF_BasicNationalFee
-LET Fee AS 300
+LET Fee AS 450
 YIELD Fee
 ENDCOMPUTE
 
 COMPUTE FEE OFF_GrantFee OPTIONAL
-LET Fee AS 300
+LET Fee AS 550
 YIELD Fee
 ENDCOMPUTE
 
 COMPUTE FEE OFF_Renewal
 LET RenMonth AS ROUND ( ApplicationDate!MONTHSTONOW ) #calculate difference in months to today
-YIELD 100<BZD>
+# The first annuity is included in the 450 BZD filing fee.
 YIELD 200<BZD> IF RenMonth GTE 12 #year 2
 YIELD 300<BZD> IF RenMonth GTE 24 #year 3
 ENDCOMPUTE

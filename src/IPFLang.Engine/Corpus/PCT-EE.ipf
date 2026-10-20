@@ -13,7 +13,7 @@
 #
 # =============================================================================
 
-VERSION '2024.1' EFFECTIVE 2024-01-01 DESCRIPTION 'Entry of national phase entry in Estonia'
+VERSION '2026.10' EFFECTIVE 2026-01-01 DESCRIPTION 'Entry of national phase entry in Estonia'
 
 # Inputs and groups shared across this regional system are declared once in the base
 # and inherited here. Redeclaring one below overrides the base for this jurisdiction only.
@@ -95,7 +95,7 @@ ENDDEFINE
 
 # File name: PCT-EE-OFF
 # File content: Official fees for PCT national phase: Estonia
-# Valid until n/a
+# Checked against the fees in force on 20 October 2026 (eGuide EE; EPA patent fees)
 # Is newer than 30 days: True
 # Fees keywords: ['claim']
 

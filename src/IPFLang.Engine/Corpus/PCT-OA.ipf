@@ -12,7 +12,7 @@
 #
 # =============================================================================
 
-VERSION '2024.1' EFFECTIVE 2024-01-01 DESCRIPTION 'Entry of regional phase in OAPI'
+VERSION '2026.10' EFFECTIVE 2025-01-01 DESCRIPTION 'Entry of regional phase in OAPI'
 
 
 # Groups
@@ -33,7 +33,7 @@ DEFAULT Entity_Large
 ENDDEFINE
 
 # Application date
-DEFINE DATE ApplicationDate AS 'Application date'
+DEFINE DATE ApplicationDate AS 'Application date (international filing date)'
 GROUP ApplicationGroup
 BETWEEN 01.01.2000 AND TODAY
 DEFAULT TODAY
@@ -47,7 +47,7 @@ DEFAULT 10
 ENDDEFINE
 
 # Sheets/Pages
-DEFINE NUMBER SheetCount AS 'Number of pages'
+DEFINE NUMBER SheetCount AS 'Number of pages/sheets'
 GROUP ApplicationGroup
 BETWEEN 1 AND 10000
 DEFAULT 30
@@ -150,7 +150,7 @@ ENDDEFINE
 
 # File name: PCT-OA-OFF
 # File content: Official fees for PCT regional phase: OAPI
-# Valid until n/a
+# Checked against the fees in force on 20 October 2026 (OAPI patent fee table; WIPO eGuide OA)
 
 COMPUTE FEE OFF_BasicNationalFee
 YIELD 225000<XAF>
@@ -161,11 +161,11 @@ YIELD 365000<XAF>
 ENDCOMPUTE
 
 COMPUTE FEE OFF_PriorityFee
-YIELD 63000 * PriorityCount
+YIELD 75000 * PriorityCount
 ENDCOMPUTE
 
 COMPUTE FEE OFF_ClaimFee
-YIELD 45000 * (ClaimCount-10) IF ClaimCount GT 10
+YIELD 65000 * (ClaimCount-10) IF ClaimCount GT 10
 # Nothing is due in the remaining case; stated so the schedule answers it.
 YIELD 0 IF ClaimCount LTE 10
 ENDCOMPUTE
@@ -190,8 +190,8 @@ ENDCOMPUTE
 COMPUTE FEE OFF_Renewal
 LET RenMonth AS ROUND ( ApplicationDate!MONTHSTONOW ) #calculate difference in months to today
 
-YIELD 220000<XAF> IF RenMonth GTE 12
-YIELD 220000<XAF> IF RenMonth GTE 24
+YIELD 270000<XAF> IF RenMonth GTE 12
+YIELD 270000<XAF> IF RenMonth GTE 24
 
 ENDCOMPUTE
 

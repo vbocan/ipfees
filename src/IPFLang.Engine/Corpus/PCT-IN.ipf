@@ -12,7 +12,7 @@
 #
 # =============================================================================
 
-VERSION '2024.1' EFFECTIVE 2024-01-01 DESCRIPTION 'Entry of national phase in India'
+VERSION '2026.10' EFFECTIVE 2026-07-01 DESCRIPTION 'Entry of national phase in India'
 
 
 # Groups
@@ -33,7 +33,7 @@ DEFAULT Entity_Large
 ENDDEFINE
 
 # Application date
-DEFINE DATE ApplicationDate AS 'Application date'
+DEFINE DATE ApplicationDate AS 'Application date (international filing date)'
 GROUP ApplicationGroup
 BETWEEN 01.01.2000 AND TODAY
 DEFAULT TODAY
@@ -47,7 +47,7 @@ DEFAULT 10
 ENDDEFINE
 
 # Sheets/Pages
-DEFINE NUMBER SheetCount AS 'Number of pages'
+DEFINE NUMBER SheetCount AS 'Number of pages/sheets'
 GROUP ApplicationGroup
 BETWEEN 1 AND 10000
 DEFAULT 30
@@ -150,7 +150,7 @@ ENDDEFINE
 
 # File name: PCT-IN-OFF
 # File content: Official fees for PCT national phase: India
-# Valid until n/a
+# Checked against the fees in force on 20 October 2026 (IP India Schedule 1; WIPO eGuide IN)
 # Is newer than 30 days: False
 # Fees keywords: ['claims', 'priority', 'sheet', 'claim', 'page']
 
@@ -190,7 +190,7 @@ YIELD Fee2*(PriorityCount-1) IF PriorityCount GT 1 AND (EntitySize NEQ Entity_Sm
 YIELD 0 IF PriorityCount LTE 1
 ENDCOMPUTE
 
-COMPUTE FEE OFF_ExaminationFee OPTIONAL #48 months of priority
+COMPUTE FEE OFF_ExaminationFee OPTIONAL #31 months from priority (eGuide IN.12)
 LET Fee1 AS 4000
 LET Fee2 AS 20000
 YIELD Fee1 IF (EntitySize EQ Entity_Small OR EntitySize EQ Entity_Person)

@@ -12,7 +12,7 @@
 #
 # =============================================================================
 
-VERSION '2024.1' EFFECTIVE 2024-01-01 DESCRIPTION 'Entry of national phase in Georgia'
+VERSION '2026.10' EFFECTIVE 2023-06-02 DESCRIPTION 'Entry of national phase in Georgia'
 
 
 # Groups
@@ -33,7 +33,7 @@ DEFAULT Entity_Large
 ENDDEFINE
 
 # Application date
-DEFINE DATE ApplicationDate AS 'Application date'
+DEFINE DATE ApplicationDate AS 'Application date (international filing date)'
 GROUP ApplicationGroup
 BETWEEN 01.01.2000 AND TODAY
 DEFAULT TODAY
@@ -47,7 +47,7 @@ DEFAULT 10
 ENDDEFINE
 
 # Sheets/Pages
-DEFINE NUMBER SheetCount AS 'Number of pages'
+DEFINE NUMBER SheetCount AS 'Number of pages/sheets'
 GROUP ApplicationGroup
 BETWEEN 1 AND 10000
 DEFAULT 30
@@ -150,25 +150,20 @@ ENDDEFINE
 
 # File name: PCT-GE-OFF
 # File content: Official fees for PCT national phase: Georgia
-# Valid until n/a
+# Checked against the fees in force on 20 October 2026 (Sakpatenti fee table; Resolution No 182 of 3 July 2010 as amended; WIPO eGuide GE)
 # Is newer than 30 days: False
 # Fees keywords: ['claim']
 
 COMPUTE FEE OFF_BasicNationalFee
-LET Fee1 AS 0.8*90 #20% discount on electronic filing
-YIELD Fee1
-ENDCOMPUTE
-
-COMPUTE FEE OFF_SearchFee OPTIONAL #payable after invitation 
-LET Fee1 AS 0.8*90 #20% discount on electronic filing
+LET Fee1 AS 0.8*100 #examination as to form and publication, up to 30 pages; 20% discount on electronic filing
 YIELD Fee1
 ENDCOMPUTE
 
 COMPUTE FEE OFF_ExaminationFee OPTIONAL #payable after invitation
-LET EF1 AS 0.8*180 #one independent claim
-LET EF2 AS 0.8*120 #per each additional independent claim
+LET EF1 AS 0.8*300 #substantive examination up to 10 claims
+LET EF2 AS 0.8*30 #per each additional claim over 10
 YIELD EF1
-YIELD EF2*(IndependentClaimCount-1) IF IndependentClaimCount GT 1
+YIELD EF2*(ClaimCount-10) IF ClaimCount GT 10
 ENDCOMPUTE
 
 # =============================================================================
@@ -201,7 +196,6 @@ ENDCOMPUTE
 # =============================================================================
 
 VERIFY COMPLETE FEE OFF_BasicNationalFee
-VERIFY COMPLETE FEE OFF_SearchFee
 VERIFY COMPLETE FEE OFF_ExaminationFee
 
 # =============================================================================

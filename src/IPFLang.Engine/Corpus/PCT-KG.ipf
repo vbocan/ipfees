@@ -13,7 +13,7 @@
 #
 # =============================================================================
 
-VERSION '2024.1' EFFECTIVE 2024-01-01 DESCRIPTION 'Entry of national phase in Kyrgyzstan'
+VERSION '2026.10' EFFECTIVE 2026-05-28 DESCRIPTION 'Entry of national phase in Kyrgyzstan'
 
 # Inputs and groups shared across this regional system are declared once in the base
 # and inherited here. Redeclaring one below overrides the base for this jurisdiction only.
@@ -95,7 +95,7 @@ ENDDEFINE
 
 # File name: PCT-KG-OFF
 # File content: Official fees for PCT national phase: Kyrgyzstan
-# Valid until n/a
+# Checked against the fees in force on 20 October 2026 (eGuide KG)
 # Is newer than 30 days: False
 # Fees keywords: ['claim']
 
@@ -156,7 +156,7 @@ ENDCOMPUTE
 VERIFY COMPLETE FEE OFF_BasicNationalFee
 VERIFY COMPLETE FEE OFF_IndependentClaimFee
 VERIFY COMPLETE FEE OFF_ExaminationFee
-VERIFY MONOTONIC FEE OFF_IndependentClaimFee WITH RESPECT TO ClaimCount
+VERIFY MONOTONIC FEE OFF_IndependentClaimFee WITH RESPECT TO IndependentClaimCount
 
 # =============================================================================
 # Returns

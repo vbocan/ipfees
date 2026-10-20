@@ -13,7 +13,7 @@
 #
 # =============================================================================
 
-VERSION '2024.1' EFFECTIVE 2024-01-01 DESCRIPTION 'Entry of national phase in Slovakia'
+VERSION '2026.10' EFFECTIVE 2026-06-11 DESCRIPTION 'Entry of national phase in Slovakia'
 
 # Inputs and groups shared across this regional system are declared once in the base
 # and inherited here. Redeclaring one below overrides the base for this jurisdiction only.
@@ -95,18 +95,18 @@ ENDDEFINE
 
 # File name: PCT-SK-OFF
 # File content: Official fees for PCT national phase: Slovakia
-# Valid until n/a
+# Checked against the fees in force on 20 October 2026 (WIPO PCT Applicant's Guide SK; UPV SR administrative fees 2025)
 # Is newer than 30 days: False
 # Fees keywords: []
 
 COMPUTE FEE OFF_BasicNationalFee #50% discount if filed by the inventor
-LET Fee1 AS 60
+LET Fee1 AS 50
 YIELD Fee1
 ENDCOMPUTE
 
 COMPUTE FEE OFF_ExaminationFee OPTIONAL #36 months after IFD
-LET Fee1 AS 116
-LET CFee AS 20 #as of 11th claim
+LET Fee1 AS 170
+LET CFee AS 30 #as of 11th claim
 YIELD Fee1
 YIELD CFee*(ClaimCount-10) IF ClaimCount GT 10
 ENDCOMPUTE

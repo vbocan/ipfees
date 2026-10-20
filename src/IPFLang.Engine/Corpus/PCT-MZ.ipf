@@ -13,7 +13,7 @@
 #
 # =============================================================================
 
-VERSION '2024.1' EFFECTIVE 2024-01-01 DESCRIPTION 'Entry of national phase in Mozambique'
+VERSION '2026.10' EFFECTIVE 2017-07-14 DESCRIPTION 'Entry of national phase in Mozambique'
 
 # Inputs and groups shared across this regional system are declared once in the base
 # and inherited here. Redeclaring one below overrides the base for this jurisdiction only.
@@ -95,7 +95,7 @@ ENDDEFINE
 
 # File name: PCT-MZ-OFF
 # File content: Official fees for PCT national phase: Mozambique
-# Valid until n/a
+# Checked against the fees in force on 20 October 2026 (IPI Diploma Ministerial 39/2017; WIPO eGuide MZ)
 # Is newer than 30 days: False
  #WIPO mentions MZM which has been replaced in 2008
 # Fees keywords: []

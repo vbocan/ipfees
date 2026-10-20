@@ -12,7 +12,7 @@
 #
 # =============================================================================
 
-VERSION '2024.1' EFFECTIVE 2024-01-01 DESCRIPTION 'Entry of national phase in Australia'
+VERSION '2026.10' EFFECTIVE 2024-10-01 DESCRIPTION 'Entry of national phase in Australia'
 
 
 # Groups
@@ -33,7 +33,7 @@ DEFAULT Entity_Large
 ENDDEFINE
 
 # Application date
-DEFINE DATE ApplicationDate AS 'Application date'
+DEFINE DATE ApplicationDate AS 'Application date (international filing date)'
 GROUP ApplicationGroup
 BETWEEN 01.01.2000 AND TODAY
 DEFAULT TODAY
@@ -47,7 +47,7 @@ DEFAULT 10
 ENDDEFINE
 
 # Sheets/Pages
-DEFINE NUMBER SheetCount AS 'Number of pages'
+DEFINE NUMBER SheetCount AS 'Number of pages/sheets'
 GROUP ApplicationGroup
 BETWEEN 1 AND 10000
 DEFAULT 30
@@ -150,15 +150,15 @@ ENDDEFINE
 
 # File name: PCT-AU-OFF
 # File content: Official fees for PCT national phase: Australia
-# Valid until n/a
+# Checked against the fees in force on 20 October 2026 (WIPO eGuide AU; IP Australia fee page and summary of 1 October 2024 fee changes)
 
 COMPUTE FEE OFF_BasicNationalFee
-YIELD 370<AUD>
+YIELD 400<AUD>
 ENDCOMPUTE
 
 COMPUTE FEE OFF_ExaminationFee OPTIONAL #Ex Request within 5 years of IFD
-YIELD 300<AUD> IF IPRP EQ IPRP_AU
-YIELD 490<AUD> IF IPRP NEQ IPRP_AU
+YIELD 350<AUD> IF IPRP EQ IPRP_AU
+YIELD 550<AUD> IF IPRP NEQ IPRP_AU
 ENDCOMPUTE
 
 

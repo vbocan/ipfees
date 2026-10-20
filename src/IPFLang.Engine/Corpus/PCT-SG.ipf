@@ -12,7 +12,7 @@
 #
 # =============================================================================
 
-VERSION '2024.1' EFFECTIVE 2024-01-01 DESCRIPTION 'Entry of national phase in Singapore'
+VERSION '2026.10' EFFECTIVE 2025-09-01 DESCRIPTION 'Entry of national phase in Singapore'
 
 
 # Groups
@@ -33,7 +33,7 @@ DEFAULT Entity_Large
 ENDDEFINE
 
 # Application date
-DEFINE DATE ApplicationDate AS 'Application date'
+DEFINE DATE ApplicationDate AS 'Application date (international filing date)'
 GROUP ApplicationGroup
 BETWEEN 01.01.2000 AND TODAY
 DEFAULT TODAY
@@ -47,7 +47,7 @@ DEFAULT 10
 ENDDEFINE
 
 # Sheets/Pages
-DEFINE NUMBER SheetCount AS 'Number of pages'
+DEFINE NUMBER SheetCount AS 'Number of pages/sheets'
 GROUP ApplicationGroup
 BETWEEN 1 AND 10000
 DEFAULT 30
@@ -150,20 +150,20 @@ ENDDEFINE
 
 # File name: PCT-SG-OFF
 # File content: Official fees for PCT national phase: Singapore
-# Valid until n/a
+# Checked against the fees in force on 20 October 2026 (WIPO PCT Applicant's Guide SG; IPOS forms and fees)
 # Is newer than 30 days: False
 # Fees keywords: []
 
 COMPUTE FEE OFF_BasicNationalFee
-LET Fee1 AS 200
+LET Fee1 AS 210
 YIELD Fee1
 ENDCOMPUTE
 
 COMPUTE FEE OFF_ExaminationFee OPTIONAL
-LET Fee1 AS 1350
-LET CFee AS 40
+LET Fee1 AS 1420
+LET CFee AS 80
 YIELD Fee1
-YIELD CFee*(ClaimCount-20) IF ClaimCount GT 20
+YIELD CFee*(ClaimCount-15) IF ClaimCount GT 15
 ENDCOMPUTE
 
 #annuities after grant

@@ -12,7 +12,7 @@
 #
 # =============================================================================
 
-VERSION '2024.1' EFFECTIVE 2024-01-01 DESCRIPTION 'Entry of national phase in Japan'
+VERSION '2026.10' EFFECTIVE 2022-04-01 DESCRIPTION 'Entry of national phase in Japan'
 
 
 # Groups
@@ -33,7 +33,7 @@ DEFAULT Entity_Large
 ENDDEFINE
 
 # Application date
-DEFINE DATE ApplicationDate AS 'Application date'
+DEFINE DATE ApplicationDate AS 'Application date (international filing date)'
 GROUP ApplicationGroup
 BETWEEN 01.01.2000 AND TODAY
 DEFAULT TODAY
@@ -47,7 +47,7 @@ DEFAULT 10
 ENDDEFINE
 
 # Sheets/Pages
-DEFINE NUMBER SheetCount AS 'Number of pages'
+DEFINE NUMBER SheetCount AS 'Number of pages/sheets'
 GROUP ApplicationGroup
 BETWEEN 1 AND 10000
 DEFAULT 30
@@ -150,7 +150,7 @@ ENDDEFINE
 
 # File name: PCT-JP-OFF
 # File content: Official fees for PCT national phase: Japan
-# Valid until n/a
+# Checked against the fees in force on 20 October 2026 (eGuide JP, JPO fee schedule)
 # Is newer than 30 days: False
 # Fees keywords: []
 
@@ -166,7 +166,7 @@ LET ExFee2 AS 83000 #ISA=JP
 LET CF2 AS 2400
 LET ExFee3 AS 124000 #ISA <> JP
 LET CF3 AS 3600
-LET ExFee4 AS 111000 #ISA be search organization designated by JPO; no clue  what cases these are -> omitting 
+LET ExFee4 AS 110000 #ISA be search organization designated by JPO; no clue  what cases these are -> omitting 
 LET CF4 AS 3200
 
 YIELD ExFee1 + CF1*ClaimCount IF ISR_AVAILABLE EQ FALSE
