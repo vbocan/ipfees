@@ -13,7 +13,7 @@
 #
 # =============================================================================
 
-VERSION '2026.10' EFFECTIVE 2024-01-01 DESCRIPTION 'Entry of national phase in Malawi'
+VERSION '2026.10' EFFECTIVE 2020-08-10 DESCRIPTION 'Entry of national phase in Malawi'
 
 # Inputs and groups shared across this regional system are declared once in the base
 # and inherited here. Redeclaring one below overrides the base for this jurisdiction only.
@@ -95,12 +95,13 @@ ENDDEFINE
 
 # File name: PCT-MW-OFF
 # File content: Official fees for PCT national phase: Malawi
-# Valid until n/a
+# Checked against the fees in force on 20 October 2026 (Patents (Amendment) Regulations 2020, G.N. 45/2020)
 # Is newer than 30 days: False
 # Fees keywords: []
 
 COMPUTE FEE OFF_BasicNationalFee
-LET Fee1 AS 500
+# Lodging a complete specification: MK 20,000 for local applicants (US$100 for foreign applicants).
+LET Fee1 AS 20000
 YIELD Fee1
 ENDCOMPUTE
 
