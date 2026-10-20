@@ -7,7 +7,7 @@ This directory is the IPFLang engine and its reference corpus, carried as source
   `src/IPFLang.Engine.Tests` and `jurisdictions/`.
 - **Licence:** GPL-3.0-or-later, as upstream.
 - **Layout here:** engine source in `src/IPFLang.Engine`, its tests in `src/IPFLang.Engine.Tests`,
-  the 119 schedules in `Corpus/` and the four regional bases in `Corpus/bases/`. The corpus is
+  the 118 schedules in `Corpus/` and the four regional bases in `Corpus/bases/`. The corpus is
   embedded under the same resource names as upstream, so `JurisdictionCorpus` is unchanged.
 - **Version:** 1.5.0 (local).
 
@@ -39,11 +39,14 @@ This directory is the IPFLang engine and its reference corpus, carried as source
 
 ### Corpus
 
+- **The validated set of jurisdictions.** Upstream added `PCT-MY` in `4ada1a3`, after the
+  expert validation of 118 schedules that the IPFLang article reports. IPFees carries those
+  118 and leaves Malaysia out, so that every schedule it ships is one that was validated.
 - **Per-block charges round up.** Nine yields in AT, CU, DZ, IL, UA and US charge per started
   block of claims or sheets and now wrap the block count in `CEIL`.
 - **Translation is priced in EUR.** `TranslationFee` read `12 * NumberOfWords / 100`, which by
   the language's rules is in the schedule's own currency (12 IDR, 12 JPY per hundred words). It
-  now reads `12<EUR> * NumberOfWords / 100` in all 119 schedules.
+  now reads `12<EUR> * NumberOfWords / 100` in all 118 schedules.
 - **Intended zero cases are explicit.** 67 fees that charge nothing up to a threshold or when a
   condition does not hold (no excess claims or sheets, no extension, no further priority, search
   already performed, validation country not chosen) declared `VERIFY COMPLETE` without stating
