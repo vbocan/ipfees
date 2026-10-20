@@ -110,9 +110,9 @@ namespace IPFees.Core.Tests
             var manager = await SeedAndBuildManager();
             var failures = new List<string>();
 
-            // Every schedule the instance serves; one the gate refused at seeding is not among them.
+            // Every schedule the instance serves, which is every schedule in the corpus.
             var served = (await fixture.FeeRepository.GetFees()).Select(f => f.JurisdictionName).Distinct().ToList();
-            Assert.Equal(IPFLang.Corpus.JurisdictionCorpus.Codes.Count - 1, served.Count);
+            Assert.Equal(IPFLang.Corpus.JurisdictionCorpus.Codes.Count, served.Count);
 
             foreach (var code in served)
             {

@@ -201,7 +201,7 @@ ENDCOMPUTE
 COMPUTE FEE OFF_ExaminationFee
 LET ExFee1 AS 2055
 LET ExFee2 AS 1840
-LET Discount AS 0.75
+LET Discount AS 0.25 # the fee is reduced by 75 % (Art. 14(2) RFees), so 25 % is paid
 
 CASE IPRP EQ IPRP_EPO AS # discount scheme if EPO has prepared IPRP (Chapter II)
 YIELD ExFee1*Discount IF ISA EQ ISA_EPO 

@@ -180,9 +180,10 @@ ENDCOMPUTE
 
 COMPUTE FEE OFF_Renewal
 LET RenMonth AS ROUND ( ApplicationDate!MONTHSTONOW ) #calculate difference in months to today
-YIELD 295 # year 1
-YIELD 295<BRL> IF RenMonth GTE 12 # year 2
+# No annuity is due for the first two years; the first falls due 24 months after the
+# international filing date.
 YIELD 780<BRL> IF RenMonth GTE 24 # year 3
+YIELD 0 IF RenMonth LT 24
 ENDCOMPUTE
 
 # =============================================================================
