@@ -1,9 +1,9 @@
 cff-version: 1.2.0
 message: "If you use this software, please cite it as below. If you use the fee calculation language it runs on, please also cite IPFLang under references."
 title: "IPFees: Intellectual Property Fee Calculator"
-version: 2.0.0
-date-released: 2026-08-19
-abstract: "A jurisdiction-agnostic intellectual property fee calculation platform covering 119 global IP jurisdictions. IPFees provides the deployable layer around the IPFLang domain-specific language: a REST API, a web interface where fee schedules are authored and statically verified without programming, multi-currency conversion with historical rates, and portfolio-level estimation."
+version: 1.1.1
+date-released: 2026-11-04
+abstract: "A jurisdiction-agnostic intellectual property fee calculation platform covering 118 global IP jurisdictions. IPFees provides the deployable layer around the IPFLang domain-specific language: a REST API, a web interface where fee schedules are authored and statically verified without programming, multi-currency conversion with historical rates, and portfolio-level estimation."
 authors:
   - family-names: "Bocan"
     given-names: "Valer"
@@ -28,7 +28,7 @@ keywords:
   - patent fees
 type: software
 
-# IPFees executes fee schedules written in IPFLang and consumes its engine as a package.
+# IPFees executes fee schedules written in IPFLang and carries its engine as source in src/IPFLang.Engine.
 # The language, its currency-aware type system and its static verification are described
 # in the article below.
 references:
@@ -45,7 +45,7 @@ references:
         orcid: "https://orcid.org/0000-0003-0885-1283"
   - type: software
     title: "IPFLang: Domain-Specific Language for Intellectual Property Fee Calculations"
-    version: "1.4.0"
+    version: "1.5.0"
     repository-code: "https://github.com/vbocan/IPFLang"
     license: GPL-3.0
     authors:
