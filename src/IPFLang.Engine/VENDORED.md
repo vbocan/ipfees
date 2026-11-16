@@ -45,6 +45,13 @@ This directory is the IPFLang engine and its reference corpus, carried as source
   given the syntax guide and wrote the form it documents. Tests:
   `CurrencyTypeTests.TestFeeWithReturnCurrency*`, `TestFeeWithInvalidReturnCurrency`,
   `TestFeeReturnCurrencyMismatchIsTypeError`.
+- `Analysis/CompletenessChecker.cs`: a fee whose conditions name no declared input (they test a
+  LET variable or a date expression such as `ApplicationDate!MONTHSTONOW`) is still reported as
+  incomplete, but the note now says that completeness cannot be decided, names what the
+  conditions read and how to proceed, and the method reads "Not analysable". It used to say "Fee
+  has no yields", which sent authors, and language models in a repair loop, to rewrite fees that
+  had yields. Only the wording and the method label change; the verdict does not. Tests:
+  `CompletenessTests.CheckCompleteness_ConditionOn*_SaysItCannotBeAnalysed`.
 
 ### Corpus
 
