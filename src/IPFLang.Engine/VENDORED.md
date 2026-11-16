@@ -36,6 +36,15 @@ This directory is the IPFLang engine and its reference corpus, carried as source
   currencies in a schedule that prices fees in more than one; IPFees computes the candidates
   itself and totals them per currency (`FeeCalculator.Explain`). Test:
   `ProvenanceTests.GetCandidates_KeepsVariationsThatLeaveTheTotalUnchanged`.
+- `Parser/DslParser.cs`: a non-polymorphic fee may declare its return currency,
+  `COMPUTE FEE Name RETURN EUR [OPTIONAL]`, as the grammar (`["RETURN" <currency_code>]`), the
+  syntax guide and the type system's rule T-FEE-RETURN all define it. The parser accepted the
+  clause only on a polymorphic fee (`Name<C> RETURN C`) and refused it otherwise, although the
+  type checker already enforced a declared return currency. A currency that is not ISO 4217 is
+  reported. No schedule of the corpus uses the clause, so no amount changes. Found when LLMs were
+  given the syntax guide and wrote the form it documents. Tests:
+  `CurrencyTypeTests.TestFeeWithReturnCurrency*`, `TestFeeWithInvalidReturnCurrency`,
+  `TestFeeReturnCurrencyMismatchIsTypeError`.
 
 ### Corpus
 
