@@ -1,6 +1,6 @@
 # Batch 08: PE PG PH PL PT QA RO RS RU SA SC SD
 
-Checked on 20 October 2026 against the fees in force that day. Baseline: IPFees `beab6fd`
+Checked on 20 October 2026 against the fees in force that day. Baseline: IPFees `86e45f9`
 (January 2024 amounts). Schedules edited: `ipfees/src/IPFLang.Engine/Corpus/PCT-<code>.ipf` for
 the twelve offices below; nothing else touched. Rows include MISSING rows; translation and agent
 fees and explicit zero cases are not rows.

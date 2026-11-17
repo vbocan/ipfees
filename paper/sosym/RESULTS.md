@@ -5,19 +5,19 @@ seeded-fault study; of E3 it keeps only the time the checks on save take (Sectio
 latest re-run below: median 0.61 ms, at most 88 ms warm). Section 6 now rests on `quotation/` and `fee-audit/`. The results
 below stand as recorded.
 
-**E3 re-run at `68b21e4` (IPFees v1.1.0), 2026-10-20.** Run on the machine of the quotation
+**E3 re-run at `9d433ac` (IPFees v1.1.0), 2026-10-20.** Run on the machine of the quotation
 measurements (`quotation/README.md`): Intel Core i9-13900K, 32 logical processors, Windows 11,
-.NET 10.0.11, with `PLATFORM_REV=68b21e4 bash scripts/prepare.sh`, then `e3`; `results/e3/` now
-holds this run. Since `012d5a9` only the Mongolian, Malawian and Namibian schedules and the version
+.NET 10.0.11, with `PLATFORM_REV=9d433ac bash scripts/prepare.sh`, then `e3`; `results/e3/` now
+holds this run. Since `4ff1046` only the Mongolian, Malawian and Namibian schedules and the version
 lines changed. All 348 directives finish within 5 s and all hold (285 `VERIFY COMPLETE`, 63
 `VERIFY MONOTONIC`); all 118 schedules are saved with every directive verified. The gate takes
 0.61 ms per schedule warm (median; slowest CN, 88.0 ms). Section 5.7 quotes this run. The paragraph
 below describes the run it replaces, on the AMD machine of the earlier runs.
 
-**E3 re-run at `012d5a9`, 2026-10-20.** The corpus now carries the fees in force in October 2026
+**E3 re-run at `4ff1046`, 2026-10-20.** The corpus now carries the fees in force in October 2026
 (`fee-audit/update/`), with eight monotonicity directives pointed at the input their fee reads
-and Cuba's claim fee checked against each of its three counts. E3 was run at `012d5a9` on the same
-machine as the run it replaced (`PLATFORM_REV=012d5a9 bash scripts/prepare.sh`, then `e3`). All 348 directives finish within 5 s and all hold: 285 `VERIFY COMPLETE` and 63
+and Cuba's claim fee checked against each of its three counts. E3 was run at `4ff1046` on the same
+machine as the run it replaced (`PLATFORM_REV=4ff1046 bash scripts/prepare.sh`, then `e3`). All 348 directives finish within 5 s and all hold: 285 `VERIFY COMPLETE` and 63
 `VERIFY MONOTONIC`. All 118 schedules are saved with every directive verified. The gate takes
 0.63 ms per schedule warm (median; slowest CN, 128.9 ms, whose waiver now depends on both the
 receiving office and the searching authority) and 40.3 ms on a cold first call (median; max
@@ -25,14 +25,14 @@ receiving office and the searching authority) and 40.3 ms on a cold first call (
 this run until the re-run above. The paragraph below describes the run it replaced.
 
 **E3 re-run, 2026-10-20.** IPFees now carries the 118 schedules whose expert validation the
-IPFLang article reports (`cea944f` removes Malaysia, which upstream added afterwards), and
-`beab6fd` corrects the audit's four modelling errors and the CN, PH and OA open cases. E3 was run
-again at `beab6fd` on an AMD Ryzen 9 7900 (24 logical processors; Windows 11; .NET 10.0.13); its
-files in `results/e3/` were replaced by the run above (`PLATFORM_REV=beab6fd bash scripts/prepare.sh`, then `e3`). All 349
+IPFLang article reports (`56386d2` removes Malaysia, which upstream added afterwards), and
+`86e45f9` corrects the audit's four modelling errors and the CN, PH and OA open cases. E3 was run
+again at `86e45f9` on an AMD Ryzen 9 7900 (24 logical processors; Windows 11; .NET 10.0.13); its
+files in `results/e3/` were replaced by the run above (`PLATFORM_REV=86e45f9 bash scripts/prepare.sh`, then `e3`). All 349
 directives finish within 5 s and all hold: 287 `VERIFY COMPLETE` and 62 `VERIFY MONOTONIC`. All 118
 schedules are saved with every directive verified. The gate took 0.62 ms per schedule warm
 (median; slowest US, 75.8 ms) and 39.2 ms on a cold first call (max 113.3 ms); the 45 schedules
-with `VERIFY MONOTONIC` took 4.3 ms warm (median). A run at `cea944f`
+with `VERIFY MONOTONIC` took 4.3 ms warm (median). A run at `56386d2`
 the same morning, with CN still refused, gave 0.64 ms and 83.5 ms. Everything below,
 E2 included, stands as recorded for the 119-schedule corpus and its own commits; its E3 tables no
 longer match the files in `results/e3/`.
@@ -40,27 +40,27 @@ longer match the files in `results/e3/`.
 Evidence for Section 6 of the earlier, gate-centred version of the SoSyM tool paper (OUTLINE.md,
 "Evidence to gather").
 Measured 2026-10-19 on one machine (Intel Core i9-13900K, 32 logical processors; Windows 11;
-.NET 10.0.11). An earlier run at `be68c7c`, on an AMD Zen 4 machine (24 logical processors,
+.NET 10.0.11). An earlier run at `3d4fff2`, on an AMD Zen 4 machine (24 logical processors,
 .NET 10.0.13), gave the same verdict for every schedule, directive and mutant and the same gate
 messages; only the timings differ.
 
-**What was measured.** IPFees at ipfees commit `50868e2` (master), which carries
+**What was measured.** IPFees at ipfees commit `08d875b` (master), which carries
 the IPFLang engine (version 1.5.0) and its jurisdiction corpus as source in `src/IPFLang.Engine`:
 119 schedules and 4 regional bases. Schedules are composed through the platform's
 `FeeScriptComposer` and gated by its `FeeDefinitionValidator`, which runs `ScheduleVerifier`
 under the production 5 s `VerificationBudget`; the fee pages store a definition only when
 `MayBeSaved` holds. The harness builds the engine project and compiles those platform classes,
-and `FeeCurrency` for the currency oracle, from `50868e2` itself. Nothing in the repository was
+and `FeeCurrency` for the currency oracle, from `08d875b` itself. Nothing in the repository was
 modified; `scripts/prepare.sh` streams `src/IPFLang.Engine` and `src/IPFees.Core` out with
 `git archive`.
 
-The paper describes ipfees `428abd9`. The four commits after `50868e2` change what the harness
-does not exercise: `2226c9d` the counterfactual totals of the explain API, `cd84d71` seeding through
+The paper describes ipfees `eab4290`. The four commits after `08d875b` change what the harness
+does not exercise: `e5272d0` the counterfactual totals of the explain API, `5b776a9` seeding through
 the save gate and module deletion through the dependent check (with sign-in for authoring),
-`478dbb8` the removal of that sign-in, and `428abd9` a reset that also removes what the corpus does
+`e48b633` the removal of that sign-in, and `eab4290` a reset that also removes what the corpus does
 not define. The validator gains a method for module removal but its `ValidateAsync` path, which E2
-and E3 run, is unchanged, so these results stand for `428abd9`. One
-consequence of `cd84d71` for the figures below: an instance no longer serves the Chinese schedule,
+and E3 run, is unchanged, so these results stand for `eab4290`. One
+consequence of `5b776a9` for the figures below: an instance no longer serves the Chinese schedule,
 which the gate refuses (E3's verdict).
 
 ## Findings first
@@ -198,7 +198,7 @@ bash "PREPARING - Springer SoSyM - IPFees/evaluation/scripts/run_all.sh"
 or step by step, from `evaluation/`:
 
 ```bash
-bash scripts/prepare.sh                      # extract ipfees 50868e2 (src/IPFLang.Engine, src/IPFees.Core) into work/
+bash scripts/prepare.sh                      # extract ipfees 08d875b (src/IPFLang.Engine, src/IPFees.Core) into work/
 dotnet build harness/Harness.csproj -c Release
 dotnet harness/bin/Release/net10.0/Harness.dll e3                  # a few minutes, run alone
 dotnet harness/bin/Release/net10.0/Harness.dll e2 --workers=12     # under 1 min

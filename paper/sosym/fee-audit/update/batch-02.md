@@ -3,7 +3,7 @@
 Checked on 20 October 2026 against the WIPO PCT Applicant's Guide national chapters saved in
 `sources/XX.txt` and, where they could be reached, the offices' own tables (`sources/XX-office*.txt`).
 For BR, CA, CH and CN the audit of 19 October 2026 (`../AUDIT.md`) was confirmed against the saved
-chapter and office pages. Baseline is IPFees `beab6fd` (every file `VERSION '2024.1' EFFECTIVE
+chapter and office pages. Baseline is IPFees `86e45f9` (every file `VERSION '2024.1' EFFECTIVE
 2024-01-01`). Amounts written "a/b" are standard/reduced unless stated otherwise.
 
 ## BH: PCT-BH.ipf (BHD)

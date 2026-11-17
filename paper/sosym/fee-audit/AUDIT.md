@@ -1,6 +1,6 @@
 # Audit of official fees in the IPFees corpus (October 2026)
 
-Fifteen offices of the reference corpus (`ipfees` `428abd9`, `src/IPFLang.Engine/Corpus`) were
+Fifteen offices of the reference corpus (`ipfees` `eab4290`, `src/IPFLang.Engine/Corpus`) were
 compared fee by fee with each office's current official fee table and with the WIPO PCT
 Applicant's Guide National Chapter, on 19 October 2026. The corpus was not changed. The offices
 are the eight that US-origin applications enter most (US, EP, CN, JP, CA, KR, AU, IN; Mathison,
@@ -434,18 +434,18 @@ natural persons and small entities are absent or only partly mapped (EP, JP, KR,
 Only the JPO and, for European applications, the EPO publish an official calculator; none of the
 other thirteen offices does for national phase entry.
 
-## Rows at IPFees `beab6fd`, the version the paper describes
+## Rows at IPFees `86e45f9`, the version the paper describes
 
-The paper describes IPFees `beab6fd`. Four rows read differently there than at `428abd9`, against
-the same official sources, and the paper's Table 3 counts them as they read at `beab6fd`:
+The paper describes IPFees `86e45f9`. Four rows read differently there than at `eab4290`, against
+the same official sources, and the paper's Table 3 counts them as they read at `86e45f9`:
 
-| Office | Row | Corpus at `beab6fd` | Verdict |
+| Office | Row | Corpus at `86e45f9` | Verdict |
 |---|---|---|---|
 | EP | Exam reduction, EPO drew up the IPER | fee × 0.25 (pays 25 %) | MATCH |
 | US | Multiple dependent claim 1616 | 860/344/172 per application | DIFFERENT (amount) |
 | CN | Exam exemption, ISR by CNIPA | 0 | MATCH |
 | BR | Annuities | year 3 = 780 from the 24-month point; none for years 1 and 2 | DIFFERENT (amount) |
 
-Totals at `beab6fd`: 44 match, 43 differ and 1 not official (the CN 20 % reduction), 26 missing;
+Totals at `86e45f9`: 44 match, 43 differ and 1 not official (the CN 20 % reduction), 26 missing;
 Table 3 counts the not-official line with the 44 that differ. EP has 9 matching and 8 differing
 lines, CN 8 and 1.

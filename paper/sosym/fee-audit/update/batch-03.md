@@ -3,7 +3,7 @@
 Checked on 20 October 2026 against the WIPO PCT Applicant's Guide chapters saved in
 `sources/XX.txt` and, where the office's site answered, the office's own fee table
 (`sources/XX-office*.txt`). Schedules: `ipfees/src/IPFLang.Engine/Corpus/PCT-XX.ipf`, baseline
-IPFees `beab6fd`. One row per `YIELD` condition of a modelled fee; MISSING rows count in the
+IPFees `86e45f9`. One row per `YIELD` condition of a modelled fee; MISSING rows count in the
 summary.
 
 ## CZ: PCT-CZ.ipf (CZK)

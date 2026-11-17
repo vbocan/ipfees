@@ -1,10 +1,10 @@
 # Quotation measurements for Section 6 of the SoSyM paper
 
-Run on 2026-10-20 against IPFees `68b21e4` (released as v1.1.0, whose application code and corpus
-are those of `68b21e4`), built locally as containers under Docker Desktop 29.9 on an Intel Core
+Run on 2026-10-20 against IPFees `9d433ac` (released as v1.1.0, whose application code and corpus
+are those of `9d433ac`), built locally as containers under Docker Desktop 29.9 on an Intel Core
 i9-13900K (32 logical processors, Windows 11). The corpus encodes the fees in force on 20 October 2026, and the
 REST service starts from the compose set-up with no further settings. Earlier runs, against
-`012d5a9` and before it, were superseded; this run replaces their files. Against `012d5a9`, whose
+`4ff1046` and before it, were superseded; this run replaces their files. Against `4ff1046`, whose
 application code is the same, every amount agreed except the all-office mandatory total, which the
 corrected Mongolian, Malawian and Namibian fees raise by 89 EUR. That run was on another machine (AMD
 Ryzen 9 7900, 24 logical processors), and its times were 15–30 % higher. `measure.py` was run twice and the
@@ -38,5 +38,5 @@ docker compose -f compose.yml down -v --rmi local
   elective official fees and the corpus's translation and agent placeholders.
 - `probe_offices.py`: prices each office alone; all 118 answer.
 
-The screenshots of the quotation (Figs. 3, 5, 7 and 8) were taken from the same set-up at `012d5a9`,
+The screenshots of the quotation (Figs. 3, 5, 7 and 8) were taken from the same set-up at `4ff1046`,
 whose application code and twenty-office amounts are those of v1.1.0.

@@ -2,7 +2,7 @@
 
 Every schedule of the reference corpus (`ipfees`, `src/IPFLang.Engine/Corpus/PCT-XX.ipf`, 118
 files) is compared fee by fee with the official fees in force on 20 October 2026 and edited to
-carry them. The corpus before this pass is IPFees `beab6fd`, whose amounts are those of the
+carry them. The corpus before this pass is IPFees `86e45f9`, whose amounts are those of the
 January 2024 baseline. The work is split into ten batches of about twelve offices; each batch is
 done by one research assistant, which edits only its own schedules and writes one record,
 `batch-NN.md`, in this folder.
@@ -17,7 +17,7 @@ done by one research assistant, which edits only its own schedules and writes on
 3. For the fifteen offices audited on 19 October 2026 (US, EP, JP, CN, KR, IN, CA, AU, BR, MX, GB,
    IL, RO, CH, SG), `../AUDIT.md` already records the fees in force with their sources; use it,
    and confirm it against the saved chapter. Its last section gives the rows as they read at
-   `beab6fd`, which is the baseline here.
+   `86e45f9`, which is the baseline here.
 
 Numbers are read from saved text, never from a summary. Save every page used other than the
 eGuide chapter with `python fetch_page.py URL sources/XX-office.txt` (or `XX-office-2.txt`, ...);

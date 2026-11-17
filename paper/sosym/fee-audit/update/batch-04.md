@@ -1,7 +1,7 @@
 # Batch 04: FI GB GE GH GM GT HN HR HU ID IL IN
 
 Fees in force on 20 October 2026, compared with the schedules at the start of this pass (IPFees
-`beab6fd`, January 2024 baseline). Translation and agent fees were not touched. Amounts in the
+`86e45f9`, January 2024 baseline). Translation and agent fees were not touched. Amounts in the
 "Baseline" and "In force" columns are in the schedule's currency unless marked.
 
 ## FI: PCT-FI.ipf (EUR)

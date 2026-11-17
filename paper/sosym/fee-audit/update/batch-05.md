@@ -1,6 +1,6 @@
 # Batch 05: IQ IR IS IT JM JO JP KE KG KH KN KP
 
-Checked on 20 October 2026 against the fees in force that day. Baseline: IPFees `beab6fd`
+Checked on 20 October 2026 against the fees in force that day. Baseline: IPFees `86e45f9`
 (every schedule carried `VERSION '2024.1' EFFECTIVE 2024-01-01`). Every eGuide chapter was
 retrieved on 20 October 2026 (`sources/XX.txt`). The only office table that could be reached and
 saved is Iceland's (`sources/IS-office.txt`). The JPO fee pages named in `../AUDIT.md` now return

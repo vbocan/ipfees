@@ -2,7 +2,7 @@
 
 Checked on 20 October 2026 against the saved eGuide chapters (`sources/XX.txt`, all retrieved
 2026-10-20) and, where an office table could be reached and read, against that table. Baseline:
-IPFees `beab6fd` (`VERSION '2024.1' EFFECTIVE 2024-01-01` in every file). Only the twelve
+IPFees `86e45f9` (`VERSION '2024.1' EFFECTIVE 2024-01-01` in every file). Only the twelve
 schedules of this batch were edited; translation and agent fees were not touched.
 
 ## SE: PCT-SE.ipf (SEK)

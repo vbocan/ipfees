@@ -1,7 +1,7 @@
 # The corpus brought to the fees in force (October 2026)
 
 All 118 schedules of the IPFees reference corpus were compared fee by fee with the official fees
-in force on 20 October 2026 and edited to carry them. The baseline is IPFees `beab6fd`, whose
+in force on 20 October 2026 and edited to carry them. The baseline is IPFees `86e45f9`, whose
 amounts are those of January 2024. This folder is the record of that pass, cited in Section 6.2 of
 the paper.
 
@@ -21,9 +21,9 @@ the paper.
    source with the meaning the schedule gives it. The discrepancies they report are records that
    did not yet show the lead decisions; the records were then corrected.
 
-`corpus-update.diff` is the batches' change to the corpus, against `beab6fd` (IPFees `1dbcecb`).
-The lead's settlement of MN, MW and NA is IPFees `68b21e4`, and the version lines of the four
-regional bases are `5965eb5`; the corpus as released is in the IPFees repository. `tally.py` counts the records.
+`corpus-update.diff` is the batches' change to the corpus, against `86e45f9` (IPFees `60db906`).
+The lead's settlement of MN, MW and NA is IPFees `9d433ac`, and the version lines of the four
+regional bases are `51ef899`; the corpus as released is in the IPFees repository. `tally.py` counts the records.
 
 ## Lead decisions
 
