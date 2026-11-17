@@ -36,6 +36,22 @@ This directory is the IPFLang engine and its reference corpus, carried as source
   currencies in a schedule that prices fees in more than one; IPFees computes the candidates
   itself and totals them per currency (`FeeCalculator.Explain`). Test:
   `ProvenanceTests.GetCandidates_KeepsVariationsThatLeaveTheTotalUnchanged`.
+- `Parser/DslParser.cs`: a non-polymorphic fee may declare its return currency,
+  `COMPUTE FEE Name RETURN EUR [OPTIONAL]`, as the grammar (`["RETURN" <currency_code>]`), the
+  syntax guide and the type system's rule T-FEE-RETURN all define it. The parser accepted the
+  clause only on a polymorphic fee (`Name<C> RETURN C`) and refused it otherwise, although the
+  type checker already enforced a declared return currency. A currency that is not ISO 4217 is
+  reported. No schedule of the corpus uses the clause, so no amount changes. Found when LLMs were
+  given the syntax guide and wrote the form it documents. Tests:
+  `CurrencyTypeTests.TestFeeWithReturnCurrency*`, `TestFeeWithInvalidReturnCurrency`,
+  `TestFeeReturnCurrencyMismatchIsTypeError`.
+- `Analysis/CompletenessChecker.cs`: a fee whose conditions name no declared input (they test a
+  LET variable or a date expression such as `ApplicationDate!MONTHSTONOW`) is still reported as
+  incomplete, but the note now says that completeness cannot be decided, names what the
+  conditions read and how to proceed, and the method reads "Not analysable". It used to say "Fee
+  has no yields", which sent authors, and language models in a repair loop, to rewrite fees that
+  had yields. Only the wording and the method label change; the verdict does not. Tests:
+  `CompletenessTests.CheckCompleteness_ConditionOn*_SaysItCannotBeAnalysed`.
 
 ### Corpus
 

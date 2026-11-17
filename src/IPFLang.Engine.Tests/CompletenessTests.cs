@@ -89,6 +89,53 @@ namespace IPFLang.Engine.Tests
         }
 
         [Fact]
+        public void CheckCompleteness_ConditionOnLetVariable_SaysItCannotBeAnalysed()
+        {
+            string dsl = """
+                DEFINE NUMBER ClaimCount AS 'Number of claims'
+                BETWEEN 1 AND 100
+                DEFAULT 10
+                ENDDEFINE
+
+                COMPUTE FEE ClaimFee
+                LET Extra AS ClaimCount - 10
+                YIELD 30 * Extra IF Extra GT 0
+                YIELD 0 IF Extra LTE 0
+                ENDCOMPUTE
+                """;
+
+            var calculator = new DslCalculator(new DslParser());
+            Assert.True(calculator.Parse(dsl));
+            var fee = calculator.VerifyCompleteness().FeeReports.Single();
+            Assert.False(fee.IsComplete);
+            Assert.Equal("Not analysable", fee.VerificationMethod);
+            Assert.Contains(fee.Notes, n => n.Contains("cannot be decided") && n.Contains("Extra"));
+            Assert.DoesNotContain(fee.Notes, n => n.Contains("no yields"));
+        }
+
+        [Fact]
+        public void CheckCompleteness_ConditionOnDateExpression_SaysItCannotBeAnalysed()
+        {
+            string dsl = """
+                DEFINE DATE ApplicationDate AS 'Application date'
+                BETWEEN 01.01.2000 AND TODAY
+                DEFAULT TODAY
+                ENDDEFINE
+
+                COMPUTE FEE Renewal3
+                YIELD 70 IF ApplicationDate!MONTHSTONOW GTE 24
+                YIELD 0 IF ApplicationDate!MONTHSTONOW LT 24
+                ENDCOMPUTE
+                """;
+
+            var calculator = new DslCalculator(new DslParser());
+            Assert.True(calculator.Parse(dsl));
+            var fee = calculator.VerifyCompleteness().FeeReports.Single();
+            Assert.False(fee.IsComplete);
+            Assert.Contains(fee.Notes, n => n.Contains("cannot be decided") && n.Contains("date expression"));
+        }
+
+        [Fact]
         public void CheckCompleteness_IncompleteFee_ReturnsIncomplete()
         {
             string dsl = """

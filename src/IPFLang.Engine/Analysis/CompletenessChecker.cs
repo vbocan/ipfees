@@ -61,10 +61,24 @@ namespace IPFLang.Analysis
                     report.IsComplete = true;
                     report.Notes.Add("Fee has unconditional yield - always produces output");
                 }
-                else
+                else if (!conditions.Any())
                 {
                     report.IsComplete = false;
                     report.Notes.Add("Fee has no yields");
+                }
+                else
+                {
+                    // The fee has conditions, but none of them names a declared input: they test a
+                    // LET variable or a date expression (ApplicationDate!MONTHSTONOW), which the
+                    // analysis cannot enumerate. Say so, rather than that the fee yields nothing.
+                    var names = referencedVars.OrderBy(v => v, StringComparer.Ordinal);
+                    report.IsComplete = false;
+                    report.VerificationMethod = "Not analysable";
+                    report.Notes.Add(
+                        "Completeness cannot be decided: the fee's conditions test no declared input " +
+                        $"directly (they read {string.Join(", ", names)}). Conditions on a LET variable or " +
+                        "on a date expression such as ApplicationDate!MONTHSTONOW cannot be analysed; " +
+                        "test the declared inputs directly, or do not declare VERIFY COMPLETE for this fee.");
                 }
                 return report;
             }
