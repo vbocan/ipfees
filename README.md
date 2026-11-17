@@ -217,7 +217,7 @@ language it runs on:
   title    = {IPFees: Intellectual Property Fee Calculator},
   author   = {Bocan, Valer},
   year     = {2026},
-  version  = {1.1.1},
+  version  = {1.2.0},
   url      = {https://github.com/vbocan/ipfees},
   license  = {GPL-3.0}
 }
