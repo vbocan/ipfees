@@ -146,9 +146,9 @@ The IPFees system is built using a clean, layered architecture with clear separa
 - **Providers**: Supports multiple exchange rate API providers
 
 #### DatabaseResetService
-- **Purpose**: Returns the database to the reference corpus at start-up and every six hours
+- **Purpose**: Returns the database to the reference corpus at start-up and every `DatabaseReset:IntervalHours` hours (six by default)
 - **Use Case**: Keeps the public instance a sandbox: fee definitions, modules and jurisdictions a visitor added are removed, reference schedules a visitor edited are put back, and service fee levels return to their defaults
-- **Environment**: Every deployment of the web front end
+- **Environment**: Every deployment of the web front end with `DatabaseReset:Enabled` true (the default). With it false, the service only seeds an empty database, so a firm's own deployment keeps its edits
 
 ## Actual Project Dependencies
 

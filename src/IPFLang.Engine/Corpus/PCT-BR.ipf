@@ -156,11 +156,13 @@ COMPUTE FEE OFF_BasicNationalFee
 YIELD 260<BRL>
 ENDCOMPUTE
 
-COMPUTE FEE OFF_ExaminationFee
+# The request for examination (INPI code 203) and its claim surcharges are due within 36 months
+# of the international filing date, not on entry (INPI, "Pedido de exame"), so both are optional.
+COMPUTE FEE OFF_ExaminationFee OPTIONAL
 YIELD 870  # 10 claims included; due date 36 months after IFD
 ENDCOMPUTE
 
-COMPUTE FEE OFF_ClaimFee
+COMPUTE FEE OFF_ClaimFee OPTIONAL
 LET CF1 AS 140
 LET CF2 AS 290
 LET CF3 AS 740

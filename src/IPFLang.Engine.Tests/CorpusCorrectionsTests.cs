@@ -3,6 +3,7 @@ using IPFLang.Corpus;
 using IPFLang.Engine;
 using IPFLang.Evaluator;
 using IPFLang.Parser;
+using IPFLang.Provenance;
 
 namespace IPFLang.Engine.Tests
 {
@@ -63,6 +64,27 @@ namespace IPFLang.Engine.Tests
         }
 
         [Theory]
+        [InlineData("JP", "OFF_ExaminationFee")]
+        [InlineData("BR", "OFF_ExaminationFee")]
+        [InlineData("BR", "OFF_ClaimFee")]
+        public void ExaminationRequestedWithinThreeYearsIsNotDueOnEntry(string code, string feeName)
+        {
+            // Japan (Patent Act Art. 48-3(1)) and Brazil (INPI code 203, with its claim surcharges)
+            // take the request for examination up to three years from the international filing
+            // date, as Korea, China and Canada do, so the fee is reported apart from those due on entry.
+            Assert.True(Provenance(code, feeName).IsOptional, $"{code} {feeName} should be optional");
+        }
+
+        [Fact]
+        public void JapanAndBrazilChargeOnlyTheirNationalFeeOnEntry()
+        {
+            Assert.False(Provenance("JP", "OFF_BasicNationalFee").IsOptional);
+            Assert.Equal(14000m, Fee("JP", "OFF_BasicNationalFee"));
+            Assert.False(Provenance("BR", "OFF_BasicNationalFee").IsOptional);
+            Assert.Equal(260m, Fee("BR", "OFF_BasicNationalFee"));
+        }
+
+        [Theory]
         [InlineData(30, 0)]
         [InlineData(31, 36)]
         [InlineData(35, 180)]
@@ -87,6 +109,9 @@ namespace IPFLang.Engine.Tests
         }
 
         private static decimal Fee(string code, string feeName, params (string Name, object Value)[] overrides)
+            => Provenance(code, feeName, overrides).TotalAmount;
+
+        private static FeeProvenance Provenance(string code, string feeName, params (string Name, object Value)[] overrides)
         {
             var parser = new DslParser();
             var registry = new JurisdictionRegistry();
@@ -122,7 +147,7 @@ namespace IPFLang.Engine.Tests
             var provenance = calculator.ComputeWithProvenance(values);
             var fee = provenance.FeeProvenances.SingleOrDefault(f => f.FeeName == feeName);
             Assert.True(fee is not null, $"{code} computes no fee '{feeName}'");
-            return fee!.TotalAmount;
+            return fee!;
         }
     }
 }

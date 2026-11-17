@@ -154,6 +154,23 @@ including requests with no key at all. Rather than leave a control that looks pr
 not, it has been removed and the API is documented as open. If you need authenticated access,
 deploy your own instance behind a gateway that enforces it.
 
+### Keeping your own changes
+
+The web front end returns its database to the reference corpus at start-up and every six hours,
+so that on the public sandbox one visitor's edits never reach the next. A deployment whose
+schedules, jurisdictions and service fee levels must last turns this off:
+
+```
+DatabaseReset__Enabled=false
+```
+
+With the reset off, an empty database is still seeded once from the corpus and from
+`servicefees.json`, and nothing is reloaded after that. `DatabaseReset__IntervalHours` sets the
+interval when the reset is on (zero or less resets at start-up only).
+
+Database credentials and API keys belong in environment variables or user secrets, never in a
+committed file; `src/.env.example` lists the variables a deployment sets.
+
 ## Performance Metrics
 
 - **Calculation Latency**: <500ms for complex multi-jurisdiction calculations

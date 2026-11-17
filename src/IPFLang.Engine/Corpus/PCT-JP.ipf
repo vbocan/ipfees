@@ -159,7 +159,9 @@ LET Fee1 AS 14000
 YIELD Fee1
 ENDCOMPUTE
 
-COMPUTE FEE OFF_ExaminationFee
+# The request for examination is due within three years of the international filing date
+# (Patent Act Art. 48-3(1)), not on entry, so its fee is optional.
+COMPUTE FEE OFF_ExaminationFee OPTIONAL
 LET ExFee1 AS 138000 #no ISR
 LET CF1 AS 4000
 LET ExFee2 AS 83000 #ISA=JP
